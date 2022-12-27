@@ -20,16 +20,17 @@ class ProductGridPage extends Component {
     routingStore: PropTypes.object,
     shop: PropTypes.shape({
       currency: PropTypes.shape({
-        code: PropTypes.string.isRequired
-      })
+        code: PropTypes.string.isRequired,
+      }),
     }),
+    headerType: PropTypes.bool,
     tag: PropTypes.object,
     uiStore: PropTypes.shape({
       pageSize: PropTypes.number.isRequired,
       setPageSize: PropTypes.func.isRequired,
       setSortBy: PropTypes.func.isRequired,
-      sortBy: PropTypes.string.isRequired
-    })
+      sortBy: PropTypes.string.isRequired,
+    }),
   };
 
   componentDidMount() {
@@ -54,7 +55,7 @@ class ProductGridPage extends Component {
       isLoadingCatalogItems,
       routingStore: { query },
       shop,
-      uiStore
+      uiStore,
     } = this.props;
     const pageSize = query && inPageSizes(query.limit) ? parseInt(query.limit, 10) : uiStore.pageSize;
     const sortBy = query && query.sortby ? query.sortby : uiStore.sortBy;
@@ -68,11 +69,8 @@ class ProductGridPage extends Component {
     }
 
     return (
-      <Layout shop={shop}>
-        <Helmet
-          title={pageTitle}
-          meta={[{ name: "descrition", content: shop && shop.description }]}
-        />
+      <Layout shop={shop} headerType={true}>
+        <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
         <ProductGrid
           catalogItems={catalogItems}
           currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
@@ -102,20 +100,20 @@ export async function getStaticProps({ params: { lang } }) {
     return {
       props: {
         shop: null,
-        ...translations
+        ...translations,
       },
       // eslint-disable-next-line camelcase
-      unstable_revalidate: 1 // Revalidate immediately
+      unstable_revalidate: 1, // Revalidate immediately
     };
   }
 
   return {
     props: {
       ...primaryShop,
-      ...translations
+      ...translations,
     },
     // eslint-disable-next-line camelcase
-    unstable_revalidate: 120 // Revalidate each two minutes
+    unstable_revalidate: 120, // Revalidate each two minutes
   };
 }
 
@@ -127,7 +125,7 @@ export async function getStaticProps({ params: { lang } }) {
 export async function getStaticPaths() {
   return {
     paths: locales.map((locale) => ({ params: { lang: locale } })),
-    fallback: false
+    fallback: false,
   };
 }
 

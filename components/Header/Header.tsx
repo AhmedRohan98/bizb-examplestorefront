@@ -22,10 +22,13 @@ import type { WithStyles, Theme } from "@material-ui/core";
 const styles = (theme: Theme) =>
   createStyles({
     appBar: {
-      backgroundColor: theme.palette.reaction.white,
-      borderBottom: `solid 1px ${theme.palette.reaction.black05}`,
-      color: theme.palette.reaction.coolGrey500,
+      textTransform: "uppercase",
+      // background: "yellow",
+      // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
+      // opacity: "0.7",
+      height: "170px"
     },
+    
     controls: {
       alignItems: "inherit",
       display: "inherit",
@@ -37,9 +40,10 @@ const styles = (theme: Theme) =>
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
     toolbar: {
-      alignItems: "center",
+      // alignItems: "center",
       display: "flex",
       justifyContent: "space-between",
+      marginTop: "50px"
     },
   });
 
@@ -47,13 +51,14 @@ interface HeaderProps extends WithStyles<typeof styles> {
   shop: {
     name: string;
   };
+  headerPara: any;
   uiStore: {
     toggleMenuDrawerOpen: Function;
   };
   viewer: any;
 }
 
-const Header: FC<HeaderProps> = ({ classes, shop, uiStore }) => {
+const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerPara }) => {
   const handleNavigationToggleClick = () => {
     uiStore.toggleMenuDrawerOpen();
   };
@@ -67,20 +72,36 @@ const Header: FC<HeaderProps> = ({ classes, shop, uiStore }) => {
         <div className={classes.controls}>
           <Typography className={classes.title} color="inherit" variant="h6">
             {/* @ts-ignore TODO: Refactor link to address type error */}
-            <Link route="/">
+            {/* <Link route="/">
               {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
-            </Link>
+            </Link> */}
           </Typography>
 
           <Hidden smDown initialWidth={"md"}>
-            <NavigationDesktop />
+            <NavigationDesktop headerPara={headerPara} />
           </Hidden>
         </div>
+        
+        <div style={{ 
+          position: "absolute",
+          margin: "auto",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          }}>
+          {<img style={{width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }
+        </div>
+        
+        <AccountDropdown style={{marginRight: "25px", marginLeft: "25px"}} />
+        <span style={{marginRight: "25px", marginLeft: "25px"}}><img src="/images/searchIcon.svg"/></span>
+        <MiniCart style={{marginRight: "25px", marginLeft: "25px"}} />
+        
 
-        <LocaleDropdown />
+        {/* <LocaleDropdown /> */}
 
-        <AccountDropdown />
-        <MiniCart />
+        {/* <AccountDropdown />
+        <span><img src="/images/searchIcon.svg"/></span>
+        <MiniCart /> */}
       </Toolbar>
       <NavigationMobile shop={shop} />
     </AppBar>

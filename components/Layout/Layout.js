@@ -6,40 +6,58 @@ import Footer from "components/Footer";
 
 const styles = (theme) => ({
   root: {
-    minHeight: "100vh"
+    minHeight: "100vh",
   },
   main: {
     flex: "1 1 auto",
     maxWidth: theme.layout.mainContentMaxWidth,
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
   },
   article: {
-    padding: theme.spacing(3)
-  }
+    padding: theme.spacing(3),
+  },
 });
 
 class Layout extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     headerPara: props.headerPara,
+  //   };
+  //   console.log(props);
+  // }
   static propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object,
+    headerType: PropTypes.bool,
     shop: PropTypes.shape({
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
     }),
-    viewer: PropTypes.object
+    viewer: PropTypes.object,
   };
 
   static defaultProps = {
-    classes: {}
+    classes: {},
+  };
+  headerParam = () => {
+    console.log("headerPara is true");
+    console.log(this.headerType);
   };
 
   render() {
-    const { classes, children, shop, viewer } = this.props;
+    console.log(this.props);
+    const { classes, children, shop, viewer, headerType } = this.props;
 
     return (
       <React.Fragment>
+        {this.headerType ? this.headerParam() : null}
         <div className={classes.root}>
-          <Header shop={shop} viewer={viewer} />
+          <Header
+            shop={shop}
+            viewer={viewer}
+            //  headerPara={this.state.headerPara}
+          />
           <main className={classes.main}>
             <article className={classes.article}>{children}</article>
           </main>
