@@ -157,7 +157,7 @@ class MiniCart extends Component {
   }
 
   render() {
-    const { cart, classes, uiStore } = this.props;
+    const { cart, classes, uiStore, headerType } = this.props;
     const { isCartOpen } = uiStore;
     const id = isCartOpen ? "simple-popper" : null;
 
@@ -173,12 +173,12 @@ class MiniCart extends Component {
             {cart && cart.totalItemQuantity > 0 ? (
               <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
                 <span>
-                  <img src="/images/cartIcon.svg" />
+                  {headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg" />}
                 </span>
               </Badge>
             ) : (
               <span>
-                <img src="/images/cartIcon.svg" />
+                {headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg" />}
               </span>
             )}
           </IconButton>

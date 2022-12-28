@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AccountDropdown = () => {
+const AccountDropdown = ({ headerType }) => {
   const router = useRouter();
   const { uiStore } = useStores();
   const { setEntryModal } = uiStore;
@@ -67,7 +67,7 @@ const AccountDropdown = () => {
       ) : (
         <IconButton color="inherit" onClick={toggleOpen}>
           <span>
-            <img src="/images/accountIcon.svg" />
+            {headerType ? <img src="/images/accountIconLight.svg" /> : <img src="/images/accountIconDark.svg" />}
           </span>
         </IconButton>
       )}

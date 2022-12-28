@@ -23,7 +23,7 @@ const styles = (theme: Theme) =>
   createStyles({
     appBar: {
       textTransform: "uppercase",
-      // background: "yellow",
+      background: "transparent",
       // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
       // opacity: "0.7",
       height: "170px"
@@ -51,14 +51,14 @@ interface HeaderProps extends WithStyles<typeof styles> {
   shop: {
     name: string;
   };
-  headerPara: any;
   uiStore: {
     toggleMenuDrawerOpen: Function;
   };
   viewer: any;
 }
 
-const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerPara }) => {
+const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerType }) => {
+  
   const handleNavigationToggleClick = () => {
     uiStore.toggleMenuDrawerOpen();
   };
@@ -78,7 +78,7 @@ const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerPara }) => {
           </Typography>
 
           <Hidden smDown initialWidth={"md"}>
-            <NavigationDesktop headerPara={headerPara} />
+            <NavigationDesktop headerType={headerType}/>
           </Hidden>
         </div>
         
@@ -92,9 +92,9 @@ const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerPara }) => {
           {<img style={{width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }
         </div>
         
-        <AccountDropdown style={{marginRight: "25px", marginLeft: "25px"}} />
-        <span style={{marginRight: "25px", marginLeft: "25px"}}><img src="/images/searchIcon.svg"/></span>
-        <MiniCart style={{marginRight: "25px", marginLeft: "25px"}} />
+        <AccountDropdown headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />
+        <span style={{marginRight: "25px", marginLeft: "25px"}}>{headerType? <img src="/images/searchIconLight.svg"/>: <img src="/images/searchIconDark.svg"/>}</span>
+        <MiniCart headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />
         
 
         {/* <LocaleDropdown /> */}

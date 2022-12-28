@@ -20,13 +20,7 @@ const styles = (theme) => ({
 });
 
 class Layout extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     headerPara: props.headerPara,
-  //   };
-  //   console.log(props);
-  // }
+  
   static propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object,
@@ -40,24 +34,14 @@ class Layout extends Component {
   static defaultProps = {
     classes: {},
   };
-  headerParam = () => {
-    console.log("headerPara is true");
-    console.log(this.headerType);
-  };
 
   render() {
-    console.log(this.props);
     const { classes, children, shop, viewer, headerType } = this.props;
 
     return (
       <React.Fragment>
-        {this.headerType ? this.headerParam() : null}
         <div className={classes.root}>
-          <Header
-            shop={shop}
-            viewer={viewer}
-            //  headerPara={this.state.headerPara}
-          />
+          <Header shop={shop} viewer={viewer} headerType={headerType} />
           <main className={classes.main}>
             <article className={classes.article}>{children}</article>
           </main>
