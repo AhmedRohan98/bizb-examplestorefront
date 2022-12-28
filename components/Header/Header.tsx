@@ -45,6 +45,9 @@ const styles = (theme: Theme) =>
       justifyContent: "space-between",
       marginTop: "50px"
     },
+    dark: {
+      color: "#333333"
+    },
   });
 
 interface HeaderProps extends WithStyles<typeof styles> {
@@ -57,7 +60,7 @@ interface HeaderProps extends WithStyles<typeof styles> {
   viewer: any;
 }
 
-const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerType }) => {
+const Header: any = ({ classes, shop, uiStore, headerType }) => {
   
   const handleNavigationToggleClick = () => {
     uiStore.toggleMenuDrawerOpen();
@@ -65,9 +68,13 @@ const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerType }) => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Hidden mdUp>
+        
+        <div className={classes.dark}><Hidden mdUp>
           <NavigationToggleMobile onClick={handleNavigationToggleClick} />
-        </Hidden>
+        </Hidden></div>
+        {/* <Hidden mdUp>
+          <NavigationToggleMobile onClick={handleNavigationToggleClick} />
+        </Hidden> */}
 
         <div className={classes.controls}>
           <Typography className={classes.title} color="inherit" variant="h6">
@@ -77,19 +84,20 @@ const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerType }) => {
             </Link> */}
           </Typography>
 
-          <Hidden smDown initialWidth={"md"}>
+          <Hidden smDown>
             <NavigationDesktop headerType={headerType}/>
           </Hidden>
         </div>
         
         <div style={{ 
+          zIndex: -1,
           position: "absolute",
           margin: "auto",
           width: "100%",
           display: "flex",
           justifyContent: "center",
           }}>
-          {headerType?<img style={{width:"50px", width: "95px"}} src="/images/logoLight.svg"/> :<img style={{width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }
+          {headerType?<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoLight.svg"/> :<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }
         </div>
         
         <AccountDropdown headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />

@@ -18,25 +18,32 @@ import NavigationSubMenuMobile from "./NavigationSubMenuMobile";
 const styles = (theme) => ({
   root: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   header: {
-    flex: "0 0 auto"
+    flex: "0 0 auto",
+    // color: "red",
+    // backgroundColor: "green",
   },
   toolbarTitle: {
     position: "absolute",
     width: "100%",
-    textAlign: "center"
+    textAlign: "center",
   },
   title: {
     display: "inline-block",
     color: theme.palette.reaction.reactionBlue,
-    borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`
+    borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
+  },
+  here: {
+    backgroundColor: "red",
+    color: "blue",
   },
   menu: {
     flex: "1 1 auto",
     overflowY: "auto",
-    width: 320
+    width: 320,
+    padding: 15,
   },
   subNav: {
     position: "absolute",
@@ -44,8 +51,18 @@ const styles = (theme) => ({
     left: 0,
     width: 320,
     height: "100vh",
-    backgroundColor: theme.palette.background.default
-  }
+    backgroundColor: theme.palette.background.default,
+  },
+  navButtonActive: {
+    color: "#5cbe8f",
+    fontSize: "18px",
+    background: "none",
+    border: "none",
+    fontWeight: 600,
+    marginTop: "30px",
+    marginRight: "15px",
+    cursor: "pointer",
+  },
 });
 
 class NavigationMobile extends Component {
@@ -53,39 +70,34 @@ class NavigationMobile extends Component {
     classes: PropTypes.object,
     navItems: PropTypes.object,
     shop: PropTypes.shape({
-      name: PropTypes.string
+      name: PropTypes.string,
     }),
     uiStore: PropTypes.shape({
-      closeMenuDrawer: PropTypes.func
-    }).isRequired
+      closeMenuDrawer: PropTypes.func,
+    }).isRequired,
   };
 
   static defaultProps = {
     classes: {},
-    navItems: {}
+    navItems: {},
   };
 
   state = {
-    navItem: null
-  }
+    navItem: null,
+  };
 
   handleNavItemClick = (navItem) => {
     this.setState({
-      navItem
+      navItem,
     });
-  }
+  };
 
   handleCloseSubMenu = () => {
     this.setState({ navItem: null });
-  }
+  };
 
   renderNavItem = (navItem, index) => (
-    <NavigationItemMobile
-      key={index}
-      isTopLevel
-      navItem={navItem}
-      onClick={this.handleNavItemClick}
-    />
+    <NavigationItemMobile key={index} isTopLevel navItem={navItem} onClick={this.handleNavItemClick} />
   );
 
   handleClose = () => {
@@ -102,11 +114,7 @@ class NavigationMobile extends Component {
           <div className={classes.header}>
             <Toolbar disableGutters>
               <div className={classes.toolbarTitle}>
-                <Typography className={classes.title} color="inherit" variant="h6">
-                  <Link route="/" onClick={this.handleClose}>
-                    {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
-                  </Link>
-                </Typography>
+                <Typography className={classes.title} color="inherit" variant="h6"></Typography>
               </div>
               <IconButton onClick={this.handleClose}>
                 <CloseIcon />
@@ -115,14 +123,25 @@ class NavigationMobile extends Component {
             <Divider />
           </div>
           <nav className={classes.menu}>
-            <MenuList disablePadding>{navItems.items.map(this.renderNavItem)}</MenuList>
+            {/* <MenuList disablePadding>{navItems.items.map(this.renderNavItem)}</MenuList> */}
+            <MenuList className={classes.navButtonActive}>
+              Home
+              {/* @ts-ignore TODO: Refactor link to address type error */}
+            </MenuList>
+            <br />
+            <MenuList className={classes.navButtonActive}>
+              Explore
+              {/* @ts-ignore TODO: Refactor link to address type error */}
+            </MenuList>
+            <br />
+            <MenuList className={classes.navButtonActive}>
+              Byol
+              {/* @ts-ignore TODO: Refactor link to address type error */}
+            </MenuList>
           </nav>
           <Slide direction="left" in={!!this.state.navItem}>
             <nav className={classes.subNav}>
-              <NavigationSubMenuMobile
-                navItem={this.state.navItem}
-                onBackButtonClick={this.handleCloseSubMenu}
-              />
+              <NavigationSubMenuMobile navItem={this.state.navItem} onBackButtonClick={this.handleCloseSubMenu} />
             </nav>
           </Slide>
         </Drawer>

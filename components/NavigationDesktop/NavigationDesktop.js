@@ -10,9 +10,11 @@ import { NavigationItemDesktop } from "components/NavigationDesktop";
 const styles = (theme) => ({
   light: {
     color: "#FFFFFF",
+    cursor: "pointer",
   },
   dark: {
     color: "#333333",
+    cursor: "pointer",
   },
 });
 
