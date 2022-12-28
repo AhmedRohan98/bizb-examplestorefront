@@ -89,7 +89,7 @@ const Header: FC<HeaderProps> = ({ classes, shop, uiStore, headerType }) => {
           display: "flex",
           justifyContent: "center",
           }}>
-          {<img style={{width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }
+          {headerType?<img style={{width:"50px", width: "95px"}} src="/images/logoLight.svg"/> :<img style={{width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }
         </div>
         
         <AccountDropdown headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />
