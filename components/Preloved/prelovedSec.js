@@ -9,14 +9,11 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from "@material-ui/core/styles";
-
+import Story from "../Stories/story"
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+   width:450,
+   height:500,
   },
   PrelovedHeader:{
     display:"flex",
@@ -40,10 +37,16 @@ const useStyles = makeStyles((theme) => ({
   },
   imageList: {
     width: "auto",
-    height: "object-fit",
+
     // Promote the list into its own layer in Chrome. This cost memory, but helps keep FPS high.
     transform: 'translateZ(0)',
   },
+  image:{
+width:"auto",
+height:"auto"
+
+  },
+
   titleBar: {
     background:
       'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
@@ -52,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'white',
   },
+
 }))
 const itemData = [
   {
@@ -94,7 +98,7 @@ const itemData = [
 const Preloved = () => {
   const classes = useStyles();
   return (
-  <div>
+  <>
   
       <Container className={classes.PrelovedHeader}>
       <Typography variant="h1" >Share Your 
@@ -109,9 +113,9 @@ Pre-Loved
    </Container>
     </Container>
     <div  className={classes.root}>
-    <ImageList rowHeight="auto" gap={1} className={classes.imageList} >
+    <ImageList rowHeight={164} gap={8} className={classes.imageList} variant="mansonary" >
         {itemData.map((item) => (
-          <ImageListItem key={item.img} cols={item.featured ? 2 : 1} rows={item.featured ? 2 : 1}>
+          <ImageListItem key={item.id}>
             <img src={item.image} alt={item.title}  className={classes.image}/>
             <ImageListItemBar
               title={item.title}
@@ -127,8 +131,9 @@ Pre-Loved
           </ImageListItem>
         ))}
       </ImageList>
+      <Story />
       </div>
-  </div>
+  </>
   );
 }
 

@@ -95,7 +95,7 @@ class ProductGridPage extends Component {
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
   const translations = await fetchTranslations(lang, ["common"]);
-
+  console.log('shop.......')
   if (!primaryShop?.shop) {
     return {
       props: {
@@ -123,6 +123,7 @@ export async function getStaticProps({ params: { lang } }) {
  * @returns {Object} the paths
  */
 export async function getStaticPaths() {
+  console.log('get staticpaths')
   return {
     paths: locales.map((locale) => ({ params: { lang: locale } })),
     fallback: false,

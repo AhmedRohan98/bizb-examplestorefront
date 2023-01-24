@@ -42,27 +42,27 @@ const Ipl = () => {
   const ITEMS = [
     {
       image: '/Desktop-images/desktop2.svg',
-   id:"1"
+   id:1
     },
     {
       image: '/Desktop-images/desktop2.svg',
-   id:"2"
+   id:2
     },
     {
       image: '/Desktop-images/desktop3.svg',
-      id:"3"
+      id:3
     },
     {
       image: '/Desktop-images/desktop4.svg',
-      id:"4"
+      id:4
     },
     {
       image: '/Desktop-images/desktop5.svg',
-      id:"5"
+      id:5
     },
     {
       image: '/Desktop-images/desktop6.svg',
-      id:"6"
+      id:6
     },
   ];
   function Item({ item }) {
@@ -158,7 +158,7 @@ const Ipl = () => {
        
         </Slider>
       </div>
-  <Preloved/>
+  <Preloved />
     </div>
   );
 };

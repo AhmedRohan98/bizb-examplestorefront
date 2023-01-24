@@ -162,6 +162,37 @@ const theme = createMuiTheme({
       fontWeight: 400,
       
     },
+    h3: {
+      fontSize: "36px",
+    color:"#000000",
+    lineHeight: '100%',
+
+      fontWeight: 400,
+      weight:100,
+      
+    },
+    h4: {
+      fontSize: "36px",
+    color:"#FDC114",
+      fontWeight: 400,
+      weight:100,
+      
+    },
+    h4: {
+      fontSize: "24px",
+    color:"#FDC114",
+      fontWeight: 400,
+      weight:100,
+      
+    },
+    h5: {
+      fontSize: "16px",
+    color:"#000000",
+      fontWeight: 400,
+      weight:100,
+      lineHeight:"19px"
+      
+    },
     body2: {
       fontSize: 14,
       fontWeight: 400,
