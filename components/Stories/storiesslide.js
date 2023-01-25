@@ -143,7 +143,6 @@ const Storyslider = () => {
   function Item({ item }) {
     const classes = useStyles();
 
-    console.log(item)
     return (
       <>
          <img

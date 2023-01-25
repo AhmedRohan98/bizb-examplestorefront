@@ -1,6 +1,6 @@
 import Slider from "react-slick";
 
-
+import index from "./index"
 import { useRef } from "react";
 import { useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
@@ -9,20 +9,33 @@ import { makeStyles } from "@material-ui/core/styles";
 import Preloved from "../Preloved/prelovedSec"
 const Ipl = () => {
   const sliderRef = useRef(null);
-  useEffect(() => {
-    console.log(sliderRef);
-  }, []);
+
   const useStyles = makeStyles((theme) => ({
     
     image: {
  height:"auto",
  width:"100%"
     },
-    
+   
     controls: {
       alignItems: "inherit",
       display: "inherit",
       flex: 1,
+    },
+    arrow:{
+      position:"absolute",
+               
+      top: "-100px",
+      background:"green",
+
+      width:"auto",
+      left:"20px",
+      "&.active": {
+        background:'black'
+      }
+    },
+    slickActive:{
+      background:'black'
     },
     title: {
       color: theme.palette.reaction.reactionBlue,
@@ -80,6 +93,7 @@ const Ipl = () => {
       </>
     );
   }
+  const classes = useStyles();
   return (
     <div>
      
@@ -130,21 +144,14 @@ const Ipl = () => {
       <div style={{ margin: 30 }}>
         <Slider
           dots
-          dotsClass="slick-dots line-indicator"
+          
           ref={sliderRef}
           slidesToShow={1}
           slidesToScroll={1}
           customPaging={(i) => (
             <div
-              style={{
-              position:"absolute",
-               
-                top: "-20px",
-
-                width:"auto",
-                left:"20px"
-             
-              }}
+            
+              className={classes.arrow}
             >
             {`0${i+1}`}
             </div>

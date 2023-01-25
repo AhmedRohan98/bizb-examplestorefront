@@ -1,26 +1,24 @@
 import Slider from "react-slick";
-
-
 import { useRef } from "react";
-import { useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import storyslider from "./storiesslide"
+import React, { useState, useEffect } from 'react';
 import Storyslider from "./storiesslide";
 const Story = () => {
   const sliderRef = useRef(null);
-
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [activeSlide2, setActiveSlide2] = useState(0)
+  const [disableNext, setDisabledNext] = useState(false)
+  const [disableprevios, setDisabledPrevious] = useState(true)
   const useStyles = makeStyles((theme) => ({
-    
-    image: {
+image: {
  height:"80px",
  width:"80px",
  borderRadius: "100%",
     },
-    
-    controls: {
+      controls: {
       alignItems: "inherit",
       display: "inherit",
       flex: 1,
@@ -112,6 +110,40 @@ const Story = () => {
       </>
     );
   }
+
+  const beforeChangeHandler = (current, next) => {
+    setActiveSlide(next)
+   
+    if(current !== 0 && current === next) {
+      setDisabledNext(true)
+      setDisabledPrevious(false)
+
+    }
+    else if(current=== 0 && next ===0){
+      setDisabledPrevious(true)
+    }
+    else {
+      setDisabledNext(false)
+      setDisabledPrevious(false)
+  
+    }
+
+    
+  }
+
+  const afterChangeHandler = (current, next) => {
+    setActiveSlide2(current);
+      
+    console.log('current slide...', current)
+    console.log('next slide...', next)  
+    if(next == undefined && current === undefined) {
+      setDisabledPrevious(true)
+    }
+    else {
+      setDisabledPrevious(false)
+     
+    }
+  }
   return (
     <div>
      
@@ -124,7 +156,7 @@ const Story = () => {
       >
       
         <div style={{ display: "flex" }}>
-          <ButtonBase
+       { !disableprevios &&  <ButtonBase
             style={{
               width: 35,
               height: 35,
@@ -137,10 +169,13 @@ const Story = () => {
               cursor: "pointer",
             }}
             className="buttons"
-            onClick={() => sliderRef.current.slickPrev()}
+            disabled={disableprevios}
+            onClick={() => {sliderRef.current.slickPrev();console.log(sliderRef.current.innerSlider.state)}}
           >
+           
            <ArrowBackIos />
-          </ButtonBase>
+         
+          </ButtonBase>}
           
         </div>
       </div>
@@ -151,9 +186,9 @@ const Story = () => {
           ref={sliderRef}
           slidesToShow={8}
           slidesToScroll={1}
-          
-       
-          
+          infinite= {false}
+          beforeChange ={beforeChangeHandler}
+          afterChange={afterChangeHandler}
         >
           
           {ITEMS.map((item) => (
@@ -161,22 +196,27 @@ const Story = () => {
           ))}
        
         </Slider>
-        <ButtonBase
-            style={{
-              width: 35,
-              height: 35,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 7,
-              boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
-              cursor: "pointer",
-            }}
-            className="buttons"
-            onClick={() => sliderRef.current.slickNext()}
-          >
-               <ArrowForwardIos />
-          </ButtonBase>
+        
+       {
+        !disableNext &&  <ButtonBase
+        style={{
+          width: 35,
+          height: 35,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 7,
+          boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
+          cursor: "pointer",
+        }}
+        className="buttons"
+        disabled={disableNext}
+
+        onClick={() => {sliderRef.current.slickNext();console.log(sliderRef.current.innerSlider.state)}}
+      >
+           <ArrowForwardIos />
+      </ButtonBase>
+       }
       </div>
  <Storyslider/>
     </div>

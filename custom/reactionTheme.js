@@ -119,6 +119,9 @@ const theme = createMuiTheme({
       red400: "#bc1d2b",
       red500: "#5e3033",
       red600: "#3c1f21",
+      blog1:"#CADFFF",
+      blog2:"#CAFFD9",
+      blog3:"#FFE0CA",
       pageLoading: {
         innerColor: "#1999dd",
         outerColor: "rgba(9.80392156862745%,59.99999999999995%,86.66666666666667%,0.122)"
@@ -180,7 +183,7 @@ const theme = createMuiTheme({
     },
     h4: {
       fontSize: "24px",
-    color:"#FDC114",
+    color:"#000000",
       fontWeight: 400,
       weight:100,
       
@@ -191,6 +194,14 @@ const theme = createMuiTheme({
       fontWeight: 400,
       weight:100,
       lineHeight:"19px"
+      
+    },
+    h6: {
+      fontSize: "20px",
+    color:"#333333",
+      fontWeight: 400,
+      weight:100,
+      lineHeight:"100%"
       
     },
     body2: {
