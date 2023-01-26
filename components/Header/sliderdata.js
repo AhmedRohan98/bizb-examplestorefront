@@ -6,10 +6,11 @@ import { useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Preloved from "../Preloved/prelovedSec"
+import Appsec from "../Appsection/appsec"
+import BizbCalloborators  from "../BizbCalloborators/ bcallobrators"
 const Ipl = () => {
   const sliderRef = useRef(null);
-
+console.l
   const useStyles = makeStyles((theme) => ({
     
     image: {
@@ -30,13 +31,10 @@ const Ipl = () => {
 
       width:"auto",
       left:"20px",
-      "&.active": {
-        background:'black'
-      }
+      
+      
     },
-    slickActive:{
-      background:'black'
-    },
+    
     title: {
       color: theme.palette.reaction.reactionBlue,
       marginRight: theme.spacing(),
@@ -165,7 +163,9 @@ const Ipl = () => {
        
         </Slider>
       </div>
-  <Preloved />
+      <BizbCalloborators />
+<Appsec />
+
     </div>
   );
 };

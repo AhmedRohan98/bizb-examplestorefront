@@ -24,7 +24,9 @@ const theme = createMuiTheme({
       selected:"#FDC114",
     },
     background: {
-      default: "#ffffff"
+      default: "#ffffff",
+      main: "#D6C7C7"
+      
     },
     error: {
       light: "#E54F5D",
@@ -34,7 +36,8 @@ const theme = createMuiTheme({
     },
     action: {
       hover: "#f5f5f5",
-      selected: "#f5f5f5"
+      selected: "#f5f5f5",
+      main: "#D6C7C7"
     },
     colors: {
       buttonBorderColor: "#5e7480"

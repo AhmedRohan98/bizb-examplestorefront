@@ -51,6 +51,10 @@ const OurBlogs = () => {
       
         padding:"20px"
       },
+      blogtextr: {
+      
+        color:theme.palette.secondary.selected,
+      },
      gridroot: {
       
         display:"flex",
@@ -69,21 +73,25 @@ const OurBlogs = () => {
         <Box className={classes.look}>
   
 <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
-<Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… Read More</Typography>
+
+<Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+
         </Box>
       </Grid>
       <Grid item  >
       <Box className={classes.wardrobe}>
   
   <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
-  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… Read More</Typography>
+  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+ 
           </Box>
       </Grid>
       <Grid item  >
       <Box className={classes.trend}>
   
   <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
-  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… Read More</Typography>
+  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+
           </Box>
       </Grid>
     </Grid>
