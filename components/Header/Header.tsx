@@ -18,14 +18,17 @@ import MiniCart from "components/MiniCart";
 
 import type { FC } from "react";
 import type { WithStyles, Theme } from "@material-ui/core";
-
+import Ipl from "./sliderdata"
 const styles = (theme: Theme) =>
   createStyles({
     appBar: {
-      backgroundColor: theme.palette.reaction.white,
-      borderBottom: `solid 1px ${theme.palette.reaction.black05}`,
-      color: theme.palette.reaction.coolGrey500,
+      textTransform: "uppercase",
+      background: "transparent",
+      // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
+      // opacity: "0.7",
+      height: "170px"
     },
+    
     controls: {
       alignItems: "inherit",
       display: "inherit",
@@ -37,9 +40,13 @@ const styles = (theme: Theme) =>
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
     toolbar: {
-      alignItems: "center",
+      // alignItems: "center",
       display: "flex",
       justifyContent: "space-between",
+      marginTop: "50px"
+    },
+    dark: {
+      color: "#333333"
     },
   });
 
@@ -53,37 +60,13 @@ interface HeaderProps extends WithStyles<typeof styles> {
   viewer: any;
 }
 
-const Header: FC<HeaderProps> = ({ classes, shop, uiStore }) => {
+const Header: any = ({ classes, shop, uiStore, headerType }) => {
+  
   const handleNavigationToggleClick = () => {
     uiStore.toggleMenuDrawerOpen();
   };
   return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <Hidden mdUp>
-          <NavigationToggleMobile onClick={handleNavigationToggleClick} />
-        </Hidden>
-
-        <div className={classes.controls}>
-          <Typography className={classes.title} color="inherit" variant="h6">
-            {/* @ts-ignore TODO: Refactor link to address type error */}
-            <Link route="/">
-              {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
-            </Link>
-          </Typography>
-
-          <Hidden smDown initialWidth={"md"}>
-            <NavigationDesktop />
-          </Hidden>
-        </div>
-
-        <LocaleDropdown />
-
-        <AccountDropdown />
-        <MiniCart />
-      </Toolbar>
-      <NavigationMobile shop={shop} />
-    </AppBar>
+    <Ipl/ >
   );
 };
 

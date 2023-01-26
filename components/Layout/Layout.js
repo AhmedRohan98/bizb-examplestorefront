@@ -6,40 +6,42 @@ import Footer from "components/Footer";
 
 const styles = (theme) => ({
   root: {
-    minHeight: "100vh"
+    minHeight: "100vh",
   },
   main: {
     flex: "1 1 auto",
     maxWidth: theme.layout.mainContentMaxWidth,
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
   },
   article: {
-    padding: theme.spacing(3)
-  }
+    padding: theme.spacing(3),
+  },
 });
 
 class Layout extends Component {
+  
   static propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object,
+    headerType: PropTypes.bool,
     shop: PropTypes.shape({
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
     }),
-    viewer: PropTypes.object
+    viewer: PropTypes.object,
   };
 
   static defaultProps = {
-    classes: {}
+    classes: {},
   };
 
   render() {
-    const { classes, children, shop, viewer } = this.props;
+    const { classes, children, shop, viewer, headerType } = this.props;
 
     return (
       <React.Fragment>
         <div className={classes.root}>
-          <Header shop={shop} viewer={viewer} />
+          <Header shop={shop} viewer={viewer} headerType={headerType} />
           <main className={classes.main}>
             <article className={classes.article}>{children}</article>
           </main>

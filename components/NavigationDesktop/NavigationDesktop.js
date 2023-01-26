@@ -1,18 +1,33 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import inject from "hocs/inject";
+import classNames from "classnames";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 import { NavigationItemDesktop } from "components/NavigationDesktop";
+
+const styles = (theme) => ({
+  light: {
+    color: "#FFFFFF",
+    cursor: "pointer",
+  },
+  dark: {
+    color: "#333333",
+    cursor: "pointer",
+  },
+});
 
 class NavigationDesktop extends Component {
   static propTypes = {
     classes: PropTypes.object,
-    navItems: PropTypes.object
+    navItems: PropTypes.object,
   };
 
   static defaultProps = {
     classes: {},
-    navItems: {}
+    navItems: {},
+    headerType: false,
   };
 
   renderNavItem(navItem, index) {
@@ -20,10 +35,25 @@ class NavigationDesktop extends Component {
   }
 
   render() {
-    const { navItems } = this.props;
+    const {
+      classes: { primaryNavItem, dark, light },
+      navItems,
+      headerType,
+    } = this.props;
 
     if (navItems && navItems.items) {
-      return <nav>{navItems.items.map(this.renderNavItem)}</nav>;
+      return (
+        <>
+          <nav>
+            <div className={headerType ? classNames(light) : classNames(dark)}>
+              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Home</span>
+              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Explore</span>
+              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Byol</span>
+              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Sell</span>
+            </div>
+          </nav>
+        </>
+      );
     }
 
     // If navItems.items aren't available, skip rendering of navigation
@@ -31,4 +61,4 @@ class NavigationDesktop extends Component {
   }
 }
 
-export default inject("navItems")(NavigationDesktop);
+export default withStyles(styles)(inject("navItems")(NavigationDesktop));

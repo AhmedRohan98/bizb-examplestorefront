@@ -20,7 +20,8 @@ const theme = createMuiTheme({
       light: "#5d8ea9",
       main: "#5E7480",
       dark: "#1D1D1D",
-      contrastText: "#000000"
+      contrastText: "#000000",
+      selected:"#FDC114",
     },
     background: {
       default: "#ffffff"
@@ -118,6 +119,9 @@ const theme = createMuiTheme({
       red400: "#bc1d2b",
       red500: "#5e3033",
       red600: "#3c1f21",
+      blog1:"#CADFFF",
+      blog2:"#CAFFD9",
+      blog3:"#FFE0CA",
       pageLoading: {
         innerColor: "#1999dd",
         outerColor: "rgba(9.80392156862745%,59.99999999999995%,86.66666666666667%,0.122)"
@@ -149,6 +153,56 @@ const theme = createMuiTheme({
     subtitle2: {
       fontSize: 14,
       color: "#737373"
+    },
+    h1: {
+      fontSize: "42px",
+    color:"Black",
+    fontWeight: 400,
+    },
+    h2: {
+      fontSize: "42px",
+    color:"#FDC114",
+      fontWeight: 400,
+      
+    },
+    h3: {
+      fontSize: "36px",
+    color:"#000000",
+    lineHeight: '100%',
+
+      fontWeight: 400,
+      weight:100,
+      
+    },
+    h4: {
+      fontSize: "36px",
+    color:"#FDC114",
+      fontWeight: 400,
+      weight:100,
+      
+    },
+    h4: {
+      fontSize: "24px",
+    color:"#000000",
+      fontWeight: 400,
+      weight:100,
+      
+    },
+    h5: {
+      fontSize: "16px",
+    color:"#000000",
+      fontWeight: 400,
+      weight:100,
+      lineHeight:"19px"
+      
+    },
+    h6: {
+      fontSize: "20px",
+    color:"#333333",
+      fontWeight: 400,
+      weight:100,
+      lineHeight:"100%"
+      
     },
     body2: {
       fontSize: 14,

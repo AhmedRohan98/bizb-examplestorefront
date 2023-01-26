@@ -6,7 +6,8 @@ import { ContextProviders } from "context/ContextProviders";
 import { ComponentsProvider } from "@reactioncommerce/components-context";
 import components from "custom/componentsContext";
 import theme from "custom/reactionTheme";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { StripeWrapper } from "components/StripeCard";
 
 export default class App extends NextApp {

@@ -5,7 +5,7 @@ import MenuIcon from "mdi-material-ui/Menu";
 
 class NavigationToggleMobile extends Component {
   static propTypes = {
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
   };
 
   render() {
