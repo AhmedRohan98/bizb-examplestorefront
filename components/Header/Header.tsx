@@ -4,6 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Hidden from "@material-ui/core/Hidden";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import dynamic from 'next/dynamic'
+const DynamicSlider = dynamic(() => import('./sliderdata'))
 import { createStyles, withStyles } from "@material-ui/core/styles";
 import { NavigationDesktop } from "components/NavigationDesktop";
 import {
@@ -66,7 +68,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
     uiStore.toggleMenuDrawerOpen();
   };
   return (
-    <Ipl/ >
+    <DynamicSlider/ >
   );
 };
 

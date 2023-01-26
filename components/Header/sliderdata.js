@@ -1,15 +1,19 @@
-import Slider from "react-slick";
 
-import index from "./index"
-import { useRef } from "react";
-import { useEffect } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+
+
+import { useRef,useCallback } from "react";
+import { Pagination, Navigation } from "swiper";
+
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Appsec from "../Appsection/appsec"
 import BizbCalloborators  from "../BizbCalloborators/ bcallobrators"
-const Ipl = () => {
-  const sliderRef = useRef(null);
+const MainSlider = () => {
+ 
 console.l
   const useStyles = makeStyles((theme) => ({
     
@@ -80,89 +84,89 @@ console.l
     const classes = useStyles();
     return (
       <>
-        
-          <dev>
+        <SwiperSlide>
+         
             <div className="imagf2">
               <img src={item.image} className={classes.image}/>
             </div>
-          </dev>
+          
     
-     
+          </SwiperSlide>
       </>
     );
   }
+  const sliderRef = useRef(null);
+
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
+
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
+  }, []);
   const classes = useStyles();
+ 
+    const pagination = {
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + '">' + (index + 1) + "</span>";
+      },
+  
+  };
+
   return (
     <div>
      
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "0 10px",
+     <div>
+      <Swiper ref={sliderRef}
+       pagination={pagination}
+    modules={[Pagination]}
+ >
+
+        {ITEMS.map((item) => (
+            <SwiperSlide>
+            <Item item={item} />
+            </SwiperSlide>
+          ))}
+      
+      </Swiper>
+      <div className="prev-arrow" onClick={handlePrev} ><ArrowBackIos/></div>
+      <div className="next-arrow" onClick={handleNext} ><ArrowForwardIos/></div>
+    </div>
+ 
+
+        
+      <Swiper
+        pagination={{
+          type: "fraction",
         }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        customPaging={(i) => (
+          <div
+          
+            className={classes.arrow}
+          >
+          {`0${i+1}`}
+          </div>
+        )}
+
+        
+        className="mySwiper"
       >
       
-        <div style={{ display: "flex" }}>
-          <ButtonBase
-            style={{
-              width: 35,
-              height: 35,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: 10,
-              borderRadius: 7,
-              boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
-              cursor: "pointer",
-            }}
-            className="buttons"
-            onClick={() => sliderRef.current.slickPrev()}
-          >
-           <ArrowBackIos />
-          </ButtonBase>
-          <ButtonBase
-            style={{
-              width: 35,
-              height: 35,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 7,
-              boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
-              cursor: "pointer",
-            }}
-            className="buttons"
-            onClick={() => sliderRef.current.slickNext()}
-          >
-               <ArrowForwardIos />
-          </ButtonBase>
-        </div>
-      </div>
-      <div style={{ margin: 30 }}>
-        <Slider
-          dots
-          
-          ref={sliderRef}
-          slidesToShow={1}
-          slidesToScroll={1}
-          customPaging={(i) => (
-            <div
-            
-              className={classes.arrow}
-            >
-            {`0${i+1}`}
-            </div>
-          )}
-          
-        >
-          
-          {ITEMS.map((item) => (
+        
+      
+        {ITEMS.map((item) => (
+            <SwiperSlide>
             <Item item={item} />
+            </SwiperSlide>
           ))}
        
-        </Slider>
-      </div>
+      </Swiper>
+   
       <BizbCalloborators />
 <Appsec />
 
@@ -170,4 +174,4 @@ console.l
   );
 };
 
-export default Ipl;
+export default MainSlider ;

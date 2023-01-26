@@ -6,6 +6,9 @@ import { ContextProviders } from "context/ContextProviders";
 import { ComponentsProvider } from "@reactioncommerce/components-context";
 import components from "custom/componentsContext";
 import theme from "custom/reactionTheme";
+import 'swiper/swiper.min.css';
+import 'swiper/modules/pagination/pagination.min.css'
+import 'swiper/modules/navigation/navigation.min.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { StripeWrapper } from "components/StripeCard";
