@@ -99,16 +99,7 @@ console.l
  
   const sliderRef = useRef(null);
 
-  // sliderRef.on('slideChange', function() {
-  //   var realIndex = swiper.realIndex;
-  //   if (realIndex == 0) {
-  //     console.log(realIndex + " - hide arrow");
-  //     arrow.style.display = 'none';
-  //   } else {
-  //     console.log(realIndex + " - show arrow");
-  //     arrow.style.display = 'block';
-  //   }
-  // });
+ 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -144,10 +135,10 @@ console.l
             </SwiperSlide>
           ))}
       <h1>{`0${activeIndex+1}`}</h1>
-      <h1>{ITEMS.length}</h1>
+      <h1>{`0${ITEMS.length}`}</h1>
       </Swiper>
-<div  onClick={handlePrev} ><ArrowBackIos/></div>
-      <div className="next-arrow" onClick={handleNext} ><ArrowForwardIos/></div>
+{activeIndex-0?<div  onClick={handlePrev} ><ArrowBackIos/></div>:""}
+{  activeIndex < ITEMS.length-1 ?   <div className="next-arrow" onClick={handleNext} ><ArrowForwardIos/></div>:""}
     </div>
  
 
