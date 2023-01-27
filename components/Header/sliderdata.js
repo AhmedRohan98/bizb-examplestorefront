@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 
 
-import { useRef,useCallback } from "react";
+import { useRef,useCallback ,useState} from "react";
 import { Pagination, Navigation } from "swiper";
 
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
@@ -13,7 +13,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Appsec from "../Appsection/appsec"
 import BizbCalloborators  from "../BizbCalloborators/ bcallobrators"
 const MainSlider = () => {
- 
+  const [activeIndex, setActiveIndex] = useState(0);
+
 console.l
   const useStyles = makeStyles((theme) => ({
     
@@ -95,8 +96,19 @@ console.l
       </>
     );
   }
+ 
   const sliderRef = useRef(null);
 
+  // sliderRef.on('slideChange', function() {
+  //   var realIndex = swiper.realIndex;
+  //   if (realIndex == 0) {
+  //     console.log(realIndex + " - hide arrow");
+  //     arrow.style.display = 'none';
+  //   } else {
+  //     console.log(realIndex + " - show arrow");
+  //     arrow.style.display = 'block';
+  //   }
+  // });
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -106,15 +118,16 @@ console.l
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
+  var menu = ['Slide 1', 'Slide 2', 'Slide 3']
   const classes = useStyles();
- 
     const pagination = {
-      clickable: true,
-      renderBullet: function (index, className) {
-        return '<span class="' + className + '">' + (index + 1) + "</span>";
+  
+      renderCustom: (_, current, total) => {
+       return    <div>{`0${current+1}`}</div>
       },
   
   };
+
 
   return (
     <div>
@@ -122,7 +135,7 @@ console.l
      <div>
       <Swiper ref={sliderRef}
        pagination={pagination}
-    modules={[Pagination]}
+       onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
  >
 
         {ITEMS.map((item) => (
@@ -130,9 +143,10 @@ console.l
             <Item item={item} />
             </SwiperSlide>
           ))}
-      
+      <h1>{`0${activeIndex+1}`}</h1>
+      <h1>{ITEMS.length}</h1>
       </Swiper>
-      <div className="prev-arrow" onClick={handlePrev} ><ArrowBackIos/></div>
+<div  onClick={handlePrev} ><ArrowBackIos/></div>
       <div className="next-arrow" onClick={handleNext} ><ArrowForwardIos/></div>
     </div>
  
@@ -155,6 +169,10 @@ console.l
 
         
         className="mySwiper"
+
+        beforeChange ={handleNext}
+        afterChange={handlePrev}
+
       >
       
         
