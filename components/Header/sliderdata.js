@@ -11,7 +11,7 @@ import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Appsec from "../Appsection/appsec"
-import BizbCalloborators  from "../BizbCalloborators/ bcallobrators"
+import Preloved from "../Preloved/prelovedSec"
 const MainSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -28,17 +28,7 @@ console.l
       display: "inherit",
       flex: 1,
     },
-    arrow:{
-      position:"absolute",
-               
-      top: "-100px",
-      background:"green",
-
-      width:"auto",
-      left:"20px",
-      
-      
-    },
+   
     
     title: {
       color: theme.palette.reaction.reactionBlue,
@@ -121,7 +111,7 @@ console.l
 
 
   return (
-    <div>
+    <>
      
      <div>
       <Swiper ref={sliderRef}
@@ -137,7 +127,8 @@ console.l
       <h1>{`0${activeIndex+1}`}</h1>
       <h1>{`0${ITEMS.length}`}</h1>
       </Swiper>
-{activeIndex-0?<div  onClick={handlePrev} ><ArrowBackIos/></div>:""}
+{activeIndex-0?<div  onClick={handlePrev} ><ArrowBackIos className={classes.icon}/></div>:""}
+<h1>|</h1>
 {  activeIndex < ITEMS.length-1 ?   <div className="next-arrow" onClick={handleNext} ><ArrowForwardIos/></div>:""}
     </div>
  
@@ -175,11 +166,10 @@ console.l
           ))}
        
       </Swiper>
-   
-      <BizbCalloborators />
-<Appsec />
 
-    </div>
+<Appsec />
+<Preloved/>
+    </>
   );
 };
 

@@ -19,19 +19,30 @@ const useStyles = makeStyles({
     padding:"200px",
     margin:"200px",
     display:"flex",
-    flexwrap:"wrap"
+  
   },
  
-  image:{
-height:431,
-width:312
-  },
- 
+
+ root:{
+display:"flex",
+alignItems: "center",
+flexDirection: "column",
+justifyContent: "center"
+ },
+ gridroot:{
+  display:"flex",
+  alignItems: "center",
+  flexDirection: "row",
+  margin:"20px",
+  justifyContent: "center"
+   }
 });
 const itemData = [
   {
     image: '/justin/justin1.svg',
  id:1,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for ",
  size:"large"
   },
@@ -39,77 +50,103 @@ const itemData = [
     image: '/justin/justin2.svg',
     title:"Bag for sale",
  id:2,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  size:"large"
   },
   {
     image: '/justin/justin3.svg',
     id:3,
+    price:"Rs 1200",
+    newprice:"Rs 600",
     title:"Heels for sale",
     size:"large"
   },
   {
     image: '/justin/justin4.svg',
     id:4,
+    price:"Rs 1200",
+    newprice:"Rs 600",
     title:"floral shirt for",
     size:"large"
   },
   {
     image: '/justin/justin1.svg',
  id:5,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin2.svg',
  id:6,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Bag for sale",
  size:"large"
   },
   {
     image: '/justin/justin3.svg',
  id:7,
- title:"Heels for sale",
+ price:"Rs 1200",
+ newprice:"Rs 600",
+  title:"Heels for sale",
  size:"large"
   },
   {
     image: '/justin/justin4.svg',
  id:8,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin1.svg',
  id:9,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin2.svg',
  id:10,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Bag for sale",
  size:"large"
   },
   {
     image: '/justin/justin3.svg',
  id:11,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Heels for sale",
  size:"large"
   },
   {
     image: '/justin/justin4.svg',
  id:12,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin1.svg',
  id:13,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin2.svg',
  id:14,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Bag for sale",
  size:"large",
  size:"large"
@@ -117,12 +154,16 @@ const itemData = [
   {
     image: '/justin/justin3.svg',
  id:15,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Heels for sale",
  size:"large"
   },
   {
     image: '/justin/justin4.svg',
  id:16,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
@@ -132,47 +173,34 @@ const Justin = () => {
   const classes = useStyles();
   return (
   <>
-  <div className={classes.Justin}>
-  <Typography variant="h3">
+    <Typography variant="h3">
          JUST IN
-          </Typography>
-          <Grid container spacing={3}>
-          <Grid item xs={6} sm={3}>
-  <Card className={classes.root2}>
-  
-     { itemData.map((item)=>
+    </Typography>
+  <div className={classes.root} >
+ <Grid container gap={3} className={classes.gridroot}>
+  { itemData.map((item)=>
       <>
-      <Container         className={classes.cardation}>
-    
- 
-      
-        <img
+     <Grid item lg={3} sm={6} md={4} xs={12} >
+   <img
           component="img"
           alt="Contemplative Reptile"
-          height="213"
-          width="312"
-          src={item.image}
+        src={item.image}
           title="Contemplative Reptile"
           className={classes.image}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+      <Typography gutterBottom variant="h5" component="h2">
            {item.title}
           </Typography>
-       
-        </CardContent>
-     
         <span>size</span>
-          
-          <span>{`:${item.size}`}</span>
-        
-      </Container>
+         <span>{`:${item.size}`}</span>
+          <strike>{item.price}</strike>
+          </Grid>
       </>
   )
      }
-       </Card>
-       </Grid>
-       </Grid>
+      
+     </Grid>
+    
       </div>
   </>
   );
