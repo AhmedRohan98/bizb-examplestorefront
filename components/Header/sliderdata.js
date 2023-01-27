@@ -17,16 +17,29 @@ const MainSlider = () => {
 
 console.l
   const useStyles = makeStyles((theme) => ({
-    
+ root:{
+  height:"auto",
+  width:"100%",
+  display:"flex",
+  position:"relative"
+ },
     image: {
  height:"auto",
- width:"100%"
+
     },
    
-    controls: {
-      alignItems: "inherit",
-      display: "inherit",
-      flex: 1,
+    controller:{
+      display:"flex",
+
+   background:"green",
+      padding:"15px",
+    
+      position:"absolute",
+      zIndex:5,
+               
+      top: "-20px",
+
+
     },
    
     
@@ -113,7 +126,7 @@ console.l
   return (
     <>
      
-     <div>
+     <div className={classes.root}>
       <Swiper ref={sliderRef}
        pagination={pagination}
        onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
@@ -124,51 +137,23 @@ console.l
             <Item item={item} />
             </SwiperSlide>
           ))}
-      <h1>{`0${activeIndex+1}`}</h1>
-      <h1>{`0${ITEMS.length}`}</h1>
+      
       </Swiper>
-{activeIndex-0?<div  onClick={handlePrev} ><ArrowBackIos className={classes.icon}/></div>:""}
-<h1>|</h1>
-{  activeIndex < ITEMS.length-1 ?   <div className="next-arrow" onClick={handleNext} ><ArrowForwardIos/></div>:""}
+      <div className={classes.controller}>
+{activeIndex-0?<div  onClick={handlePrev} ><ArrowBackIos className={classes.iconback}/></div>:""}
+
+<h1>{`0${activeIndex+1}`}</h1>
+<h1 className={classes.line}>|</h1>
+      <h1>{`0${ITEMS.length}`}</h1>
+{  activeIndex < ITEMS.length-1 ?   <div className={classes.iconforwad} onClick={handleNext} ><ArrowForwardIos/></div>:""}
     </div>
  
-
+   
         
-      <Swiper
-        pagination={{
-          type: "fraction",
-        }}
-        navigation={true}
-        modules={[Pagination, Navigation]}
-        customPaging={(i) => (
-          <div
-          
-            className={classes.arrow}
-          >
-          {`0${i+1}`}
-          </div>
-        )}
+     
 
-        
-        className="mySwiper"
-
-        beforeChange ={handleNext}
-        afterChange={handlePrev}
-
-      >
-      
-        
-      
-        {ITEMS.map((item) => (
-            <SwiperSlide>
-            <Item item={item} />
-            </SwiperSlide>
-          ))}
-       
-      </Swiper>
-
-<Appsec />
 <Preloved/>
+</div>
     </>
   );
 };

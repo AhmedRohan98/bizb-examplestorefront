@@ -70,7 +70,7 @@ console.l
      <img src="/app-section/appsec1.svg"  className={classes.img}/>
      
             <Grid container className={classes.maingrid} lg={12} sm={12} md={12} >
-              <Grid  item  className={classes.grid1} lg={6} sm={12} md={12}>
+              <Grid  item  className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
              
                 <Typography  variant="h3" className={classes.title} >
                 Revamp Your Wardrobe 
@@ -79,7 +79,7 @@ Using Our App
                 <img src="/app-section/appsec2.svg"  className={classes.image}/>
                 <img src="/app-section/appsec3.svg"  className={classes.image}/>
               </Grid>
-              <Grid item lg={6} sm={12} md={12} className={classes.grid1}>
+              <Grid item lg={6} sm={6} md={6} xs={6} className={classes.grid1}>
              
               <img src="/app-section/appsec4.svg"  className={classes.imae}/>
                
