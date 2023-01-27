@@ -73,5 +73,6 @@ deploy-dev:
     #- ssh -o StrictHostKeyChecking=no ubuntu@13.57.70.213 sudo rm -rf /example-storefront
     - ssh -o StrictHostKeyChecking=no ubuntu@13.57.70.213 "cd /home/ubuntu/bizb-dev/reaction-development-platform && sudo git clone https://gitlab+deploy-token-1715785:cJQKGGPp3cXr6TbsBy46@gitlab.com/Codistan/bizb/example-storefront.git"
     - ssh -o StrictHostKeyChecking=no ubuntu@13.57.70.213 "cd /home/ubuntu/bizb-dev/reaction-development-platform/example-storefront && sudo git checkout staging"
-    - ssh  -o StrictHostKeyChecking=no ubuntu@13.57.70.213 "cd /home/ubuntu/bizb-dev/reaction-development-platform/example-storefront && sudo docker build --tag=bizb:ui . && sudo docker run -d --rm -it --network host bizb:ui" 
+    - ssh -o StrictHostKeyChecking=no ubuntu@13.57.70.213 "cd /home/ubuntu/bizb-dev/reaction-development-platform/example-storefront && sudo docker-compose up"
+    #- ssh  -o StrictHostKeyChecking=no ubuntu@13.57.70.213 "cd /home/ubuntu/bizb-dev/reaction-development-platform/example-storefront && sudo docker build --tag=bizb:ui . && sudo docker run -d --rm -it --network host bizb:ui" 
 
