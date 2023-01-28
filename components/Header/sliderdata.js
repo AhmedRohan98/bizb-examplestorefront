@@ -5,44 +5,53 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 
 import { useRef,useCallback ,useState} from "react";
-import { Pagination, Navigation } from "swiper";
-
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Appsec from "../Appsection/appsec"
-import Preloved from "../Preloved/prelovedSec"
+import Preloved from "../Preloved/prelovedSec";
+import Typography from "@material-ui/core/Typography";
+import { AuthContext } from 'context/AuthContext';
 const MainSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-console.l
   const useStyles = makeStyles((theme) => ({
  root:{
-  height:"auto",
-  width:"100%",
-  display:"flex",
-  position:"relative"
+position:"relative"
  },
     image: {
- height:"auto",
-
-    },
-   
+      height:"auto",
+      width:"100%",
+ },
     controller:{
-      display:"flex",
+   display:"flex",
+     flexDirection:"row",
+    alignItems: "flex-end",
 
-   background:"green",
-      padding:"15px",
-    
-      position:"absolute",
-      zIndex:5,
-               
-      top: "-20px",
-
-
+    background: theme.palette.reaction.gradient,
+  
     },
-   
+    controllera:{
+      position:"absolute",
+          
+      display:"flex",
+      flexDirection:"row",
+      gap:"4vh",
+      opacity:100,
+
     
+      right:"5vh",
+ },
+    controllert:{
+      position:"absolute",
+    display:"flex",
+      flexDirection:"row",
+      gap:"5px",
+
+     
+      left:"5vh",
+bottom:"20px",
+
+      
+    },
     title: {
       color: theme.palette.reaction.reactionBlue,
       marginRight: theme.spacing(),
@@ -54,9 +63,30 @@ console.l
       justifyContent: "space-between",
       marginTop: "50px"
     },
+    text:{
+      fontSize:"18px",
+      color:"white",
+      Fontfamily:" Circular Std"
+    },
     dark: {
       color: "#333333"
     },
+    iconforwad: {
+  height:"auto",
+  color:"white",
+ 
+
+    },
+    iconback: {
+      height:"auto",
+      color:"white",
+
+    
+        },
+        arrowc:{
+          height:"auto",
+          color:"white",
+        }
   }))
   const ITEMS = [
     {
@@ -90,10 +120,20 @@ console.l
       <>
         <SwiperSlide>
          
-            <div className="imagf2">
+         
               <img src={item.image} className={classes.image}/>
-            </div>
           
+              <div className={classes.controller}>
+        <div className={classes.controllert}>     <img src="/icons/home.svg" className={classes.ie}/><Typography className={classes.text}>Scroll to discover more</Typography></div>
+      <div className={classes.controllera}>
+{activeIndex-0?<ArrowBackIos className={classes.iconback}  onClick={handlePrev}/>:""}
+
+<h1 className={classes.arrowc}>{`0${activeIndex+1}`}</h1>
+<h1 className={classes.arrowc} >|</h1>
+      <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+{  activeIndex < ITEMS.length-1 ?   <ArrowForwardIos className={classes.iconforwad} onClick={handleNext}/>:""}
+    </div>
+    </div>
     
           </SwiperSlide>
       </>
@@ -139,15 +179,7 @@ console.l
           ))}
       
       </Swiper>
-      <div className={classes.controller}>
-{activeIndex-0?<div  onClick={handlePrev} ><ArrowBackIos className={classes.iconback}/></div>:""}
-
-<h1>{`0${activeIndex+1}`}</h1>
-<h1 className={classes.line}>|</h1>
-      <h1>{`0${ITEMS.length}`}</h1>
-{  activeIndex < ITEMS.length-1 ?   <div className={classes.iconforwad} onClick={handleNext} ><ArrowForwardIos/></div>:""}
-    </div>
- 
+   
    
         
      

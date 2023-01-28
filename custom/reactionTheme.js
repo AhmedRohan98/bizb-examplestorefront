@@ -125,6 +125,7 @@ const theme = createMuiTheme({
       blog1:"#CADFFF",
       blog2:"#CAFFD9",
       blog3:"#FFE0CA",
+      gradient: 'linear-gradient(#000000, 31.77%, rgba(0, 0, 0, 0), 100%)',
       pageLoading: {
         innerColor: "#1999dd",
         outerColor: "rgba(9.80392156862745%,59.99999999999995%,86.66666666666667%,0.122)"
@@ -216,6 +217,10 @@ const theme = createMuiTheme({
       fontSize: 16,
       fontWeight: 600,
       color: "#3c3c3c"
+    },
+    body3:{
+fontSize:18,
+color:"#595959"
     }
   }
 });
