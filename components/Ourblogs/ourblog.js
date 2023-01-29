@@ -47,6 +47,11 @@ const OurBlogs = () => {
        backgroundColor:theme.palette.reaction.blog3,
         
       },
+      mainheading:{
+        paddingTop:"30px",
+       paddingLeft:"50px"
+       },
+        
       blogtext: {
       
         padding:"20px"
@@ -68,6 +73,10 @@ const OurBlogs = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+        <div className={classes.mainheading}><Typography variant="h3" >
+      Our Blogs
+      </Typography>
+      </div> 
     <Grid container spacing={3} className={classes.gridroot}>
       <Grid item  >
         <Box className={classes.look}>

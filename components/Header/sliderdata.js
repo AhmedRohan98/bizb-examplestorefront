@@ -17,6 +17,7 @@ import Instagram from '../Instagram/instagram';
 import OurBlogs from "../Ourblogs/ourblog"
 import Caloborators from "../Calloborators/calloborators"
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators"
+import TopSelling from "../TopSelling/topselling"
 const MainSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -64,11 +65,11 @@ bottom:"20px",
       marginRight: theme.spacing(),
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
-    toolbar: {
+    top: {
       // alignItems: "center",
       display: "flex",
-      justifyContent: "space-between",
-      marginTop: "50px"
+   
+      marginTop: "200px"
     },
     text:{
       fontSize:"18px",
@@ -112,10 +113,7 @@ bottom:"20px",
       image: '/Desktop-images/desktop4.svg',
       id:4
     },
-    {
-      image: '/Desktop-images/desktop5.svg',
-      id:5
-    },
+   
     {
       image: '/Desktop-images/desktop6.svg',
       id:6
@@ -194,7 +192,12 @@ bottom:"20px",
 <Story />
 
 <BizbCalloborators />
+<div className={classes.top}>
+  <TopSelling />
+ 
+</div>
 <Appsec />
+
 <Caloborators />
 <OurBlogs />
 <Instagram />

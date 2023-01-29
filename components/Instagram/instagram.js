@@ -65,7 +65,7 @@ const Instagram = () => {
   return (
     <div className={classes.root}>
       <div className={classes.mainheading}><Typography variant="h3" >
-       Collaborators
+  Instagram
       </Typography>
       </div> 
     <Grid container spacing={3} className={classes.gridroot}>

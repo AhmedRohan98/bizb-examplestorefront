@@ -183,8 +183,14 @@ background:"#333333",
   },
    600: {
     width: 800,
+    slidesPerView: 4,
+  },
+ 400: {
+    width: 800,
     slidesPerView: 3,
   },
+  
+
 }}
      onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
 >    <div className={classes.controller}>
