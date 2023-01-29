@@ -10,7 +10,14 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
- 
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+
   PrelovedHeader:{
     display:"flex",
     justifyContent: "center",
@@ -32,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 
-  
-
   titleBar: {
     background:
       'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
@@ -42,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'white',
   },
+
 
 }))
 const itemData = [
@@ -94,21 +100,37 @@ const itemData = [
 const Preloved = () => {
   const classes = useStyles();
   return (
-    <ResponsiveMasonry
+   <div>
+ <Container className={classes.PrelovedHeader}>
+ <Typography variant="h1" >Share Your 
+ </Typography>
+<Container  className={classes.PrelovedHeader2}>
+<Typography variant="h2" >
+Pre-Loved 
+ </Typography>
+ <Typography variant="h1" >
+ Share Your 
+ </Typography>
+</Container>
+</Container>
+<div  className={classes.root}>
+<ResponsiveMasonry
   
-    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
+  columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
 >
-  <Masonry>
- {itemData.map((item)=>(
+<Masonry>
+{itemData.map((item)=>(
 <>
-  <img src={item.image} />
+<img src={item.image} />
 
 </>
- )
-  
- )}
- </Masonry>
+)
+
+)}
+</Masonry>
 </ResponsiveMasonry>
+ </div>
+</div>
 
   );
 }

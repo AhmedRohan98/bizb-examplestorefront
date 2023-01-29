@@ -192,10 +192,7 @@ bottom:"20px",
 <Story />
 
 <BizbCalloborators />
-<div className={classes.top}>
-  <TopSelling />
- 
-</div>
+
 <Appsec />
 
 <Caloborators />
