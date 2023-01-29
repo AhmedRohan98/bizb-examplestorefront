@@ -1,42 +1,73 @@
-import Slider from "react-slick";
-import { useRef } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { useRef,useCallback ,useState} from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { ButtonBase } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import React, { useState, useEffect } from 'react';
+import { makeStyles } from "@material-ui/core/styles";
 import Storyslider from "./storiesslide";
 const Story = () => {
-  const sliderRef = useRef(null);
-  const [activeSlide, setActiveSlide] = useState(0)
-  const [activeSlide2, setActiveSlide2] = useState(0)
-  const [disableNext, setDisabledNext] = useState(false)
-  const [disableprevios, setDisabledPrevious] = useState(true)
+  const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
+    root:{
+      background: theme.palette.reaction.gradient,
+      position:"relative",
+      margin:"50px",
+    
+    },
 image: {
  height:"80px",
  width:"80px",
  borderRadius: "100%",
     },
-      controls: {
-      alignItems: "inherit",
-      display: "inherit",
-      flex: 1,
-    },
+    controller:{
+      display:"flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      
+     
+},
+iconforwad:{
+position:"absolute",
+bottom:"82px",
+right:"20px",
+background:"#333333",
+color: "FDC114",
+borderRadius:"4px",
+
+zIndex: 1251
+},
+iconback:{
+  position:"absolute",
+  bottom:"82px",
+  left:"20px",
+  borderRadius:"4px",
+color:"FDC114",
+background:"#333333",
+
+  zIndex: 1251
+  },
+
     title: {
+
       color: theme.palette.reaction.reactionBlue,
       marginRight: theme.spacing(),
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
-    toolbar: {
-      // alignItems: "center",
-      display: "flex",
-      justifyContent: "space-between",
-      marginTop: "50px"
+    box: {
+      display:"flex",
+      flexDirection: "column",
+    
     },
     dark: {
       color: "#333333"
     },
+    main:{
+      background:"#EAE7FF",
+      width:"100%"
+    },
+    mainheading:{
+     paddingTop:"30px",
+    paddingLeft:"50px"
+    }
   }))
   const ITEMS = [
     {
@@ -57,7 +88,7 @@ image: {
     {
       image: '/stories/story.svg',
       id:4,
-      title:"Charizma Store"
+      title:"Charizma store"
     },
     {
       image: '/stories/story.svg',
@@ -96,130 +127,85 @@ image: {
     const classes = useStyles();
     return (
       <>
+            <SwiperSlide>
+         
+         
         
-          <dev>
-            <div >
-              <img src={item.image} className={classes.image}/>
-              <Typography variant="h5" >
-                {item.title}
-              </Typography>
-            </div>
-          </dev>
-    
+     
+     
+<div  className={classes.box}>
+<img src={item.image} className={classes.image}/>
+<h4>{item.title}</h4>
+</div>
+
+     </SwiperSlide>
      
       </>
     );
   }
 
-  const beforeChangeHandler = (current, next) => {
-    setActiveSlide(next)
-   
-    if(current !== 0 && current === next) {
-      setDisabledNext(true)
-      setDisabledPrevious(false)
+  const sliderRef = useRef(null);
 
-    }
-    else if(current=== 0 && next ===0){
-      setDisabledPrevious(true)
-    }
-    else {
-      setDisabledNext(false)
-      setDisabledPrevious(false)
-  
-    }
+ 
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
 
-    
-  }
-
-  const afterChangeHandler = (current, next) => {
-    setActiveSlide2(current);
-      
-    console.log('current slide...', current)
-    console.log('next slide...', next)  
-    if(next == undefined && current === undefined) {
-      setDisabledPrevious(true)
-    }
-    else {
-      setDisabledPrevious(false)
-     
-    }
-  }
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
+  }, []);
+ 
+  const classes = useStyles();
   return (
-    <div>
-     
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "0 10px",
-        }}
-      >
-      
-        <div style={{ display: "flex" }}>
-       { !disableprevios &&  <ButtonBase
-            style={{
-              width: 35,
-              height: 35,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: 10,
-              borderRadius: 7,
-              boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
-              cursor: "pointer",
-            }}
-            className="buttons"
-            disabled={disableprevios}
-            onClick={() => {sliderRef.current.slickPrev();console.log(sliderRef.current.innerSlider.state)}}
-          >
-           
-           <ArrowBackIos />
-         
-          </ButtonBase>}
-          
-        </div>
-      </div>
-      <div style={{ margin: 30 }}>
-        <Slider
-          dots={false}
-       
-          ref={sliderRef}
-          slidesToShow={8}
-          slidesToScroll={1}
-          infinite= {false}
-          beforeChange ={beforeChangeHandler}
-          afterChange={afterChangeHandler}
-        >
-          
-          {ITEMS.map((item) => (
-            <Item item={item} />
-          ))}
-       
-        </Slider>
-        
-       {
-        !disableNext &&  <ButtonBase
-        style={{
-          width: 35,
-          height: 35,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 7,
-          boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
-          cursor: "pointer",
-        }}
-        className="buttons"
-        disabled={disableNext}
+    <div className={classes.main}>
+       <div className={classes.mainheading}><Typography variant="h3" >
+        Stories
+      </Typography>
+      </div> 
+    <div className={classes.root}>
+    
+    <Swiper ref={sliderRef}
+ breakpoints={{
+  1200: {
+    width: 1200,
+    slidesPerView: 8,
+  },
+  1000: {
+    width: 1000,
+    slidesPerView: 7,
+  },
 
-        onClick={() => {sliderRef.current.slickNext();console.log(sliderRef.current.innerSlider.state)}}
-      >
-           <ArrowForwardIos />
-      </ButtonBase>
-       }
-      </div>
- <Storyslider/>
-    </div>
+  800: {
+    width: 800,
+    slidesPerView: 5,
+  },
+   600: {
+    width: 800,
+    slidesPerView: 3,
+  },
+}}
+     onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
+>    <div className={classes.controller}>
+
+{  activeIndex < ITEMS.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
+{activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
+</div>
+ 
+
+
+      {ITEMS.map((item) => (
+          <SwiperSlide key={item.id}>
+          <Item item={item} />
+          </SwiperSlide>
+        ))}
+
+
+    </Swiper>
+    <Storyslider/>
+ </div>
+ </div>
   );
 };
 

@@ -21,7 +21,7 @@ const BizbCalloborators = () => {
         width :"100%",
         display:"flex",
         flexDirection: "column",
-        alignItems: "cente r",
+        alignItems: "center",
             },
          
             maingrid:{
@@ -44,6 +44,14 @@ const BizbCalloborators = () => {
                           title:{
                               width :"624px",
                               fontSize:"70px",
+                             
+                            color:theme.palette.secondary.contrastText,
+                              lineHeight: "96px",
+                              font:" Ostrich Sans"
+                            },
+                            title2:{
+                              width :"624px",
+                              fontSize:"70px",
                             color:theme.palette.secondary.contrast,
                               lineHeight: "96px",
                               font:" Ostrich Sans"
@@ -54,7 +62,8 @@ const BizbCalloborators = () => {
                                 alignItems: "center",
                                 justifyContent: "center",
                                 height:"100%",
-                                padding:"60px"
+                                width:"80%",
+                                margin:"130px"
                             },
                                   imae:{
                                     display:"flex",
@@ -78,16 +87,10 @@ const BizbCalloborators = () => {
               </Grid>
               <Grid  item  className={classes.grid1} xs={6}>
              
-           <Box className="Box">
+           <div className={classes.Box}>
             
-          <Typography className={classes.title}>
-                                                Bizb Collaborates with SAHEEA JABBAR
-          </Typography>
-          <Typography className={classes.title}>
-          Buy Saheefa Jabbar’s 
-Pre-Loved fashion
-          </Typography>
-          </Box>
+           <img src="/BizbCollaborator/sheefa.svg" />
+          </div>
                
              </Grid>
             </Grid>

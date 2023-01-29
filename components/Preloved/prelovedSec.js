@@ -45,47 +45,49 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 const itemData = [
-
+ 
   {
     image: '/preloved/preloved1.svg',
- id:"1",
+ id:1,
  title:"Causal"
   },
+
 
   {
     image: '/preloved/preloved2.svg',
     title:"westran",
- id:"2"
+ id:2
   },
-
+ 
   {
     image: '/preloved/preloved3.svg',
-    id:"3",
+    id:3,
     title:"Bridal",
   },
- ,
+  {
+    image: '/preloved/preloved6.svg',
+    id:6,
+    title:"Juniors",
+  },
   {
     image: '/preloved/preloved4.svg',
-    id:"4",
+    id:4,
     title:"Party Wear",
   },
 
   {
-    image: '/preloved/preloved5.png',
-    id:"5",
+    image: '/preloved/preloved5.svg',
+    id:5,
     title:"Juniors",
   },
  
-  {
-    image: '/preloved/preloved6.png',
-    id:"6",
-    title:"Shoes",
+   
+ {
+    image: '/preloved/preloved7.svg',
+    id:7,
+    title:"Juniors",
   },
-  {
-    image: '/preloved/preloved7.png',
-    id:"6",
-    title:"Causal",
-  },
+  
  
 ];
 
@@ -93,6 +95,7 @@ const Preloved = () => {
   const classes = useStyles();
   return (
     <ResponsiveMasonry
+  
     columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
 >
   <Masonry>

@@ -122,6 +122,7 @@ const theme = createMuiTheme({
       red400: "#bc1d2b",
       red500: "#5e3033",
       red600: "#3c1f21",
+      story:"#EAE7FF",
       blog1:"#CADFFF",
       blog2:"#CAFFD9",
       blog3:"#FFE0CA",
@@ -154,6 +155,7 @@ const theme = createMuiTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,
+    
     subtitle2: {
       fontSize: 14,
       color: "#737373"
@@ -173,7 +175,6 @@ const theme = createMuiTheme({
       fontSize: "36px",
     color:"#000000",
     lineHeight: '100%',
-
       fontWeight: 400,
       weight:100,
       

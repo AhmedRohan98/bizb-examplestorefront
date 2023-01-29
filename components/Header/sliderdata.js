@@ -7,9 +7,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRef,useCallback ,useState} from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import Preloved from "../Preloved/prelovedSec";
+
+import Story from "../Stories/story"
+import Justin from "../Justin/justin" 
 import Typography from "@material-ui/core/Typography";
-import { AuthContext } from 'context/AuthContext';
+import Preloved from "../Preloved/prelovedSec";
+import Appsec from "../Appsection/appsec"
+import Instagram from '../Instagram/instagram';
+import OurBlogs from "../Ourblogs/ourblog"
+import Caloborators from "../Calloborators/calloborators"
+import BizbCalloborators from "../BizbCalloborators/ bcallobrators"
 const MainSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -168,7 +175,7 @@ bottom:"20px",
      
      <div className={classes.root}>
       <Swiper ref={sliderRef}
-       pagination={pagination}
+       
        onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
  >
 
@@ -179,12 +186,18 @@ bottom:"20px",
           ))}
       
       </Swiper>
+      <Preloved />
    
-   
-        
+  <Justin />      
      
 
-<Preloved/>
+<Story />
+
+<BizbCalloborators />
+<Appsec />
+<Caloborators />
+<OurBlogs />
+<Instagram />
 </div>
     </>
   );
