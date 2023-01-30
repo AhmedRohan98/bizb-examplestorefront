@@ -17,10 +17,18 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
-
+  root2: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems:"center",
+    marginBottom: theme.spacing(6)
+ 
+  },
   PrelovedHeader:{
     display:"flex",
     justifyContent: "center",
+
+
     flexDirection: "column" ,
     alignItems: "center",
   },
@@ -31,13 +39,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   
   },
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
+
 
   titleBar: {
     background:
@@ -47,8 +49,23 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'white',
   },
+subtitle:{
+  width:"543px",
+  height:"87px",
+  display:"flex",
+  align:"center",
+  justifyContent:"center",
+  alignItems:"center"
+},
+subtitlet:{
+ color:"#1F1F1F",
+ fontSize: "24px",
 
-
+ fontFamily: "Lato",
+ 
+   lineHeight:"100%"
+ 
+}
 }))
 const itemData = [
  
@@ -100,7 +117,7 @@ const itemData = [
 const Preloved = () => {
   const classes = useStyles();
   return (
-   <div>
+ <>
  <Container className={classes.PrelovedHeader}>
  <Typography variant="h1" >Share Your 
  </Typography>
@@ -109,11 +126,22 @@ const Preloved = () => {
 Pre-Loved 
  </Typography>
  <Typography variant="h1" >
- Share Your 
+Fashion
  </Typography>
+
 </Container>
+
 </Container>
-<div  className={classes.root}>
+  <div className={classes.root2}>
+<Box className={classes.subtitle}>
+
+<h6 className={classes.subtitlet}>
+ Now you can revamp your daily wear wardrobe
+every month while saving more than 50% from
+your monthly budget!
+ </h6>
+ </Box>
+ </div>
 <ResponsiveMasonry
   
   columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
@@ -129,8 +157,8 @@ Pre-Loved
 )}
 </Masonry>
 </ResponsiveMasonry>
- </div>
-</div>
+ </>
+
 
   );
 }

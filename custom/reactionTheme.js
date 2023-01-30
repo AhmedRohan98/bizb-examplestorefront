@@ -202,11 +202,7 @@ const theme = createMuiTheme({
       
     },
     h6: {
-      fontSize: "20px",
-    color:"#333333",
-      fontWeight: 400,
-      weight:100,
-      lineHeight:"100%"
+
       
     },
     body2: {
