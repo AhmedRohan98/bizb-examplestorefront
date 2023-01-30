@@ -1,158 +1,90 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Router from "translations/i18nRouter";
-import Helmet from "react-helmet";
-import { withStyles } from "@material-ui/core/styles";
-import CheckoutTopHat from "@reactioncommerce/components/CheckoutTopHat/v1";
-import ShopLogo from "@reactioncommerce/components/ShopLogo/v1";
-import withCart from "containers/cart/withCart";
-import Entry from "components/Entry";
-import Link from "components/Link";
-import Layout from "components/Layout";
-import ChevronLeftIcon from "mdi-material-ui/ChevronLeft";
-import { withApollo } from "lib/apollo/withApollo";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Grid from '@material-ui/core/Grid';
 
-import { locales } from "translations/config";
-import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
-import fetchTranslations from "staticUtils/translations/fetchTranslations";
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: 'center',
+  },
+  paper: {
 
-const styles = (theme) => ({
-  backLink: {
-    "color": theme.palette.reaction.black80,
-    "cursor": "pointer",
-    "fontFamily": theme.typography.fontFamily,
-    "fontSize": 14,
-    "&:hover": {
-      color: theme.palette.reaction.reactionBlue400
-    }
-  },
-  backLinkText: {
-    letterSpacing: "0.3px",
-    lineHeight: 1.71,
-    marginLeft: theme.spacing(),
-    textDecoration: "underline"
-  },
-  headerFlex: {
-    alignSelf: "center",
-    flex: "1 1 1%"
-  },
-  header: {
-    alignContent: "center",
-    borderBottom: `solid 1px ${theme.palette.reaction.black10}`,
-    display: "flex",
-    justifyContent: "center",
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(3)
-  },
-  logo: {
-    color: theme.palette.reaction.reactionBlue,
-    margin: "auto",
-    borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`
-  },
-  main: {
-    flex: "1 1 auto",
-    maxWidth: theme.layout.mainLoginMaxWidth,
-    minHeight: "calc(100vh - 135px)",
-    margin: "0 auto",
-    padding: theme.spacing(3, 3, 0),
-    [theme.breakpoints.up("md")]: {
-      padding: theme.spacing(10, 3, 0)
-    }
-  },
-  root: {}
-});
+    border: '2px solid #000',
+  
 
-class Login extends Component {
-  static propTypes = {
-    cart: PropTypes.shape({
-      account: PropTypes.object,
-      email: PropTypes.string
-    }),
-    classes: PropTypes.object,
-    setEmailOnAnonymousCart: PropTypes.func,
-    shop: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string
-    }),
-    theme: PropTypes.object.isRequired
+  },
+  image:{
+    height:"530px"
+  },
+  image2:{
+    height:"50px",
+    display:"flex",
+    marginTop:theme.spacing(3),
+    
+    justifyContent:"center",
+    alignItems:"center"
+  
+  },
+  grid1:{
+
+    display:"flex",
+    flexDirection: "column",
+    
+  }
+}));
+
+export default function TransitionsModal() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
-  state = {};
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  componentDidMount() {
-    const { cart } = this.props;
-  }
+  return (
+    <div>
+     
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+        
+        <Grid container  xs={12}>
+        <Grid item xs={6} className={classes.grid1}>
+        <img src='/authentication/signup2.svg' alt='Login-SignUP' className={classes.image2} />
+        <img src='/authentication/login-siginup.svg' alt='Login-SignUP' className={classes.image} />
+        </Grid>
+        <Grid item xs={6}>
+        <img src='/images/logoDark.svg' alt='Login-SignUP' className={classes.image2} />
+        </Grid>
+       
+        
+       
+      </Grid>
 
-  renderHeader() {
-    const { classes, shop } = this.props;
-
-    return (
-      <div className={classes.header}>
-        <div className={classes.headerFlex}>
-          <Link route="/" className={classes.backLink}>
-            <ChevronLeftIcon style={{ fontSize: 18, color: "inherit", verticalAlign: "sub", transition: "none" }} />
-            <span className={classes.backLinkText}>Back</span>
-          </Link>
-        </div>
-
-        <Link route="home">
-          <div className={classes.logo}>
-            {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
           </div>
-        </Link>
-
-        <div className={classes.headerFlex} />
-      </div>
-    );
-  }
-
-  renderEntry() {
-    const { setEmailOnAnonymousCart } = this.props;
-    return <Entry setEmailOnAnonymousCart={setEmailOnAnonymousCart} />;
-  }
-
-  render() {
-    const { classes, shop } = this.props;
-    return (
-      <Layout shop={shop}>
-        <Helmet
-          title={`Login | ${shop && shop.name}`}
-          meta={[{ name: "description", content: shop && shop.description }]}
-        />
-        <CheckoutTopHat checkoutMessage="Free Shipping + Free Returns" />
-        <div className={classes.root}>
-          {this.renderHeader()}
-          <main className={classes.main}>{this.renderEntry()}</main>
-        </div>
-      </Layout>
-    );
-  }
+        </Fade>
+     
+      </Modal>
+    </div>
+  );
 }
-
-/**
- *  Static props for the login
- *
- * @returns {Object} the props
- */
-export async function getStaticProps({ params: { lang } }) {
-  return {
-    props: {
-      ...await fetchPrimaryShop(lang),
-      ...await fetchTranslations(lang, ["common"])
-    }
-  };
-}
-
-/**
- *  Static paths for the login
- *
- * @returns {Object} thepaths
- */
-export async function getStaticPaths() {
-  return {
-    paths: locales.map((locale) => ({ params: { lang: locale } })),
-    fallback: false
-  };
-}
-
-export default withApollo()(withCart(withStyles(styles, { withTheme: true })(Login)));

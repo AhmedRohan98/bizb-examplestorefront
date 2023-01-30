@@ -221,6 +221,15 @@ const theme = createMuiTheme({
       fontWeight: 600,
       color: "#3c3c3c"
     },
+    subtitle: {
+      fontSize: "30px",
+      color:"#333333",
+      fontWeight: 400,
+      weight:100,
+      lineHeight:"100%"
+      
+
+    },
     body3:{
 fontSize:18,
 color:"#595959"
