@@ -5,6 +5,8 @@ import Helmet from "react-helmet";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 import ProductGrid from "components/ProductGrid";
 import Layout from "components/Layout";
+import dynamic from 'next/dynamic'
+const DynamicSlider = dynamic(() => import('../../components/Header/sliderdata'))
 import { inPageSizes } from "lib/utils/pageSizes";
 import { withApollo } from "lib/apollo/withApollo";
 
@@ -70,16 +72,8 @@ class ProductGridPage extends Component {
 
     return typeof window !== undefined && <Layout shop={shop} headerType={false}>
     <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-    <ProductGrid
-      catalogItems={catalogItems}
-      currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
-      isLoadingCatalogItems={isLoadingCatalogItems}
-      pageInfo={catalogItemsPageInfo}
-      pageSize={pageSize}
-      setPageSize={this.setPageSize}
-      setSortBy={this.setSortBy}
-      sortBy={sortBy}
-    />
+    <DynamicSlider/ >
+
   </Layout>
   }
 }

@@ -4,8 +4,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Hidden from "@material-ui/core/Hidden";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import dynamic from 'next/dynamic'
-const DynamicSlider = dynamic(() => import('./sliderdata'))
 import { createStyles, withStyles } from "@material-ui/core/styles";
 import { NavigationDesktop } from "components/NavigationDesktop";
 import {
@@ -20,7 +18,7 @@ import MiniCart from "components/MiniCart";
 
 import type { FC } from "react";
 import type { WithStyles, Theme } from "@material-ui/core";
-import Ipl from "./sliderdata"
+
 const styles = (theme: Theme) =>
   createStyles({
     appBar: {
@@ -68,7 +66,53 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
     uiStore.toggleMenuDrawerOpen();
   };
   return (
-    <DynamicSlider/ >
+    <AppBar position="static" elevation={0} className={classes.appBar}>
+      <Toolbar className={classes.toolbar}>
+        
+        <div className={classes.dark}><Hidden mdUp>
+          <NavigationToggleMobile onClick={handleNavigationToggleClick} />
+        </Hidden></div>
+        {/* <Hidden mdUp>
+          <NavigationToggleMobile onClick={handleNavigationToggleClick} />
+        </Hidden> */}
+
+        <div className={classes.controls}>
+          <Typography className={classes.title} color="inherit" variant="h6">
+            {/* @ts-ignore TODO: Refactor link to address type error */}
+            {/* <Link route="/">
+              {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
+            </Link> */}
+          </Typography>
+
+          <Hidden smDown>
+            <NavigationDesktop headerType={headerType}/>
+          </Hidden>
+        </div>
+        
+        <div style={{ 
+          zIndex: -1,
+          position: "absolute",
+          margin: "auto",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          }}>
+          {headerType?<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoLight.svg"/> :<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }
+        </div>
+        
+        <AccountDropdown headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />
+        <span style={{marginRight: "25px", marginLeft: "25px"}}>{headerType? <img src="/images/searchIconLight.svg"/>: <img src="/images/searchIconDark.svg"/>}</span>
+        <MiniCart headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />
+        
+
+        {/* <LocaleDropdown /> */}
+
+        {/* <AccountDropdown />
+        <span><img src="/images/searchIcon.svg"/></span>
+        <MiniCart /> */}
+      </Toolbar>
+      <NavigationMobile shop={shop} />
+    </AppBar>
   );
 };
 
