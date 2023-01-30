@@ -81,7 +81,6 @@ class Login extends Component {
 
   componentDidMount() {
     const { cart } = this.props;
-    if ((cart && cart.account !== null) || (cart && cart.email)) Router.back();
   }
 
   renderHeader() {
