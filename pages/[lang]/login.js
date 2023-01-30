@@ -4,11 +4,9 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Checkbox from '@material-ui/core/Checkbox';
-
-import FormGroup from '@material-ui/core/FormGroup';
+import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+
 
 import { Grid, TextField, Button,  Typography } from '@material-ui/core';
 
@@ -66,9 +64,7 @@ const useStyles = makeStyles((theme) => ({
  
 "  && .MuiInput-root:hover::before" :{
     borderColor: "green"
-  }
-
-,
+  },
 register:{
   width:"214px",
   height:"48px",
@@ -81,7 +77,24 @@ register:{
   "&.MuiButton-root:hover" :{
     background:theme.palette.secondary.selected,
 }
+},
+socialmedia:{
+  width:"230px",
+  height:"48px",
+  borderRadius:"40px",
+  border:"none",
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  margin:"10px",
+  padding:"3px",
+  background:theme.palette.secondary.selected,
+  "&.MuiButton-root:hover" :{
+    background:theme.palette.secondary.selected,
 }
+},
+
+
 }));
 
 export default function TransitionsModal() {
@@ -171,6 +184,15 @@ export default function TransitionsModal() {
      
             </form>
             <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"> Register</Button>
+            <Box className={classes.socialmedia}>
+            <img src='/authentication/signup3.svg' alt='Login-SignUP' className={classes.image3} />
+            <Typography variant="h6"> Register With Google</Typography>
+       </Box>
+       <Box className={classes.socialmedia}>
+            <img src='/authentication/signup4.svg' alt='Login-SignUP' className={classes.image3} />
+            <Typography variant="h6"> Register With Facebook</Typography>
+       </Box>
+     
         </Grid>
        
         

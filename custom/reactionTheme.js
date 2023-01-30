@@ -206,7 +206,8 @@ const theme = createMuiTheme({
       color:"#333333",
         fontWeight: 400,
         weight:100,
-        lineHeight:"100%"
+        lineHeight:"24px",
+        fontFamily: "Ostrich Sans",
         
   
       
