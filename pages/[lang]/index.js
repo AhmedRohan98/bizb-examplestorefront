@@ -68,21 +68,19 @@ class ProductGridPage extends Component {
       pageTitle = "Storefront";
     }
 
-    return (
-      <Layout shop={shop} headerType={false}>
-        <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-        <ProductGrid
-          catalogItems={catalogItems}
-          currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
-          isLoadingCatalogItems={isLoadingCatalogItems}
-          pageInfo={catalogItemsPageInfo}
-          pageSize={pageSize}
-          setPageSize={this.setPageSize}
-          setSortBy={this.setSortBy}
-          sortBy={sortBy}
-        />
-      </Layout>
-    );
+    return typeof window !== undefined && <Layout shop={shop} headerType={false}>
+    <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
+    <ProductGrid
+      catalogItems={catalogItems}
+      currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
+      isLoadingCatalogItems={isLoadingCatalogItems}
+      pageInfo={catalogItemsPageInfo}
+      pageSize={pageSize}
+      setPageSize={this.setPageSize}
+      setSortBy={this.setSortBy}
+      sortBy={sortBy}
+    />
+  </Layout>
   }
 }
 

@@ -8,17 +8,13 @@ const Storyslider = () => {
   const useStyles = makeStyles((theme) => ({
     
     root:{
-      display:"flex",
-      flexDirection: "column",
-      justifyContent: "center",
+     
       alignItems:"center",
       marginTop:"30px"
      },
        gridroot:{
-        display:"flex",
-        alignItems: "center",
-        flexDirection: "row",
-        position:"relative",
+     
+        
         justifyContent: "center",
       
          },
@@ -295,7 +291,7 @@ const Storyslider = () => {
     slidesPerView: 2,
   },
    600: {
-    width: 800,
+    width: 600,
     slidesPerView: 1,
   },
 }}
