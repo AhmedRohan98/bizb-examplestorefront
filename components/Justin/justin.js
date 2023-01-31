@@ -6,32 +6,97 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles({
-  root2: {
-    height:312,
-    width:312,
-   
-  },
+
   cardaction:{
     height:312,
     width: 312,
   },
-  Justin: {
-    padding:"200px",
-    margin:"200px",
-    display:"flex",
-    flexwrap:"wrap"
-  },
+
  
+
+
+ root:{
+display:"flex",
+flexDirection: "column",
+justifyContent: "center",
+alignItems:"center",
+
+ },
+ gridroot:{
+  display:"flex",
+  alignItems: "center",
+  flexDirection: "row",
+  position:"relative",
+  justifyContent: "center",
+
+   },
+   typography: {
+    
+  background:"#333333",
+  opacity:"15%",
+  height:"4px",
+
+
+    width:"200px",
+
+   
+  },
+  main:{
+    margin:"3vh",
+ 
+  },
+  text:{
+ position :"absolute" ,
+ bottom: 60,
+  },
+  header:{
+    height:"50px",
+   
+  },
+
+  headermain:{
+   
+    display: "flex",
+    justifyContent: "space-between",
+  },
   image:{
-height:431,
-width:312
+   
+   width:"290px",
+   borderRadius:"10px",
+   
   },
- 
+  size:{
+   
+ display:"flex",
+ flexDirection: "row",
+   },
+   price:{
+   
+    marginLeft:"20px"
+      },
+      rootimg:{
+        position:"relative"
+      },
+      cart:{
+        height:"35px",
+        width:"84px",
+        borderRadius:"40px",
+        background:"#FDC114",
+        display:"flex",
+        justifyContent:"space-evenly",
+        alignItems:"center",
+       bottom:"15px",
+       left:"10px",
+        position:"absolute",
+        
+         },
 });
 const itemData = [
   {
     image: '/justin/justin1.svg',
  id:1,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for ",
  size:"large"
   },
@@ -39,77 +104,105 @@ const itemData = [
     image: '/justin/justin2.svg',
     title:"Bag for sale",
  id:2,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  size:"large"
   },
   {
     image: '/justin/justin3.svg',
     id:3,
+    price:"Rs 1200",
+    newprice:"Rs 600",
     title:"Heels for sale",
     size:"large"
   },
   {
     image: '/justin/justin4.svg',
     id:4,
+    price:"Rs 1200",
+    newprice:"Rs 600",
     title:"floral shirt for",
     size:"large"
   },
   {
     image: '/justin/justin1.svg',
  id:5,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin2.svg',
  id:6,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Bag for sale",
  size:"large"
   },
   {
     image: '/justin/justin3.svg',
  id:7,
- title:"Heels for sale",
+ price:"Rs 1200",
+ newprice:"Rs 600",
+  title:"Heels for sale",
  size:"large"
   },
   {
     image: '/justin/justin4.svg',
  id:8,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin1.svg',
  id:9,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin2.svg',
  id:10,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Bag for sale",
  size:"large"
   },
   {
     image: '/justin/justin3.svg',
  id:11,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Heels for sale",
  size:"large"
   },
   {
     image: '/justin/justin4.svg',
  id:12,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
+ 
+
   {
     image: '/justin/justin1.svg',
  id:13,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
   {
     image: '/justin/justin2.svg',
  id:14,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Bag for sale",
  size:"large",
  size:"large"
@@ -117,12 +210,16 @@ const itemData = [
   {
     image: '/justin/justin3.svg',
  id:15,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"Heels for sale",
  size:"large"
   },
   {
     image: '/justin/justin4.svg',
  id:16,
+ price:"Rs 1200",
+ newprice:"Rs 600",
  title:"floral shirt for",
  size:"large"
   },
@@ -131,50 +228,59 @@ const itemData = [
 const Justin = () => {
   const classes = useStyles();
   return (
-  <>
-  <div className={classes.Justin}>
-  <Typography variant="h3">
+  <div className={classes.main}>
+  <div className={classes.headermain}>
+    <Typography variant="h3">
          JUST IN
-          </Typography>
-          <Grid container spacing={3}>
-          <Grid item xs={6} sm={3}>
-  <Card className={classes.root2}>
-  
-     { itemData.map((item)=>
+    </Typography >
+    <div className={classes.header}>
+    <h1 className={classes.typography}></h1>
+   
+    </div>
+    </div>
+  <div className={classes.root} >
+ <Grid container gap={3} className={classes.gridroot}>
+  { itemData.map((item)=>
       <>
-      <Container         className={classes.cardation}>
-    
- 
-      
-        <img
+     <Grid item lg={3} sm={6} md={4} xs={12} >
+     <div className={classes.rootimg}> 
+   <img
           component="img"
-          alt="Contemplative Reptile"
-          height="213"
-          width="312"
-          src={item.image}
-          title="Contemplative Reptile"
+          alt="loading"
+        src={item.image}
+        
           className={classes.image}
         />
-        <CardContent>
+      <div className={classes.cart}>
+        <img
+          component="img"
+         
+        src="/icons/cart.svg"
+        />
           <Typography gutterBottom variant="h5" component="h2">
+          + Cart          </Typography>
+        </div>  
+        </div>
+      <Typography gutterBottom variant="h5" component="h2">
            {item.title}
           </Typography>
-       
-        </CardContent>
-     
-        <span>size</span>
+        <div className={classes.size}><Typography gutterBottom variant="h4" >size</Typography>
+        <Typography gutterBottom variant="h4" >{`:${item.size}`}</Typography></div>
+        <div className={classes.size}>    <strike>{item.price}</strike> 
           
-          <span>{`:${item.size}`}</span>
-        
-      </Container>
+        <Typography gutterBottom variant="h5" className={classes.price}>
+        Rs 600
+          </Typography></div>
+       
+          </Grid>
       </>
   )
      }
-       </Card>
-       </Grid>
-       </Grid>
+      
+     </Grid>
+    
       </div>
-  </>
+  </div>
   );
 }
 

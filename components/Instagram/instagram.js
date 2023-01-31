@@ -35,16 +35,12 @@ const Instagram = () => {
           id:6,
           title:"Shoes",
         },
-        {
-            image: '/Instagram/instagram1.svg',
-          id:7,
-          title:"Causal",
-        },
+       
       ];
   const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        padding:"40px",
+       
        
       },
    image:{
@@ -57,7 +53,10 @@ const Instagram = () => {
     alignItems: "center",
     justifyContent: "center",
   },
-      
+  mainheading:{
+    paddingTop:"30px",
+   paddingLeft:"50px"
+   }
     
   }))
   
@@ -65,7 +64,10 @@ const Instagram = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-        <Typography variatn="h1"> Instagram</Typography>
+      <div className={classes.mainheading}><Typography variant="h3" >
+  Instagram
+      </Typography>
+      </div> 
     <Grid container spacing={3} className={classes.gridroot}>
         {instadata.map((item,i)=>(
               <Grid item  >

@@ -24,7 +24,9 @@ const theme = createMuiTheme({
       selected:"#FDC114",
     },
     background: {
-      default: "#ffffff"
+      default: "#ffffff",
+      main: "#D6C7C7"
+      
     },
     error: {
       light: "#E54F5D",
@@ -34,7 +36,8 @@ const theme = createMuiTheme({
     },
     action: {
       hover: "#f5f5f5",
-      selected: "#f5f5f5"
+      selected: "#f5f5f5",
+      main: "#D6C7C7"
     },
     colors: {
       buttonBorderColor: "#5e7480"
@@ -119,9 +122,11 @@ const theme = createMuiTheme({
       red400: "#bc1d2b",
       red500: "#5e3033",
       red600: "#3c1f21",
+      story:"#EAE7FF",
       blog1:"#CADFFF",
       blog2:"#CAFFD9",
       blog3:"#FFE0CA",
+      gradient: 'linear-gradient(#000000, 31.77%, rgba(0, 0, 0, 0), 100%)',
       pageLoading: {
         innerColor: "#1999dd",
         outerColor: "rgba(9.80392156862745%,59.99999999999995%,86.66666666666667%,0.122)"
@@ -150,6 +155,7 @@ const theme = createMuiTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,
+    
     subtitle2: {
       fontSize: 14,
       color: "#737373"
@@ -169,7 +175,6 @@ const theme = createMuiTheme({
       fontSize: "36px",
     color:"#000000",
     lineHeight: '100%',
-
       fontWeight: 400,
       weight:100,
       
@@ -198,10 +203,13 @@ const theme = createMuiTheme({
     },
     h6: {
       fontSize: "20px",
-    color:"#333333",
-      fontWeight: 400,
-      weight:100,
-      lineHeight:"100%"
+      color:"#333333",
+        fontWeight: 400,
+        weight:100,
+        lineHeight:"24px",
+        fontFamily: "Ostrich Sans",
+        
+  
       
     },
     body2: {
@@ -213,6 +221,21 @@ const theme = createMuiTheme({
       fontSize: 16,
       fontWeight: 600,
       color: "#3c3c3c"
+    },
+    body1: {
+      fontSize: "30px",
+      color:"#333333",
+      fontWeight: 400,
+      weight:900,
+      fontStyle: "Black",
+      lineHeight:"36px",
+      fontFamily: "Ostrich Sans",
+      
+
+    },
+    body3:{
+fontSize:18,
+color:"#595959"
     }
   }
 });

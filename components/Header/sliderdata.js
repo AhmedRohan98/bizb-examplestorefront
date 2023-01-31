@@ -1,56 +1,100 @@
-import Slider from "react-slick";
 
-import index from "./index"
-import { useRef } from "react";
-import { useEffect } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+
+
+import { useRef,useCallback ,useState} from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { ButtonBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Preloved from "../Preloved/prelovedSec"
-const Ipl = () => {
-  const sliderRef = useRef(null);
+
+import Story from "../Stories/story"
+import Justin from "../Justin/justin" 
+import Typography from "@material-ui/core/Typography";
+import Preloved from "../Preloved/prelovedSec";
+import Appsec from "../Appsection/appsec"
+import Instagram from '../Instagram/instagram';
+import OurBlogs from "../Ourblogs/ourblog"
+import Caloborators from "../Calloborators/calloborators"
+import BizbCalloborators from "../BizbCalloborators/ bcallobrators"
+import TopSelling from "../TopSelling/topselling"
+const MainSlider = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const useStyles = makeStyles((theme) => ({
-    
+ root:{
+position:"relative"
+ },
     image: {
- height:"auto",
- width:"100%"
-    },
-   
-    controls: {
-      alignItems: "inherit",
-      display: "inherit",
-      flex: 1,
-    },
-    arrow:{
-      position:"absolute",
-               
-      top: "-100px",
-      background:"green",
+      height:"auto",
+      width:"100%",
+ },
+    controller:{
+   display:"flex",
+     flexDirection:"row",
+    alignItems: "flex-end",
 
-      width:"auto",
-      left:"20px",
-      "&.active": {
-        background:'black'
-      }
+    background: theme.palette.reaction.gradient,
+  
     },
-    slickActive:{
-      background:'black'
+    controllera:{
+      position:"absolute",
+          
+      display:"flex",
+      flexDirection:"row",
+      gap:"4vh",
+      opacity:100,
+
+    
+      right:"5vh",
+ },
+    controllert:{
+      position:"absolute",
+    display:"flex",
+      flexDirection:"row",
+      gap:"5px",
+
+     
+      left:"5vh",
+bottom:"20px",
+
+      
     },
     title: {
       color: theme.palette.reaction.reactionBlue,
       marginRight: theme.spacing(),
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
-    toolbar: {
+    top: {
       // alignItems: "center",
       display: "flex",
-      justifyContent: "space-between",
-      marginTop: "50px"
+   
+      marginTop: "200px"
+    },
+    text:{
+      fontSize:"18px",
+      color:"white",
+      Fontfamily:" Circular Std"
     },
     dark: {
       color: "#333333"
     },
+    iconforwad: {
+  height:"auto",
+  color:"white",
+ 
+
+    },
+    iconback: {
+      height:"auto",
+      color:"white",
+
+    
+        },
+        arrowc:{
+          height:"auto",
+          color:"white",
+        }
   }))
   const ITEMS = [
     {
@@ -69,10 +113,7 @@ const Ipl = () => {
       image: '/Desktop-images/desktop4.svg',
       id:4
     },
-    {
-      image: '/Desktop-images/desktop5.svg',
-      id:5
-    },
+   
     {
       image: '/Desktop-images/desktop6.svg',
       id:6
@@ -82,92 +123,84 @@ const Ipl = () => {
     const classes = useStyles();
     return (
       <>
-        
-          <dev>
-            <div className="imagf2">
+        <SwiperSlide>
+         
+         
               <img src={item.image} className={classes.image}/>
-            </div>
-          </dev>
+          
+              <div className={classes.controller}>
+        <div className={classes.controllert}>     <img src="/icons/home.svg" className={classes.ie}/><Typography className={classes.text}>Scroll to discover more</Typography></div>
+      <div className={classes.controllera}>
+{activeIndex-0?<ArrowBackIos className={classes.iconback}  onClick={handlePrev}/>:""}
+
+<h1 className={classes.arrowc}>{`0${activeIndex+1}`}</h1>
+<h1 className={classes.arrowc} >|</h1>
+      <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+{  activeIndex < ITEMS.length-1 ?   <ArrowForwardIos className={classes.iconforwad} onClick={handleNext}/>:""}
+    </div>
+    </div>
     
-     
+          </SwiperSlide>
       </>
     );
   }
+ 
+  const sliderRef = useRef(null);
+
+ 
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
+
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
+  }, []);
+  var menu = ['Slide 1', 'Slide 2', 'Slide 3']
   const classes = useStyles();
+    const pagination = {
+  
+      renderCustom: (_, current, total) => {
+       return    <div>{`0${current+1}`}</div>
+      },
+  
+  };
+
+
   return (
-    <div>
+    <>
      
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "0 10px",
-        }}
-      >
-      
-        <div style={{ display: "flex" }}>
-          <ButtonBase
-            style={{
-              width: 35,
-              height: 35,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: 10,
-              borderRadius: 7,
-              boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
-              cursor: "pointer",
-            }}
-            className="buttons"
-            onClick={() => sliderRef.current.slickPrev()}
-          >
-           <ArrowBackIos />
-          </ButtonBase>
-          <ButtonBase
-            style={{
-              width: 35,
-              height: 35,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 7,
-              boxShadow: "0 1px 3px rgb(0 0 0 / 10%)",
-              cursor: "pointer",
-            }}
-            className="buttons"
-            onClick={() => sliderRef.current.slickNext()}
-          >
-               <ArrowForwardIos />
-          </ButtonBase>
-        </div>
-      </div>
-      <div style={{ margin: 30 }}>
-        <Slider
-          dots
-          
-          ref={sliderRef}
-          slidesToShow={1}
-          slidesToScroll={1}
-          customPaging={(i) => (
-            <div
-            
-              className={classes.arrow}
-            >
-            {`0${i+1}`}
-            </div>
-          )}
-          
-        >
-          
-          {ITEMS.map((item) => (
-            <Item item={item} />
-          ))}
+     <div className={classes.root}>
+      <Swiper ref={sliderRef}
        
-        </Slider>
-      </div>
-  <Preloved />
-    </div>
+       onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
+ >
+
+        {ITEMS.map((item) => (
+            <SwiperSlide>
+            <Item item={item} />
+            </SwiperSlide>
+          ))}
+      
+      </Swiper>
+      <Preloved />
+   
+  <Justin />      
+     
+
+<Story />
+
+<BizbCalloborators />
+
+<Appsec />
+
+<Caloborators />
+<OurBlogs />
+<Instagram />
+</div>
+    </>
   );
 };
 
-export default Ipl;
+export default MainSlider ;
