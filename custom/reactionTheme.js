@@ -1,7 +1,4 @@
-/**
- * There are two theme files. This is for all MaterialUI components.
- * The other theme file is `componentTheme.js`
- */
+
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -225,10 +222,9 @@ const theme = createMuiTheme({
     body1: {
       fontSize: "30px",
       color:"#333333",
-      fontWeight: 400,
-      weight:900,
+ 
       fontStyle: "Black",
-      lineHeight:"36px",
+      lineHeight:"100%",
       fontFamily: "Ostrich Sans",
       
 
