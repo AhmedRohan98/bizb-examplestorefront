@@ -7,15 +7,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-
+import CloseIcon from '@material-ui/icons/Close';
 import { Grid, TextField, Button,  Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+ 
   modal: {
     display: 'flex',
 
     flexDirection: "row",
- 
+    justifyContent: 'center',
   },
   paper: {
 
@@ -46,6 +47,14 @@ const useStyles = makeStyles((theme) => ({
 
     display:"flex",
     flexDirection: "column",
+    background:theme.palette.secondary.selected,
+    
+  },
+  grid2:{
+
+    display:"flex",
+    flexDirection: "column",
+    background:theme.palette.background.default,
     
   },
   ".MuiInputBase-root":{
@@ -53,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   input:{
-    width:"347px",
+    width:"387px",
     height:"48px",
     borderRadius:"6px",
     background:"#F7F7F9",
@@ -93,7 +102,11 @@ socialmedia:{
     background:theme.palette.secondary.selected,
 }
 },
-
+topheader:{
+  display:"flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+}
 
 }));
 
@@ -133,15 +146,18 @@ export default function TransitionsModal() {
           <div className={classes.paper}>
         
         <Grid container  xs={12}>
-        <Grid item xs={6} className={classes.grid1}>
+        <Grid item xs={4} className={classes.grid1}>
         <img src='/authentication/signup2.svg' alt='Login-SignUP' className={classes.image2} />
         <img src='/authentication/login-siginup.svg' alt='Login-SignUP' className={classes.image} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4} className={classes.grid2}>
+      <div className={classes.topheader}> 
         <img src='/images/logoDark.svg' alt='Login-SignUP' className={classes.image2} />
+        <CloseIcon onClick={handleClose} />
+        </div>
         <Typography variant="body1">REGISTRATION </Typography>
         <form>
-              <Grid container spacing={0.2}>
+              <Grid container spacing={1}>
                 <Grid xs={12}  item>
                 <label className={classes.label}>FullName
                 <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}   className={classes.input} />
