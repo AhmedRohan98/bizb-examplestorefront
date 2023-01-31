@@ -1,206 +1,101 @@
-
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useRef, useState } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 
 
-import { useRef,useCallback ,useState} from "react";
-import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/core/styles";
-
-import Story from "../Stories/story"
-import Justin from "../Justin/justin" 
-import Typography from "@material-ui/core/Typography";
-import Preloved from "../Preloved/prelovedSec";
-import Appsec from "../Appsection/appsec"
-import Instagram from '../Instagram/instagram';
-import OurBlogs from "../Ourblogs/ourblog"
-import Caloborators from "../Calloborators/calloborators"
-import BizbCalloborators from "../BizbCalloborators/ bcallobrators"
-import TopSelling from "../TopSelling/topselling"
-const MainSlider = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const useStyles = makeStyles((theme) => ({
- root:{
-position:"relative"
- },
-    image: {
-      height:"auto",
-      width:"100%",
- },
-    controller:{
-   display:"flex",
-     flexDirection:"row",
-    alignItems: "flex-end",
-
-    background: theme.palette.reaction.gradient,
-  
-    },
-    controllera:{
-      position:"absolute",
-          
-      display:"flex",
-      flexDirection:"row",
-      gap:"4vh",
-      opacity:100,
-
-    
-      right:"5vh",
- },
-    controllert:{
-      position:"absolute",
-    display:"flex",
-      flexDirection:"row",
-      gap:"5px",
-
-     
-      left:"5vh",
-bottom:"20px",
-
-      
-    },
-    title: {
-      color: theme.palette.reaction.reactionBlue,
-      marginRight: theme.spacing(),
-      borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
-    },
-    top: {
-      // alignItems: "center",
-      display: "flex",
-   
-      marginTop: "200px"
-    },
-    text:{
-      fontSize:"18px",
-      color:"white",
-      Fontfamily:" Circular Std"
-    },
-    dark: {
-      color: "#333333"
-    },
-    iconforwad: {
-  height:"auto",
-  color:"white",
- 
-
-    },
-    iconback: {
-      height:"auto",
-      color:"white",
-
-    
-        },
-        arrowc:{
-          height:"auto",
-          color:"white",
-        }
-  }))
-  const ITEMS = [
-    {
-      image: '/Desktop-images/desktop2.svg',
-   id:1
-    },
-    {
-      image: '/Desktop-images/desktop2.svg',
-   id:2
-    },
-    {
-      image: '/Desktop-images/desktop3.svg',
-      id:3
-    },
-    {
-      image: '/Desktop-images/desktop4.svg',
-      id:4
-    },
-   
-    {
-      image: '/Desktop-images/desktop6.svg',
-      id:6
-    },
-  ];
-  function Item({ item }) {
-    const classes = useStyles();
-    return (
-      <>
-        <SwiperSlide>
-         
-         
-              <img src={item.image} className={classes.image}/>
-          
-              <div className={classes.controller}>
-        <div className={classes.controllert}>     <img src="/icons/home.svg" className={classes.ie}/><Typography className={classes.text}>Scroll to discover more</Typography></div>
-      <div className={classes.controllera}>
-{activeIndex-0?<ArrowBackIos className={classes.iconback}  onClick={handlePrev}/>:""}
-
-<h1 className={classes.arrowc}>{`0${activeIndex+1}`}</h1>
-<h1 className={classes.arrowc} >|</h1>
-      <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
-{  activeIndex < ITEMS.length-1 ?   <ArrowForwardIos className={classes.iconforwad} onClick={handleNext}/>:""}
-    </div>
-    </div>
-    
-          </SwiperSlide>
-      </>
-    );
-  }
- 
-  const sliderRef = useRef(null);
-
- 
-  const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
-  }, []);
-
-  const handleNext = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slideNext();
-  }, []);
-  var menu = ['Slide 1', 'Slide 2', 'Slide 3']
-  const classes = useStyles();
-    const pagination = {
-  
-      renderCustom: (_, current, total) => {
-       return    <div>{`0${current+1}`}</div>
-      },
-  
-  };
-
+// import required modules
+import { FreeMode, Navigation, Thumbs } from "swiper";
+ function MainSlider() {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
     <>
-     
-     <div className={classes.root}>
-      <Swiper ref={sliderRef}
-       
-       onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
- >
-
-        {ITEMS.map((item) => (
-            <SwiperSlide>
-            <Item item={item} />
-            </SwiperSlide>
-          ))}
-      
+      <Swiper
+        style={{
+          "--swiper-navigation-color": "#fff",
+          "--swiper-pagination-color": "#fff",
+        }}
+        spaceBetween={10}
+        navigation={true}
+        thumbs={{ swiper: thumbsSwiper }}
+        modules={[FreeMode, Navigation, Thumbs]}
+        className="mySwiper2"
+      >
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
+        </SwiperSlide>
       </Swiper>
-      <Preloved />
-   
-  <Justin />      
-     
-
-<Story />
-
-<BizbCalloborators />
-
-<Appsec />
-
-<Caloborators />
-<OurBlogs />
-<Instagram />
-</div>
+      <Swiper
+        onSwiper={setThumbsSwiper}
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode={true}
+        watchSlidesProgress={true}
+        modules={[FreeMode, Navigation, Thumbs]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
+        </SwiperSlide>
+      </Swiper>
     </>
   );
-};
+}
 
 export default MainSlider ;
