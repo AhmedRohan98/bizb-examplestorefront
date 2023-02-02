@@ -1,131 +1,77 @@
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs, Mousewheel } from "swiper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useState } from "react";
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import CloseIcon from '@material-ui/icons/Close';
 import Typography from "@material-ui/core/Typography";
-import Tab from '@material-ui/core/Tab';
-import TabContext from '@material-ui/lab/TabContext';
-import TabList from '@material-ui/lab/TabList';
-import TabPanel from '@material-ui/lab/TabPanel';
-const useStyles = makeStyles({
-
-
-  slider:{
+import Icon from '@material-ui/core/Icon';
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    height:"100vh",
+    width:"468px",
+    position:"absolute",
+        top:"0px",
+        right:"0px",
   
- padding:"32px"
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
-  sliderflex:{
+  cartmodal:{
     display:"flex",
+    justifyContent:"space-between",
+    flexDirection: "row",
+
+    borderBottom: "1px solid #E5E5E5",
+  },
+  cartitems:{
+height:"60vh",
+overflowY:"auto",
+ 
+   
+  },
+  cartitem:{
+    padding: theme.spacing(1),
+    display:"flex",
+    justifyContent:"space-between",
     alignItems:"flex-start",
+ 
+   
+  },
+  cartimage:{
+    height:"130px",
+    width:"120px",
 
+    borderRadius:"10px"
   },
-
-  slidercol:{
-    display:"flex",
-    flexDirection: "column",
-   width:"150px",
-   marginRight:"32px"
+  cartitemtext:{
+  display:"flex",
+  flexDirection: "column",
+  
   },
-  container1:{
-width:"100%",
-height:"100%"
+  cartprice:{
+    paddingTop: theme.spacing(1),
+    color:theme.palette.secondary.selected,
   },
-  container2:{
-    width:"500px",
-    height:"600px"
-      },
-      thumb:{
-        height:"600px",
-        width:"200px",
-        "& .swiper-slide":{
-          opacity:0.5,
-          "&.swiper-slide-visible":{
-            opacity:0.5,
-       
-              "&.swiper-slide-thumb-active":{
-                opacity:1,
-              
-            }
-          },
-        
-    //  "& .swiper-slide-thumb":{
-    //   "& .swiper-slide-next":{
-    //     "& .swiper-slide-thumb-active":{
-    //       opacity:1,
-          
-    //               },
-    //   }
-    //  }
-         
-      
-               
-        },
-      
-        
-        
-      },
-   
-      sliderimages:{
-        height:"600px",
-        width:"100%",
-     
-      },
-      sliderimage:{
-        height:"100%",
-        width:"100%",
-        
-      
-      },
-      sliderimage2:{
-        height:"600px",
-        width:"auto"
-      },
-      size:{
-   
-        display:"flex",
-        flexDirection: "row",
-        
-          },
-          price:{
-          
-           marginLeft:"20px"
-             },
-             offer:{
-              display:"flex",
-              marginLeft: "170px",
-              background:"#E16452",
-              padding:"4px",
-              borderBotom:"1px solid red",
-              color:"#ffffff"
-             },
-             sizeimage:{
-              display:"flex",
-              marginTop:"10px",
-              borderBottom: "1px solid #E5E5E5" ,
-              marginBottom:"10px",
-              justifyContent:"space-between"            
-            
-            },
-            tabs:{
-              borderBottom: "1px solid #E5E5E5" ,  
-            },
-            cart:{
-              height:"35px",
-              width:"100%",
-              borderRadius:"40px",
-              background:"#FDC114",
-              display:"flex",
-              justifyContent:"center",
-          
-              padding:"3px"
-   
-              
-               },
-     });
- const slides = [
+  cartpric:{
+    paddingTop: theme.spacing(1),
+  
+  },
+  total:{
+    borderTop: "1px solid #E5E5E5",
+    position:"fixed",
+    width:"100%",
+    bottom:"10px"
+  }
+}));
+const itemData = [
   {
     image: '/cart/cart1.svg',
  id:1,
@@ -141,150 +87,94 @@ height:"100%"
  price:"Rs 1200",
  newprice:"Rs 600",
  size:"large"
-  },
+  }, 
   {
-    image: '/justin/justin1.svg',
+    image: '/cart/cart2.svg',
+    title:"Bag for sale",
+ id:2,
+ price:"Rs 1200",
+ newprice:"Rs 600",
+ size:"large"
+  }, 
+  {
+    image: '/cart/cart1.svg',
  id:1,
  price:"Rs 1200",
  newprice:"Rs 600",
- title:"floral shirt for ",
+ title:"floral shirt ",
  size:"large"
   },
+  {
+    image: '/cart/cart3.svg',
+    title:"Bag ",
+ id:2,
+ price:"Rs 1200",
+ newprice:"Rs 600",
+ size:"large"
+  }, 
+  {
+    image: '/cart/cart2.svg',
+    title:"Bag ",
+ id:2,
+ price:"Rs 1200",
+ newprice:"Rs 600",
+ size:"large"
+  },
+ 
+];
+function MainSlider() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-]; 
+  const handleClose = () => {
+    setOpen(false);
+  };
 
- function MainSlider() {
-  const [imagesNavSlider, setImagesNavSlider] = useState(null);
-    const classes = useStyles();
-    const [value, setValue] = React.useState('1');
-
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
   return (
-    
-      <Box   className={classes.slider}>
-      <Grid container spacing={1} className={classes.sliderflex}>
-        <Grid item xs={5} md={2} className={classes.slidercol}>
-      <div className={classes.thumb}>
-    
-      <Swiper
-                onSwiper={setImagesNavSlider}
-                direction="vertical"
-                spaceBetween={24}
-                slidesPerView={3}
-                navigation={{
-                  nextEl: ".slider__next",
-                  prevEl: ".slider__prev"
-                }}
-                className={classes.container1}
-                breakpoints={{
-                  0: {
-                    direction: "horizontal"
-                  },
-                  768: {
-                    direction: "vertical",
-               
-                  }
-                }}
-                modules={[Navigation, Thumbs]}
-              >
-                {slides.map((slide, index) => {
-                  return (
-                    <SwiperSlide key={index}>
-                      <div className={classes.thumbimage}>
-                        <img src={slide.image} alt=""  />
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>  
+    <div>
+      <button type="button" onClick={handleOpen}>
+        react-transition-group
+      </button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+   <div className={classes.cartmodal}> <Typography variant="subtitle1">Cart</Typography>
+    <CloseIcon onClick={handleClose} /></div>
+    <div className={classes.cartitems}>  
+      {itemData.map((item)=>
+      <div className={classes.cartitem}>
+      <img src={item.image} alt={item.title} className={classes.cartimage}></img>
+      <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
+      <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>Rs:500</Typography></div>
+
+      <img src="/cart/icon.svg" alt={item.title} />
       </div>
-
-        </Grid>
-         <Grid item xs={5} md={5} className={classes.sliderimages}>
-          <Swiper
-              thumbs={{ swiper: imagesNavSlider }}
-              direction="horizontal"
-              slidesPerView={1}
-              spaceBetween={32}
-              mousewheel={true}
-              navigation={{
-                nextEl: ".slider__next",
-                prevEl: ".slider__prev"
-              }}
-              breakpoints={{
-                0: {
-                  direction: "horizontal",
-                  thumbs: "false"
-                },
-                768: {
-                  direction: "horizontal"
-                }
-              }}
-              className={classes.container2}
-              modules={[Navigation, Thumbs, Mousewheel]}
-            >
-              {slides.map((slide, index) => {
-                return (
-                  <SwiperSlide key={index}>
-        
-                      <img src={slide.image} alt="" className={classes.sliderimage2} />
-                    
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper> 
-          
-        </Grid>
-        <Grid item xs={4} md={4} className={classes.carttext} >
-<Typography  variant="subtitle1">Floral Shirt in yellow color for sale
-on Bizb</Typography>
-<div className={classes.size}>    <strike variant="h4">Rs 600</strike> 
-          
-          <Typography gutterBottom variant="h4" className={classes.price}>
-          Rs 600
-            </Typography>
-            <Typography gutterBottom variant="h4"  className={classes.offer}>
-                50 % OFF
-                   </Typography>
-            </div>
-          <div  className={classes.sizeimage} >
-            <img src="/cart/available.svg" alt="available" />
-            <Typography gutterBottom variant="h4"  className={classes.offr}>
-              Large
-                   </Typography>
+      )}
+    </div>
+    <div className={classes.total}>
+      <h1>ffff</h1>
+    </div>
           </div>
-          <div className={classes.cart}>
-        <img
-          component="img"
-         
-        src="/icons/cart.svg"
-        />
-          <Typography gutterBottom variant="h4" >
-          + Cart          </Typography>
-        </div> 
-        <TabContext value={value} >
-        <TabList onChange={handleChange} className={classes.tabs}>
-            <Tab label="Description" value="1" />
-            <Tab label="size chart" value="2" />
-         
-          </TabList>
-        
-        <TabPanel value="1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</TabPanel>
-       
-        <TabPanel value="2">ffffffffffffffffffff voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</TabPanel>
-      </TabContext>
-        </Grid>
-      </Grid>
-    </Box>
-     
+        </Fade>
+      </Modal>
+    </div>
   );
 }
-
 
 
 export default MainSlider ;
