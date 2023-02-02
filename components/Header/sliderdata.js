@@ -67,9 +67,43 @@ overflowY:"auto",
   total:{
     borderTop: "1px solid #E5E5E5",
     position:"fixed",
-    width:"100%",
+    width:"390px",
+    padding:theme.spacing(2),
     bottom:"10px"
-  }
+  },
+  total1:{
+    display:"flex",
+    justifyContent:"space-between",
+  },
+  cart1:{
+    height:"48px",
+    width:"140px",
+    borderRadius:"40px",
+    background:theme.palette.reaction.black,
+    display:"flex",
+  
+    justifyContent:"space-evenly",
+    alignItems:"center",
+    marginTop:"10px",
+    
+     },
+     cart:{
+      height:"48px",
+      width:"140px",
+      borderRadius:"40px",
+      marginTop:"10px",
+      background:theme.palette.secondary.selected,
+      display:"flex",
+      justifyContent:"space-evenly",
+      alignItems:"center",
+    
+      
+       },
+       carttext:{
+        color:theme.palette.primary.contrastText,
+       }
+     
+
 }));
 const itemData = [
   {
@@ -120,6 +154,7 @@ const itemData = [
  newprice:"Rs 600",
  size:"large"
   },
+  
  
 ];
 function MainSlider() {
@@ -167,7 +202,22 @@ function MainSlider() {
       )}
     </div>
     <div className={classes.total}>
-      <h1>ffff</h1>
+<div className={classes.total1} >
+      <Typography variant="h4" >Subtotal</Typography>
+    <Typography variant="h4" >Rs 1500</Typography>
+</div>
+<div className={classes.total1} >
+<div className={classes.cart1}>
+      
+      <Typography gutterBottom variant="h6" component="h2" className={classes.carttext}>
+VIEW CART          </Typography>
+    </div>  
+    <div className={classes.cart}>
+      
+      <Typography gutterBottom variant="h6" component="h2">
+    CHECKOUT        </Typography>
+    </div>  
+</div>
     </div>
           </div>
         </Fade>

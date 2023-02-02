@@ -203,6 +203,7 @@ const theme = createMuiTheme({
     h6: {
       fontSize: "20px",
       color:"#333333",
+      fontFamily:"Ostrich Sans",
         fontWeight: 400,
         weight:100,
         lineHeight:"24px",
