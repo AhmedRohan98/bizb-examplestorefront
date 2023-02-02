@@ -73,6 +73,7 @@ const theme = createMuiTheme({
       black10: "#e6e6e6",
       black05: "#f5f5f5",
       black02: "#fafafa",
+
       white: "#ffffff",
       // medium colors
       reactionBlue: "#1999dd",
@@ -117,7 +118,8 @@ const theme = createMuiTheme({
       red200: "#f0e8e9",
       red300: "#e54f5d",
       red400: "#bc1d2b",
-      red500: "#5e3033",
+     
+      red500:"#E16452",
       red600: "#3c1f21",
       story:"#EAE7FF",
       blog1:"#CADFFF",
@@ -147,7 +149,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: "Source Sans Pro, Helvetica Neue, Helvetica, sans-serif",
-    fontSize: 16,
+    fontSize: 18,
     fontWeightLight: 400,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
@@ -215,9 +217,12 @@ const theme = createMuiTheme({
       color: "#595959"
     },
     subtitle1: {
-      fontSize: 16,
-      fontWeight: 600,
-      color: "#3c3c3c"
+      fontSize: "34px",
+      color:"#333333",
+      fontStyle: "Bold",  
+            weight:100,
+            fontFamily: "Lato",
+        lineHeight:"41px"
     },
     body1: {
       fontSize: "30px",
@@ -229,10 +234,7 @@ const theme = createMuiTheme({
       
 
     },
-    body3:{
-fontSize:18,
-color:"#595959"
-    }
+ 
   }
 });
 
