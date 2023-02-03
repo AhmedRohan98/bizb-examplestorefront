@@ -3,7 +3,7 @@ import { useRef,useCallback ,useState} from "react";
 
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 const Caloborators = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({

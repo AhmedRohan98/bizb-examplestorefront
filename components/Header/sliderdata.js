@@ -1,230 +1,221 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import CloseIcon from '@material-ui/icons/Close';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+
+
+import { useRef,useCallback ,useState} from "react";
+import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+
+import Story from "../Stories/story"
+import Justin from "../Justin/justin" 
 import Typography from "@material-ui/core/Typography";
-import Icon from '@material-ui/core/Icon';
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    height:"100vh",
-    width:"468px",
-    position:"absolute",
-        top:"0px",
-        right:"0px",
-  
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  cartmodal:{
-    display:"flex",
-    justifyContent:"space-between",
-    flexDirection: "row",
+import Preloved from "../Preloved/prelovedSec";
+import Appsec from "../Appsection/appsec"
+import Instagram from '../Instagram/instagram';
+import OurBlogs from "../Ourblogs/ourblog"
+import Caloborators from "../Calloborators/calloborators"
+import BizbCalloborators from "../BizbCalloborators/ bcallobrators"
+import TopSelling from "../TopSelling/topselling"
+const MainSlider = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    borderBottom: "1px solid #E5E5E5",
-  },
-  cartitems:{
-height:"60vh",
-overflowY:"auto",
- 
+  const useStyles = makeStyles((theme) => ({
+ root:{
+position:"relative",
+ },
+    image: {
+      height:"900px",
+      width:"100%",
+      objectPosition:"top",
+      objectFit: 'cover',
    
-  },
-  cartitem:{
-    padding: theme.spacing(1),
-    display:"flex",
-    justifyContent:"space-between",
-    alignItems:"flex-start",
- 
-   
-  },
-  cartimage:{
-    height:"130px",
-    width:"120px",
+ },
+    controller:{
+   display:"flex",
+     flexDirection:"row",
+    alignItems: "flex-end",
 
-    borderRadius:"10px"
-  },
-  cartitemtext:{
-  display:"flex",
-  flexDirection: "column",
+   
   
-  },
-  cartprice:{
-    paddingTop: theme.spacing(1),
-    color:theme.palette.secondary.selected,
-  },
-  cartpric:{
-    paddingTop: theme.spacing(1),
-  
-  },
-  total:{
-    borderTop: "1px solid #E5E5E5",
-    position:"fixed",
-    width:"390px",
-    padding:theme.spacing(2),
-    bottom:"10px"
-  },
-  total1:{
-    display:"flex",
-    justifyContent:"space-between",
-  },
-  cart1:{
-    height:"48px",
-    width:"140px",
-    borderRadius:"40px",
-    background:theme.palette.reaction.black,
-    display:"flex",
-  
-    justifyContent:"space-evenly",
-    alignItems:"center",
-    marginTop:"10px",
-    
-     },
-     cart:{
-      height:"48px",
-      width:"140px",
-      borderRadius:"40px",
-      marginTop:"10px",
-      background:theme.palette.secondary.selected,
+    },
+    controllera:{
+      position:"absolute",
+          
       display:"flex",
-      justifyContent:"space-evenly",
-      alignItems:"center",
+      flexDirection:"row",
+      gap:"4vh",
     
-      
-       },
-       carttext:{
-        color:theme.palette.primary.contrastText,
-       }
      
 
-}));
-const itemData = [
-  {
-    image: '/cart/cart1.svg',
- id:1,
- price:"Rs 1200",
- newprice:"Rs 600",
- title:"floral shirt for ",
- size:"large"
-  },
-  {
-    image: '/cart/cart3.svg',
-    title:"Bag for sale",
- id:2,
- price:"Rs 1200",
- newprice:"Rs 600",
- size:"large"
-  }, 
-  {
-    image: '/cart/cart2.svg',
-    title:"Bag for sale",
- id:2,
- price:"Rs 1200",
- newprice:"Rs 600",
- size:"large"
-  }, 
-  {
-    image: '/cart/cart1.svg',
- id:1,
- price:"Rs 1200",
- newprice:"Rs 600",
- title:"floral shirt ",
- size:"large"
-  },
-  {
-    image: '/cart/cart3.svg',
-    title:"Bag ",
- id:2,
- price:"Rs 1200",
- newprice:"Rs 600",
- size:"large"
-  }, 
-  {
-    image: '/cart/cart2.svg',
-    title:"Bag ",
- id:2,
- price:"Rs 1200",
- newprice:"Rs 600",
- size:"large"
-  },
+    
+      right:"5vh",
+ },
+    controllert:{
+      position:"absolute",
+    display:"flex",
+      flexDirection:"row",
+      gap:"5px",
+
+     
+      left:"5vh",
+bottom:"20px",
+
+      
+    },
   
+    title: {
+      color: theme.palette.reaction.reactionBlue,
+      marginRight: theme.spacing(),
+      borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
+    },
+    top: {
+      // alignItems: "center",
+      display: "flex",
+   
+      marginTop: "200px"
+    },
+    text:{
+      fontSize:"18px",
+      color:"white",
+      Fontfamily:" Circular Std"
+    },
+    dark: {
+      color: "#333333"
+    },
+    iconforwad: {
+  height:"auto",
+  color:"white",
  
-];
-function MainSlider() {
+
+    },
+    iconback: {
+      height:"auto",
+      color:"white",
+
+    
+        },
+        arrowc:{
+          height:"auto",
+          color:"white",
+        }
+        
+  }))
+  const ITEMS = [
+    {
+      image: '/Desktop-images/slider1.webp',
+   id:1
+    },
+    {
+      image: '/Desktop-images/desktop2.svg',
+   id:1
+    },
+    {
+      image: '/Desktop-images/desktop2.svg',
+   id:2
+    },
+    {
+      image: '/Desktop-images/desktop3.svg',
+      id:3
+    },
+    {
+      image: '/Desktop-images/desktop4.svg',
+      id:4
+    },
+   
+    {
+      image: '/Desktop-images/desktop6.svg',
+      id:6
+    },
+  ];
+  function Item({ item }) {
+    const classes = useStyles();
+    return (
+      <>
+        <SwiperSlide>
+         
+         
+              <img src={item.image} className={classes.image}/>
+          
+              <div className={classes.controller}>
+            
+        <div className={classes.controllert}>     <img src="/icons/home.svg" className={classes.ie}/><Typography className={classes.text}>Scroll to discover more</Typography></div>
+      <div className={classes.controllera}>
+{activeIndex-0?<ArrowBackIos className={classes.iconback}  onClick={handlePrev}/>:""}
+
+<h1 className={classes.arrowc}>{`0${activeIndex+1}`}</h1>
+<h1 className={classes.arrowc} >|</h1>
+      <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+{  activeIndex < ITEMS.length-1 ?   <ArrowForwardIos className={classes.iconforwad} onClick={handleNext}/>:""}
+    </div>
+    </div>
+    
+          </SwiperSlide>
+      </>
+    );
+  }
+ 
+  const sliderRef = useRef(null);
+
+ 
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
+
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
+  }, []);
+  var menu = ['Slide 1', 'Slide 2', 'Slide 3']
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
+    const pagination = {
+  
+      renderCustom: (_, current, total) => {
+       return    <div>{`0${current+1}`}</div>
+      },
+  
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
-    <div>
-      <button type="button" onClick={handleOpen}>
-        react-transition-group
-      </button>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-   <div className={classes.cartmodal}> <Typography variant="subtitle1">Cart</Typography>
-    <CloseIcon onClick={handleClose} /></div>
-    <div className={classes.cartitems}>  
-      {itemData.map((item)=>
-      <div className={classes.cartitem}>
-      <img src={item.image} alt={item.title} className={classes.cartimage}></img>
-      <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
-      <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>Rs:500</Typography></div>
+    <>
+     
+     <div className={classes.root}>
+      <Swiper ref={sliderRef}
+       
+       onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
+ >
 
-      <img src="/cart/icon.svg" alt={item.title} />
-      </div>
-      )}
-    </div>
-    <div className={classes.total}>
-<div className={classes.total1} >
-      <Typography variant="h4" >Subtotal</Typography>
-    <Typography variant="h4" >Rs 1500</Typography>
-</div>
-<div className={classes.total1} >
-<div className={classes.cart1}>
+        {ITEMS.map((item) => (
+            <SwiperSlide>
+            <Item item={item} />
+            </SwiperSlide>
+          ))}
       
-      <Typography gutterBottom variant="h6" component="h2" className={classes.carttext}>
-VIEW CART          </Typography>
-    </div>  
-    <div className={classes.cart}>
-      
-      <Typography gutterBottom variant="h6" component="h2">
-    CHECKOUT        </Typography>
-    </div>  
+      </Swiper>
+         <Preloved />
+          
+      {/* <Preloved />
+   
+  // <Justin />      
+     
+
+<Story />
+
+<BizbCalloborators />
+<div className={classes.top}>
+  <TopSelling />
+ 
 </div>
-    </div>
-          </div>
-        </Fade>
-      </Modal>
-    </div>
+<Appsec />
+
+<Caloborators />
+<OurBlogs />
+<Instagram /> */}
+</div>
+    </>
   );
-}
-
+};
 
 export default MainSlider ;

@@ -59,13 +59,29 @@ subtitle:{
 },
 subtitlet:{
  color:"#1F1F1F",
- fontSize: "24px",
+
 
  fontFamily: "Lato",
+ textAlign:"center",
  
-   lineHeight:"100%"
  
-}
+},
+carts:{
+  position:"relative",
+},
+cart:{
+  height:"35px",
+  width:"84px",
+  borderRadius:"40px",
+  background:"#FDC114",
+  display:"flex",
+  justifyContent:"space-evenly",
+  alignItems:"center",
+ bottom:"50%",
+ left:"10px",
+  position:"absolute",
+  
+   },
 }))
 const itemData = [
  
@@ -135,11 +151,11 @@ Fashion
   <div className={classes.root2}>
 <Box className={classes.subtitle}>
 
-<h6 className={classes.subtitlet}>
+<Typography variant="h4" className={classes.subtitlet}>
  Now you can revamp your daily wear wardrobe
 every month while saving more than 50% from
 your monthly budget!
- </h6>
+ </Typography>
  </Box>
  </div>
 <ResponsiveMasonry
@@ -149,8 +165,19 @@ your monthly budget!
 <Masonry>
 {itemData.map((item)=>(
 <>
+<div className={classes.carts}>
 <img src={item.image} />
 
+<div className={classes.cart}>
+        <img
+          component="img"
+         
+        src="/icons/cart.svg"
+        />
+          <Typography gutterBottom variant="h5" component="h2">
+          + Cart          </Typography>
+          </div>
+          </div>
 </>
 )
 

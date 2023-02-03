@@ -49,20 +49,7 @@ class CheckoutComplete extends Component {
       );
     }
 
-    if (!order) {
-      return (
-        <Layout shop={shop}>
-          <div className={classes.checkoutContentContainer}>
-            <div className={classes.orderDetails}>
-              <section className={classes.section}>
-                <Typography className={classes.title} variant="h6">Order not found</Typography>
-              </section>
-            </div>
-          </div>
-        </Layout>
-      );
-    }
-
+  
     return (
       <Layout shop={shop}>
         <Helmet>
@@ -75,10 +62,10 @@ class CheckoutComplete extends Component {
             <Grid item className={classes.orderThankYou} xs={12} md={12}>
               <Typography className={classes.title} variant="h6">Thank you for your order</Typography>
               <Typography variant="body1">
-                {"Your order ID is:"} <strong>{order.referenceId}</strong>
+                {"Your order ID is:"} <strong>=ff</strong>
               </Typography>
               <Typography variant="body1">
-                {"We've sent a confirmation email to:"} <strong>{order.email}</strong>
+                {"We've sent a confirmation email to:"} <strong></strong>
               </Typography>
             </Grid>
             <Grid item xs={12} md={12}>
