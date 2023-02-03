@@ -82,6 +82,19 @@ cart:{
   position:"absolute",
   
    },
+   cart2:{
+    height:"35px",
+    width:"84px",
+    borderRadius:"40px",
+    background:"#FDC114",
+    display:"flex",
+    justifyContent:"space-evenly",
+    alignItems:"center",
+   bottom:"50%",
+   Right:"10px",
+    position:"absolute",
+    
+     },
 }))
 const itemData = [
  
@@ -94,14 +107,14 @@ const itemData = [
 
   {
     image: '/preloved/preloved2.svg',
-    title:"westran",
+    title:"Causal",
  id:2
   },
  
   {
     image: '/preloved/preloved3.svg',
     id:3,
-    title:"Bridal",
+    title:"Causal"
   },
   {
     image: '/preloved/preloved6.svg',
@@ -168,7 +181,7 @@ your monthly budget!
 <div className={classes.carts}>
 <img src={item.image} />
 
-<div className={classes.cart}>
+<div className={item.title=Causal ?classes.cart :cart2}>
         <img
           component="img"
          
