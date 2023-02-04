@@ -15,12 +15,11 @@ console.l
         display:"flex",
         flexDirection: "column",
         alignItems: "center",
-        padding:"15px",
+        padding:theme.spacing(5),
         justifyContent: "center",
        
       },
      img:{
-  width :"100%",
   display:"flex",
   flexDirection: "column",
   alignItems: "cente r",
@@ -31,15 +30,13 @@ console.l
         display:"flex",
       
         flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
+       
             },
            grid1:{
               
                 display:"flex",
                 flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
+              
                 
                     },
                     title:{
@@ -56,7 +53,7 @@ console.l
                             },
                             imae:{
                               display:"flex",
-                              width :"100%",
+                            
                               justifyContent: "flex-start",
                               alignItems: "flex-start",
                            

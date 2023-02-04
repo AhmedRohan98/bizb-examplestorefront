@@ -55,6 +55,7 @@ background:"#333333",
     box: {
       display:"flex",
       flexDirection: "column",
+  
     
     },
     dark: {
@@ -171,13 +172,17 @@ background:"#333333",
     
     <Swiper ref={sliderRef}
  breakpoints={{
+  1600: {
+    width: 1600,
+    slidesPerView: 7,
+  },
   1200: {
     width: 1200,
-    slidesPerView: 8,
+    slidesPerView: 6,
   },
   1000: {
     width: 1000,
-    slidesPerView: 7,
+    slidesPerView: 5,
   },
 
   800: {

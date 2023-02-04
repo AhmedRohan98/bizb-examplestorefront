@@ -86,6 +86,11 @@ const useStyles = makeStyles((theme) => ({
   },
   imagec:{
     width:"100%"
+  },
+  mobileicon:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center"
   }
 }));
 const itemData = [
@@ -149,6 +154,10 @@ const Preloved = () => {
           </Typography>
         </Box>
       </div>
+      <Box className={classes.mobileicon} display={{ xs: 'none', lg: 'none', xl: 'block', md:"block"}}>
+      <img src="/preloved/preloved-mobile.svg"  />
+        </Box>
+   
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
         <Masonry>
           {itemData.map((item) => (

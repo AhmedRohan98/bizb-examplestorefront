@@ -11,7 +11,7 @@ const BizbCalloborators = () => {
     height:"612px",
     position: "relative",
     width:"100%",
-    top:"200px"
+    top:"250px"
     },
     image:{
         position:"absolute",
