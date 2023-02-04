@@ -4,7 +4,11 @@ import Typography from '@material-ui/core/Typography';
 
 import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles({
-
+main:{
+  padding: theme.spacing(2),
+  width:"100%"
+ 
+  },
   cardaction:{
     height:312,
     width: 312,
@@ -39,10 +43,7 @@ alignItems:"center",
 
    
   },
-  main:{
-    margin:"3vh",
- 
-  },
+  
   text:{
  position :"absolute" ,
  bottom: 60,

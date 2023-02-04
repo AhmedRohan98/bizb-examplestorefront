@@ -5,8 +5,8 @@ import Helmet from "react-helmet";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 import ProductGrid from "components/ProductGrid";
 import Layout from "components/Layout";
-import dynamic from 'next/dynamic'
-const DynamicSlider = dynamic(() => import('../../components/Header/sliderdata'))
+import dynamic from "next/dynamic";
+const DynamicSlider = dynamic(() => import("../../components/Header/sliderdata"));
 import { inPageSizes } from "lib/utils/pageSizes";
 import { withApollo } from "lib/apollo/withApollo";
 
@@ -70,11 +70,14 @@ class ProductGridPage extends Component {
       pageTitle = "Storefront";
     }
 
-    return typeof window !== undefined && <>
-    <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-    <DynamicSlider/ >
-
-  </>
+    return (
+      typeof window !== undefined && (
+        <>
+          <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
+          <DynamicSlider />
+        </>
+      )
+    );
   }
 }
 
@@ -87,7 +90,7 @@ class ProductGridPage extends Component {
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
   const translations = await fetchTranslations(lang, ["common"]);
-  console.log('shop.......')
+  console.log("shop.......");
   if (!primaryShop?.shop) {
     return {
       props: {
@@ -115,7 +118,7 @@ export async function getStaticProps({ params: { lang } }) {
  * @returns {Object} the paths
  */
 export async function getStaticPaths() {
-  console.log('get staticpaths')
+  console.log("get staticpaths");
   return {
     paths: locales.map((locale) => ({ params: { lang: locale } })),
     fallback: false,

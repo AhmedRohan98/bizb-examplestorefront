@@ -148,7 +148,7 @@ const theme = createMuiTheme({
     depth2: "0 0 1rem #808080"
   },
   typography: {
-    fontFamily: "Source Sans Pro, Helvetica Neue, Helvetica, sans-serif",
+    fontFamily: "Lato, Montserrat, Helvetica Neue, Helvetica, sans-serif",
     fontSize: 18,
     fontWeightLight: 400,
     fontWeightRegular: 400,
