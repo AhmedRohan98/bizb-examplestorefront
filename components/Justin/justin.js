@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles({
 main:{
-  padding: theme.spacing(2),
+  padding: "3vh",
   width:"100%"
  
   },
@@ -19,7 +19,7 @@ main:{
 
  root:{
 display:"flex",
-flexDirection: "column",
+
 justifyContent: "center",
 alignItems:"center",
 
@@ -27,7 +27,7 @@ alignItems:"center",
  gridroot:{
   display:"flex",
   alignItems: "center",
-  flexDirection: "row",
+
   position:"relative",
   justifyContent: "center",
 
@@ -60,7 +60,7 @@ alignItems:"center",
   },
   image:{
    
-   width:"290px",
+   width:"312px",
    borderRadius:"10px",
    
   },
@@ -238,7 +238,7 @@ const Justin = () => {
     </div>
     </div>
   <div className={classes.root} >
- <Grid container gap={3} className={classes.gridroot}>
+ <Grid container  className={classes.gridroot}>
   { itemData.map((item)=>
       <>
      <Grid item lg={3} sm={6} md={4} xs={12} >
@@ -260,7 +260,7 @@ const Justin = () => {
           + Cart          </Typography>
         </div>  
         </div>
-      <Typography gutterBottom variant="h5" component="h2">
+      <Typography gutterBottom variant="h4" component="h2">
            {item.title}
           </Typography>
         <div className={classes.size}><Typography gutterBottom variant="h4" >size</Typography>

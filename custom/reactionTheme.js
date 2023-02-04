@@ -173,9 +173,10 @@ const theme = createMuiTheme({
     h3: {
       fontSize: "36px",
     color:"#000000",
-    lineHeight: '100%',
-      fontWeight: 400,
-      weight:100,
+    lineHeight: '43px',
+    fontFamily: "Ostrich Sans",
+      fontWeight: 900,
+      fontStyle: "normal",  
       
     },
     h4: {
@@ -195,6 +196,7 @@ const theme = createMuiTheme({
     h5: {
       fontSize: "16px",
     color:"#000000",
+    fontFamily: "Lato",
       fontWeight: 400,
       weight:100,
       lineHeight:"19px"
