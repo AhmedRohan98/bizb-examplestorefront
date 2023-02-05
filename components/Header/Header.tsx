@@ -17,7 +17,7 @@ import Link from "components/Link";
 import MiniCart from "components/MiniCart";
 import type { FC } from "react";
 import type { WithStyles, Theme } from "@material-ui/core";
-import Ipl from "./sliderdata"
+
 const styles = (theme: Theme) =>
   createStyles({
     appBar: {
@@ -43,9 +43,7 @@ const styles = (theme: Theme) =>
       justifyContent: "space-between",
       marginTop: "50px"
     },
-    dark: {
-      color: "#333333"
-    },
+ 
   });
 interface HeaderProps extends WithStyles<typeof styles> {
   shop: {

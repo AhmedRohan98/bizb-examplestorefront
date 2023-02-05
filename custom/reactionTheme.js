@@ -197,6 +197,7 @@ const theme = createMuiTheme({
       fontSize: "16px",
     color:"#000000",
     fontFamily: "Lato",
+    fontStyle: normal,
       fontWeight: 400,
       weight:100,
       lineHeight:"19px"

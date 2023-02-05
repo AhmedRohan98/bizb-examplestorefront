@@ -115,6 +115,25 @@ const useStyles = makeStyles((theme) => ({
 
       fontFamily: "Ostrich Sans",
   },
+  mobileview:{
+    height:"60px",
+    width:"350px",
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"center",
+    alignItems:"center",
+    background:theme.palette.reaction.black80,
+    borderRadius:"90px",
+    zIndex: 9999,
+   bottom:"10px",
+    position:"fixed"
+  },
+  mobileviewfixed:{
+    display:"flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  }
 }));
 const itemData = [
   {
@@ -183,7 +202,20 @@ const Preloved = () => {
             Now you can revamp your daily wear wardrobe every month while saving more than 50% from your monthly budget!
           </Typography>
         </Box>
+        <div className={classes.mobileview}>
+          <div className={classes.mobileviewfixed}>
+            <img src="/app-section/home.svg" />
+            <Typography> Home </Typography>
+          </div>
+          <div className={classes.mobileviewfixed}>     <img src="/app-section/search.svg"  />
+          <Typography> Sell</Typography>
+          </div>
+          <div className={classes.mobileviewfixed}>    <img src="/app-section/explore.svg"  />
+          <Typography> Explore</Typography>
+          </div>
+        </div>
       </div>
+     
       <Container className={classes.mobileicon}  display={{ lg: 'block', xl: 'none' ,sm:"none" }}>
       <img src="/preloved/preloved-mobile.svg"  />
         </Container>

@@ -25,7 +25,7 @@ const MainSlider = () => {
       
     },
     image: {
-      height: "900px",
+      height: "95vh",
       width: "100%",
       objectPosition: "top",
       objectFit: "cover",
@@ -106,10 +106,7 @@ const MainSlider = () => {
     }
   }));
   const ITEMS = [
-    {
-      image: "/Desktop-images/slider1.webp",
-      id: 1,
-    },
+ 
     {
       image: "/Desktop-images/desktop2.svg",
       id: 1,
@@ -196,7 +193,7 @@ const MainSlider = () => {
         </div>
         <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
         </div>
-        <Appsec  />
+        <Preloved  />
 
         {/* <Preloved />
    

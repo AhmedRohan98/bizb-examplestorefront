@@ -97,7 +97,7 @@ alignItems: "center",
   const classes = useStyles();
   return (
     <div className={classes.root}>
-     <img src="/app-section/appsec1.svg"  className={classes.img}/>
+     <img src="/app-section/appsec1.svg"  alt="Using our app" className={classes.img}/>
      <div className={classes.title}>
      <Typography  variant="h3"  >
      Revamp Your Wardrobe 
