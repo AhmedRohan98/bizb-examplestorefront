@@ -75,7 +75,9 @@ alignItems:"center",
  
    },
    carttitle:{
-    marginLeft:"-160px",
+  display:"flex",
+  alignItems:"flex-start",
+  marginLeft:"8vh"
    },
    price:{
    
