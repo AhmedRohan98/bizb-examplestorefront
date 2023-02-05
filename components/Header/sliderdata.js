@@ -101,7 +101,7 @@ const MainSlider = () => {
        
          }
     },mobileima:{
-      marginTop:theme.spacing(8),
+      marginTop:theme.spacing(6),
       width:"100%"
     }
   }));
@@ -196,7 +196,7 @@ const MainSlider = () => {
         </div>
         <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
         </div>
-        <Preloved />
+        <Justin />
 
         {/* <Preloved />
    

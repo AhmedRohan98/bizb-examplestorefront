@@ -19,12 +19,13 @@ main:{
 
  root:{
 display:"flex",
-
+width:"100%",
 justifyContent: "center",
 alignItems:"center",
 
  },
  gridroot:{
+  width:"100%",
   display:"flex",
   alignItems: "center",
 
@@ -36,10 +37,10 @@ alignItems:"center",
     
   background:"#333333",
   opacity:"15%",
-  height:"4px",
+  height:"8px",
 
 
-    width:"200px",
+    width:"180px",
 
    
   },
@@ -50,6 +51,7 @@ alignItems:"center",
   },
   header:{
     height:"50px",
+    position:"relative"
    
   },
 
@@ -68,6 +70,12 @@ alignItems:"center",
    
  display:"flex",
  flexDirection: "row",
+ 
+ marginLeft:"8vh",
+ 
+   },
+   carttitle:{
+    marginLeft:"-160px",
    },
    price:{
    
@@ -85,10 +93,17 @@ alignItems:"center",
         justifyContent:"space-evenly",
         alignItems:"center",
        bottom:"15px",
-       left:"10px",
+       left:"70px",
         position:"absolute",
         
          },
+         explore:{
+          position:"absolute",
+        top:"6px",
+        right:"10px",
+         color:"#FDC114",
+          zIndex:900
+         }
 });
 const itemData = [
   {
@@ -234,14 +249,16 @@ const Justin = () => {
     </Typography >
     <div className={classes.header}>
     <h1 className={classes.typography}></h1>
-   
+    <Typography gutterBottom variant="body1" className={classes.explore}>
+         Explore More
+          </Typography>
     </div>
     </div>
   <div className={classes.root} >
- <Grid container  className={classes.gridroot}>
+ <Grid container  className={classes.gridroot} >
   { itemData.map((item)=>
       <>
-     <Grid item lg={3} sm={6} md={4} xs={12} >
+     <Grid item lg={3} sm={6} md={4} xs={12} align = "center" justify = "center" alignItems = "center"   >
      <div className={classes.rootimg}> 
    <img
           component="img"
@@ -259,8 +276,9 @@ const Justin = () => {
           <Typography gutterBottom variant="h5" component="h2">
           + Cart          </Typography>
         </div>  
+        
         </div>
-      <Typography gutterBottom variant="h4" component="h2">
+        <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
            {item.title}
           </Typography>
         <div className={classes.size}><Typography gutterBottom variant="h4" >size</Typography>
