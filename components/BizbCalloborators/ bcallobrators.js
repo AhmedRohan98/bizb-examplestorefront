@@ -78,7 +78,7 @@ const BizbCalloborators = () => {
   return (
     <Box display={{ xs: 'none', lg: 'block', xl: 'none' }}>
     <div className={classes.root}>
-<Grid container className={classes.maingrid} xs={12}>
+<Grid container className={classes.maingrid} xs={12} >
               <Grid  item  className={classes.grid1} xs={6}>
              
            

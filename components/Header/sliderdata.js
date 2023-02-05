@@ -196,11 +196,11 @@ const MainSlider = () => {
         </div>
         <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
         </div>
-        <Justin />
+        <Appsec  />
 
         {/* <Preloved />
    
-  // <Justin />      
+  <Justin />      
      
 
 <Story />

@@ -23,7 +23,8 @@ console.l
 width :"100%",
 display:"flex",
 flexDirection: "column",
-alignItems: "cente r",
+alignItems: "center",
+
     },
  
     maingrid:{
@@ -43,24 +44,53 @@ alignItems: "cente r",
               
                   },
                   title:{
-                      width :"60%",
-                    
+                      width :"407px",
+                      height:"86px",
+                      display:"none",
+                        textAlign: "start",
+                      [theme.breakpoints.down(700)]: {
+                   display:"block",
+                 
+                      
+                          },
+                        },
+                          title2:{
+                            width :"407px",
+                            height:"86px",
+                            display:"block",
+                            display:"flex",
+                            alignItems:"flex-start",
+                            justifyContent:"flex-start",
+                            
+                            textAlign: "start",
+                            [theme.breakpoints.down(700)]: {
+                         display:"none",
+                       
+                                },
                  
                           },
                           image:{
-                            display:"flex",
-                            alignItems: "flex-start",
-                            padding:"10px",
-                            marginTop:"10px",
-                            justifyContent: "flex-start",
+                      height:"auto",
+                            width :"100%",
+                            marginTop:theme.spacing(2),
+                          
+                            [theme.breakpoints.up(700)]: {
+                              width :"300px",
+                              height:"auto",
+                              marginTop:theme.spacing(4)
+                              
+                            
+                                }
                           },
                           imae:{
-                            display:"flex",
-                            width :"100%",
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                         
-                          }
+                            height:"auto",
+                            marginTop:theme.spacing(4), 
+                         width:"100%"
+                          },
+                          [theme.breakpoints.up(700)]: {
+                           height:"440px",
+                           width:"320px"
+                             }
 }))
 
 
@@ -68,14 +98,23 @@ alignItems: "cente r",
   return (
     <div className={classes.root}>
      <img src="/app-section/appsec1.svg"  className={classes.img}/>
-     
-            <Grid container className={classes.maingrid} lg={12} sm={12} md={12} >
-              <Grid  item  className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
-             
-                <Typography  variant="h3" className={classes.title} >
-                Revamp Your Wardrobe 
+     <div className={classes.title}>
+     <Typography  variant="h3"  >
+     Revamp Your Wardrobe 
 Using Our App
                 </Typography>
+     </div>
+    
+       
+            <Grid container className={classes.maingrid} lg={12} sm={12} md={12} align = "center" justify = "center" alignItems = "center">
+              <Grid  item  className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
+             
+              <div className={classes.title2}>
+     <Typography  variant="h3"  >
+     Revamp Your Wardrobe 
+Using Our App
+                </Typography>
+     </div>
                 <img src="/app-section/appsec2.svg"  className={classes.image}/>
                 <img src="/app-section/appsec3.svg"  className={classes.image}/>
               </Grid>
