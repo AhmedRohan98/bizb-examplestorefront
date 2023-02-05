@@ -63,11 +63,7 @@ const useStyles = makeStyles((theme) => ({
   cart: {
     height: "35px",
     width: "84px",
-    borderRadius: "40px",
-    background: "#FDC114",
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+   
     bottom: "50%",
     left: "10px",
     position: "absolute",
@@ -75,13 +71,10 @@ const useStyles = makeStyles((theme) => ({
   cart2: {
     height: "35px",
     width: "84px",
-    borderRadius: "40px",
-    background: "#FDC114",
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+  
+   
     bottom: "50%",
-    right: "10px",
+    right: "70px",
     position: "absolute",
   },
   imagec:{
@@ -90,42 +83,78 @@ const useStyles = makeStyles((theme) => ({
   mobileicon:{
     display:"flex",
     alignItems:"center",
-    justifyContent:"center"
-  }
+    justifyContent:"center",
+    paddingBottom:theme.spacing(3),
+    [theme.breakpoints.up(900)]: {
+   display:"none"
+    }
+    
+  },
+  text:{
+    color :theme.palette.primary.contrastText
+  },
+  buttonshop:{
+    background:theme.palette.secondary.selected,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    width:"150px",
+    height:"35px",
+   right:"50px",
+    borderRadius:"40px",
+  
+ 
+  },
+  buttonshopt:{
+ 
+    fontSize: "22px",
+    color:"#000000",
+  fontWeight:900,
+    fontStyle: "Black",
+    lineHeight:"26px",
+
+      fontFamily: "Ostrich Sans",
+  },
 }));
 const itemData = [
   {
     image: "/preloved/preloved1.svg",
     id: 1,
     title: "Causal",
+    name:"CAUSAL"
   },
 
   {
     image: "/preloved/preloved2.svg",
     title: "Causal",
     id: 2,
+    name:"WESTREN"
   },
 
 
   {
     image: "/preloved/preloved3.svg",
     id: 3,
-    title: "Causal",
+    title: "Juniors",
+    name:"PARTY"
   },
   {
     image: "/preloved/preloved5.svg",
     id: 5,
-    title: "Juniors",
+    title: "Causal",
+    name:"Assesories"
   },
   {
     image: "/preloved/preloved6.svg",
     id: 6,
-    title: "Juniors",
+    title: "Causal",
+    name:"SHOES"
   },
   {
     image: "/preloved/preloved4.svg",
     id: 4,
-    title: "Party Wear",
+    title: "Juniors",
+    name:"Bridal"
   },
 
  
@@ -133,6 +162,7 @@ const itemData = [
     image: "/preloved/preloved7.svg",
     id: 7,
     title: "Causal",
+    name:"SHOES"
   },
 ];
 
@@ -154,9 +184,9 @@ const Preloved = () => {
           </Typography>
         </Box>
       </div>
-      <Box className={classes.mobileicon} display={{ xs: 'none', lg: 'none', xl: 'block', md:"block"}}>
+      <Container className={classes.mobileicon}  display={{ lg: 'block', xl: 'none' ,sm:"none" }}>
       <img src="/preloved/preloved-mobile.svg"  />
-        </Box>
+        </Container>
    
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1200: 3 }}>
         <Masonry>
@@ -166,10 +196,12 @@ const Preloved = () => {
                 <img src={item.image} className={classes.imagec} />
 
                 <div className={item.title === "Causal" ? classes.cart : classes.cart2}>
-                  <img component="img" src="/icons/cart.svg" />
-                  <Typography gutterBottom variant="h5" component="h2">
-                    + Cart{" "}
+            
+                  <Typography gutterBottom variant="h3"  className={classes.text}>
+                   {item.name}
                   </Typography>
+                  <div className={classes.buttonshop}>  <h4  className={classes.buttonshopt}>SHOP NOW</h4></div>
+                 
                 </div>
               </div>
             </>

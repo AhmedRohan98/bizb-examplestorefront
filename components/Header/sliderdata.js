@@ -22,6 +22,7 @@ const MainSlider = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       position: "relative",
+      
     },
     image: {
       height: "900px",
@@ -84,6 +85,25 @@ const MainSlider = () => {
       height: "auto",
       color: "white",
     },
+    sliderr:{
+      display:"none",
+      [theme.breakpoints.up(900)]: {
+        display:"block",
+       
+         }
+    },
+    imagedesktop:{
+      display:"block",
+
+      [theme.breakpoints.up(900)]: {
+        display:"none",
+ 
+       
+         }
+    },mobileima:{
+      marginTop:theme.spacing(8),
+      width:"100%"
+    }
   }));
   const ITEMS = [
     {
@@ -165,6 +185,7 @@ const MainSlider = () => {
   return (
     <>
       <div className={classes.root}>
+        <div className={classes.sliderr}>
         <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}>
           {ITEMS.map((item) => (
             <SwiperSlide>
@@ -172,6 +193,9 @@ const MainSlider = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+        </div>
+        <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
+        </div>
         <Preloved />
 
         {/* <Preloved />
@@ -191,7 +215,7 @@ const MainSlider = () => {
 <Caloborators />
 <OurBlogs />
 <Instagram /> */}
-      </div>
+
     </>
   );
 };

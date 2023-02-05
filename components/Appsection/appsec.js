@@ -10,57 +10,60 @@ console.l
   const useStyles = makeStyles((theme) => ({
     
     root: {
-        height:"auto",
-        width:"100%",
-        display:"flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding:theme.spacing(5),
-        justifyContent: "center",
-       
-      },
-     img:{
-  display:"flex",
-  flexDirection: "column",
-  alignItems: "cente r",
-      },
-   
-      maingrid:{
-        width :"100%",
-        display:"flex",
-      
-        flexDirection: "row",
-       
-            },
-           grid1:{
+      height:"auto",
+      width:"100%",
+      display:"flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding:"15px",
+      justifyContent: "center",
+     
+    },
+   img:{
+width :"100%",
+display:"flex",
+flexDirection: "column",
+alignItems: "cente r",
+    },
+ 
+    maingrid:{
+      width :"100%",
+      display:"flex",
+    
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+          },
+         grid1:{
+            
+              display:"flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               
-                display:"flex",
-                flexDirection: "column",
-              
-                
-                    },
-                    title:{
-                        width :"60%",
-                      
-                   
-                            },
-                            image:{
-                              display:"flex",
-                              alignItems: "flex-start",
-                              padding:"10px",
-                              marginTop:"10px",
-                              justifyContent: "flex-start",
-                            },
-                            imae:{
-                              display:"flex",
-                            
-                              justifyContent: "flex-start",
-                              alignItems: "flex-start",
-                           
-                            }
-  }))
-  
-  
+                  },
+                  title:{
+                      width :"60%",
+                    
+                 
+                          },
+                          image:{
+                            display:"flex",
+                            alignItems: "flex-start",
+                            padding:"10px",
+                            marginTop:"10px",
+                            justifyContent: "flex-start",
+                          },
+                          imae:{
+                            display:"flex",
+                            width :"100%",
+                            justifyContent: "flex-start",
+                            alignItems: "flex-start",
+                         
+                          }
+}))
+
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
