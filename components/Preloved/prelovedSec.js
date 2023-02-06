@@ -120,19 +120,40 @@ const useStyles = makeStyles((theme) => ({
     width:"350px",
     display:"flex",
     flexDirection:"row",
-    justifyContent:"center",
+    justifyContent:"space-evenly",
+    paddig:"8px",
     alignItems:"center",
     background:theme.palette.reaction.black80,
     borderRadius:"90px",
     zIndex: 9999,
    bottom:"10px",
-    position:"fixed"
+    position:"fixed",
+    display:"none",
+    [theme.breakpoints.down(700)]: {
+      display:"block",
+      height:"60px",
+      width:"350px",
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"space-evenly",
+      paddig:"8px",
+      alignItems:"center",
+      background:theme.palette.reaction.black80,
+      borderRadius:"90px",
+      zIndex: 9999,
+     bottom:"10px",
+      position:"fixed",
+         
+             },
   },
   mobileviewfixed:{
     display:"flex",
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "space-evenly",
+    justifyContent: "sapce-between",
+  },
+  mobileviewfixedText:{
+    color:"#ffffff"
   }
 }));
 const itemData = [
@@ -205,13 +226,13 @@ const Preloved = () => {
         <div className={classes.mobileview}>
           <div className={classes.mobileviewfixed}>
             <img src="/app-section/home.svg" />
-            <Typography> Home </Typography>
+            <Typography variant="h5" className={classes.mobileviewfixedText}> Home </Typography>
           </div>
-          <div className={classes.mobileviewfixed}>     <img src="/app-section/search.svg"  />
-          <Typography> Sell</Typography>
+          <div className={classes.mobileviewfixed} >     <img src="/app-section/search.svg"  />
+          <Typography variant="h5" className={classes.mobileviewfixedText}> Sell</Typography>
           </div>
           <div className={classes.mobileviewfixed}>    <img src="/app-section/explore.svg"  />
-          <Typography> Explore</Typography>
+          <Typography variant="h5" className={classes.mobileviewfixedText}> Explore</Typography>
           </div>
         </div>
       </div>
