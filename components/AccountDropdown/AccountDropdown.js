@@ -16,8 +16,21 @@ import getAccountsHandler from "../../lib/accountsServer.js";
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
-    width: 320,
+    width: "189px",
+    height:"135px",
+    background:theme.palette.reaction.black80,
     padding: theme.spacing(2),
+    borderBottomLeftRadius:"20px",
+    "& .MuiPopover-paper":{
+      borderBottomLeftRadius:"20px",
+      elevation:0,
+      background:theme.palette.reaction.black80,
+    },
+    "& .MuiPaper-root":{
+      borderBottomLeftRadius:"20px",
+            elevation:0,
+      background:theme.palette.reaction.black80,
+    }
   },
   marginBottom: {
     marginBottom: theme.spacing(2),
@@ -78,6 +91,7 @@ const AccountDropdown = ({ headerType }) => {
           vertical: "bottom",
           horizontal: "center",
         }}
+        elevation={0}
         open={Boolean(anchorElement)}
         onClose={onClose}
       >
