@@ -99,10 +99,10 @@ const MainSlider = () => {
     },
     imagedesktop:{
       display:"block",
-
+      marginTop:"170px",
       [theme.breakpoints.up(900)]: {
         display:"none",
- 
+ marginTop:"200px",
        
          }
     },mobileima:{
