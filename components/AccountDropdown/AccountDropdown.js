@@ -21,20 +21,26 @@ const useStyles = makeStyles((theme) => ({
     background:theme.palette.reaction.black80,
     padding: theme.spacing(2),
     borderBottomLeftRadius:"20px",
+    borderBottomRightRadius:"20px",
     "& .MuiPopover-paper":{
-      borderBottomLeftRadius:"20px",
-      elevation:0,
-      background:theme.palette.reaction.black80,
+      display:"none"
     },
     "& .MuiPaper-root":{
-      borderBottomLeftRadius:"20px",
-            elevation:0,
-      background:theme.palette.reaction.black80,
-    }
+display:"none"
+    },
+    
   },
+ 
   marginBottom: {
     marginBottom: theme.spacing(2),
   },
+  authbutton:{
+    background:theme.palette.secondary.selected,
+   margin:"5px",
+    color:"#ffffff",
+    borderRadius:"40px",
+     "&:hover": {  background:theme.palette.secondary.selected, }
+  }
 }));
 
 const AccountDropdown = ({ headerType }) => {
@@ -117,12 +123,12 @@ const AccountDropdown = ({ headerType }) => {
           ) : (
             <Fragment>
               <div className={classes.authContent}>
-                <Button color="primary" fullWidth variant="contained" onClick={() => setEntryModal("login")}>
-                  Sign In
+                <Button className={classes.authbutton} fullWidth variant="contained" onClick={() => setEntryModal("login")}>
+                Register
                 </Button>
               </div>
-              <Button color="primary" fullWidth onClick={() => setEntryModal("signup")}>
-                Create Account
+              <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("signup")}>
+             Login
               </Button>
             </Fragment>
           )}
