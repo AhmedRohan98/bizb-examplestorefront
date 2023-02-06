@@ -20,6 +20,11 @@ const MainSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const useStyles = makeStyles((theme) => ({
+   main: {
+      
+    marginTop: "-170px"
+      
+    },
     root: {
       position: "relative",
       
@@ -181,6 +186,7 @@ const MainSlider = () => {
 
   return (
     <>
+    <div className={classes.main}>
       <div className={classes.root}>
         <div className={classes.sliderr}>
         <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}>
@@ -192,6 +198,7 @@ const MainSlider = () => {
         </Swiper>
         </div>
         <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
+        </div>
         </div>
         <Preloved  />
 

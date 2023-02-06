@@ -163,11 +163,13 @@ const theme = createMuiTheme({
       fontSize: "42px",
     color:"Black",
     fontWeight: 400,
+    lineHeight: '50px',
     },
     h2: {
       fontSize: "42px",
     color:"#FDC114",
       fontWeight: 400,
+      lineHeight: '50px',
       
     },
     h3: {

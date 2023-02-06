@@ -22,10 +22,23 @@ const styles = (theme: Theme) =>
   createStyles({
     appBar: {
       textTransform: "uppercase",
-      background: "transparent",
+      background: "tranparent",
+ 
+      
+      color:"#ffffff",
+      "& .MuiAppBar":{
+
+        color:"#ffffff",
+        background: "tranparent",
+      },
+      "& .MuiPaper-root":{
+        background: "tranparent",
+      },
+     
       // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
       // opacity: "0.7",
-      height: "170px"
+      height: "170px",
+      zIndex:1300,
     },
     controls: {
       alignItems: "inherit",
@@ -33,7 +46,7 @@ const styles = (theme: Theme) =>
       flex: 1,
     },
     title: {
-      color: theme.palette.reaction.reactionBlue,
+      color: "green",
       marginRight: theme.spacing(),
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
@@ -59,7 +72,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
     uiStore.toggleMenuDrawerOpen();
   };
   return (
-    <AppBar position="static" elevation={0} className={classes.appBar}>
+    <AppBar position="relative" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <div className={classes.dark}><Hidden mdUp>
           <NavigationToggleMobile onClick={handleNavigationToggleClick} />
