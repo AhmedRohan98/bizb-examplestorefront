@@ -1,137 +1,163 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import Button from "@material-ui/core/Button";
-import red from "@material-ui/core/colors/red";
-import useViewer from "hooks/viewer/useViewer";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, TextField, Button,  Typography } from '@material-ui/core';
 
-import getAccountsHandler from "../../lib/accountsServer.js";
-import hashPassword from "../../lib/utils/hashPassword";
-
+import Checkbox from '@material-ui/core/Checkbox';
+import Box from '@material-ui/core/Box';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 const useStyles = makeStyles((theme) => ({
-  root: {
-    "display": "flex",
-    "flexDirection": "column",
-    "& > *": {
-      margin: theme.spacing(1)
+ 
+ 
+  label:{
+    display: 'flex',
+    marginTop:theme.spacing(1),
+    color:"#333333",
+    flexDirection: "column",
+ 
+  },
+ 
+  input:{
+    width:"387px",
+    height:"48px",
+    borderRadius:"6px",
+     color:"red",
+    
+     justifyContent:"center",
+   paddingLeft:theme.spacing(2),
+    background:"#F7F7F9",
+    borderBottomColor:"none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "14px",
+      padding:"opx",
+   
     }
+    
+
   },
-  forgotPassword: {
-    textDecoration: "underline",
-    fontStyle: "italic",
-    cursor: "pointer",
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+register:{
+  width:"214px",
+  height:"48px",
+  borderRadius:"40px",
+  border:"none",
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  background:theme.palette.secondary.selected,
+  "&:hover": {
+
+    background:theme.palette.secondary.selected,
+}
+
+},
+socialmedia:{
+  width:"230px",
+  height:"48px",
+  borderRadius:"40px",
+  border:"none",
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  margin:"10px",
+  padding:"3px",
+  background:theme.palette.secondary.selected,
+
+},
+topheader:{
+  display:"flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+},
+terms:{
+  lineHeight:"100px"
+    
+},
+checkbox:{
+  color:"green",
+  "& .MuiIconButton-label ":{
+   color:theme.palette.secondary.selected,
   },
-  switchEntryMode: {
-    textAlign: "center",
-    textDecoration: "underline",
-    cursor: "pointer",
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
-  },
-  error: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    color: red[500],
-    fontSize: "1.1em",
-    textAlign: "center"
-  }
+  
+ },
+ checkboxdiv:{
+  display:"flex",
+  flexDirection: "row",
+ }
 }));
 
-/**
- * Component to render to allow user to login
- * @param {Object} props of structure { closeModal: func, openModal: func }
- * @returns {Object} jsx
- */
-export default function Login(props) {
-  const { closeModal, openModal } = props;
+
+
+export default function Login() {
+  const [checkedEmail, setCheckedEmail] = React.useState(true);
   const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { passwordClient } = getAccountsHandler();
-  const [, , refetch] = useViewer();
-
-  const handleForgotPasswordClick = () => {
-    openModal("forgot-password");
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleOpenSignUp = () => {
-    openModal("signup");
-  };
-
-  const registerUser = async () => {
-    try {
-      await passwordClient.login({
-        user: {
-          email
-        },
-        password: hashPassword(password)
-      });
-      closeModal();
-      await refetch();
-    } catch (err) {
-      setError(err.message);
-    }
+  const handleChangeEmail = (event) => {
+    setCheckedEmail(event.target.checked);
   };
   return (
-    <form className={classes.root} noValidate>
-      <h1>Sign in to your account</h1>
-      <FormControl>
-        <InputLabel htmlFor="email">Email</InputLabel>
-        <Input id="email" aria-describedby="email-address" onChange={handleEmailChange} value={email}
-          type="email"
-        />
-      </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input
-          id="password"
-          aria-describedby="password"
-          onChange={handlePasswordChange}
-          value={password}
-          type="password"
-        />
-      </FormControl>
-      <div
-        className={classes.forgotPassword}
-        onClick={handleForgotPasswordClick}
-        onKeyDown={handleForgotPasswordClick}
-        role="button"
-        tabIndex={0}
-      >
-        Forgot Password?
+   <>
+
+<Typography variant="body1">REGISTRATION </Typography>
+        <form>
+              <Grid container >
+                <Grid xs={12}  item>
+                {/* <span>*</span> */}
+                <label className={classes.label}  required >FullName 
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}   className={classes.input}   
+  />
+                </label>
+                </Grid>
+                <Grid xs={12} item>
+                  <label className={classes.label} variant="h6">Email
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} />
+                </label>
+                </Grid>
+         
+                <Grid item xs={12}>
+                <label className={classes.label}>Phone Number
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} />
+                </label>
+                </Grid>
+                <Grid item xs={12}>
+                <label className={classes.label}>Password
+                <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} />
+                </label>
+                </Grid>
+              
+                <Grid item xs={12}>
+                <label className={classes.label}>Re-Enter Password
+                <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} />
+                </label>
+                </Grid>
+
+              </Grid>
+              <div className={classes.checkboxdiv}>
+              <FormControlLabel
+        control={
+          <Checkbox
+            checked={checkedEmail}
+            onChange={handleChangeEmail}
+            className={classes.checkbox}
+          />
+        }
+     
+      />
+       <Typography variant="h6" className={classes.terms}> Aggree With term and conditions</Typography>
       </div>
-      <Button onClick={registerUser} color="primary" variant="contained" role="button">
-        Sign In
-      </Button>
-      {!!error && <div className={classes.error}>{error}</div>}
-      <div
-        className={classes.switchEntryMode}
-        onClick={handleOpenSignUp}
-        onKeyDown={handleOpenSignUp}
-        role="button"
-        tabIndex={0}
-      >
-        Don't have an account? Sign Up
-      </div>
-    </form>
+     
+     
+            </form>
+            <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"> Register</Button>
+            <Box className={classes.socialmedia}>
+            <img src='/authentication/signup3.svg' alt='Login-SignUP' />
+            <Typography variant="h6"> Register With Google</Typography>
+       </Box>
+       <Box className={classes.socialmedia}>
+            <img src='/authentication/signup4.svg' alt='Login-SignUP'  />
+            <Typography variant="h6"> Register With Facebook</Typography>
+       </Box>
+     
+   </>
   );
 }
 
-Login.propTypes = {
-  closeModal: PropTypes.func,
-  openModal: PropTypes.func
-};
+
