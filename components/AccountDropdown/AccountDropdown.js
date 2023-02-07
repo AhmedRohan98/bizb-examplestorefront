@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
 display:"none"
     },
     
+    
+  },
+  '& .MuiPaper-elevation0': {background: 'black'},
+  "& .MuiPopover-paper":{
+  background:"none"
   },
  
   marginBottom: {
