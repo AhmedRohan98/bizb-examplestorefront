@@ -5,7 +5,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from "@material-ui/core/Typography";
-import Icon from '@material-ui/core/Icon';
+import Button from "@material-ui/core/Button";
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     height:"100vh",
-    width:"400px",
+    width:"468px",
     position:"absolute",
         top:"0px",
         right:"0px",
   
-    
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -36,6 +36,20 @@ height:"60vh",
 overflowY:"auto",
  
    
+  },
+  paper2:{
+    backgroundColor: theme.palette.background.paper,
+    height:"100vh",
+    width:"400px",
+    position:"absolute",
+        top:"0px",
+        right:"0px",
+  display:"flex",
+  alignItems:"center",
+  justifyContent:"center",
+    
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
   cartitem:{
     padding: theme.spacing(1),
@@ -67,7 +81,7 @@ overflowY:"auto",
   total:{
     borderTop: "1px solid #E5E5E5",
     position:"fixed",
-    width:"360px",
+    width:"390px",
     padding:theme.spacing(2),
     bottom:"10px"
   },
@@ -101,11 +115,47 @@ overflowY:"auto",
        },
        carttext:{
         color:theme.palette.primary.contrastText,
-       },
-       button:{
-  marginTop:"100px"
        }
-
+     ,  paper2:{
+      backgroundColor: theme.palette.background.paper,
+   marginTop:"15vh",
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    flexDirection: "column",
+    
+    },
+    emptycart:{
+      marginTop:theme.spacing(5),
+      width:"239px",
+      height:"58px",
+      textAlign: "center"
+    },
+    continue:{
+      width:"250px",
+      height:"48px",
+      borderRadius:"40px",
+      marginTop:theme.spacing(5),
+      border:"none",
+      display:"flex",
+      textTransform: "uppercase",
+      justifyContent:"center",
+      alignItems:"center",
+      background:theme.palette.secondary.selected,
+      "&:hover": {
+    
+        background:theme.palette.secondary.selected,
+    },
+    "&.MuiButton-root":{
+      fontSize: "20px",
+      color:"#333333",
+      fontFamily:"Ostrich Sans",
+        fontWeight: 900,
+       
+        lineHeight:"24px",
+        fontFamily: "Ostrich Sans",
+    }
+  }
 }));
 const itemData = [
   {
@@ -156,8 +206,8 @@ const itemData = [
  newprice:"Rs 600",
  size:"large"
   },
-  
-
+ 
+ 
 ];
 function MainSlider() {
   const classes = useStyles();
@@ -173,7 +223,7 @@ function MainSlider() {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen} className={classes.button}>
+      <button type="button" onClick={handleOpen} >
         react-transition-group
       </button>
       <Modal
@@ -192,36 +242,17 @@ function MainSlider() {
           <div className={classes.paper}>
    <div className={classes.cartmodal}> <Typography variant="subtitle1">Cart</Typography>
     <CloseIcon onClick={handleClose} /></div>
-    <div className={classes.cartitems}>  
-      {itemData.map((item)=>
-      <div className={classes.cartitem}>
-      <img src={item.image} alt={item.title} className={classes.cartimage}></img>
-      <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
-      <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>Rs:500</Typography></div>
-
-      <img src="/cart/icon.svg" alt={item.title} />
-      </div>
-      )}
-    </div>
-    <div className={classes.total}>
-<div className={classes.total1} >
-      <Typography variant="h4" >Subtotal</Typography>
-    <Typography variant="h4" >Rs 1500</Typography>
+    <div className={classes.paper2}> 
+   <img src="/cart/empty.svg" alt="empty cart" />
+<div className={classes.emptycart}>
+  <Typography  variant="h4">
+  You haven’t added any
+pre-loved item
+  </Typography>
 </div>
-<div className={classes.total1} >
-<div className={classes.cart1}>
-      
-      <Typography gutterBottom variant="h6" component="h2" className={classes.carttext}>
-VIEW CART          </Typography>
-    </div>  
-    <div className={classes.cart}>
-      
-      <Typography gutterBottom variant="h6" component="h2">
-    CHECKOUT        </Typography>
-    </div>  
-</div>
+<Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6"> Continue Shopping</Button>
     </div>
-          </div>
+   </div>
         </Fade>
       </Modal>
     </div>
