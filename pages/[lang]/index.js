@@ -73,11 +73,11 @@ class ProductGridPage extends Component {
     return (
       typeof window !== undefined && (
  
-           <Layout  headerType={true}>
+           <>
            <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
            
              <DynamicSlider />
-         </Layout>
+         </>
    
       )
     );
