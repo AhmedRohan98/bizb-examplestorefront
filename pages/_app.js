@@ -11,7 +11,7 @@ import 'swiper/modules/pagination/pagination.min.css'
 import 'swiper/modules/navigation/navigation.min.css'
 import "swiper/modules/thumbs/thumbs.min.css";
 import "swiper/modules/free-mode/free-mode.min.css";
-
+import "../styles/global.css"
 
 
 import { StripeWrapper } from "components/StripeCard";

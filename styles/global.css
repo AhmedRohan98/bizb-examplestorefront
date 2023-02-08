@@ -1,0 +1,23 @@
+.swiper-pagination-bullet { width: 12px; height: 12px; background: "#333333"; border: 1px solid white; opacity: 1; opacity: 0.5;}
+.swiper-pagination-bullet-active { width: 25px; height: 12px; transition: width .5s; border-radius: 5px; background: #FDC114; border: 1px solid transparent;opacity: 1; }
+
+  .swiper-pagination {
+    position: absolute;
+    text-align: center;
+    transition: .3s opacity;
+    display: block;
+    transform: translate3d(0,0,0);
+    z-index: 10;
+}
+@media only screen and (min-width: 1100px) {
+    /* For mobile phones: */
+    .swiper-pagination {
+     display: block;
+     position: absolute;
+     text-align: center;
+     transition: .3s opacity;
+     display: none;
+     transform: translate3d(0,0,0);
+     z-index: 10;
+    }
+  }
