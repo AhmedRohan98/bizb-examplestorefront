@@ -1,189 +1,172 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import { useRef,useCallback ,useState} from "react";
-import Typography from "@material-ui/core/Typography";
-import Tab from "@material-ui/core/Tab";
-import TabContext from "@material-ui/lab/TabContext";
-import TabList from "@material-ui/lab/TabList";
-import TabPanel from "@material-ui/lab/TabPanel";
+
+// Import Swiper styles
+
+import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-const useStyles = makeStyles((theme) => ({
-  slider: {
-    paddingTop: theme.spacing(8),
-    [theme.breakpoints.down(700)]: {
-      paddingTop: theme.spacing(0),
-    },
-  
-  },
-  sliderflex: {
-    display: "flex",
-    alignItems: "flex-start",
-  },
+import { makeStyles } from "@material-ui/core/styles";
 
-  slidercol: {
-    display: "flex",
-    flexDirection: "column",
-    width: "150px",
-  
-    display: "block",
-    [theme.breakpoints.down(1100)]: {
-      display: "none",
+import Story from "../Stories/story";
+import Justin from "../Justin/justin";
+import Typography from "@material-ui/core/Typography";
+import Preloved from "../Preloved/prelovedSec";
+import Appsec from "../Appsection/appsec";
+import Instagram from "../Instagram/instagram";
+import OurBlogs from "../Ourblogs/ourblog";
+import Caloborators from "../Calloborators/calloborators";
+import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
+import TopSelling from "../TopSelling/topselling";
+const MainSlider = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-      width: "0px",
-      height: "0px",
+  const useStyles = makeStyles((theme) => ({
+   main: {
+      
+    marginTop: "-170px"
+      
     },
-  },
-  container1: {
-    width: "100%",
-    height: "100%",
-  },
-  container2: {
-    width: "500px",
-    height: "600px",
-  },
-  thumb: {
-    height: "600px",
-    width: "200px",
-    "& .swiper-slide": {
-      opacity: 0.5,
-      "&.swiper-slide-visible": {
-        opacity: 0.5,
+    root: {
+      position: "relative",
+      
+    },
+    image: {
+      height: "95vh",
+      width: "100%",
+      objectPosition: "top",
+      objectFit: "cover",
+    },
+    controller: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-end",
+    },
+    controllera: {
+      position: "absolute",
 
-        "&.swiper-slide-thumb-active": {
-          opacity: 1,
-        },
-      },
-  
+      display: "flex",
+      flexDirection: "row",
+      gap: "4vh",
+
+      right: "5vh",
     },
-  },
-  controller:{
-    display:"flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    
-   
-},
-iconforwad:{
-  position:"absolute",
-  top:"50%",
-  right:"10px",
-  background:"#333333",
-  color: "FDC114",
-  borderRadius:"4px",
-  
-  zIndex: 1251
-  },
-  iconback:{
-    position:"absolute",
-    top:"50%",
-    left:"10px",
-    borderRadius:"4px",
-  color:"FDC114",
-  background:"#333333",
-  
-    zIndex: 1251
+    controllert: {
+      position: "absolute",
+      display: "flex",
+      flexDirection: "row",
+      gap: "5px",
+
+      left: "5vh",
+      bottom: "20px",
     },
-  sliderimages: {
-    height: "600px",
-    width: "100%",
-  },
-  sliderimage: {
-    height: "100%",
-    width: "100%",
-  },
-  sliderimage2: {
-    height: "600px",
-    width: "507px",
-  },
-  size: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent:"space-between",
-    marginBottom: theme.spacing(3),
-    marginTop: theme.spacing(3),
-  },
-  size2:{
-    display: "flex",
-    flexDirection: "row",
-  },
-  price: {
-    marginLeft: theme.spacing(3),
-  },
-  price2: {
-     color:"#333333",
-     opacity: 0.5,
-  },
-  offer: {
-    display: "flex",
-  marginRight:theme.spacing(10),
-    background: "#E16452",
-    padding: "4px",
-    borderBotom: "1px solid red",
-    color: "#ffffff",
-  },
-  sizeimage: {
-    display: "flex",
-    marginTop: theme.spacing(3),
-    borderBottom: "1px solid #E5E5E5",
-    marginBottom: theme.spacing(3),
-    justifyContent: "space-evenly",
-  },
-  tabs: {
-    borderBottom: "1px solid #E5E5E5",
-  "& .tabs-active":{
-    borderBottom: "1px solid #FDC114",
+
+    title: {
+      color: theme.palette.reaction.reactionBlue,
+      marginRight: theme.spacing(),
+      borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
+    },
+    top: {
+      // alignItems: "center",
+      display: "flex",
+
+      marginTop: "200px",
+    },
+    text: {
+      fontSize: "18px",
+      color: "white",
+      Fontfamily: " Circular Std",
+    },
+    dark: {
+      color: "#333333",
+    },
+    iconforwad: {
+      height: "auto",
+      color: "white",
+    },
+    iconback: {
+      height: "auto",
+      color: "white",
+    },
+    arrowc: {
+      height: "auto",
+      color: "white",
+    },
+    sliderr:{
+      display:"none",
+      [theme.breakpoints.up(900)]: {
+        display:"block",
+       
+         }
+    },
+    imagedesktop:{
+      display:"block",
+      marginTop:"170px",
+      [theme.breakpoints.up(900)]: {
+        display:"none",
+ marginTop:"200px",
+       
+         }
+    },mobileima:{
+      marginTop:theme.spacing(6),
+      width:"100%"
+    }
+  }));
+  const ITEMS = [
+ 
+    {
+      image: "/Desktop-images/desktop2.svg",
+      id: 1,
+    },
+    {
+      image: "/Desktop-images/desktop2.svg",
+      id: 2,
+    },
+    {
+      image: "/Desktop-images/desktop3.svg",
+      id: 3,
+    },
+    {
+      image: "/Desktop-images/desktop4.svg",
+      id: 4,
+    },
+
+    {
+      image: "/Desktop-images/desktop6.svg",
+      id: 6,
+    },
+  ];
+  function Item({ item }) {
+    const classes = useStyles();
+    return (
+      <>
+        <SwiperSlide>
+          <img src={item.image} className={classes.image} />
+
+          <div className={classes.controller}>
+            <div className={classes.controllert}>
+              {" "}
+              <img src="/icons/home.svg" className={classes.ie} />
+              <Typography className={classes.text}>Scroll to discover more</Typography>
+            </div>
+            <div className={classes.controllera}>
+              {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
+
+              <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
+              <h1 className={classes.arrowc}>|</h1>
+              <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+              {activeIndex < ITEMS.length - 1 ? (
+                <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        </SwiperSlide>
+      </>
+    );
   }
-  },
-  cart: {
-    height: "35px",
-    width: "100%",
-    borderRadius: "40px",
-    background: "#FDC114",
-    display: "flex",
-    justifyContent: "center",
 
-    marginTop: theme.spacing(3),
-    marginBottom:theme.spacing(3)
-  },
-  carttext:{
-    width:"450px"
-  }
-
-}));
-const slides = [
-  {
-    image: "/cart/cart1.svg",
-    id: 1,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for ",
-    size: "large",
-  },
-  {
-    image: "/cart/cart3.svg",
-    title: "Bag for sale",
-    id: 2,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    size: "large",
-  },
-  {
-    image: "/justin/justin1.svg",
-    id: 1,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for ",
-    size: "large",
-  },
-];
-
-function MainSlider() {
   const sliderRef = useRef(null);
 
- 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -193,149 +176,48 @@ function MainSlider() {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-  const [imagesNavSlider, setImagesNavSlider] = useState(null);
+  var menu = ["Slide 1", "Slide 2", "Slide 3"];
   const classes = useStyles();
-  const [value, setValue] = React.useState("1");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const pagination = {
+    renderCustom: (_, current, total) => {
+      return <div>{`0${current + 1}`}</div>;
+    },
   };
+
   return (
-    <Box className={classes.slider}>
-      <Grid container spacing={2} className={classes.sliderflex} xs={12} md={12} sm={12} lg={12} 
+    <>
+    <div className={classes.main}>
+      <div className={classes.root}>
+        <div className={classes.sliderr}>
+        <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}>
+          {ITEMS.map((item) => (
+            <SwiperSlide>
+              <Item item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        </div>
+        <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
+        </div>
+        </div>
+        {/* <Preloved  />
 
-
-  alignItems="center"
-  justifyContent="center"
-  style={{ minHeight: '100vh' }}>
-        <Grid item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
-          <div className={classes.thumb}>
-            <Swiper
-              onSwiper={setImagesNavSlider}
-              direction="vertical"
-              spaceBetween={24}
-              slidesPerView={3}
-              navigation={{
-                nextEl: ".slider__next",
-                prevEl: ".slider__prev",
-              }}
-              className={classes.container1}
-              breakpoints={{
-                0: {
-                  direction: "horizontal",
-                },
-                768: {
-                  direction: "vertical",
-                },
-              }}
-              modules={[Navigation, Thumbs]}
-            >
-              {slides.map((slide, index) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <div className={classes.thumbimage}>
-                      <img src={slide.image} alt="" />
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={10} sm={7} lg={5} className={`${classes.sliderimages} swiper_slider`}>
-          <Swiper
-            thumbs={{ swiper: imagesNavSlider }}
-            direction="horizontal"
-            slidesPerView={1}
-            spaceBetween={32}
-            ref={sliderRef}
-            pagination={{
-              clickable: true,
-            }}
-            mousewheel={true}
-            navigation={{
-              nextEl: ".slider__next",
-              prevEl: ".slider__prev",
-            }}
-            breakpoints={{
-              0: {
-                direction: "horizontal",
-                thumbs: "false",
-              },
-              768: {
-                direction: "horizontal",
-              },
-            }}
-            className={classes.container2}
-            modules={[Navigation, Thumbs, Mousewheel, Pagination]}
-            onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
-          >
-                    <div className={classes.controller}>
-
-{  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
-{activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
-</div>
-            {slides.map((slide, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <img src={slide.image} alt="" className={classes.sliderimage2} />
-                </SwiperSlide>
-              );
-            })}
+   
+  <Justin />      
      
-          </Swiper>
-        </Grid>
-        
-        <Grid item xs={11} md={10} sm={6} lg={3}  >
-          <div className={classes.carttext}>
-          <Typography variant="subtitle1">Floral Shirt in yellow color for sale on Bizb</Typography>
-          <div className={classes.size}>
-            {" "}
-           
-           <div className={classes.size2}> <strike > <Typography gutterBottom variant="h4" className={classes.price2}>
-              Rs 600
-            </Typography></strike>
-            <Typography gutterBottom variant="h4" className={classes.price}>
-              Rs 600
-            </Typography></div>
-            <Typography gutterBottom variant="h4" className={classes.offer}>
-              50 % OFF
-            </Typography>
-          </div>
-          <div className={classes.sizeimage}>
-            <img src="/cart/available.svg" alt="available" />
-            <Typography gutterBottom variant="h4" className={classes.offr}>
-              Large
-            </Typography>
-          </div>
-          <div className={classes.cart}>
-            <img component="img" src="/icons/cart.svg" />
-            <Typography gutterBottom variant="h4">
-              + Cart{" "}
-            </Typography>
-          </div>
-          <TabContext value={value}>
-            <TabList onChange={handleChange} className={classes.tabs}>
-              <Tab label="Description" value="1" />
-              <Tab label="size chart" value="2" />
-            </TabList>
 
-            <TabPanel value="1">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+<Story />
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </TabPanel>
+<BizbCalloborators />
 
-            <TabPanel value="2">
-              ffffffffffffffffffff voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </TabPanel>
-          </TabContext>
-          </div>
-        </Grid>
-      </Grid>
-    </Box>
+<Appsec />
+
+<Caloborators />
+<OurBlogs /> */}
+{/* <Instagram />  */}
+
+    </>
   );
-}
+};
 
 export default MainSlider;

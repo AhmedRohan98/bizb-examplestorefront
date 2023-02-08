@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottomColor:"none",
     "& .MuiInputBase-input": {
       color: "#969696",
-      fontSize: "14px",
+      fontSize: "17px",
       padding:"opx",
    
     }
@@ -51,7 +51,7 @@ register:{
 
 },
 socialmedia:{
-  width:"230px",
+  width:"250px",
   height:"48px",
   borderRadius:"40px",
   border:"none",
@@ -59,7 +59,7 @@ socialmedia:{
   justifyContent:"center",
   alignItems:"center",
   margin:"10px",
-  padding:"3px",
+  
   background:theme.palette.secondary.selected,
 
 },
@@ -82,6 +82,22 @@ checkbox:{
  checkboxdiv:{
   display:"flex",
   flexDirection: "row",
+ },
+ register2:{
+  fontSize: "18px",
+      color:"#333333",
+      fontFamily:"Ostrich Sans",
+        fontWeight: 900,
+       
+        lineHeight:"24px",
+        fontStyle: "normal",
+        marginLeft:"15px"
+ },
+ socialmedia2:{
+  display:"flex",
+  alignItems:"center",
+  justifyContent:"center",
+  flexWrap:"wrap"
  }
 }));
 
@@ -141,21 +157,27 @@ export default function Login() {
         }
      
       />
-       <Typography variant="h6" className={classes.terms}> Aggree With term and conditions</Typography>
+       <Typography variant="body2" className={classes.terms}> Aggree With term and conditions</Typography>
+
+ 
       </div>
      
-     
+      <div className={classes.socialmedia2}>
+  <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h5"> Register</Button>
+  </div>
             </form>
-            <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"> Register</Button>
+            <div className={classes.socialmedia2}>
+            
             <Box className={classes.socialmedia}>
             <img src='/authentication/signup3.svg' alt='Login-SignUP' />
-            <Typography variant="h6"> Register With Google</Typography>
+            <Typography variant="h5" className={classes.register2}> Register With Google</Typography>
        </Box>
        <Box className={classes.socialmedia}>
             <img src='/authentication/signup4.svg' alt='Login-SignUP'  />
-            <Typography variant="h6"> Register With Facebook</Typography>
+            <Typography variant="h5" className={classes.register2}> Register With Facebook</Typography>
+            
        </Box>
-     
+       </div>
    </>
   );
 }

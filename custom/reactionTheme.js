@@ -156,7 +156,7 @@ const theme = createMuiTheme({
     fontWeightBold: 700,
     
     subtitle2: {
-      fontSize: 14,
+      fontSize: "14px",
       color: "#737373"
     },
     h1: {
@@ -214,15 +214,15 @@ const theme = createMuiTheme({
       color:"#333333",
       fontFamily:"Ostrich Sans",
         fontWeight: 900,
-        weight:100,
+       
         lineHeight:"24px",
-        fontFamily: "Ostrich Sans",
+        fontStyle: "normal",
         
   
       
     },
     body2: {
-      fontSize: 14,
+      fontSize: "14px",
       fontWeight: 400,
       color: "#595959"
     },

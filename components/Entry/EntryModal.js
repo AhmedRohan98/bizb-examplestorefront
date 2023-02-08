@@ -9,9 +9,11 @@ import SignUp from "../Entry/SignUp";
 import ChangePassword from "../Entry/ChangePassword";
 import ForgotPassword from "../Entry/ForgotPassword";
 import ResetPassword from "../Entry/ResetPassword";
-
+import Layout from "../Layout";
 import CloseIcon from "@material-ui/icons/Close";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
+import Header from "../Header";
+import Footer from "../Footer";
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -21,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
     background: "green",
   },
   paper: {
-    height: "80vh",
-    width: "847px",
+    height: "90vh",
+    width: "60vw",
     borderRadius: "4px",
-    padding: theme.spacing(2, 2, 3),
+   
     boxSizing: "initial",
     position: "absolute",
     zIndex: 7,
@@ -40,12 +42,16 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     display: "block",
+    [theme.breakpoints.down("md")]: {
+      height: "90vh",
+      width: "90vw",
+    },
     [theme.breakpoints.down("xs")]: {
       display: "none",
     },
   },
   image: {
-    height: "60vh",
+    height: "700px",
   },
   image2: {
     height: "96px",
@@ -132,9 +138,7 @@ const EntryModal = ({ onClose, resetToken }) => {
     onClose();
   };
 
-  const modalStyles = {
-    top: "50px"
-  }
+ 
 
   // eslint-disable-next-line react/no-multi-comp
   const getModalComponent = () => {
@@ -175,21 +179,7 @@ const EntryModal = ({ onClose, resetToken }) => {
           <div className={classes.papers}>{getModalComponent()}</div>
         )}
       </Modal>
-      {/* <Modal open={Boolean(entryModal)}  aria-labelledby="entry-modal" aria-describedby="entry-modal">
-    <div className={classes.papers}>
-          
-
-         
-   
-          {getModalComponent()}
-        
-  
-        
-       
-        
-      </div>
-    </Modal>
-    */}
+     
     </>
   );
 };
