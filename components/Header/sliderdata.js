@@ -12,7 +12,11 @@ import TabPanel from "@material-ui/lab/TabPanel";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   slider: {
-    padding: "32px",
+    paddingTop: theme.spacing(8),
+    [theme.breakpoints.down(700)]: {
+      paddingTop: theme.spacing(0),
+    },
+  
   },
   sliderflex: {
     display: "flex",
@@ -23,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "150px",
-    marginRight: "32px",
+  
     display: "block",
     [theme.breakpoints.down(1100)]: {
       display: "none",
@@ -52,38 +56,36 @@ const useStyles = makeStyles((theme) => ({
           opacity: 1,
         },
       },
-      iconforwad:{
-        position:"absolute",
-        bottom:"60px",
-        right:"20px",
-        background:"#333333",
-        color: "FDC114",
-        borderRadius:"4px",
-        
-        zIndex: 1251
-        },
-        iconback:{
-          position:"absolute",
-          bottom:"60px",
-          left:"20px",
-          borderRadius:"4px",
-        color:"FDC114",
-        background:"#333333",
-        
-          zIndex: 1251
-          },
-
-      //  "& .swiper-slide-thumb":{
-      //   "& .swiper-slide-next":{
-      //     "& .swiper-slide-thumb-active":{
-      //       opacity:1,
-
-      //               },
-      //   }
-      //  }
+  
     },
   },
-
+  controller:{
+    display:"flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    
+   
+},
+iconforwad:{
+  position:"absolute",
+  top:"50%",
+  right:"10px",
+  background:"#333333",
+  color: "FDC114",
+  borderRadius:"4px",
+  
+  zIndex: 1251
+  },
+  iconback:{
+    position:"absolute",
+    top:"50%",
+    left:"10px",
+    borderRadius:"4px",
+  color:"FDC114",
+  background:"#333333",
+  
+    zIndex: 1251
+    },
   sliderimages: {
     height: "600px",
     width: "100%",
@@ -94,18 +96,29 @@ const useStyles = makeStyles((theme) => ({
   },
   sliderimage2: {
     height: "600px",
-    width: "auto",
+    width: "507px",
   },
   size: {
     display: "flex",
     flexDirection: "row",
+    justifyContent:"space-between",
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+  },
+  size2:{
+    display: "flex",
+    flexDirection: "row",
   },
   price: {
-    marginLeft: "20px",
+    marginLeft: theme.spacing(3),
+  },
+  price2: {
+     color:"#333333",
+     opacity: 0.5,
   },
   offer: {
     display: "flex",
-    marginLeft: "170px",
+  marginRight:theme.spacing(10),
     background: "#E16452",
     padding: "4px",
     borderBotom: "1px solid red",
@@ -113,13 +126,16 @@ const useStyles = makeStyles((theme) => ({
   },
   sizeimage: {
     display: "flex",
-    marginTop: "10px",
+    marginTop: theme.spacing(3),
     borderBottom: "1px solid #E5E5E5",
-    marginBottom: "10px",
-    justifyContent: "space-between",
+    marginBottom: theme.spacing(3),
+    justifyContent: "space-evenly",
   },
   tabs: {
     borderBottom: "1px solid #E5E5E5",
+  "& .tabs-active":{
+    borderBottom: "1px solid #FDC114",
+  }
   },
   cart: {
     height: "35px",
@@ -129,16 +145,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
 
-    padding: "3px",
+    marginTop: theme.spacing(3),
+    marginBottom:theme.spacing(3)
   },
-  " & .swiper-pagination-fraction": {
-    bottom: "0px",
-  },
+  carttext:{
+    width:"450px"
+  }
 
-  "span.swiper-pagination-bullet.swiper-pagination-bullet-active": {
-    width: "200px",
-    background: "green",
-  },
 }));
 const slides = [
   {
@@ -189,8 +202,13 @@ function MainSlider() {
   };
   return (
     <Box className={classes.slider}>
-      <Grid container spacing={8} className={classes.sliderflex}>
-        <Grid item xs={0} md={2} sm={0} className={classes.slidercol}>
+      <Grid container spacing={2} className={classes.sliderflex} xs={12} md={12} sm={12} lg={12} 
+
+
+  alignItems="center"
+  justifyContent="center"
+  style={{ minHeight: '100vh' }}>
+        <Grid item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
           <div className={classes.thumb}>
             <Swiper
               onSwiper={setImagesNavSlider}
@@ -224,12 +242,13 @@ function MainSlider() {
             </Swiper>
           </div>
         </Grid>
-        <Grid item xs={5} md={5} sm={12} className={`${classes.sliderimages} swiper_slider`}>
+        <Grid item xs={12} md={10} sm={7} lg={5} className={`${classes.sliderimages} swiper_slider`}>
           <Swiper
             thumbs={{ swiper: imagesNavSlider }}
             direction="horizontal"
             slidesPerView={1}
             spaceBetween={32}
+            ref={sliderRef}
             pagination={{
               clickable: true,
             }}
@@ -251,9 +270,9 @@ function MainSlider() {
             modules={[Navigation, Thumbs, Mousewheel, Pagination]}
             onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
           >
-             <div className={classes.controller}>
+                    <div className={classes.controller}>
 
-{  activeIndex < slides.length-0 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
+{  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
 {activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
 </div>
             {slides.map((slide, index) => {
@@ -263,17 +282,22 @@ function MainSlider() {
                 </SwiperSlide>
               );
             })}
+     
           </Swiper>
         </Grid>
         
-        <Grid item xs={5} md={4} className={classes.carttext}>
+        <Grid item xs={11} md={10} sm={6} lg={3}  >
+          <div className={classes.carttext}>
           <Typography variant="subtitle1">Floral Shirt in yellow color for sale on Bizb</Typography>
           <div className={classes.size}>
             {" "}
-            <strike variant="h4">Rs 600</strike>
+           
+           <div className={classes.size2}> <strike > <Typography gutterBottom variant="h4" className={classes.price2}>
+              Rs 600
+            </Typography></strike>
             <Typography gutterBottom variant="h4" className={classes.price}>
               Rs 600
-            </Typography>
+            </Typography></div>
             <Typography gutterBottom variant="h4" className={classes.offer}>
               50 % OFF
             </Typography>
@@ -297,11 +321,9 @@ function MainSlider() {
             </TabList>
 
             <TabPanel value="1">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </TabPanel>
 
             <TabPanel value="2">
@@ -309,6 +331,7 @@ function MainSlider() {
               cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </TabPanel>
           </TabContext>
+          </div>
         </Grid>
       </Grid>
     </Box>
