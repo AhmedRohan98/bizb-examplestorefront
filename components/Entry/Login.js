@@ -1,7 +1,7 @@
-import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, Button,  Typography } from '@material-ui/core';
-
+import React, { useState } from "react";
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -105,6 +105,12 @@ checkbox:{
 
 export default function Login() {
   const [checkedEmail, setCheckedEmail] = React.useState(true);
+  const [email, setEmail] = useState("");
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+console.log(email)
   const classes = useStyles();
   const handleChangeEmail = (event) => {
     setCheckedEmail(event.target.checked);
@@ -124,7 +130,8 @@ export default function Login() {
                 </Grid>
                 <Grid xs={12} item>
                   <label className={classes.label} variant="h6">Email
-                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} />
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input}  onChange={handleEmailChange} value={email}
+          type="email"/>
                 </label>
                 </Grid>
          

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: "90vh",
-    width: "60vw",
+    width: "70vw",
     borderRadius: "4px",
    
     boxSizing: "initial",
