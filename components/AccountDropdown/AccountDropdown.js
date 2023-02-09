@@ -83,6 +83,7 @@ const AccountDropdown = ({ headerType }) => {
 
   return (
     <Fragment>
+       
       <EntryModal onClose={onClose} resetToken={resetToken} />
       {isAuthenticated ? (
         <ButtonBase onClick={toggleOpen}>
@@ -109,30 +110,35 @@ const AccountDropdown = ({ headerType }) => {
         <div className={classes.accountDropdown}>
           {isAuthenticated ? (
             <Fragment>
+                <div className={classes.authContent}>
               <div className={classes.marginBottom}>
                 <Link href="/profile/address">
-                  <Button color="primary" fullWidth>
+                  <Button className={classes.authbutton} fullWidth>
                     Profile
                   </Button>
                 </Link>
               </div>
-              <div className={classes.marginBottom}>
-                <Button color="primary" fullWidth onClick={() => setEntryModal("change-password")}>
-                  Change Password
-                </Button>
-              </div>
-              <Button color="primary" fullWidth onClick={handleSignOut} variant="contained">
+              <Button color="primary" className={classes.authbutton} fullWidth onClick={handleSignOut} >
                 Sign Out
               </Button>
+              {/* <div className={classes.marginBottom}>
+                <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("change-password")}>
+                  Change Password
+                </Button>
+              </div> */}
+          
+             
+              </div>  
             </Fragment>
+            
           ) : (
             <Fragment>
               <div className={classes.authContent}>
-                <Button className={classes.authbutton} fullWidth variant="contained" onClick={() => setEntryModal("login")}>
+                <Button className={classes.authbutton} fullWidth variant="contained" onClick={() => setEntryModal("signup")}>
                 Register
                 </Button>
               </div>
-              <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("signup")}>
+              <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("login")}>
              Login
               </Button>
             </Fragment>

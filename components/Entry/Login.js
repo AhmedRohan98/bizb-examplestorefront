@@ -1,10 +1,16 @@
 
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, TextField, Button,  Typography } from '@material-ui/core';
 import React, { useState } from "react";
-import Checkbox from '@material-ui/core/Checkbox';
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import useViewer from "hooks/viewer/useViewer";
+import { Grid, TextField, Button,  Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import getAccountsHandler from "../../lib/accountsServer.js";
+import hashPassword from "../../lib/utils/hashPassword";
+
+
+
+
 const useStyles = makeStyles((theme) => ({
  
  
@@ -41,6 +47,7 @@ register:{
   borderRadius:"40px",
   border:"none",
   display:"flex",
+  marginTop:theme.spacing(4),
   justifyContent:"center",
   alignItems:"center",
   background:theme.palette.secondary.selected,
@@ -98,95 +105,131 @@ checkbox:{
   alignItems:"center",
   justifyContent:"center",
   flexWrap:"wrap"
+ },
+ switchEntryMode: {
+  textAlign: "center",
+fontSize:"16px",
+  cursor: "pointer",
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2)
+},
+switchaccout:{
+  color:"#FDC114"
  }
 }));
-
-
-
-export default function Login() {
-  const [checkedEmail, setCheckedEmail] = React.useState(true);
+export default function Login(props) {
+  const { closeModal, openModal } = props;
+  const classes = useStyles();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [, , refetch] = useViewer();
+  const { passwordClient } = getAccountsHandler();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-console.log(email)
-  const classes = useStyles();
-  const handleChangeEmail = (event) => {
-    setCheckedEmail(event.target.checked);
-  };
-  return (
-   <>
 
-<Typography variant="body1">REGISTRATION </Typography>
-        <form>
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleOpenSignUp = () => {
+        openModal("signup");
+      };
+
+      const registerUser = async () => {
+        try {
+          await passwordClient.login({
+            user: {
+              email
+            },
+            password: hashPassword(password)
+          });
+          closeModal();
+          await refetch();
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+    
+ 
+  const handleForgotPasswordClick = () => {
+    openModal("forgot-password");
+  };
+
+
+  return (
+    <>
+      <>
+
+<Typography variant="body1">WELCOME BACK ! </Typography>
+        <form >
               <Grid container >
-                <Grid xs={12}  item>
-                {/* <span>*</span> */}
-                <label className={classes.label}  required >FullName 
-                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}   className={classes.input}   
-  />
-                </label>
-                </Grid>
+              
                 <Grid xs={12} item>
                   <label className={classes.label} variant="h6">Email
-                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input}  onChange={handleEmailChange} value={email}
-          type="email"/>
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input}   onChange={handleEmailChange} value={email}  type="email"
+         />
                 </label>
                 </Grid>
          
                 <Grid item xs={12}>
-                <label className={classes.label}>Phone Number
-                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} />
-                </label>
-                </Grid>
-                <Grid item xs={12}>
                 <label className={classes.label}>Password
-                <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} />
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input}   onChange={handlePasswordChange}
+          value={password}
+          type="password"/>
                 </label>
                 </Grid>
+                <div
+        className={classes.forgotPassword}
+        onClick={handleForgotPasswordClick}
+        onKeyDown={handleForgotPasswordClick}
+        role="button"
+        tabIndex={0}
+      >
+        Forgot Password?
+      </div>
+
               
-                <Grid item xs={12}>
-                <label className={classes.label}>Re-Enter Password
-                <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} />
-                </label>
-                </Grid>
 
               </Grid>
-              <div className={classes.checkboxdiv}>
-              <FormControlLabel
-        control={
-          <Checkbox
-            checked={checkedEmail}
-            onChange={handleChangeEmail}
-            className={classes.checkbox}
-          />
-        }
-     
-      />
-       <Typography variant="body2" className={classes.terms}> Aggree With term and conditions</Typography>
 
- 
-      </div>
-     
       <div className={classes.socialmedia2}>
-  <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h5"> Register</Button>
+  <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h5"    role="button"
+        type="submit"
+        onClick={registerUser}>Login</Button>
   </div>
             </form>
             <div className={classes.socialmedia2}>
             
             <Box className={classes.socialmedia}>
             <img src='/authentication/signup3.svg' alt='Login-SignUP' />
-            <Typography variant="h5" className={classes.register2}> Register With Google</Typography>
+            <Typography variant="h5" className={classes.register2}> Login With Google</Typography>
        </Box>
        <Box className={classes.socialmedia}>
             <img src='/authentication/signup4.svg' alt='Login-SignUP'  />
-            <Typography variant="h5" className={classes.register2}> Register With Facebook</Typography>
+            <Typography variant="h5" className={classes.register2}> Login With Facebook</Typography>
             
        </Box>
+       {!!error && <div className={classes.error}>{error}</div>}
+       <div
+        className={classes.switchEntryMode}
+        onClick={handleOpenSignUp}
+        onKeyDown={handleOpenSignUp}
+        role="button"
+        tabIndex={0}
+      >
+                <Typography variant="h5">    Don't have an account? <span className={classes.switchaccout}> Sign Up</span></Typography>
+      </div>
        </div>
    </>
+   
+    </>
   );
 }
 
-
+Login.propTypes = {
+  closeModal: PropTypes.func,
+  openModal: PropTypes.func
+};
