@@ -5,8 +5,6 @@ import Helmet from "react-helmet";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 import ProductGrid from "components/ProductGrid";
 import Layout from "components/Layout";
-import dynamic from "next/dynamic";
-const DynamicSlider = dynamic(() => import("../../components/Header/sliderdata"));
 import { inPageSizes } from "lib/utils/pageSizes";
 import { withApollo } from "lib/apollo/withApollo";
 
@@ -22,17 +20,16 @@ class ProductGridPage extends Component {
     routingStore: PropTypes.object,
     shop: PropTypes.shape({
       currency: PropTypes.shape({
-        code: PropTypes.string.isRequired,
-      }),
+        code: PropTypes.string.isRequired
+      })
     }),
-    headerType: PropTypes.bool,
     tag: PropTypes.object,
     uiStore: PropTypes.shape({
       pageSize: PropTypes.number.isRequired,
       setPageSize: PropTypes.func.isRequired,
       setSortBy: PropTypes.func.isRequired,
-      sortBy: PropTypes.string.isRequired,
-    }),
+      sortBy: PropTypes.string.isRequired
+    })
   };
 
   componentDidMount() {
@@ -57,7 +54,7 @@ class ProductGridPage extends Component {
       isLoadingCatalogItems,
       routingStore: { query },
       shop,
-      uiStore,
+      uiStore
     } = this.props;
     const pageSize = query && inPageSizes(query.limit) ? parseInt(query.limit, 10) : uiStore.pageSize;
     const sortBy = query && query.sortby ? query.sortby : uiStore.sortBy;
@@ -71,15 +68,22 @@ class ProductGridPage extends Component {
     }
 
     return (
-      typeof window !== undefined && (
- 
-           <Layout dark>
-           <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-           
-             <DynamicSlider />
-         </Layout>
-   
-      )
+      <Layout shop={shop}>
+        <Helmet
+          title={pageTitle}
+          meta={[{ name: "descrition", content: shop && shop.description }]}
+        />
+        <ProductGrid
+          catalogItems={catalogItems}
+          currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
+          isLoadingCatalogItems={isLoadingCatalogItems}
+          pageInfo={catalogItemsPageInfo}
+          pageSize={pageSize}
+          setPageSize={this.setPageSize}
+          setSortBy={this.setSortBy}
+          sortBy={sortBy}
+        />
+      </Layout>
     );
   }
 }
@@ -93,25 +97,25 @@ class ProductGridPage extends Component {
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
   const translations = await fetchTranslations(lang, ["common"]);
-  console.log("shop.......");
+
   if (!primaryShop?.shop) {
     return {
       props: {
         shop: null,
-        ...translations,
+        ...translations
       },
       // eslint-disable-next-line camelcase
-      unstable_revalidate: 1, // Revalidate immediately
+      unstable_revalidate: 1 // Revalidate immediately
     };
   }
 
   return {
     props: {
       ...primaryShop,
-      ...translations,
+      ...translations
     },
     // eslint-disable-next-line camelcase
-    unstable_revalidate: 120, // Revalidate each two minutes
+    unstable_revalidate: 120 // Revalidate each two minutes
   };
 }
 
@@ -121,10 +125,9 @@ export async function getStaticProps({ params: { lang } }) {
  * @returns {Object} the paths
  */
 export async function getStaticPaths() {
-  console.log("get staticpaths");
   return {
     paths: locales.map((locale) => ({ params: { lang: locale } })),
-    fallback: false,
+    fallback: false
   };
 }
 

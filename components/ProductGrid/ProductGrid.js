@@ -54,10 +54,16 @@ class ProductGrid extends Component {
   renderMainArea() {
     const { catalogItems, isLoadingCatalogItems, pageInfo } = this.props;
 
+    console.log({catalogItems, isLoadingCatalogItems, pageInfo })
+
     if (isLoadingCatalogItems) return <PageLoading />;
 
     const products = (catalogItems || []).map((item) => item.node.product);
     if (products.length === 0) return <ProductGridEmptyMessage />;
+
+    // const products = catalogItems?.map((item)=> {
+    //   item.node.product
+    // })
 
     return (
       <Fragment>

@@ -17,7 +17,6 @@ import Link from "components/Link";
 import MiniCart from "components/MiniCart";
 import type { FC } from "react";
 import type { WithStyles, Theme } from "@material-ui/core";
-
 const styles = (theme: Theme) =>
   createStyles({
     appBar: {

@@ -181,13 +181,13 @@ export default function SignUp(props) {
            <Typography variant="body1">REGISTRATION </Typography>     
     <form className={classes.root} noValidate>
     <Grid container >
-    {/* <Grid xs={12}  item>
+    <Grid xs={12}  item>
 
                    <label className={classes.label}  required >FullName 
                     <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}   className={classes.input}   onChange={handleFullname} value={fullname}
       />
                     </label>
-                    </Grid> */}
+                    </Grid>
       <Grid xs={12} item>
                       <label className={classes.label} variant="h6">Email
                     <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input}  onChange={handleEmailChange} value={email}  type="email"
@@ -195,25 +195,25 @@ export default function SignUp(props) {
                     </label>
                     </Grid>
                    
-                    {/* <Grid item xs={12}>
+                    <Grid item xs={12}>
                    <label className={classes.label}>Phone Number
                    <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} onChange={handlephonenumber} value={phonenumber}/>
                    </label>
-                    </Grid> */}
+                    </Grid>
                     <Grid item xs={12}>
                     <label className={classes.label}>Password
                     <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} onChange={handlePasswordChange} value={password}/>
                     </label>
                     </Grid>
                   
-                     {/* <Grid item xs={12}>
+                     <Grid item xs={12}>
                     <label className={classes.label}>Re-Enter Password
                     <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} onChange={handleresetpsssword} value={resetpassword}/>
     
-                   </label>                     </Grid> */}
+                   </label>                     </Grid>
     
                     </Grid>
-                    {/* <div className={classes.checkboxdiv}>
+                    <div className={classes.checkboxdiv}>
                  <FormControlLabel
             control={
               <Checkbox
@@ -227,7 +227,7 @@ export default function SignUp(props) {
            <Typography variant="body2" className={classes.terms}> Aggree With term and conditions</Typography>
     
      
-          </div> */}
+          </div>
                     <div className={classes.socialmedia2}>
       <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h5"  type="submit"  onClick={registerUser}> Register</Button>
       </div>
