@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   PrelovedHeader: {
     display: "flex",
     justifyContent: "center",
-
+ width:"100%",
     flexDirection: "column",
     alignItems: "center",
   },
@@ -91,7 +91,8 @@ const useStyles = makeStyles((theme) => ({
     
   },
   text:{
-    color :theme.palette.primary.contrastText
+    color :theme.palette.primary.contrastText,
+    textTransform: "uppercase",
   },
   buttonshop:{
     background:theme.palette.secondary.selected,

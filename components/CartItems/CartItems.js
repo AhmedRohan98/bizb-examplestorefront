@@ -82,13 +82,7 @@ class CartItems extends Component {
         />
         {hasMoreCartItems &&
           <div className={classes.loadMore}>
-            <Button
-              isShortHeight={isMiniCart}
-              isTextOnly
-              onClick={onLoadMoreCartItems}
-            >
-              {"Load More"}
-            </Button>
+           
           </div>
         }
       </Fragment>

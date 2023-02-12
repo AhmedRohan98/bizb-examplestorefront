@@ -1,191 +1,172 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import { useRef,useCallback ,useState} from "react";
-import Typography from "@material-ui/core/Typography";
-import Tab from "@material-ui/core/Tab";
-import TabContext from "@material-ui/lab/TabContext";
-import TabList from "@material-ui/lab/TabList";
-import TabPanel from "@material-ui/lab/TabPanel";
-import ProductGrid from "../ProductGrid"
-import Justin  from "../Justin/justin"
+
+// Import Swiper styles
+
+import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-const useStyles = makeStyles((theme) => ({
-  slider: {
-    paddingTop: theme.spacing(8),
-    [theme.breakpoints.down(700)]: {
-      paddingTop: theme.spacing(0),
-    },
-  
-  },
-  sliderflex: {
-    display: "flex",
-    alignItems: "flex-start",
-  },
+import { makeStyles } from "@material-ui/core/styles";
 
-  slidercol: {
-    display: "flex",
-    flexDirection: "column",
-    width: "150px",
-  
-    display: "block",
-    [theme.breakpoints.down(1100)]: {
-      display: "none",
+import Story from "../Stories/story";
+import Justin from "../Justin/justin";
+import Typography from "@material-ui/core/Typography";
+import Preloved from "../Preloved/prelovedSec";
+import Appsec from "../Appsection/appsec";
+import Instagram from "../Instagram/instagram";
+import OurBlogs from "../Ourblogs/ourblog";
+import Caloborators from "../Calloborators/calloborators";
+import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
+import TopSelling from "../TopSelling/topselling";
+const MainSlider = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-      width: "0px",
-      height: "0px",
+  const useStyles = makeStyles((theme) => ({
+   main: {
+      
+    marginTop: "-170px"
+      
     },
-  },
-  container1: {
-    width: "100%",
-    height: "100%",
-  },
-  container2: {
-    width: "500px",
-    height: "600px",
-  },
-  thumb: {
-    height: "600px",
-    width: "200px",
-    "& .swiper-slide": {
-      opacity: 0.5,
-      "&.swiper-slide-visible": {
-        opacity: 0.5,
+    root: {
+      position: "relative",
+      
+    },
+    image: {
+      height: "95vh",
+      width: "100%",
+      objectPosition: "top",
+      objectFit: "cover",
+    },
+    controller: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-end",
+    },
+    controllera: {
+      position: "absolute",
 
-        "&.swiper-slide-thumb-active": {
-          opacity: 1,
-        },
-      },
-  
+      display: "flex",
+      flexDirection: "row",
+      gap: "4vh",
+
+      right: "5vh",
     },
-  },
-  controller:{
-    display:"flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    
-   
-},
-iconforwad:{
-  position:"absolute",
-  top:"50%",
-  right:"10px",
-  background:"#333333",
-  color: "FDC114",
-  borderRadius:"4px",
-  
-  zIndex: 1251
-  },
-  iconback:{
-    position:"absolute",
-    top:"50%",
-    left:"10px",
-    borderRadius:"4px",
-  color:"FDC114",
-  background:"#333333",
-  
-    zIndex: 1251
+    controllert: {
+      position: "absolute",
+      display: "flex",
+      flexDirection: "row",
+      gap: "5px",
+
+      left: "5vh",
+      bottom: "20px",
     },
-  sliderimages: {
-    height: "600px",
-    width: "100%",
-  },
-  sliderimage: {
-    height: "100%",
-    width: "100%",
-  },
-  sliderimage2: {
-    height: "600px",
-    width: "507px",
-  },
-  size: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent:"space-between",
-    marginBottom: theme.spacing(3),
-    marginTop: theme.spacing(3),
-  },
-  size2:{
-    display: "flex",
-    flexDirection: "row",
-  },
-  price: {
-    marginLeft: theme.spacing(3),
-  },
-  price2: {
-     color:"#333333",
-     opacity: 0.5,
-  },
-  offer: {
-    display: "flex",
-  marginRight:theme.spacing(10),
-    background: "#E16452",
-    padding: "4px",
-    borderBotom: "1px solid red",
-    color: "#ffffff",
-  },
-  sizeimage: {
-    display: "flex",
-    marginTop: theme.spacing(3),
-    borderBottom: "1px solid #E5E5E5",
-    marginBottom: theme.spacing(3),
-    justifyContent: "space-evenly",
-  },
-  tabs: {
-    borderBottom: "1px solid #E5E5E5",
-  "& .tabs-active":{
-    borderBottom: "1px solid #FDC114",
+
+    title: {
+      color: theme.palette.reaction.reactionBlue,
+      marginRight: theme.spacing(),
+      borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
+    },
+    top: {
+      // alignItems: "center",
+      display: "flex",
+
+      marginTop: "200px",
+    },
+    text: {
+      fontSize: "18px",
+      color: "white",
+      Fontfamily: " Circular Std",
+    },
+    dark: {
+      color: "#333333",
+    },
+    iconforwad: {
+      height: "auto",
+      color: "white",
+    },
+    iconback: {
+      height: "auto",
+      color: "white",
+    },
+    arrowc: {
+      height: "auto",
+      color: "white",
+    },
+    sliderr:{
+      display:"none",
+      [theme.breakpoints.up(900)]: {
+        display:"block",
+       
+         }
+    },
+    imagedesktop:{
+      display:"block",
+
+      [theme.breakpoints.up(900)]: {
+        display:"none",
+ 
+       
+         }
+    },mobileima:{
+      marginTop:theme.spacing(6),
+      width:"100%"
+    }
+  }));
+  const ITEMS = [
+ 
+    {
+      image: "/Desktop-images/desktop2.svg",
+      id: 1,
+    },
+    {
+      image: "/Desktop-images/desktop2.svg",
+      id: 2,
+    },
+    {
+      image: "/Desktop-images/desktop3.svg",
+      id: 3,
+    },
+    {
+      image: "/Desktop-images/desktop4.svg",
+      id: 4,
+    },
+
+    {
+      image: "/Desktop-images/desktop6.svg",
+      id: 6,
+    },
+  ];
+  function Item({ item }) {
+    const classes = useStyles();
+    return (
+      <>
+        <SwiperSlide>
+          <img src={item.image} className={classes.image} />
+
+          <div className={classes.controller}>
+            <div className={classes.controllert}>
+              {" "}
+              <img src="/icons/home.svg" className={classes.ie} />
+              <Typography className={classes.text}>Scroll to discover more</Typography>
+            </div>
+            <div className={classes.controllera}>
+              {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
+
+              <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
+              <h1 className={classes.arrowc}>|</h1>
+              <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+              {activeIndex < ITEMS.length - 1 ? (
+                <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        </SwiperSlide>
+      </>
+    );
   }
-  },
-  cart: {
-    height: "35px",
-    width: "100%",
-    borderRadius: "40px",
-    background: "#FDC114",
-    display: "flex",
-    justifyContent: "center",
 
-    marginTop: theme.spacing(3),
-    marginBottom:theme.spacing(3)
-  },
-  carttext:{
-    width:"450px"
-  }
-
-}));
-const slides = [
-  {
-    image: "/cart/cart1.svg",
-    id: 1,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for ",
-    size: "large",
-  },
-  {
-    image: "/cart/cart3.svg",
-    title: "Bag for sale",
-    id: 2,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    size: "large",
-  },
-  {
-    image: "/justin/justin1.svg",
-    id: 1,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for ",
-    size: "large",
-  },
-];
-
-function MainSlider() {
   const sliderRef = useRef(null);
 
- 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -195,24 +176,56 @@ function MainSlider() {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-  const [imagesNavSlider, setImagesNavSlider] = useState(null);
+  var menu = ["Slide 1", "Slide 2", "Slide 3"];
   const classes = useStyles();
-  const [value, setValue] = React.useState("1");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const pagination = {
+    renderCustom: (_, current, total) => {
+      return <div>{`0${current + 1}`}</div>;
+    },
   };
+
   return (
- <>
- {/* <Justin   /> */}
- {/* <ProductGrid ></ProductGrid> */}
- </>
-    
-      
+    <>
+    <div className={classes.main}>
+      <div className={classes.root}>
+        <div className={classes.sliderr}>
+        <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}>
+          {ITEMS.map((item) => (
+            <SwiperSlide>
+              <Item item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        </div>
+        <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
+        </div>
+        </div>
+        <Preloved  />
+
+        {/* <Preloved />
+   
+  <Justin />      
+     
+
+<Story />
+
+<BizbCalloborators />
+<div className={classes.top}>
+  <TopSelling />
+ 
+</div>
+<Appsec />
+
+<Caloborators />
+<OurBlogs />
+<Instagram /> */}
+
+    </>
   );
-}
+};
 
 export default MainSlider;
+
 
 
 
