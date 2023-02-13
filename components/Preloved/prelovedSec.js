@@ -26,9 +26,10 @@ const useStyles = makeStyles((theme) => ({
   PrelovedHeader: {
     display: "flex",
     justifyContent: "center",
- width:"100%",
+
     flexDirection: "column",
     alignItems: "center",
+    
   },
   PrelovedHeader2: {
     display: "flex",
