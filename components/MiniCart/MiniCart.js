@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import inject from "hocs/inject";
 import { withStyles } from "@material-ui/core/styles";
@@ -6,208 +6,251 @@ import MiniCartComponent from "../../reaction-plugins/reaction-component-library
 import CartItems from "components/CartItems";
 import CartEmptyMessage from "@reactioncommerce/components/CartEmptyMessage/v1";
 import IconButton from "@material-ui/core/IconButton";
-
-import CloseIcon from '@material-ui/icons/Close';
-
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-
-
+import Modal from "@material-ui/core/Modal";
+import Fade from "@material-ui/core/Fade";
+import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-
+import Backdrop from '@material-ui/core/Backdrop';
 import Router from "translations/i18nRouter";
 import Badge from "@material-ui/core/Badge";
-import Popper from "@material-ui/core/Popper";
-import Fade from "@material-ui/core/Fade";
+
 import withCart from "containers/cart/withCart";
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
+  popper: {
+    marginTop: "0.5rem",
+    marginRight: "1rem",
+  },
+  cart: {
+    backgroundColor: theme.palette.common.white,
+  },
+  emptyCart: {
+    display: "flex",
 
+    border: "green",
+  },
+  badge: {
+    width: 20,
+    height: 20,
+    top: 10,
+    left: 20,
+  },
   modal: {
-    display: 'flex',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    height:"100vh",
-    width:"468px",
-    position:"absolute",
-        top:"0px",
-        right:"0px",
-  
-    border: '2px solid #000',
+    height: "100vh",
+    width: "468px",
+    position: "absolute",
+    top: "0px",
+    right: "0px",
+
+    border: "",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-overflowY:"auto",
- 
-   
+  cartmodal: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+
+    borderBottom: "1px solid #E5E5E5",
   },
-  paper2:{
+  cartitems: {
+    height: "60vh",
+    overflowY: "auto",
+  },
+  paper2: {
     backgroundColor: theme.palette.background.paper,
-    height:"100vh",
-    width:"400px",
-    position:"absolute",
-        top:"0px",
-        right:"0px",
-  display:"flex",
-  alignItems:"center",
-  justifyContent:"center",
-    
+    height: "100vh",
+    width: "400px",
+    position: "absolute",
+    top: "0px",
+    right: "0px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  cartitem:{
+  cartitem: {
     padding: theme.spacing(1),
-  total:{
-    borderTop: "1px solid #E5E5E5",
-    position:"fixed",
-    width:"390px",
-    padding:theme.spacing(2),
-    bottom:"10px"
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
   },
-       },
-       carttext:{
-        color:theme.palette.primary.contrastText,
-       }
-     ,  paper2:{
-      backgroundColor: theme.palette.background.paper,
-   marginTop:"15vh",
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
+  cartimage: {
+    height: "130px",
+    width: "120px",
+
+    borderRadius: "10px",
+  },
+  cartitemtext: {
+    display: "flex",
     flexDirection: "column",
-    
+  },
+  cartprice: {
+    paddingTop: theme.spacing(1),
+    color: theme.palette.secondary.selected,
+  },
+  cartpric: {
+    paddingTop: theme.spacing(1),
+  },
+  total: {
+    borderTop: "1px solid #E5E5E5",
+    position: "fixed",
+    width: "390px",
+    padding: theme.spacing(2),
+    bottom: "10px",
+  },
+  total1: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  cart1: {
+    height: "48px",
+    width: "140px",
+    borderRadius: "40px",
+    background: theme.palette.reaction.black,
+    display: "flex",
+
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: "10px",
+  },
+  cart: {
+    height: "48px",
+    width: "140px",
+    borderRadius: "40px",
+    marginTop: "10px",
+    background: theme.palette.secondary.selected,
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  carttext: {
+    color: theme.palette.primary.contrastText,
+  },
+  paper2: {
+    backgroundColor: theme.palette.background.paper,
+    marginTop: "15vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  emptycart: {
+    marginTop: theme.spacing(5),
+    width: "239px",
+    height: "58px",
+    textAlign: "center",
+  },
+  continue: {
+    width: "250px",
+    height: "48px",
+    borderRadius: "40px",
+    marginTop: theme.spacing(5),
+    border: "none",
+    display: "flex",
+    textTransform: "uppercase",
+    justifyContent: "center",
+    alignItems: "center",
+    background: theme.palette.secondary.selected,
+    "&:hover": {
+      background: theme.palette.secondary.selected,
     },
-    emptycart:{
-      marginTop:theme.spacing(5),
-      width:"239px",
-      height:"58px",
-      textAlign: "center"
-    },
-    continue:{
-      width:"250px",
-      height:"48px",
-      borderRadius:"40px",
-      marginTop:theme.spacing(5),
-      border:"none",
-      display:"flex",
-      textTransform: "uppercase",
-      justifyContent:"center",
-      alignItems:"center",
-      background:theme.palette.secondary.selected,
-      "&:hover": {
-    
-        background:theme.palette.secondary.selected,
-    },
-    "&.MuiButton-root":{
+    "&.MuiButton-root": {
       fontSize: "20px",
-      color:"#333333",
-      fontFamily:"Ostrich Sans",
-        fontWeight: 900,
-       
-        lineHeight:"24px",
-        fontFamily: "Ostrich Sans",
-    }
-  }
-}));
+      color: "#333333",
+      fontFamily: "Ostrich Sans",
+      fontWeight: 900,
 
-const MiniCart = (props,headerType) =>
-  {
-    const propTypes = {
-      cart: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.object),
-        checkout: PropTypes.shape({
-          itemTotal: PropTypes.shape({
-            displayAmount: PropTypes.string,
-          }),
-          taxTotal: PropTypes.shape({
-            displayAmount: PropTypes.string,
-          }),
-        }),
-      }),
-      classes: PropTypes.object.isRequired,
-      hasMoreCartItems: PropTypes.bool,
-      loadMoreCartItems: PropTypes.func,
-      onChangeCartItemsQuantity: PropTypes.func,
-      onRemoveCartItems: PropTypes.func,
-      uiStore: PropTypes.shape({
-        isCartOpen: PropTypes.bool.isRequired,
-        openCart: PropTypes.func.isRequired,
-        closeCart: PropTypes.func.isRequired,
-      }),
-    };
-  
-    
-  
-  
-  
-  
-   
-  
-    const handleClick = () => Router.push("/");
-  
-   const handleCheckoutButtonClick = () => {
-      this.handleLeavePopper();
-      Router.push("/cart/checkout");
-    };
-  
-  
-  
-  
-   const handleOnClick = () => {
-      const { closeCart } = props.uiStore;
-      closeCart();
-      Router.push("/cart");
-    };
-    const [open, setOpen] = React.useState(false);
+      lineHeight: "24px",
+      fontFamily: "Ostrich Sans",
+    },
+  },
+});
 
-    const handleOpen = () => {
-      setOpen(true);
-    };
+const MiniCart = ({ ...props }) => {
+  const [anchorElement, setAnchorElement] = useState(null);
+  const [open, setOpen] = useState(false);
+  const setPopoverAnchorEl = (element) => {
+    setAnchorElement(element);
+  };
+  const handlePopperOpen = () => {
+    const {
+      uiStore: { openCart },
+    } = props;
+    openCart();
+  };
+
+ 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClick = () => Router.push("/");
+
+  const handleCheckoutButtonClick = () => {
   
-    const handleClose = () => {
-      setOpen(false);
-    };
+    Router.push("/cart/checkout");
+  };
+
+  const handlePopperClose = () => {
+    const { closeCart } = props.uiStore;
+    closeCart(0);
+  };
+
+  const handleEnterPopper = () => {
+    const { openCart } = props.uiStore;
+    openCart();
+  };
+
+  const handleLeavePopper = () => {
+    const { closeCart } = props.uiStore;
+    closeCart();
+  };
+
+  const handleOnClick = () => {
+    const { closeCart } = props.uiStore;
   
-   const handleItemQuantityChange = (quantity, cartItemId) => {
-      const { onChangeCartItemsQuantity } = this.props;
-  
-      onChangeCartItemsQuantity({ quantity, cartItemId });
-    };
-  
-   const handleRemoveItem = async (itemId) => {
-      const { onRemoveCartItems } = props;
-      await onRemoveCartItems(itemId);
-    };
+    Router.push("/cart");
+  };
+
+  const handleItemQuantityChange = (quantity, cartItemId) => {
+    const { onChangeCartItemsQuantity } = props;
+
+    onChangeCartItemsQuantity({ quantity, cartItemId });
+  };
+
+  const handleRemoveItem = async (itemId) => {
+    const { onRemoveCartItems } = props;
+    await onRemoveCartItems(itemId);
+  };
+
+  function renderMiniCart() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems } = props;
-   const renderMiniCart=()=> {
-     
-  console.log(cart)
-      if (cart && Array.isArray(cart.items) && cart.items.length) {
-        return (
-          <MiniCartComponent
-            cart={cart}
-            onCheckoutButtonClick={this.handleCheckoutButtonClick}
-            components={{
-              QuantityInput: "div",
-              CartItems: (cartItemProps) => (
-                <CartItems
-                  {...cartItemProps}
-                  hasMoreCartItems={hasMoreCartItems}
-                  onRemoveItemFromCart={handleRemoveItem}
-                  onChangeCartItemQuantity={handleItemQuantityChange}
-                  onLoadMoreCartItems={loadMoreCartItems}
-                />
-              ),
-            }}
-          />
-        );
-      }
-  
+
+    if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
-        <div >
-         <Modal
+        <MiniCartComponent
+          cart={cart}
+          onCheckoutButtonClick={handleCheckoutButtonClick}
+          components={{
+            QuantityInput: "div",
+            CartItems: (cartItemProps) => (
+            <>
+      
+      <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
@@ -223,64 +266,135 @@ const MiniCart = (props,headerType) =>
           <div className={classes.paper}>
    <div className={classes.cartmodal}> <Typography variant="subtitle1">Cart</Typography>
     <CloseIcon onClick={handleClose} /></div>
-    <div className={classes.paper2}> 
-   <img src="/cart/empty.svg" alt="empty cart" />
-<div className={classes.emptycart}>
-  <Typography  variant="h4">
-  You haven’t added any
-pre-loved item
-  </Typography>
-</div>
-<Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6"> Continue Shopping</Button>
+    <div className={classes.cartitems}>  
+      {cart.items.map((item)=>
+      <div className={classes.cartitem}>
+      <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
+      <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
+      <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>Rs:500</Typography></div>
+
+     
+      </div>
+      )}
     </div>
-   </div>
+    <div className={classes.total}>
+<div className={classes.total1} >
+      <Typography variant="h4" >Subtotal</Typography>
+    <Typography variant="h4" >Rs 1500</Typography>
+</div>
+<div className={classes.total1} >
+<div className={classes.cart1}>
+      
+      <Typography gutterBottom variant="h6" component="h2" className={classes.carttext} onClick={handleOnClick}>
+VIEW CART          </Typography>
+    </div>  
+    <div className={classes.cart}>
+      
+      <Typography gutterBottom variant="h6" component="h2"  onClick={handleCheckoutButtonClick}>
+    CHECKOUT        </Typography>
+    </div>  
+</div>
+    </div>
+          </div>
         </Fade>
       </Modal>
-
-        </div>
+</>
+            ),
+          }}
+        />
       );
     }
   
-  
-    
-      return (
-        <Fragment>
-          <div >
-            <IconButton
-              color="inherit"
-            onClick={handleOpen}
-            >
-              {cart && cart.totalItemQuantity > 0 ? (
-                <Badge badgeContent={cart.totalItemQuantity} color="primary" >
-                  <span>
-                    {headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg"  />}
-                  </span>
-                </Badge>
-              ) : (
-                <span>
-  
-                  
-                  {headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg" onClick={handleOpen}/>}
-                </span>
-              )}
-            </IconButton>
-          </div>
-  
-          <Popper
-          
-       
-            
-          >
-            {({ TransitionProps }) => (
-              <Fade {...TransitionProps}>
-                <div className={classes.cart}>{renderMiniCart()}</div>
-              </Fade>
-            )}
-          </Popper>
-        </Fragment>
-      );
-    
-            }
-  
+    return (
+      <>
+        {" "}
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          // closeAfterTransition
+          // BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className={classes.paper}>
+              <div className={classes.cartmodal}>
+                {" "}
+                <Typography variant="subtitle1">Cart</Typography>
+                <CloseIcon onClick={handleClose} />
+              </div>
+              <div className={classes.paper2}>
+                <img src="/cart/empty.svg" alt="empty cart" />
+                <div className={classes.emptycart}>
+                  <Typography variant="h4">You haven’t added any pre-loved item</Typography>
+                </div>
+                <Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6">
+                  {" "}
+                  Continue Shopping
+                </Button>
+              </div>
+            </div>
+          </Fade>
+        </Modal>
+      </>
+    );
+  }
 
-export default MiniCart;
+  const { cart, classes, uiStore, headerType } = props;
+  const { isCartOpen } = uiStore;
+  const id = isCartOpen ? "simple-popper" : null;
+  return (
+    <Fragment>
+      <div>
+        <IconButton
+          color="inherit"
+     
+          onClick={handleOpen}
+        >
+          {cart && cart.totalItemQuantity > 0 ? (
+            <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
+              <span>
+                {headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg" />}
+              </span>
+            </Badge>
+          ) : (
+            <span>{headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg" />}</span>
+          )}
+        </IconButton>
+      </div>
+{renderMiniCart()}
+
+   
+    </Fragment>
+  );
+};
+
+MiniCart.propTypes = {
+  cart: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.object),
+    checkout: PropTypes.shape({
+      itemTotal: PropTypes.shape({
+        displayAmount: PropTypes.string,
+      }),
+      taxTotal: PropTypes.shape({
+        displayAmount: PropTypes.string,
+      }),
+    }),
+  }),
+  classes: PropTypes.object.isRequired,
+  hasMoreCartItems: PropTypes.bool,
+  loadMoreCartItems: PropTypes.func,
+  onChangeCartItemsQuantity: PropTypes.func,
+  onRemoveCartItems: PropTypes.func,
+  uiStore: PropTypes.shape({
+    isCartOpen: PropTypes.bool.isRequired,
+    openCart: PropTypes.func.isRequired,
+    closeCart: PropTypes.func.isRequired,
+  }),
+};
+
+export default withStyles(styles, { name: "SkMiniCart" })(withCart(inject("uiStore")(MiniCart)));

@@ -13,8 +13,8 @@ const Caloborators = () => {
       margin: "50px",
     },
     image: {
-      height: "80px",
-      width: "80px",
+      height: "100px",
+      width: "100px",
       borderRadius: "100%",
     },
     controller: {
@@ -149,26 +149,34 @@ const Caloborators = () => {
         <Typography variant="h3">Collaborators</Typography>
       </div>
       <div className={classes.root}>
-        <Swiper
-          ref={sliderRef}
-          breakpoints={{
-            1200: {
-              width: 1200,
-              slidesPerView: 8,
-            },
-            1000: {
-              width: 1000,
-              slidesPerView: 7,
-            },
+      <Swiper ref={sliderRef}
+ breakpoints={{
+  1600: {
+    width: 1600,
+    slidesPerView: 7,
+  },
+  1200: {
+    width: 1200,
+    slidesPerView: 6,
+  },
+  1000: {
+    width: 1000,
+    slidesPerView: 5,
+  },
 
-            800: {
-              width: 800,
-              slidesPerView: 5,
-            },
-            600: {
-              width: 800,
-              slidesPerView: 3,
-            },
+  800: {
+    width: 800,
+    slidesPerView: 5,
+  },
+   600: {
+    width: 800,
+    slidesPerView: 4,
+  },
+ 400: {
+    width: 800,
+    slidesPerView: 3,
+  },
+  
           }}
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
