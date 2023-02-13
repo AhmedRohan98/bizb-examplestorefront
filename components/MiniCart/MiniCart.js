@@ -179,15 +179,8 @@ const styles = (theme) => ({
 const MiniCart = ({ ...props }) => {
   const [anchorElement, setAnchorElement] = useState(null);
   const [open, setOpen] = useState(false);
-  const setPopoverAnchorEl = (element) => {
-    setAnchorElement(element);
-  };
-  const handlePopperOpen = () => {
-    const {
-      uiStore: { openCart },
-    } = props;
-    openCart();
-  };
+ 
+
 
  
   const handleOpen = () => {
@@ -198,27 +191,15 @@ const MiniCart = ({ ...props }) => {
     setOpen(false);
   };
 
-  const handleClick = () => Router.push("/");
 
   const handleCheckoutButtonClick = () => {
   
     Router.push("/cart/checkout");
   };
 
-  const handlePopperClose = () => {
-    const { closeCart } = props.uiStore;
-    closeCart(0);
-  };
 
-  const handleEnterPopper = () => {
-    const { openCart } = props.uiStore;
-    openCart();
-  };
 
-  const handleLeavePopper = () => {
-    const { closeCart } = props.uiStore;
-    closeCart();
-  };
+
 
   const handleOnClick = () => {
     const { closeCart } = props.uiStore;
@@ -226,11 +207,7 @@ const MiniCart = ({ ...props }) => {
     Router.push("/cart");
   };
 
-  const handleItemQuantityChange = (quantity, cartItemId) => {
-    const { onChangeCartItemsQuantity } = props;
 
-    onChangeCartItemsQuantity({ quantity, cartItemId });
-  };
 
   const handleRemoveItem = async (itemId) => {
     const { onRemoveCartItems } = props;
@@ -273,7 +250,7 @@ const MiniCart = ({ ...props }) => {
       <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
       <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>Rs:500</Typography></div>
 
-     
+      <img src="/cart/icon.svg" alt={item.title}  onClick={handleRemoveItem } />
       </div>
       )}
     </div>
@@ -398,3 +375,4 @@ MiniCart.propTypes = {
 };
 
 export default withStyles(styles, { name: "SkMiniCart" })(withCart(inject("uiStore")(MiniCart)));
+

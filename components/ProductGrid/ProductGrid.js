@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import CatalogGrid from "@reactioncommerce/components/CatalogGrid/v1";
+import CatalogGrid from "../../reaction-plugins/reaction-component-library/package/src/components/CatalogGrid/v1";
 import PageLoading from "components/PageLoading";
 import PageStepper from "components/PageStepper";
 import PageSizeSelector from "components/PageSizeSelector";
