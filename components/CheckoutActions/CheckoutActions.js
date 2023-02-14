@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { isEqual } from "lodash";
 import styled from "styled-components";
 import Actions from "@reactioncommerce/components/CheckoutActions/v1";
-import ShippingAddressCheckoutAction from "@reactioncommerce/components/ShippingAddressCheckoutAction/v1";
+import ShippingAddressCheckoutAction from "../../reaction-plugins/reaction-component-library/package/src/components/ShippingAddressCheckoutAction/v1";
 import FulfillmentOptionsCheckoutAction from "@reactioncommerce/components/FulfillmentOptionsCheckoutAction/v1";
 import PaymentsCheckoutAction from "@reactioncommerce/components/PaymentsCheckoutAction/v1";
 import FinalReviewCheckoutAction from "@reactioncommerce/components/FinalReviewCheckoutAction/v1";
@@ -15,16 +15,123 @@ import PageLoading from "components/PageLoading";
 import Router from "translations/i18nRouter";
 import calculateRemainderDue from "lib/utils/calculateRemainderDue";
 import { placeOrderMutation } from "../../hooks/orders/placeOrder.gql";
-
+import { makeStyles } from "@material-ui/core/styles";
 const MessageDiv = styled.div`
   ${addTypographyStyles("NoPaymentMethodsMessage", "bodyText")}
 `;
+const useStyles = makeStyles((theme) => ({
+ 
+ 
+  label:{
+    display: 'flex',
+    marginTop:theme.spacing(1),
+    color:"#333333",
+    flexDirection: "column",
+ 
+  },
+ 
+  input:{
+    width:"387px",
+    height:"48px",
+    borderRadius:"6px",
+     color:"red",
+    
+     justifyContent:"center",
+   paddingLeft:theme.spacing(2),
+    background:"#F7F7F9",
+    borderBottomColor:"none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "17px",
+      padding:"opx",
+   
+    }
+    
+
+  },
+register:{
+  width:"214px",
+  height:"48px",
+  borderRadius:"40px",
+  border:"none",
+  display:"flex",
+  marginTop:theme.spacing(4),
+  justifyContent:"center",
+  alignItems:"center",
+  background:theme.palette.secondary.selected,
+  "&:hover": {
+
+    background:theme.palette.secondary.selected,
+}
+
+},
+socialmedia:{
+  width:"250px",
+  height:"48px",
+  borderRadius:"40px",
+  border:"none",
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  margin:"10px",
+  
+  background:theme.palette.secondary.selected,
+
+},
+topheader:{
+  display:"flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+},
+terms:{
+  lineHeight:"100px"
+    
+},
+checkbox:{
+  color:"green",
+  "& .MuiIconButton-label ":{
+   color:theme.palette.secondary.selected,
+  },
+  
+ },
+ checkboxdiv:{
+  display:"flex",
+  flexDirection: "row",
+ },
+ register2:{
+  fontSize: "18px",
+      color:"#333333",
+      fontFamily:"Ostrich Sans",
+        fontWeight: 900,
+       
+        lineHeight:"24px",
+        fontStyle: "normal",
+        marginLeft:"15px"
+ },
+ socialmedia2:{
+  display:"flex",
+  alignItems:"center",
+  justifyContent:"center",
+  flexWrap:"wrap"
+ },
+ switchEntryMode: {
+  textAlign: "center",
+fontSize:"16px",
+  cursor: "pointer",
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2)
+},
+switchaccout:{
+  color:"#FDC114"
+ }
+}));
 
 const NoPaymentMethodsMessage = () => <MessageDiv>No payment methods available</MessageDiv>;
 
 NoPaymentMethodsMessage.renderComplete = () => "";
 
 class CheckoutActions extends Component {
+  
   static propTypes = {
     addressValidation: PropTypes.func.isRequired,
     addressValidationResults: PropTypes.object,

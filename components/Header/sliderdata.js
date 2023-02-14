@@ -201,7 +201,7 @@ const MainSlider = () => {
         </div>
      
         </div>
-        <Preloved />
+    
 
         {/* <Preloved />
    

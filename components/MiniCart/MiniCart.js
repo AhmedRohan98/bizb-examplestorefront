@@ -248,7 +248,7 @@ const MiniCart = ({ ...props }) => {
       <div className={classes.cartitem}>
       <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
       <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
-      <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>Rs:500</Typography></div>
+      <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>RS: { item?.price?.amount }</Typography></div>
 
       <img src="/cart/icon.svg" alt={item.title}  onClick={handleRemoveItem } />
       </div>
@@ -257,17 +257,17 @@ const MiniCart = ({ ...props }) => {
     <div className={classes.total}>
 <div className={classes.total1} >
       <Typography variant="h4" >Subtotal</Typography>
-    <Typography variant="h4" >Rs 1500</Typography>
+    <Typography variant="h4" >RS: { cart?.checkout?.summary?.total?.amount }</Typography>
 </div>
 <div className={classes.total1} >
 <div className={classes.cart1}>
       
-      <Typography gutterBottom variant="h6" component="h2" className={classes.carttext} onClick={handleOnClick}>
+      <Typography gutterBottom variant="h5" component="h2" className={classes.carttext} onClick={handleOnClick}>
 VIEW CART          </Typography>
     </div>  
     <div className={classes.cart}>
       
-      <Typography gutterBottom variant="h6" component="h2"  onClick={handleCheckoutButtonClick}>
+      <Typography gutterBottom variant="h5" component="h2"  onClick={handleCheckoutButtonClick}>
     CHECKOUT        </Typography>
     </div>  
 </div>
@@ -322,8 +322,7 @@ VIEW CART          </Typography>
   }
 
   const { cart, classes, uiStore, headerType } = props;
-  const { isCartOpen } = uiStore;
-  const id = isCartOpen ? "simple-popper" : null;
+
   return (
     <Fragment>
       <div>
