@@ -203,7 +203,7 @@ const MainSlider = () => {
         </div>
     
 
-        {/* <Preloved />
+        <Preloved />
    
   <Justin />      
 
@@ -212,15 +212,12 @@ const MainSlider = () => {
 <Story />
 
 <BizbCalloborators />
-<div className={classes.top}>
-  <TopSelling />
- 
-</div>
+
 <Appsec />
 
 <Caloborators />
 <OurBlogs />
-<Instagram /> */}
+<Instagram />
 
     </>
   );

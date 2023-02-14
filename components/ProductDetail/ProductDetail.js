@@ -572,8 +572,8 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
           </Grid>
           <Grid item xs={12} sm={6}>
             <div className={classes.section}>
-              <img src={pdpMediaItems[0].URLs.medium} alt="DDDDDDDDDDD"/>
-            </div>
+            <MediaGallery mediaItems={pdpMediaItems} />
+            </div> 
           </Grid>
 
           <Grid item xs={12} sm={6}>
