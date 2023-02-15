@@ -49,7 +49,7 @@ const OurBlogs = () => {
       },
       mainheading:{
         paddingTop:"30px",
-       paddingLeft:"50px"
+      
        },
         
       blogtext: {

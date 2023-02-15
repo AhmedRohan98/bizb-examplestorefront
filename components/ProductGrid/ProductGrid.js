@@ -61,9 +61,6 @@ class ProductGrid extends Component {
     const products = (catalogItems || []).map((item) => item.node.product);
     if (products.length === 0) return <ProductGridEmptyMessage />;
 
-    // const products = catalogItems?.map((item)=> {
-    //   item.node.product
-    // })
 
     return (
       <Fragment>

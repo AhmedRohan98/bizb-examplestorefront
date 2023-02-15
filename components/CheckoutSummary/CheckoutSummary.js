@@ -1,5 +1,5 @@
 import CartItems from "components/CartItems";
-import CartSummary from "@reactioncommerce/components/CartSummary/v1";
+import CartSummary from "../../reaction-plugins/reaction-component-library/package/src/components/CartSummary/v1";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -60,7 +60,7 @@ class CheckoutSummary extends Component {
     if (cart && Array.isArray(cart.items)) {
       return (
         <Grid item xs={12}>
-          <CartItems
+          <CartSummary
             isMiniCart
             isReadOnly
             hasMoreCartItems={hasMoreCartItems}
