@@ -1,7 +1,4 @@
-/**
- * There are two theme files. This is for all MaterialUI components.
- * The other theme file is `componentTheme.js`
- */
+
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -76,6 +73,7 @@ const theme = createMuiTheme({
       black10: "#e6e6e6",
       black05: "#f5f5f5",
       black02: "#fafafa",
+
       white: "#ffffff",
       // medium colors
       reactionBlue: "#1999dd",
@@ -120,7 +118,8 @@ const theme = createMuiTheme({
       red200: "#f0e8e9",
       red300: "#e54f5d",
       red400: "#bc1d2b",
-      red500: "#5e3033",
+     
+      red500:"#E16452",
       red600: "#3c1f21",
       story:"#EAE7FF",
       blog1:"#CADFFF",
@@ -149,34 +148,37 @@ const theme = createMuiTheme({
     depth2: "0 0 1rem #808080"
   },
   typography: {
-    fontFamily: "Source Sans Pro, Helvetica Neue, Helvetica, sans-serif",
-    fontSize: 16,
+    fontFamily: "Lato, Montserrat, Helvetica Neue, Helvetica, sans-serif",
+    fontSize: 18,
     fontWeightLight: 400,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,
     
     subtitle2: {
-      fontSize: 14,
+      fontSize: "14px",
       color: "#737373"
     },
     h1: {
       fontSize: "42px",
     color:"Black",
     fontWeight: 400,
+    lineHeight: '50px',
     },
     h2: {
       fontSize: "42px",
     color:"#FDC114",
       fontWeight: 400,
+      lineHeight: '50px',
       
     },
     h3: {
       fontSize: "36px",
     color:"#000000",
-    lineHeight: '100%',
-      fontWeight: 400,
-      weight:100,
+    lineHeight: '43px',
+    fontFamily: "Ostrich Sans",
+      fontWeight: 900,
+      fontStyle: "normal",  
       
     },
     h4: {
@@ -189,13 +191,19 @@ const theme = createMuiTheme({
     h4: {
       fontSize: "24px",
     color:"#000000",
-      fontWeight: 400,
-      weight:100,
+      fontWeight: 700,
+
+      fontFamily: "Lato",
+      fontStyle: "normal",
+     
+        lineHeight:"29px"
       
     },
     h5: {
       fontSize: "16px",
     color:"#000000",
+    fontFamily: "Lato",
+    fontStyle: "normal",
       fontWeight: 400,
       weight:100,
       lineHeight:"19px"
@@ -204,39 +212,49 @@ const theme = createMuiTheme({
     h6: {
       fontSize: "20px",
       color:"#333333",
-        fontWeight: 400,
-        weight:100,
+      fontFamily:"Ostrich Sans",
+        fontWeight: 900,
+       
         lineHeight:"24px",
-        fontFamily: "Ostrich Sans",
+        fontStyle: "normal",
         
   
       
     },
     body2: {
-      fontSize: 14,
+      fontSize: "14px",
       fontWeight: 400,
       color: "#595959"
     },
     subtitle1: {
-      fontSize: 16,
-      fontWeight: 600,
-      color: "#3c3c3c"
+      fontSize: "34px",
+      color:"#333333",
+      fontStyle: "Bold",  
+            weight:100,
+            fontFamily: "Lato",
+        lineHeight:"41px"
     },
     body1: {
       fontSize: "30px",
       color:"#333333",
-      fontWeight: 400,
-      weight:900,
+ 
       fontStyle: "Black",
-      lineHeight:"36px",
+      lineHeight:"100%",
       fontFamily: "Ostrich Sans",
       
 
     },
-    body3:{
-fontSize:18,
-color:"#595959"
+      breakpoints: {
+    values: {
+      xxs: 0, // small phone
+      xs: 300, // phone
+      sm: 400, // tablets
+      md: 900, // small laptop
+      lg: 1200, // desktop
+      xl: 1536 // large screens
     }
+  }
+ 
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component,useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -15,55 +15,226 @@ import MediaGallery from "components/MediaGallery";
 import Router from "translations/i18nRouter";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import variantById from "lib/utils/variantById";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
+import Box from "@material-ui/core/Box";
+
+import { makeStyles } from "@material-ui/core/styles";
+import { useRef,useCallback ,useState} from "react";
+import Typography from "@material-ui/core/Typography";
+import Tab from "@material-ui/core/Tab";
+import TabContext from "@material-ui/lab/TabContext";
+import TabList from "@material-ui/lab/TabList";
+import TabPanel from "@material-ui/lab/TabPanel";
+import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 
 const styles = (theme) => ({
-  section: {
-    marginBottom: theme.spacing(2)
+  slider: {
+    paddingTop: theme.spacing(8),
+    [theme.breakpoints.down(700)]: {
+      paddingTop: theme.spacing(0),
+    },
+  
   },
-  breadcrumbGrid: {
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(2)
+  sliderflex: {
+    display: "flex",
+    alignItems: "flex-start",
   },
-  info: {
-    marginBottom: theme.spacing()
-  }
-});
 
-/**
- * Product detail component
- * @name ProductDetail
- * @param {Object} props Component props
- * @returns {React.Component} React component node that represents a product detail view
- */
-class ProductDetail extends Component {
-  static propTypes = {
-    /**
-     * Function to add items to a cart.
-     * Implementation may be provided by addItemsToCart function from the @withCart decorator
-     *
-     * @example addItemsToCart(CartItemInput)
-     * @type Function
-     */
-    addItemsToCart: PropTypes.func,
-    classes: PropTypes.object,
-    currencyCode: PropTypes.string.isRequired,
-    product: PropTypes.object,
-    routingStore: PropTypes.object.isRequired,
-    shop: PropTypes.object.isRequired,
-    theme: PropTypes.object,
-    uiStore: PropTypes.object.isRequired,
-    width: PropTypes.string.isRequired
+  slidercol: {
+    display: "flex",
+    flexDirection: "column",
+    width: "150px",
+  
+    display: "block",
+    [theme.breakpoints.down(1100)]: {
+      display: "none",
+
+      width: "0px",
+      height: "0px",
+    },
+  },
+  container1: {
+    width: "100%",
+    height: "100%",
+  },
+  container2: {
+    width: "500px",
+    height: "600px",
+  },
+  thumb: {
+    height: "600px",
+    width: "200px",
+    "& .swiper-slide": {
+      opacity: 0.5,
+      "&.swiper-slide-visible": {
+        opacity: 0.5,
+
+        "&.swiper-slide-thumb-active": {
+          opacity: 1,
+        },
+      },
+  
+    },
+  },
+  controller:{
+    display:"flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    
+   
+},
+iconforwad:{
+  position:"absolute",
+  top:"50%",
+  right:"10px",
+  background:"#333333",
+  color: "FDC114",
+  borderRadius:"4px",
+  
+  zIndex: 1251
+  },
+  iconback:{
+    position:"absolute",
+    top:"50%",
+    left:"10px",
+    borderRadius:"4px",
+  color:"FDC114",
+  background:"#333333",
+  
+    zIndex: 1251
+    },
+  sliderimages: {
+    height: "600px",
+    width: "100%",
+  },
+  sliderimage: {
+    height: "100%",
+    width: "100%",
+  },
+  sliderimage2: {
+    height: "600px",
+    width: "507px",
+  },
+  size: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent:"space-between",
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+  },
+  size2:{
+    display: "flex",
+    flexDirection: "row",
+  },
+  price: {
+    marginLeft: theme.spacing(3),
+  },
+  price2: {
+     color:"#333333",
+     opacity: 0.5,
+  },
+  offer: {
+    display: "flex",
+  marginRight:theme.spacing(10),
+    background: "#E16452",
+    padding: "4px",
+    borderBotom: "1px solid red",
+    color: "#ffffff",
+  },
+  sizeimage: {
+    display: "flex",
+    marginTop: theme.spacing(3),
+    borderBottom: "1px solid #E5E5E5",
+    marginBottom: theme.spacing(3),
+    justifyContent: "space-evenly",
+  },
+  tabs: {
+    borderBottom: "1px solid #E5E5E5",
+  "& .tabs-active":{
+    borderBottom: "1px solid #FDC114",
+  }
+  },
+  cart: {
+    height: "35px",
+    width: "100%",
+    borderRadius: "40px",
+    background: "#FDC114",
+    display: "flex",
+    justifyContent: "center",
+
+    marginTop: theme.spacing(3),
+    marginBottom:theme.spacing(3)
+  },
+  carttext:{
+    width:"450px"
+  }
+
+
+});
+const slides = [
+  {
+    image: "/cart/cart1.svg",
+    id: 1,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    title: "floral shirt for ",
+    size: "large",
+  },
+  {
+    image: "/cart/cart3.svg",
+    title: "Bag for sale",
+    id: 2,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    size: "large",
+  },
+  {
+    image: "/justin/justin1.svg",
+    id: 1,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    title: "floral shirt for ",
+    size: "large",
+  },
+];
+
+
+const  ProductDetail = ({ ...props }) => {
+ 
+  const sliderRef = useRef(null);
+
+ 
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, []);
+
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
+  }, []);
+  const [imagesNavSlider, setImagesNavSlider] = useState(null);
+  const [value, setValue] = React.useState("1");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
-  componentDidMount() {
-    const { product } = this.props;
+  // componentDidMount() {
+  //   const { product } = this.props;
+
+  //   // Select first variant by default
+  //   this.selectVariant(product.variants[0]);
+  // }
+  useEffect(() => {
+    const { product } = props;
 
     // Select first variant by default
-    this.selectVariant(product.variants[0]);
-  }
-
-  selectVariant(variant, optionId) {
-    const { product, uiStore } = this.props;
+    selectVariant(product.variants[0]);
+  }, [])
+function selectVariant(variant, optionId) {
+    const { product, uiStore } = props;
 
     // Select the variant, and if it has options, the first option
     const variantId = variant._id;
@@ -85,8 +256,8 @@ class ProductDetail extends Component {
    * @param {Object} variant The variant object that was selected
    * @returns {undefined} No return
    */
-  handleSelectVariant = (variant) => {
-    this.selectVariant(variant);
+  const handleSelectVariant = (variant) => {
+  selectVariant(variant);
   };
 
   /**
@@ -97,14 +268,14 @@ class ProductDetail extends Component {
    * @param {Number} quantity - A positive integer from 0 to infinity, representing the quantity to add to cart
    * @returns {undefined} No return
    */
-  handleAddToCartClick = async (quantity) => {
+ const  handleAddToCartClick = async (quantity) => {
     const {
       addItemsToCart,
       currencyCode,
       product,
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId },
       width
-    } = this.props;
+    } = props;
 
     // Get selected variant or variant option
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
@@ -144,13 +315,13 @@ class ProductDetail extends Component {
    * @param {Object} option The option object that was selected
    * @returns {undefined} No return
    */
-  handleSelectOption = (option) => {
-    const { product, uiStore } = this.props;
+  const handleSelectOption = (option) => {
+    const { product, uiStore } = props;
 
     // If we are clicking an option, it must be for the current selected variant
     const variant = product.variants.find((vnt) => vnt._id === uiStore.pdpSelectedVariantId);
 
-    this.selectVariant(variant, option._id);
+    selectVariant(variant, option._id);
   };
 
   /**
@@ -159,9 +330,9 @@ class ProductDetail extends Component {
    * use the selected option if available, otherwise it will use the selected variant.
    * @returns {Object} An pricing object
    */
-  determineProductPrice() {
-    const { currencyCode, product } = this.props;
-    const { pdpSelectedVariantId, pdpSelectedOptionId } = this.props.uiStore;
+  function determineProductPrice() {
+    const { currencyCode, product } = props;
+    const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
     let productPrice = {};
 
@@ -175,7 +346,7 @@ class ProductDetail extends Component {
     return productPrice;
   }
 
-  render() {
+  
     const {
       classes,
       currencyCode,
@@ -183,7 +354,7 @@ class ProductDetail extends Component {
       routingStore,
       uiStore: { pdpSelectedOptionId, pdpSelectedVariantId },
       width
-    } = this.props;
+    } = props;
 
     // Set the default media as the top-level product's media
     // (all media on all variants and objects)
@@ -210,7 +381,7 @@ class ProductDetail extends Component {
       }
     }
 
-    const productPrice = this.determineProductPrice();
+    const productPrice = determineProductPrice();
     const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
 
@@ -221,7 +392,7 @@ class ProductDetail extends Component {
           <div className={classes.section}>
             <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
             <div className={classes.info}>
-              <ProductDetailVendor>{product.vendor}</ProductDetailVendor>
+              <ProductDetailVendor>fffffffffff</ProductDetailVendor>
             </div>
             <div className={classes.info}>
               <ProductDetailPrice compareAtPrice={compareAtDisplayPrice} isCompact price={productPrice.displayPrice} />
@@ -229,13 +400,13 @@ class ProductDetail extends Component {
           </div>
 
           <div className={classes.section}>
-            <MediaGallery mediaItems={pdpMediaItems} />
+          <img  src={media.URLs.thumbnail} ></img>
           </div>
 
           <div className={classes.section}>
             <VariantList
-              onSelectOption={this.handleSelectOption}
-              onSelectVariant={this.handleSelectVariant}
+              onSelectOption={handleSelectOption}
+              onSelectVariant={handleSelectVariant}
               product={product}
               selectedOptionId={pdpSelectedOptionId}
               selectedVariantId={pdpSelectedVariantId}
@@ -243,7 +414,7 @@ class ProductDetail extends Component {
               variants={product.variants}
             />
             <ProductDetailAddToCart
-              onClick={this.handleAddToCartClick}
+              onClick={handleAddToCartClick}
               selectedOptionId={pdpSelectedOptionId}
               selectedVariantId={pdpSelectedVariantId}
               variants={product.variants}
@@ -256,8 +427,144 @@ class ProductDetail extends Component {
         </Fragment>
       );
     }
-
+console.log(pdpMediaItems)
     return (
+      <>
+      <Box className={classes.slider}>
+      <Grid container spacing={2} className={classes.sliderflex} xs={12} md={12} sm={12} lg={12} 
+
+
+  alignItems="center"
+  justifyContent="center"
+  style={{ minHeight: '100vh' }}>
+        <Grid item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
+          <div className={classes.thumb}>
+            <Swiper
+              onSwiper={setImagesNavSlider}
+              direction="vertical"
+              spaceBetween={24}
+              slidesPerView={3}
+              navigation={{
+                nextEl: ".slider__next",
+                prevEl: ".slider__prev",
+              }}
+              className={classes.container1}
+              breakpoints={{
+                0: {
+                  direction: "horizontal",
+                },
+                768: {
+                  direction: "vertical",
+                },
+              }}
+              modules={[Navigation, Thumbs]}
+            >
+              {slides.map((slide, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className={classes.thumbimage}>
+                      <img src={slide.image} alt="" />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={10} sm={7} lg={5} className={`${classes.sliderimages} swiper_slider`}>
+          <Swiper
+            thumbs={{ swiper: imagesNavSlider }}
+            direction="horizontal"
+            slidesPerView={1}
+            spaceBetween={32}
+            ref={sliderRef}
+            pagination={{
+              clickable: true,
+            }}
+            mousewheel={true}
+            navigation={{
+              nextEl: ".slider__next",
+              prevEl: ".slider__prev",
+            }}
+            breakpoints={{
+              0: {
+                direction: "horizontal",
+                thumbs: "false",
+              },
+              768: {
+                direction: "horizontal",
+              },
+            }}
+            className={classes.container2}
+            modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+            onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
+          >
+                    <div className={classes.controller}>
+
+{  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
+{activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
+</div>
+            {slides.map((slide, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <img src={slide.image} alt="" className={classes.sliderimage2} />
+                </SwiperSlide>
+              );
+            })}
+     
+          </Swiper>
+        </Grid>
+        
+        <Grid item xs={11} md={10} sm={6} lg={3}  >
+          <div className={classes.carttext}>
+          <Typography variant="subtitle1">Floral Shirt in yellow color for sale on Bizb</Typography>
+          <div className={classes.size}>
+            {" "}
+           
+           <div className={classes.size2}> <strike > <Typography gutterBottom variant="h4" className={classes.price2}>
+              Rs 600
+            </Typography></strike>
+            <Typography gutterBottom variant="h4" className={classes.price}>
+              Rs 600
+            </Typography></div>
+            <Typography gutterBottom variant="h4" className={classes.offer}>
+              50 % OFF
+            </Typography>
+          </div>
+          <div className={classes.sizeimage}>
+            <img src="/cart/available.svg" alt="available" />
+            <Typography gutterBottom variant="h4" className={classes.offr}>
+              Large
+            </Typography>
+          </div>
+          <div className={classes.cart}>
+            <img component="img" src="/icons/cart.svg" />
+            <Typography gutterBottom variant="h4">
+              + Cart{" "}
+            </Typography>
+          </div>
+          <TabContext value={value}>
+            <TabList onChange={handleChange} className={classes.tabs}>
+              <Tab label="Description" value="1" />
+              <Tab label="size chart" value="2" />
+            </TabList>
+
+            <TabPanel value="1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </TabPanel>
+
+            <TabPanel value="2">
+              ffffffffffffffffffff voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+              cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </TabPanel>
+          </TabContext>
+          </div>
+        </Grid>
+      </Grid>
+    </Box>
+
       <Fragment>
         <Grid container spacing={5}>
           <Grid item className={classes.breadcrumbGrid} xs={12}>
@@ -265,8 +572,8 @@ class ProductDetail extends Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <div className={classes.section}>
-              <MediaGallery mediaItems={pdpMediaItems} />
-            </div>
+            <MediaGallery mediaItems={pdpMediaItems} />
+            </div> 
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -281,8 +588,8 @@ class ProductDetail extends Component {
               <ProductDetailDescription>{product.description}</ProductDetailDescription>
             </div>
             <VariantList
-              onSelectOption={this.handleSelectOption}
-              onSelectVariant={this.handleSelectVariant}
+              onSelectOption={handleSelectOption}
+              onSelectVariant={handleSelectVariant}
               product={product}
               selectedOptionId={pdpSelectedOptionId}
               selectedVariantId={pdpSelectedVariantId}
@@ -290,7 +597,7 @@ class ProductDetail extends Component {
               variants={product.variants}
             />
             <ProductDetailAddToCart
-              onClick={this.handleAddToCartClick}
+              onClick={handleAddToCartClick}
               selectedOptionId={pdpSelectedOptionId}
               selectedVariantId={pdpSelectedVariantId}
               variants={product.variants}
@@ -298,8 +605,28 @@ class ProductDetail extends Component {
           </Grid>
         </Grid>
       </Fragment>
+      </>
     );
-  }
+  
 }
 
+ProductDetail.propTypes = {
+  /**
+   * Function to add items to a cart.
+   * Implementation may be provided by addItemsToCart function from the @withCart decorator
+   *
+   * @example addItemsToCart(CartItemInput)
+   * @type Function
+   */
+  addItemsToCart: PropTypes.func,
+  classes: PropTypes.object,
+  currencyCode: PropTypes.string.isRequired,
+  product: PropTypes.object,
+  routingStore: PropTypes.object.isRequired,
+  shop: PropTypes.object.isRequired,
+  theme: PropTypes.object,
+  uiStore: PropTypes.object.isRequired,
+  width: PropTypes.string.isRequired
+};
 export default withWidth({ initialWidth: "md" })(withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)));
+

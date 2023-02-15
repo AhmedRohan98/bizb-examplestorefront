@@ -5,11 +5,10 @@ import Helmet from "react-helmet";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 import ProductGrid from "components/ProductGrid";
 import Layout from "components/Layout";
-import dynamic from 'next/dynamic'
-const DynamicSlider = dynamic(() => import('../../components/Header/sliderdata'))
 import { inPageSizes } from "lib/utils/pageSizes";
 import { withApollo } from "lib/apollo/withApollo";
-
+import dynamic from "next/dynamic";
+const DynamicSlider = dynamic(() => import("../../components/Header/sliderdata"));
 import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
@@ -25,7 +24,6 @@ class ProductGridPage extends Component {
         code: PropTypes.string.isRequired,
       }),
     }),
-    headerType: PropTypes.bool,
     tag: PropTypes.object,
     uiStore: PropTypes.shape({
       pageSize: PropTypes.number.isRequired,
@@ -70,11 +68,25 @@ class ProductGridPage extends Component {
       pageTitle = "Storefront";
     }
 
-    return typeof window !== undefined && <Layout shop={shop} headerType={false}>
-    <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-    <DynamicSlider/ >
+    return typeof window !== undefined ? (
+      <Layout headerType={false}>
+        <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
-  </Layout>
+        <DynamicSlider />
+
+        <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
+        <ProductGrid
+          catalogItems={catalogItems}
+          currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
+          isLoadingCatalogItems={isLoadingCatalogItems}
+          pageInfo={catalogItemsPageInfo}
+          pageSize={pageSize}
+          setPageSize={this.setPageSize}
+          setSortBy={this.setSortBy}
+          sortBy={sortBy}
+        />
+      </Layout>
+    ) : 'Loading...'
   }
 }
 
@@ -87,7 +99,7 @@ class ProductGridPage extends Component {
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
   const translations = await fetchTranslations(lang, ["common"]);
-  console.log('shop.......')
+
   if (!primaryShop?.shop) {
     return {
       props: {
@@ -115,7 +127,6 @@ export async function getStaticProps({ params: { lang } }) {
  * @returns {Object} the paths
  */
 export async function getStaticPaths() {
-  console.log('get staticpaths')
   return {
     paths: locales.map((locale) => ({ params: { lang: locale } })),
     fallback: false,

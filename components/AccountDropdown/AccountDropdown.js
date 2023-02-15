@@ -16,12 +16,36 @@ import getAccountsHandler from "../../lib/accountsServer.js";
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
-    width: 320,
+    width: "189px",
+    height:"135px",
+    background:theme.palette.reaction.black80,
     padding: theme.spacing(2),
+    borderBottomLeftRadius:"20px",
+    borderBottomRightRadius:"20px",
+    "& .MuiPopover-paper":{
+      display:"none"
+    },
+    "& .MuiPaper-root":{
+display:"none"
+    },
+    
+    
   },
+  '& .MuiPaper-elevation0': {background: 'black'},
+  "& .MuiPopover-paper":{
+  background:"none"
+  },
+ 
   marginBottom: {
     marginBottom: theme.spacing(2),
   },
+  authbutton:{
+    background:theme.palette.secondary.selected,
+   margin:"5px",
+    color:"#ffffff",
+    borderRadius:"40px",
+     "&:hover": {  background:theme.palette.secondary.selected, }
+  }
 }));
 
 const AccountDropdown = ({ headerType }) => {
@@ -59,6 +83,7 @@ const AccountDropdown = ({ headerType }) => {
 
   return (
     <Fragment>
+       
       <EntryModal onClose={onClose} resetToken={resetToken} />
       {isAuthenticated ? (
         <ButtonBase onClick={toggleOpen}>
@@ -78,37 +103,43 @@ const AccountDropdown = ({ headerType }) => {
           vertical: "bottom",
           horizontal: "center",
         }}
+        elevation={0}
         open={Boolean(anchorElement)}
         onClose={onClose}
       >
         <div className={classes.accountDropdown}>
           {isAuthenticated ? (
             <Fragment>
+                <div className={classes.authContent}>
               <div className={classes.marginBottom}>
                 <Link href="/profile/address">
-                  <Button color="primary" fullWidth>
+                  <Button className={classes.authbutton} fullWidth>
                     Profile
                   </Button>
                 </Link>
               </div>
-              <div className={classes.marginBottom}>
-                <Button color="primary" fullWidth onClick={() => setEntryModal("change-password")}>
-                  Change Password
-                </Button>
-              </div>
-              <Button color="primary" fullWidth onClick={handleSignOut} variant="contained">
+              <Button color="primary" className={classes.authbutton} fullWidth onClick={handleSignOut} >
                 Sign Out
               </Button>
+              {/* <div className={classes.marginBottom}>
+                <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("change-password")}>
+                  Change Password
+                </Button>
+              </div> */}
+          
+             
+              </div>  
             </Fragment>
+            
           ) : (
             <Fragment>
               <div className={classes.authContent}>
-                <Button color="primary" fullWidth variant="contained" onClick={() => setEntryModal("login")}>
-                  Sign In
+                <Button className={classes.authbutton} fullWidth variant="contained" onClick={() => setEntryModal("signup")}>
+                Register
                 </Button>
               </div>
-              <Button color="primary" fullWidth onClick={() => setEntryModal("signup")}>
-                Create Account
+              <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("login")}>
+             Login
               </Button>
             </Fragment>
           )}

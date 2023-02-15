@@ -1,12 +1,14 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+
 import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles({
-
+main:{
+  padding: "3vh",
+  width:"100%"
+ 
+  },
   cardaction:{
     height:312,
     width: 312,
@@ -17,15 +19,16 @@ const useStyles = makeStyles({
 
  root:{
 display:"flex",
-flexDirection: "column",
+width:"100%",
 justifyContent: "center",
 alignItems:"center",
 
  },
  gridroot:{
+  width:"100%",
   display:"flex",
   alignItems: "center",
-  flexDirection: "row",
+
   position:"relative",
   justifyContent: "center",
 
@@ -34,23 +37,21 @@ alignItems:"center",
     
   background:"#333333",
   opacity:"15%",
-  height:"4px",
+  height:"8px",
 
 
-    width:"200px",
+    width:"180px",
 
    
   },
-  main:{
-    margin:"3vh",
- 
-  },
+  
   text:{
  position :"absolute" ,
  bottom: 60,
   },
   header:{
     height:"50px",
+    position:"relative"
    
   },
 
@@ -61,7 +62,7 @@ alignItems:"center",
   },
   image:{
    
-   width:"290px",
+   width:"312px",
    borderRadius:"10px",
    
   },
@@ -69,6 +70,14 @@ alignItems:"center",
    
  display:"flex",
  flexDirection: "row",
+ 
+ marginLeft:"8vh",
+ 
+   },
+   carttitle:{
+  display:"flex",
+  alignItems:"flex-start",
+  marginLeft:"8vh"
    },
    price:{
    
@@ -85,11 +94,19 @@ alignItems:"center",
         display:"flex",
         justifyContent:"space-evenly",
         alignItems:"center",
-       bottom:"15px",
-       left:"10px",
+       bottom:"20px",
+       right:"36%",
+       right:"64%",
         position:"absolute",
         
          },
+         explore:{
+          position:"absolute",
+        top:"6px",
+        right:"10px",
+         color:"#FDC114",
+          zIndex:900
+         }
 });
 const itemData = [
   {
@@ -235,14 +252,16 @@ const Justin = () => {
     </Typography >
     <div className={classes.header}>
     <h1 className={classes.typography}></h1>
-   
+    <Typography gutterBottom variant="body1" className={classes.explore}>
+         Explore More
+          </Typography>
     </div>
     </div>
   <div className={classes.root} >
- <Grid container gap={3} className={classes.gridroot}>
+ <Grid container  className={classes.gridroot} >
   { itemData.map((item)=>
       <>
-     <Grid item lg={3} sm={6} md={4} xs={12} >
+     <Grid item lg={3} sm={6} md={4} xs={12} align = "center" justify = "center" alignItems = "center"   >
      <div className={classes.rootimg}> 
    <img
           component="img"
@@ -260,8 +279,9 @@ const Justin = () => {
           <Typography gutterBottom variant="h5" component="h2">
           + Cart          </Typography>
         </div>  
+        
         </div>
-      <Typography gutterBottom variant="h5" component="h2">
+        <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
            {item.title}
           </Typography>
         <div className={classes.size}><Typography gutterBottom variant="h4" >size</Typography>

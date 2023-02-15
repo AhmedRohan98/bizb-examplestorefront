@@ -10,7 +10,7 @@ const Storyslider = () => {
     root:{
      
       alignItems:"center",
-      marginTop:"30px"
+      marginTop:theme.spacing(10)
      },
        gridroot:{
      

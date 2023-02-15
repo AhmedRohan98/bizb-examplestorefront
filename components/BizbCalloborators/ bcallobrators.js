@@ -11,7 +11,7 @@ const BizbCalloborators = () => {
     height:"612px",
     position: "relative",
     width:"100%",
-    top:"200px"
+    top:"250px"
     },
     image:{
         position:"absolute",
@@ -78,7 +78,7 @@ const BizbCalloborators = () => {
   return (
     <Box display={{ xs: 'none', lg: 'block', xl: 'none' }}>
     <div className={classes.root}>
-<Grid container className={classes.maingrid} xs={12}>
+<Grid container className={classes.maingrid} xs={12} >
               <Grid  item  className={classes.grid1} xs={6}>
              
            

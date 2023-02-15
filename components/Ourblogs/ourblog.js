@@ -8,13 +8,13 @@ const OurBlogs = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        padding:"40px",
+        padding:"50px",
        
       },
       look: {
         height: "225px",
-        width: "360px",
-   
+        width: "426px",
+   marginTop:theme.spacing(2),
         display:"flex",
         flexDirection: "column",
         alignItems: "center",
@@ -25,8 +25,8 @@ const OurBlogs = () => {
       },
       wardrobe: {
         height: "225px",
-        width: "360px",
-   
+        width: "426px",
+        marginTop:theme.spacing(2),
         display:"flex",
         flexDirection: "column",
         alignItems: "center",
@@ -37,8 +37,8 @@ const OurBlogs = () => {
       },
       trend: {
         height: "225px",
-        width: "360px",
-   
+        width: "426px",
+        marginTop:theme.spacing(2),
         display:"flex",
         flexDirection: "column",
         alignItems: "center",

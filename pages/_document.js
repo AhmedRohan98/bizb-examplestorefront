@@ -16,47 +16,59 @@ class HTMLDocument extends Document {
   render() {
     const links = [
       { rel: "canonical", href: process.env.CANONICAL_URL },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" },
-      ...favicons
+      { rel: "preconnect", href: "https://fonts.gstatic.com" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap",
+      },
+      ...favicons,
     ];
     const meta = [
       // Use minimum-scale=1 to enable GPU rasterization
       {
         name: "viewport",
-        content: "user-scalable=0, initial-scale=1 minimum-scale=1, width=device-width, height=device-height"
+        content: "user-scalable=0, initial-scale=1 minimum-scale=1, width=device-width, height=device-height",
       },
       // PWA primary color
       {
         name: "theme-color",
-        content: theme.palette.primary.main
-      }
+        content: theme.palette.primary.main,
+      },
     ];
 
     // Analytics & Stripe Elements scripts
     const scripts = [
       ...analyticsProviders.map((provider) => ({
         type: "text/javascript",
-        innerHTML: provider.renderScript()
-      }))
+        innerHTML: provider.renderScript(),
+      })),
     ];
-    definedPaymentMethods
-      .some((method) => method.name === "stripe_card")
-        && scripts.push({
-          type: "text/javascript",
-          src: "https://js.stripe.com/v3/"
-        });
+    definedPaymentMethods.some((method) => method.name === "stripe_card") &&
+      scripts.push({
+        type: "text/javascript",
+        src: "https://js.stripe.com/v3/",
+      });
 
     return (
       <Html lang="en">
         <Head>
-          {meta.map((tag, index) => <meta key={index} {...tag} />)}
-          {links.map((link, index) => <link key={index} {...link} />)}
+          {meta.map((tag, index) => (
+            <meta key={index} {...tag} />
+          ))}
+          {links.map((link, index) => (
+            <link key={index} {...link} />
+          ))}
         </Head>
         <body>
           <Main />
           <NextScript />
-          {scripts.map((script, index) => (script.innerHTML ? /* eslint-disable-next-line */
-            <script async key={index} type={script.type} dangerouslySetInnerHTML={{ __html: script.innerHTML }} /> : <script async key={index} {...script} />))}
+          {scripts.map((script, index) =>
+            script.innerHTML /* eslint-disable-next-line */ ? (
+              <script async key={index} type={script.type} dangerouslySetInnerHTML={{ __html: script.innerHTML }} />
+            ) : (
+              <script async key={index} {...script} />
+            ),
+          )}
         </body>
       </Html>
     );
@@ -69,11 +81,11 @@ HTMLDocument.getInitialProps = async (ctx) => {
   const originalRenderPage = ctx.renderPage;
 
   try {
-    ctx.renderPage = () => originalRenderPage({
-      enhanceApp: (App) => (props) => (
-        styledComponentSheet.collectStyles(materialUiSheets.collect(<App {...props} />))
-      )
-    });
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => (props) =>
+          styledComponentSheet.collectStyles(materialUiSheets.collect(<App {...props} />)),
+      });
     const initialProps = await Document.getInitialProps(ctx);
     return {
       ...initialProps,
@@ -83,7 +95,7 @@ HTMLDocument.getInitialProps = async (ctx) => {
           {materialUiSheets.getStyleElement()}
           {styledComponentSheet.getStyleElement()}
         </Fragment>
-      )
+      ),
     };
   } finally {
     styledComponentSheet.seal();

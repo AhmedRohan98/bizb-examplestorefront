@@ -152,19 +152,7 @@ class CartPopover extends Component {
       return (
         <Hidden mdUp implementation="css">
           <div className={classNames(container, { [isContainerHidden]: !uiStore.isCartPopoverOpen, [isContainerVisible]: uiStore.isCartPopoverOpen })}>
-            <Grid container className={gridContainer} spacing={3}>
-              <Grid className={containerItem} item xs={12}>
-                <img alt={cartItem.title} className={addedToCartImg} src={cartItem.imageUrl} />
-                <Typography className={addedToCartText} component="span">
-                  {cartItem.quantity} "<span className={addedToCartItemName}>{cartItem.title}</span>" added to cart
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <CheckoutButtons
-                  onClick={this.handleOnClick}
-                />
-              </Grid>
-            </Grid>
+    
           </div>
         </Hidden>
       );

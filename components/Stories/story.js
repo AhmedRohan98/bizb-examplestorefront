@@ -14,8 +14,8 @@ const Story = () => {
     
     },
 image: {
- height:"80px",
- width:"80px",
+ height:"100px",
+ width:"100px",
  borderRadius: "100%",
     },
     controller:{
@@ -27,7 +27,7 @@ image: {
 },
 iconforwad:{
 position:"absolute",
-bottom:"82px",
+bottom:"60px",
 right:"20px",
 background:"#333333",
 color: "FDC114",
@@ -37,7 +37,7 @@ zIndex: 1251
 },
 iconback:{
   position:"absolute",
-  bottom:"82px",
+  bottom:"60px",
   left:"20px",
   borderRadius:"4px",
 color:"FDC114",
@@ -55,6 +55,7 @@ background:"#333333",
     box: {
       display:"flex",
       flexDirection: "column",
+  
     
     },
     dark: {
@@ -67,6 +68,9 @@ background:"#333333",
     mainheading:{
      paddingTop:"30px",
     paddingLeft:"50px"
+    },
+    heading:{
+      marginTop:theme.spacing(2)
     }
   }))
   const ITEMS = [
@@ -135,7 +139,7 @@ background:"#333333",
      
 <div  className={classes.box}>
 <img src={item.image} className={classes.image}/>
-<h4>{item.title}</h4>
+<Typography variant="h5" className={classes.heading}> {item.title}</Typography>
 </div>
 
      </SwiperSlide>
@@ -161,20 +165,24 @@ background:"#333333",
   return (
     <div className={classes.main}>
        <div className={classes.mainheading}><Typography variant="h3" >
-        Stories
+        STORES
       </Typography>
       </div> 
     <div className={classes.root}>
     
     <Swiper ref={sliderRef}
  breakpoints={{
+  1600: {
+    width: 1600,
+    slidesPerView: 7,
+  },
   1200: {
     width: 1200,
-    slidesPerView: 8,
+    slidesPerView: 6,
   },
   1000: {
     width: 1000,
-    slidesPerView: 7,
+    slidesPerView: 5,
   },
 
   800: {
