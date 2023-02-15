@@ -14,13 +14,14 @@ import Dialog from "@material-ui/core/Dialog";
 import PageLoading from "components/PageLoading";
 import Router from "translations/i18nRouter";
 import calculateRemainderDue from "lib/utils/calculateRemainderDue";
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import { Grid, TextField, Button,  Typography } from '@material-ui/core';
+import { Grid, TextField,   Typography} from '@material-ui/core';
 import React, { useState } from "react";
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { placeOrderMutation } from "../../hooks/orders/placeOrder.gql";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   label:{
     display: 'flex',
     marginTop:theme.spacing(1),
+
+fontSize:"24px",
+    marginBottom:theme.spacing(1),
     color:"#333333",
     flexDirection: "column",
  
@@ -41,24 +45,58 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2)
       },
   input:{
-    width:"387px",
+    width:"430px",
     height:"48px",
     borderRadius:"6px",
      color:"red",
-    
+   
      justifyContent:"center",
    paddingLeft:theme.spacing(2),
     background:"#F7F7F9",
     borderBottomColor:"none",
     "& .MuiInputBase-input": {
       color: "#969696",
+      fontSize: "16px",
+      fontFamily:"lato",
+      padding:"opx",
+   
+    }
+    ,
+    "& .MuiInputBase-input.active": {
+      color: "#eeeeeeeeeee6",
       fontSize: "17px",
       padding:"opx",
    
     }
-    
 
   },
+  inputorder:{
+    width:"430px",
+    height:"218px",
+    borderRadius:"6px",
+     color:"red",
+   
+    
+   paddingLeft:theme.spacing(2),
+    background:"#F7F7F9",
+    borderBottomColor:"none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "16px",
+      fontFamily:"lato",
+      padding:"opx",
+   
+    }
+    ,
+    "& .MuiInputBase-input.active": {
+      color: "#eeeeeeeeeee6",
+      fontSize: "17px",
+      padding:"opx",
+   
+    }
+
+  },
+
 register:{
   width:"214px",
   height:"48px",
@@ -96,6 +134,7 @@ terms:{
   lineHeight:"100px"
     
 },
+
 checkbox:{
   color:"green",
   "& .MuiIconButton-label ":{
@@ -103,9 +142,13 @@ checkbox:{
   },
   
  },
+
  checkboxdiv:{
   display:"flex",
   flexDirection: "row",
+width:"430px",
+  borderBottom: `solid 1px  #00000030 `,
+
  },
  register2:{
   fontSize: "18px",
@@ -125,7 +168,15 @@ checkbox:{
  },
  switchaccout:{
   color:"#FDC114"
- }
+ },
+ mainheading:{
+  textTransform: "uppercase",
+ },
+ 
+phone:{
+  color:"#333333",
+  fontSize:"17px"
+}
  
 }));
 
@@ -179,40 +230,46 @@ const registerUser = async () => {
 return(
   <>
          
-         <Typography variant="body1">REGISTRATION </Typography>     
+         <Typography variant="h3" className={classes.mainheading}>Shipping Details</Typography>     
     <form className={classes.root} noValidate>
     <Grid container >
     <Grid xs={12}  item>
 
-                   <label className={classes.label}  required >FullName 
-                    <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}   className={classes.input}   onChange={handleFullname} value={fullname}
+                   <label className={classes.label }  required variant="h4">Full Name 
+                    <TextField placeholder="Enter your Full name"  type="text"  InputProps={{ disableUnderline: true }}  inputProps={{ style: {  color: 'black'}}} className={classes.input}   onChange={handleFullname} value={fullname}
       />
                     </label>
                     </Grid>
       <Grid xs={12} item>
-                      <label className={classes.label} variant="h6">Email
-                    <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input}  onChange={handleEmailChange} value={email}  type="email"
+                      <label className={classes.label} variant="h4">Phone
+                    <TextField placeholder="Enter your name"  type="number"    InputProps={{ style: {  color: 'black'}, disableUnderline: true,   startAdornment: (
+            <InputAdornment position="start" className={classes.phone} >
+              +92
+            </InputAdornment>
+          ), }}  required className={classes.input} onChange={handleEmailChange} value={email}  
              />
                     </label>
                     </Grid>
                    
                     <Grid item xs={12}>
-                   <label className={classes.label}>Phone Number
-                   <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} onChange={handlephonenumber} value={phonenumber}/>
+                   <label className={classes.label} variant="h4">Email
+                   <TextField placeholder="Enter your Email Adress"
+           InputProps={{ disableUnderline: true,  }}  required className={classes.input} inputProps={{ style: {  color: 'black'}}} onChange={handlephonenumber} value={phonenumber} />
                    </label>
                     </Grid>
                     <Grid item xs={12}>
-                    <label className={classes.label}>Password
-                    <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} onChange={handlePasswordChange} value={password}/>
+                    <label className={classes.label} variant="h4">Complete Address
+                    <TextField      placeholder="Enter your complete address"  InputProps={{ disableUnderline: true }}   required className={classes.input} onChange={handlePasswordChange} inputProps={{ style: {  color: 'black'}}} value={password}/>
                     </label>
                     </Grid>
                   
                      <Grid item xs={12}>
-                    <label className={classes.label}>Re-Enter Password
-                    <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} onChange={handleresetpsssword} value={resetpassword}/>
+                    <label className={classes.label} variant="h4">City
+                    <TextField placeholder="Select your city"  InputProps={{ disableUnderline: true  }}   required className={classes.input} onChange={handleresetpsssword} inputProps={{ style: {  color: 'black'}}}
+                    value={resetpassword}/>
     
                    </label>                     </Grid>
-    
+                 
                     </Grid>
                     <div className={classes.checkboxdiv}>
                  <FormControlLabel
@@ -225,37 +282,17 @@ return(
             }
          
           />
-           <Typography variant="body2" className={classes.terms}> Aggree With term and conditions</Typography>
+           <Typography variant="body2" className={classes.terms}>Save this Information for next time</Typography>
     
      
           </div>
-                    <div className={classes.socialmedia2}>
-      <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h5"  type="submit"  onClick={registerUser}> Register</Button>
-      </div>
-      <div className={classes.socialmedia2}>
-            
-            <Box className={classes.socialmedia}>
-            <img src='/authentication/signup3.svg' alt='Login-SignUP' />
-            <Typography variant="h5" className={classes.register2}> Register With Google</Typography>
-       </Box>
-       <Box className={classes.socialmedia}>
-            <img src='/authentication/signup4.svg' alt='Login-SignUP'  />
-            <Typography variant="h5" className={classes.register2}> Register With Facebook</Typography>
-            
-       </Box>
-       </div>
-
-      {!!error && <div className={classes.error}>{error}</div>}
-      <div
-        className={classes.switchEntryMode}
-        onClick={handleOpenLogIn}
-        onKeyDown={handleOpenLogIn}
-        role="button"
-        tabIndex={0}
-      >
-            <Typography variant="h5">Don't have an account ? <span className={classes.switchaccout}>Login</span></Typography>
-        
-      </div>
+          <Grid item xs={12}>
+                   <label className={classes.label} variant="h4">Order Notes
+                   <TextField placeholder="Enter additional notes here."
+           InputProps={{ disableUnderline: true,  }}  required className={classes.inputorder} inputProps={{ style: {  color: 'black'}}} onChange={handlephonenumber} value={phonenumber} />
+                   </label>
+                    </Grid>
+     
     </form>
     </>
 )
