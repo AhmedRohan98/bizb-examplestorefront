@@ -65,6 +65,26 @@ marginTop:theme.spacing(2),
    backgroundColor:"#F7F7F9",
     
   },
+  imagemobile:{
+    marginTop:theme.spacing(2),
+    marginBottom:theme.spacing(2),
+  },
+  register:{
+    width:"263px",
+    height:"48px",
+    borderRadius:"40px",
+    border:"none",
+    marginBottom:theme.spacing(10),
+    display:"flex",
+    marginTop:theme.spacing(4),
+    justifyContent:"center",
+    alignItems:"center",
+    background:theme.palette.secondary.selected,
+    "&:hover": {
+  
+      background:theme.palette.secondary.selected,
+  }}
+
 }));
 
 const CheckoutComplete =() =>{
@@ -102,7 +122,14 @@ const CheckoutComplete =() =>{
   <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
   
           </Box>
-
+          <Typography className={classes.connect}>
+          Make Your Wardrobe Smart Using Our App
+         </Typography>
+         <img src="/cart/mobile.svg"  className={classes.imagemobile} alt="thanyou"></img>
+         <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"    role="button"
+        type="submit"
+     href="/"
+       >Back To Home</Button>
       </div>
     </>
     )
