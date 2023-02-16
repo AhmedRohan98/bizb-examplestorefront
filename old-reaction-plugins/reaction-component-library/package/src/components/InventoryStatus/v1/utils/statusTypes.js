@@ -1,7 +1,0 @@
-const STATUS_TYPES = {
-  BACKORDER: "BACKORDER",
-  LOW_QUANTITY: "LOW_QUANTITY",
-  SOLD_OUT: "SOLD_OUT"
-};
-
-export default STATUS_TYPES;
