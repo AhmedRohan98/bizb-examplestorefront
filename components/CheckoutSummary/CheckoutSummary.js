@@ -1,5 +1,5 @@
 import CartItems from "components/CartItems";
-import CartSummary from "@reactioncommerce/components/CartSummary/v1";
+import CartSummary from "../../reaction-plugins/reaction-component-library/package/src/components/CartSummary/v1";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -110,7 +110,7 @@ class CheckoutSummary extends Component {
     return (
       <aside>
         <Grid container spacing={3}>
-          {this.renderCartItems()}
+      
           {this.renderCartSummary()}
         </Grid>
       </aside>
@@ -119,3 +119,4 @@ class CheckoutSummary extends Component {
 }
 
 export default withStyles(styles)(CheckoutSummary);
+

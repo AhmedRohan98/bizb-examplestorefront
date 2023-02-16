@@ -26,7 +26,7 @@ const ImageWrapper = styled.div`
   overflow: hidden;
   padding-top: 100%;
   position: relative;
-  width: 100%;
+  width: 90vh;
 `;
 
 const Img = styled.img`
@@ -44,7 +44,7 @@ const Img = styled.img`
 
     if (isLoading) {
       styles += `
-        filter: blur(8px);
+        filter: blur(0px);
         z-index: 1100;`;
     }
     if (isLoaded) {

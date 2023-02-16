@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 const Appsec = () => {
 
-console.l
+
   const useStyles = makeStyles((theme) => ({
     
     root: {

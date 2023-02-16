@@ -1,3 +1,6 @@
+
+
+
 .swiper-pagination-bullet { width: 12px; height: 12px; background: "#333333"; border: 1px solid white; opacity: 1; opacity: 0.5;}
 .swiper-pagination-bullet-active { width: 25px; height: 12px; transition: width .5s; border-radius: 5px; background: #FDC114; border: 1px solid transparent;opacity: 1; }
 
@@ -39,6 +42,11 @@
     display: none!important;
     overflow: hidden;
 }
+.MuiTypography-colorTextSecondary {
+ 
+  font-size: 16px!important;
+  color: black !important;
+}
 .ivPFCf {
   border-bottom-color: #e6e6e6;
   border-bottom-style: solid;
@@ -55,4 +63,18 @@
   border-top-width: 1px;
   max-width: 360px;
   overflow: hidden;
+}
+.makeStyles-input .MuiInputBase-input {
+  color: black !important;
+  padding: opx;
+  font-size: 120px;
+}
+.MuiFormControlLabel-root {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-left: -11px;
+  margin-right: 2px;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
 }

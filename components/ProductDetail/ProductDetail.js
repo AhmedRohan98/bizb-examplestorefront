@@ -392,7 +392,7 @@ function selectVariant(variant, optionId) {
           <div className={classes.section}>
             <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
             <div className={classes.info}>
-              <ProductDetailVendor>fffffffffff</ProductDetailVendor>
+              <ProductDetailVendor>fffeffffffff</ProductDetailVendor>
             </div>
             <div className={classes.info}>
               <ProductDetailPrice compareAtPrice={compareAtDisplayPrice} isCompact price={productPrice.displayPrice} />
@@ -400,7 +400,7 @@ function selectVariant(variant, optionId) {
           </div>
 
           <div className={classes.section}>
-          <img  src={media.URLs.thumbnail} ></img>
+          <img  src={pdpMediaItems}></img>
           </div>
 
           <div className={classes.section}>

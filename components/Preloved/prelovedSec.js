@@ -184,13 +184,13 @@ const itemData = [
     image: "/preloved/preloved5.svg",
     id: 5,
     title: "Causal",
-    name:"Assesories"
+    name:"SHOES",
   },
   {
     image: "/preloved/preloved6.svg",
     id: 6,
     title: "Causal",
-    name:"SHOES"
+    name:"Assesories"
   },
   {
     image: "/preloved/preloved4.svg",
@@ -204,7 +204,8 @@ const itemData = [
     image: "/preloved/preloved7.svg",
     id: 7,
     title: "Causal",
-    name:"SHOES"
+ 
+    name:"JUNIORS"
   },
 ];
 
