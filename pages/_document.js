@@ -21,6 +21,11 @@ class HTMLDocument extends Document {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap",
       },
+      
+      {
+        rel: "stylesheet",
+        href: "https://fonts.cdnfonts.com/css/ostrich-sans-2",
+      },
       ...favicons,
     ];
     const meta = [

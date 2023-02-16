@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   
   mainheading:{
     textTransform: "uppercase",
+    fontFamily:'Ostrich Sans !important'
    },
    ellipse:{
 height:"18px",
@@ -19,7 +20,8 @@ borderRadius:"100%"
    marginTop:theme.spacing(3)
    },
    cartdelivery:{
-    marginLeft:theme.spacing(2)
+    marginLeft:theme.spacing(2),
+    fontFamily:'Lato !important'
    }
 }));
 const CartSummary = () => {
