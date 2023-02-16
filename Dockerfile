@@ -10,6 +10,20 @@ SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-u", "-c"]
 
 WORKDIR /usr/local/src/app
 ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
+# env variables
+ENV CANONICAL_URL http://localhost:4000
+ENV BUILD_GRAPHQL_URL http://localhost:3000/graphql
+ENV EXTERNAL_GRAPHQL_URL http://localhost:3000/graphql
+ENV INTERNAL_GRAPHQL_URL http://api.reaction.localhost:3000/graphql
+ENV PORT 4000
+ENV SEGMENT_ANALYTICS_SKIP_MINIMIZE true
+ENV SEGMENT_ANALYTICS_WRITE_KEY ENTER_KEY_HERE
+ENV SESSION_MAX_AGE_MS 2592000000
+ENV SESSION_SECRET CHANGEME
+ENV STRIPE_PUBLIC_API_KEY ENTER_STRIPE_PUBLIC_KEY_HERE
+
+
+
 
 # Allow yarn/npm to create ./node_modules
 RUN chown node:node .

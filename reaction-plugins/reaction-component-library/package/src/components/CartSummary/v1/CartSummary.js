@@ -16,10 +16,18 @@ borderRadius:"100%"
    cartpayment:{
     display:"flex",
     flexDirection: "row",
-   marginTop:theme.spacing(3)
+   marginTop:theme.spacing(3),
+   marginBottom:theme.spacing(5)
    },
    cartdelivery:{
     marginLeft:theme.spacing(2)
+   },
+   cartcard:{
+    height:"391px",
+    width:"391px",
+    boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
+    borderRadius:"18px",
+    marginTop:theme.spacing(5),
    }
 }));
 const CartSummary = () => {
@@ -32,7 +40,11 @@ return(
  <Typography gutterBottom variant="h4" className={classes.cartdelivery} >
       Cash On Delivery
           </Typography>
+        
  </div>
+ <div className={classes.cartcard}>
+sARRRRRRRRRRR
+</div>
   </>
 )
 
