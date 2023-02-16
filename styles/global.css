@@ -1,14 +1,5 @@
-@import url('https://fonts.cdnfonts.com/css/ostrich-sans-2');
 
-@font-face {
-  font-family: 'Ostrich Sans';
-  src: url(../assets/fonts/OstrichSans/OstrichSans-Black.otf);
-  src: url(../assets/fonts/OstrichSans/OstrichSans-Bold.otf);
-  src: url(../assets/fonts/OstrichSans/OstrichSans-Heavy.otf);
-  src: url(../assets/fonts/OstrichSans/OstrichSans-Light.otf);
-  src: url(../assets/fonts/OstrichSans/OstrichSans-Medium.otf);
-font-style: normal;
-}
+
 
 .swiper-pagination-bullet { width: 12px; height: 12px; background: "#333333"; border: 1px solid white; opacity: 1; opacity: 0.5;}
 .swiper-pagination-bullet-active { width: 25px; height: 12px; transition: width .5s; border-radius: 5px; background: #FDC114; border: 1px solid transparent;opacity: 1; }
