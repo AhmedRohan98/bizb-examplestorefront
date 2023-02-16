@@ -2,7 +2,7 @@ import React, { Component, Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import inject from "hocs/inject";
 import { withStyles } from "@material-ui/core/styles";
-import MiniCartComponent from "../../old-reaction/reaction-component-library/package/src/components/MiniCart/v1";
+import MiniCartComponent from "../../reaction-plugins/reaction-component-library/package/src/components/MiniCart/v1";
 import CartItems from "components/CartItems";
 import CartEmptyMessage from "@reactioncommerce/components/CartEmptyMessage/v1";
 import IconButton from "@material-ui/core/IconButton";
