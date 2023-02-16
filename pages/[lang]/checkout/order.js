@@ -1,108 +1,112 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
-import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import PageLoading from "components/PageLoading";
-import Layout from "components/Layout";
-import withOrder from "containers/order/withOrder";
-import OrderCard from "components/OrderCard";
-import { withApollo } from "lib/apollo/withApollo";
-
-import { locales } from "translations/config";
-import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
-import fetchTranslations from "staticUtils/translations/fetchTranslations";
-
-const styles = (theme) => ({
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid,Button, Box,  Typography} from '@material-ui/core';
+import Router from "translations/i18nRouter";
+const useStyles = makeStyles((theme) => ({
   orderThankYou: {
+ 
+    display:"flex",
+    marginTop:theme.spacing(25),
+    justifyContent:"center",
+    alignItems:"center",
+    flexDirection: "column",
+  },
+  img: {
     marginBottom: theme.spacing(3)
   },
-  title: {
-    marginBottom: theme.spacing(3)
-  }
-});
+  mainheading:{
+width:"334px",
+height:"58px"
+  },
+  orderThankYoupara:{
+    fontSize: "24px",
+    color: "#333333",
+    fontWeight: 500,
+marginTop:theme.spacing(2),
+    fontFamily: "Lato",
+    fontStyle: "normal",
+    textAlign: "center",
+    lineHeight: "29px",
+  },
+   orderThankYouconnect:{
+    marginTop:theme.spacing(25),
+   },
+   connect:{
+    fontSize: "34px",
+    color: "#333333",
+    fontWeight: 700,
+marginTop:theme.spacing(2),
+    fontFamily: "Lato",
+    fontStyle: "normal",
+    textAlign: "center",
+    lineHeight: "41px",
+   },
+   socialmedia:{
+     
+    display:"flex",
+    marginTop:theme.spacing(2),
+    justifyContent:"space-between",
+    width:"260px",
+    alignItems:"center",
+    flexDirection: "row",
+    marginBottom:theme.spacing(5)
+   },
+   look: {
+    height: "197px",
+    width: "409px",
+marginTop:theme.spacing(2),
+    display:"flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+   borderRadious:"0px",
+   backgroundColor:"#F7F7F9",
+    
+  },
+}));
 
-class CheckoutComplete extends Component {
-  static propTypes = {
-    classes: PropTypes.object,
-    isLoadingOrder: PropTypes.bool,
-    order: PropTypes.shape({
-      email: PropTypes.string.isRequired,
-      referenceId: PropTypes.string.isRequired
-    }),
-    shop: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string
-    }),
-    theme: PropTypes.object.isRequired
-  };
+const CheckoutComplete =() =>{
+ 
 
-  render() {
-    const { classes, isLoadingOrder, order, shop } = this.props;
-
-    if (isLoadingOrder) {
-      return (
-        <Layout shop={shop}>
-          <PageLoading message="Loading order details..." />
-        </Layout>
-      );
-    }
+  const classes = useStyles();
 
   
     return (
-      <Layout shop={shop}>
-        <Helmet>
-          <title>{shop && shop.name} | Checkout</title>
-          <meta name="description" content={shop && shop.description} />
-        </Helmet>
-        <Grid container>
-          <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
-          <Grid item xs={12} md={6}>
-            <Grid item className={classes.orderThankYou} xs={12} md={12}>
-              <Typography className={classes.title} variant="h6">Thank you for your order</Typography>
-              <Typography variant="body1">
-                {"Your order ID is:"} <strong>=ff</strong>
-              </Typography>
-              <Typography variant="body1">
-                {"We've sent a confirmation email to:"} <strong></strong>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <OrderCard isExpanded={true} order={order} />
-            </Grid>
-          </Grid>
-          <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
-        </Grid>
-      </Layout>
-    );
-  }
+    <>
+    <div className={classes.orderThankYou}>
+      <img src="/cart/thankyou.svg"  className={classes.img} alt="thanyou"></img>
+      <Typography  variant="h3" >Your order is confirmed</Typography>
+      <div className={classes.mainheading}>
+        <Typography variant="h4" className={classes.orderThankYoupara}> Thank You for making fashion sustainable with us.</Typography>
+      </div>
+      <div className={classes.orderThankYouconnect}>
+         <Typography className={classes.connect}>
+         Connect With Our Community
+         </Typography>
+      </div>
+<div className={classes.socialmedia}>
+<img src="/cart/facebook.svg"  className={classes.imges} alt="thanyou"></img>
+<img src="/cart/insta.svg"  className={classes.imges} alt="thanyou"></img>
+<img src="/cart/twitter.svg"  className={classes.imges} alt="thanyou"></img>
+</div>
+<Typography className={classes.connect}>
+       Facebook Reviews
+         </Typography>
+
+         <Box className={classes.look}>
+  
+  <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
+  
+  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+  
+          </Box>
+
+      </div>
+    </>
+    )
+      
 }
 
-/**
- *  Static props for an order
- *
- * @returns {Object} the props
- */
-export async function getStaticProps({ params: { lang } }) {
-  return {
-    props: {
-      ...await fetchPrimaryShop(lang),
-      ...await fetchTranslations(lang, ["common"])
-    }
-  };
-}
-
-/**
- *  Static paths for an order
- *
- * @returns {Object} the props
- */
-export async function getStaticPaths() {
-  return {
-    paths: locales.map((locale) => ({ params: { lang: locale } })),
-    fallback: true
-  };
-}
-
-export default withApollo()(withOrder(withStyles(styles, { withTheme: true })(CheckoutComplete)));
+export default CheckoutComplete

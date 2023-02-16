@@ -180,7 +180,7 @@ const theme = createMuiTheme({
 
     h4: {
       fontSize: "24px",
-      color: "#000000",
+      color: "#333333",
       fontWeight: 400,
 
       fontFamily: "Lato",
