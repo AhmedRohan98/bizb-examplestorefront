@@ -60,7 +60,7 @@ class CheckoutSummary extends Component {
     if (cart && Array.isArray(cart.items)) {
       return (
         <Grid item xs={12}>
-          <CartSummary
+          <CartItems
             isMiniCart
             isReadOnly
             hasMoreCartItems={hasMoreCartItems}
@@ -76,14 +76,42 @@ class CheckoutSummary extends Component {
     return null;
   }
 
+  renderCartSummary() {
+    const { cart, classes } = this.props;
 
+    if (cart && cart.checkout && cart.checkout.summary) {
+      const {
+        fulfillmentTotal,
+        itemTotal,
+        surchargeTotal,
+        taxTotal,
+        total
+      } = cart.checkout.summary;
+
+      return (
+        <Grid item xs={12} className={classes.summary}>
+          <CartSummary
+            isDense
+            displayShipping={fulfillmentTotal && fulfillmentTotal.displayAmount}
+            displaySubtotal={itemTotal && itemTotal.displayAmount}
+            displaySurcharge={surchargeTotal && surchargeTotal.displayAmount}
+            displayTax={taxTotal && taxTotal.displayAmount}
+            displayTotal={total && total.displayAmount}
+            itemsQuantity={cart.totalItemQuantity}
+          />
+        </Grid>
+      );
+    }
+
+    return null;
+  }
 
   render() {
     return (
       <aside>
         <Grid container spacing={3}>
-          {this.renderCartItems()}
-        
+      
+          {this.renderCartSummary()}
         </Grid>
       </aside>
     );
@@ -91,3 +119,4 @@ class CheckoutSummary extends Component {
 }
 
 export default withStyles(styles)(CheckoutSummary);
+

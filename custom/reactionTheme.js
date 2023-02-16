@@ -181,17 +181,11 @@ const theme = createMuiTheme({
       fontStyle: "normal",  
       
     },
-    h4: {
-      fontSize: "36px",
-    color:"#FDC114",
-      fontWeight: 400,
-      weight:100,
-      
-    },
+  
     h4: {
       fontSize: "24px",
     color:"#000000",
-      fontWeight: 700,
+      fontWeight: 400,
 
       fontFamily: "Lato",
       fontStyle: "normal",
