@@ -1,5 +1,5 @@
 import CartItems from "components/CartItems";
-import CartSummary from "../../reaction-plugins/reaction-component-library/package/src/components/CartSummary/v1";
+import CartSummary from "../../old-reaction/reaction-component-library/package/src/components/CartSummary/v1";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
