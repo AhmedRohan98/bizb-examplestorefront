@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid,Button, Box,  Typography} from '@material-ui/core';
-import Router from "translations/i18nRouter";
+import Rating from '@material-ui/lab/Rating';
 const useStyles = makeStyles((theme) => ({
   orderThankYou: {
  
@@ -83,8 +83,16 @@ marginTop:theme.spacing(2),
     "&:hover": {
   
       background:theme.palette.secondary.selected,
-  }}
+  }},
+reviews:{
+  display:"flex",
+  marginTop:theme.spacing(2),
+  justifyContent:"space-between",
 
+
+  flexDirection: "row",
+
+}
 }));
 
 const CheckoutComplete =() =>{
@@ -116,11 +124,23 @@ const CheckoutComplete =() =>{
          </Typography>
 
          <Box className={classes.look}>
+          <div className={classes.reviews}>
+            <div>
+              <img src="/cart/avatar.svg" />
+            </div>
+            <div>
+            <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
+            <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+            </div>
+          </div>
   
-  <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
+
   
-  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
-  
+
+  <Rating name="size-small" defaultValue={2} size="small" />
+      <Rating name="size-medium" defaultValue={2} />
+      <Rating name="size-large" defaultValue={2} size="large" />
+      <Rating name="size-large" defaultValue={2} size="large" />
           </Box>
           <Typography className={classes.connect}>
           Make Your Wardrobe Smart Using Our App

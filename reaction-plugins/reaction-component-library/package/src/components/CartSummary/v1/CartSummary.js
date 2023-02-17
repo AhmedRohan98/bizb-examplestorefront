@@ -23,7 +23,7 @@ borderRadius:"100%"
    cartdelivery:{
    
     fontWeight: 400,
-  
+    marginLeft:theme.spacing(3),
     color: "#333333",
    },
    cartdelivery2:{
