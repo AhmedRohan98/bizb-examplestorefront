@@ -195,6 +195,7 @@ const MiniCart = ({ ...props }) => {
   const handleCheckoutButtonClick = () => {
   
     Router.push("/cart/checkout");
+    console.log("button clicked");
   };
 
 

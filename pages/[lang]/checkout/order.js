@@ -57,10 +57,10 @@ marginTop:theme.spacing(2),
     height: "197px",
     width: "409px",
 marginTop:theme.spacing(2),
+padding:theme.spacing(3),
     display:"flex",
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+   
    borderRadious:"0px",
    backgroundColor:"#F7F7F9",
     
@@ -86,13 +86,56 @@ marginTop:theme.spacing(2),
   }},
 reviews:{
   display:"flex",
-  marginTop:theme.spacing(2),
-  justifyContent:"space-between",
+  marginTop:theme.spacing(),
+
 
 
   flexDirection: "row",
 
-}
+},
+cardimage:{
+
+  marginRight:theme.spacing(1)
+},
+facebookreview:{
+  fontSize: "24px",
+  color: "#333333",
+  fontWeight: 500,
+
+  fontFamily: "Lato",
+  fontStyle: "normal",
+
+  lineHeight: "29px",
+},
+ratingtime:{
+  display:"flex",
+ width:"180px",
+  justifyContent:"space-between",
+  alignItems:"center",
+  flexDirection: "row", 
+},
+ratingday:{
+  fontSize: "16px",
+  color: "#969696",
+  fontFamily: "Lato",
+  fontStyle: "normal",
+  fontWeight: 500,
+  weight: 100,
+  lineHeight: "19px",
+},
+blogtext: {
+ fontSize: "16px",
+  color: "#333333",
+  fontFamily: "Lato",
+  fontStyle: "normal",
+  fontWeight: 500,
+
+  lineHeight: "19px",
+},
+blogtextr: {
+
+  color:theme.palette.secondary.selected,
+},
 }));
 
 const CheckoutComplete =() =>{
@@ -126,10 +169,15 @@ const CheckoutComplete =() =>{
          <Box className={classes.look}>
           <div className={classes.reviews}>
             <div>
-              <img src="/cart/avatar.svg" />
+              <img src="/cart/avatar.svg"  className={classes.cardimage}/>
             </div>
             <div>
-            <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
+            <Typography variant="h4" className={classes.facebookreview}>Kurt Lawson</Typography>
+            <div className={classes.ratingtime}>
+            <Rating name="size-large" defaultValue={5} size="large" />
+           
+            <Typography variant="h5" className={classes.ratingday} >2 days ago</Typography>
+            </div>
             <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
             </div>
           </div>
@@ -137,10 +185,7 @@ const CheckoutComplete =() =>{
 
   
 
-  <Rating name="size-small" defaultValue={2} size="small" />
-      <Rating name="size-medium" defaultValue={2} />
-      <Rating name="size-large" defaultValue={2} size="large" />
-      <Rating name="size-large" defaultValue={2} size="large" />
+  
           </Box>
           <Typography className={classes.connect}>
           Make Your Wardrobe Smart Using Our App

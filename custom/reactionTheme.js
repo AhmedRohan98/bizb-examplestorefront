@@ -200,8 +200,8 @@ const theme = createMuiTheme({
     h6: {
       fontSize: "20px",
       color: "#333333",
-      fontFamily: "Ostrich Sans",
-      fontWeight: 900,
+      fontFamily: "Lato",
+      fontWeight: 500,
 
       lineHeight: "24px",
       fontStyle: "normal",
