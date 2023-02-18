@@ -129,7 +129,7 @@ blogtext: {
   fontFamily: "Lato",
   fontStyle: "normal",
   fontWeight: 500,
-
+marginTop:theme.spacing(1),
   lineHeight: "19px",
 },
 blogtextr: {
