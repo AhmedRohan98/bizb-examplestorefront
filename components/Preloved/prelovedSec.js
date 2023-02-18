@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     width: "84px",
    
     bottom: "50%",
-    left: "10px",
+    left: "20px",
     position: "absolute",
   },
   cart2: {
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   
    
     bottom: "50%",
-    right: "70px",
+    right: "18%",
     position: "absolute",
   },
   imagec:{

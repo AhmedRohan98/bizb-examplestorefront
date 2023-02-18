@@ -1,9 +1,10 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 import Grid from '@material-ui/core/Grid';
-const useStyles = makeStyles({
+const useStyles =makeStyles((theme) => ({
 main:{
   padding: "3vh",
   width:"100%"
@@ -70,14 +71,20 @@ alignItems:"center",
    
  display:"flex",
  flexDirection: "row",
+ marginLeft:theme.spacing(1),
+
  
- marginLeft:"8vh",
- 
+   },
+   cartimage:{
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"flex-start",
    },
    carttitle:{
   display:"flex",
+ marginLeft:theme.spacing(1),
+  justifyContent:"flex-start",
   alignItems:"flex-start",
-  marginLeft:"8vh"
    },
    price:{
    
@@ -94,7 +101,7 @@ alignItems:"center",
         display:"flex",
         justifyContent:"space-evenly",
         alignItems:"center",
-       bottom:"20px",
+       bottom:"40%",
        right:"36%",
        right:"64%",
         position:"absolute",
@@ -106,8 +113,15 @@ alignItems:"center",
         right:"10px",
          color:"#FDC114",
           zIndex:900
+         },
+         maintitle:{
+          display:"flex",
+          justifyContent:"flex-start",
+          alignItems:"flex-start",
+          width:"312px",
+          flexDirection: "column",
          }
-});
+}));
 const itemData = [
   {
     image: '/justin/justin1.svg',
@@ -258,29 +272,30 @@ const Justin = () => {
     </div>
     </div>
   <div className={classes.root} >
- <Grid container  className={classes.gridroot} >
+ <Grid container  className={classes.gridroot} align = "center" justify = "center" alignItems = "center"  >
   { itemData.map((item)=>
       <>
-     <Grid item lg={3} sm={6} md={4} xs={12} align = "center" justify = "center" alignItems = "center"   >
-     <div className={classes.rootimg}> 
+     <Grid item lg={3} sm={6} md={4} xs={12}  className={classes.rootimg} >
+
    <img
           component="img"
           alt="loading"
         src={item.image}
         
           className={classes.image}
-        />
+       ></img>
       <div className={classes.cart}>
         <img
           component="img"
          
-        src="/icons/cart.svg"
+        src="/icons/cart.svg" 
+        className={classes.cartimage}
         />
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography variant="h5" component="h2">
           + Cart          </Typography>
         </div>  
         
-        </div>
+       <Box className={classes.maintitle}>
         <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
            {item.title}
           </Typography>
@@ -291,7 +306,7 @@ const Justin = () => {
         <Typography gutterBottom variant="h5" className={classes.price}>
         Rs 600
           </Typography></div>
-       
+          </Box>
           </Grid>
       </>
   )
