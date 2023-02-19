@@ -58,10 +58,7 @@ const styles = (theme) => ({
     width: "100%",
     height: "100%",
   },
-  container2: {
-    width: "500px",
-    height: "600px",
-  },
+
   thumb: {
     height: "600px",
     width: "200px",
@@ -78,6 +75,7 @@ const styles = (theme) => ({
     },
   },
   controller:{
+    position:"relative",
     display:"flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -132,6 +130,10 @@ iconforwad:{
     borderBotom: "1px solid red",
     color: "#ffffff",
   },
+  cartimage:{
+    height:"16px",
+    width:"14px"
+  },
   sizeimage: {
     display: "flex",
     marginTop: theme.spacing(3),
@@ -152,6 +154,7 @@ iconforwad:{
     background: "#FDC114",
     display: "flex",
     justifyContent: "center",
+alignItems:"center",
 
     marginTop: theme.spacing(3),
     marginBottom:theme.spacing(3)
@@ -161,6 +164,14 @@ iconforwad:{
   }
 ,thumbimage:{
   borderRadius:"18px"
+},
+carttex:{
+  fontSize: "18px",
+  color: "#333333",
+  fontFamily: "Ostrich Sans",
+  fontStyle: "normal",
+  fontWeight: 900,
+  lineHeight: "22px",
 }
 
 });
@@ -444,8 +455,11 @@ console.log(pdpMediaItems)
             </Swiper>
           </div>
         </Grid>
-        <Grid item xs={12} md={10} sm={7} lg={5} className={`${classes.sliderimages} swiper_slider`}>
-          <Swiper
+            
+         
+        <Grid item xs={12} md={10} sm={6} lg={3} className={`${classes.sliderimages} swiper_slider`}>
+
+        <Swiper
             thumbs={{ swiper: imagesNavSlider }}
             direction="horizontal"
             slidesPerView={1}
@@ -472,21 +486,24 @@ console.log(pdpMediaItems)
             modules={[Navigation, Thumbs, Mousewheel, Pagination]}
             onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
           >
-                    <div className={classes.controller}>
-
-{  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
-{activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
-</div>
+       
             {slide.map((slide, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <img src={slide.image} alt="" className={classes.sliderimage2} />
+                  <img src={slide.image} alt="" className={classes.controller} />
+                
+
+{  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
+{activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
+
                 </SwiperSlide>
               );
             })}
      
           </Swiper>
-        </Grid>
+          </Grid>
+       
+       
         
         <Grid item xs={11} md={10} sm={6} lg={3}  >
           <div className={classes.carttext}>
@@ -506,13 +523,13 @@ console.log(pdpMediaItems)
           </div>
           <div className={classes.sizeimage}>
             <img src="/cart/available.svg" alt="available" />
-            <Typography gutterBottom variant="h4" className={classes.offr}>
+            <Typography  variant="h4" className={classes.offr}>
               Large
             </Typography>
           </div>
           <div className={classes.cart}>
-            <img component="img" src="/icons/cart.svg" />
-            <Typography gutterBottom variant="h4">
+            <img component="img" src="/cart/cartimage.svg" className={classes.cartimage} />
+            <Typography variant="h5" className={classes.carttex}>
               + Cart{" "}
             </Typography>
           </div>
