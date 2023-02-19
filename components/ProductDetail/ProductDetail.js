@@ -44,7 +44,7 @@ const styles = (theme) => ({
   slidercol: {
     display: "flex",
     flexDirection: "column",
-    width: "150px",
+
   
     display: "block",
     [theme.breakpoints.down(1100)]: {
@@ -104,18 +104,8 @@ iconforwad:{
   
     zIndex: 1251
     },
-  sliderimages: {
-    height: "600px",
-    width: "100%",
-  },
-  sliderimage: {
-    height: "100%",
-    width: "100%",
-  },
-  sliderimage2: {
-    height: "600px",
-    width: "507px",
-  },
+ 
+
   size: {
     display: "flex",
     flexDirection: "row",
@@ -169,7 +159,9 @@ iconforwad:{
   carttext:{
     width:"450px"
   }
-
+,thumbimage:{
+  borderRadius:"18px"
+}
 
 });
 const slides = [
@@ -198,7 +190,32 @@ const slides = [
     size: "large",
   },
 ];
-
+const slide = [
+  {
+    image: "/cart/cartlarge.svg",
+    id: 1,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    title: "floral shirt for ",
+    size: "large",
+  },
+  {
+    image: "/cart/cartlarge.svg",
+    title: "Bag for sale",
+    id: 2,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    size: "large",
+  },
+  {
+    image: "/cart/cartlarge.svg",
+    id: 1,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    title: "floral shirt for ",
+    size: "large",
+  },
+];
 
 const  ProductDetail = ({ ...props }) => {
  
@@ -301,10 +318,7 @@ function selectVariant(variant, optionId) {
         }
       ]);
     }
-    if (isWidthUp("md", width)) {
-      // Open the cart, and close after a 3 second delay
-      openCartWithTimeout(3000);
-    }
+
   };
 
   /**
@@ -385,48 +399,7 @@ function selectVariant(variant, optionId) {
     const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
 
-    // Phone size
-    if (isWidthDown("sm", width)) {
-      return (
-        <Fragment>
-          <div className={classes.section}>
-            <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
-            <div className={classes.info}>
-              <ProductDetailVendor>fffeffffffff</ProductDetailVendor>
-            </div>
-            <div className={classes.info}>
-              <ProductDetailPrice compareAtPrice={compareAtDisplayPrice} isCompact price={productPrice.displayPrice} />
-            </div>
-          </div>
 
-          <div className={classes.section}>
-          <img  src={pdpMediaItems}></img>
-          </div>
-
-          <div className={classes.section}>
-            <VariantList
-              onSelectOption={handleSelectOption}
-              onSelectVariant={handleSelectVariant}
-              product={product}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              currencyCode={currencyCode}
-              variants={product.variants}
-            />
-            <ProductDetailAddToCart
-              onClick={handleAddToCartClick}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              variants={product.variants}
-            />
-          </div>
-
-          <div className={classes.section}>
-            <ProductDetailDescription>{product.description}</ProductDetailDescription>
-          </div>
-        </Fragment>
-      );
-    }
 console.log(pdpMediaItems)
     return (
       <>
@@ -436,7 +409,7 @@ console.log(pdpMediaItems)
 
   alignItems="center"
   justifyContent="center"
-  style={{ minHeight: '100vh' }}>
+      >
         <Grid item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
           <div className={classes.thumb}>
             <Swiper
@@ -463,7 +436,7 @@ console.log(pdpMediaItems)
                 return (
                   <SwiperSlide key={index}>
                     <div className={classes.thumbimage}>
-                      <img src={slide.image} alt="" />
+                      <img src={slide.image} alt="" className={classes.thumbimage} />
                     </div>
                   </SwiperSlide>
                 );
@@ -504,7 +477,7 @@ console.log(pdpMediaItems)
 {  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
 {activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
 </div>
-            {slides.map((slide, index) => {
+            {slide.map((slide, index) => {
               return (
                 <SwiperSlide key={index}>
                   <img src={slide.image} alt="" className={classes.sliderimage2} />
