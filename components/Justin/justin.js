@@ -7,8 +7,10 @@ import Grid from '@material-ui/core/Grid';
 const useStyles =makeStyles((theme) => ({
 main:{
   padding: "3vh",
-  width:"100%"
- 
+  width:"100%",
+
+padding:theme.spacing(4)
+
   },
   cardaction:{
     height:312,
@@ -98,6 +100,7 @@ alignItems:"center",
         width:"84px",
         borderRadius:"40px",
         background:"#FDC114",
+        
         display:"flex",
         justifyContent:"space-evenly",
         alignItems:"center",
