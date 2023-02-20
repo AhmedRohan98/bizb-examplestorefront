@@ -20,12 +20,14 @@ const OurBlogs = () => {
         alignItems: "center",
         justifyContent: "center",
        borderRadious:"0px",
-     
        backgroundColor:theme.palette.reaction.blog1,
+       transform: "rotate(0deg)",
+      transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
        '&:hover': {
+        transform: 'rotate(10deg)',
       
-        transform: 'scale(1.04)'
-
       }
       },
       wardrobe: {
