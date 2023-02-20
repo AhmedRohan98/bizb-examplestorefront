@@ -75,7 +75,7 @@ const styles = (theme) => ({
     },
   },
   controller:{
-    position:"relative",
+width:"90vh",
     display:"flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -161,6 +161,9 @@ alignItems:"center",
   },
   carttext:{
     width:"450px"
+  }
+  ,sliderimage2:{
+    position:"realtive", 
   }
 ,thumbimage:{
   borderRadius:"18px"
@@ -488,8 +491,9 @@ console.log(pdpMediaItems)
             {slide.map((slide, index) => {
               return (
                 <SwiperSlide key={index}>
+                   <div className={classes.controller}>
                   <img src={slide.image} alt="" className={classes.sliderimage2} />
-                  <div className={classes.controller}>
+                 
 
 {  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
 {activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
