@@ -20,8 +20,13 @@ const OurBlogs = () => {
         alignItems: "center",
         justifyContent: "center",
        borderRadious:"0px",
+     
        backgroundColor:theme.palette.reaction.blog1,
-        
+       '&:hover': {
+      
+        transform: 'scale(1.04)'
+
+      }
       },
       wardrobe: {
         height: "225px",

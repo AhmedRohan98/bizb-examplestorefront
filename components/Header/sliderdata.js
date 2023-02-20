@@ -202,7 +202,7 @@ const MainSlider = () => {
      
         </div>
     
-
+        <OurBlogs />
         {/* <Preloved />
    
   <Justin />      
