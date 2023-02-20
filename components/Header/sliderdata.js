@@ -202,8 +202,8 @@ const MainSlider = () => {
      
         </div>
     
-        <OurBlogs />
-        {/* <Preloved />
+    
+        <Preloved />
    
   <Justin />      
 
@@ -217,7 +217,7 @@ const MainSlider = () => {
 
 <Caloborators />
 <OurBlogs />
-<Instagram />  */}
+<Instagram /> 
 
     </>
   );

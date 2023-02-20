@@ -17,6 +17,10 @@ image: {
  height:"100px",
  width:"100px",
  borderRadius: "100%",
+ '&:hover': {
+  height:"120px",
+  width:"120px",
+}
     },
     controller:{
       display:"flex",

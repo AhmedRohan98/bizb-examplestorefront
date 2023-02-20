@@ -91,6 +91,10 @@ const useStyles = makeStyles((theme) => ({
   text:{
     color :theme.palette.primary.contrastText,
     textTransform: "uppercase",
+    '&:hover': {
+      color :"black"
+     
+    }
   },
   buttonshop:{
     background:theme.palette.secondary.selected,
@@ -101,8 +105,12 @@ const useStyles = makeStyles((theme) => ({
     height:"35px",
    right:"50px",
     borderRadius:"40px",
-  
- 
+    transition: "all 0.2s linear",
+    '&:hover': {
+      transform: 'scale(1.08)',
+      transition: "left 0.2s linear",
+     
+    }
   },
   buttonshopt:{
  

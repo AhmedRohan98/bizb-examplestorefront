@@ -67,7 +67,8 @@ alignItems:"center",
    
    width:"312px",
    borderRadius:"10px",
-   
+
+
   },
   size:{
    
@@ -108,7 +109,12 @@ alignItems:"center",
        right:"36%",
        right:"64%",
         position:"absolute",
-        
+        transition: "all 0.2s linear",
+        '&:hover': {
+          transform: 'scale(1.08)',
+          transition: "left 0.2s linear",
+         
+        }
          },
          explore:{
           position:"absolute",

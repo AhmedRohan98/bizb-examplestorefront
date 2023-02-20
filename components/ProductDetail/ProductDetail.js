@@ -175,6 +175,7 @@ carttex:{
 }
 
 });
+
 const slides = [
   {
     image: "/cart/cart1.svg",
@@ -455,11 +456,8 @@ console.log(pdpMediaItems)
             </Swiper>
           </div>
         </Grid>
-            
-         
-        <Grid item xs={12} md={10} sm={6} lg={3} className={`${classes.sliderimages} swiper_slider`}>
-
-        <Swiper
+        <Grid item xs={12} md={10} sm={7} lg={5} className={`${classes.sliderimages} swiper_slider`}>
+          <Swiper
             thumbs={{ swiper: imagesNavSlider }}
             direction="horizontal"
             slidesPerView={1}
@@ -486,24 +484,22 @@ console.log(pdpMediaItems)
             modules={[Navigation, Thumbs, Mousewheel, Pagination]}
             onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
           >
-       
+             
             {slide.map((slide, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <img src={slide.image} alt="" className={classes.controller} />
-                
+                  <img src={slide.image} alt="" className={classes.sliderimage2} />
+                  <div className={classes.controller}>
 
 {  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
 {activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
-
+</div>
                 </SwiperSlide>
               );
             })}
-     
+  
           </Swiper>
-          </Grid>
-       
-       
+        </Grid>
         
         <Grid item xs={11} md={10} sm={6} lg={3}  >
           <div className={classes.carttext}>
@@ -528,8 +524,8 @@ console.log(pdpMediaItems)
             </Typography>
           </div>
           <div className={classes.cart}>
-            <img component="img" src="/cart/cartimage.svg" className={classes.cartimage} />
-            <Typography variant="h5" className={classes.carttex}>
+            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+            <Typography  variant="h4">
               + Cart{" "}
             </Typography>
           </div>
