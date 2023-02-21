@@ -31,3 +31,16 @@ fragment TagInfo on Tag {
   displayTitle
 }
 `;
+
+export const fetchAllTagsQuery =`
+query tags($shopId: ID!) {
+  tags(shopId: $shopId) {
+    nodes {
+      _id
+      isVisible
+      displayTitle
+      heroMediaUrl
+    }
+  }
+}
+`

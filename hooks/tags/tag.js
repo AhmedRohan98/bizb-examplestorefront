@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import tagsQuery from "./tag.gql";
-export default useTags = (input) => {
-  const { loading, data, refetch } = useQuery(tagsQuery, {
-    variables: { input },
+const useTags = () => {
+    let [tags,setTags] = React.useState([]);
+  const { loading, data } = useQuery(tagsQuery, {
+    variables: { shopId:'cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==' },
   });
-  const tags = data?.tags;
+  
   useEffect(() => {
-    refetch();
-  }, [input]);
-  return [tags, loading, refetch];
+    if(data) {
+        setTags(data?.tags?.nodes)
+    }
+  }, [data]);
+  return [tags, loading];
 };
+
+export default useTags

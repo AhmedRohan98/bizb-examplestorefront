@@ -1,6 +1,6 @@
 import graphQLRequest from "staticUtils/graphQLRequest";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
-import tagsQuery from "./tags.js";
+import tagsQuery, { fetchAllTagsQuery } from "./tags.js";
 
 /**
  * @summary Gets all tags for the current shop from GraphQL and returns an array of them
@@ -39,4 +39,13 @@ export default async function fetchAllTags(lang) {
   const allTags = await getTags({ shopId: shop._id });
 
   return allTags && { tags: allTags };
+}
+
+
+export const fetchTags = async(shopId) => {
+  const tags = await graphQLRequest(fetchAllTagsQuery, {
+    shopId
+  });
+ 
+  return tags
 }

@@ -2,8 +2,9 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import {useRouter} from 'next/router';
 import Box from "@material-ui/core/Box";
-import useTags  from "../../hooks/tags/tag";
+import useTags  from "../../hooks/tags/tag"
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -163,10 +164,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Preloved = () => {
+const Preloved = (props) => {
   const classes = useStyles();
-  const [loading, tags] = useTags();
-console.log(tags,"Fffffffffffffffffff")
+  const [tags, loading] = useTags();
+  const router = useRouter();
+  console.log('all props....', props);
+
+  console.log('tagssssssssss....', tags)
+  var res = props?.nodes?.reduce((acc,item,index) => {
+    acc[`place${index}`] = item;
+    return acc;
+  }, {});
+   
+const clickHandler = (id) => {
+  router.push('/en/categories/'+id);
+}
+console.log(res,"sssss")
+
   function FormRow1() {
     return (
       
@@ -176,9 +190,9 @@ console.log(tags,"Fffffffffffffffffff")
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              CAUSAL
+          {res.place0.displayTitle}
             </Typography>
-            <div className={classes.buttonshop}>
+            <div className={classes.buttonshop}  onClick = {() => clickHandler(res.place0._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
@@ -191,7 +205,7 @@ console.log(tags,"Fffffffffffffffffff")
             <Typography gutterBottom variant="h3" className={classes.text}>
               Western
             </Typography>
-            <div className={classes.buttonshop}>
+            <div className={classes.buttonshop} onClick = {() => clickHandler(res.place0._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
@@ -221,7 +235,7 @@ console.log(tags,"Fffffffffffffffffff")
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              Bridal
+            {res.place2.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
               {" "}

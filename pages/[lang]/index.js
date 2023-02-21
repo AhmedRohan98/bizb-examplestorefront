@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 const DynamicSlider = dynamic(() => import("../../components/Header/sliderdata"));
 import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
+import { fetchTags } from "../../staticUtils/tags/fetchAllTags";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 
 class ProductGridPage extends Component {
@@ -72,7 +73,7 @@ class ProductGridPage extends Component {
       <Layout headerType={false}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
-        <DynamicSlider />
+        <DynamicSlider {...this.props?.tags} />
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
         <ProductGrid
@@ -98,13 +99,12 @@ class ProductGridPage extends Component {
  */
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
-  const translations = await fetchTranslations(lang, ["common"]);
+  // const categories = await fetchAllCategories(shopId);
 
   if (!primaryShop?.shop) {
     return {
       props: {
         shop: null,
-        ...translations,
       },
       // eslint-disable-next-line camelcase
       unstable_revalidate: 1, // Revalidate immediately
@@ -114,7 +114,7 @@ export async function getStaticProps({ params: { lang } }) {
   return {
     props: {
       ...primaryShop,
-      ...translations,
+      ...await fetchTags('cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==')
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes
