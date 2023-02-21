@@ -1,0 +1,10 @@
+query tags($shopId: ID!) {
+  tags(shopId: $shopId) {
+    nodes {
+      _id
+      isVisible
+      displayTitle
+      heroMediaUrl
+    }
+  }
+}

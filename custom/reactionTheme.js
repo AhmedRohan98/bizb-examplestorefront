@@ -1,52 +1,68 @@
-/**
- * There are two theme files. This is for all MaterialUI components.
- * The other theme file is `componentTheme.js`
- */
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
+  transitions: {
+    transitions: {
+      duration: {
+        shortest: 150,
+        shorter: 200,
+        short: 250,
+        // most basic recommended timing
+        standard: 20000,
+        // this is to be used in complex animations
+        complex: 375,
+        // recommended when something is entering screen
+        enteringScreen: 225,
+        // recommended when something is leaving screen
+        leavingScreen: 195,
+      },
+    },
+  },
   layout: {
     mainContentMaxWidth: "1440px",
-    mainLoginMaxWidth: "1024px"
+    mainLoginMaxWidth: "1024px",
   },
   palette: {
     primary: {
       light: "#26B0F9",
       main: "#1999DD",
       dark: "#172F3C",
-      contrastText: "#FFFFFF"
+      contrastText: "#FFFFFF",
     },
     secondary: {
       light: "#5d8ea9",
       main: "#5E7480",
       dark: "#1D1D1D",
-      contrastText: "#000000"
+      contrastText: "#000000",
+      selected: "#FDC114",
     },
     background: {
-      default: "#ffffff"
+      default: "#ffffff",
+      main: "#D6C7C7",
     },
     error: {
       light: "#E54F5D",
       main: "#CD3F4C",
       dark: "#3C1F21",
-      contrastText: "#FFFFFF"
+      contrastText: "#FFFFFF",
     },
     action: {
       hover: "#f5f5f5",
-      selected: "#f5f5f5"
+      selected: "#f5f5f5",
+      main: "#D6C7C7",
     },
     colors: {
-      buttonBorderColor: "#5e7480"
+      buttonBorderColor: "#5e7480",
     },
     borders: {
-      default: "1px solid #e6e6e6"
+      default: "1px solid #e6e6e6",
     },
     reaction: {
       activeElementBorderColor: "#94E8D1",
       activeElementBackground: "#E6E6E6",
       badges: {
         bestseller: "#8CE0C9",
-        sale: "#E54F5D"
+        sale: "#E54F5D",
       },
       borderColor: "#CCCCCC",
       buttonBorderRadius: 2,
@@ -72,6 +88,7 @@ const theme = createMuiTheme({
       black10: "#e6e6e6",
       black05: "#f5f5f5",
       black02: "#fafafa",
+
       white: "#ffffff",
       // medium colors
       reactionBlue: "#1999dd",
@@ -116,11 +133,17 @@ const theme = createMuiTheme({
       red200: "#f0e8e9",
       red300: "#e54f5d",
       red400: "#bc1d2b",
-      red500: "#5e3033",
+
+      red500: "#E16452",
       red600: "#3c1f21",
+      story: "#EAE7FF",
+      blog1: "#CADFFF",
+      blog2: "#CAFFD9",
+      blog3: "#FFE0CA",
+      gradient: "linear-gradient(#000000, 31.77%, rgba(0, 0, 0, 0), 100%)",
       pageLoading: {
         innerColor: "#1999dd",
-        outerColor: "rgba(9.80392156862745%,59.99999999999995%,86.66666666666667%,0.122)"
+        outerColor: "rgba(9.80392156862745%,59.99999999999995%,86.66666666666667%,0.122)",
       },
       teal: "#8ce0c9",
       teal100: "#edfdf8",
@@ -128,39 +151,110 @@ const theme = createMuiTheme({
       teal300: "#a3f2dc",
       teal400: "#55e4be",
       teal500: "#447467",
-      teal600: "#34584f"
-    }
+      teal600: "#34584f",
+    },
   },
   borderRadii: {
-    default: 2
+    default: 2,
   },
   boxShadow: {
     depth0: "none",
     depth1: "0 0 1rem -0.5rem #808080",
-    depth2: "0 0 1rem #808080"
+    depth2: "0 0 1rem #808080",
   },
   typography: {
-    fontFamily: "Source Sans Pro, Helvetica Neue, Helvetica, sans-serif",
-    fontSize: 16,
+    fontFamily: "Lato, Montserrat, Helvetica Neue, Helvetica, sans-serif",
+    fontSize: 18,
     fontWeightLight: 400,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,
+
     subtitle2: {
-      fontSize: 14,
-      color: "#737373"
+      fontSize: "14px",
+      color: "#737373",
+    },
+    h1: {
+      fontSize: "42px",
+      color: "Black",
+      fontWeight: 400,
+      lineHeight: "50px",
+    },
+    h2: {
+      fontSize: "42px",
+      color: "#FDC114",
+      fontWeight: 400,
+      lineHeight: "50px",
+    },
+    h3: {
+      fontSize: "36px",
+      color: "#000000",
+      lineHeight: "43px",
+      fontFamily: "Ostrich Sans",
+      fontWeight: 900,
+      fontStyle: "normal",
+    },
+
+    h4: {
+      fontSize: "24px",
+      color: "#333333",
+      fontWeight: 400,
+
+      fontFamily: "Lato",
+      fontStyle: "normal",
+
+      lineHeight: "29px",
+    },
+    h5: {
+      fontSize: "16px",
+      color: "#000000",
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: 400,
+      weight: 100,
+      lineHeight: "19px",
+    },
+    h6: {
+      fontSize: "20px",
+      color: "#333333",
+      fontFamily: "Lato",
+      fontWeight: 500,
+
+      lineHeight: "24px",
+      fontStyle: "normal",
     },
     body2: {
-      fontSize: 14,
+      fontSize: "14px",
       fontWeight: 400,
-      color: "#595959"
+      color: "#595959",
     },
     subtitle1: {
-      fontSize: 16,
-      fontWeight: 600,
-      color: "#3c3c3c"
-    }
-  }
+      fontSize: "34px",
+      color: "#333333",
+      fontStyle: "Bold",
+      weight: 100,
+      fontFamily: "Lato",
+      lineHeight: "41px",
+    },
+    body1: {
+      fontSize: "30px",
+      color: "#333333",
+
+      fontStyle: "Black",
+      lineHeight: "100%",
+      fontFamily: "Ostrich Sans",
+    },
+    breakpoints: {
+      values: {
+        xxs: 0, // small phone
+        xs: 300, // phone
+        sm: 400, // tablets
+        md: 900, // small laptop
+        lg: 1200, // desktop
+        xl: 1536, // large screens
+      },
+    },
+  },
 });
 
 export default theme;

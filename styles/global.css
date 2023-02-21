@@ -1,0 +1,88 @@
+
+
+
+.swiper-pagination-bullet { width: 12px; height: 12px; background: "#333333"; border: 1px solid white; opacity: 1; opacity: 0.5;}
+.swiper-pagination-bullet-active { width: 25px; height: 12px; transition: width .5s; border-radius: 5px; background: #FDC114; border: 1px solid transparent;opacity: 1; }
+
+  .swiper-pagination {
+    position: absolute;
+    text-align: center;
+    transition: .3s opacity;
+    display: block;
+    transform: translate3d(0,0,0);
+    z-index: 10;
+}
+@media only screen and (min-width: 1100px) {
+    /* For mobile phones: */
+    .swiper-pagination {
+     display: block;
+     position: absolute;
+     text-align: center;
+     transition: .3s opacity;
+     display: none;
+     transform: translate3d(0,0,0);
+     z-index: 10;
+    }
+  }
+  .jcxWrk {
+    /* border-bottom-color: #e6e6e6; */
+    /* border-bottom-style: solid; */
+    /* border-bottom-width: 1px; */
+    /* border-left-color: #e6e6e6; */
+    /* border-left-style: solid; */
+    /* border-left-width: 1px; */
+    /* border-right-color: #0055ab; */
+    /* border-right-style: solid; */
+    border-right-width: 0px !important;
+    border-top-color: green;
+    /* border-top-style: solid; */
+    /* border-top-width: 1px; */
+    /* max-width: 360px; */
+    border :none !important;
+    display: none!important;
+    overflow: hidden;
+}
+.MuiTypography-colorTextSecondary {
+ 
+  font-size: 16px!important;
+  color: black !important;
+}
+.ivPFCf {
+  border-bottom-color: #e6e6e6;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: #e6e6e6;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: #e6e6e6;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: #e6e6e6;
+  border-top-style: solid;
+  display: none;
+  border-top-width: 1px;
+  max-width: 360px;
+  overflow: hidden;
+}
+.makeStyles-input .MuiInputBase-input {
+  color: black !important;
+  padding: opx;
+  font-size: 120px;
+}
+.MuiFormControlLabel-root {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-left: -11px;
+  margin-right: 2px;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+.MuiRating-sizeLarge {
+  font-size: 18px!important;
+  height: 18px!important;
+  width: 18px!important;
+}
+.masonry-container {
+  height: 500px; 
+}

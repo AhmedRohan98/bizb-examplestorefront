@@ -7,7 +7,7 @@ import { priceByCurrencyCode } from "@reactioncommerce/components/CatalogGridIte
 import Link from "components/Link";
 
 const ProductMediaWrapper = styled.div`
-  background-color: ${applyTheme("CatalogGridItem.mediaBackgroundColor")};
+ 
   position: relative;
 `;
 
@@ -92,6 +92,14 @@ class CatalogGridItem extends Component {
           thumbnail: PropTypes.string
         })
       }),
+      media: PropTypes.arrayOf(PropTypes.shape({
+        URLs: PropTypes.shape({
+          large: PropTypes.string,
+          medium: PropTypes.string,
+          small: PropTypes.string,
+          thumbnail: PropTypes.string
+        })
+      })),
       pricing: PropTypes.arrayOf(PropTypes.shape({
         currency: PropTypes.shape({
           code: PropTypes.string
@@ -133,7 +141,8 @@ class CatalogGridItem extends Component {
   setImageFit = () => {
     // Use cover fit if image is landcape, contain if portrait
     if (typeof Image !== "undefined") {
-      const { large } = this.primaryImage.URLs;
+      console.log("asdfad", this.media)
+      const large = this?.primaryImage?.URLs?.large;
       const largeImage = new Image();
       largeImage.src = large;
       largeImage.onload = () => {
@@ -159,8 +168,9 @@ class CatalogGridItem extends Component {
   };
 
   get primaryImage() {
-    const { product: { primaryImage }, placeholderImageURL } = this.props;
-    if (!primaryImage) {
+    const { product: { primaryImage, media }, placeholderImageURL } = this.props;
+    // console.log("check this media", media, this.props)
+    if (!media) {
       return {
         URLs: {
           thumbnail: placeholderImageURL,
@@ -170,7 +180,7 @@ class CatalogGridItem extends Component {
         }
       };
     }
-    return primaryImage;
+    return media;
   }
 
   renderProductMedia() {
@@ -182,8 +192,8 @@ class CatalogGridItem extends Component {
         <ProgressiveImage
           fit={fit}
           altText={description}
-          presrc={this.primaryImage.URLs.thumbnail}
-          srcs={this.primaryImage.URLs}
+          presrc={this.primaryImage?.[0]?.URLs?.large}
+          srcs={this.primaryImage?.[0]?.URLs?.large}
         />
       </ProductMediaWrapper>
     );

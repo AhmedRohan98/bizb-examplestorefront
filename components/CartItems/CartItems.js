@@ -9,7 +9,7 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "center",
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    
   },
   cfXPgA: {
     paddingLeft: 0,
@@ -82,13 +82,7 @@ class CartItems extends Component {
         />
         {hasMoreCartItems &&
           <div className={classes.loadMore}>
-            <Button
-              isShortHeight={isMiniCart}
-              isTextOnly
-              onClick={onLoadMoreCartItems}
-            >
-              {"Load More"}
-            </Button>
+           
           </div>
         }
       </Fragment>

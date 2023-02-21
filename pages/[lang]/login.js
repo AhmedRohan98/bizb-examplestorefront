@@ -1,159 +1,261 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Router from "translations/i18nRouter";
-import Helmet from "react-helmet";
-import { withStyles } from "@material-ui/core/styles";
-import CheckoutTopHat from "@reactioncommerce/components/CheckoutTopHat/v1";
-import ShopLogo from "@reactioncommerce/components/ShopLogo/v1";
-import withCart from "containers/cart/withCart";
-import Entry from "components/Entry";
-import Link from "components/Link";
-import Layout from "components/Layout";
-import ChevronLeftIcon from "mdi-material-ui/ChevronLeft";
-import { withApollo } from "lib/apollo/withApollo";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Checkbox from '@material-ui/core/Checkbox';
+import Box from '@material-ui/core/Box';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { locales } from "translations/config";
-import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
-import fetchTranslations from "staticUtils/translations/fetchTranslations";
+import CloseIcon from '@material-ui/icons/Close';
+import { Grid, TextField, Button,  Typography } from '@material-ui/core';
 
-const styles = (theme) => ({
-  backLink: {
-    "color": theme.palette.reaction.black80,
-    "cursor": "pointer",
-    "fontFamily": theme.typography.fontFamily,
-    "fontSize": 14,
-    "&:hover": {
-      color: theme.palette.reaction.reactionBlue400
+const useStyles = makeStyles((theme) => ({
+ 
+  modal: {
+    display: 'flex',
+   
+    flexDirection: "row",
+    justifyContent: 'center',
+    background:"green"
+  },
+  paper: {
+    height:"931px",
+    width:"1074",
+   borderRadius:"4px",
+
+
+  },
+  label:{
+    display: 'flex',
+    marginTop:theme.spacing(1),
+    color:"#333333",
+    flexDirection: "column",
+ 
+  },
+  image:{
+    height:"863px"
+  },
+  image2:{
+    height:"96px",
+    display:"flex",
+    marginTop:theme.spacing(2),
+    marginBottom:theme.spacing(2),
+    justifyContent:"center",
+    alignItems:"center"
+  
+  },
+  image3:{
+    height:"105",
+    width:"304px",
+
+    marginTop:theme.spacing(2),
+    
+  
+  },
+  grid1:{
+
+    display:"flex",
+    flexDirection: "column",
+    justifyContent:"center",
+    alignItems:"center",
+  
+    background:theme.palette.secondary.selected,
+    
+  },
+  grid2:{
+
+    display:"flex",
+    flexDirection: "column",
+    background:theme.palette.background.default,
+    
+    paddingLeft:theme.spacing(3),
+    
+  },
+  icon:{
+   marginTop:theme.spacing(2),
+   marginRight:theme.spacing(2),
+  },
+
+  input:{
+    width:"387px",
+    height:"48px",
+    borderRadius:"6px",
+     color:"red",
+    
+     justifyContent:"center",
+   paddingLeft:theme.spacing(2),
+    background:"#F7F7F9",
+    borderBottomColor:"none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "14px",
+      padding:"opx",
+   
     }
-  },
-  backLinkText: {
-    letterSpacing: "0.3px",
-    lineHeight: 1.71,
-    marginLeft: theme.spacing(),
-    textDecoration: "underline"
-  },
-  headerFlex: {
-    alignSelf: "center",
-    flex: "1 1 1%"
-  },
-  header: {
-    alignContent: "center",
-    borderBottom: `solid 1px ${theme.palette.reaction.black10}`,
-    display: "flex",
-    justifyContent: "center",
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(3)
-  },
-  logo: {
-    color: theme.palette.reaction.reactionBlue,
-    margin: "auto",
-    borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`
-  },
-  main: {
-    flex: "1 1 auto",
-    maxWidth: theme.layout.mainLoginMaxWidth,
-    minHeight: "calc(100vh - 135px)",
-    margin: "0 auto",
-    padding: theme.spacing(3, 3, 0),
-    [theme.breakpoints.up("md")]: {
-      padding: theme.spacing(10, 3, 0)
-    }
-  },
-  root: {}
-});
+    
 
-class Login extends Component {
-  static propTypes = {
-    cart: PropTypes.shape({
-      account: PropTypes.object,
-      email: PropTypes.string
-    }),
-    classes: PropTypes.object,
-    setEmailOnAnonymousCart: PropTypes.func,
-    shop: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string
-    }),
-    theme: PropTypes.object.isRequired
+  },
+register:{
+  width:"214px",
+  height:"48px",
+  borderRadius:"40px",
+  border:"none",
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  background:theme.palette.secondary.selected,
+  "&:hover": {
+
+    background:theme.palette.secondary.selected,
+}
+
+},
+socialmedia:{
+  width:"230px",
+  height:"48px",
+  borderRadius:"40px",
+  border:"none",
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  margin:"10px",
+  padding:"3px",
+  background:theme.palette.secondary.selected,
+
+},
+topheader:{
+  display:"flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+},
+terms:{
+  lineHeight:"100px"
+    
+},
+checkbox:{
+  color:"green",
+  "& .MuiIconButton-label ":{
+   color:theme.palette.secondary.selected,
+  },
+  
+ },
+ checkboxdiv:{
+  display:"flex",
+  flexDirection: "row",
+ }
+}));
+
+export default function TransitionsModal() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
-  state = {};
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [checkedEmail, setCheckedEmail] = React.useState(true);
+ 
+  const handleChangeEmail = (event) => {
+    setCheckedEmail(event.target.checked);
+  };
+  return (
+    <div className={classes.paper}>
+          
 
-  componentDidMount() {
-    const { cart } = this.props;
-    if ((cart && cart.account !== null) || (cart && cart.email)) Router.back();
-  }
-
-  renderHeader() {
-    const { classes, shop } = this.props;
-
-    return (
-      <div className={classes.header}>
-        <div className={classes.headerFlex}>
-          <Link route="/" className={classes.backLink}>
-            <ChevronLeftIcon style={{ fontSize: 18, color: "inherit", verticalAlign: "sub", transition: "none" }} />
-            <span className={classes.backLinkText}>Back</span>
-          </Link>
+          <Modal
+ 
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+       
+      >
+        <Fade in={open}>
+          
+        
+        <Grid container  xs={12}>
+        <Grid item xs={4} className={classes.grid1}>
+        <img src='/authentication/signup2.svg' alt='Login-SignUP' className={classes.image3} />
+        <img src='/authentication/login-siginup.svg' alt='Login-SignUP' className={classes.image} />
+        </Grid>
+        <Grid item xs={4} className={classes.grid2}>
+      <div className={classes.topheader}> 
+        <img src='/images/logoDark.svg' alt='Login-SignUP' className={classes.image2} />
+        <CloseIcon onClick={handleClose}  className={classes.icon}/>
         </div>
+        <Typography variant="body1">REGISTRATION </Typography>
+        <form>
+              <Grid container >
+                <Grid xs={12}  item>
+                {/* <span>*</span> */}
+                <label className={classes.label}  required >FullName 
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}   className={classes.input}   
+  />
+                </label>
+                </Grid>
+                <Grid xs={12} item>
+                  <label className={classes.label} variant="h6">Email
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} />
+                </label>
+                </Grid>
+         
+                <Grid item xs={12}>
+                <label className={classes.label}>Phone Number
+                <TextField placeholder="Enter last name"   InputProps={{ disableUnderline: true }}  required className={classes.input} />
+                </label>
+                </Grid>
+                <Grid item xs={12}>
+                <label className={classes.label}>Password
+                <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} />
+                </label>
+                </Grid>
+              
+                <Grid item xs={12}>
+                <label className={classes.label}>Re-Enter Password
+                <TextField placeholder="Enter last name"  InputProps={{ disableUnderline: true }}   required className={classes.input} />
+                </label>
+                </Grid>
 
-        <Link route="home">
-          <div className={classes.logo}>
-            {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
-          </div>
-        </Link>
-
-        <div className={classes.headerFlex} />
+              </Grid>
+              <div className={classes.checkboxdiv}>
+              <FormControlLabel
+        control={
+          <Checkbox
+            checked={checkedEmail}
+            onChange={handleChangeEmail}
+            className={classes.checkbox}
+          />
+        }
+     
+      />
+       <Typography variant="h6" className={classes.terms}> Aggree With term and conditions</Typography>
       </div>
-    );
-  }
+     
+     
+            </form>
+            <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"> Register</Button>
+            <Box className={classes.socialmedia}>
+            <img src='/authentication/signup3.svg' alt='Login-SignUP' />
+            <Typography variant="h6"> Register With Google</Typography>
+       </Box>
+       <Box className={classes.socialmedia}>
+            <img src='/authentication/signup4.svg' alt='Login-SignUP'  />
+            <Typography variant="h6"> Register With Facebook</Typography>
+       </Box>
+     
+        </Grid>
+       
+        
+       
+      </Grid>
 
-  renderEntry() {
-    const { setEmailOnAnonymousCart } = this.props;
-    return <Entry setEmailOnAnonymousCart={setEmailOnAnonymousCart} />;
-  }
-
-  render() {
-    const { classes, shop } = this.props;
-    return (
-      <Layout shop={shop}>
-        <Helmet
-          title={`Login | ${shop && shop.name}`}
-          meta={[{ name: "description", content: shop && shop.description }]}
-        />
-        <CheckoutTopHat checkoutMessage="Free Shipping + Free Returns" />
-        <div className={classes.root}>
-          {this.renderHeader()}
-          <main className={classes.main}>{this.renderEntry()}</main>
-        </div>
-      </Layout>
-    );
-  }
+       
+        </Fade>
+     
+      </Modal>
+    </div>
+  );
 }
-
-/**
- *  Static props for the login
- *
- * @returns {Object} the props
- */
-export async function getStaticProps({ params: { lang } }) {
-  return {
-    props: {
-      ...await fetchPrimaryShop(lang),
-      ...await fetchTranslations(lang, ["common"])
-    }
-  };
-}
-
-/**
- *  Static paths for the login
- *
- * @returns {Object} thepaths
- */
-export async function getStaticPaths() {
-  return {
-    paths: locales.map((locale) => ({ params: { lang: locale } })),
-    fallback: false
-  };
-}
-
-export default withApollo()(withCart(withStyles(styles, { withTheme: true })(Login)));

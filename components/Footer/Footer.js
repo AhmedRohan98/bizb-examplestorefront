@@ -55,7 +55,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Footer = ({ ...props }) => (
   // <footer className={props.classes.footer}>
-  <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }} className={props.classes.footer}>
+  <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
         <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px" }}>

@@ -4,11 +4,12 @@ import Helmet from "react-helmet";
 import { useRouter } from "next/router";
 import Typography from "@material-ui/core/Typography";
 import withCart from "containers/cart/withCart";
-import ProductDetail from "components/ProductDetail";
+
 import PageLoading from "components/PageLoading";
 import Layout from "components/Layout";
 import { withApollo } from "lib/apollo/withApollo";
-
+import dynamic from "next/dynamic";
+const DynamicSlider = dynamic(() => import("components/ProductDetail"));
 import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchCatalogProduct from "staticUtils/catalog/fetchCatalogProduct";
@@ -94,7 +95,7 @@ function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop }) 
         meta={[{ name: "description", content: product && product.description }]}
         script={[{ type: "application/ld+json", innerHTML: JSONLd }]}
       />
-      <ProductDetail
+      <DynamicSlider
         addItemsToCart={addItemsToCart}
         currencyCode={currencyCode}
         product={product}
@@ -104,7 +105,7 @@ function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop }) 
   );
 }
 
-ProductDetailPage.propTypes = {
+DynamicSlider.propTypes = {
   /**
    * Function to add items to a cart, usually using the addItemsToCart from @withCart decorator.
    *

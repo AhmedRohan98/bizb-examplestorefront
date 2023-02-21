@@ -7,7 +7,8 @@ import ProductGrid from "components/ProductGrid";
 import Layout from "components/Layout";
 import { inPageSizes } from "lib/utils/pageSizes";
 import { withApollo } from "lib/apollo/withApollo";
-
+import dynamic from "next/dynamic";
+const DynamicSlider = dynamic(() => import("../../components/Header/sliderdata"));
 import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
@@ -23,7 +24,6 @@ class ProductGridPage extends Component {
         code: PropTypes.string.isRequired,
       }),
     }),
-    headerType: PropTypes.bool,
     tag: PropTypes.object,
     uiStore: PropTypes.shape({
       pageSize: PropTypes.number.isRequired,
@@ -68,8 +68,12 @@ class ProductGridPage extends Component {
       pageTitle = "Storefront";
     }
 
-    return (
-      <Layout shop={shop} headerType={false}>
+    return typeof window !== undefined ? (
+      <Layout headerType={false}>
+        <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
+
+        <DynamicSlider />
+
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
         <ProductGrid
           catalogItems={catalogItems}
@@ -82,7 +86,7 @@ class ProductGridPage extends Component {
           sortBy={sortBy}
         />
       </Layout>
-    );
+    ) : 'Loading...'
   }
 }
 
