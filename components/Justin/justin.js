@@ -63,6 +63,8 @@ alignItems:"center",
     display: "flex",
     justifyContent: "space-between",
   },
+
+  
   image:{
    
    width:"312px",

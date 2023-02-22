@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import {useRouter} from 'next/router';
 import Box from "@material-ui/core/Box";
-import useTags  from "../../hooks/tags/tag"
+
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -166,11 +166,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Preloved = (props) => {
   const classes = useStyles();
-  const [tags, loading] = useTags();
   const router = useRouter();
   console.log('all props....', props);
 
-  console.log('tagssssssssss....', tags)
   var res = props?.nodes?.reduce((acc,item,index) => {
     acc[`page${index}`] = item;
     return acc;
