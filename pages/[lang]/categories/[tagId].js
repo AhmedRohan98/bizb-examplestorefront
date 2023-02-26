@@ -104,6 +104,12 @@ const useStyles = makeStyles((theme) => ({
       transition: "left 0.2s linear",
     },
   },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop:theme.spacing(10)
+  },
 
   images: {
     minHeigth: "201px",
@@ -154,14 +160,32 @@ const useStyles = makeStyles((theme) => ({
     
     
   },
+
   },
+  modalitems:{
+    display:"flex",
+    flexDirection:"row",
+       borderBottom:"0.5px dotted #0101013b"
+     },
   loadmorediv:{
     display:"flex",
     width:"100%",
     justifyContent:"center",
     alignItems:"center",
     marginBottom:theme.spacing(2)
+  } ,
+  categoryavatar:{
+    marginTop:theme.spacing(2)
+  },
+  catgorytitle:{
+    marginTop:theme.spacing(2),
+    marginLeft:theme.spacing(1),
+    "&:hover": {
+  
+     color:theme.palette.secondary.selected,
   }
+  }
+
 }));
 function Categories(props) {
   const ITEMS = [
@@ -293,6 +317,51 @@ function Categories(props) {
  
     
   ];
+  const ITEMScategory = [
+  
+    {
+      image: "/categoriestypes/cat1.svg",
+      id: 1,
+      title: "Causal",
+     
+    },
+    {
+      image: "/categoriestypes/cat2.svg",
+      id: 2,
+      title: "Westren",
+     
+    },
+    {
+      image: "/categoriestypes/cat3.svg",
+      id: 3,
+      title: "Shoes",
+     
+    },
+    {
+      image: "/categoriestypes/cat4.svg",
+      id: 4,
+      title: "Bridal",
+     
+    },
+    {
+      image: "/categoriestypes/cat5.svg",
+      id: 5,
+      title: "Party Wear",
+     
+    },
+    {
+      image: "/categoriestypes/cat6.svg",
+      id: 6,
+      title: "Accessories",
+     
+    },
+    {
+      image: "/categoriestypes/cat7.svg",
+      id: 6,
+      title: "Junior",
+     
+    },
+  ]
   const ITEMS2 = [
   
     {
@@ -1308,13 +1377,7 @@ function Categories(props) {
   ];
   const data = ITEMS.splice(0, 5);
   const data2 = ITEMS.splice(5, ITEMS.length);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
 
@@ -1373,7 +1436,27 @@ const loadMoreProducts = () => {
   const nextProducts = products.slice(currentIndex, currentIndex + 10);
   setDisplayedProducts([...displayedProducts, ...nextProducts]);
 };
+const [open, setOpen] = React.useState(false);
+const handleOpen = () => {
+  setOpen(true);
+};
+const handleClose = () => {
+  setOpen(false);
+};
+const style = {
+  position: 'absolute',
+  top: '20%',
+  left: '20%',
+  transform: 'translate(-50%, -50%)',
+  width: 250,
+  bgcolor: '#ffffff',
+
+  border: 'none' ,
   
+  boxShadow: 24,
+  p: 2,
+
+};
   return (
     <>
       
@@ -1388,24 +1471,32 @@ const loadMoreProducts = () => {
                   <Typography variant="h1" className={classes.categoriesname}>
                     Western
                   </Typography>
-                  <img src={firstarray.names0.image} className={classes.categorytoggle} />
+                  <img src={firstarray.names0.image} className={classes.categorytoggle} onClick={handleOpen} />
                 </div>
                
               </div>
-              <img src="/categories/mainCategory.svg" className={classes.image} onClick={handleOpen}/>
+              <img src="/categories/mainCategory.svg" className={classes.image} />
               <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
         open={open}
         onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
+        closeAfterTransition
+      
       >
-        <Box sx={{ width: 200 }}>
-          <h2 id="child-modal-title">Text in a child modal</h2>
-          <p id="child-modal-description">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          </p>
-          <Button onClick={handleClose}>Close Child Modal</Button>
+
+        <Box sx={style}>
+      
+         {ITEMScategory.map((item) => (
+     < div className={classes.modalitems}>
+       <img src={item.image}  className={classes.categoryavatar}/>
+<Typography variant="h4" className={classes.catgorytitle}> {item.title}</Typography>
+     </div>
+         ))}
+   
         </Box>
+        
       </Modal>
             </div>
           </Grid>
@@ -1484,78 +1575,8 @@ const loadMoreProducts = () => {
             </Grid>
           </Grid>
         
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            md={12}
-            xs={12}
-            container
-            className={classes.maingrid}
-            direction="row"
-            justifyContent="space-evenly"
-          >
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-            <div className={classes.rootimg}>
-            <img src={firstarray.names1.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-
-            </div>
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-            <div className={classes.rootimg}>
-              <img src={firstarray.names4.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-              </div>
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-          </Grid>
-       
+      
+      
           <Grid
             item
             lg={3}
@@ -1630,228 +1651,7 @@ const loadMoreProducts = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            md={12}
-            xs={12}
-            container
-            className={classes.maingrid}
-            direction="row"
-            justifyContent="space-evenly"
-          >
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-          <div className={classes.rootimg}>
-
-       
-              <img src={firstarray.names2.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-              </div>
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-              <div className={classes.rootimg}>
-
-              <img src={firstarray.names3.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-              </div>
-
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            md={12}
-            xs={12}
-            container
-            className={classes.maingrid}
-            direction="row"
-            justifyContent="space-evenly"
-          >
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-          <div className={classes.rootimg}>
-
-       
-              <img src={firstarray.names2.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-              </div>
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-              <div className={classes.rootimg}>
-
-              <img src={firstarray.names3.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-              </div>
-
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-          </Grid>
-            <Grid
-            item
-            lg={3}
-            sm={6}
-            md={12}
-            xs={12}
-            container
-            className={classes.maingrid}
-            direction="row"
-            justifyContent="space-evenly"
-          >
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-          <div className={classes.rootimg}>
-
-       
-              <img src={firstarray.names2.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-              </div>
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-            <Grid item lg={6} sm={6} md={6} xs={6} >
-              <div className={classes.rootimg}>
-
-              <img src={firstarray.names3.image} className={classes.images} />
-              <div className={classes.cart}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h5" component="h2">
-                  + Cart{" "}
-                </Typography>
-              </div>
-              </div>
-
-              <Box className={classes.maintitle}>
-                <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                  {firstarray.names1.title}
-                </Typography>
-                <div className={classes.size}>
-                  <Typography gutterBottom variant="h4">
-                    size
-                  </Typography>
-                  <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                </div>
-                <div className={classes.size}>
-                  {" "}
-                  <strike>{firstarray.names1.price}</strike>
-                  <Typography gutterBottom variant="h5" className={classes.price}>
-                    Rs 600
-                  </Typography>
-                </div>
-              </Box>
-            </Grid>
-          </Grid>
+          
         
         </Grid>
     <div className={classes.massonary}>
