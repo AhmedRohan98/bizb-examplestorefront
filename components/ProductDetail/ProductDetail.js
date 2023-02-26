@@ -618,5 +618,5 @@ ProductDetail.propTypes = {
   uiStore: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired
 };
-export default withWidth({ initialWidth: "md" })(withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)));
+export default (withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)));
 

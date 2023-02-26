@@ -66,7 +66,7 @@ class ProductGridPage extends Component {
       pageTitle = shop.name;
       if (shop.description) pageTitle = `${pageTitle} | ${shop.description}`;
     } else {
-      pageTitle = "Storefront";
+      pageTitle = "Bizb";
     }
 
     return typeof window !== undefined ? (
@@ -99,7 +99,7 @@ class ProductGridPage extends Component {
  */
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
-  // const categories = await fetchAllCategories(shopId);
+
 
   if (!primaryShop?.shop) {
     return {
