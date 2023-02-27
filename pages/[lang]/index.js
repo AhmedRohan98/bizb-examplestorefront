@@ -73,7 +73,7 @@ class ProductGridPage extends Component {
       <Layout headerType={false}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
-        <DynamicSlider {...this.props?.tags} />
+        <DynamicSlider {...this.props?.tags} catalogItems={catalogItems} />
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
         <ProductGrid

@@ -17,6 +17,19 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from "@material-ui/core/Paper";
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import CloseIcon from "@material-ui/icons/Close";
+import Select from '@material-ui/core/Select';
+import clsx from 'clsx';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     top: "10px",
@@ -29,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
     boxShadow: 24,
     p: 2,
+  },
+  list: {
+    width: "379px",
+  },
+  fullList: {
+    width: 'auto',
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -142,6 +161,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     marginTop: theme.spacing(10),
+    border:"none",
+    "&:focus": {
+      outline: "none"
+    }
   },
 
   images: {
@@ -168,7 +191,11 @@ const useStyles = makeStyles((theme) => ({
     width:"255px",
 height:"48px",
 borderRadius:"6px",
-background:"#F7F7F9"
+background:"#F7F7F9",
+"& .MuiInput-underline:before":{
+borderBottom:"none"
+},
+'.MuiOutlinedInput-notchedOutline': { border: 0 }
   },
   maingrid: {
     display: "flex",
@@ -228,11 +255,74 @@ background:"#F7F7F9"
       color: theme.palette.secondary.selected,
     },
   },
+  underline: {
+    "&&&:before": {
+      borderBottom: "none"
+    },
+    "&&:after": {
+      borderBottom: "none"
+    }
+  },
   main: {
     width: "100%",
   },
+  filters:{
+    display:"flex",
+    justifyContent:"space-between",
+    padding:theme.spacing(4),
+    height:"100px",
+    background: "#333333"
+
+  },
+  close:{
+    color:"#ffffff"
+  },
+  filtersTitle:{
+    color:"#ffffff"
+  }
 }));
 function Categories(props) {
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list)}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
   const ITEMS = [
     {
       image: "/categories/categoriestoggle.svg",
@@ -1389,7 +1479,10 @@ function Categories(props) {
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
-
+  const [value, setValue] = React.useState([]);
+   const handleChange =(e)=>{
+    setValue(e.target.value)
+   }
   var firstarray = data.reduce((acc, item, index) => {
     acc[`names${index}`] = item;
     return acc;
@@ -1479,13 +1572,44 @@ function Categories(props) {
       {typeof window !== "undefined" && (
         <div className={classes.main}>
           <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-            <img src="/categoriestypes/Vector.svg" alt="vector"  className={classes.vector}/>
+
+            {['left'].map((anchor) => (
+        <React.Fragment key={anchor}>
+                    <img src="/categoriestypes/Vector.svg" alt="vector"  className={classes.vector}  onClick={toggleDrawer(anchor, true)}/>
+          <Drawer anchor="left"  open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <div className={classes.filters}> <Typography variant="h3" className={classes.filtersTitle}>Cart</Typography>
+    <CloseIcon onClick={handleClose} className={classes.close} /></div>
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+            <FormControl    placeholder="Sort by" >
+  
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={value}
+    label="Age"
+    onChange={handleChange}
+    className={classes.paper}
+    variant="standard"
+    sx={{border: '1px solid green', borderRadius: 1}}
+  disableUnderline
+
+  >
+    <MenuItem value={10}>Ten</MenuItem>
+    <MenuItem value={20}>Twenty</MenuItem>
+    <MenuItem value={30}>Thirty</MenuItem>
+  </Select>
+</FormControl>
             <Paper component="form" className={classes.paper}>
+          
               <InputBase
                 // className={classes.input}
                 placeholder="Sort by"
                 inputProps={{ "aria-label": "search google maps" }}
-              />
+              >  {value}</InputBase>
+            
               <Divider className={classes.divider} orientation="vertical" />
               <IconButton color="primary" aria-label="directions" onClick={handleSortOpen}>
                 <ArrowDropDownIcon className={classes.arrowdropdown} />
@@ -1519,12 +1643,11 @@ function Categories(props) {
                 </div>
                 <img src="/categories/mainCategory.svg" className={classes.image} />
                 <Modal
-                  aria-labelledby="transition-modal-title"
-                  aria-describedby="transition-modal-description"
+                  
                   className={classes.modal}
                   open={open}
                   onClose={handleClose}
-                  closeAfterTransition
+                 
                 >
                   <Box sx={style}>
                     {ITEMScategory.map((item) => (
