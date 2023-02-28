@@ -23,6 +23,12 @@
      transform: translate3d(0,0,0);
      z-index: 10;
     }
+  }span [class^="PrivateValueLabel-circle"] {
+    width: 38px !important;
+    height: 38px !important;
+ 
+   
+   
   }
   .MuiInput-underline:before {
     left: 0;

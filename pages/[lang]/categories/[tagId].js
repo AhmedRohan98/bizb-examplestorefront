@@ -29,7 +29,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import FormLabel from '@material-ui/core/FormLabel';
 
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Slider from "@material-ui/core/Slider";
+import Checkbox from '@material-ui/core/Checkbox';
 const useStyles = makeStyles((theme) => ({
   root: {
     top: "10px",
@@ -49,6 +55,32 @@ const useStyles = makeStyles((theme) => ({
   fullList: {
     width: 'auto',
   },
+  checkbox:{
+    fontSize: "20px",
+    color: "#333333",
+    fontFamily: "Lato",
+    fontWeight: 500,
+
+    lineHeight: "24px",
+    fontStyle: "normal",
+    color:theme.palette.secondary.selected,
+    "& .MuiTypography-body1":{
+      fontSize: "20px",
+      color: "#333333",
+      fontFamily: "Lato",
+      fontWeight: 500,
+  
+      lineHeight: "24px",
+      fontStyle: "normal",
+    },
+    "& .MuiCheckbox-colorSecondary.Mui-checked":{
+      color:theme.palette.secondary.selected,
+    },
+    "& .MuiCheckbox-colorSecondary":{
+      color:"#333333",
+    }
+ 
+   },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
@@ -279,50 +311,149 @@ borderBottom:"none"
   },
   filtersTitle:{
     color:"#ffffff"
-  }
+  },
+  slider:{
+color:"black",
+width:"257px",
+
+height:"2px",
+"& > span > span": {
+  color: "#FDC114",
+  width:"100px",
+  fontWeight: 800
+},
+"& .PrivateValueLabel-thumb":{
+width:"100px"
+},
+'& .MuiSlider-track': {
+  border: 'none',
+},
+'& .MuiSlider-thumb': {
+  width:"16px",
+  height: "16px",
+  backgroundColor: '#fff',
+  border:"0.5px solid #9E9E9E",
+  '&:before': {
+    boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+  },
+  '&:hover, &.Mui-focusVisible, &.Mui-active': {
+    boxShadow: 'none',
+  },
+},
+  },
+  filternames:{
+    borderBottom:"2px solid #000000",
+    marginLeft:theme.spacing(3),
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:theme.spacing(1),
+    marginTop:theme.spacing(1),
+    width:"62px"
+  },
+  slidervalues:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"space-between",
+    width:"300px",
+    flexDirection:"row"
+  },
+  slidervaluesmain:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    width:"100%"
+  },
+  filternames2:{
+    borderBottom:"2px solid #000000",
+    marginLeft:theme.spacing(3),
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:theme.spacing(1),
+    marginTop:theme.spacing(1),
+    width:"92px"
+  },
+  colorsmain:{
+    display:"flex",
+    flexDirection: "row",
+   marginTop:theme.spacing(1),
+   marginLeft:theme.spacing(3)
+
+  },
+  colortitle:{
+    marginLeft:theme.spacing(1),
+  },
+  slidervalue:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+  },
+filternameprice:{
+  marginTop:theme.spacing(4),
+  color:"#989898",
+  lineHeight:"19px",
+  fontWeight:400,
+  marginBottom:"0px"
+},
+
 }));
 function Categories(props) {
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  const [state, setState] = React.useState();
+  const [price, setPrice] = React.useState([0, 5000]);
+  const priceHandler = (event, newPrice) => {
+    setPrice(newPrice);
+  };
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
+   
+    setState(!state);
   };
 
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list)}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+  const [checkbox, setCheckbox] = React.useState({
+    gilad: true,
+    jason: false,
+    antoine: false,
+  });
 
+  const handleChangeCheck = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const  Colors = [
+    {
+      image: "/colors/black.svg",
+      id: 1,
+      title: "Black",
+    },
+    {
+      image: "/colors/blue.svg",
+      id: 2,
+      title: "Blue",
+    },
+    {
+      image: "/colors/green.svg",
+      id: 3,
+      title: "Green",
+    },
+    {
+      image: "/colors/red.svg",
+      id: 4,
+      title: "Red",
+    },
+    {
+      image: "/colors/yellow.svg",
+      id: 5,
+      title: "Yellow",
+    },
+    {
+      image: "/colors/orange.svg",
+      id: 6,
+      title: "Orange",
+    },
+  ]
   const ITEMS = [
     {
       image: "/categories/categoriestoggle.svg",
@@ -447,6 +578,7 @@ function Categories(props) {
       size: "large",
     },
   ];
+  
   const ITEMScategory = [
     {
       image: "/categoriestypes/cat1.svg",
@@ -1576,10 +1708,69 @@ function Categories(props) {
             {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
                     <img src="/categoriestypes/Vector.svg" alt="vector"  className={classes.vector}  onClick={toggleDrawer(anchor, true)}/>
-          <Drawer anchor="left"  open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-          <div className={classes.filters}> <Typography variant="h3" className={classes.filtersTitle}>Cart</Typography>
-    <CloseIcon onClick={handleClose} className={classes.close} /></div>
-            {list(anchor)}
+          <Drawer anchor="left"  open={state} onClose={toggleDrawer()}>
+          <div className={classes.filters}> <Typography variant="h3" className={classes.filtersTitle}>FILTER</Typography>
+    <CloseIcon onClick={(()=>{
+      setState(!state) })} className={classes.close}  /></div>
+       <div
+      className={clsx(classes.list)}
+      role="presentation"
+ 
+   
+    >
+      <List>
+      <Typography variant="h4" className={classes.filternames} >SIZE</Typography>
+        {['Small', 'Medium', 'large', 'Extra-Large'].map((text, index) => (
+          <ListItem button key={text}>
+              <FormControlLabel
+            control={
+              <Checkbox  onChange={handleChangeCheck} name={text}  variant="h6" />
+            }
+            label={text}
+            className={classes.checkbox} 
+          />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+      <Typography variant="h4" className={classes.filternames2} >COLOR</Typography>
+    { Colors.map((text, index) => (
+
+         <div className={classes.colorsmain}>
+             <img src={text.image} />
+             <Typography variant="h4" className={classes.colortitle} >{text.title}</Typography>
+             </div>
+        ))}
+      </List>
+      <Divider />
+      <List>
+      <Typography variant="h4" className={classes.filternames2} >PRICE</Typography>
+      <div className={classes.slidervaluesmain}>
+      <div className={classes.slidervalues}>
+      <Typography variant="h5" className={classes.filternameprice} >RS 500</Typography>
+      <Typography variant="h5" className={classes.filternameprice} >RS 1000</Typography>
+      </div>
+      </div>
+     <div className={classes.slidervalue}>
+
+    
+            <Slider
+              value={price}
+              onChange={priceHandler}
+           
+              aria-labelledby="range-slider"
+              min={0}
+              max={5000}
+              className={classes.slider}
+
+              valueLabelDisplay="auto"
+
+
+            />
+  </div>
+      </List>
+    </div>
           </Drawer>
         </React.Fragment>
       ))}
