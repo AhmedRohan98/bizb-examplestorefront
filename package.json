@@ -142,6 +142,7 @@
     "reacto-form": "~1.4.0",
     "react-slick":"0.29.0",
     "@material-ui/icons":"4.11.3",
+    "react-select": "^4.3.0",
     "swiper": "^8.4.6",
     "styled-components": "^5.3.0",
     "subscriptions-transport-ws": "~0.9.15",

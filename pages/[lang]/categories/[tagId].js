@@ -19,10 +19,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Paper from "@material-ui/core/Paper";
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import Select from 'react-select';
 import CloseIcon from "@material-ui/icons/Close";
-import Select from '@material-ui/core/Select';
+
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -30,12 +35,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import FormLabel from '@material-ui/core/FormLabel';
-
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Slider from "@material-ui/core/Slider";
 import Checkbox from '@material-ui/core/Checkbox';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     top: "10px",
@@ -396,11 +402,66 @@ filternameprice:{
   fontWeight:400,
   marginBottom:"0px"
 },
+topheader:{
+   display: "flex", 
+   justifyContent: "flex-end" ,
+   
+   [theme.breakpoints.down(700)]: {
+display:"none"
+  },
+
+},
+
+cart: {
+ color:"green",
+  '& input::placeholder': {
+    color: 'green',
+  },
+  "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
+    // Default transform is "translate(14px, 20px) scale(1)""
+    // This lines up the label with the initial cursor position in the input
+    // after changing its padding-left.
+    transform: "translate(34px, 20px) scale(1);"
+  },
+  "&.Mui-focused .MuiInputLabel-outlined": {
+    color: "purple"
+  },
+  "& .MuiAutocomplete-inputRoot": {
+    color: "purple",
+    // This matches the specificity of the default styles at https://github.com/mui-org/material-ui/blob/v4.11.3/packages/material-ui-lab/src/Autocomplete/Autocomplete.js#L90
+    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
+      // Default left padding is 6px
+      paddingLeft: 26
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "green"
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "red"
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "purple"
+    }
+  },
+},
+cart2:{
+  background:"black"
+},
+select:{
+  border:"2px solid red",
+  padding:theme.spacing(2)
+}
 
 }));
 function Categories(props) {
   const [state, setState] = React.useState();
   const [price, setPrice] = React.useState([0, 5000]);
+  const [selectedOption, setSelectedOption] = React.useState(null);
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
   };
@@ -1619,7 +1680,6 @@ function Categories(props) {
     acc[`names${index}`] = item;
     return acc;
   }, {});
-  console.log(data2, "fffffffffffsardarffffffffffffffffffsadrtttt");
   const router = useRouter();
   const classes = useStyles();
   if (router.isFallback) {
@@ -1699,11 +1759,84 @@ function Categories(props) {
   const handleSortClose = () => {
     setAnchorEl(null);
   };
+  const currencies = [
+    {
+      value: "USD",
+      label: "$"
+    },
+    {
+      value: "EUR",
+      label: "€"
+    },
+    {
+      value: "BTC",
+      label: "฿"
+    },
+    {
+      value: "JPY",
+      label: "¥",
+      
+    }
+  ];
+  
+
+
+
+
+  const CaretDownIcon = () => {
+    return <FontAwesomeIcon icon="caret-down" />;
+  };
+  
+  const DropdownIndicator = props => {
+    return (
+      <components.DropdownIndicator {...props}>
+       <h1>dddddddddddddddddddddddddd</h1>
+      </components.DropdownIndicator>
+    );
+  };
+ 
+  const customStyles = {
+    indicatorSeparator: () => ({ display: "none" }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? "lightblue" : "green",
+      color: state.isFocused ? "white" : "black",
+      padding: 10,
+      "& svg": {
+        color: "red",
+        transform: "rotate(90deg)",
+        transition: "transform 0.2s ease-in-out"
+      },
+      "&:hover svg": {
+        transform: "rotate(180deg)"
+      }
+    
+    }),
+    dropdownIndicator: (base, state) => ({
+      ...base,
+      color: state.isFocused ? "red" : "green",
+      "&:hover": {
+        color: "green"
+      }
+    })
+  };
+ 
+const [frequency, setFrequency] = React.useState("");
   return (
     <>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
-          <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+  <div className="App">
+      <Select
+        defaultValue={selectedOption}
+        onChange={setSelectedOption}
+        styles={customStyles}
+        options={options}
+        
+       
+      />
+    </div>
+          {/* <Box className={classes.topheader}>
 
             {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
@@ -2039,7 +2172,7 @@ function Categories(props) {
             <button onClick={loadMoreProducts} className={classes.loadmore}>
               Load More
             </button>
-          </div>
+          </div> */}
         </div>
       )}
     </>
