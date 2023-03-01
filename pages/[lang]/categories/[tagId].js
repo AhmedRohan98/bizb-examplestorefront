@@ -20,7 +20,7 @@ import Paper from "@material-ui/core/Paper";
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import Select from 'react-select';
+import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
 
 import clsx from 'clsx';
@@ -409,49 +409,11 @@ topheader:{
    [theme.breakpoints.down(700)]: {
 display:"none"
   },
-
-},
-
-cart: {
- color:"green",
-  '& input::placeholder': {
-    color: 'green',
-  },
-  "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
-    // Default transform is "translate(14px, 20px) scale(1)""
-    // This lines up the label with the initial cursor position in the input
-    // after changing its padding-left.
-    transform: "translate(34px, 20px) scale(1);"
-  },
-  "&.Mui-focused .MuiInputLabel-outlined": {
-    color: "purple"
-  },
-  "& .MuiAutocomplete-inputRoot": {
-    color: "purple",
-    // This matches the specificity of the default styles at https://github.com/mui-org/material-ui/blob/v4.11.3/packages/material-ui-lab/src/Autocomplete/Autocomplete.js#L90
-    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
-      // Default left padding is 6px
-      paddingLeft: 26
-    },
-    "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: "green"
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "red"
-    },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "purple"
-    }
-  },
-},
-cart2:{
-  background:"black"
-},
-select:{
-  border:"2px solid red",
-  padding:theme.spacing(2)
+reactselect:{
+  height:"120px",
+  width:"100px"
 }
-
+},
 }));
 function Categories(props) {
   const [state, setState] = React.useState();
@@ -1759,49 +1721,44 @@ function Categories(props) {
   const handleSortClose = () => {
     setAnchorEl(null);
   };
-  const currencies = [
-    {
-      value: "USD",
-      label: "$"
-    },
-    {
-      value: "EUR",
-      label: "€"
-    },
-    {
-      value: "BTC",
-      label: "฿"
-    },
-    {
-      value: "JPY",
-      label: "¥",
-      
-    }
-  ];
-  
-
-
-
-
-  const CaretDownIcon = () => {
-    return <FontAwesomeIcon icon="caret-down" />;
-  };
+ 
   
   const DropdownIndicator = props => {
     return (
       <components.DropdownIndicator {...props}>
-       <h1>dddddddddddddddddddddddddd</h1>
+       <img src="/colors/vector.svg"/>
       </components.DropdownIndicator>
     );
   };
  
   const customStyles = {
-    indicatorSeparator: () => ({ display: "none" }),
-    option: (provided, state) => ({
+    indicatorSeparator: () => ({ 
+  height:"48px" ,
+color:"black"}),
+    control: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isFocused ? "lightblue" : "green",
-      color: state.isFocused ? "white" : "black",
-      padding: 10,
+      height:"48px",
+      marginTop:"10px",
+      boxShadow: state.isFocused ? null : provided.boxShadow,
+      background:"#F7F7F9",
+      borderRadius:"6px",
+border:"none",
+      width: '255px', // Change this to the desired width
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      width: '255px', // Set the width of the menu to the full viewport width
+      maxWidth: 'none',
+      background:"yellow" ,
+      height:"222px",
+      borderRadius:"6px"
+     // Ensure that the menu can extend beyond the width of the container
+    }),
+    option: (provided, state) => ({
+   
+      // set height to 40px
+  
+   
       "& svg": {
         color: "red",
         transform: "rotate(90deg)",
@@ -1814,11 +1771,36 @@ function Categories(props) {
     }),
     dropdownIndicator: (base, state) => ({
       ...base,
-      color: state.isFocused ? "red" : "green",
+      icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
       "&:hover": {
         color: "green"
       }
-    })
+    }),
+    input: (provided) => ({
+      ...provided,
+     
+     
+    
+     
+    }),
+    placeholder: (defaultStyles) => {
+      return {
+          ...defaultStyles,
+          fontFamily: 'Lato',
+          fontStyle: "normal",
+          fontWeight: 500,
+          fontSize: "16px",
+          lineHeight: "19px" ,
+          textTransform: "capitalize" ,
+          
+          color: "#969696",
+
+         
+          "&:hover": {
+            color: "black"
+          }  
+      }
+  }
   };
  
 const [frequency, setFrequency] = React.useState("");
@@ -1826,12 +1808,16 @@ const [frequency, setFrequency] = React.useState("");
     <>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
-  <div className="App">
+  <div style={{height:"300px", width:"300px"}}>
+
       <Select
         defaultValue={selectedOption}
         onChange={setSelectedOption}
+        placeholder="Sort by"
+        components={{  DropdownIndicator }}
         styles={customStyles}
         options={options}
+        className={classes.reactselect}
         
        
       />
