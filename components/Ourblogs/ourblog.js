@@ -21,7 +21,10 @@ const OurBlogs = () => {
         justifyContent: "center",
        borderRadious:"0px",
        backgroundColor:theme.palette.reaction.blog1,
-        
+       
+       transition: "left 0.8s linear",
+    
+    
       },
       wardrobe: {
         height: "225px",

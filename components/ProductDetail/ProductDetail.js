@@ -2,7 +2,7 @@ import React, { Component,useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import withWidth, { isWidthUp, isWidthDown } from "@material-ui/core/withWidth";
+
 import inject from "hocs/inject";
 import Breadcrumbs from "components/Breadcrumbs";
 import ProductDetailAddToCart from "components/ProductDetailAddToCart";
@@ -44,7 +44,7 @@ const styles = (theme) => ({
   slidercol: {
     display: "flex",
     flexDirection: "column",
-    width: "150px",
+
   
     display: "block",
     [theme.breakpoints.down(1100)]: {
@@ -58,10 +58,7 @@ const styles = (theme) => ({
     width: "100%",
     height: "100%",
   },
-  container2: {
-    width: "500px",
-    height: "600px",
-  },
+
   thumb: {
     height: "600px",
     width: "200px",
@@ -78,6 +75,7 @@ const styles = (theme) => ({
     },
   },
   controller:{
+width:"90vh",
     display:"flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -104,18 +102,8 @@ iconforwad:{
   
     zIndex: 1251
     },
-  sliderimages: {
-    height: "600px",
-    width: "100%",
-  },
-  sliderimage: {
-    height: "100%",
-    width: "100%",
-  },
-  sliderimage2: {
-    height: "600px",
-    width: "507px",
-  },
+ 
+
   size: {
     display: "flex",
     flexDirection: "row",
@@ -142,6 +130,10 @@ iconforwad:{
     borderBotom: "1px solid red",
     color: "#ffffff",
   },
+  cartimage:{
+    height:"16px",
+    width:"14px"
+  },
   sizeimage: {
     display: "flex",
     marginTop: theme.spacing(3),
@@ -162,6 +154,7 @@ iconforwad:{
     background: "#FDC114",
     display: "flex",
     justifyContent: "center",
+alignItems:"center",
 
     marginTop: theme.spacing(3),
     marginBottom:theme.spacing(3)
@@ -169,9 +162,23 @@ iconforwad:{
   carttext:{
     width:"450px"
   }
-
+  ,sliderimage2:{
+    position:"realtive", 
+  }
+,thumbimage:{
+  borderRadius:"18px"
+},
+carttex:{
+  fontSize: "18px",
+  color: "#333333",
+  fontFamily: "Ostrich Sans",
+  fontStyle: "normal",
+  fontWeight: 900,
+  lineHeight: "22px",
+}
 
 });
+
 const slides = [
   {
     image: "/cart/cart1.svg",
@@ -198,7 +205,32 @@ const slides = [
     size: "large",
   },
 ];
-
+const slide = [
+  {
+    image: "/cart/cartlarge.svg",
+    id: 1,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    title: "floral shirt for ",
+    size: "large",
+  },
+  {
+    image: "/cart/cartlarge.svg",
+    title: "Bag for sale",
+    id: 2,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    size: "large",
+  },
+  {
+    image: "/cart/cartlarge.svg",
+    id: 1,
+    price: "Rs 1200",
+    newprice: "Rs 600",
+    title: "floral shirt for ",
+    size: "large",
+  },
+];
 
 const  ProductDetail = ({ ...props }) => {
  
@@ -301,10 +333,7 @@ function selectVariant(variant, optionId) {
         }
       ]);
     }
-    if (isWidthUp("md", width)) {
-      // Open the cart, and close after a 3 second delay
-      openCartWithTimeout(3000);
-    }
+
   };
 
   /**
@@ -385,58 +414,18 @@ function selectVariant(variant, optionId) {
     const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
 
-    // Phone size
-    if (isWidthDown("sm", width)) {
-      return (
-        <Fragment>
-          <div className={classes.section}>
-            <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
-            <div className={classes.info}>
-              <ProductDetailVendor>fffeffffffff</ProductDetailVendor>
-            </div>
-            <div className={classes.info}>
-              <ProductDetailPrice compareAtPrice={compareAtDisplayPrice} isCompact price={productPrice.displayPrice} />
-            </div>
-          </div>
 
-          <div className={classes.section}>
-          <img  src={pdpMediaItems}></img>
-          </div>
-
-          <div className={classes.section}>
-            <VariantList
-              onSelectOption={handleSelectOption}
-              onSelectVariant={handleSelectVariant}
-              product={product}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              currencyCode={currencyCode}
-              variants={product.variants}
-            />
-            <ProductDetailAddToCart
-              onClick={handleAddToCartClick}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              variants={product.variants}
-            />
-          </div>
-
-          <div className={classes.section}>
-            <ProductDetailDescription>{product.description}</ProductDetailDescription>
-          </div>
-        </Fragment>
-      );
-    }
 console.log(pdpMediaItems)
     return (
-      <>
-      <Box className={classes.slider}>
+    <>
+      {typeof window !== "undefined" && ( <>
+              <Box className={classes.slider}>
       <Grid container spacing={2} className={classes.sliderflex} xs={12} md={12} sm={12} lg={12} 
 
 
   alignItems="center"
   justifyContent="center"
-  style={{ minHeight: '100vh' }}>
+      >
         <Grid item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
           <div className={classes.thumb}>
             <Swiper
@@ -463,7 +452,7 @@ console.log(pdpMediaItems)
                 return (
                   <SwiperSlide key={index}>
                     <div className={classes.thumbimage}>
-                      <img src={slide.image} alt="" />
+                      <img src={slide.image} alt="" className={classes.thumbimage} />
                     </div>
                   </SwiperSlide>
                 );
@@ -499,19 +488,21 @@ console.log(pdpMediaItems)
             modules={[Navigation, Thumbs, Mousewheel, Pagination]}
             onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
           >
-                    <div className={classes.controller}>
+             
+            {slide.map((slide, index) => {
+              return (
+                <SwiperSlide key={index}>
+                   <div className={classes.controller}>
+                  <img src={slide.image} alt="" className={classes.sliderimage2} />
+                 
 
 {  activeIndex < slides.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
 {activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
 </div>
-            {slides.map((slide, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <img src={slide.image} alt="" className={classes.sliderimage2} />
                 </SwiperSlide>
               );
             })}
-     
+  
           </Swiper>
         </Grid>
         
@@ -533,13 +524,13 @@ console.log(pdpMediaItems)
           </div>
           <div className={classes.sizeimage}>
             <img src="/cart/available.svg" alt="available" />
-            <Typography gutterBottom variant="h4" className={classes.offr}>
+            <Typography  variant="h4" className={classes.offr}>
               Large
             </Typography>
           </div>
           <div className={classes.cart}>
-            <img component="img" src="/icons/cart.svg" />
-            <Typography gutterBottom variant="h4">
+            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+            <Typography  variant="h4">
               + Cart{" "}
             </Typography>
           </div>
@@ -604,8 +595,11 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
             />
           </Grid>
         </Grid>
-      </Fragment>
-      </>
+      </Fragment> 
+      </> )}
+      
+</>
+    
     );
   
 }
@@ -628,5 +622,5 @@ ProductDetail.propTypes = {
   uiStore: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired
 };
-export default withWidth({ initialWidth: "md" })(withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)));
+export default (withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)));
 

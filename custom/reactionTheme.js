@@ -1,6 +1,23 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
+  transitions: {
+    transitions: {
+      duration: {
+        shortest: 150,
+        shorter: 200,
+        short: 250,
+        // most basic recommended timing
+        standard: 20000,
+        // this is to be used in complex animations
+        complex: 375,
+        // recommended when something is entering screen
+        enteringScreen: 225,
+        // recommended when something is leaving screen
+        leavingScreen: 195,
+      },
+    },
+  },
   layout: {
     mainContentMaxWidth: "1440px",
     mainLoginMaxWidth: "1024px",
@@ -180,7 +197,7 @@ const theme = createMuiTheme({
 
     h4: {
       fontSize: "24px",
-      color: "#000000",
+      color: "#333333",
       fontWeight: 400,
 
       fontFamily: "Lato",
@@ -200,8 +217,8 @@ const theme = createMuiTheme({
     h6: {
       fontSize: "20px",
       color: "#333333",
-      fontFamily: "Ostrich Sans",
-      fontWeight: 900,
+      fontFamily: "Lato",
+      fontWeight: 500,
 
       lineHeight: "24px",
       fontStyle: "normal",
