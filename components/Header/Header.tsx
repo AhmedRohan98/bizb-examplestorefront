@@ -82,10 +82,8 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
               {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
             </Link> */}
           </Typography>
-
-          <Hidden smDown>
-            <NavigationDesktop headerType={headerType}/>
-          </Hidden>
+{/* @ts-ignore TODO: Refactor link to address type error */}
+          <Hidden smDown><NavigationDesktop headerType={headerType}/></Hidden>
           {/* @ts-ignore TODO: Refactor link to address type error */}
         </div>
         {/* @ts-ignore TODO: Refactor link to address type error */}
@@ -114,6 +112,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
         <span><img src="/images/searchIcon.svg"/></span>
         <MiniCart /> */}
       </Toolbar>
+{/* @ts-ignore TODO: Refactor link to address type error */}
       <NavigationMobile shop={shop} />
     </AppBar>
   );
