@@ -179,7 +179,7 @@ export async function getStaticProps({ params: { lang, slug } }) {
       ...primaryShop,
       ...await fetchTranslations(lang, ["common"]),
       ...await fetchAllTags(lang),
-      ...await fetchTag(slug, lang)
+      // ...await fetchTag(slug, lang)
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120 // Revalidate each two minutes

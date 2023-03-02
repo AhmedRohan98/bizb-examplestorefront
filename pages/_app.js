@@ -6,11 +6,15 @@ import { ContextProviders } from "context/ContextProviders";
 import { ComponentsProvider } from "@reactioncommerce/components-context";
 import components from "custom/componentsContext";
 import theme from "custom/reactionTheme";
-import 'swiper/swiper.min.css';
-import 'swiper/modules/pagination/pagination.min.css'
-import 'swiper/modules/navigation/navigation.min.css'
-import "swiper/modules/thumbs/thumbs.min.css";
-import "swiper/modules/free-mode/free-mode.min.css";
+// import 'swiper/swiper.min.css';
+// import 'swiper/modules/pagination/pagination.min.css'
+// import 'swiper/modules/navigation/navigation.min.css'
+// import "swiper/modules/thumbs/thumbs.min.css";
+// import "swiper/modules/free-mode/free-mode.min.css";
+import 'swiper/swiper.scss';
+// import 'swiper/components/navigation/navigation.scss';
+// import 'swiper/components/pagination/pagination.scss';
+// import 'swiper/components/scrollbar/scrollbar.scss';
 import "../styles/global.css"
 
 

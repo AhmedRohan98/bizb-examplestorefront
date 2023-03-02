@@ -49,7 +49,6 @@ export default function withCatalogItems(Component) {
         <Query errorPolicy="all" query={catalogItemsQuery} variables={variables} >
           {({ data, fetchMore, loading }) => {
             const { catalogItems } = data || {};
-              {console.log("in catalog grid items", catalogItems, loading)}
             return (
               <Component
                 {...this.props}

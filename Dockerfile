@@ -11,10 +11,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-u", "-c"]
 WORKDIR /usr/local/src/app
 ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
 # env variables
-ENV CANONICAL_URL http://localhost:4000
-ENV BUILD_GRAPHQL_URL http://localhost:3000/graphql
-ENV EXTERNAL_GRAPHQL_URL http://localhost:3000/graphql
-ENV INTERNAL_GRAPHQL_URL http://api.reaction.localhost:3000/graphql
+ENV CANONICAL_URL https://test.bizb.store
+ENV BUILD_GRAPHQL_URL https://test.bizb.store/graphql
+ENV EXTERNAL_GRAPHQL_URL https://test.bizb.store/graphql
+ENV INTERNAL_GRAPHQL_URL https://test.bizb.store/graphql
 ENV PORT 4000
 ENV SEGMENT_ANALYTICS_SKIP_MINIMIZE true
 ENV SEGMENT_ANALYTICS_WRITE_KEY ENTER_KEY_HERE
@@ -40,7 +40,7 @@ RUN yarn install --production=false --frozen-lockfile --ignore-scripts --non-int
 ENV BUILD_ENV=production NODE_ENV=production
 
 # hadolint ignore=SC2046
-RUN export $(grep -v '^#' .env.${NEXTJS_DOTENV:-prod} | xargs -0) && NODE_OPTIONS="--max-old-space-size=4096" yarn build
+RUN export $(grep -v '^#' .env.${NEXTJS_DOTENV:-prod} | xargs -0) && NODE_OPTIONS="" yarn build
 
 # Install only prod dependencies now that we've built, to make the image smaller
 RUN rm -rf node_modules/*
