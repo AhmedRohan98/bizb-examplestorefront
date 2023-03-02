@@ -27,7 +27,7 @@ import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -87,22 +87,6 @@ const useStyles = makeStyles((theme) => ({
     }
  
    },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-    border:"1px solid red"
-  },
-  iconButton: {
-    padding: 10,
-  },
-  divider: {
-    height: 38,
-    margin: 4,
-    color:"#969696"
-  },
-  arrowdropdown:{
-    color:"#333333"
-  },
   mainimage: {
     position: "relative",
     display: "inline-grid",
@@ -293,14 +277,10 @@ borderBottom:"none"
       color: theme.palette.secondary.selected,
     },
   },
-  underline: {
-    "&&&:before": {
-      borderBottom: "none"
-    },
-    "&&:after": {
-      borderBottom: "none"
-    }
+  selectDesktop:{
+marginRight:theme.spacing(3),
   },
+
   main: {
     width: "100%",
   },
@@ -347,6 +327,7 @@ width:"100px"
   },
 },
   },
+
   filternames:{
     borderBottom:"2px solid #000000",
     marginLeft:theme.spacing(3),
@@ -414,15 +395,39 @@ reactselect:{
   width:"100px"
 }
 },
+
+sizesfiltes:{
+  marginLeft:"5px"
+},
+mobilefilters:{
+  topheader:{
+    display: "flex", 
+    justifyContent: "flex-end" ,
+    display:"none",
+    [theme.breakpoints.down(700)]: {
+      display:"block",
+   },
+
+}},
 }));
 function Categories(props) {
   const [state, setState] = React.useState();
   const [price, setPrice] = React.useState([0, 5000]);
   const [selectedOption, setSelectedOption] = React.useState(null);
+  const [selectedOptionMobS, setSelectedOptionMobS] = React.useState(null);
+  const [selectedOptionMobSize, setSelectedOptionMobSize] = React.useState(null);
+  const [selectedOptionMobColor, setSelectedOptionMobColor] = React.useState(null);
   const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
+    { value: 'Recommend', label: 'Recommend' },
+    { value: 'New Arrivals', label: 'New Arrivals' },
+    { value: 'Price Low To High', label: 'Price Low To High' },
+    { value: 'Price High To Low', label: 'Price High To Low' },
+  ];
+  const Optionsize = [
+    { value: 'Medium', label: 'Medium' },
+    { value: 'Medium', label: 'Medium' },
+    { value: 'Large', label: 'Large' },
+    { value: 'Extra-Large', label: 'Extra-Large' },
   ];
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
@@ -477,6 +482,7 @@ function Categories(props) {
       title: "Orange",
     },
   ]
+  
   const ITEMS = [
     {
       image: "/categories/categoriestoggle.svg",
@@ -1712,34 +1718,138 @@ function Categories(props) {
     p: 2,
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleSortOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleSortClose = () => {
-    setAnchorEl(null);
-  };
  
+  const customStylesMobSize = {
+    indicatorSeparator: () => ({
+display:"none"}),
+    control: (provided, state) => ({
+      ...provided,
+    
+      marginTop:"7px",
+      background:"#F7F7F9",
+      borderRadius:"6px",
+      border: state.isFocused ? "none" : "none",
+      boxShadow: state.isFocused ? "none" : "none",
+   
+      width: '100%'       // Change this to the desired width
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+       // Set the width of the menu to the full viewport width
   
-  const DropdownIndicator = props => {
-    return (
-      <components.DropdownIndicator {...props}>
-       <img src="/colors/vector.svg"/>
-      </components.DropdownIndicator>
-    );
-  };
+      height:"191px",
+     border:"none",
+     marginTop:"1px",
+    
+     // Ensure that the menu can extend beyond the width of the container
+    }),
+    menuPortal: base => ({
+      ...base,
+      zIndex: 9999,
+      width:"100vw",
+      position: 'relative',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      border: 'none',
+      display:"flex",
+      flexDirection:"row",
+      flexWrap:"wrap",
+  
+    width:"90%",
+    }),
+    option: (provided, state) => ({
+      border:state.isFocused ?"1px solid #FDC114":"1px solid #9E9E9E",
+    display:"flex",
+    flexDirection:"row",
+    marginLeft:"20px",
+    marginTop:"10px",
+      fontFamily: 'Lato',
+         fontStyle: "normal",
+         borderRadius:"6px",
+         display:"flex",
+         justifyContent:"center",
+         alignItems:"center",
+         fontWeight: state.isFocused ?400:400,
+         fontSize: "16px",
+         lineHeight: "19px" ,
+         textTransform: "capitalize" ,
+         letterSpacin:"0.05em",
+        paddingLeft:'8px',
+        paddingRight:"8px",
+        paddingTop:"5px",
+        paddingBottom:"5px",
+        width:'auto',
+        borderBottom: state.isFocused ? "1px solid #FDC114":"1px solid #9E9E9E",
+       color: state.isFocused ?"#000000" :"#989898",
+         "&:hover": {
+           color: "#000000"
+         },
+       }),
+    dropdownIndicator: (base, state) => ({
+     display:"flex",
+     justifyContent:"center",
+     alignItems:"center",
+      color: state.isFocused ? "#FDC114" : "#000000",
+      "&:hover": {
+          display:"flex",
+     justifyContent:"center",
+     alignItems:"center",
+        color: "#FDC114",
+           marginTop:"2px",
+        transform:"scale(1.2)"
+      }
+    }),
+   
+   
+      placeholder: (base, state) => ({
+        ...base,
+        fontFamily: 'Lato',
+          fontStyle: "normal",
+          fontWeight: state.isFocused ?900:700,
+          fontSize: "14px",
+          lineHeight: "17px" ,
+          textTransform: "capitalize" ,
+          color: state.isFocused ? "#FDC114" : "#000000",
+       
+          "&:hover": {
+            
+            fontFamily: 'Lato',
+            fontStyle: "normal",
+            fontWeight: 900,
+            fontSize: "14px",
+            lineHeight: "17px" ,
+            textTransform: "capitalize" ,
+            color: "#FDC114",
+          }
+          } )
+      
+  }
+  
+
+  const colorOptions = Colors.map(color => ({
+    value: color.id,
+    label: (
+   <div>
+        <img src={color.image} alt={color.title} height="10" width="10" />
+        <span className={classes.sizesfiltes}>{color.title}</span>
+        </div>
+    ),
+  }));
  
   const customStyles = {
-    indicatorSeparator: () => ({ 
+    indicatorSeparator: () => ({
   height:"48px" ,
 color:"black"}),
     control: (provided, state) => ({
       ...provided,
       height:"48px",
       marginTop:"10px",
-      boxShadow: state.isFocused ? null : provided.boxShadow,
       background:"#F7F7F9",
       borderRadius:"6px",
 border:"none",
@@ -1747,18 +1857,15 @@ border:"none",
     }),
     menu: (provided, state) => ({
       ...provided,
-      width: '255px', // Set the width of the menu to the full viewport width
+      width: '100vw', // Set the width of the menu to the full viewport width
       maxWidth: 'none',
       background:"yellow" ,
-      height:"222px",
-      borderRadius:"6px"
      // Ensure that the menu can extend beyond the width of the container
     }),
     option: (provided, state) => ({
-   
-      // set height to 40px
-  
-   
+      height: '60px', // set height to 40px
+      width: '255px',
+      background:"green",
       "& svg": {
         color: "red",
         transform: "rotate(90deg)",
@@ -1767,7 +1874,6 @@ border:"none",
       "&:hover svg": {
         transform: "rotate(180deg)"
       }
-    
     }),
     dropdownIndicator: (base, state) => ({
       ...base,
@@ -1778,10 +1884,6 @@ border:"none",
     }),
     input: (provided) => ({
       ...provided,
-     
-     
-    
-     
     }),
     placeholder: (defaultStyles) => {
       return {
@@ -1792,37 +1894,147 @@ border:"none",
           fontSize: "16px",
           lineHeight: "19px" ,
           textTransform: "capitalize" ,
-          
           color: "#969696",
-
-         
           "&:hover": {
-            color: "black"
-          }  
+            color: "blue"
+          }
       }
   }
   };
- 
+  const customStylesMobS = {
+    indicatorSeparator: () => ({
+display:"none"}),
+    control: (provided, state) => ({
+      ...provided,
+      height:"48px",
+      marginTop:"10px",
+      background:"#F7F7F9",
+      borderRadius:"6px",
+      border: state.isFocused ? "none" : "none",
+      boxShadow: state.isFocused ? "none" : "none",
+      width: '100%',
+       // Change this to the desired width
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      width: '100vw', // Set the width of the menu to the full viewport width
+      maxWidth: 'none',
+      height:"191px",
+     border:"none",
+     marginTop:"1px",
+     // Ensure that the menu can extend beyond the width of the container
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      border: 'none',
+    }),
+    option: (provided, state) => ({
+      fontFamily: 'Lato',
+         fontStyle: "normal",
+         fontWeight: state.isFocused ?800:500,
+         fontSize: "14px",
+         lineHeight: "19px" ,
+         textTransform: "capitalize" ,
+         letterSpacin:"0.05em",
+        padding:'13px',
+        borderBottom: state.isLastOption ? 'none' : '1px solid #01010136',
+       color: state.isFocused ?"#000000" :"#989898",
+         "&:hover": {
+           color: "#000000"
+         },
+       }),
+    dropdownIndicator: (base, state) => ({
+      color: state.isFocused ? "#FDC114" : "#000000",
+      "&:hover": {
+        color: "#FDC114",
+        transform:"scale(1.2)"
+      }
+    }),
+      placeholder: (base, state) => ({
+        ...base,
+        fontFamily: 'Lato',
+          fontStyle: "normal",
+          fontWeight: state.isFocused ?900:700,
+          fontSize: "14px",
+          lineHeight: "17px" ,
+          textTransform: "capitalize" ,
+          color: state.isFocused ? "#FDC114" : "#000000",
+          "&:hover": {
+            fontFamily: 'Lato',
+            fontStyle: "normal",
+            fontWeight: 900,
+            fontSize: "14px",
+            lineHeight: "17px" ,
+            textTransform: "capitalize" ,
+            color: "#FDC114",
+          }
+          } )
+  }
+
+  const DropdownIndicator = props => {
+    return (
+      <components.DropdownIndicator {...props}>
+       <img src="/colors/vector.svg"/>
+      </components.DropdownIndicator>
+    );
+  };
 const [frequency, setFrequency] = React.useState("");
   return (
     <>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
-  <div style={{height:"300px", width:"300px"}}>
+      <Grid container  xs={12} className={classes.mobilefilters}>
+        <Grid item xs={3}>
+        <Select
+        defaultValue={selectedOptionMobS}
+        onChange={setSelectedOptionMobS}
+        placeholder="Sort"
+        styles={customStylesMobS}
+        options={options}
+        className={classes.reactselect}
+      />
+        </Grid>
+        <Grid item xs={3}>
+        <Select
+        defaultValue={selectedOptionMobColor}
+        onChange={setSelectedOptionMobColor}
+        placeholder="Colour"
+      
+        menuPortalTarget={document.body}
 
-      <Select
+        dropdownIndicator
+        styles={customStylesMobSize}
+        options={colorOptions}
+        className={classes.reactselect}
+      />
+  
+        
+        </Grid>
+        <Grid item xs={3}>
+          
+        <Select
+        defaultValue={selectedOptionMobSize}
+        onChange={setSelectedOptionMobSize}
+        placeholder="Size"
+        menuPortalTarget={document.body}
+        styles={customStylesMobSize}
+        options={Optionsize}
+        className={classes.reactselect}
+      />
+        </Grid>
+        <Grid item xs={3}>
+        <Select
         defaultValue={selectedOption}
         onChange={setSelectedOption}
         placeholder="Sort by"
         components={{  DropdownIndicator }}
-        styles={customStyles}
+        styles={customStylesMobSize}
         options={options}
         className={classes.reactselect}
-        
-       
       />
-    </div>
-          {/* <Box className={classes.topheader}>
+        </Grid>
+      </Grid>
+        <Box className={classes.topheader}>
 
             {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
@@ -1833,10 +2045,7 @@ const [frequency, setFrequency] = React.useState("");
       setState(!state) })} className={classes.close}  /></div>
        <div
       className={clsx(classes.list)}
-      role="presentation"
- 
-   
-    >
+      role="presentation" >
       <List>
       <Typography variant="h4" className={classes.filternames} >SIZE</Typography>
         {['Small', 'Medium', 'large', 'Extra-Large'].map((text, index) => (
@@ -1893,43 +2102,19 @@ const [frequency, setFrequency] = React.useState("");
           </Drawer>
         </React.Fragment>
       ))}
-            <FormControl    placeholder="Sort by" >
-  
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={value}
-    label="Age"
-    onChange={handleChange}
-    className={classes.paper}
-    variant="standard"
-    sx={{border: '1px solid green', borderRadius: 1}}
-  disableUnderline
-
-  >
-    <MenuItem value={10}>Ten</MenuItem>
-    <MenuItem value={20}>Twenty</MenuItem>
-    <MenuItem value={30}>Thirty</MenuItem>
-  </Select>
-</FormControl>
-            <Paper component="form" className={classes.paper}>
-          
-              <InputBase
-                // className={classes.input}
-                placeholder="Sort by"
-                inputProps={{ "aria-label": "search google maps" }}
-              >  {value}</InputBase>
-            
-              <Divider className={classes.divider} orientation="vertical" />
-              <IconButton color="primary" aria-label="directions" onClick={handleSortOpen}>
-                <ArrowDropDownIcon className={classes.arrowdropdown} />
-              </IconButton>
-            </Paper>
-            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleSortClose}>
-              <MenuItem onClick={handleClose}>Recomended</MenuItem>
-              <MenuItem onClick={handleClose}>categories</MenuItem>
-              <MenuItem onClick={handleClose}>new arrivals</MenuItem>
-            </Menu>
+          <div className={classes.selectDesktop}>
+          <Select
+        defaultValue={selectedOption}
+        onChange={setSelectedOption}
+        placeholder="Sort by"
+        components={{  DropdownIndicator }}
+        styles={customStyles}
+        options={options}
+        className={classes.reactselect}
+        
+       
+      />
+      </div>
           </Box>
           <Grid
             container
@@ -2158,7 +2343,7 @@ const [frequency, setFrequency] = React.useState("");
             <button onClick={loadMoreProducts} className={classes.loadmore}>
               Load More
             </button>
-          </div> */}
+          </div> 
         </div>
       )}
     </>
