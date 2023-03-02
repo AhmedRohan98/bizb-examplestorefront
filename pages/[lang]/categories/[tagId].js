@@ -1656,7 +1656,7 @@ function Categories(props) {
   const [catalogItems, setCatalogItems] = React.useState(
     props.category.catalogItems.edges.map((item) => item.node?.product),
   );
-  console.log(catalogItems);
+  // console.log(catalogItems);
 
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
