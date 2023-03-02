@@ -145,7 +145,8 @@ const CheckoutComplete =() =>{
 
   
     return (
-    <>
+      <>
+      {typeof window !== "undefined" && ( <>
     <div className={classes.orderThankYou}>
       <img src="/cart/thankyou.svg"  className={classes.img} alt="thanyou"></img>
       <Typography  variant="h3" >Your order is confirmed</Typography>
@@ -196,7 +197,9 @@ const CheckoutComplete =() =>{
      href="/"
        >Back To Home</Button>
       </div>
-    </>
+      </> )}
+      
+      </>
     )
       
 }

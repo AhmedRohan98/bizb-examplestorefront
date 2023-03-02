@@ -16,9 +16,10 @@ import OurBlogs from "../Ourblogs/ourblog";
 import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
-const MainSlider = () => {
+const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
+const products=props.catalogItems;
+console.log(products,"new products");
   const useStyles = makeStyles((theme) => ({
    main: {
       
@@ -202,8 +203,8 @@ const MainSlider = () => {
      
         </div>
     
-        <Preloved />
-        {/* <Preloved />
+        <Preloved {...props} />
+      
    
   <Justin />      
 
@@ -217,7 +218,7 @@ const MainSlider = () => {
 
 <Caloborators />
 <OurBlogs />
-<Instagram />  */}
+<Instagram />  
 
     </>
   );

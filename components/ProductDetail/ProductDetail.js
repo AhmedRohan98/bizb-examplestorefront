@@ -417,8 +417,9 @@ function selectVariant(variant, optionId) {
 
 console.log(pdpMediaItems)
     return (
-      <>
-      <Box className={classes.slider}>
+    <>
+      {typeof window !== "undefined" && ( <>
+              <Box className={classes.slider}>
       <Grid container spacing={2} className={classes.sliderflex} xs={12} md={12} sm={12} lg={12} 
 
 
@@ -594,8 +595,11 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
             />
           </Grid>
         </Grid>
-      </Fragment>
-      </>
+      </Fragment> 
+      </> )}
+      
+</>
+    
     );
   
 }
@@ -618,5 +622,5 @@ ProductDetail.propTypes = {
   uiStore: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired
 };
-export default withWidth({ initialWidth: "md" })(withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)));
+export default (withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)));
 

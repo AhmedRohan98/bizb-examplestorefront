@@ -63,6 +63,8 @@ alignItems:"center",
     display: "flex",
     justifyContent: "space-between",
   },
+
+  
   image:{
    
    width:"312px",
@@ -245,7 +247,6 @@ const itemData = [
  newprice:"Rs 600",
  title:"Bag for sale",
  size:"large",
- size:"large"
   },
   {
     image: '/justin/justin3.svg',

@@ -210,9 +210,10 @@ const MiniCart = ({ ...props }) => {
 
 
 
-  const handleRemoveItem = async (itemId) => {
+  const handleRemoveItem = async (itemID) => {
     const { onRemoveCartItems } = props;
-    await onRemoveCartItems(itemId);
+console.log(itemID,"me")
+    onRemoveCartItems(itemID);
   };
 
   function renderMiniCart() {
@@ -246,13 +247,16 @@ const MiniCart = ({ ...props }) => {
     <CloseIcon onClick={handleClose} /></div>
     <div className={classes.cartitems}>  
       {cart.items.map((item)=>
-      <div className={classes.cartitem}>
-      <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
-      <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
-      <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>RS: { item?.price?.amount }</Typography></div>
-
-      <img src="/cart/icon.svg" alt={item.title}  onClick={handleRemoveItem } />
-      </div>
+      {
+        
+        return <div className={classes.cartitem}>
+        <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
+        <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
+        <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>RS: { item?.price?.amount }</Typography></div>
+  
+        <img src="/cart/icon.svg" alt={item.title}  onClick={() =>handleRemoveItem(item._id) } />
+        </div>
+      }
       )}
     </div>
     <div className={classes.total}>

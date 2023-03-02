@@ -31,3 +31,104 @@ fragment TagInfo on Tag {
   displayTitle
 }
 `;
+
+export const fetchAllTagsQuery =`
+query tags($shopId: ID!) {
+  tags(shopId: $shopId) {
+    nodes {
+      _id
+      isVisible
+      displayTitle
+      heroMediaUrl
+    }
+  }
+}
+`
+
+export const fetchAllCategoriesQuery =`
+query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,) {
+  catalogItems(
+    shopIds:$shopIds
+    tagIds: $tagIds
+    first: 10
+  ) {
+    totalCount
+    pageInfo {
+      endCursor
+      startCursor
+      hasNextPage
+      hasPreviousPage
+      __typename
+    }
+    edges {
+      cursor
+      node {
+        _id
+        ... on CatalogItemProduct {
+          product {
+            productId
+            _id
+            title
+            slug
+            description
+            vendor
+            isLowQuantity
+            isSoldOut
+            updatedAt
+            productType
+            isBackorder
+            variants {
+              _id
+            }
+            tagIds
+            metafields {
+              description
+              key
+              namespace
+              scope
+              value
+              valueType
+              __typename
+            }
+            shop {
+              currency {
+                code
+                __typename
+              }
+              __typename
+            }
+            pricing {
+              compareAtPrice {
+                displayAmount
+                __typename
+              }
+              currency {
+                code
+                __typename
+              }
+              displayPrice
+              minPrice
+              maxPrice
+              __typename
+            }
+            primaryImage {
+              URLs {
+                thumbnail
+                small
+                medium
+                large
+                __typename
+              }
+              __typename
+            }
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}`
