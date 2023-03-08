@@ -18,8 +18,6 @@ import variantById from "lib/utils/variantById";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
 import Box from "@material-ui/core/Box";
-
-import { makeStyles } from "@material-ui/core/styles";
 import { useRef,useCallback ,useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
@@ -420,7 +418,7 @@ console.log(pdpMediaItems)
     <>
       {typeof window !== "undefined" && ( <>
               <Box className={classes.slider}>
-      <Grid container spacing={2} className={classes.sliderflex} xs={12} md={12} sm={12} lg={12} 
+      {/* <Grid container spacing={2} className={classes.sliderflex} xs={12} md={12} sm={12} lg={12} 
 
 
   alignItems="center"
@@ -553,7 +551,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
           </TabContext>
           </div>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Box>
 
       <Fragment>
