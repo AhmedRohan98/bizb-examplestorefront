@@ -86,7 +86,7 @@ const OurBlogs = () => {
   
 <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
 
-<Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+<Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <a href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"><span className={classes.blogtextr}>Read More</span></a></Typography>
 
         </Box>
       </Grid>
@@ -94,7 +94,7 @@ const OurBlogs = () => {
       <Box className={classes.wardrobe}>
   
   <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
-  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <a href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"><span className={classes.blogtextr}>Read More</span></a></Typography>
  
           </Box>
       </Grid>
@@ -102,7 +102,7 @@ const OurBlogs = () => {
       <Box className={classes.trend}>
   
   <Typography variant="h4" className={classes.blogtext}>Get the perfect Look</Typography>
-  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+  <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some…<a href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"><span className={classes.blogtextr}>Read More</span></a></Typography>
 
           </Box>
       </Grid>
