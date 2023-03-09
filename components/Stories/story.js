@@ -15,6 +15,9 @@ const Story = () => {
     },
 image: {
  height:"100px",
+ display:"flex",
+ allignItems:"center",
+ justifyContent:'center',
  width:"100px",
  borderRadius: "100%",
  '&:hover': {
@@ -49,7 +52,10 @@ background:"#333333",
 
   zIndex: 1251
   },
-
+  catgorytag:{
+    display:"flex",
+    flexDirection:"row"
+  },
     title: {
 
       color: theme.palette.reaction.reactionBlue,
@@ -59,8 +65,27 @@ background:"#333333",
     box: {
       display:"flex",
       flexDirection: "column",
-  
+      justifyContent:"center",
+      allignItems:"center",
+        width:"120px",
     
+    },
+    catagoriesinactive:{
+      color:"yellow",
+      cursor:"pointer",
+    },
+    catagoriesactive:{
+      color:"green",
+      textDecoration: 'line-through',
+      WebkitTextDecorationThickness: '4x', /* set thickness to 2 pixels for webkit-based browsers */
+      textDecorationThickness: '4px',
+      textDecorationColor: '#333333',
+      color:"green",
+      
+    
+      '&:hover': {
+        textDecorationColor: 'green',
+      },
     },
     dark: {
       color: "#333333"
@@ -74,63 +99,92 @@ background:"#333333",
     paddingLeft:"50px"
     },
     heading:{
+     
+      display:"flex",
+      justifyContent:"center",
+      allignItems:"center",
       marginTop:theme.spacing(2)
-    }
+    },
+   
   }))
   const ITEMS = [
     {
       image: '/stories/story.svg',
    id:1,
-   title:"Charizma Store"
+   title:"Charizma Store",
+   Catagory:"Charizma Store",
     },
     {
       image: '/stories/story1.svg',
    id:2,
-   title:"Charizma Store"
+   title:"Charizma Store",
+   Catagory:"Charizma Store",
     },
     {
       image: '/stories/story2.svg',
       id:3,
-      title:"Charizma Store"
+      title:"Charizma Store",
+      Catagory:"Charizma Store",
     },
     {
       image: '/stories/story.svg',
       id:4,
-      title:"Charizma store"
+      title:"Charizma store",
+      Catagory:"Charizma Store",
     },
     {
       image: '/stories/story.svg',
       id:5,
-      title:"Charizma Store"
+      title:"Charizma Store",
+      Catagory:"Charizma Store",
     },
     {
       image: '/stories/story2.svg',
       id:6,
-      title:"Charizma Store"
+      title:"Charizma Store",
+      Catagory:"Charizma Store",
     },
     {
         image: '/stories/story2.svg',
         id:7,
-        title:"Charizma Store"
+        title:"Westrn",
+        Catagory:"Westrn",
       },
       {
         image: '/stories/story.svg',
         id:8,
-        title:"Charizma Store"
+        title:"Westrn",
+        Catagory:"Westrn",
       },
       {
         image: '/stories/story.svg',
         id:9,
-        title:"Charizma Store"
+        title:"Charizma Store",
+        Catagory:"Westrn",
       },
       {
         image: '/stories/story2.svg',
         id:10,
-        title:"Charizma Store"
+        title:"Charizma Store",
+        Catagory:"Westrn",
       },
   ];
   
-  
+  const Catagories = [
+    'Westrn',
+    'Charizma Store',
+    
+  ];
+  function Filter({ name, onClick, active, }) {
+    return (
+    
+      <Typography onClick={onClick} variant="h4" className={active ? classes.catagoriesactive : classes.catagoriesinactive }>{name}</Typography>
+    );
+  }
+  const [resouce,setResource]=useState('OUR PRODUCTS');
+  const [filter, setFilter] = useState(null);
+  const filteredItems = !filter ? ITEMS : ITEMS.filter(item =>item.Catagory.includes(filter));
+  console.log(filteredItems,"dddddddddddddddddddddd")
   function Item({ item }) {
     const classes = useStyles();
     return (
@@ -142,6 +196,7 @@ background:"#333333",
      
      
 <div  className={classes.box}>
+
 <img src={item.image} className={classes.image}/>
 <Typography variant="h5" className={classes.heading}> {item.title}</Typography>
 </div>
@@ -171,6 +226,16 @@ background:"#333333",
        <div className={classes.mainheading}><Typography variant="h3" >
         STORES
       </Typography>
+      <div className={classes.catgorytag}>
+      {Catagories.map(filterName => (
+        
+        <Filter name={filterName} onClick={() => setFilter(filterName)+setResource(filterName)} active={filterName===filter}/>
+        
+        
+          
+       
+         ))}
+           </div> 
       </div> 
     <div className={classes.root}>
     
@@ -213,7 +278,7 @@ background:"#333333",
  
 
 
-      {ITEMS.map((item) => (
+      {filteredItems.map((item) => (
           <SwiperSlide key={item.id}>
           <Item item={item} />
           </SwiperSlide>
@@ -221,7 +286,7 @@ background:"#333333",
 
 
     </Swiper>
-    <Storyslider/>
+    <Storyslider item={filteredItems} />
  </div>
  </div>
   );

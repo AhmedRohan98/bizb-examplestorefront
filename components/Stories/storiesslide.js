@@ -3,10 +3,11 @@ import { useRef,useCallback ,useState} from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-const Storyslider = () => {
+const Storyslider = ({item}) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  console.log(item,"xxxxxxxxx");
   const useStyles = makeStyles((theme) => ({
-    
+  
     root:{
      
       alignItems:"center",

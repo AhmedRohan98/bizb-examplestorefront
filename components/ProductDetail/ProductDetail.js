@@ -231,7 +231,7 @@ const slide = [
 ];
 
 const  ProductDetail = ({ ...props }) => {
- 
+ console.log("dsddddd",...props)
   const sliderRef = useRef(null);
 
  
