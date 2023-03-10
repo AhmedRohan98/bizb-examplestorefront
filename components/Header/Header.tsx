@@ -26,7 +26,8 @@ const styles = (theme: Theme) =>
       background: "transparent",
       // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
       // opacity: "0.7",
-      height: "170px"
+      height: "170px",
+    
     },
     
     controls: {
@@ -43,7 +44,8 @@ const styles = (theme: Theme) =>
       // alignItems: "center",
       display: "flex",
       justifyContent: "space-between",
-      marginTop: "50px"
+      marginTop: "50px",
+      zIndex: 1000,
     },
     dark: {
       color: "#333333"
