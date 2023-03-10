@@ -188,39 +188,36 @@ console.log(products,"new products");
 
   return (
     <>
-    <div className={classes.main}>
-      <div className={classes.root}>
-        <div className={classes.sliderr}>
-        <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}>
-          {ITEMS.map((item) => (
-            <SwiperSlide>
-              <Item item={item} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className={classes.main}>
+        <div className={classes.root}>
+          <div className={classes.sliderr}>
+            <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}>
+              {ITEMS.map((item) => (
+                <SwiperSlide>
+                  <Item item={item} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+          <div className={classes.imagedesktop}>
+            <img src="/Desktop-images/mobile.svg" className={classes.mobileima} />
+          </div>
         </div>
-        <div className={classes.imagedesktop}><img src="/Desktop-images/mobile.svg" className={classes.mobileima} /></div>
-        </div>
-     
-        </div>
-    
-        {/* <Preloved {...props} /> */}
-      
-   
-  <Justin />      
+      </div>
 
-     
+      {/* <Preloved {...props} /> */}
 
-<Story />
+      <Justin />
 
-<BizbCalloborators />
+      <Story {...props} />
 
-<Appsec />
+      <BizbCalloborators />
 
-<Caloborators />
-<OurBlogs />
-<Instagram />  
+      <Appsec />
 
+      <Caloborators />
+      <OurBlogs />
+      <Instagram />
     </>
   );
 };
