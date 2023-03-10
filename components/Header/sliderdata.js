@@ -31,6 +31,7 @@ console.log(products,"new products");
       
     },
     image: {
+    
       height: "95vh",
       width: "100%",
       objectPosition: "top",
@@ -203,7 +204,7 @@ console.log(products,"new products");
      
         </div>
     
-        <Preloved {...props} />
+        {/* <Preloved {...props} /> */}
       
    
   <Justin />      

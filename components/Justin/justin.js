@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
+import Link from 'next/link'
 import Grid from '@material-ui/core/Grid';
 const useStyles =makeStyles((theme) => ({
 main:{
@@ -140,11 +140,13 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"floral shirt for ",
+ slug:"beechtree 3 piece",
  size:"large"
   },
   {
     image: '/justin/justin2.svg',
     title:"Bag for sale",
+    slug:"beechtree 3 piece",
  id:2,
  price:"Rs 1200",
  newprice:"Rs 600",
@@ -156,6 +158,7 @@ const itemData = [
     price:"Rs 1200",
     newprice:"Rs 600",
     title:"Heels for sale",
+    slug:"beechtree 3 piece",
     size:"large"
   },
   {
@@ -164,6 +167,7 @@ const itemData = [
     price:"Rs 1200",
     newprice:"Rs 600",
     title:"floral shirt for",
+    slug:"beechtree 3 piece",
     size:"large"
   },
   {
@@ -172,6 +176,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"floral shirt for",
+ slug:"beechtree 3 piece",
  size:"large"
   },
   {
@@ -179,6 +184,7 @@ const itemData = [
  id:6,
  price:"Rs 1200",
  newprice:"Rs 600",
+ slug:"beechtree 3 piece",
  title:"Bag for sale",
  size:"large"
   },
@@ -188,6 +194,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
   title:"Heels for sale",
+  slug:"beechtree 3 piece",
  size:"large"
   },
   {
@@ -195,6 +202,7 @@ const itemData = [
  id:8,
  price:"Rs 1200",
  newprice:"Rs 600",
+ slug:"beechtree 3 piece",
  title:"floral shirt for",
  size:"large"
   },
@@ -204,6 +212,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"floral shirt for",
+ slug:"beechtree 3 piece",
  size:"large"
   },
   {
@@ -211,6 +220,7 @@ const itemData = [
  id:10,
  price:"Rs 1200",
  newprice:"Rs 600",
+ slug:"beechtree 3 piece",
  title:"Bag for sale",
  size:"large"
   },
@@ -220,6 +230,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"Heels for sale",
+ slug:"beechtree 3 piece",
  size:"large"
   },
   {
@@ -228,6 +239,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"floral shirt for",
+ slug:"beechtree 3 piece",
  size:"large"
   },
  
@@ -238,6 +250,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"floral shirt for",
+ slug:"beechtree 3 piece",
  size:"large"
   },
   {
@@ -246,6 +259,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"Bag for sale",
+ slug:"beechtree 3 piece",
  size:"large",
   },
   {
@@ -254,6 +268,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"Heels for sale",
+ slug:"beechtree 3 piece",
  size:"large"
   },
   {
@@ -262,6 +277,7 @@ const itemData = [
  price:"Rs 1200",
  newprice:"Rs 600",
  title:"floral shirt for",
+slug:"beechtree 3 piece",
  size:"large"
   },
 ];
@@ -294,7 +310,12 @@ const Justin = () => {
         
           className={classes.image}
        ></img>
+          <Link
+          href={item.slug && "/product/[...slugOrId]"}
+          as={item.slug && `/product/${item.slug}`}
+        >
       <div className={classes.cart}>
+  
         <img
           component="img"
          
@@ -304,7 +325,7 @@ const Justin = () => {
           <Typography variant="h5" component="h2">
           + Cart          </Typography>
         </div>  
-        
+        </Link>
        <Box className={classes.maintitle}>
         <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
            {item.title}

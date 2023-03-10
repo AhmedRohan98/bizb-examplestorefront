@@ -1656,7 +1656,7 @@ function Categories(props) {
   const [catalogItems, setCatalogItems] = React.useState(
     props.category.catalogItems.edges.map((item) => item.node?.product),
   );
-  // console.log(catalogItems);
+  console.log(catalogItems);
 
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
@@ -1852,29 +1852,36 @@ color:"black"}),
       marginTop:"10px",
       background:"#F7F7F9",
       borderRadius:"6px",
-border:"none",
+      border: state.isFocused ? "none" : "none",
+      boxShadow: state.isFocused ? "none" : "none",
       width: '255px', // Change this to the desired width
     }),
     menu: (provided, state) => ({
       ...provided,
-      width: '100vw', // Set the width of the menu to the full viewport width
+      // Set the width of the menu to the full viewport width
       maxWidth: 'none',
-      background:"yellow" ,
+  
      // Ensure that the menu can extend beyond the width of the container
     }),
-    option: (provided, state) => ({
-      height: '60px', // set height to 40px
-      width: '255px',
-      background:"green",
-      "& svg": {
-        color: "red",
-        transform: "rotate(90deg)",
-        transition: "transform 0.2s ease-in-out"
-      },
-      "&:hover svg": {
-        transform: "rotate(180deg)"
-      }
+    menuList: (provided, state) => ({
+      ...provided,
+      border: 'none',
     }),
+    option: (provided, state) => ({
+      fontFamily: 'Lato',
+         fontStyle: "normal",
+         fontWeight: state.isFocused ?800:500,
+         fontSize: "14px",
+         lineHeight: "19px" ,
+         textTransform: "capitalize" ,
+         letterSpacin:"0.05em",
+        padding:'13px',
+        borderBottom: state.isLastOption ? 'none' : '1px solid #01010136',
+       color: state.isFocused ?"#000000" :"#989898",
+         "&:hover": {
+           color: "#000000"
+         },
+       }),
     dropdownIndicator: (base, state) => ({
       ...base,
       icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
@@ -1907,7 +1914,7 @@ display:"none"}),
     control: (provided, state) => ({
       ...provided,
       height:"48px",
-      marginTop:"10px",
+     
       background:"#F7F7F9",
       borderRadius:"6px",
       border: state.isFocused ? "none" : "none",

@@ -15,6 +15,9 @@ const Story = () => {
     },
 image: {
  height:"100px",
+ display:"flex",
+ allignItems:"center",
+ justifyContent:'center',
  width:"100px",
  borderRadius: "100%",
  '&:hover': {
@@ -49,7 +52,11 @@ background:"#333333",
 
   zIndex: 1251
   },
-
+  catgorytag:{
+    display:"flex",
+    flexDirection:"row",
+    marginTop:theme.spacing(3)
+  },
     title: {
 
       color: theme.palette.reaction.reactionBlue,
@@ -59,8 +66,30 @@ background:"#333333",
     box: {
       display:"flex",
       flexDirection: "column",
-  
+      justifyContent:"center",
+      allignItems:"center",
+        width:"120px",
     
+    },
+    catagoriesinactive:{
+      color:"#000000",
+      cursor:"pointer",
+      marginRight:theme.spacing(3)
+    },
+    catagoriesactive:{
+      color:"#FDC114",
+      textDecoration: 'line-through',
+      WebkitTextDecorationThickness: '4x', /* set thickness to 2 pixels for webkit-based browsers */
+      textDecorationThickness: '4px',
+      textDecorationColor: "rgba(51,51,51,0.15)",
+      marginRight:theme.spacing(3),
+        
+      
+      
+    
+      '&:hover': {
+        color:"#FDC114",
+      },
     },
     dark: {
       color: "#333333"
@@ -74,63 +103,226 @@ background:"#333333",
     paddingLeft:"50px"
     },
     heading:{
+     
+      display:"flex",
+      justifyContent:"center",
+      allignItems:"center",
       marginTop:theme.spacing(2)
-    }
+    },
+   
   }))
   const ITEMS = [
     {
       image: '/stories/story.svg',
    id:1,
-   title:"Charizma Store"
+   title:"Charizma Store",
+   Catagory:"Charizma Store",
+   store:"Charizma Store"
     },
     {
       image: '/stories/story1.svg',
    id:2,
-   title:"Charizma Store"
+   title:"Charizma Store",
+   Catagory:"Charizma Store",
+   store:"Charizma Store"
+
     },
     {
       image: '/stories/story2.svg',
       id:3,
-      title:"Charizma Store"
+      title:"Charizma Store",
+      Catagory:"Charizma Store",
+      store:"Charizma Store"
     },
     {
       image: '/stories/story.svg',
       id:4,
-      title:"Charizma store"
+      title:"Charizma store",
+      Catagory:"Charizma Store",
+      store:"Charizma Store"
     },
     {
       image: '/stories/story.svg',
       id:5,
-      title:"Charizma Store"
+      title:"Charizma Store",
+      Catagory:"Charizma Store",
+      store:"Charizma Store"
     },
     {
       image: '/stories/story2.svg',
       id:6,
-      title:"Charizma Store"
+      title:"Charizma Store",
+      Catagory:"Charizma Store",
+      store:"Charizma Store"
     },
     {
         image: '/stories/story2.svg',
         id:7,
-        title:"Charizma Store"
+        title:"Westrn",
+        Catagory:"Westrn",
+        store:"Charizma Store"
       },
       {
         image: '/stories/story.svg',
         id:8,
-        title:"Charizma Store"
+        title:"Westrn",
+        Catagory:"Westrn",
+        store:"Charizma Store"
       },
       {
         image: '/stories/story.svg',
         id:9,
-        title:"Charizma Store"
+        title:"Charizma Store",
+        Catagory:"Westrn",
+        store:"Charizma Store"
       },
       {
         image: '/stories/story2.svg',
         id:10,
-        title:"Charizma Store"
+        title:"Charizma Store",
+        store:"Westrn",
+        Catagory:"Westrn",
+       
       },
   ];
-  
-  
+  const itemData = [
+    {
+      image: '/justin/justin1.svg',
+      store:"Charizma Store",
+   id:1,
+   title:"new",
+   
+   size:"large"
+    },
+    {
+      image: '/justin/justin2.svg',
+      title:"jwellry",
+      store:"Charizma Store",
+   id:2,
+   size:"large"
+    },
+    {
+      image: '/justin/justin3.svg',
+      id:3,
+      title:"Heels for sale",
+      store:"Charizma Store",
+      size:"large"
+    },
+    {
+      image: '/justin/justin4.svg',
+      id:4,
+      title:"floral shirt for",
+      store:"Charizma Store",
+      size:"large"
+    },
+    {
+      image: '/justin/justin1.svg',
+   id:5,
+   title:"floral shirt for",
+   store:"Charizma Store",
+   size:"large"
+    },
+    {
+      image: '/justin/justin2.svg',
+   id:6,
+   title:"Bag for sale",
+   store:"Charizma Store",
+   size:"large"
+    },
+    {
+      image: '/justin/justin3.svg',
+   id:7,
+   title:"Heels for sale",
+   store:"Charizma Store",
+   size:"large"
+    },
+    {
+      image: '/justin/justin4.svg',
+   id:8,
+   title:"floral shirt for",
+   store:"Charizma Store",
+   size:"large"
+    },
+    {
+      image: '/justin/justin1.svg',
+   id:9,
+   title:"floral shirt for",
+   size:"large",
+   store:"Charizma Store"
+    },
+    {
+      image: '/justin/justin2.svg',
+   id:10,
+   title:"Bag for sale",
+   store:"Charizma Store",
+   size:"large"
+    },
+    {
+      image: '/justin/justin3.svg',
+   id:11,
+   title:"Heels for sale",
+   store:"Westrn",
+   size:"large"
+    },
+    {
+      image: '/justin/justin4.svg',
+   id:12,
+   title:"floral shirt for",
+   store:"Westrn",
+   size:"large"
+    },
+    {
+      image: '/justin/justin1.svg',
+      store:"Westrn",
+   id:13,
+   title:"floral shirt for",
+   size:"large"
+    },
+  //   {
+  //     image: '/justin/justin2.svg',
+  //  id:14,
+  //  title:"Bag for sale",
+  //  store:"Westrn",
+  //  size:"large",
+  //  size:"large"
+  //   },
+  //   {
+  //     image: '/justin/justin3.svg',
+  //  id:15,
+  //  title:"Heels for sale",
+   
+  //  store:"Westrn",
+  //  size:"large"
+  //   },
+  //   {
+  //     image: '/justin/justin4.svg',
+  //  id:16,
+  //  title:"floral shirt for",
+  //  store:"Westrn",
+  //  size:"large"
+  //   },
+  ];
+  const Catagories = [
+    'Westrn',
+    'Charizma Store',
+    "Shoes",
+    "Junior",
+    "Foot Wear",
+    "Bridal Dress"
+    
+  ];
+  function Filter({ name, onClick, active, }) {
+    return (
+    
+      <Typography onClick={onClick} variant="h4" className={active ? classes.catagoriesactive : classes.catagoriesinactive }>{name}</Typography>
+    );
+  }
+  const [resouce,setResource]=useState('OUR PRODUCTS');
+  const [filter, setFilter] = useState(null);
+  const [filterproducts, setFilterProducts] = useState(null);
+  const filteredItems = !filter ? ITEMS : ITEMS.filter(item =>item.Catagory.includes(filter));
+  const filteredproducts= !filterproducts ? itemData : itemData.filter(item =>item.store.includes(filterproducts));
+  console.log(filteredItems,"dddddddddddddddddddddd")
   function Item({ item }) {
     const classes = useStyles();
     return (
@@ -142,6 +334,7 @@ background:"#333333",
      
      
 <div  className={classes.box}>
+
 <img src={item.image} className={classes.image}/>
 <Typography variant="h5" className={classes.heading}> {item.title}</Typography>
 </div>
@@ -171,6 +364,16 @@ background:"#333333",
        <div className={classes.mainheading}><Typography variant="h3" >
         STORES
       </Typography>
+      <div className={classes.catgorytag}>
+      {Catagories.map(filterName => (
+        
+        <Filter name={filterName} onClick={() => setFilter(filterName)+setResource(filterName)} active={filterName===filter}/>
+        
+        
+          
+       
+         ))}
+           </div> 
       </div> 
     <div className={classes.root}>
     
@@ -213,15 +416,15 @@ background:"#333333",
  
 
 
-      {ITEMS.map((item) => (
-          <SwiperSlide key={item.id}>
+      {filteredItems.map((item) => (
+          <SwiperSlide key={item.id} onClick={() => setFilterProducts(item.store)} active={item.store===filterproducts}>
           <Item item={item} />
           </SwiperSlide>
         ))}
 
 
     </Swiper>
-    <Storyslider/>
+    <Storyslider itemData={filteredproducts} />
  </div>
  </div>
   );
