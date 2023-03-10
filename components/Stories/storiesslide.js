@@ -3,11 +3,10 @@ import { useRef,useCallback ,useState} from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-const Storyslider = ({item}) => {
+const Storyslider = ({itemData}) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log(item,"xxxxxxxxx");
   const useStyles = makeStyles((theme) => ({
-  
+    
     root:{
      
       alignItems:"center",
@@ -123,105 +122,7 @@ const Storyslider = ({item}) => {
               },
   }))
   
-  const itemData = [
-    {
-      image: '/justin/justin1.svg',
-   id:1,
-   title:"floral shirt for ",
-   size:"large"
-    },
-    {
-      image: '/justin/justin2.svg',
-      title:"Bag for sale",
-   id:2,
-   size:"large"
-    },
-    {
-      image: '/justin/justin3.svg',
-      id:3,
-      title:"Heels for sale",
-      size:"large"
-    },
-    {
-      image: '/justin/justin4.svg',
-      id:4,
-      title:"floral shirt for",
-      size:"large"
-    },
-    {
-      image: '/justin/justin1.svg',
-   id:5,
-   title:"floral shirt for",
-   size:"large"
-    },
-    {
-      image: '/justin/justin2.svg',
-   id:6,
-   title:"Bag for sale",
-   size:"large"
-    },
-    {
-      image: '/justin/justin3.svg',
-   id:7,
-   title:"Heels for sale",
-   size:"large"
-    },
-    {
-      image: '/justin/justin4.svg',
-   id:8,
-   title:"floral shirt for",
-   size:"large"
-    },
-    {
-      image: '/justin/justin1.svg',
-   id:9,
-   title:"floral shirt for",
-   size:"large"
-    },
-    {
-      image: '/justin/justin2.svg',
-   id:10,
-   title:"Bag for sale",
-   size:"large"
-    },
-    {
-      image: '/justin/justin3.svg',
-   id:11,
-   title:"Heels for sale",
-   size:"large"
-    },
-    {
-      image: '/justin/justin4.svg',
-   id:12,
-   title:"floral shirt for",
-   size:"large"
-    },
-    {
-      image: '/justin/justin1.svg',
-   id:13,
-   title:"floral shirt for",
-   size:"large"
-    },
-    {
-      image: '/justin/justin2.svg',
-   id:14,
-   title:"Bag for sale",
-   size:"large",
-   size:"large"
-    },
-    {
-      image: '/justin/justin3.svg',
-   id:15,
-   title:"Heels for sale",
-   size:"large"
-    },
-    {
-      image: '/justin/justin4.svg',
-   id:16,
-   title:"floral shirt for",
-   size:"large"
-    },
-  ];
+console.log(itemData,"nwwwwwwwwwwwwwwwww")
  
   function Item({ item }) {
     const classes = useStyles();
