@@ -18,20 +18,16 @@ import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
-const products=props.catalogItems;
-console.log(products,"new products");
+  const products = props.catalogItems;
+  console.log(products, "new products");
   const useStyles = makeStyles((theme) => ({
-   main: {
-      
-    marginTop: "-170px"
-      
+    main: {
+      marginTop: "-170px",
     },
     root: {
       position: "relative",
-      
     },
     image: {
-    
       height: "95vh",
       width: "100%",
       objectPosition: "top",
@@ -92,28 +88,25 @@ console.log(products,"new products");
       height: "auto",
       color: "white",
     },
-    sliderr:{
-      display:"none",
+    sliderr: {
+      display: "none",
       [theme.breakpoints.up(900)]: {
-        display:"block",
-       
-         }
+        display: "block",
+      },
     },
-    imagedesktop:{
-      display:"block",
+    imagedesktop: {
+      display: "block",
 
       [theme.breakpoints.up(900)]: {
-        display:"none",
- 
-       
-         }
-    },mobileima:{
-      marginTop:theme.spacing(6),
-      width:"100%"
-    }
+        display: "none",
+      },
+    },
+    mobileima: {
+      marginTop: theme.spacing(6),
+      width: "100%",
+    },
   }));
   const ITEMS = [
- 
     {
       image: "/Desktop-images/desktop2.svg",
       id: 1,
@@ -205,9 +198,9 @@ console.log(products,"new products");
         </div>
       </div>
 
-      {/* <Preloved {...props} /> */}
+       <Preloved {...props} />  
 
-      <Justin />
+      <Justin {...props} />
 
       <Story {...props} />
 
@@ -217,13 +210,9 @@ console.log(products,"new products");
 
       <Caloborators />
       <OurBlogs />
-      <Instagram />
+      <Instagram {...props} />
     </>
   );
 };
 
 export default MainSlider;
-
-
-
-

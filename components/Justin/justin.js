@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from 'next/link'
 import Grid from '@material-ui/core/Grid';
+
 const useStyles =makeStyles((theme) => ({
 main:{
   padding: "3vh",
@@ -282,71 +283,69 @@ slug:"beechtree 3 piece",
   },
 ];
 
-const Justin = () => {
+const Justin = (props) => {
+  const catalogdata=props.catalogItems;
+  const addtocart = props.addItemsToCart;
+  console.log(props,"new props from add tp ")
+  console.log(catalogdata,"RRRRRRRRrrrrrrrrr")
+  // catalogdata.map((edge) => {
+  //   const title = edge.node.product.media;
+
+  //   console.log(title, "ffffffffffffffffffff");
+  // });
   const classes = useStyles();
   return (
-  <div className={classes.main}>
-  <div className={classes.headermain}>
-    <Typography variant="h3">
-         JUST IN
-    </Typography >
-    <div className={classes.header}>
-    <h1 className={classes.typography}></h1>
-    <Typography gutterBottom variant="body1" className={classes.explore}>
-         Explore More
+    <div className={classes.main}>
+      <div className={classes.headermain}>
+        <Typography variant="h3">JUST IN</Typography>
+        <div className={classes.header}>
+          <h1 className={classes.typography}></h1>
+          <Typography gutterBottom variant="body1" className={classes.explore}>
+            Explore More
           </Typography>
-    </div>
-    </div>
-  <div className={classes.root} >
- <Grid container  className={classes.gridroot} align = "center" justify = "center" alignItems = "center"  >
-  { itemData.map((item)=>
-      <>
-     <Grid item lg={3} sm={6} md={4} xs={12}  className={classes.rootimg} >
-
-   <img
-          component="img"
-          alt="loading"
-        src={item.image}
-        
-          className={classes.image}
-       ></img>
-          <Link
-          href={item.slug && "/product/[...slugOrId]"}
-          as={item.slug && `/product/${item.slug}`}
-        >
-      <div className={classes.cart}>
-  
-        <img
-          component="img"
-         
-        src="/icons/cart.svg" 
-        className={classes.cartimage}
-        />
-          <Typography variant="h5" component="h2">
-          + Cart          </Typography>
-        </div>  
-        </Link>
-       <Box className={classes.maintitle}>
-        <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-           {item.title}
-          </Typography>
-        <div className={classes.size}><Typography gutterBottom variant="h4" >size</Typography>
-        <Typography gutterBottom variant="h4" >{`:${item.size}`}</Typography></div>
-        <div className={classes.size}>    <strike>{item.price}</strike> 
-          
-        <Typography gutterBottom variant="h5" className={classes.price}>
-        Rs 600
-          </Typography></div>
-          </Box>
-          </Grid>
-      </>
-  )
-     }
-      
-     </Grid>
-    
+        </div>
       </div>
-  </div>
+      <div className={classes.root}>
+        <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
+          {catalogdata.map((item) => (
+            <>
+              <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                {item.node.product.media?.map((media) => (
+                  <img src={media.URLs.large} className={classes.image} key={media.id} />
+                ))}
+
+                {/* <Link href={item.slug && "/product/[...slugOrId]"} as={item.slug && `/product/${item.slug}`}> */}
+                <div className={classes.cart}>
+                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                  <Typography variant="h5" component="h2">
+                    + Cart{" "}
+                  </Typography>
+                </div>
+                {/* </Link> */}
+                <Box className={classes.maintitle} onClick={() => addItemsToCart()}>
+                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
+                    {item.node.product.title}
+                  </Typography>
+                  <div className={classes.size}>
+                    <Typography gutterBottom variant="h4">
+                      size
+                    </Typography>
+                    {/* <Typography gutterBottom variant="h4">{`:${item.size}`}</Typography> */}
+                  </div>
+                  <div className={classes.size}>
+                    {" "}
+                    {/* <strike>{item.price}</strike> */}
+                    <Typography gutterBottom variant="h5" className={classes.price}>
+                      Rs 600
+                    </Typography>
+                  </div>
+                </Box>
+              </Grid>
+            </>
+          ))}
+        </Grid>
+      </div>
+    </div>
   );
 }
 

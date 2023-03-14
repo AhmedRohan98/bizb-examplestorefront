@@ -46,21 +46,21 @@ function buildJSONLd(product, shop) {
   const productJSON = {
     "@context": "http://schema.org/",
     "@type": "Product",
-    "brand": product.vendor,
-    "description": product.description,
-    "image": images,
-    "name": product.title,
-    "sku": product.sku,
-    "offers": {
+    brand: product.vendor,
+    description: product.description,
+    image: images,
+    name: product.title,
+    sku: product.sku,
+    offers: {
       "@type": "Offer",
-      "priceCurrency": currencyCode,
-      "price": priceData.minPrice,
-      "availability": productAvailability,
-      "seller": {
+      priceCurrency: currencyCode,
+      price: priceData.minPrice,
+      availability: productAvailability,
+      seller: {
         "@type": "Organization",
-        "name": shop.name
-      }
-    }
+        name: shop.name,
+      },
+    },
   };
 
   return JSON.stringify(productJSON);
@@ -95,12 +95,7 @@ function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop }) 
         meta={[{ name: "description", content: product && product.description }]}
         script={[{ type: "application/ld+json", innerHTML: JSONLd }]}
       />
-      <DynamicSlider
-        addItemsToCart={addItemsToCart}
-        currencyCode={currencyCode}
-        product={product}
-        shop={shop}
-      />
+      <DynamicSlider addItemsToCart={addItemsToCart} currencyCode={currencyCode} product={product} shop={shop} />
     </Layout>
   );
 }
@@ -121,9 +116,9 @@ DynamicSlider.propTypes = {
   shop: PropTypes.shape({
     name: PropTypes.string.isRequired,
     currency: PropTypes.shape({
-      code: PropTypes.string.isRequired
-    })
-  })
+      code: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 /**
@@ -141,22 +136,22 @@ export async function getStaticProps({ params: { slugOrId, lang } }) {
         shop: null,
         translations: null,
         products: null,
-        tags: null
+        tags: null,
       },
       // eslint-disable-next-line camelcase
-      unstable_revalidate: 1 // Revalidate immediately
+      unstable_revalidate: 1, // Revalidate immediately
     };
   }
 
   return {
     props: {
       ...primaryShop,
-      ...await fetchTranslations(lang, ["common", "productDetail"]),
-      ...await fetchCatalogProduct(productSlug),
-      ...await fetchAllTags(lang)
+      ...(await fetchTranslations(lang, ["common", "productDetail"])),
+      ...(await fetchCatalogProduct(productSlug)),
+      ...(await fetchAllTags(lang)),
     },
     // eslint-disable-next-line camelcase
-    unstable_revalidate: 120 // Revalidate each two minutes
+    unstable_revalidate: 120, // Revalidate each two minutes
   };
 }
 
@@ -167,9 +162,8 @@ export async function getStaticProps({ params: { slugOrId, lang } }) {
  */
 export async function getStaticPaths() {
   return {
-    
     paths: locales.map((locale) => ({ params: { lang: locale, slugOrId: ["-"] } })),
-    fallback: true
+    fallback: true,
   };
 }
 
