@@ -4,7 +4,10 @@ import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Storyslider from "./storiesslide";
-const Story = () => {
+const Story = (props) => {
+console.log("all props....", props);
+  const catagories = props.nodes;
+    console.log(catagories, "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnsdddddddddddddddddddddddddddd");
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
     root:{
@@ -113,194 +116,192 @@ background:"#333333",
   }))
   const ITEMS = [
     {
-      image: '/stories/story.svg',
-   id:1,
-   title:"Charizma Store",
-   Catagory:"Charizma Store",
-   store:"Charizma Store"
+      image: "/stories/story.svg",
+      id: 1,
+      title: "Charizma Store",
+      Catagory: "Juniors",
+      store: "Charizma Store",
     },
     {
-      image: '/stories/story1.svg',
-   id:2,
-   title:"Charizma Store",
-   Catagory:"Charizma Store",
-   store:"Charizma Store"
-
+      image: "/stories/story1.svg",
+      id: 2,
+      title: "Charizma Store",
+      Catagory: "Juniors",
+      store: "Westrn",
     },
     {
-      image: '/stories/story2.svg',
-      id:3,
-      title:"Charizma Store",
-      Catagory:"Charizma Store",
-      store:"Charizma Store"
+      image: "/stories/story2.svg",
+      id: 3,
+      title: "Charizma Store",
+      Catagory: "Casuals",
+      store: "Charizma Store",
     },
     {
-      image: '/stories/story.svg',
-      id:4,
-      title:"Charizma store",
-      Catagory:"Charizma Store",
-      store:"Charizma Store"
+      image: "/stories/story.svg",
+      id: 4,
+      title: "Charizma store",
+      Catagory: "Party Wear",
+      store: "Charizma Store",
     },
     {
-      image: '/stories/story.svg',
-      id:5,
-      title:"Charizma Store",
-      Catagory:"Charizma Store",
-      store:"Charizma Store"
+      image: "/stories/story.svg",
+      id: 5,
+      title: "Charizma Store",
+      Catagory: "Shoes",
+      store: "Charizma Store",
     },
     {
-      image: '/stories/story2.svg',
-      id:6,
-      title:"Charizma Store",
-      Catagory:"Charizma Store",
-      store:"Charizma Store"
+      image: "/stories/story2.svg",
+      id: 6,
+      title: "Charizma Store",
+      Catagory: "Accessories",
+      store: "Charizma Store",
     },
     {
-        image: '/stories/story2.svg',
-        id:7,
-        title:"Westrn",
-        Catagory:"Westrn",
-        store:"Charizma Store"
-      },
-      {
-        image: '/stories/story.svg',
-        id:8,
-        title:"Westrn",
-        Catagory:"Westrn",
-        store:"Charizma Store"
-      },
-      {
-        image: '/stories/story.svg',
-        id:9,
-        title:"Charizma Store",
-        Catagory:"Westrn",
-        store:"Charizma Store"
-      },
-      {
-        image: '/stories/story2.svg',
-        id:10,
-        title:"Charizma Store",
-        store:"Westrn",
-        Catagory:"Westrn",
-       
-      },
+      image: "/stories/story2.svg",
+      id: 7,
+      title: "Westrn",
+      Catagory: "Western",
+      store: "Charizma Store",
+    },
+    {
+      image: "/stories/story.svg",
+      id: 8,
+      title: "Westrn",
+      Catagory: "Western",
+      store: "Charizma Store",
+    },
+    {
+      image: "/stories/story.svg",
+      id: 9,
+      title: "Charizma Store",
+      Catagory: "Western",
+      store: "Western",
+    },
+    {
+      image: "/stories/story2.svg",
+      id: 10,
+      title: "Western",
+      store: "Western",
+      Catagory: "Westrn",
+    },
   ];
   const itemData = [
     {
-      image: '/justin/justin1.svg',
-      store:"Charizma Store",
-   id:1,
-   title:"new",
-   
-   size:"large"
+      image: "/justin/justin1.svg",
+      store: "Westrn",
+      id: 1,
+      title: "new",
+
+      size: "large",
     },
     {
-      image: '/justin/justin2.svg',
-      title:"jwellry",
-      store:"Charizma Store",
-   id:2,
-   size:"large"
+      image: "/justin/justin2.svg",
+      title: "jwellry",
+      store: "Westrn",
+      id: 2,
+      size: "large",
     },
     {
-      image: '/justin/justin3.svg',
-      id:3,
-      title:"Heels for sale",
-      store:"Charizma Store",
-      size:"large"
+      image: "/justin/justin3.svg",
+      id: 3,
+      title: "Heels for sale",
+      store: "Charizma Store",
+      size: "large",
     },
     {
-      image: '/justin/justin4.svg',
-      id:4,
-      title:"floral shirt for",
-      store:"Charizma Store",
-      size:"large"
+      image: "/justin/justin4.svg",
+      id: 4,
+      title: "floral shirt for",
+      store: "Charizma Store",
+      size: "large",
     },
     {
-      image: '/justin/justin1.svg',
-   id:5,
-   title:"floral shirt for",
-   store:"Charizma Store",
-   size:"large"
+      image: "/justin/justin1.svg",
+      id: 5,
+      title: "floral shirt for",
+      store: "Charizma Store",
+      size: "large",
     },
     {
-      image: '/justin/justin2.svg',
-   id:6,
-   title:"Bag for sale",
-   store:"Charizma Store",
-   size:"large"
+      image: "/justin/justin2.svg",
+      id: 6,
+      title: "Bag for sale",
+      store: "Charizma Store",
+      size: "large",
     },
     {
-      image: '/justin/justin3.svg',
-   id:7,
-   title:"Heels for sale",
-   store:"Charizma Store",
-   size:"large"
+      image: "/justin/justin3.svg",
+      id: 7,
+      title: "Heels for sale",
+      store: "Charizma Store",
+      size: "large",
     },
     {
-      image: '/justin/justin4.svg',
-   id:8,
-   title:"floral shirt for",
-   store:"Charizma Store",
-   size:"large"
+      image: "/justin/justin4.svg",
+      id: 8,
+      title: "floral shirt for",
+      store: "Charizma Store",
+      size: "large",
     },
     {
-      image: '/justin/justin1.svg',
-   id:9,
-   title:"floral shirt for",
-   size:"large",
-   store:"Charizma Store"
+      image: "/justin/justin1.svg",
+      id: 9,
+      title: "floral shirt for",
+      size: "large",
+      store: "Charizma Store",
     },
     {
-      image: '/justin/justin2.svg',
-   id:10,
-   title:"Bag for sale",
-   store:"Charizma Store",
-   size:"large"
+      image: "/justin/justin2.svg",
+      id: 10,
+      title: "Bag for sale",
+      store: "Charizma Store",
+      size: "large",
     },
     {
-      image: '/justin/justin3.svg',
-   id:11,
-   title:"Heels for sale",
-   store:"Westrn",
-   size:"large"
+      image: "/justin/justin3.svg",
+      id: 11,
+      title: "Heels for sale",
+      store: "Westrn",
+      size: "large",
     },
     {
-      image: '/justin/justin4.svg',
-   id:12,
-   title:"floral shirt for",
-   store:"Westrn",
-   size:"large"
+      image: "/justin/justin4.svg",
+      id: 12,
+      title: "floral shirt for",
+      store: "Westrn",
+      size: "large",
     },
     {
-      image: '/justin/justin1.svg',
-      store:"Westrn",
-   id:13,
-   title:"floral shirt for",
-   size:"large"
+      image: "/justin/justin1.svg",
+      store: "Westrn",
+      id: 13,
+      title: "floral shirt for",
+      size: "large",
     },
-  //   {
-  //     image: '/justin/justin2.svg',
-  //  id:14,
-  //  title:"Bag for sale",
-  //  store:"Westrn",
-  //  size:"large",
-  //  size:"large"
-  //   },
-  //   {
-  //     image: '/justin/justin3.svg',
-  //  id:15,
-  //  title:"Heels for sale",
-   
-  //  store:"Westrn",
-  //  size:"large"
-  //   },
-  //   {
-  //     image: '/justin/justin4.svg',
-  //  id:16,
-  //  title:"floral shirt for",
-  //  store:"Westrn",
-  //  size:"large"
-  //   },
+    //   {
+    //     image: '/justin/justin2.svg',
+    //  id:14,
+    //  title:"Bag for sale",
+    //  store:"Westrn",
+    //  size:"large",
+    //  size:"large"
+    //   },
+    //   {
+    //     image: '/justin/justin3.svg',
+    //  id:15,
+    //  title:"Heels for sale",
+
+    //  store:"Westrn",
+    //  size:"large"
+    //   },
+    //   {
+    //     image: '/justin/justin4.svg',
+    //  id:16,
+    //  title:"floral shirt for",
+    //  store:"Westrn",
+    //  size:"large"
+    //   },
   ];
   const Catagories = [
     'Westrn',
@@ -361,72 +362,76 @@ background:"#333333",
   const classes = useStyles();
   return (
     <div className={classes.main}>
-       <div className={classes.mainheading}><Typography variant="h3" >
-        STORES
-      </Typography>
-      <div className={classes.catgorytag}>
-      {Catagories.map(filterName => (
-        
-        <Filter name={filterName} onClick={() => setFilter(filterName)+setResource(filterName)} active={filterName===filter}/>
-        
-        
-          
-       
-         ))}
-           </div> 
-      </div> 
-    <div className={classes.root}>
-    
-    <Swiper ref={sliderRef}
- breakpoints={{
-  1600: {
-    width: 1600,
-    slidesPerView: 7,
-  },
-  1200: {
-    width: 1200,
-    slidesPerView: 6,
-  },
-  1000: {
-    width: 1000,
-    slidesPerView: 5,
-  },
+      <div className={classes.mainheading}>
+        <Typography variant="h3">STORES</Typography>
+        <div className={classes.catgorytag}>
+          {catagories.map((filterName) => (
+            <Filter
+              name={filterName.displayTitle}
+              onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}
+              active={filterName.displayTitle === filter}
+            />
+          ))}
+        </div>
+      </div>
+      <div className={classes.root}>
+        <Swiper
+          ref={sliderRef}
+          breakpoints={{
+            1600: {
+              width: 1600,
+              slidesPerView: 7,
+            },
+            1200: {
+              width: 1200,
+              slidesPerView: 6,
+            },
+            1000: {
+              width: 1000,
+              slidesPerView: 5,
+            },
 
-  800: {
-    width: 800,
-    slidesPerView: 5,
-  },
-   600: {
-    width: 800,
-    slidesPerView: 4,
-  },
- 400: {
-    width: 800,
-    slidesPerView: 3,
-  },
-  
-
-}}
-     onRealIndexChange={(element)=>setActiveIndex(element.activeIndex)}
->    <div className={classes.controller}>
-
-{  activeIndex < ITEMS.length-1 ?   <ArrowForwardIos className={classes.iconforwad} style={{fill: "#FDC114"}} onClick={handleNext}/>:""}
-{activeIndex-0?<ArrowBackIos className={classes.iconback} style={{fill: "#FDC114"}}  onClick={handlePrev}/>:""}
-</div>
- 
-
-
-      {filteredItems.map((item) => (
-          <SwiperSlide key={item.id} onClick={() => setFilterProducts(item.store)} active={item.store===filterproducts}>
-          <Item item={item} />
-          </SwiperSlide>
-        ))}
-
-
-    </Swiper>
-    <Storyslider itemData={filteredproducts} />
- </div>
- </div>
+            800: {
+              width: 800,
+              slidesPerView: 5,
+            },
+            600: {
+              width: 800,
+              slidesPerView: 4,
+            },
+            400: {
+              width: 800,
+              slidesPerView: 3,
+            },
+          }}
+          onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+        >
+          {" "}
+          <div className={classes.controller}>
+            {activeIndex < ITEMS.length - 1 ? (
+              <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
+            ) : (
+              ""
+            )}
+            {activeIndex - 0 ? (
+              <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
+            ) : (
+              ""
+            )}
+          </div>
+          {filteredItems.map((item) => (
+            <SwiperSlide
+              key={item.id}
+              onClick={() => setFilterProducts(item.store)}
+              active={item.store === filterproducts}
+            >
+              <Item item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <Storyslider itemData={filteredproducts} />
+      </div>
+    </div>
   );
 };
 
