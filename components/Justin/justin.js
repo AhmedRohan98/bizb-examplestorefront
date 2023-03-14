@@ -322,7 +322,7 @@ const Justin = (props) => {
                   </Typography>
                 </div>
                 {/* </Link> */}
-                <Box className={classes.maintitle} onClick={() => addItemsToCart()}>
+                <Box className={classes.maintitle} >
                   <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
                     {item.node.product.title}
                   </Typography>
