@@ -4,6 +4,7 @@ import inject from "hocs/inject";
 import Helmet from "react-helmet";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 import ProductGrid from "components/ProductGrid";
+import withCart from "containers/cart/withCart";
 import Layout from "components/Layout";
 import { inPageSizes } from "lib/utils/pageSizes";
 import { withApollo } from "lib/apollo/withApollo";
@@ -57,6 +58,7 @@ class ProductGridPage extends Component {
       routingStore: { query },
       shop,
       uiStore,
+      feed,
     } = this.props;
     const pageSize = query && inPageSizes(query.limit) ? parseInt(query.limit, 10) : uiStore.pageSize;
     const sortBy = query && query.sortby ? query.sortby : uiStore.sortBy;
@@ -68,12 +70,12 @@ class ProductGridPage extends Component {
     } else {
       pageTitle = "Bizb";
     }
-
+const addItemsToCart = this.props.addItemsToCart ;
     return typeof window !== undefined ? (
       <Layout headerType={false}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
-        <DynamicSlider {...this.props?.tags} catalogItems={catalogItems} />
+        <DynamicSlider {...this.props?.tags} catalogItems={catalogItems} feed={feed} addItemsToCart={addItemsToCart} />
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
         <ProductGrid
@@ -87,7 +89,9 @@ class ProductGridPage extends Component {
           sortBy={sortBy}
         />
       </Layout>
-    ) : 'Loading...'
+    ) : (
+      "Loading..."
+    );
   }
 }
 
@@ -99,7 +103,13 @@ class ProductGridPage extends Component {
  */
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
-
+ const url = `http://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
+  const data = await fetch(url);
+  console.log("data is ", data);
+  // const feed = JSON.stringify(data);
+  const feed = await data.json();
+  console.log("new feed", feed);
+  console.log("ddddddddddddddsssssssssssssssssrtyybcvzcvc");
 
   if (!primaryShop?.shop) {
     return {
@@ -114,7 +124,8 @@ export async function getStaticProps({ params: { lang } }) {
   return {
     props: {
       ...primaryShop,
-      ...await fetchTags('cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==')
+      ...(await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==")),
+      feed,
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes
@@ -133,4 +144,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default withApollo()(withCatalogItems(inject("routingStore", "uiStore")(ProductGridPage)));
+export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(ProductGridPage))));

@@ -1,6 +1,6 @@
 export default `
 query catalogItemProductQuery($slugOrId: String!) {
-    catalogItemProduct(slugOrId: $slugOrId) {
+    catalogItemProduct(slugOrId: $slugOrId )  {
       product {
         _id
         productId
