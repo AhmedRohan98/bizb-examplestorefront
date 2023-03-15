@@ -218,7 +218,7 @@ console.log(itemID,"me")
 
   function renderMiniCart() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems } = props;
-
+console.log(cart,"cart")
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
         <MiniCartComponent
@@ -249,13 +249,24 @@ console.log(itemID,"me")
       {cart.items.map((item)=>
       {
         
-        return <div className={classes.cartitem}>
-        <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
-        <div  className={classes.cartitemtext}>      <Typography variant="h4">{item.title}</Typography>
-        <Typography variant="h4" className={classes.cartpric}>Store:mariamz</Typography>      <Typography variant="h4" className={classes.cartprice}>RS: { item?.price?.amount }</Typography></div>
-  
-        <img src="/cart/icon.svg" alt={item.title}  onClick={() =>handleRemoveItem(item._id) } />
-        </div>
+        return (
+          <div className={classes.cartitem}>
+            <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
+            {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
+            <div className={classes.cartitemtext}>
+              {" "}
+              <Typography variant="h4">{item.title}</Typography>
+              <Typography variant="h4" className={classes.cartpric}>
+                Store:mariamz
+              </Typography>{" "}
+              <Typography variant="h4" className={classes.cartprice}>
+                RS: {item?.price?.amount}
+              </Typography>
+            </div>
+
+            <img src="/cart/icon.svg" alt={item.title} onClick={() => handleRemoveItem(item._id)} />
+          </div>
+        );
       }
       )}
     </div>

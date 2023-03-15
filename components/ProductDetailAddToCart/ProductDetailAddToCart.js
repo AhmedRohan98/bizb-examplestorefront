@@ -87,7 +87,6 @@ class ProductDetailAddToCart extends Component {
 
     // Pass chosen quantity to onClick callback
     await onClick(this.state.addToCartQuantity);
-
     // Scroll to the top
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       window.scrollTo({ left: 0, top: 0, behavior: "smooth" });

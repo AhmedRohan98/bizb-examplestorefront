@@ -1,119 +1,109 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { useRef,useCallback ,useState} from "react";
+const { Swiper, SwiperSlide } = require("swiper/react");
+import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Storyslider from "./storiesslide";
 const Story = (props) => {
-console.log("all props....", props);
-  const catagories = props.nodes;
-    console.log(catagories, "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnsdddddddddddddddddddddddddddd");
+  console.log("all props....", props);
+  const catagories = props?.nodes;
+  console.log(catagories, "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnsdddddddddddddddddddddddddddd");
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
-    root:{
+    root: {
       background: theme.palette.reaction.gradient,
-      position:"relative",
-      margin:"50px",
-    
+      position: "relative",
+      margin: "50px",
     },
-image: {
- height:"100px",
- display:"flex",
- allignItems:"center",
- justifyContent:'center',
- width:"100px",
- borderRadius: "100%",
- '&:hover': {
-  height:"120px",
-  width:"120px",
-}
+    image: {
+      height: "100px",
+      display: "flex",
+      allignItems: "center",
+      justifyContent: "center",
+      width: "100px",
+      borderRadius: "100%",
+      "&:hover": {
+        height: "120px",
+        width: "120px",
+      },
     },
-    controller:{
-      display:"flex",
+    controller: {
+      display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-      
-     
-},
-iconforwad:{
-position:"absolute",
-bottom:"60px",
-right:"20px",
-background:"#333333",
-color: "FDC114",
-borderRadius:"4px",
+    },
+    iconforwad: {
+      position: "absolute",
+      bottom: "60px",
+      right: "20px",
+      background: "#333333",
+      color: "FDC114",
+      borderRadius: "4px",
 
-zIndex: 1251
-},
-iconback:{
-  position:"absolute",
-  bottom:"60px",
-  left:"20px",
-  borderRadius:"4px",
-color:"FDC114",
-background:"#333333",
+      zIndex: 1251,
+    },
+    iconback: {
+      position: "absolute",
+      bottom: "60px",
+      left: "20px",
+      borderRadius: "4px",
+      color: "FDC114",
+      background: "#333333",
 
-  zIndex: 1251
-  },
-  catgorytag:{
-    display:"flex",
-    flexDirection:"row",
-    marginTop:theme.spacing(3)
-  },
+      zIndex: 1251,
+    },
+    catgorytag: {
+      display: "flex",
+      flexDirection: "row",
+      marginTop: theme.spacing(3),
+    },
     title: {
-
       color: theme.palette.reaction.reactionBlue,
       marginRight: theme.spacing(),
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
     box: {
-      display:"flex",
+      display: "flex",
       flexDirection: "column",
-      justifyContent:"center",
-      allignItems:"center",
-        width:"120px",
-    
+      justifyContent: "center",
+      allignItems: "center",
+      width: "120px",
     },
-    catagoriesinactive:{
-      color:"#000000",
-      cursor:"pointer",
-      marginRight:theme.spacing(3)
+    catagoriesinactive: {
+      color: "#000000",
+      cursor: "pointer",
+      marginRight: theme.spacing(3),
     },
-    catagoriesactive:{
-      color:"#FDC114",
-      textDecoration: 'line-through',
-      WebkitTextDecorationThickness: '4x', /* set thickness to 2 pixels for webkit-based browsers */
-      textDecorationThickness: '4px',
+    catagoriesactive: {
+      color: "#FDC114",
+      textDecoration: "line-through",
+      WebkitTextDecorationThickness: "4x" /* set thickness to 2 pixels for webkit-based browsers */,
+      textDecorationThickness: "4px",
       textDecorationColor: "rgba(51,51,51,0.15)",
-      marginRight:theme.spacing(3),
-        
-      
-      
-    
-      '&:hover': {
-        color:"#FDC114",
+      marginRight: theme.spacing(3),
+
+      "&:hover": {
+        color: "#FDC114",
       },
     },
     dark: {
-      color: "#333333"
+      color: "#333333",
     },
-    main:{
-      background:"#EAE7FF",
-      width:"100%"
+    main: {
+      background: "#EAE7FF",
+      width: "100%",
     },
-    mainheading:{
-     paddingTop:"30px",
-    paddingLeft:"50px"
+    mainheading: {
+      paddingTop: "30px",
+      paddingLeft: "50px",
     },
-    heading:{
-     
-      display:"flex",
-      justifyContent:"center",
-      allignItems:"center",
-      marginTop:theme.spacing(2)
+    heading: {
+      display: "flex",
+      justifyContent: "center",
+      allignItems: "center",
+      marginTop: theme.spacing(2),
     },
-   
-  }))
+  }));
   const ITEMS = [
     {
       image: "/stories/story.svg",
@@ -303,52 +293,43 @@ background:"#333333",
     //  size:"large"
     //   },
   ];
-  const Catagories = [
-    'Westrn',
-    'Charizma Store',
-    "Shoes",
-    "Junior",
-    "Foot Wear",
-    "Bridal Dress"
-    
-  ];
-  function Filter({ name, onClick, active, }) {
+  const Catagories = ["Westrn", "Charizma Store", "Shoes", "Junior", "Foot Wear", "Bridal Dress"];
+  function Filter({ name, onClick, active }) {
     return (
-    
-      <Typography onClick={onClick} variant="h4" className={active ? classes.catagoriesactive : classes.catagoriesinactive }>{name}</Typography>
+      <Typography
+        onClick={onClick}
+        variant="h4"
+        className={active ? classes.catagoriesactive : classes.catagoriesinactive}
+      >
+        {name}
+      </Typography>
     );
   }
-  const [resouce,setResource]=useState('OUR PRODUCTS');
+  const [resouce, setResource] = useState("OUR PRODUCTS");
   const [filter, setFilter] = useState(null);
   const [filterproducts, setFilterProducts] = useState(null);
-  const filteredItems = !filter ? ITEMS : ITEMS.filter(item =>item.Catagory.includes(filter));
-  const filteredproducts= !filterproducts ? itemData : itemData.filter(item =>item.store.includes(filterproducts));
-  console.log(filteredItems,"dddddddddddddddddddddd")
+  const filteredItems = !filter ? ITEMS : ITEMS.filter((item) => item.Catagory.includes(filter));
+  const filteredproducts = !filterproducts ? itemData : itemData.filter((item) => item.store.includes(filterproducts));
+  console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item }) {
     const classes = useStyles();
     return (
       <>
-            <SwiperSlide>
-         
-         
-        
-     
-     
-<div  className={classes.box}>
-
-<img src={item.image} className={classes.image}/>
-<Typography variant="h5" className={classes.heading}> {item.title}</Typography>
-</div>
-
-     </SwiperSlide>
-     
+        <SwiperSlide>
+          <div className={classes.box}>
+            <img src={item.image} className={classes.image} />
+            <Typography variant="h5" className={classes.heading}>
+              {" "}
+              {item.title}
+            </Typography>
+          </div>
+        </SwiperSlide>
       </>
     );
   }
 
   const sliderRef = useRef(null);
 
- 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -358,14 +339,14 @@ background:"#333333",
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
- 
+
   const classes = useStyles();
   return (
     <div className={classes.main}>
       <div className={classes.mainheading}>
         <Typography variant="h3">STORES</Typography>
         <div className={classes.catgorytag}>
-          {catagories.map((filterName) => (
+          {catagories?.map((filterName) => (
             <Filter
               name={filterName.displayTitle}
               onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}
