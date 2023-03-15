@@ -103,12 +103,12 @@ const addItemsToCart = this.props.addItemsToCart ;
  */
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
-//  const url = `http://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
-//   const data = await fetch(url);
-//   console.log("data is ", data);
-  // const feed = JSON.stringify(data);
-  // const feed = await data.json();
-  // console.log("new feed", feed);
+ const url = `http://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
+  const data = await fetch(url);
+  console.log("data is ", data);
+
+  const feed = await data.json();
+  console.log("new feed", feed);
   console.log("ddddddddddddddsssssssssssssssssrtyybcvzcvc");
 
   if (!primaryShop?.shop) {
@@ -125,7 +125,7 @@ export async function getStaticProps({ params: { lang } }) {
     props: {
       ...primaryShop,
       ...(await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==")),
-      // feed,
+      feed,
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes

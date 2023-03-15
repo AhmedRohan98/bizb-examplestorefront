@@ -188,9 +188,9 @@ console.log(res,"sssss")
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-          {res.page0.displayTitle}
+          {res?.page0.displayTitle}
             </Typography>
-            <div className={classes.buttonshop}  onClick = {() => clickHandler(res.page0._id)}>
+            <div className={classes.buttonshop}  onClick = {() => clickHandler(res?.page0._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
@@ -203,7 +203,7 @@ console.log(res,"sssss")
             <Typography gutterBottom variant="h3" className={classes.text}>
               Western
             </Typography>
-            <div className={classes.buttonshop} onClick = {() => clickHandler(res.page0._id)}>
+            <div className={classes.buttonshop} onClick = {() => clickHandler(res?.page0._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
@@ -233,7 +233,7 @@ console.log(res,"sssss")
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-            {res.page2.displayTitle}
+            {res?.page2.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
               {" "}
