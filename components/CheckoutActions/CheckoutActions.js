@@ -16,9 +16,8 @@ import Router from "translations/i18nRouter";
 import calculateRemainderDue from "lib/utils/calculateRemainderDue";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-
 import { Grid, TextField,   Typography} from '@material-ui/core';
-import {  useState } from "react";
+import React, { useState } from "react";
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -182,375 +181,209 @@ phone:{
  
 }));
 
-const CheckoutActions = ({ addressValidationResults, cart, cartStore, checkoutMutations, orderEmailAddress , clearAuthenticatedUsersCart, apolloClient  }) => {
-  const [checkedEmail, setCheckedEmail] = React.useState(true);
+const CheckoutActions = (prop) => {
+const { cart, apolloClient } = prop;
+console.log(prop, "prop");
+const [checkedEmail, setCheckedEmail] = React.useState(true);
 
- 
-  
-  const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const [fullname, setFullname] = useState("");
+const classes = useStyles();
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [error, setError] = useState("");
+
+
+const [fullname, setFullname] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
 
-  const [resetpassword, setResetPassword] = useState("");
-  const [actionAlerts, setActionAlerts] = useState({
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-  });
-  const [hasPaymentError, setHasPaymentError] = useState(false);
-  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  const [isMounted, setIsMounted] = useState(true);
-  const [fulfillmentGroup, setFulfillmentGroup] = useState({});
-  const [checkoutSummary, setCheckoutSummary] = useState({});
-  const [addresses, setAddresses] = useState([]);
-  const [payments, setPayments] = useState([]);
-  const [remainingAmountDue, setRemainingAmountDue] = useState(null);
-  const [PaymentComponent, setPaymentComponent] = useState(PaymentsCheckoutAction);
+  const [city, setCity] = useState("");
+    const [notes, setNotes] = useState("");
+const handleNotes = (event) => {
+  setNotes(event.target.value);
+};
+const handleEmailChange = (event) => {
+  setEmail(event.target.value);
+};
+
+    const handleCity= (event) => {
+      setCity(event.target.value);
+    };
+    const handlephonenumber = (event) => {
+     setPhoneNumber(event.target.value);
+    };
+    const handleFullname = (event) => {
+    setFullname(event.target.value);
+    };
+  
+  
+    const handleChangeEmail = (event) => {
+      setCheckedEmail(event.target.checked);
+    };
+  
+const handlePasswordChange = (event) => {
+  setPassword(event.target.value);
+};
 
 
 
-  const buildData = ({ step, action }) => ({
-    action,
-    payment_method: paymentMethod,
-    shipping_method: shippingMethod,
-    step,
-  });
+    const items = cart.items.map((item) => ({
 
-  const handleValidationErrors = () => {
-    const { validationErrors } = addressValidationResults || [];
-    const shippingAlert =
-      validationErrors && validationErrors.length
-        ? {
-            alertType: validationErrors[0].type,
-            title: validationErrors[0].summary,
-            message: validationErrors[0].details,
-          }
-        : null;
-    setActionAlerts({ 1: shippingAlert });
-  };
+      addedAt: item.addedAt,
+      price: item.price.amount,
+      productConfiguration: item.productConfiguration,
+      quantity: item.quantity,
+    }));
+      
+const handlepay =()=>{
+ 
 
-  const setShippingAddress = async (address) => {
-    delete address.isValid;
-    const { data, error } = await checkoutMutations.onSetShippingAddress(address);
+    try {
 
-    if (data && !error && isMounted) {
-      setActionAlerts({ 1: {} });
+      const { data } = apolloClient.mutate({
+        mutation: placeOrderMutation,
+        variables: {
+          input: {
+            order: {
+              cartId: cart._id,
+              currencyCode: cart.shop.currency.code,
+              email: cart.email,
+              fulfillmentGroups: [
+                {
+                  data: {
+                    shippingAddress: {
+                      address1: notes,
+                      address2: notes,
+                      city: city,
+                      company: null,
+                      country: addressShipping.country == null ? "pakistan" : addressShipping.country,
+                      fullName: fullname,
+                      isBillingDefault: false,
+                      isCommercial: false,
+                      isShippingDefault: false,
+                      phone: phonenumber,
+                      postal: "pak",
+                      region: "pandi",
+                    },
+                  },
+                  items,
+                  selectedFulfillmentMethodId: cart.checkout.fulfillmentGroups[0]._id,
+                  shopId: cart.shop._id,
+                  totalPrice: cart.checkout.summary.total.displayAmount,
+                  type: "shipping",
+                },
+              ],
+              shopId: cart.shop._id,
+            },
+            payments: [
+              {
+                amount: cart.checkout.summary.total.displayAmount,
+                billingAddress: {
+                  address1: notes,
+                  address2: notes,
+                  city: city,
+                  company: null,
+                  country: addressBilling.country == null ? "pakistan" : addressBilling.country,
+                  fullName: fullname,
+                  isBillingDefault: false,
+                  isCommercial: false,
+                  isShippingDefault: false,
+                  phone: phonenumber,
+                  postal: "rawlpandi",
+                  region: "pandi",
+                },
+                data: { stripeTokenId: token },
+                method: "stripe_card",
+              },
+            ],
+          },
+        },
+      });
+
+      // Placing the order was successful, so we should clear the
+      // anonymous cart credentials from cookie since it will be
+      // deleted on the server.
+     
+
+      // Send user to order confirmation page
+
+    } catch (error) {
+     console.log(error)
     }
   };
 
-  const setShippingMethod = async (shippingMethod) => {
-    const {
-      checkout: { fulfillmentGroups },
-    } = cart;
-    const fulfillmentOption = {
-      fulfillmentGroupId: fulfillmentGroups[0]._id,
-      fulfillmentMethodId: shippingMethod.selectedFulfillmentOption.fulfillmentMethod._id,
-    };
-
-    await checkoutMutations.onSetFulfillmentOption(fulfillmentOption);
-  };
-
-  const handlePaymentSubmit = (paymentInput) => {
-    cartStore.addCheckoutPayment(paymentInput);
-
-    setHasPaymentError(false);
-    setActionAlerts({ 3: {} });
-  };
-
-  const handlePaymentsReset = () => {
-    cartStore.resetCheckoutPayments();
-  };
-
-  const buildOrder = async () => {
-    const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
-    const { checkout } = cart;
-
-    const fulfillmentGroups = checkout.fulfillmentGroups.map((group) => {
-      const { data } = group;
-      const { selectedFulfillmentOption } = group;
-
-      const items = cart.items.map((item) => ({
-        addedAt: item.addedAt,
-        price: item.price.amount,
-        productConfiguration: item.productConfiguration,
-        quantity: item.quantity,
-      }));
-
-   
-    });
-  };
-
-  const paymentMethod = cartStore.checkoutPayments[0]?.payment.method ?? null;
-
-  const shippingMethod =
-    cart.checkout.fulfillmentGroups[0].selectedFulfillmentOption?.fulfillmentMethod.displayName ?? null;
 
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+return(
+  <>
+         
+         <Typography variant="h3" className={classes.mainheading}>Shipping Details</Typography>     
+    <form className={classes.root} noValidate>
+    <Grid container >
+      <button onClick={()=>handlepay}>ggg</button>
+    <Grid xs={12}  item>
 
-  const handleresetpsssword = (event) => {
-    setResetPassword(event.target.value);
-  };
-  const handlephonenumber = (event) => {
-    setPhoneNumber(event.target.value);
-  };
-  const handleFullname = (event) => {
-    setFullname(event.target.value);
-  };
-
-  const handleChangeEmail = (event) => {
-    setCheckedEmail(event.target.checked);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleOpenLogIn = () => {
-    openModal("login");
-  };
-
-  const registerUser = async () => {};
- const placeOrder = async (order) => {
-  console.log(order,"order")
-   let remainingAmountDue = order.fulfillmentGroups;
-   const payments = cartStore.checkoutPayments.map(({ payment }) => {
-     const amount = payment.amount ? Math.min(payment.amount, remainingAmountDue) : remainingAmountDue;
-     remainingAmountDue -= amount;
-     return { ...payment, amount };
-   });
-
-   try {
-     const { data } = await apolloClient.mutate({
-       mutation: placeOrderMutation,
-       
-       variables: {
-         input: {
-           order: {
-             cartId: cartEntry.cartId,
-             currencyCode: props.currency,
-             email: "user@gmail.com",
-             fulfillmentGroups: [
-               {
-                 data: {
-                   shippingAddress: {
-                     address1: addressShipping.address,
-                     address2: addressShipping.address2,
-                     city: addressShipping.city,
-                     company: null,
-                     country: addressShipping.country == null ? "pakistan" : addressShipping.country,
-                     fullName: addressShipping.name,
-                     isBillingDefault: false,
-                     isCommercial: false,
-                     isShippingDefault: false,
-                     phone: addressShipping.contact,
-                     postal: addressShipping.postalCode,
-                     region: addressShipping.city,
-                   },
-                 },
-                 items: [
-                   {
-                     addedAt: cartEntry.product.addedAt,
-                     price: props.amount,
-                     productConfiguration: { productId: productId, productVariantId: productIdvariant },
-                     quantity: 1,
-                   },
-                 ],
-                 selectedFulfillmentMethodId: "cmVhY3Rpb24vZnVsZmlsbG1lbnRNZXRob2Q6ckt4QW5rMjh5blNucVFkdTY=",
-                 shopId: SHOP_ID,
-                 totalPrice: props.amount,
-                 type: "shipping",
-               },
-             ],
-             shopId: SHOP_ID,
-           },
-           payments: [
-             {
-               amount: props.amount,
-               billingAddress: {
-                 address1: addressBilling.address,
-                 address2: addressBilling.address2,
-                 city: addressBilling.city,
-                 company: null,
-                 country: addressBilling.country == null ? "pakistan" : addressBilling.country,
-                 fullName: addressBilling.name,
-                 isBillingDefault: false,
-                 isCommercial: false,
-                 isShippingDefault: false,
-                 phone: addressBilling.contact,
-                 postal: addressBilling.postalCode,
-                 region: addressBilling.city,
-               },
-               data: { stripeTokenId: token },
-               method: "stripe_card",
-             },
-           ],
-           payments,
-         },
-       },
-     
-     });
-
-     cartStore.clearAnonymousCartCredentials();
-     clearAuthenticatedUsersCart();
-     cartStore.resetCheckoutPayments();
-  console.log(variables,"var");
-     const {
-       placeOrder: { orders, token },
-     } = data;
-
-    //  Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
-   } catch (error) {
-     setHasPaymentError(true);
-     setIsPlacingOrder(false);
-     setActionAlerts({
-       3: {
-         alertType: "error",
-         title: "Payment method failed",
-         message: error.toString().replace("Error: GraphQL error:", ""),
-       },
-     });
-   }
- };
-
- const handlePlaceOrder = () => {
-   const order = {
-     cartId: cart.cartId,
-     currencyCode: cart.checkout.summary.total.currency.code,
-     email: cart.orderEmailAddress,
-     fulfillmentGroups: cart.fulfillmentGroups,
-     shopId: cart.shop._id,
-   };
-
-   setIsPlacingOrder(true);
-   placeOrder(order);
-   console.log(order, "order");
- };
- 
-
-
-  return (
-    <>
-      <Typography variant="h3" className={classes.mainheading}>
-        Shipping Details
-      </Typography>
-      <form className={classes.root} noValidate>
-        <Grid container>
-          <Grid xs={12} item>
-            <label className={classes.label} required variant="h4">
-              <button onClick={handlePlaceOrder}> tttt</button>
-              Full Name
-              <TextField
-                placeholder="Enter your Full name"
-                type="text"
-                InputProps={{ disableUnderline: true }}
-                inputProps={{ style: { color: "black" } }}
-                className={classes.input}
-                onChange={handleFullname}
-                value={fullname}
+                   <label className={classes.label }  required variant="h4">Full Name 
+                    <TextField placeholder="Enter your Full name"  type="text"  InputProps={{ disableUnderline: true }}  inputProps={{ style: {  color: 'black'}}} className={classes.input}   onChange={handleFullname} value={fullname}
+      />
+                    </label>
+                    </Grid>
+      <Grid xs={12} item>
+                      <label className={classes.label} variant="h4">Phone
+                    <TextField placeholder="Enter your name"  type="number"    InputProps={{ style: {  color: 'black'}, disableUnderline: true,   startAdornment: (
+            <InputAdornment position="start" className={classes.phone} >
+              +92
+            </InputAdornment>
+          ), }}  required className={classes.input} onChange={handleEmailChange} value={email}  
+             />
+                    </label>
+                    </Grid>
+                   
+                    <Grid item xs={12}>
+                   <label className={classes.label} variant="h4">Email
+                   <TextField placeholder="Enter your Email Adress"
+           InputProps={{ disableUnderline: true,  }}  required className={classes.input} inputProps={{ style: {  color: 'black'}}} onChange={handlephonenumber} value={phonenumber} />
+                   </label>
+                    </Grid>
+                    <Grid item xs={12}>
+                    <label className={classes.label} variant="h4">Complete Address
+                    <TextField      placeholder="Enter your complete address"  InputProps={{ disableUnderline: true }}   required className={classes.input} onChange={handlePasswordChange} inputProps={{ style: {  color: 'black'}}} value={password}/>
+                    </label>
+                    </Grid>
+                  
+                     <Grid item xs={12}>
+                    <label className={classes.label} variant="h4">City
+                    <TextField placeholder="Select your city"  InputProps={{ disableUnderline: true  }}   required className={classes.input} onChange={handleCity} inputProps={{ style: {  color: 'black'}}}
+                    value={city}/>
+    
+                   </label>                     </Grid>
+                 
+                    </Grid>
+                    <div className={classes.checkboxdiv}>
+                 <FormControlLabel
+            control={
+              <Checkbox
+                checked={checkedEmail}
+                onChange={handleChangeEmail}
+                className={classes.checkbox}
               />
-            </label>
-          </Grid>
-          <Grid xs={12} item>
-            <label className={classes.label} variant="h4">
-              Phone
-              <TextField
-                placeholder="Enter your name"
-                type="number"
-                InputProps={{
-                  style: { color: "black" },
-                  disableUnderline: true,
-                  startAdornment: (
-                    <InputAdornment position="start" className={classes.phone}>
-                      +92
-                    </InputAdornment>
-                  ),
-                }}
-                required
-                className={classes.input}
-                onChange={handleEmailChange}
-                value={email}
-              />
-            </label>
-          </Grid>
-
-          <Grid item xs={12}>
-            <label className={classes.label} variant="h4">
-              Email
-              <TextField
-                placeholder="Enter your Email Adress"
-                InputProps={{ disableUnderline: true }}
-                required
-                className={classes.input}
-                inputProps={{ style: { color: "black" } }}
-                onChange={handlephonenumber}
-                value={phonenumber}
-              />
-            </label>
-          </Grid>
-          <Grid item xs={12}>
-            <label className={classes.label} variant="h4">
-              Complete Address
-              <TextField
-                placeholder="Enter your complete address"
-                InputProps={{ disableUnderline: true }}
-                required
-                className={classes.input}
-                onChange={handlePasswordChange}
-                inputProps={{ style: { color: "black" } }}
-                value={password}
-              />
-            </label>
-          </Grid>
-
-          <Grid item xs={12}>
-            <label className={classes.label} variant="h4">
-              City
-              <TextField
-                placeholder="Select your city"
-                InputProps={{ disableUnderline: true }}
-                required
-                className={classes.input}
-                onChange={handleresetpsssword}
-                inputProps={{ style: { color: "black" } }}
-                value={resetpassword}
-              />
-            </label>{" "}
-          </Grid>
-        </Grid>
-        <div className={classes.checkboxdiv}>
-          <FormControlLabel
-            control={<Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />}
+            }
+         
           />
-          <Typography variant="body2" className={classes.terms}>
-            Save this Information for next time
-          </Typography>
-        </div>
-        <Grid item xs={12}>
-          <label className={classes.label} variant="h4">
-            Order Notes
-            <TextField
-              placeholder="Enter additional notes here."
-              InputProps={{ disableUnderline: true }}
-              required
-              className={classes.inputorder}
-              inputProps={{ style: { color: "black" } }}
-              onChange={handlephonenumber}
-              value={phonenumber}
-            />
-          </label>
-        </Grid>
-      </form>
-      <CheckoutSummary hello={"hello"}></CheckoutSummary>
+           <Typography variant="body2" className={classes.terms}>Save this Information for next time</Typography>
+    
+     
+          </div>
+          <Grid item xs={12}>
+                   <label className={classes.label} variant="h4">Order Notes
+                   <TextField placeholder="Enter additional notes here."
+           InputProps={{ disableUnderline: true,  }}  required className={classes.inputorder} inputProps={{ style: {  color: 'black'}}} onChange={handleNotes} value={notes} />
+                   </label>
+                    </Grid>
+     
+    </form>
+    <CheckoutSummary hello={"hello"}></CheckoutSummary>
     </>
-  );
-};
+)
+}
 
 export default CheckoutActions;
