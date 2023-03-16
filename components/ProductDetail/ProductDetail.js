@@ -15,8 +15,8 @@ import MediaGallery from "components/MediaGallery";
 import Router from "translations/i18nRouter";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import variantById from "lib/utils/variantById";
-const { Swiper, SwiperSlide } = require("swiper/react");
-const { Navigation, Thumbs, Mousewheel, Pagination } = require("swiper");
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Thumbs, Mousewheel, Pagination }from "swiper";
 import Box from "@material-ui/core/Box";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -226,7 +226,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  console.log(props.product,"new")
+  console.log(props, "new");
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -241,21 +241,14 @@ const ProductDetail = ({ ...props }) => {
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
-    const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  // componentDidMount() {
-  //   const { product } = this.props;
-
-  //   // Select first variant by default
-  //   this.selectVariant(product.variants[0]);
-  // }
   useEffect(() => {
     const { product } = props;
 
-    // Select first variant by default
     selectVariant(product.variants[0]);
   }, []);
   function selectVariant(variant, optionId) {
@@ -293,6 +286,7 @@ const ProductDetail = ({ ...props }) => {
    * @param {Number} quantity - A positive integer from 0 to infinity, representing the quantity to add to cart
    * @returns {undefined} No return
    */
+
   const handleAddToCartClick = async (quantity) => {
     const {
       addItemsToCart,
@@ -301,7 +295,8 @@ const ProductDetail = ({ ...props }) => {
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId },
       width,
     } = props;
-
+    console.log(pdpSelectedVariantId, "star");
+  console.log(product.variants,"op");
     // Get selected variant or variant option
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
     const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
@@ -310,7 +305,7 @@ const ProductDetail = ({ ...props }) => {
     if (selectedVariantOrOption) {
       // Get the price for the currently selected variant or variant option
       const price = priceByCurrencyCode(currencyCode, selectedVariantOrOption.pricing);
-
+      
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
         {
@@ -375,6 +370,7 @@ const ProductDetail = ({ ...props }) => {
     uiStore: { pdpSelectedOptionId, pdpSelectedVariantId },
     width,
   } = props;
+ 
 
   // Set the default media as the top-level product's media
   // (all media on all variants and objects)
@@ -401,17 +397,12 @@ const ProductDetail = ({ ...props }) => {
     }
   }
 
-   const handleOnClick = async () => {
-    
-
+  const handleOnClick = async () => {
     // Pass chosen quantity to onClick callback
     await handleAddToCartClick(addToCartQuantity);
 
     // Scroll to the top
-    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
-      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
-    }
-  }
+  };
   const productPrice = determineProductPrice();
   const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
@@ -419,6 +410,7 @@ const ProductDetail = ({ ...props }) => {
   return (
     <>
       <Box className={classes.slider}>
+        <h1>{product.variants[0].variantId}</h1>
         <Grid
           container
           spacing={2}
@@ -548,7 +540,9 @@ const ProductDetail = ({ ...props }) => {
               </div>
               <div className={classes.cart}>
                 <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h4" onClick={handleOnClick}>+ Cart </Typography>
+                <Typography variant="h4" onClick={handleOnClick}>
+                  + Cart{" "}
+                </Typography>
               </div>
               <TabContext value={value}>
                 <TabList onChange={handleChange} className={classes.tabs}>
@@ -574,7 +568,7 @@ const ProductDetail = ({ ...props }) => {
         </Grid>
       </Box>
 
-      <Fragment>
+      {/* <Fragment>
         <Grid container spacing={5}>
           <Grid item className={classes.breadcrumbGrid} xs={12}>
             <Breadcrumbs isPDP tagId={routingStore.tagId} product={product} />
@@ -617,7 +611,7 @@ const ProductDetail = ({ ...props }) => {
             />
           </Grid>
         </Grid>
-      </Fragment>
+      </Fragment> */}
     </>
   );
 };

@@ -1,4 +1,4 @@
-const { Swiper, SwiperSlide } = require("swiper/react");
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
@@ -7,7 +7,6 @@ import Storyslider from "./storiesslide";
 const Story = (props) => {
   console.log("all props....", props);
   const catagories = props?.nodes;
-  console.log(catagories, "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnsdddddddddddddddddddddddddddd");
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
     root: {
