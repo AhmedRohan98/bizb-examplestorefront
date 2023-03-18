@@ -16,7 +16,7 @@ import Router from "translations/i18nRouter";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import variantById from "lib/utils/variantById";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs, Mousewheel, Pagination }from "swiper";
+import SwiperCore, { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
 import Box from "@material-ui/core/Box";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,7 +27,7 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-
+SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
 const styles = (theme) => ({
   slider: {
     paddingTop: theme.spacing(8),
@@ -62,10 +62,10 @@ const styles = (theme) => ({
     width: "200px",
     "& .swiper-slide": {
       opacity: 0.5,
-      "&.swiper-slide-visible": {
-        opacity: 0.5,
+      "&.swiper-slide-active": {
+        opacity: 1,
 
-        "&.swiper-slide-thumb-active": {
+        "& .swiper-slide-next": {
           opacity: 1,
         },
       },
@@ -73,14 +73,14 @@ const styles = (theme) => ({
   },
   controller: {
     width: "90vh",
-    display: "flex",
+    display: "inline-grid",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   iconforwad: {
     position: "absolute",
     top: "50%",
-    right: "10px",
+    left: "470px",
     background: "#333333",
     color: "FDC114",
     borderRadius: "4px",
@@ -158,6 +158,7 @@ const styles = (theme) => ({
   },
   sliderimage2: {
     position: "realtive",
+    display:"inline-grid"
   },
   thumbimage: {
     borderRadius: "18px",

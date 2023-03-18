@@ -11,7 +11,7 @@ import theme from "custom/reactionTheme";
 // import 'swiper/modules/navigation/navigation.min.css'
 // import "swiper/modules/thumbs/thumbs.min.css";
 // import "swiper/modules/free-mode/free-mode.min.css";
-import 'swiper/swiper.scss';
+import "swiper/swiper-bundle.css";
 // import 'swiper/components/navigation/navigation.scss';
 // import 'swiper/components/pagination/pagination.scss';
 // import 'swiper/components/scrollbar/scrollbar.scss';
