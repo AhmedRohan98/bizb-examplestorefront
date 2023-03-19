@@ -363,13 +363,12 @@ const Justin = (props) => {
                     alt={"hhhh"}
                   />
                 </Link>
-                <div className={classes.cart}>
+                <div
+                  className={classes.cart}
+                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                >
                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                  <Typography
-                    variant="h5"
-                    component="h2"
-                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                  >
+                  <Typography variant="h5" component="h2">
                     + Cart{" "}
                   </Typography>
                 </div>

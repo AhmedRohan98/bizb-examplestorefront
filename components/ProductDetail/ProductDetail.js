@@ -62,13 +62,8 @@ const styles = (theme) => ({
     width: "200px",
     "& .swiper-slide": {
       opacity: 0.5,
-      "&.swiper-slide-active": {
-        opacity: 1,
-
-        "& .swiper-slide-next": {
-          opacity: 1,
-        },
-      },
+  
+      
     },
   },
   controller: {
@@ -191,11 +186,11 @@ const slides = [
     size: "large",
   },
   {
-    image: "/justin/justin1.svg",
-    id: 1,
+    image: "/cart/cart3.svg",
+    title: "Bag for sale",
+    id: 2,
     price: "Rs 1200",
     newprice: "Rs 600",
-    title: "floral shirt for ",
     size: "large",
   },
 ];

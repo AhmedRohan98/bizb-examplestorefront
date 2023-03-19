@@ -86,7 +86,7 @@ const addItemsToCart = this.props.addItemsToCart ;
         />
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-        <ProductGrid
+        {/* <ProductGrid
           catalogItems={catalogItems}
           currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
           isLoadingCatalogItems={isLoadingCatalogItems}
@@ -95,7 +95,7 @@ const addItemsToCart = this.props.addItemsToCart ;
           setPageSize={this.setPageSize}
           setSortBy={this.setSortBy}
           sortBy={sortBy}
-        />
+        /> */}
       </Layout>
     ) : (
       "Loading..."
