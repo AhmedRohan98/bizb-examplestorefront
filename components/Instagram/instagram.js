@@ -5,7 +5,7 @@ import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
 const Instagram = (props) => {
   console.log("instagram props", props.feed);
-  const data=props.feed.data
+  const data=props?.feed?.data
  const images = data.filter((media) => media.media_type === "IMAGE").slice(0, 6);
   const useStyles = makeStyles((theme) => ({
     root: {

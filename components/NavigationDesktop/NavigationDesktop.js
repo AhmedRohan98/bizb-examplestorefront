@@ -11,10 +11,12 @@ const styles = (theme) => ({
   light: {
     color: "#FFFFFF",
     cursor: "pointer",
+    zIndex: 1200,
   },
   dark: {
     color: "#333333",
     cursor: "pointer",
+    zIndex: 1200,
   },
 });
 
