@@ -27,6 +27,8 @@ const styles = (theme: Theme) =>
       // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
       // opacity: "0.7",
       height: "170px",
+
+      width:"100%"
     
     },
     
@@ -45,6 +47,7 @@ const styles = (theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
       marginTop: "50px",
+      
       zIndex: 1000,
     },
     dark: {
@@ -85,7 +88,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
             </Link> */}
           </Typography>
 {/* @ts-ignore TODO: Refactor link to address type error */}
-          <Hidden smDown><NavigationDesktop headerType={headerType}/></Hidden>
+          <Hidden ><NavigationDesktop headerType={headerType}/></Hidden>
           {/* @ts-ignore TODO: Refactor link to address type error */}
         </div>
         {/* @ts-ignore TODO: Refactor link to address type error */}
