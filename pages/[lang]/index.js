@@ -115,7 +115,7 @@ export async function getStaticProps({ params: { lang } }) {
   const data = await fetch(url);
   console.log("data is ", data);
 
-  const feed = await data.json();
+  const feed = await data.json(); 
   console.log("new feed", feed);
 
 

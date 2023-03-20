@@ -28,7 +28,7 @@ const styles = (theme: Theme) =>
       // opacity: "0.7",
       height: "170px",
 
-      width:"100%"
+      width:"100"
     
     },
     
@@ -88,7 +88,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
             </Link> */}
           </Typography>
 {/* @ts-ignore TODO: Refactor link to address type error */}
-          <Hidden ><NavigationDesktop headerType={headerType}/></Hidden>
+          <Hidden smDown><NavigationDesktop headerType={headerType}/></Hidden>
           {/* @ts-ignore TODO: Refactor link to address type error */}
         </div>
         {/* @ts-ignore TODO: Refactor link to address type error */}
