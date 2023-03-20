@@ -15,8 +15,8 @@ import MediaGallery from "components/MediaGallery";
 import Router from "translations/i18nRouter";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import variantById from "lib/utils/variantById";
-const { Swiper, SwiperSlide } = require("swiper/react");
-const { Navigation, Thumbs, Mousewheel, Pagination } = require("swiper");
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
 import Box from "@material-ui/core/Box";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,7 +27,7 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-
+SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
 const styles = (theme) => ({
   slider: {
     paddingTop: theme.spacing(8),
@@ -62,25 +62,20 @@ const styles = (theme) => ({
     width: "200px",
     "& .swiper-slide": {
       opacity: 0.5,
-      "&.swiper-slide-visible": {
-        opacity: 0.5,
-
-        "&.swiper-slide-thumb-active": {
-          opacity: 1,
-        },
-      },
+  
+      
     },
   },
   controller: {
     width: "90vh",
-    display: "flex",
+    display: "inline-grid",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   iconforwad: {
     position: "absolute",
     top: "50%",
-    right: "10px",
+    left: "470px",
     background: "#333333",
     color: "FDC114",
     borderRadius: "4px",
@@ -158,6 +153,7 @@ const styles = (theme) => ({
   },
   sliderimage2: {
     position: "realtive",
+    display:"inline-grid"
   },
   thumbimage: {
     borderRadius: "18px",
@@ -190,11 +186,11 @@ const slides = [
     size: "large",
   },
   {
-    image: "/justin/justin1.svg",
-    id: 1,
+    image: "/cart/cart3.svg",
+    title: "Bag for sale",
+    id: 2,
     price: "Rs 1200",
     newprice: "Rs 600",
-    title: "floral shirt for ",
     size: "large",
   },
 ];
@@ -226,7 +222,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  console.log(props.product,"new")
+  console.log(props, "new");
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -241,21 +237,14 @@ const ProductDetail = ({ ...props }) => {
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
-    const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  // componentDidMount() {
-  //   const { product } = this.props;
-
-  //   // Select first variant by default
-  //   this.selectVariant(product.variants[0]);
-  // }
   useEffect(() => {
     const { product } = props;
 
-    // Select first variant by default
     selectVariant(product.variants[0]);
   }, []);
   function selectVariant(variant, optionId) {
@@ -293,6 +282,7 @@ const ProductDetail = ({ ...props }) => {
    * @param {Number} quantity - A positive integer from 0 to infinity, representing the quantity to add to cart
    * @returns {undefined} No return
    */
+
   const handleAddToCartClick = async (quantity) => {
     const {
       addItemsToCart,
@@ -301,7 +291,8 @@ const ProductDetail = ({ ...props }) => {
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId },
       width,
     } = props;
-
+    console.log(pdpSelectedVariantId, "star");
+  console.log(product.variants,"op");
     // Get selected variant or variant option
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
     const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
@@ -310,7 +301,7 @@ const ProductDetail = ({ ...props }) => {
     if (selectedVariantOrOption) {
       // Get the price for the currently selected variant or variant option
       const price = priceByCurrencyCode(currencyCode, selectedVariantOrOption.pricing);
-
+      
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
         {
@@ -375,6 +366,7 @@ const ProductDetail = ({ ...props }) => {
     uiStore: { pdpSelectedOptionId, pdpSelectedVariantId },
     width,
   } = props;
+ 
 
   // Set the default media as the top-level product's media
   // (all media on all variants and objects)
@@ -401,17 +393,12 @@ const ProductDetail = ({ ...props }) => {
     }
   }
 
-   const handleOnClick = async () => {
-    
-
+  const handleOnClick = async () => {
     // Pass chosen quantity to onClick callback
     await handleAddToCartClick(addToCartQuantity);
 
     // Scroll to the top
-    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
-      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
-    }
-  }
+  };
   const productPrice = determineProductPrice();
   const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
@@ -419,6 +406,7 @@ const ProductDetail = ({ ...props }) => {
   return (
     <>
       <Box className={classes.slider}>
+        <h1>{product.variants[0].variantId}</h1>
         <Grid
           container
           spacing={2}
@@ -548,7 +536,9 @@ const ProductDetail = ({ ...props }) => {
               </div>
               <div className={classes.cart}>
                 <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h4" onClick={handleOnClick}>+ Cart </Typography>
+                <Typography variant="h4" onClick={handleOnClick}>
+                  + Cart{" "}
+                </Typography>
               </div>
               <TabContext value={value}>
                 <TabList onChange={handleChange} className={classes.tabs}>
@@ -574,7 +564,7 @@ const ProductDetail = ({ ...props }) => {
         </Grid>
       </Box>
 
-      <Fragment>
+      {/* <Fragment>
         <Grid container spacing={5}>
           <Grid item className={classes.breadcrumbGrid} xs={12}>
             <Breadcrumbs isPDP tagId={routingStore.tagId} product={product} />
@@ -617,7 +607,7 @@ const ProductDetail = ({ ...props }) => {
             />
           </Grid>
         </Grid>
-      </Fragment>
+      </Fragment> */}
     </>
   );
 };

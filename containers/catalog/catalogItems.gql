@@ -31,6 +31,15 @@ query catalogItemsQuery(
             slug
             description
             vendor
+            productId
+            variants {
+              _id
+              variantId
+
+              options {
+                _id
+              }
+            }
             isLowQuantity
             isSoldOut
             isBackorder

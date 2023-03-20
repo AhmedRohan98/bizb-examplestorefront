@@ -71,14 +71,22 @@ class ProductGridPage extends Component {
       pageTitle = "Bizb";
     }
 const addItemsToCart = this.props.addItemsToCart ;
+
     return typeof window !== undefined ? (
       <Layout headerType={false}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
-        <DynamicSlider {...this.props?.tags} catalogItems={catalogItems} feed={feed} addItemsToCart={addItemsToCart} />
+        <DynamicSlider
+          {...this.props?.tags}
+          catalogItems={catalogItems}
+          feed={feed}
+          addItemsToCart={addItemsToCart}
+          currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
+          shop={shop}
+        />
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-        <ProductGrid
+        {/* <ProductGrid
           catalogItems={catalogItems}
           currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
           isLoadingCatalogItems={isLoadingCatalogItems}
@@ -87,7 +95,7 @@ const addItemsToCart = this.props.addItemsToCart ;
           setPageSize={this.setPageSize}
           setSortBy={this.setSortBy}
           sortBy={sortBy}
-        />
+        /> */}
       </Layout>
     ) : (
       "Loading..."

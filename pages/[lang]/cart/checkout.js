@@ -174,7 +174,6 @@ const Checkout = ({ router }) => {
                   <div className={classes.flexContainer}>
                     <div className={classes.checkoutActions}>
                       <CheckoutActions
-                        apolloClient={apolloClient}
                         cart={cart}
                         cartStore={cartStore}
                         checkoutMutations={checkoutMutations}

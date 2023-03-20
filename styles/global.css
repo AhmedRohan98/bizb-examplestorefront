@@ -12,6 +12,24 @@
     transform: translate3d(0,0,0);
     z-index: 10;
 }
+.swiper-slide-active {
+ opacity: 1 !important;
+}
+.swiper-slide-thumb-active{
+  opacity: 1 !important;
+}
+
+
+.thumb .swiper-slide-visible {
+   opacity: 1 !important;
+}
+  .MuiInputBase-input {
+
+    color: black !important;
+    padding: opx;
+    font-size: 16px;
+    font-family: lato;
+}
 a {
   text-decoration: none;
 }

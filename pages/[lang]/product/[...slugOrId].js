@@ -21,6 +21,8 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
  * @name buildJSONLd
  * @param {Object} product - The product
  * @param {Object} shop - The shop
+ * 
+ * 
  * @summary Builds a JSONLd object from product properties.
  * @return {String} Stringified product jsonld
  */
