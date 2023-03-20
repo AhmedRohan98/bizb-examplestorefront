@@ -23,14 +23,15 @@ const useStyles = makeStyles((theme) => ({
     background: "green",
   },
   paper: {
-    height: "90vh",
-    width: "70vw",
+  
+    height : "825px",
+    width: "1020px",
     borderRadius: "4px",
    
-    boxSizing: "initial",
+   
     position: "absolute",
     zIndex: 7,
-    overflow: "scroll",
+    
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],

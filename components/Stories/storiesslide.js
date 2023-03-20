@@ -1,4 +1,4 @@
-const { Swiper, SwiperSlide } = require("swiper/react");
+import { Swiper, SwiperSlide }from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";

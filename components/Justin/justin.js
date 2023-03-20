@@ -4,7 +4,10 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
-
+import variantById from "lib/utils/variantById";
+import { useEffect, useState } from "react";
+import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
+import inject from "hocs/inject";
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: "3vh",
@@ -263,13 +266,71 @@ const itemData = [
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-  const addtocart = props?.addItemsToCart;
-  console.log(catalogdata, "RRRRRRRRrrrrrrrrr");
-  // catalogdata.map((edge) => {
-  //   const title = edge.node.product.media;
+  // useEffect(() => {
+  //   const { product } = props;
 
-  //   console.log(title, "ffffffffffffffffffff");
-  // });
+  //   selectVariant(product.variants[0]);
+  // }, []);
+  function selectVariant(variant, optionId) {
+    const { product, uiStore } = props;
+
+    // Select the variant, and if it has options, the first option
+    const variantId = variant._id;
+    let selectOptionId = optionId;
+    if (!selectOptionId && variant.options && variant.options.length) {
+      selectOptionId = variant.options[0]._id;
+    }
+
+    uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
+
+    Router.replace("/product/[...slugOrId]", `/product/${product.slug}/${selectOptionId || variantId}`);
+  }
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+
+  const handleAddToCartClick = async (quantity, product, variant) => {
+    const {
+      addItemsToCart,
+      currencyCode,
+
+      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+    } = props;
+
+    console.log(pdpSelectedVariantId, "star");
+
+    // Get selected variant or variant option
+    const selectedVariant = variantById(product.variants, variant._id);
+    // const selectedOption = variantById(selectedVariant.options, variantId);
+    // const selectedVariantOrOption = selectedOption || selectedVariant;
+    console.log("selected variant..", product, selectedVariant);
+    if (selectedVariant) {
+      // Get the price for the currently selected variant or variant option
+      const price = priceByCurrencyCode(currencyCode, product.pricing);
+      console.log("price...", price);
+      // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
+      await addItemsToCart([
+        {
+          price: {
+            amount: 0,
+            currencyCode,
+          },
+          productConfiguration: {
+            productId: product.productId, // Pass the productId, not to be confused with _id
+            productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+          },
+          quantity,
+        },
+      ]);
+    }
+  };
+
+  const handleOnClick = async (product, variant) => {
+    // Pass chosen quantity to onClick callback
+    console.log("handle click");
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+
+    // Scroll to the top
+  };
+
   const classes = useStyles();
   return (
     <div className={classes.main}>
@@ -284,7 +345,7 @@ const Justin = (props) => {
       </div>
       <div className={classes.root}>
         <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-          {catalogdata?.map((item) => (
+          {catalogdata?.map((item, key) => (
             <>
               <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
                 <Link
@@ -302,7 +363,10 @@ const Justin = (props) => {
                     alt={"hhhh"}
                   />
                 </Link>
-                <div className={classes.cart}>
+                <div
+                  className={classes.cart}
+                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                >
                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                   <Typography variant="h5" component="h2">
                     + Cart{" "}
@@ -336,4 +400,4 @@ const Justin = (props) => {
   );
 };
 
-export default Justin;
+export default inject("routingStore", "uiStore")(Justin);
