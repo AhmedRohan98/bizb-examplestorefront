@@ -17,7 +17,7 @@ import Router from "translations/i18nRouter";
 import calculateRemainderDue from "lib/utils/calculateRemainderDue";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import { Grid, TextField, Typography } from "@material-ui/core";
+import { Grid, TextField, Typography, Button } from "@material-ui/core";
 import React, { useState } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
@@ -162,11 +162,90 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     fontSize: "17px",
   },
+  mainheading: {
+    textTransform: "uppercase",
+  },
+  ellipse: {
+    height: "18px",
+    width: "18px",
+    borderRadius: "100%",
+  },
+  cartpayment: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(5),
+  },
+  cartdelivery: {
+    fontWeight: 400,
+    marginLeft: theme.spacing(3),
+    color: "#333333",
+  },
+  cartdelivery2: {
+    width: "350px",
+    marginTop: theme.spacing(3),
+    fontWeight: 700,
+    lineHeight: "39px",
+    marginBottom: "10px",
+  },
+  cartcard: {
+    height: "391px",
+    width: "391px",
+    boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
+    borderRadius: "18px",
+    padding: theme.spacing(2),
+  },
+  shipping: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  empty: {
+    height: "1px",
+    width: "100%",
+    marginTop: theme.spacing(3),
+    borderBottom: "1px solid #E5E5E5",
+    color: "#000000",
+    opacity: "1",
+  },
+  subtotal: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: theme.spacing(2),
+  },
+  subtotalamount: {
+    fontWeight: 700,
+    lineHeight: "34px",
+  },
+  orderbutn: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  register: {
+    width: "261px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+
+    display: "flex",
+    marginTop: theme.spacing(4),
+    justifyContent: "center",
+    alignItems: "center",
+    background: theme.palette.secondary.selected,
+    "&:hover": {
+      background: theme.palette.secondary.selected,
+    },
+  },
 }));
 
 const CheckoutActions = (prop) => {
-  const { cart, apolloClient } = prop;
-  console.log(cart, "prop");
+  const { cart, apolloClient, cartStore } = prop;
+
+  const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
+  const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
+  console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
   const [checkedEmail, setCheckedEmail] = React.useState(true);
   const [placeOrder] = useMutation(placeOrderQuery);
 
@@ -213,8 +292,10 @@ const CheckoutActions = (prop) => {
   }));
 
   const handlepay = async () => {
+   
+   
     try {
-      console.log("payments.............");
+     
       // const { data } = apolloClient.mutate({
       //   mutation: placeOrderMutation,
       //   variables: {
@@ -277,9 +358,11 @@ const CheckoutActions = (prop) => {
       const data = await placeOrder({
         variables: {
           order: {
-            cartId: cart._id,
+            cartId: cartStore.accountCartId,
             currencyCode: cart.shop.currency.code,
-            email: "sardar@gmail.com",
+
+            email: cart.account.emailRecords[0].address,
+
             fulfillmentGroups: [
               {
                 data: {
@@ -299,159 +382,229 @@ const CheckoutActions = (prop) => {
                   },
                 },
                 items,
-
+                // displayShipping: fulfillmentTotal && fulfillmentTotal.displayAmount,
+                // displaySubtotal: itemTotal.displayAmount,
+                // displaySurcharge: surchargeTotal.displayAmount,
+                // displayTotal: total.displayAmount,
+                // displayTax: taxTotal && taxTotal.displayAmount,
                 shopId: cart.shop._id,
-                totalPrice: 0.0,
+                totalPrice: cart.checkout.summary.itemTotal.amount + 10,
                 type: "shipping",
-                selectedFulfillmentMethodId: "pHk3xmXeWHyZ2tPMn - Free",
+                selectedFulfillmentMethodId: "cmVhY3Rpb24vZnVsZmlsbG1lbnRNZXRob2Q6Zm1YU1FFM2dKbzM4V2NvZGUy",
               },
             ],
             shopId: cart.shop._id,
           },
           payments: [
             {
-              amount: 0.0,
-              billingAddress: {
-                address1: "dsfff",
-                address2: "ssff",
-                city: city,
-                company: null,
-                country: "pakistan",
-                fullName: "sardar umer javed",
-                isBillingDefault: false,
-                isCommercial: false,
-                isShippingDefault: false,
-                phone: phonenumber,
-                postal: "rawlpandi",
-                region: "pandi",
-              },
-              method: "stripe_payment_intent",
+              amount: cart.checkout.summary.itemTotal.amount + 10,
+
+              method: "iou_example",
             },
           ],
+          total: cart.checkout.summary.itemTotal.amount + 10,
+          totalItemQuantity: 1,
         },
       });
 
-      console.log("placeorder result", data);
+
+        // cartStore.clearAnonymousCartCredentials();
+        // clearAuthenticatedUsersCart();
+
+        // // Also destroy the collected and cached payment input
+        // cartStore.resetCheckoutPayments();
+
+        const {
+          placeOrder: { orders, token },
+        } = data;
+
+        // Send user to order confirmation page
+        Router.push("/en/checkout/order");
+console.log(token,"token")
+  // Send user to order confirmation page
+
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <>
-      <Typography variant="h3" className={classes.mainheading}>
-        Shipping Details
-      </Typography>
-      <button onClick={() => handlepay()}>ggg</button>
+    <Grid container xs={12}>
+      <Grid item xs={9}>
+        <Typography variant="h3" className={classes.mainheading}>
+          Shipping Details
+        </Typography>
 
-      <form className={classes.root} noValidate>
-        <Grid container>
-          <Grid xs={12} item>
-            <label className={classes.label} required variant="h4">
-              Full Name
-              <TextField
-                placeholder="Enter your Full name"
-                type="text"
-                InputProps={{ disableUnderline: true }}
-                inputProps={{ style: { color: "black" } }}
-                className={classes.input}
-                onChange={handleFullname}
-                value={fullname}
-              />
-            </label>
-          </Grid>
-          <Grid xs={12} item>
-            <label className={classes.label} variant="h4">
-              Phone
-              <TextField
-                placeholder="Enter your name"
-                type="number"
-                InputProps={{
-                  style: { color: "black" },
-                  disableUnderline: true,
-                  startAdornment: (
-                    <InputAdornment position="start" className={classes.phone}>
-                      +92
-                    </InputAdornment>
-                  ),
-                }}
-                required
-                className={classes.input}
-                onChange={handleEmailChange}
-                value={email}
-              />
-            </label>
-          </Grid>
+        <form className={classes.root} noValidate>
+          <Grid container xs={12}>
+            <Grid xs={12} item>
+              <label className={classes.label} required variant="h4">
+                Full Name
+                <TextField
+                  placeholder="Enter your Full name"
+                  type="text"
+                  InputProps={{ disableUnderline: true }}
+                  inputProps={{ style: { color: "black" } }}
+                  className={classes.input}
+                  onChange={handleFullname}
+                  value={fullname}
+                />
+              </label>
+            </Grid>
+            <Grid xs={12} item>
+              <label className={classes.label} variant="h4">
+                Phone
+                <TextField
+                  placeholder="Enter your name"
+                  type="number"
+                  InputProps={{
+                    style: { color: "black" },
+                    disableUnderline: true,
+                    startAdornment: (
+                      <InputAdornment position="start" className={classes.phone}>
+                        +92
+                      </InputAdornment>
+                    ),
+                  }}
+                  required
+                  className={classes.input}
+                  onChange={handleEmailChange}
+                  value={email}
+                />
+              </label>
+            </Grid>
 
-          <Grid item xs={12}>
-            <label className={classes.label} variant="h4">
-              Email
-              <TextField
-                placeholder="Enter your Email Adress"
-                InputProps={{ disableUnderline: true }}
-                required
-                className={classes.input}
-                inputProps={{ style: { color: "black" } }}
-                onChange={handlephonenumber}
-                value={phonenumber}
-              />
-            </label>
-          </Grid>
-          <Grid item xs={12}>
-            <label className={classes.label} variant="h4">
-              Complete Address
-              <TextField
-                placeholder="Enter your complete address"
-                InputProps={{ disableUnderline: true }}
-                required
-                className={classes.input}
-                onChange={handlePasswordChange}
-                inputProps={{ style: { color: "black" } }}
-                value={password}
-              />
-            </label>
-          </Grid>
+            <Grid item xs={12}>
+              <label className={classes.label} variant="h4">
+                Email
+                <TextField
+                  placeholder="Enter your Email Adress"
+                  InputProps={{ disableUnderline: true }}
+                  required
+                  className={classes.input}
+                  inputProps={{ style: { color: "black" } }}
+                  onChange={handlephonenumber}
+                  value={phonenumber}
+                />
+              </label>
+            </Grid>
+            <Grid item xs={12}>
+              <label className={classes.label} variant="h4">
+                Complete Address
+                <TextField
+                  placeholder="Enter your complete address"
+                  InputProps={{ disableUnderline: true }}
+                  required
+                  className={classes.input}
+                  onChange={handlePasswordChange}
+                  inputProps={{ style: { color: "black" } }}
+                  value={password}
+                />
+              </label>
+            </Grid>
 
-          <Grid item xs={12}>
-            <label className={classes.label} variant="h4">
-              City
-              <TextField
-                placeholder="Select your city"
-                InputProps={{ disableUnderline: true }}
-                required
-                className={classes.input}
-                onChange={handleCity}
-                inputProps={{ style: { color: "black" } }}
-                value={city}
-              />
-            </label>{" "}
+            <Grid item xs={12}>
+              <label className={classes.label} variant="h4">
+                City
+                <TextField
+                  placeholder="Select your city"
+                  InputProps={{ disableUnderline: true }}
+                  required
+                  className={classes.input}
+                  onChange={handleCity}
+                  inputProps={{ style: { color: "black" } }}
+                  value={city}
+                />
+              </label>{" "}
+            </Grid>
           </Grid>
-        </Grid>
-        <div className={classes.checkboxdiv}>
-          <FormControlLabel
-            control={<Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />}
-          />
-          <Typography variant="body2" className={classes.terms}>
-            Save this Information for next time
-          </Typography>
-        </div>
-        <Grid item xs={12}>
-          <label className={classes.label} variant="h4">
-            Order Notes
-            <TextField
-              placeholder="Enter additional notes here."
-              InputProps={{ disableUnderline: true }}
-              required
-              className={classes.inputorder}
-              inputProps={{ style: { color: "black" } }}
-              onChange={handleNotes}
-              value={notes}
+          <div className={classes.checkboxdiv}>
+            <FormControlLabel
+              control={<Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />}
             />
-          </label>
+            <Typography variant="body2" className={classes.terms}>
+              Save this Information for next time
+            </Typography>
+          </div>
+          <Grid item xs={12}>
+            <label className={classes.label} variant="h4">
+              Order Notes
+              <TextField
+                placeholder="Enter additional notes here."
+                InputProps={{ disableUnderline: true }}
+                required
+                className={classes.inputorder}
+                inputProps={{ style: { color: "black" } }}
+                onChange={handleNotes}
+                value={notes}
+              />
+            </label>
+          </Grid>
+        </form>
+      </Grid>
+      <Grid item xs={3}>
+        <Grid container xs={12} className={classes.summary}>
+          <>
+            <Typography variant="h3" className={classes.mainheading}>
+              PAYMENT
+            </Typography>
+            <div className={classes.cartpayment}>
+              <img src="/cart/ellipse.svg" />
+              <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
+                Cash On Delivery
+              </Typography>
+            </div>
+            <div className={classes.cartcard}>
+              <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
+                Cart Totals
+              </Typography>
+              <div className={classes.empty}></div>
+              <div className={classes.shipping}>
+                <div className={classes.subtotal}>
+                  <Typography gutterBottom variant="h4">
+                    Subtotal
+                  </Typography>
+                  <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                    {cart.checkout.summary.itemTotal.amount}
+                  </Typography>
+                </div>
+                <div className={classes.subtotal}>
+                  <Typography gutterBottom variant="h4">
+                    Shipping Cost
+                  </Typography>
+                  <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                    {10}
+                  </Typography>
+                </div>
+              </div>
+              <div className={classes.empty}></div>
+              <div className={classes.subtotal}>
+                <Typography gutterBottom variant="h4">
+                  Total
+                </Typography>
+                <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                  {cart.checkout.summary.itemTotal.amount + 10}
+                </Typography>
+              </div>
+              <div className={classes.orderbutn}>
+                <Button
+                  className={classes.register}
+                  InputProps={{ disableUnderline: true }}
+                  variant="h6"
+                  role="button"
+                  type="submit"
+                  onClick={() => {
+                    handlepay();
+                  }}
+                >
+                  Place Order
+                </Button>
+              </div>
+            </div>
+          </>
         </Grid>
-      </form>
-      <CheckoutSummary hello={"hello"}></CheckoutSummary>
-    </>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -170,7 +170,7 @@ const Checkout = ({ router }) => {
           <div className={classes.checkoutContentContainer}>
             <div className={classes.checkoutContent}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={7}>
+              
                   <div className={classes.flexContainer}>
                     <div className={classes.checkoutActions}>
                       <CheckoutActions
@@ -183,8 +183,8 @@ const Checkout = ({ router }) => {
                       />
                     </div>
                   </div>
-                </Grid>
-                <Grid item xs={12} md={5}>
+              
+             
                   <div className={classes.flexContainer}>
                     <div className={classes.cartSummary}>
                       <CheckoutSummary
@@ -197,7 +197,7 @@ const Checkout = ({ router }) => {
                     </div>
                   </div>
                 </Grid>
-              </Grid>
+              
             </div>
           </div>
         </StripeProvider>
