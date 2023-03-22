@@ -14,33 +14,33 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
 
-import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
+import clsx from "clsx";
+import Drawer from "@material-ui/core/Drawer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import FormLabel from '@material-ui/core/FormLabel';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+import FormLabel from "@material-ui/core/FormLabel";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Slider from "@material-ui/core/Slider";
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,9 +59,9 @@ const useStyles = makeStyles((theme) => ({
     width: "379px",
   },
   fullList: {
-    width: 'auto',
+    width: "auto",
   },
-  checkbox:{
+  checkbox: {
     fontSize: "20px",
     color: "#333333",
     fontFamily: "Lato",
@@ -69,24 +69,23 @@ const useStyles = makeStyles((theme) => ({
 
     lineHeight: "24px",
     fontStyle: "normal",
-    color:theme.palette.secondary.selected,
-    "& .MuiTypography-body1":{
+    color: theme.palette.secondary.selected,
+    "& .MuiTypography-body1": {
       fontSize: "20px",
       color: "#333333",
       fontFamily: "Lato",
       fontWeight: 500,
-  
+
       lineHeight: "24px",
       fontStyle: "normal",
     },
-    "& .MuiCheckbox-colorSecondary.Mui-checked":{
-      color:theme.palette.secondary.selected,
+    "& .MuiCheckbox-colorSecondary.Mui-checked": {
+      color: theme.palette.secondary.selected,
     },
-    "& .MuiCheckbox-colorSecondary":{
-      color:"#333333",
-    }
- 
-   },
+    "& .MuiCheckbox-colorSecondary": {
+      color: "#333333",
+    },
+  },
   mainimage: {
     position: "relative",
     display: "inline-grid",
@@ -105,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   categoriesname: {
     fontSize: "48px",
     color: "#ffffff",
-    fontFamily: "Ostrich Sans",
+    fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
 
     lineHeight: "58px",
@@ -183,10 +182,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     marginTop: theme.spacing(10),
-    border:"none",
+    border: "none",
     "&:focus": {
-      outline: "none"
-    }
+      outline: "none",
+    },
   },
 
   images: {
@@ -202,22 +201,22 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: "230px",
     },
   },
-  paper:{
-    display:"flex",
-    flexDirection:"row",
-    justifyContent:'center',
-    alignItems:"center",
-    marginTop:theme.spacing(2),
-    marginRight :"2vh",
-  boxShadow:"none",
-    width:"255px",
-height:"48px",
-borderRadius:"6px",
-background:"#F7F7F9",
-"& .MuiInput-underline:before":{
-borderBottom:"none"
-},
-'.MuiOutlinedInput-notchedOutline': { border: 0 }
+  paper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: theme.spacing(2),
+    marginRight: "2vh",
+    boxShadow: "none",
+    width: "255px",
+    height: "48px",
+    borderRadius: "6px",
+    background: "#F7F7F9",
+    "& .MuiInput-underline:before": {
+      borderBottom: "none",
+    },
+    ".MuiOutlinedInput-notchedOutline": { border: 0 },
   },
   maingrid: {
     display: "flex",
@@ -241,7 +240,7 @@ borderBottom:"none"
     fontSize: "28px",
     color: "#333333",
     lineHeight: "32px",
-    fontFamily: "Ostrich Sans",
+    fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
     fontStyle: "normal",
     justifyContent: "center",
@@ -263,9 +262,9 @@ borderBottom:"none"
     alignItems: "center",
     marginBottom: theme.spacing(2),
   },
-  vector:{
-    marginRight:theme.spacing(2),
-    marginTop:theme.spacing(2),
+  vector: {
+    marginRight: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
   categoryavatar: {
     marginTop: theme.spacing(2),
@@ -277,138 +276,136 @@ borderBottom:"none"
       color: theme.palette.secondary.selected,
     },
   },
-  selectDesktop:{
-marginRight:theme.spacing(3),
+  selectDesktop: {
+    marginRight: theme.spacing(3),
   },
 
   main: {
     width: "100%",
   },
-  filters:{
-    display:"flex",
-    justifyContent:"space-between",
-    padding:theme.spacing(4),
-    height:"100px",
-    background: "#333333"
+  filters: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: theme.spacing(4),
+    height: "100px",
+    background: "#333333",
+  },
+  close: {
+    color: "#ffffff",
+  },
+  filtersTitle: {
+    color: "#ffffff",
+  },
+  slider: {
+    color: "black",
+    width: "257px",
 
-  },
-  close:{
-    color:"#ffffff"
-  },
-  filtersTitle:{
-    color:"#ffffff"
-  },
-  slider:{
-color:"black",
-width:"257px",
-
-height:"2px",
-"& > span > span": {
-  color: "#FDC114",
-  width:"100px",
-  fontWeight: 800
-},
-"& .PrivateValueLabel-thumb":{
-width:"100px"
-},
-'& .MuiSlider-track': {
-  border: 'none',
-},
-'& .MuiSlider-thumb': {
-  width:"16px",
-  height: "16px",
-  backgroundColor: '#fff',
-  border:"0.5px solid #9E9E9E",
-  '&:before': {
-    boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
-  },
-  '&:hover, &.Mui-focusVisible, &.Mui-active': {
-    boxShadow: 'none',
-  },
-},
+    height: "2px",
+    "& > span > span": {
+      color: "#FDC114",
+      width: "100px",
+      fontWeight: 800,
+    },
+    "& .PrivateValueLabel-thumb": {
+      width: "100px",
+    },
+    "& .MuiSlider-track": {
+      border: "none",
+    },
+    "& .MuiSlider-thumb": {
+      width: "16px",
+      height: "16px",
+      backgroundColor: "#fff",
+      border: "0.5px solid #9E9E9E",
+      "&:before": {
+        boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
+      },
+      "&:hover, &.Mui-focusVisible, &.Mui-active": {
+        boxShadow: "none",
+      },
+    },
   },
 
-  filternames:{
-    borderBottom:"2px solid #000000",
-    marginLeft:theme.spacing(3),
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    marginTop:theme.spacing(1),
-    marginTop:theme.spacing(1),
-    width:"62px"
+  filternames: {
+    borderBottom: "2px solid #000000",
+    marginLeft: theme.spacing(3),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    width: "62px",
   },
-  slidervalues:{
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"space-between",
-    width:"300px",
-    flexDirection:"row"
-  },
-  slidervaluesmain:{
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    width:"100%"
-  },
-  filternames2:{
-    borderBottom:"2px solid #000000",
-    marginLeft:theme.spacing(3),
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    marginTop:theme.spacing(1),
-    marginTop:theme.spacing(1),
-    width:"92px"
-  },
-  colorsmain:{
-    display:"flex",
+  slidervalues: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "300px",
     flexDirection: "row",
-   marginTop:theme.spacing(1),
-   marginLeft:theme.spacing(3)
+  },
+  slidervaluesmain: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+  filternames2: {
+    borderBottom: "2px solid #000000",
+    marginLeft: theme.spacing(3),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    width: "92px",
+  },
+  colorsmain: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+  },
+  colortitle: {
+    marginLeft: theme.spacing(1),
+  },
+  slidervalue: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  filternameprice: {
+    marginTop: theme.spacing(4),
+    color: "#989898",
+    lineHeight: "19px",
+    fontWeight: 400,
+    marginBottom: "0px",
+  },
+  topheader: {
+    display: "flex",
+    justifyContent: "flex-end",
 
-  },
-  colortitle:{
-    marginLeft:theme.spacing(1),
-  },
-  slidervalue:{
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-  },
-filternameprice:{
-  marginTop:theme.spacing(4),
-  color:"#989898",
-  lineHeight:"19px",
-  fontWeight:400,
-  marginBottom:"0px"
-},
-topheader:{
-   display: "flex", 
-   justifyContent: "flex-end" ,
-   
-   [theme.breakpoints.down(700)]: {
-display:"none"
-  },
-reactselect:{
-  height:"120px",
-  width:"100px"
-}
-},
-
-sizesfiltes:{
-  marginLeft:"5px"
-},
-mobilefilters:{
-  topheader:{
-    display: "flex", 
-    justifyContent: "flex-end" ,
-    display:"none",
     [theme.breakpoints.down(700)]: {
-      display:"block",
-   },
+      display: "none",
+    },
+    reactselect: {
+      height: "120px",
+      width: "100px",
+    },
+  },
 
-}},
+  sizesfiltes: {
+    marginLeft: "5px",
+  },
+  mobilefilters: {
+    topheader: {
+      display: "flex",
+      justifyContent: "flex-end",
+      display: "none",
+      [theme.breakpoints.down(700)]: {
+        display: "block",
+      },
+    },
+  },
 }));
 function Categories(props) {
   const [state, setState] = React.useState();
@@ -418,22 +415,21 @@ function Categories(props) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = React.useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = React.useState(null);
   const options = [
-    { value: 'Recommend', label: 'Recommend' },
-    { value: 'New Arrivals', label: 'New Arrivals' },
-    { value: 'Price Low To High', label: 'Price Low To High' },
-    { value: 'Price High To Low', label: 'Price High To Low' },
+    { value: "Recommend", label: "Recommend" },
+    { value: "New Arrivals", label: "New Arrivals" },
+    { value: "Price Low To High", label: "Price Low To High" },
+    { value: "Price High To Low", label: "Price High To Low" },
   ];
   const Optionsize = [
-    { value: 'Medium', label: 'Medium' },
-    { value: 'Medium', label: 'Medium' },
-    { value: 'Large', label: 'Large' },
-    { value: 'Extra-Large', label: 'Extra-Large' },
+    { value: "Medium", label: "Medium" },
+    { value: "Medium", label: "Medium" },
+    { value: "Large", label: "Large" },
+    { value: "Extra-Large", label: "Extra-Large" },
   ];
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
   };
   const toggleDrawer = (anchor, open) => (event) => {
-   
     setState(!state);
   };
 
@@ -450,7 +446,7 @@ function Categories(props) {
     });
   };
 
-  const  Colors = [
+  const Colors = [
     {
       image: "/colors/black.svg",
       id: 1,
@@ -481,8 +477,8 @@ function Categories(props) {
       id: 6,
       title: "Orange",
     },
-  ]
-  
+  ];
+
   const ITEMS = [
     {
       image: "/categories/categoriestoggle.svg",
@@ -607,7 +603,7 @@ function Categories(props) {
       size: "large",
     },
   ];
-  
+
   const ITEMScategory = [
     {
       image: "/categoriestypes/cat1.svg",
@@ -1641,9 +1637,9 @@ function Categories(props) {
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
   const [value, setValue] = React.useState([]);
-   const handleChange =(e)=>{
-    setValue(e.target.value)
-   }
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
   var firstarray = data.reduce((acc, item, index) => {
     acc[`names${index}`] = item;
     return acc;
@@ -1718,37 +1714,36 @@ function Categories(props) {
     p: 2,
   };
 
-
- 
   const customStylesMobSize = {
     indicatorSeparator: () => ({
-display:"none"}),
+      display: "none",
+    }),
     control: (provided, state) => ({
       ...provided,
-    
-      marginTop:"7px",
-      background:"#F7F7F9",
-      borderRadius:"6px",
+
+      marginTop: "7px",
+      background: "#F7F7F9",
+      borderRadius: "6px",
       border: state.isFocused ? "none" : "none",
       boxShadow: state.isFocused ? "none" : "none",
-   
-      width: '100%'       // Change this to the desired width
+
+      width: "100%", // Change this to the desired width
     }),
     menu: (provided, state) => ({
       ...provided,
-       // Set the width of the menu to the full viewport width
-  
-      height:"191px",
-     border:"none",
-     marginTop:"1px",
-    
-     // Ensure that the menu can extend beyond the width of the container
+      // Set the width of the menu to the full viewport width
+
+      height: "191px",
+      border: "none",
+      marginTop: "1px",
+
+      // Ensure that the menu can extend beyond the width of the container
     }),
-    menuPortal: base => ({
+    menuPortal: (base) => ({
       ...base,
       zIndex: 9999,
-      width:"100vw",
-      position: 'relative',
+      width: "100vw",
+      position: "relative",
       top: 0,
       left: 0,
       right: 0,
@@ -1756,372 +1751,377 @@ display:"none"}),
     }),
     menuList: (provided, state) => ({
       ...provided,
-      border: 'none',
-      display:"flex",
-      flexDirection:"row",
-      flexWrap:"wrap",
-  
-    width:"90%",
+      border: "none",
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+
+      width: "90%",
     }),
     option: (provided, state) => ({
-      border:state.isFocused ?"1px solid #FDC114":"1px solid #9E9E9E",
-    display:"flex",
-    flexDirection:"row",
-    marginLeft:"20px",
-    marginTop:"10px",
-      fontFamily: 'Lato',
-         fontStyle: "normal",
-         borderRadius:"6px",
-         display:"flex",
-         justifyContent:"center",
-         alignItems:"center",
-         fontWeight: state.isFocused ?400:400,
-         fontSize: "16px",
-         lineHeight: "19px" ,
-         textTransform: "capitalize" ,
-         letterSpacin:"0.05em",
-        paddingLeft:'8px',
-        paddingRight:"8px",
-        paddingTop:"5px",
-        paddingBottom:"5px",
-        width:'auto',
-        borderBottom: state.isFocused ? "1px solid #FDC114":"1px solid #9E9E9E",
-       color: state.isFocused ?"#000000" :"#989898",
-         "&:hover": {
-           color: "#000000"
-         },
-       }),
+      border: state.isFocused ? "1px solid #FDC114" : "1px solid #9E9E9E",
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: "20px",
+      marginTop: "10px",
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      borderRadius: "6px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      fontWeight: state.isFocused ? 400 : 400,
+      fontSize: "16px",
+      lineHeight: "19px",
+      textTransform: "capitalize",
+      letterSpacin: "0.05em",
+      paddingLeft: "8px",
+      paddingRight: "8px",
+      paddingTop: "5px",
+      paddingBottom: "5px",
+      width: "auto",
+      borderBottom: state.isFocused ? "1px solid #FDC114" : "1px solid #9E9E9E",
+      color: state.isFocused ? "#000000" : "#989898",
+      "&:hover": {
+        color: "#000000",
+      },
+    }),
     dropdownIndicator: (base, state) => ({
-     display:"flex",
-     justifyContent:"center",
-     alignItems:"center",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
       color: state.isFocused ? "#FDC114" : "#000000",
       "&:hover": {
-          display:"flex",
-     justifyContent:"center",
-     alignItems:"center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         color: "#FDC114",
-           marginTop:"2px",
-        transform:"scale(1.2)"
-      }
+        marginTop: "2px",
+        transform: "scale(1.2)",
+      },
     }),
-   
-   
-      placeholder: (base, state) => ({
-        ...base,
-        fontFamily: 'Lato',
-          fontStyle: "normal",
-          fontWeight: state.isFocused ?900:700,
-          fontSize: "14px",
-          lineHeight: "17px" ,
-          textTransform: "capitalize" ,
-          color: state.isFocused ? "#FDC114" : "#000000",
-       
-          "&:hover": {
-            
-            fontFamily: 'Lato',
-            fontStyle: "normal",
-            fontWeight: 900,
-            fontSize: "14px",
-            lineHeight: "17px" ,
-            textTransform: "capitalize" ,
-            color: "#FDC114",
-          }
-          } )
-      
-  }
-  
 
-  const colorOptions = Colors.map(color => ({
+    placeholder: (base, state) => ({
+      ...base,
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: state.isFocused ? 900 : 700,
+      fontSize: "14px",
+      lineHeight: "17px",
+      textTransform: "capitalize",
+      color: state.isFocused ? "#FDC114" : "#000000",
+
+      "&:hover": {
+        fontFamily: "Lato",
+        fontStyle: "normal",
+        fontWeight: 900,
+        fontSize: "14px",
+        lineHeight: "17px",
+        textTransform: "capitalize",
+        color: "#FDC114",
+      },
+    }),
+  };
+
+  const colorOptions = Colors.map((color) => ({
     value: color.id,
     label: (
-   <div>
+      <div>
         <img src={color.image} alt={color.title} height="10" width="10" />
         <span className={classes.sizesfiltes}>{color.title}</span>
-        </div>
+      </div>
     ),
   }));
- 
+
   const customStyles = {
     indicatorSeparator: () => ({
-  height:"48px" ,
-color:"black"}),
+      height: "48px",
+      color: "black",
+    }),
     control: (provided, state) => ({
       ...provided,
-      height:"48px",
-      marginTop:"10px",
-      background:"#F7F7F9",
-      borderRadius:"6px",
+      height: "48px",
+      marginTop: "10px",
+      background: "#F7F7F9",
+      borderRadius: "6px",
       border: state.isFocused ? "none" : "none",
       boxShadow: state.isFocused ? "none" : "none",
-      width: '255px', // Change this to the desired width
+      width: "255px", // Change this to the desired width
     }),
     menu: (provided, state) => ({
       ...provided,
       // Set the width of the menu to the full viewport width
-      maxWidth: 'none',
-  
-     // Ensure that the menu can extend beyond the width of the container
+      maxWidth: "none",
+
+      // Ensure that the menu can extend beyond the width of the container
     }),
     menuList: (provided, state) => ({
       ...provided,
-      border: 'none',
+      border: "none",
     }),
     option: (provided, state) => ({
-      fontFamily: 'Lato',
-         fontStyle: "normal",
-         fontWeight: state.isFocused ?800:500,
-         fontSize: "14px",
-         lineHeight: "19px" ,
-         textTransform: "capitalize" ,
-         letterSpacin:"0.05em",
-        padding:'13px',
-        borderBottom: state.isLastOption ? 'none' : '1px solid #01010136',
-       color: state.isFocused ?"#000000" :"#989898",
-         "&:hover": {
-           color: "#000000"
-         },
-       }),
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: state.isFocused ? 800 : 500,
+      fontSize: "14px",
+      lineHeight: "19px",
+      textTransform: "capitalize",
+      letterSpacin: "0.05em",
+      padding: "13px",
+      borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
+      color: state.isFocused ? "#000000" : "#989898",
+      "&:hover": {
+        color: "#000000",
+      },
+    }),
     dropdownIndicator: (base, state) => ({
       ...base,
       icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
       "&:hover": {
-        color: "green"
-      }
+        color: "green",
+      },
     }),
     input: (provided) => ({
       ...provided,
     }),
     placeholder: (defaultStyles) => {
       return {
-          ...defaultStyles,
-          fontFamily: 'Lato',
-          fontStyle: "normal",
-          fontWeight: 500,
-          fontSize: "16px",
-          lineHeight: "19px" ,
-          textTransform: "capitalize" ,
-          color: "#969696",
-          "&:hover": {
-            color: "blue"
-          }
-      }
-  }
+        ...defaultStyles,
+        fontFamily: "Lato",
+        fontStyle: "normal",
+        fontWeight: 500,
+        fontSize: "16px",
+        lineHeight: "19px",
+        textTransform: "capitalize",
+        color: "#969696",
+        "&:hover": {
+          color: "blue",
+        },
+      };
+    },
   };
   const customStylesMobS = {
     indicatorSeparator: () => ({
-display:"none"}),
+      display: "none",
+    }),
     control: (provided, state) => ({
       ...provided,
-      height:"48px",
-     
-      background:"#F7F7F9",
-      borderRadius:"6px",
+      height: "48px",
+
+      background: "#F7F7F9",
+      borderRadius: "6px",
       border: state.isFocused ? "none" : "none",
       boxShadow: state.isFocused ? "none" : "none",
-      width: '100%',
-       // Change this to the desired width
+      width: "100%",
+      // Change this to the desired width
     }),
     menu: (provided, state) => ({
       ...provided,
-      width: '100vw', // Set the width of the menu to the full viewport width
-      maxWidth: 'none',
-      height:"191px",
-     border:"none",
-     marginTop:"1px",
-     // Ensure that the menu can extend beyond the width of the container
+      width: "100vw", // Set the width of the menu to the full viewport width
+      maxWidth: "none",
+      height: "191px",
+      border: "none",
+      marginTop: "1px",
+      // Ensure that the menu can extend beyond the width of the container
     }),
     menuList: (provided, state) => ({
       ...provided,
-      border: 'none',
+      border: "none",
     }),
     option: (provided, state) => ({
-      fontFamily: 'Lato',
-         fontStyle: "normal",
-         fontWeight: state.isFocused ?800:500,
-         fontSize: "14px",
-         lineHeight: "19px" ,
-         textTransform: "capitalize" ,
-         letterSpacin:"0.05em",
-        padding:'13px',
-        borderBottom: state.isLastOption ? 'none' : '1px solid #01010136',
-       color: state.isFocused ?"#000000" :"#989898",
-         "&:hover": {
-           color: "#000000"
-         },
-       }),
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: state.isFocused ? 800 : 500,
+      fontSize: "14px",
+      lineHeight: "19px",
+      textTransform: "capitalize",
+      letterSpacin: "0.05em",
+      padding: "13px",
+      borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
+      color: state.isFocused ? "#000000" : "#989898",
+      "&:hover": {
+        color: "#000000",
+      },
+    }),
     dropdownIndicator: (base, state) => ({
       color: state.isFocused ? "#FDC114" : "#000000",
       "&:hover": {
         color: "#FDC114",
-        transform:"scale(1.2)"
-      }
+        transform: "scale(1.2)",
+      },
     }),
-      placeholder: (base, state) => ({
-        ...base,
-        fontFamily: 'Lato',
-          fontStyle: "normal",
-          fontWeight: state.isFocused ?900:700,
-          fontSize: "14px",
-          lineHeight: "17px" ,
-          textTransform: "capitalize" ,
-          color: state.isFocused ? "#FDC114" : "#000000",
-          "&:hover": {
-            fontFamily: 'Lato',
-            fontStyle: "normal",
-            fontWeight: 900,
-            fontSize: "14px",
-            lineHeight: "17px" ,
-            textTransform: "capitalize" ,
-            color: "#FDC114",
-          }
-          } )
-  }
+    placeholder: (base, state) => ({
+      ...base,
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: state.isFocused ? 900 : 700,
+      fontSize: "14px",
+      lineHeight: "17px",
+      textTransform: "capitalize",
+      color: state.isFocused ? "#FDC114" : "#000000",
+      "&:hover": {
+        fontFamily: "Lato",
+        fontStyle: "normal",
+        fontWeight: 900,
+        fontSize: "14px",
+        lineHeight: "17px",
+        textTransform: "capitalize",
+        color: "#FDC114",
+      },
+    }),
+  };
 
-  const DropdownIndicator = props => {
+  const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
-       <img src="/colors/vector.svg"/>
+        <img src="/colors/vector.svg" />
       </components.DropdownIndicator>
     );
   };
-const [frequency, setFrequency] = React.useState("");
+  const [frequency, setFrequency] = React.useState("");
   return (
     <>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
-      <Grid container  xs={12} className={classes.mobilefilters}>
-        <Grid item xs={3}>
-        <Select
-        defaultValue={selectedOptionMobS}
-        onChange={setSelectedOptionMobS}
-        placeholder="Sort"
-        styles={customStylesMobS}
-        options={options}
-        className={classes.reactselect}
-      />
-        </Grid>
-        <Grid item xs={3}>
-        <Select
-        defaultValue={selectedOptionMobColor}
-        onChange={setSelectedOptionMobColor}
-        placeholder="Colour"
-      
-        menuPortalTarget={document.body}
-
-        dropdownIndicator
-        styles={customStylesMobSize}
-        options={colorOptions}
-        className={classes.reactselect}
-      />
-  
-        
-        </Grid>
-        <Grid item xs={3}>
-          
-        <Select
-        defaultValue={selectedOptionMobSize}
-        onChange={setSelectedOptionMobSize}
-        placeholder="Size"
-        menuPortalTarget={document.body}
-        styles={customStylesMobSize}
-        options={Optionsize}
-        className={classes.reactselect}
-      />
-        </Grid>
-        <Grid item xs={3}>
-        <Select
-        defaultValue={selectedOption}
-        onChange={setSelectedOption}
-        placeholder="Sort by"
-        components={{  DropdownIndicator }}
-        styles={customStylesMobSize}
-        options={options}
-        className={classes.reactselect}
-      />
-        </Grid>
-      </Grid>
-        <Box className={classes.topheader}>
-
-            {['left'].map((anchor) => (
-        <React.Fragment key={anchor}>
-                    <img src="/categoriestypes/Vector.svg" alt="vector"  className={classes.vector}  onClick={toggleDrawer(anchor, true)}/>
-          <Drawer anchor="left"  open={state} onClose={toggleDrawer()}>
-          <div className={classes.filters}> <Typography variant="h3" className={classes.filtersTitle}>FILTER</Typography>
-    <CloseIcon onClick={(()=>{
-      setState(!state) })} className={classes.close}  /></div>
-       <div
-      className={clsx(classes.list)}
-      role="presentation" >
-      <List>
-      <Typography variant="h4" className={classes.filternames} >SIZE</Typography>
-        {['Small', 'Medium', 'large', 'Extra-Large'].map((text, index) => (
-          <ListItem button key={text}>
-              <FormControlLabel
-            control={
-              <Checkbox  onChange={handleChangeCheck} name={text}  variant="h6" />
-            }
-            label={text}
-            className={classes.checkbox} 
-          />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-      <Typography variant="h4" className={classes.filternames2} >COLOR</Typography>
-    { Colors.map((text, index) => (
-
-         <div className={classes.colorsmain}>
-             <img src={text.image} />
-             <Typography variant="h4" className={classes.colortitle} >{text.title}</Typography>
-             </div>
-        ))}
-      </List>
-      <Divider />
-      <List>
-      <Typography variant="h4" className={classes.filternames2} >PRICE</Typography>
-      <div className={classes.slidervaluesmain}>
-      <div className={classes.slidervalues}>
-      <Typography variant="h5" className={classes.filternameprice} >RS 500</Typography>
-      <Typography variant="h5" className={classes.filternameprice} >RS 1000</Typography>
-      </div>
-      </div>
-     <div className={classes.slidervalue}>
-
-    
-            <Slider
-              value={price}
-              onChange={priceHandler}
-           
-              aria-labelledby="range-slider"
-              min={0}
-              max={5000}
-              className={classes.slider}
-
-              valueLabelDisplay="auto"
-
-
-            />
-  </div>
-      </List>
-    </div>
-          </Drawer>
-        </React.Fragment>
-      ))}
-          <div className={classes.selectDesktop}>
-          <Select
-        defaultValue={selectedOption}
-        onChange={setSelectedOption}
-        placeholder="Sort by"
-        components={{  DropdownIndicator }}
-        styles={customStyles}
-        options={options}
-        className={classes.reactselect}
-        
-       
-      />
-      </div>
+          <Grid container xs={12} className={classes.mobilefilters}>
+            <Grid item xs={3}>
+              <Select
+                defaultValue={selectedOptionMobS}
+                onChange={setSelectedOptionMobS}
+                placeholder="Sort"
+                styles={customStylesMobS}
+                options={options}
+                className={classes.reactselect}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <Select
+                defaultValue={selectedOptionMobColor}
+                onChange={setSelectedOptionMobColor}
+                placeholder="Colour"
+                menuPortalTarget={document.body}
+                dropdownIndicator
+                styles={customStylesMobSize}
+                options={colorOptions}
+                className={classes.reactselect}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <Select
+                defaultValue={selectedOptionMobSize}
+                onChange={setSelectedOptionMobSize}
+                placeholder="Size"
+                menuPortalTarget={document.body}
+                styles={customStylesMobSize}
+                options={Optionsize}
+                className={classes.reactselect}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <Select
+                defaultValue={selectedOption}
+                onChange={setSelectedOption}
+                placeholder="Sort by"
+                components={{ DropdownIndicator }}
+                styles={customStylesMobSize}
+                options={options}
+                className={classes.reactselect}
+              />
+            </Grid>
+          </Grid>
+          <Box className={classes.topheader}>
+            {["left"].map((anchor) => (
+              <React.Fragment key={anchor}>
+                <img
+                  src="/categoriestypes/Vector.svg"
+                  alt="vector"
+                  className={classes.vector}
+                  onClick={toggleDrawer(anchor, true)}
+                />
+                <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
+                  <div className={classes.filters}>
+                    {" "}
+                    <Typography variant="h3" className={classes.filtersTitle}>
+                      FILTER
+                    </Typography>
+                    <CloseIcon
+                      onClick={() => {
+                        setState(!state);
+                      }}
+                      className={classes.close}
+                    />
+                  </div>
+                  <div className={clsx(classes.list)} role="presentation">
+                    <List>
+                      <Typography variant="h4" className={classes.filternames}>
+                        SIZE
+                      </Typography>
+                      {["Small", "Medium", "large", "Extra-Large"].map((text, index) => (
+                        <ListItem button key={text}>
+                          <FormControlLabel
+                            control={<Checkbox onChange={handleChangeCheck} name={text} variant="h6" />}
+                            label={text}
+                            className={classes.checkbox}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                    <Divider />
+                    <List>
+                      <Typography variant="h4" className={classes.filternames2}>
+                        COLOR
+                      </Typography>
+                      {Colors.map((text, index) => (
+                        <div className={classes.colorsmain}>
+                          <img src={text.image} />
+                          <Typography variant="h4" className={classes.colortitle}>
+                            {text.title}
+                          </Typography>
+                        </div>
+                      ))}
+                    </List>
+                    <Divider />
+                    <List>
+                      <Typography variant="h4" className={classes.filternames2}>
+                        PRICE
+                      </Typography>
+                      <div className={classes.slidervaluesmain}>
+                        <div className={classes.slidervalues}>
+                          <Typography variant="h5" className={classes.filternameprice}>
+                            RS 500
+                          </Typography>
+                          <Typography variant="h5" className={classes.filternameprice}>
+                            RS 1000
+                          </Typography>
+                        </div>
+                      </div>
+                      <div className={classes.slidervalue}>
+                        <Slider
+                          value={price}
+                          onChange={priceHandler}
+                          aria-labelledby="range-slider"
+                          min={0}
+                          max={5000}
+                          className={classes.slider}
+                          valueLabelDisplay="auto"
+                        />
+                      </div>
+                    </List>
+                  </div>
+                </Drawer>
+              </React.Fragment>
+            ))}
+            <div className={classes.selectDesktop}>
+              <Select
+                defaultValue={selectedOption}
+                onChange={setSelectedOption}
+                placeholder="Sort by"
+                components={{ DropdownIndicator }}
+                styles={customStyles}
+                options={options}
+                className={classes.reactselect}
+              />
+            </div>
           </Box>
           <Grid
             container
@@ -2144,13 +2144,7 @@ const [frequency, setFrequency] = React.useState("");
                   </div>
                 </div>
                 <img src="/categories/mainCategory.svg" className={classes.image} />
-                <Modal
-                  
-                  className={classes.modal}
-                  open={open}
-                  onClose={handleClose}
-                 
-                >
+                <Modal className={classes.modal} open={open} onClose={handleClose}>
                   <Box sx={style}>
                     {ITEMScategory.map((item) => (
                       <div className={classes.modalitems}>
@@ -2350,7 +2344,7 @@ const [frequency, setFrequency] = React.useState("");
             <button onClick={loadMoreProducts} className={classes.loadmore}>
               Load More
             </button>
-          </div> 
+          </div>
         </div>
       )}
     </>

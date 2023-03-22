@@ -11,7 +11,7 @@ import Fade from "@material-ui/core/Fade";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Backdrop from '@material-ui/core/Backdrop';
+import Backdrop from "@material-ui/core/Backdrop";
 import Router from "translations/i18nRouter";
 import Badge from "@material-ui/core/Badge";
 
@@ -167,11 +167,11 @@ const styles = (theme) => ({
     "&.MuiButton-root": {
       fontSize: "20px",
       color: "#333333",
-      fontFamily: "Ostrich Sans",
+      fontFamily: "Ostrich Sans Black",
       fontWeight: 900,
 
       lineHeight: "24px",
-      fontFamily: "Ostrich Sans",
+      fontFamily: "Ostrich Sans Black",
     },
   },
 });
@@ -179,10 +179,7 @@ const styles = (theme) => ({
 const MiniCart = ({ ...props }) => {
   const [anchorElement, setAnchorElement] = useState(null);
   const [open, setOpen] = useState(false);
- 
 
-
- 
   const handleOpen = () => {
     setOpen(true);
   };
@@ -191,34 +188,26 @@ const MiniCart = ({ ...props }) => {
     setOpen(false);
   };
 
-
   const handleCheckoutButtonClick = () => {
-  
     Router.push("/cart/checkout");
     console.log("button clicked");
   };
 
-
-
-
-
   const handleOnClick = () => {
     const { closeCart } = props.uiStore;
-  
+
     Router.push("/cart");
   };
 
-
-
   const handleRemoveItem = async (itemID) => {
     const { onRemoveCartItems } = props;
-console.log(itemID,"me")
+    console.log(itemID, "me");
     onRemoveCartItems(itemID);
   };
 
   function renderMiniCart() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems } = props;
-console.log(cart,"cart")
+    console.log(cart, "cart");
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
         <MiniCartComponent
@@ -227,77 +216,82 @@ console.log(cart,"cart")
           components={{
             QuantityInput: "div",
             CartItems: (cartItemProps) => (
-            <>
-      
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-   <div className={classes.cartmodal}> <Typography variant="subtitle1">Cart</Typography>
-    <CloseIcon onClick={handleClose} /></div>
-    <div className={classes.cartitems}>  
-      {cart.items.map((item)=>
-      {
-        
-        return (
-          <div className={classes.cartitem}>
-            <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
-            {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
-            <div className={classes.cartitemtext}>
-              {" "}
-              <Typography variant="h4">{item.title}</Typography>
-              <Typography variant="h4" className={classes.cartpric}>
-                Store:mariamz
-              </Typography>{" "}
-              <Typography variant="h4" className={classes.cartprice}>
-                RS: {item?.price?.amount}
-              </Typography>
-            </div>
+              <>
+                <Modal
+                  aria-labelledby="transition-modal-title"
+                  aria-describedby="transition-modal-description"
+                  className={classes.modal}
+                  open={open}
+                  onClose={handleClose}
+                  closeAfterTransition
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{
+                    timeout: 500,
+                  }}
+                >
+                  <Fade in={open}>
+                    <div className={classes.paper}>
+                      <div className={classes.cartmodal}>
+                        {" "}
+                        <Typography variant="subtitle1">Cart</Typography>
+                        <CloseIcon onClick={handleClose} />
+                      </div>
+                      <div className={classes.cartitems}>
+                        {cart.items.map((item) => {
+                          return (
+                            <div className={classes.cartitem}>
+                              <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
+                              {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
+                              <div className={classes.cartitemtext}>
+                                {" "}
+                                <Typography variant="h4">{item.title}</Typography>
+                                <Typography variant="h4" className={classes.cartpric}>
+                                  Store:mariamz
+                                </Typography>{" "}
+                                <Typography variant="h4" className={classes.cartprice}>
+                                  RS: {item?.price?.amount}
+                                </Typography>
+                              </div>
 
-            <img src="/cart/icon.svg" alt={item.title} onClick={() => handleRemoveItem(item._id)} />
-          </div>
-        );
-      }
-      )}
-    </div>
-    <div className={classes.total}>
-<div className={classes.total1} >
-      <Typography variant="h4" >Subtotal</Typography>
-    <Typography variant="h4" >RS: { cart?.checkout?.summary?.total?.amount }</Typography>
-</div>
-<div className={classes.total1} >
-<div className={classes.cart1}>
-      
-      <Typography gutterBottom variant="h5" component="h2" className={classes.carttext} onClick={handleOnClick}>
-VIEW CART          </Typography>
-    </div>  
-    <div className={classes.cart}>
-      
-      <Typography gutterBottom variant="h5" component="h2"  onClick={handleCheckoutButtonClick}>
-    CHECKOUT        </Typography>
-    </div>  
-</div>
-    </div>
-          </div>
-        </Fade>
-      </Modal>
-</>
+                              <img src="/cart/icon.svg" alt={item.title} onClick={() => handleRemoveItem(item._id)} />
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className={classes.total}>
+                        <div className={classes.total1}>
+                          <Typography variant="h4">Subtotal</Typography>
+                          <Typography variant="h4">RS: {cart?.checkout?.summary?.total?.amount}</Typography>
+                        </div>
+                        <div className={classes.total1}>
+                          <div className={classes.cart1}>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="h2"
+                              className={classes.carttext}
+                              onClick={handleOnClick}
+                            >
+                              VIEW CART{" "}
+                            </Typography>
+                          </div>
+                          <div className={classes.cart}>
+                            <Typography gutterBottom variant="h5" component="h2" onClick={handleCheckoutButtonClick}>
+                              CHECKOUT{" "}
+                            </Typography>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Fade>
+                </Modal>
+              </>
             ),
           }}
         />
       );
     }
-  
+
     return (
       <>
         {" "}
@@ -342,11 +336,7 @@ VIEW CART          </Typography>
   return (
     <Fragment>
       <div>
-        <IconButton
-          color="inherit"
-     
-          onClick={handleOpen}
-        >
+        <IconButton color="inherit" onClick={handleOpen}>
           {cart && cart.totalItemQuantity > 0 ? (
             <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
               <span>
@@ -358,9 +348,7 @@ VIEW CART          </Typography>
           )}
         </IconButton>
       </div>
-{renderMiniCart()}
-
-   
+      {renderMiniCart()}
     </Fragment>
   );
 };
@@ -390,4 +378,3 @@ MiniCart.propTypes = {
 };
 
 export default withStyles(styles, { name: "SkMiniCart" })(withCart(inject("uiStore")(MiniCart)));
-
