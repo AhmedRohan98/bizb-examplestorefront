@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
   gridroot: {
     width: "100%",
     display: "flex",
-    alignItems: "center",
+    alignItems: "baseline",
 
     position: "relative",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   typography: {
     background: "#333333",
@@ -81,6 +81,28 @@ const useStyles = makeStyles((theme) => ({
   },
   rootimg: {
     position: "relative",
+    display: "inline-grid",
+    width: "312px",
+
+    maxWidth: "312px",
+    marginLeft: "10px",
+    marginRight: "10px",
+  },
+  cartbackground: {
+    background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+
+    borderRadius: "0px 0px 16px 16px",
+
+    alignItems: "center",
+    justifyContent: "initial",
+    height: "60px",
+    width: "100%",
+    bottom: "20%",
+    display: "inline-grid",
+
+    width: "100%",
+    marginTop: " -60px",
+    padding: "10px",
   },
   cart: {
     height: "35px",
@@ -91,10 +113,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
-    bottom: "40%",
-    right: "36%",
-    right: "64%",
-    position: "absolute",
+    zIndex: 1200,
     transition: "all 0.2s linear",
     "&:hover": {
       transform: "scale(1.08)",
@@ -116,161 +135,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
 }));
-const itemData = [
-  {
-    image: "/justin/justin1.svg",
-    id: 1,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for ",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin2.svg",
-    title: "Bag for sale",
-    slug: "beechtree 3 piece",
-    id: 2,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    size: "large",
-  },
-  {
-    image: "/justin/justin3.svg",
-    id: 3,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "Heels for sale",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin4.svg",
-    id: 4,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin1.svg",
-    id: 5,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin2.svg",
-    id: 6,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    slug: "beechtree 3 piece",
-    title: "Bag for sale",
-    size: "large",
-  },
-  {
-    image: "/justin/justin3.svg",
-    id: 7,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "Heels for sale",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin4.svg",
-    id: 8,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    slug: "beechtree 3 piece",
-    title: "floral shirt for",
-    size: "large",
-  },
-  {
-    image: "/justin/justin1.svg",
-    id: 9,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin2.svg",
-    id: 10,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    slug: "beechtree 3 piece",
-    title: "Bag for sale",
-    size: "large",
-  },
-  {
-    image: "/justin/justin3.svg",
-    id: 11,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "Heels for sale",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin4.svg",
-    id: 12,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-
-  {
-    image: "/justin/justin1.svg",
-    id: 13,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin2.svg",
-    id: 14,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "Bag for sale",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin3.svg",
-    id: 15,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "Heels for sale",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-  {
-    image: "/justin/justin4.svg",
-    id: 16,
-    price: "Rs 1200",
-    newprice: "Rs 600",
-    title: "floral shirt for",
-    slug: "beechtree 3 piece",
-    size: "large",
-  },
-];
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-  // useEffect(() => {
-  //   const { product } = props;
-
-  //   selectVariant(product.variants[0]);
-  // }, []);
+  console.log(catalogdata, "no");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
 
@@ -297,7 +165,7 @@ const Justin = (props) => {
 
     console.log(pdpSelectedVariantId, "star");
 
-    // Get selected variant or variant option
+    // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
     // const selectedOption = variantById(selectedVariant.options, variantId);
     // const selectedVariantOrOption = selectedOption || selectedVariant;
@@ -363,16 +231,17 @@ const Justin = (props) => {
                     alt={"hhhh"}
                   />
                 </Link>
-                <div
-                  className={classes.cart}
-                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                >
-                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                  <Typography variant="h5" component="h2">
-                    + Cart{" "}
-                  </Typography>
+                <div className={classes.cartbackground}>
+                  <div
+                    className={classes.cart}
+                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                  >
+                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                    <Typography variant="h5" component="h2">
+                      + Cart{" "}
+                    </Typography>
+                  </div>
                 </div>
-
                 <Box className={classes.maintitle}>
                   <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
                     {item.node.product.title}

@@ -32,9 +32,9 @@ fragment TagInfo on Tag {
 }
 `;
 
-export const fetchAllTagsQuery =`
+export const fetchAllTagsQuery = `
 query tags($shopId: ID!) {
-  tags(shopId: $shopId) {
+  tags(shopId: $shopId,filter:"category-") {
     nodes {
       _id
       isVisible
@@ -43,7 +43,7 @@ query tags($shopId: ID!) {
     }
   }
 }
-`
+`;
 
 export const fetchAllCategoriesQuery =`
 query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,) {

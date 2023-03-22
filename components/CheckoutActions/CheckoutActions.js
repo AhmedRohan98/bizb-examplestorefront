@@ -138,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
   register2: {
     fontSize: "18px",
     color: "#333333",
-    fontFamily: "Ostrich Sans",
+    fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
 
     lineHeight: "24px",
@@ -292,10 +292,7 @@ const CheckoutActions = (prop) => {
   }));
 
   const handlepay = async () => {
-   
-   
     try {
-     
       // const { data } = apolloClient.mutate({
       //   mutation: placeOrderMutation,
       //   variables: {
@@ -407,23 +404,23 @@ const CheckoutActions = (prop) => {
         },
       });
 
+      // cartStore.clearAnonymousCartCredentials();
+      // clearAuthenticatedUsersCart();
 
-        // cartStore.clearAnonymousCartCredentials();
-        // clearAuthenticatedUsersCart();
+      // // Also destroy the collected and cached payment input
+      // cartStore.resetCheckoutPayments();
 
-        // // Also destroy the collected and cached payment input
-        // cartStore.resetCheckoutPayments();
+      const {
+        placeOrder: { orders, token },
+      } = data;
 
-        const {
-          placeOrder: { orders, token },
-        } = data;
-
-        // Send user to order confirmation page
-  Router.push("/checkout/order").catch((error) => {
-    console.error("Error occurred while routing to order confirmation page: ", error);
-  });
-  // Send user to order confirmation page
-
+      // Send user to order confirmation page
+      Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`).catch(
+        (error) => {
+          console.error("Error occurred while routing to order confirmation page: ", error);
+        },
+      );
+      // Send user to order confirmation pageQ
     } catch (error) {
       console.log(error);
     }
