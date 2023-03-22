@@ -111,6 +111,7 @@ const addItemsToCart = this.props.addItemsToCart ;
  */
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
+  console.log(primaryShop,"prim")
  const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
   const data = await fetch(url);
   console.log("data is ", data);

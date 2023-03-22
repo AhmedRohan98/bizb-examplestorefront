@@ -107,7 +107,7 @@
 // export default withApollo()(withOrder(withStyles(styles, { withTheme: true })(CheckoutComplete)));
 
 
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
@@ -267,62 +267,62 @@ const CheckoutComplete =() =>{
     // }
 
     return (
-      <></>
-//       <Fragment>
-//       {typeof window !== "undefined" && ( <>
-//     <div className={classes.orderThankYou}>
-//       <img src="/cart/thankyou.svg"  className={classes.img} alt="thanyou"></img>
-//       <Typography  variant="h3" >Your order is confirmed</Typography>
-//       <div className={classes.mainheading}>
-//         <Typography variant="h4" className={classes.orderThankYoupara}> Thank You for making fashion sustainable with us.</Typography>
-//       </div>
-//       <div className={classes.orderThankYouconnect}>
-//          <Typography className={classes.connect}>
-//          Connect With Our Community
-//          </Typography>
-//       </div>
-// <div className={classes.socialmedia}>
-// <img src="/cart/facebook.svg"  className={classes.imges} alt="thanyou"></img>
-// <img src="/cart/insta.svg"  className={classes.imges} alt="thanyou"></img>
-// <img src="/cart/twitter.svg"  className={classes.imges} alt="thanyou"></img>
-// </div>
-// <Typography className={classes.connect}>
-//        Facebook Reviews
-//          </Typography>
+  
+  <>
+      {typeof window !== "undefined" && ( <>
+    <div className={classes.orderThankYou}>
+      <img src="/cart/thankyou.svg"  className={classes.img} alt="thanyou"></img>
+      <Typography  variant="h3" >Your order is confirmed</Typography>
+      <div className={classes.mainheading}>
+        <Typography variant="h4" className={classes.orderThankYoupara}> Thank You for making fashion sustainable with us.</Typography>
+      </div>
+      <div className={classes.orderThankYouconnect}>
+         <Typography className={classes.connect}>
+         Connect With Our Community
+         </Typography>
+      </div>
+<div className={classes.socialmedia}>
+<img src="/cart/facebook.svg"  className={classes.imges} alt="thanyou"></img>
+<img src="/cart/insta.svg"  className={classes.imges} alt="thanyou"></img>
+<img src="/cart/twitter.svg"  className={classes.imges} alt="thanyou"></img>
+</div>
+<Typography className={classes.connect}>
+       Facebook Reviews
+         </Typography>
 
-//          <Box className={classes.look}>
-//           <div className={classes.reviews}>
-//             <div>
-//               <img src="/cart/avatar.svg"  className={classes.cardimage}/>
-//             </div>
-//             <div>
-//             <Typography variant="h4" className={classes.facebookreview}>Kurt Lawson</Typography>
-//             <div className={classes.ratingtime}>
-//             <Rating name="size-large" defaultValue={5} size="large" />
+         <Box className={classes.look}>
+          <div className={classes.reviews}>
+            <div>
+              <img src="/cart/avatar.svg"  className={classes.cardimage}/>
+            </div>
+            <div>
+            <Typography variant="h4" className={classes.facebookreview}>Kurt Lawson</Typography>
+            <div className={classes.ratingtime}>
+            <Rating name="size-large" defaultValue={5} size="large" />
            
-//             <Typography variant="h5" className={classes.ratingday} >2 days ago</Typography>
-//             </div>
-//             <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
-//             </div>
-//           </div>
+            <Typography variant="h5" className={classes.ratingday} >2 days ago</Typography>
+            </div>
+            <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+            </div>
+          </div>
   
 
   
 
   
-//           </Box>
-//           <Typography className={classes.connect}>
-//           Make Your Wardrobe Smart Using Our App
-//          </Typography>
-//          <img src="/cart/mobile.svg"  className={classes.imagemobile} alt="thanyou"></img>
-//          <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"    role="button"
-//         type="submit"
-//      href="/"
-//        >Back To Home</Button>
-//       </div>
-//       </> )}
-      
-//       </>
+          </Box>
+          <Typography className={classes.connect}>
+          Make Your Wardrobe Smart Using Our App
+         </Typography>
+         <img src="/cart/mobile.svg"  className={classes.imagemobile} alt="thanyou"></img>
+         <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"    role="button"
+        type="submit"
+     href="/"
+       >Back To Home</Button>
+      </div>
+      </> )}
+    </>
+
     )
       
 }
