@@ -62,6 +62,8 @@ const styles = (theme) => ({
     width: "200px",
     "& .swiper-slide": {
       opacity: 0.5,
+  
+      
     },
   },
   controller: {
@@ -151,7 +153,7 @@ const styles = (theme) => ({
   },
   sliderimage2: {
     position: "realtive",
-    display: "inline-grid",
+    display:"inline-grid"
   },
   thumbimage: {
     borderRadius: "18px",
@@ -290,7 +292,7 @@ const ProductDetail = ({ ...props }) => {
       width,
     } = props;
     console.log(pdpSelectedVariantId, "star");
-    console.log(product.variants, "op");
+  console.log(product.variants,"op");
     // Get selected variant or variant option
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
     const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
@@ -299,7 +301,7 @@ const ProductDetail = ({ ...props }) => {
     if (selectedVariantOrOption) {
       // Get the price for the currently selected variant or variant option
       const price = priceByCurrencyCode(currencyCode, selectedVariantOrOption.pricing);
-
+      
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
         {
@@ -364,6 +366,7 @@ const ProductDetail = ({ ...props }) => {
     uiStore: { pdpSelectedOptionId, pdpSelectedVariantId },
     width,
   } = props;
+ 
 
   // Set the default media as the top-level product's media
   // (all media on all variants and objects)
@@ -399,10 +402,11 @@ const ProductDetail = ({ ...props }) => {
   const productPrice = determineProductPrice();
   const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
-  console.log(pdpMediaItems);
+ console.log(product, "produ");
   return (
     <>
       <Box className={classes.slider}>
+   
         <Grid
           container
           spacing={2}

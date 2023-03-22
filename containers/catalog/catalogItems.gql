@@ -35,7 +35,7 @@ query catalogItemsQuery(
             variants {
               _id
               variantId
-
+              optionTitle
               options {
                 _id
               }

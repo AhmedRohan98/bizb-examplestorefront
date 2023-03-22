@@ -48,7 +48,7 @@ const Instagram = (props) => {
       backgroundColor: "rgba(0, 0, 0, 0.7)",
     },
   }));
-const lastImageIndex = images.length - 1;
+const lastImageIndex = images?.length - 1;
   const classes = useStyles();
   return (
     <>

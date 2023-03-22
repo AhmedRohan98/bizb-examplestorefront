@@ -8,6 +8,7 @@ import variantById from "lib/utils/variantById";
 import { useEffect, useState } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
+import { json } from "body-parser";
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: "3vh",
@@ -95,14 +96,14 @@ const useStyles = makeStyles((theme) => ({
 
     alignItems: "center",
     justifyContent: "initial",
-    height: "60px",
+    height: "75px",
     width: "100%",
     bottom: "20%",
     display: "inline-grid",
 
     width: "100%",
-    marginTop: " -60px",
-    padding: "10px",
+    marginTop: " -75px",
+    padding: "13px 20px",
   },
   cart: {
     height: "35px",
@@ -248,15 +249,17 @@ const Justin = (props) => {
                   </Typography>
                   <div className={classes.size}>
                     <Typography gutterBottom variant="h4">
-                      size
+                      Size
                     </Typography>
-                    {/* <Typography gutterBottom variant="h4">{`:${item.size}`}</Typography> */}
+                    <Typography gutterBottom variant="h4">
+                      :Large
+                    </Typography>
                   </div>
                   <div className={classes.size}>
                     {" "}
-                    {/* <strike>{item.price}</strike> */}
+                    <strike>{item.node.product.pricing[0]?.comparePrice}</strike>
                     <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
+                      {item.node.product.pricing[0]?.displayPrice}
                     </Typography>
                   </div>
                 </Box>
