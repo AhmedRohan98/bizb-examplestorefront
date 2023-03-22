@@ -25,10 +25,24 @@ const MainSlider = (props) => {
       marginTop: "-170px",
     },
     body: {
-    height: "500px",
-  overflow: "scroll" ,
-  scrollBehavior: "smooth"
-     
+      height: "500px",
+      overflowY: "scroll",
+      transition: "all 1.3s ease-in-out",
+      "&::-webkit-scrollbar": {
+        width: "10px",
+        transition: "all 1.3s ease-in-out",
+      },
+      "&::-webkit-scrollbar-track": {
+        transition: "all 1.3s ease-in-out",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        transition: "all 1.3s ease-in-out",
+      },
+      "&:hover": {
+        "&::-webkit-scrollbar-thumb": {
+          transition: "all 1.3s ease-in-out",
+        },
+      },
     },
     root: {
       position: "relative",

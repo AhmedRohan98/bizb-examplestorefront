@@ -15,8 +15,8 @@ import "swiper/swiper-bundle.css";
 // import 'swiper/components/navigation/navigation.scss';
 // import 'swiper/components/pagination/pagination.scss';
 // import 'swiper/components/scrollbar/scrollbar.scss';
-import "../styles/global.css"
-
+import "../styles/global.css";
+import "../assets/fonts/style.css";
 
 import { StripeWrapper } from "components/StripeCard";
 

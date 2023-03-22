@@ -5,7 +5,11 @@
  * This should not be very many things.
  */
 body {
-  font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, sans-serif;
+  /* font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, sans-serif; */
+
+  font-family: "Ostrich Sans Black !important";
+  font-weight: normal;
+  font-size: 42px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -28,7 +32,7 @@ body {
   margin-bottom: 20px;
 }
 
-@media(min-width: 879px) {
+@media (min-width: 879px) {
   .columns > .column {
     flex: 1;
     min-width: 280px;

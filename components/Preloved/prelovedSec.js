@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "Black",
     lineHeight: "26px",
 
-    fontFamily: "Ostrich Sans",
+    fontFamily: "Ostrich Sans Black",
   },
   mobileview: {
     height: "60px",
