@@ -406,7 +406,7 @@ const ProductDetail = ({ ...props }) => {
   return (
     <>
       <Box className={classes.slider}>
-        <h1>{product.variants[0].variantId}</h1>
+   
         <Grid
           container
           spacing={2}

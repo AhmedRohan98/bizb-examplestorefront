@@ -28,7 +28,6 @@ const styles = (theme: Theme) =>
       // opacity: "0.7",
       height: "170px",
 
-      width:"100"
     
     },
     

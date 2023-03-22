@@ -7,8 +7,8 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
   summary: {
-    borderTop: theme.palette.borders.default
-  }
+    borderTop: theme.palette.borders.default,
+  },
 });
 
 class CheckoutSummary extends Component {
@@ -17,12 +17,12 @@ class CheckoutSummary extends Component {
       items: PropTypes.arrayOf(PropTypes.object),
       checkout: PropTypes.shape({
         itemTotal: PropTypes.shape({
-          displayAmount: PropTypes.string
+          displayAmount: PropTypes.string,
         }),
         taxTotal: PropTypes.shape({
-          displayAmount: PropTypes.string
-        })
-      })
+          displayAmount: PropTypes.string,
+        }),
+      }),
     }),
     classes: PropTypes.object,
     hasMoreCartItems: PropTypes.bool,
@@ -31,28 +31,28 @@ class CheckoutSummary extends Component {
     onRemoveCartItems: PropTypes.func,
     shop: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      description: PropTypes.string
-    })
-  }
+      description: PropTypes.string,
+    }),
+  };
 
   static defaultProps = {
     hasMoreCartItems: false,
     loadMoreCartItems() {},
     onChangeCartItemsQuantity() {},
-    onRemoveCartItems() {}
-  }
+    onRemoveCartItems() {},
+  };
 
   handleItemQuantityChange = (quantity, cartItemId) => {
     const { onChangeCartItemsQuantity } = this.props;
 
     onChangeCartItemsQuantity({ quantity, cartItemId });
-  }
+  };
 
   handleRemoveItem = (_id) => {
     const { onRemoveCartItems } = this.props;
 
     onRemoveCartItems(_id);
-  }
+  };
 
   renderCartItems() {
     const { cart, hasMoreCartItems, loadMoreCartItems } = this.props;
@@ -77,17 +77,11 @@ class CheckoutSummary extends Component {
   }
 
   renderCartSummary() {
-    const { cart, classes } = this.props;
-console.log(this.props,"heloo")
+    const { cart, classes ,handlpay} = this.props;
+    console.log(this.props, "heloo");
 
     if (cart && cart.checkout && cart.checkout.summary) {
-      const {
-        fulfillmentTotal,
-        itemTotal,
-        surchargeTotal,
-        taxTotal,
-        total
-      } = cart.checkout.summary;
+      const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
       return (
         <Grid item xs={12} className={classes.summary}>
@@ -111,7 +105,6 @@ console.log(this.props,"heloo")
     return (
       <aside>
         <Grid container spacing={3}>
-      
           {this.renderCartSummary()}
         </Grid>
       </aside>
@@ -120,4 +113,3 @@ console.log(this.props,"heloo")
 }
 
 export default withStyles(styles)(CheckoutSummary);
-
