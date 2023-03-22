@@ -419,8 +419,9 @@ const CheckoutActions = (prop) => {
         } = data;
 
         // Send user to order confirmation page
-        Router.push("/en/checkout/order");
-console.log(token,"token")
+  Router.push("/checkout/order").catch((error) => {
+    console.error("Error occurred while routing to order confirmation page: ", error);
+  });
   // Send user to order confirmation page
 
     } catch (error) {

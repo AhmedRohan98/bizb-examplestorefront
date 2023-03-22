@@ -144,7 +144,7 @@ export default function Login(props) {
             user: {
               email
             },
-            password: password,
+            password: hashPassword(password),
           
           },
        
