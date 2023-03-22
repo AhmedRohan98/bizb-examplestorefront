@@ -2,9 +2,8 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import {useRouter} from 'next/router';
+import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
-
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -167,30 +166,29 @@ const useStyles = makeStyles((theme) => ({
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  console.log('all props....', props);
+  console.log("all props....", props);
 
-  var res = props?.nodes?.reduce((acc,item,index) => {
+  var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;
     return acc;
   }, {});
-   
-const clickHandler = (id) => {
-  router.push('/en/categories/'+id);
-}
-console.log(res,"sssss")
+
+  const clickHandler = (id) => {
+    router.push("/en/categories/" + id);
+  };
+  console.log(res, "sssss");
 
   function FormRow1() {
     return (
-      
       <React.Fragment>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
           <img src="/preloved/preloved1.svg" className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-          {res?.page0.displayTitle}
+              {res?.page0.displayTitle}
             </Typography>
-            <div className={classes.buttonshop}  onClick = {() => clickHandler(res?.page0._id)}>
+            <div className={classes.buttonshop} onClick={() => clickHandler(res?.page0._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
@@ -203,7 +201,7 @@ console.log(res,"sssss")
             <Typography gutterBottom variant="h3" className={classes.text}>
               Western
             </Typography>
-            <div className={classes.buttonshop} onClick = {() => clickHandler(res?.page0._id)}>
+            <div className={classes.buttonshop} onClick={() => clickHandler(res?.page0._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
@@ -233,7 +231,7 @@ console.log(res,"sssss")
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-            {res?.page2.displayTitle}
+              {res?.page2.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
               {" "}

@@ -24,9 +24,19 @@ const MainSlider = (props) => {
     main: {
       marginTop: "-170px",
     },
+    body: {
+    height: "500px",
+  overflow: "scroll" ,
+  scrollBehavior: "smooth"
+     
+    },
     root: {
       position: "relative",
     },
+    // scroll: {
+
+    // } ,
+
     image: {
       height: "95vh",
       width: "100%",
@@ -140,7 +150,11 @@ const MainSlider = (props) => {
             <div className={classes.controllert}>
               {" "}
               <img src="/icons/home.svg" className={classes.ie} />
-              <Typography className={classes.text}>Scroll to discover more</Typography>
+              <Typography className={classes.text}>
+                <a className={classes.scroll} href="#scroll-to">
+                  Scroll to discover more
+                </a>
+              </Typography>
             </div>
             <div className={classes.controllera}>
               {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
@@ -197,8 +211,8 @@ const MainSlider = (props) => {
           </div>
         </div>
       </div>
-
-       <Preloved {...props} />  
+      <div id={"scroll-to"}></div>
+      <Preloved {...props} />
 
       <Justin {...props} />
 
