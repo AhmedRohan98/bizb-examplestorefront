@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
-
+import {  Element } from "react-scroll";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -196,7 +196,7 @@ const Preloved = (props) => {
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
           <img src="/preloved/preloved2.svg" className={classes.imagess} />
-
+          <Element name="target-element"></Element>
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               Western
@@ -228,7 +228,7 @@ const Preloved = (props) => {
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>
           <img src="/preloved/preloved4.svg" className={classes.imagess} />
-
+          
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page2.displayTitle}

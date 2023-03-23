@@ -28,11 +28,11 @@ const styles = (theme: Theme) =>
       // opacity: "0.7",
       height: "170px",
       width: "100%",
-      backgroun: "green",
+      background: "none",
       display: "flex",
       justifyContent: "space-between",
       zIndex: 1200,
-      "& .MuiAppBar": {
+      "& .MuiAppBar-colorPrimary": {
         backgroud: "green",
         width: "100%",
       },
@@ -54,13 +54,17 @@ const styles = (theme: Theme) =>
       justifyContent: "space-between",
       paddingTop: "20px",
       height: "170px",
-      backgroundImage:
-        "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0) 100%)",
-      opacity: 0.7,
       zIndex: 1200,
     },
+    light: {
+      color: "#FFFFFF",
+      cursor: "pointer",
+      zIndex: 1200,
+    },
+
     dark: {
       color: "#333333",
+      backgroundImage: "none !important",
     },
   });
 

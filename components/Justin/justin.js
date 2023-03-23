@@ -142,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-  console.log(catalogdata, "no");
+
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
 

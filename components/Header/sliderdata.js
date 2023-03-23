@@ -16,6 +16,7 @@ import OurBlogs from "../Ourblogs/ourblog";
 import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
+import { Link } from "react-scroll";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props.catalogItems;
@@ -24,26 +25,7 @@ const MainSlider = (props) => {
     main: {
       marginTop: "-170px",
     },
-    body: {
-      height: "500px",
-      overflowY: "scroll",
-      transition: "all 1.3s ease-in-out",
-      "&::-webkit-scrollbar": {
-        width: "10px",
-        transition: "all 1.3s ease-in-out",
-      },
-      "&::-webkit-scrollbar-track": {
-        transition: "all 1.3s ease-in-out",
-      },
-      "&::-webkit-scrollbar-thumb": {
-        transition: "all 1.3s ease-in-out",
-      },
-      "&:hover": {
-        "&::-webkit-scrollbar-thumb": {
-          transition: "all 1.3s ease-in-out",
-        },
-      },
-    },
+
     root: {
       position: "relative",
     },
@@ -129,6 +111,18 @@ const MainSlider = (props) => {
       marginTop: theme.spacing(6),
       width: "100%",
     },
+    topheaderfor: {
+      backgroundImage: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0) 100%) !important",
+      opacity: "0.7 !important",
+      position: "absolute",
+
+     top:"0vh",
+     width:"100%",
+     height:"170px",
+   
+zIndex:1200,
+      
+    },
   }));
   const ITEMS = [
     {
@@ -162,14 +156,13 @@ const MainSlider = (props) => {
           <img src={item.image} className={classes.image} />
 
           <div className={classes.controller}>
+            <div className={classes.topheaderfor}></div>
             <div className={classes.controllert}>
               {" "}
               <img src="/icons/home.svg" className={classes.ie} />
-              <Typography className={classes.text}>
-              
-                  Scroll to discover more
-             
-              </Typography>
+              <Link to="target-element" smooth={true} duration={500}>
+                <Typography className={classes.text}>Scroll to discover more</Typography>
+              </Link>
             </div>
             <div className={classes.controllera}>
               {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
