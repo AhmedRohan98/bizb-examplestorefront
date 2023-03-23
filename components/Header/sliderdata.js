@@ -95,7 +95,7 @@ const MainSlider = (props) => {
     text: {
       fontSize: "18px",
       color: "white",
-      Fontfamily: " Circular Std",
+      Fontfamily: "lato",
     },
     dark: {
       color: "#333333",
@@ -155,6 +155,7 @@ const MainSlider = (props) => {
   ];
   function Item({ item }) {
     const classes = useStyles();
+    
     return (
       <>
         <SwiperSlide>
@@ -165,9 +166,9 @@ const MainSlider = (props) => {
               {" "}
               <img src="/icons/home.svg" className={classes.ie} />
               <Typography className={classes.text}>
-                <a className={classes.scroll} href="#scroll-to">
+              
                   Scroll to discover more
-                </a>
+             
               </Typography>
             </div>
             <div className={classes.controllera}>
@@ -225,7 +226,7 @@ const MainSlider = (props) => {
           </div>
         </div>
       </div>
-      <div id={"scroll-to"}></div>
+    
       <Preloved {...props} />
 
       <Justin {...props} />

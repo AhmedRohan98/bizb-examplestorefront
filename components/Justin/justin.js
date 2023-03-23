@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     width: "84px",
     borderRadius: "40px",
     background: "#FDC114",
-
+    cursor: "pointer",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -134,6 +134,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     width: "312px",
     flexDirection: "column",
+  },
+  spanofnextword: {
+    color: "#FDC114",
   },
 }));
 
@@ -204,7 +207,7 @@ const Justin = (props) => {
   return (
     <div className={classes.main}>
       <div className={classes.headermain}>
-        <Typography variant="h3">JUST IN</Typography>
+        <Typography variant="h3">JUST <span className={classes.spanofnextword}>IN</span></Typography>
         <div className={classes.header}>
           <h1 className={classes.typography}></h1>
           <Typography gutterBottom variant="body1" className={classes.explore}>

@@ -23,14 +23,21 @@ const styles = (theme: Theme) =>
   createStyles({
     appBar: {
       textTransform: "uppercase",
-      background: "transparent",
+
       // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
       // opacity: "0.7",
       height: "170px",
-
-    
+      width: "100%",
+      backgroun: "green",
+      display: "flex",
+      justifyContent: "space-between",
+      zIndex: 1200,
+      "& .MuiAppBar": {
+        backgroud: "green",
+        width: "100%",
+      },
     },
-    
+
     controls: {
       alignItems: "inherit",
       display: "inherit",
@@ -45,12 +52,15 @@ const styles = (theme: Theme) =>
       // alignItems: "center",
       display: "flex",
       justifyContent: "space-between",
-      marginTop: "50px",
-      
-      zIndex: 1000,
+      paddingTop: "20px",
+      height: "170px",
+      backgroundImage:
+        "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0) 100%)",
+      opacity: 0.7,
+      zIndex: 1200,
     },
     dark: {
-      color: "#333333"
+      color: "#333333",
     },
   });
 
@@ -93,11 +103,12 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <div style={{ 
           zIndex: -1,
-          position: "absolute",
-          margin: "auto",
-          width: "100%",
+         
+       width:"100%",
+     
           display: "flex",
           justifyContent: "center",
+          allignItems:"center",
           }}>
           {/* @ts-ignore TODO: Refactor link to address type error */}
           {headerType?<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoLight.svg"/> :<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }</div>
