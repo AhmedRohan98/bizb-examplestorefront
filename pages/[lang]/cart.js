@@ -318,17 +318,7 @@ class CartPage extends Component {
             <Grid container spacing={3}>
               {this.renderCartItems()}
               {this.renderCartSummary()}
-              <Grid className={classes.customerSupportCopy} item>
-                <Typography paragraph variant="caption">
-                  Have questions? call <span className={classes.phoneNumber}>1.800.555.5555</span>
-                </Typography>
-                <Typography paragraph variant="caption">
-                  <Link href="#">Shipping information</Link>
-                </Typography>
-                <Typography paragraph variant="caption">
-                  <Link href="#">Return policy</Link>
-                </Typography>
-              </Grid>
+             
             </Grid>
           </section>
         </Layout>

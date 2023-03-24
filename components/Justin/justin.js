@@ -201,6 +201,7 @@ const Justin = (props) => {
 
             currencyCode,
           },
+          
           productConfiguration: {
             productId: product.productId, // Pass the productId, not to be confused with _id
             productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id

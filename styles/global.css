@@ -169,3 +169,7 @@ input:-internal-autofill-selected {
     justify-content: center;
     text-align: center;
 }
+.MuiBadge-anchorOriginTopRightRectangle {
+ 
+    background: #FDC114 !important;
+}
