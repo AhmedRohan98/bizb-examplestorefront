@@ -166,7 +166,7 @@ const useStyles = makeStyles((theme) => ({
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  console.log("all props....", props);
+  // console.log("all props....", props);
 
   var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;

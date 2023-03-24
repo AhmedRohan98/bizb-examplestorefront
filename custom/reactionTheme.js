@@ -250,8 +250,8 @@ const theme = createMuiTheme({
         xxs: 0, // small phone
         xs: 300, // phone
         sm: 400, // tablets
-        md: 900, // small laptop
-        lg: 1200, // desktop
+        md: 800, // small laptop
+        lg: 1100, // desktop
         xl: 1536, // large screens
       },
     },

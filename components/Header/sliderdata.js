@@ -20,7 +20,7 @@ import { Link } from "react-scroll";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props.catalogItems;
-  console.log(products, "new products");
+  // console.log(products, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
       marginTop: "-170px",
@@ -160,7 +160,7 @@ zIndex:1200,
             <div className={classes.controllert}>
               {" "}
               <img src="/icons/home.svg" className={classes.ie} />
-              <Link to="target-element" smooth={true} duration={500}>
+              <Link to="target-element" smooth={true} duration={2000}>
                 <Typography className={classes.text}>Scroll to discover more</Typography>
               </Link>
             </div>

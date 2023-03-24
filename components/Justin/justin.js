@@ -167,17 +167,17 @@ const Justin = (props) => {
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
     } = props;
 
-    console.log(pdpSelectedVariantId, "star");
+    // console.log(pdpSelectedVariantId, "star");
 
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
-    // const selectedOption = variantById(selectedVariant.options, variantId);
-    // const selectedVariantOrOption = selectedOption || selectedVariant;
-    console.log("selected variant..", product, selectedVariant);
-    if (selectedVariant) {
+    const selectedOption = variantById(selectedVariant.options,product?.variants[0].variantId);
+    const selectedVariantOrOption = selectedOption || selectedVariant;
+    // console.log("selected variant..", selectedVariantOrOption);
+    if (selectedVariantOrOption) {
       // Get the price for the currently selected variant or variant option
       const price = priceByCurrencyCode(currencyCode, product.pricing);
-      console.log("price...", price);
+      // console.log("price...", price);
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
         {

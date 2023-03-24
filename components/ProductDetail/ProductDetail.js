@@ -222,7 +222,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  console.log(props, "new");
+  // console.log(props, "new");
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -444,7 +444,7 @@ const ProductDetail = ({ ...props }) => {
                   return (
                     <SwiperSlide key={index}>
                       <div className={classes.thumbimage}>
-                        <img src={slide.image} alt="" className={classes.thumbimage} />
+                        <img src={product?.media[0].URLs.small} alt="" className={classes.thumbimage} />
                       </div>
                     </SwiperSlide>
                   );
@@ -484,7 +484,7 @@ const ProductDetail = ({ ...props }) => {
                 return (
                   <SwiperSlide key={index}>
                     <div className={classes.controller}>
-                      <img src={slide.image} alt="" className={classes.sliderimage2} />
+                      <img src={product?.media[0].URLs.original} alt="" className={classes.sliderimage2} />
 
                       {activeIndex < slides.length - 1 ? (
                         <ArrowForwardIos
@@ -509,7 +509,7 @@ const ProductDetail = ({ ...props }) => {
 
           <Grid item xs={11} md={10} sm={6} lg={3}>
             <div className={classes.carttext}>
-              <Typography variant="subtitle1">Floral Shirt in yellow color for sale on Bizb</Typography>
+              <Typography variant="subtitle1">{product?.title}</Typography>
               <div className={classes.size}>
                 {" "}
                 <div className={classes.size2}>

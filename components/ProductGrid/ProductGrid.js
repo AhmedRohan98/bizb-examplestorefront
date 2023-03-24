@@ -54,7 +54,7 @@ class ProductGrid extends Component {
   renderMainArea() {
     const { catalogItems, isLoadingCatalogItems, pageInfo } = this.props;
 
-    console.log({catalogItems, isLoadingCatalogItems, pageInfo })
+    // console.log({catalogItems, isLoadingCatalogItems, pageInfo })
 
     if (isLoadingCatalogItems) return <PageLoading />;
 
