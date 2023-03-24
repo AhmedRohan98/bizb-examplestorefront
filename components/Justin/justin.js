@@ -207,7 +207,9 @@ const Justin = (props) => {
   return (
     <div className={classes.main}>
       <div className={classes.headermain}>
-        <Typography variant="h3">JUST <span className={classes.spanofnextword}>IN</span></Typography>
+        <Typography variant="h3">
+          JUST <span className={classes.spanofnextword}>IN</span>
+        </Typography>
         <div className={classes.header}>
           <h1 className={classes.typography}></h1>
           <Typography gutterBottom variant="body1" className={classes.explore}>
@@ -260,9 +262,9 @@ const Justin = (props) => {
                   </div>
                   <div className={classes.size}>
                     {" "}
-                    <strike>{item.node.product.pricing[0]?.comparePrice}</strike>
+                    <strike>{item.node.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
                     <Typography gutterBottom variant="h5" className={classes.price}>
-                      {item.node.product.pricing[0]?.displayPrice}
+                      {item.node.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
                     </Typography>
                   </div>
                 </Box>
