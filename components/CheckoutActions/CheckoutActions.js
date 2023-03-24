@@ -414,8 +414,8 @@ const CheckoutActions = (prop) => {
         placeOrder: { orders, token },
       } = data;
 
-      // Send user to order confirmation page
-      Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`).catch(
+      // Send use r to order confirmation page
+      Router.push(`/checkout/order?orderId=${orders[0].referenceId} : ""}`).catch(
         (error) => {
           console.error("Error occurred while routing to order confirmation page: ", error);
         },

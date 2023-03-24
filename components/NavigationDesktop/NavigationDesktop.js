@@ -21,6 +21,7 @@ const styles = (theme) => ({
 });
 
 class NavigationDesktop extends Component {
+  
   static propTypes = {
     classes: PropTypes.object,
     navItems: PropTypes.object,
@@ -43,23 +44,59 @@ class NavigationDesktop extends Component {
       headerType,
     } = this.props;
 
-    if (navItems && navItems.items) {
+
       return (
         <>
           <nav>
             <div className={headerType ? classNames(light) : classNames(dark)}>
-              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Home</span>
-              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Explore</span>
-              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Byol</span>
-              <span style={{ marginRight: "40px", marginLeft: "30px" }}>Sell</span>
+              <span
+                style={{
+                  marginRight: "40px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black !important',
+                }}
+              >
+                Home
+              </span>
+              <span
+                style={{
+                  marginRight: "40px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black !important',
+                }}
+              >
+                Explore
+              </span>
+              <span
+                style={{
+                  marginRight: "40px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black !important',
+                }}
+              >
+                Byol
+              </span>
+              <span
+                style={{
+                  marginRight: "40px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black !important',
+                  fontWeight: 900
+                }}
+              >
+                Sell
+              </span>
             </div>
           </nav>
         </>
       );
-    }
 
-    // If navItems.items aren't available, skip rendering of navigation
-    return null;
+
+  
   }
 }
 
