@@ -62,8 +62,6 @@ const styles = (theme) => ({
     width: "200px",
     "& .swiper-slide": {
       opacity: 0.5,
-  
-      
     },
   },
   controller: {
@@ -75,7 +73,7 @@ const styles = (theme) => ({
   iconforwad: {
     position: "absolute",
     top: "50%",
-    left: "470px",
+    left: "560px",
     background: "#333333",
     color: "FDC114",
     borderRadius: "4px",
@@ -144,7 +142,7 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-
+cursor:"pointer",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
   },
@@ -153,10 +151,17 @@ const styles = (theme) => ({
   },
   sliderimage2: {
     position: "realtive",
-    display:"inline-grid"
+    display: "inline-grid",
+    minWidht: "507px",
+    minHeight: "600px",
+    maxHeight:"600px",
+    width: "600px",
   },
   thumbimage: {
     borderRadius: "18px",
+    height:"180px",
+    width:"180px",
+    paddingTop:"10px"
   },
   carttex: {
     fontSize: "18px",
@@ -406,7 +411,6 @@ const ProductDetail = ({ ...props }) => {
   return (
     <>
       <Box className={classes.slider}>
-   
         <Grid
           container
           spacing={2}
@@ -484,7 +488,7 @@ const ProductDetail = ({ ...props }) => {
                 return (
                   <SwiperSlide key={index}>
                     <div className={classes.controller}>
-                      <img src={product?.media[0].URLs.original} alt="" className={classes.sliderimage2} />
+                      <img src={product?.media[0].URLs.large} alt="" className={classes.sliderimage2} />
 
                       {activeIndex < slides.length - 1 ? (
                         <ArrowForwardIos
@@ -517,11 +521,11 @@ const ProductDetail = ({ ...props }) => {
                   <strike>
                     {" "}
                     <Typography gutterBottom variant="h4" className={classes.price2}>
-                      Rs 600
+                      {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
                   <Typography gutterBottom variant="h4" className={classes.price}>
-                    Rs 600
+                    {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
                 <Typography gutterBottom variant="h4" className={classes.offer}>

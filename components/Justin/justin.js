@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "baseline",
 
     position: "relative",
-    justifyContent: "flex-start",
+    justifyContent: "center",
   },
   typography: {
     background: "#333333",
@@ -145,6 +145,21 @@ const Justin = (props) => {
 
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
+ function determineProductPrice() {
+   const { currencyCode, product } = props;
+   const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
+   const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
+   let productPrice = {};
+
+   if (pdpSelectedOptionId && selectedVariant) {
+     const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
+     productPrice = priceByCurrencyCode(currencyCode, selectedOption.pricing);
+   } else if (!pdpSelectedOptionId && selectedVariant) {
+     productPrice = priceByCurrencyCode(currencyCode, selectedVariant.pricing);
+   }
+
+   return productPrice;
+ }
 
     // Select the variant, and if it has options, the first option
     const variantId = variant._id;
@@ -170,19 +185,20 @@ const Justin = (props) => {
     // console.log(pdpSelectedVariantId, "star");
 
     // Get selected variant or variant optiono
-    const selectedVariant = variantById(product.variants, variant._id);
-    const selectedOption = variantById(selectedVariant.options,product?.variants[0].variantId);
-    const selectedVariantOrOption = selectedOption || selectedVariant;
+      const selectedVariant = variantById(product.variants, variant._id);
+   
+ 
     // console.log("selected variant..", selectedVariantOrOption);
-    if (selectedVariantOrOption) {
+    if (selectedVariant) {
       // Get the price for the currently selected variant or variant option
-      const price = priceByCurrencyCode(currencyCode, product.pricing);
+  // const price = priceByCurrencyCode(currencyCode, selectVariant.pricing);
       // console.log("price...", price);
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
         {
           price: {
-            amount: 0,
+            amount: product.pricing[0].minPrice,
+
             currencyCode,
           },
           productConfiguration: {

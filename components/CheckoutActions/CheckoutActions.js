@@ -410,12 +410,10 @@ const CheckoutActions = (prop) => {
       // // Also destroy the collected and cached payment input
       // cartStore.resetCheckoutPayments();
 
-      const {
-        placeOrder: { orders, token },
-      } = data;
+     
 
       // Send use r to order confirmation page
-      Router.push(`/checkout/order?orderId=${orders[0].referenceId} : ""}`).catch(
+      Router.push(`/checkout/order`).catch(
         (error) => {
           console.error("Error occurred while routing to order confirmation page: ", error);
         },
