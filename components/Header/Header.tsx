@@ -112,7 +112,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
      
           display: "flex",
           justifyContent: "center",
-          allignItems:"center",
+       
           }}>
           {/* @ts-ignore TODO: Refactor link to address type error */}
           {headerType?<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoLight.svg"/> :<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }</div>
