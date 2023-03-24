@@ -141,7 +141,7 @@ class CatalogGridItem extends Component {
   setImageFit = () => {
     // Use cover fit if image is landcape, contain if portrait
     if (typeof Image !== "undefined") {
-      console.log("asdfad", this.media)
+      // console.log("asdfad", this.media)
       const large = this?.primaryImage?.URLs?.large;
       const largeImage = new Image();
       largeImage.src = large;

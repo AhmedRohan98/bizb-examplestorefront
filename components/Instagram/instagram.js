@@ -48,7 +48,7 @@ const Instagram = (props) => {
       backgroundColor: "rgba(0, 0, 0, 0.7)",
     },
   }));
-const lastImageIndex = images.length - 1;
+const lastImageIndex = images?.length - 1;
   const classes = useStyles();
   return (
     <>
@@ -57,7 +57,7 @@ const lastImageIndex = images.length - 1;
       </div>
       <div className={classes.root}>
         <Grid container xs={12} spacing={10} alignItems="center" justify="center">
-          {images.map((item, i) => (
+          {images?.map((item, i) => (
             <Grid item className={classes.gridroot}>
               <a href={item.permalink}>
                 <img src={item.media_url} className={classes.image} />

@@ -16,34 +16,16 @@ import OurBlogs from "../Ourblogs/ourblog";
 import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
+import { Link } from "react-scroll";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props.catalogItems;
-  console.log(products, "new products");
+  // console.log(products, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
       marginTop: "-170px",
     },
-    body: {
-      height: "500px",
-      overflowY: "scroll",
-      transition: "all 1.3s ease-in-out",
-      "&::-webkit-scrollbar": {
-        width: "10px",
-        transition: "all 1.3s ease-in-out",
-      },
-      "&::-webkit-scrollbar-track": {
-        transition: "all 1.3s ease-in-out",
-      },
-      "&::-webkit-scrollbar-thumb": {
-        transition: "all 1.3s ease-in-out",
-      },
-      "&:hover": {
-        "&::-webkit-scrollbar-thumb": {
-          transition: "all 1.3s ease-in-out",
-        },
-      },
-    },
+
     root: {
       position: "relative",
     },
@@ -95,7 +77,7 @@ const MainSlider = (props) => {
     text: {
       fontSize: "18px",
       color: "white",
-      Fontfamily: " Circular Std",
+      Fontfamily: "lato",
     },
     dark: {
       color: "#333333",
@@ -129,6 +111,18 @@ const MainSlider = (props) => {
       marginTop: theme.spacing(6),
       width: "100%",
     },
+    topheaderfor: {
+      backgroundImage: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0) 100%) !important",
+      opacity: "0.7 !important",
+      position: "absolute",
+
+     top:"0vh",
+     width:"100%",
+     height:"170px",
+   
+zIndex:1200,
+      
+    },
   }));
   const ITEMS = [
     {
@@ -155,20 +149,20 @@ const MainSlider = (props) => {
   ];
   function Item({ item }) {
     const classes = useStyles();
+    
     return (
       <>
         <SwiperSlide>
           <img src={item.image} className={classes.image} />
 
           <div className={classes.controller}>
+            <div className={classes.topheaderfor}></div>
             <div className={classes.controllert}>
               {" "}
               <img src="/icons/home.svg" className={classes.ie} />
-              <Typography className={classes.text}>
-                <a className={classes.scroll} href="#scroll-to">
-                  Scroll to discover more
-                </a>
-              </Typography>
+              <Link to="target-element" smooth={true} duration={2000}>
+                <Typography className={classes.text}>Scroll to discover more</Typography>
+              </Link>
             </div>
             <div className={classes.controllera}>
               {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
@@ -225,7 +219,7 @@ const MainSlider = (props) => {
           </div>
         </div>
       </div>
-      <div id={"scroll-to"}></div>
+    
       <Preloved {...props} />
 
       <Justin {...props} />

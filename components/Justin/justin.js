@@ -8,6 +8,7 @@ import variantById from "lib/utils/variantById";
 import { useEffect, useState } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
+import { json } from "body-parser";
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: "3vh",
@@ -95,21 +96,21 @@ const useStyles = makeStyles((theme) => ({
 
     alignItems: "center",
     justifyContent: "initial",
-    height: "60px",
+    height: "75px",
     width: "100%",
     bottom: "20%",
     display: "inline-grid",
 
     width: "100%",
-    marginTop: " -60px",
-    padding: "10px",
+    marginTop: " -75px",
+    padding: "13px 20px",
   },
   cart: {
     height: "35px",
     width: "84px",
     borderRadius: "40px",
     background: "#FDC114",
-
+    cursor: "pointer",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -134,11 +135,14 @@ const useStyles = makeStyles((theme) => ({
     width: "312px",
     flexDirection: "column",
   },
+  spanofnextword: {
+    color: "#FDC114",
+  },
 }));
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-  console.log(catalogdata, "no");
+
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
 
@@ -163,17 +167,17 @@ const Justin = (props) => {
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
     } = props;
 
-    console.log(pdpSelectedVariantId, "star");
+    // console.log(pdpSelectedVariantId, "star");
 
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
-    // const selectedOption = variantById(selectedVariant.options, variantId);
-    // const selectedVariantOrOption = selectedOption || selectedVariant;
-    console.log("selected variant..", product, selectedVariant);
-    if (selectedVariant) {
+    const selectedOption = variantById(selectedVariant.options,product?.variants[0].variantId);
+    const selectedVariantOrOption = selectedOption || selectedVariant;
+    // console.log("selected variant..", selectedVariantOrOption);
+    if (selectedVariantOrOption) {
       // Get the price for the currently selected variant or variant option
       const price = priceByCurrencyCode(currencyCode, product.pricing);
-      console.log("price...", price);
+      // console.log("price...", price);
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
         {
@@ -203,7 +207,7 @@ const Justin = (props) => {
   return (
     <div className={classes.main}>
       <div className={classes.headermain}>
-        <Typography variant="h3">JUST IN</Typography>
+        <Typography variant="h3">JUST <span className={classes.spanofnextword}>IN</span></Typography>
         <div className={classes.header}>
           <h1 className={classes.typography}></h1>
           <Typography gutterBottom variant="body1" className={classes.explore}>
@@ -248,15 +252,17 @@ const Justin = (props) => {
                   </Typography>
                   <div className={classes.size}>
                     <Typography gutterBottom variant="h4">
-                      size
+                      Size
                     </Typography>
-                    {/* <Typography gutterBottom variant="h4">{`:${item.size}`}</Typography> */}
+                    <Typography gutterBottom variant="h4">
+                      :Large
+                    </Typography>
                   </div>
                   <div className={classes.size}>
                     {" "}
-                    {/* <strike>{item.price}</strike> */}
+                    <strike>{item.node.product.pricing[0]?.comparePrice}</strike>
                     <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
+                      {item.node.product.pricing[0]?.displayPrice}
                     </Typography>
                   </div>
                 </Box>
