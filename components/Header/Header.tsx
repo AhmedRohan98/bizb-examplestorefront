@@ -87,12 +87,16 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-{/* @ts-ignore TODO: Refactor link to address type error */}
-      <div className={classes.dark}><Hidden mdUp><NavigationToggleMobile onClick={handleNavigationToggleClick} /></Hidden></div>
+        {/* @ts-ignore TODO: Refactor link to address type error */}
+        <div className={classes.dark}>
+          <Hidden mdUp>
+            <NavigationToggleMobile onClick={handleNavigationToggleClick} />
+          </Hidden>
+        </div>
         {/* <Hidden mdUp>
           <NavigationToggleMobile onClick={handleNavigationToggleClick} />
         </Hidden> */}
-{/* @ts-ignore TODO: Refactor link to address type error */}
+        {/* @ts-ignore TODO: Refactor link to address type error */}
         <div className={classes.controls}>
           <Typography className={classes.title} color="inherit" variant="h6">
             {/* @ts-ignore TODO: Refactor link to address type error */}
@@ -100,40 +104,68 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
               {shop ? <ShopLogo shopName={shop.name} /> : "Example Storefront"}
             </Link> */}
           </Typography>
-{/* @ts-ignore TODO: Refactor link to address type error */}
-          <Hidden smDown><NavigationDesktop headerType={headerType}/></Hidden>
+          {/* @ts-ignore TODO: Refactor link to address type error */}
+          <Hidden smDown>
+            <NavigationDesktop headerType={headerType} />
+          </Hidden>
           {/* @ts-ignore TODO: Refactor link to address type error */}
         </div>
         {/* @ts-ignore TODO: Refactor link to address type error */}
-        <div style={{ 
-          zIndex: -1,
+        <div
+          style={{
+            zIndex: -1,
+
+            width: "98%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+          }}
+        >
+          {/* @ts-ignore TODO: Refactor link to address type error */}
+          {headerType ? (
+            <img
+              style={{ zIndex: 0, width: "50px", width: "95px" }}
+              src="/images/logoLight.svg"
+              className="headerlogo"
+            />
+          ) : (
+            <img
+              style={{ zIndex: 0, width: "50px", width: "95px" }}
+              src="/images/logoDark.svg"
+              className="headerlogo"
+            />
+          )}
+        </div>
+
+        <AccountDropdown
+          headerType={headerType}
+          style={{ marginRight: "25px", marginLeft: "25px" }}
          
-     
-     width:"98%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems:"center",
-         position:"absolute"
-       
-          }}>
-          {/* @ts-ignore TODO: Refactor link to address type error */}
-          {headerType?<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoLight.svg"/> :<img style={{zIndex: 0, width:"50px", width: "95px"}} src="/images/logoDark.svg"/> }</div>
-        
-        <AccountDropdown headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />
+        />
         {/* @ts-ignore TODO: Refactor link to address type error */}
-        <span style={{marginRight: "25px", marginLeft: "25px"}}>
+        <span style={{ marginRight: "25px", marginLeft: "25px" }}>
           {/* @ts-ignore TODO: Refactor link to address type error */}
-          {headerType? <img src="/images/searchIconLight.svg"/>: <img src="/images/searchIconDark.svg"/>}</span>
-        {/* @ts-ignore TODO: Refactor link to address type error */}              
-          <MiniCart headerType={headerType} style={{marginRight: "25px", marginLeft: "25px"}} />
+          {headerType ? (
+            <img src="/images/searchIconLight.svg" className="headerlogo" />
+          ) : (
+            <img src="/images/searchIconDark.svg" className="headerlogo" />
+          )}
+        </span>
+        {/* @ts-ignore TODO: Refactor link to address type error */}
+        <MiniCart
+          headerType={headerType}
+          style={{ marginRight: "25px", marginLeft: "25px" }}
+          className="headerlogo"
+        />
         {/* @ts-ignore TODO: Refactor link to address type error */}
         {/* <LocaleDropdown /> */}
-{/* @ts-ignore TODO: Refactor link to address type error */}
+        {/* @ts-ignore TODO: Refactor link to address type error */}
         {/* <AccountDropdown />
         <span><img src="/images/searchIcon.svg"/></span>
         <MiniCart /> */}
       </Toolbar>
-{/* @ts-ignore TODO: Refactor link to address type error */}
+      {/* @ts-ignore TODO: Refactor link to address type error */}
       <NavigationMobile shop={shop} />
     </AppBar>
   );

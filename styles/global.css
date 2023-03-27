@@ -173,3 +173,19 @@ input:-internal-autofill-selected {
  
     background: #FDC114 !important;
 }
+.hoverable:hover {
+
+  background: #FDC114 ;
+  border-radius: 40px;
+  height: 200px !important;
+  transition: "5px";
+ padding:9px 11px; 
+  width:260px
+}
+.headerlogo {
+  transition: transform 0.3s ease;
+}
+
+.headerlogo:hover{
+  transform: scale(1.2);
+}
