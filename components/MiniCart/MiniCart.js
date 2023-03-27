@@ -281,7 +281,7 @@ const MiniCart = ({ ...props }) => {
                           </div>
                           <div className={classes.cart}>
                             <Typography gutterBottom variant="h5" component="h2" onClick={handleCheckoutButtonClick}>
-                              CHECKOUT{" "}
+                              CHECKOUT
                             </Typography>
                           </div>
                         </div>

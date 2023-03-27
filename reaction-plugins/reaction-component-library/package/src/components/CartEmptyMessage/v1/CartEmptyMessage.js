@@ -62,10 +62,12 @@ class CartEmptyMessage extends Component {
     return (
       <Fragment>
         <EmptyMessage>{messageText}</EmptyMessage>
-        <h2>ffffffffffffffffffffffff</h2>
+
         <EmptyButton>
-   
-          <Button actionType="important" onClick={this.handleOnClick}>{buttonText}</Button>
+          <Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6">
+            {" "}
+            Continue Shopping
+          </Button>
         </EmptyButton>
       </Fragment>
     );
