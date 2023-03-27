@@ -30,7 +30,7 @@ const styles = (theme: Theme) =>
       width: "100%",
       background: "none",
       display: "flex",
-      justifyContent: "space-between",
+   
       zIndex: 1200,
       "& .MuiAppBar-colorPrimary": {
         backgroud: "green",
@@ -108,10 +108,12 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
         <div style={{ 
           zIndex: -1,
          
-       width:"100%",
      
+     width:"98%",
           display: "flex",
           justifyContent: "center",
+          alignItems:"center",
+         position:"absolute"
        
           }}>
           {/* @ts-ignore TODO: Refactor link to address type error */}

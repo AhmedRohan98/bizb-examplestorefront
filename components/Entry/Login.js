@@ -129,7 +129,7 @@ export default function Login(props) {
         user: {
           email,
         },
-        password: hashPassword(password),
+        password: password,
       });
 
       closeModal();

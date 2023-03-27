@@ -166,7 +166,7 @@ const useStyles = makeStyles((theme) => ({
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  // console.log("all props....", props);
+  // console.log("all props....", props.nodes);
 
   var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;
@@ -186,7 +186,7 @@ const Preloved = (props) => {
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page0.displayTitle}
+              {res?.page1.displayTitle}
             </Typography>
             <div className={classes.buttonshop} onClick={() => clickHandler(res?.page0._id)}>
               {" "}
@@ -195,11 +195,11 @@ const Preloved = (props) => {
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src="/preloved/preloved2.svg" className={classes.imagess} />
+          <img src={res?.page5.heroMediaUrl}  className={classes.imagess} />
           <Element name="target-element"></Element>
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              Western
+              {res?.page5.displayTitle}
             </Typography>
             <div className={classes.buttonshop} onClick={() => clickHandler(res?.page0._id)}>
               {" "}
@@ -214,11 +214,11 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} md={5} sm={12} lg={5} className={classes.carts}>
-          <img src="/preloved/preloved3.svg" className={classes.imagess} />
+          <img src={res?.page2.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              Party
+              {res?.page2.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
               {" "}
@@ -228,7 +228,7 @@ const Preloved = (props) => {
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>
           <img src="/preloved/preloved4.svg" className={classes.imagess} />
-          
+
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page2.displayTitle}
@@ -246,11 +246,11 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src="/preloved/preloved5.svg" className={classes.imagess} />
+          <img src={res?.page3.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              Shoes
+              {res?.page3.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
               {" "}
@@ -259,11 +259,11 @@ const Preloved = (props) => {
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src="/preloved/preloved7.svg" className={classes.imagess} />
+          <img src={res?.page0.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              Juniors
+              {res?.page0.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
               {" "}
@@ -278,11 +278,11 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} container className={classes.carts}>
-          <img src="/preloved/preloved6.png" className={classes.imagess} />
+          <img src={res?.page4.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              Accessories
+              {res?.page4.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
               {" "}

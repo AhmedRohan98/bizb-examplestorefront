@@ -174,12 +174,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(5),
+    marginBottom: theme.spacing(2),
   },
   cartdelivery: {
     fontWeight: 400,
-    marginLeft: theme.spacing(3),
+ 
     color: "#333333",
+    marginLeft:theme.spacing(2)
   },
   cartdelivery2: {
     width: "350px",
@@ -222,6 +223,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  summary:{
+    display:"flex",
+    flexDirection:"column",
   },
   register: {
     width: "261px",
@@ -410,12 +415,10 @@ const CheckoutActions = (prop) => {
       // // Also destroy the collected and cached payment input
       // cartStore.resetCheckoutPayments();
 
-      const {
-        placeOrder: { orders, token },
-      } = data;
+     
 
       // Send use r to order confirmation page
-      Router.push(`/checkout/order?orderId=${orders[0].referenceId} : ""}`).catch(
+      Router.push(`/checkout/order`).catch(
         (error) => {
           console.error("Error occurred while routing to order confirmation page: ", error);
         },
