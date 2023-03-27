@@ -16,6 +16,7 @@ import Router from "translations/i18nRouter";
 import Badge from "@material-ui/core/Badge";
 
 import withCart from "containers/cart/withCart";
+import Link from "components/Link";
 
 const styles = (theme) => ({
   popper: {
@@ -319,10 +320,12 @@ const MiniCart = ({ ...props }) => {
                 <div className={classes.emptycart}>
                   <Typography variant="h4">You haven’t added any pre-loved item</Typography>
                 </div>
-                <Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6">
-                  {" "}
-                  Continue Shopping
-                </Button>
+                <a href="/">
+                  <Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6">
+                    {" "}
+                    Continue Shopping
+                  </Button>
+                </a>
               </div>
             </div>
           </Fade>
