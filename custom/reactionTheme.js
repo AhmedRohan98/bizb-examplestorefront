@@ -247,12 +247,11 @@ const theme = createMuiTheme({
     },
     breakpoints: {
       values: {
-        xxs: 0, // small phone
-        xs: 300, // phone
-        sm: 400, // tablets
-        md: 800, // small laptop
-        lg: 1100, // desktop
-        xl: 1536, // large screens
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1200,
+        xl: 1920,
       },
     },
   },

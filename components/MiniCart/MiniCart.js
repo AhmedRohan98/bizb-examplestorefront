@@ -246,7 +246,7 @@ const MiniCart = ({ ...props }) => {
                                 {" "}
                                 <Typography variant="h4">{item.title}</Typography>
                                 <Typography variant="h4" className={classes.cartpric}>
-                                  Store:mariamz
+                                  Store:{item?.productVendor}
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
                                   RS: {item?.price?.amount}

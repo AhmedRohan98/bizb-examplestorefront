@@ -145,3 +145,31 @@ a {
 }
 
 
+input:-internal-autofill-selected {
+    appearance: menulist-button;
+    background-image: none !important;
+    background-color: "none" !important;
+    color: fieldtext !important;
+}
+.cDxisF {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #FDC114 !important;
+    border-radius: 50%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+.MuiBadge-anchorOriginTopRightRectangle {
+ 
+    background: #FDC114 !important;
+}
