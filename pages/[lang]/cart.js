@@ -84,9 +84,9 @@ const styles = (theme) => ({
   checkoutButtonsContainer: {
     backgroundColor: theme.palette.reaction.black02,
     padding: theme.spacing(2),
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center"
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   customerSupportCopy: {
     paddingLeft: `${theme.spacing(4)}px !important`,
@@ -99,7 +99,6 @@ const styles = (theme) => ({
     height: "100%",
 
     position: "relative",
-    background: "rgba(0, 0, 0, 0.6)",
   },
   image: {
     width: "100%",
@@ -109,29 +108,34 @@ const styles = (theme) => ({
   },
   image2: {
     zIndex: 999,
-
-    position: "absolute",
-  },
-  topheading: {
-    position: "absolute",
-    zIndex: 999,
-    bottom: "30%",
-    width: "auto",
-    height: "auto",
     left: "50%",
     right: "50%",
+  
+    position: "absolute",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
 
     justifyContent: "center",
   },
+  topheading: {
+    position: "absolute",
+    zIndex: 999,
+    background: "rgba(0, 0, 0, 0.6)",
+    bottom:"0px",
+    top:"0px",
+    width:"100%",
+  display:"flex",
+  alignItems:"center",
+  justifyContent:"center",
+    height: "100%",
+  },
   heading: {
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(2),
   },
   topgrid: {
-    margin: theme.spacing(4),
+ 
     display: "flex",
 
     justifyContent: "center",
@@ -161,8 +165,7 @@ const styles = (theme) => ({
   },
   title: {
     fontWeight: theme.typography.fontWeightRegular,
-    marginTop: "1.6rem",
-    marginBottom: "3.1rem",
+   
   },
   itemWrapper: {
     borderTop: theme.palette.borders.default,
@@ -300,10 +303,7 @@ class CartPage extends Component {
     return (
       <>
         <Layout shop={shop}>
-          <Helmet
-            title={`Cart | ${shop && shop.name}`}
-            meta={[{ name: "description", content: shop && shop.description }]}
-          />
+        
           <div className={classes.topimage}>
         
             <img src="/cart/viewcart.svg" alt="view cart" className={classes.image} />
@@ -312,9 +312,7 @@ class CartPage extends Component {
             </div>
           </div>
           <section>
-            <Typography className={classes.title} variant="h6" align="center">
-              Shopping Cart
-            </Typography>
+           
             <Grid container spacing={3}>
               {this.renderCartItems()}
               {this.renderCartSummary()}
