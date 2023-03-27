@@ -241,7 +241,7 @@ const MiniCart = ({ ...props }) => {
                         {cart.items.map((item) => {
                           return (
                             <div className={classes.cartitem}>
-                              <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
+                              <img src={item?.metafields[0].value} alt={item.title} className={classes.cartimage}></img>
                               {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
                               <div className={classes.cartitemtext}>
                                 {" "}

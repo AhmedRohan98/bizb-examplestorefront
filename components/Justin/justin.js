@@ -201,7 +201,12 @@ const Justin = (props) => {
 
             currencyCode,
           },
-          
+          metafields: [
+            {
+              key: "media",
+              value: product?.media[0]?.URLs?.large,
+            },
+          ],
           productConfiguration: {
             productId: product.productId, // Pass the productId, not to be confused with _id
             productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
