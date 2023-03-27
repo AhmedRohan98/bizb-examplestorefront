@@ -16,6 +16,7 @@ import Router from "translations/i18nRouter";
 import Badge from "@material-ui/core/Badge";
 
 import withCart from "containers/cart/withCart";
+import Link from "components/Link";
 
 const styles = (theme) => ({
   popper: {
@@ -319,10 +320,12 @@ const MiniCart = ({ ...props }) => {
                 <div className={classes.emptycart}>
                   <Typography variant="h4">You haven’t added any pre-loved item</Typography>
                 </div>
-                <Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6">
-                  {" "}
-                  Continue Shopping
-                </Button>
+                <a href="/">
+                  <Button className={classes.continue} InputProps={{ disableUnderline: true }} variant="h6">
+                    {" "}
+                    Continue Shopping
+                  </Button>
+                </a>
               </div>
             </div>
           </Fade>
@@ -340,11 +343,21 @@ const MiniCart = ({ ...props }) => {
           {cart && cart.totalItemQuantity > 0 ? (
             <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
               <span>
-                {headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg" />}
+                {headerType ? (
+                  <img src="/images/cartIconLight.svg" className="headerlogo" />
+                ) : (
+                  <img src="/images/cartIconDark.svg" className="headerlogo" />
+                )}
               </span>
             </Badge>
           ) : (
-            <span>{headerType ? <img src="/images/cartIconLight.svg" /> : <img src="/images/cartIconDark.svg" />}</span>
+            <span>
+              {headerType ? (
+                <img src="/images/cartIconLight.svg" className="headerlogo" />
+              ) : (
+                <img src="/images/cartIconDark.svg" className="headerlogo" />
+              )}
+            </span>
           )}
         </IconButton>
       </div>
@@ -378,3 +391,4 @@ MiniCart.propTypes = {
 };
 
 export default withStyles(styles, { name: "SkMiniCart" })(withCart(inject("uiStore")(MiniCart)));
+ 

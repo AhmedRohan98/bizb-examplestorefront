@@ -50,6 +50,7 @@ class NavigationDesktop extends Component {
           <nav>
             <div className={headerType ? classNames(light) : classNames(dark)}>
               <span
+                className="hoverable"
                 style={{
                   marginRight: "40px",
                   marginLeft: "30px",
@@ -60,6 +61,7 @@ class NavigationDesktop extends Component {
                 Home
               </span>
               <span
+                className="hoverable"
                 style={{
                   marginRight: "40px",
                   marginLeft: "30px",
@@ -70,6 +72,7 @@ class NavigationDesktop extends Component {
                 Explore
               </span>
               <span
+                className="hoverable"
                 style={{
                   marginRight: "40px",
                   marginLeft: "30px",
@@ -80,12 +83,13 @@ class NavigationDesktop extends Component {
                 Byol
               </span>
               <span
+                className="hoverable"
                 style={{
                   marginRight: "40px",
                   marginLeft: "30px",
                   fontSize: "18px",
                   fontFamily: '"Ostrich Sans Black !important',
-                  fontWeight: 900
+                  fontWeight: 900,
                 }}
               >
                 Sell
