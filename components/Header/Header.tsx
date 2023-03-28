@@ -1,3 +1,5 @@
+//@ts-ignore
+//@ts-nocheck
 import React from "react";
 import inject from "hocs/inject";
 import AppBar from "@material-ui/core/AppBar";
@@ -30,7 +32,7 @@ const styles = (theme: Theme) =>
       width: "100%",
       background: "none",
       display: "flex",
-   
+
       zIndex: 1200,
       "& .MuiAppBar-colorPrimary": {
         backgroud: "green",
@@ -78,9 +80,10 @@ interface HeaderProps extends WithStyles<typeof styles> {
   viewer: any;
 }
 
-{/* @ts-ignore TODO: Refactor link to address type error */}
+{
+  /* @ts-ignore TODO: Refactor link to address type error */
+}
 const Header: any = ({ classes, shop, uiStore, headerType }) => {
-  
   const handleNavigationToggleClick = () => {
     uiStore.toggleMenuDrawerOpen();
   };
@@ -141,7 +144,6 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
         <AccountDropdown
           headerType={headerType}
           style={{ marginRight: "25px", marginLeft: "25px" }}
-         
         />
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <span style={{ marginRight: "25px", marginLeft: "25px" }}>
