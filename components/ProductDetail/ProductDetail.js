@@ -4,14 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import withWidth, { isWidthUp, isWidthDown } from "@material-ui/core/withWidth";
 import inject from "hocs/inject";
-import Breadcrumbs from "components/Breadcrumbs";
-import ProductDetailAddToCart from "components/ProductDetailAddToCart";
-import ProductDetailTitle from "components/ProductDetailTitle";
-import VariantList from "components/VariantList";
-import ProductDetailVendor from "components/ProductDetailVendor";
-import ProductDetailDescription from "components/ProductDetailDescription";
-import ProductDetailPrice from "components/ProductDetailPrice";
-import MediaGallery from "components/MediaGallery";
 import Router from "translations/i18nRouter";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import variantById from "lib/utils/variantById";
@@ -155,7 +147,7 @@ const styles = (theme) => ({
     display: "inlie-grid",
 
     margin: "0 auto",
-    minWidht: "507px",
+    widht: "507px",
     minHeight: "600px",
     alignItems: "center",
     justifyContent: "center",
@@ -178,6 +170,12 @@ const styles = (theme) => ({
     lineHeight: "22px",
   },
   swiperimag: {
+    display: "flex",
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  container2: {
     display: "flex",
     position: "relative",
     alignItems: "center",

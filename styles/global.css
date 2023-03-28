@@ -86,6 +86,7 @@ a {
   font-size: 16px!important;
   color: black !important;
 }
+
 .ivPFCf {
   border-bottom-color: #e6e6e6;
   border-bottom-style: solid;
@@ -199,4 +200,17 @@ input:-internal-autofill-selected {
 }
 .cNejJe {
   border: none !important
+}
+.pageloading{
+  height: "100%";
+ 
+    display: flex;
+     align-items: center;
+  justify-content:"center"
+}
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
