@@ -189,3 +189,14 @@ input:-internal-autofill-selected {
 .headerlogo:hover{
   transform: scale(1.2);
 }
+.Toastify__toast-container--bottom-left .Toastify__toast--default {
+  border-bottom: 3px solid red; /* replace "red" with desired color */
+}
+
+/* Change close icon color */
+.Toastify__close-button {
+  color: blue; /* replace "blue" with desired color */
+}
+.cNejJe {
+  border: none !important
+}

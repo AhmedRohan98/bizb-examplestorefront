@@ -5,10 +5,11 @@ import Box from "@material-ui/core/Box";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import variantById from "lib/utils/variantById";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
-import { json } from "body-parser";
+import CloseIcon from "@material-ui/icons/Close";
+  import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: "3vh",
@@ -139,6 +140,10 @@ const useStyles = makeStyles((theme) => ({
   spanofnextword: {
     color: "#FDC114",
   },
+  toast:{
+    background:"green",
+    color:"white"
+  }
 }));
 
 const Justin = (props) => {
@@ -225,11 +230,30 @@ const Justin = (props) => {
 
     // Scroll to the top
   };
+  const CustomCloseButton = () => (
+    <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
+  );
 
+ const notify = () => toast("Wow so easy!");
   const classes = useStyles();
   return (
     <div className={classes.main}>
       <div className={classes.headermain}>
+        <button onClick={notify}>Notify!</button>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeButton={<CustomCloseButton />}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          background="green"
+          toastStyle={{ backgroundColor: "#FDC114", color: "black" ,fontSize:"18px" }}
+        />
         <Typography variant="h3">
           JUST <span className={classes.spanofnextword}>IN</span>
         </Typography>

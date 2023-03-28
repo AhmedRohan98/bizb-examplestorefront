@@ -72,8 +72,8 @@ const styles = (theme) => ({
   },
   iconforwad: {
     position: "absolute",
+    left: "480px",
     top: "50%",
-    left: "560px",
     background: "#333333",
     color: "FDC114",
     borderRadius: "4px",
@@ -142,26 +142,32 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-cursor:"pointer",
+    cursor: "pointer",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
   },
   carttext: {
     width: "450px",
   },
+
   sliderimage2: {
     position: "realtive",
-    display: "inline-grid",
+    display: "inlie-grid",
+
+    margin: "0 auto",
     minWidht: "507px",
     minHeight: "600px",
-    maxHeight:"600px",
-    width: "600px",
+    alignItems: "center",
+    justifyContent: "center",
+    maxHeight: "600px",
+    maxWidth: "600px",
+    objectFit: "contain",
   },
   thumbimage: {
     borderRadius: "18px",
-    height:"180px",
-    width:"180px",
-    paddingTop:"10px"
+    height: "180px",
+    width: "180px",
+    paddingTop: "10px",
   },
   carttex: {
     fontSize: "18px",
@@ -170,6 +176,12 @@ cursor:"pointer",
     fontStyle: "normal",
     fontWeight: 900,
     lineHeight: "22px",
+  },
+  swiperimag: {
+    display: "flex",
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
@@ -493,7 +505,7 @@ const ProductDetail = ({ ...props }) => {
             >
               {slide.map((slide, index) => {
                 return (
-                  <SwiperSlide key={index}>
+                  <SwiperSlide key={index} className={classes.swiperimag}>
                     <div className={classes.controller}>
                       <img src={product?.media[0].URLs.large} alt="" className={classes.sliderimage2} />
 
