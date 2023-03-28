@@ -87,8 +87,8 @@ const styles = (theme) => ({
     alignItems: "flex-start",
   },
   cartimage: {
-    height: "140px !important",
-    width: "130px !important",
+ 
+    width: "130px",
 
     borderRadius: "10px",
   },
