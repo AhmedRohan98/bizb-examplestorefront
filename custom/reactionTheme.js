@@ -214,6 +214,7 @@ const theme = createMuiTheme({
       fontWeight: 400,
       weight: 100,
       lineHeight: "19px",
+      cursor:"pointer"
     },
     h6: {
       fontSize: "20px",

@@ -25,6 +25,7 @@ const styles = (theme) => ({
   },
   cart: {
     backgroundColor: theme.palette.common.white,
+    cursor:"pointer"
   },
   emptyCart: {
     display: "flex",
@@ -86,14 +87,16 @@ const styles = (theme) => ({
     alignItems: "flex-start",
   },
   cartimage: {
-    height: "130px",
-    width: "120px",
+    height: "140px !important",
+    width: "130px !important",
 
     borderRadius: "10px",
   },
   cartitemtext: {
     display: "flex",
     flexDirection: "column",
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(1),
   },
   cartprice: {
     paddingTop: theme.spacing(1),
@@ -241,7 +244,7 @@ const MiniCart = ({ ...props }) => {
                         {cart.items.map((item) => {
                           return (
                             <div className={classes.cartitem}>
-                              <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
+                              <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage}></img>
                               {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
                               <div className={classes.cartitemtext}>
                                 {" "}
@@ -278,7 +281,7 @@ const MiniCart = ({ ...props }) => {
                           </div>
                           <div className={classes.cart}>
                             <Typography gutterBottom variant="h5" component="h2" onClick={handleCheckoutButtonClick}>
-                              CHECKOUT{" "}
+                              CHECKOUT
                             </Typography>
                           </div>
                         </div>

@@ -84,13 +84,27 @@ class ViewerInfo extends Component {
   }
 
   render() {
-    const { className, compact, components: { ProfileImage }, full, viewer } = this.props;
+    const {
+      className,
+      compact,
+      components: { ProfileImage },
+      full,
+      viewer,
+      headerType,
+    } = this.props;
     return (
-      <ViewerInfoContainer className={className}>
+      <ViewerInfoContainer className={className} >
         <ProfileImage size={30} viewer={viewer} />
-        <ViewerFirstNameText compact={compact} full={full}>
-          {this.viewerName}
-        </ViewerFirstNameText>
+
+        {headerType ? (
+          <ViewerFirstNameText compact={compact} full={full} style={{ color: "#ffffff" }}>
+            {this.viewerName}
+          </ViewerFirstNameText>
+        ) : (
+          <ViewerFirstNameText compact={compact} full={full} style={{ color: "#000000" }}>
+            {this.viewerName}
+          </ViewerFirstNameText>
+        )}
       </ViewerInfoContainer>
     );
   }
