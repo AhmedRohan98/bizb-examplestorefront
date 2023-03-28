@@ -8,7 +8,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 // import AccountIcon from "mdi-material-ui/Account";
 import Popover from "@material-ui/core/Popover";
 import useViewer from "hooks/viewer/useViewer";
-import ViewerInfo from "@reactioncommerce/components/ViewerInfo/v1";
+import ViewerInfo from "../../reaction-plugins/reaction-component-library/package/src/components/ViewerInfo/v1";
 import Link from "components/Link";
 import useStores from "hooks/useStores";
 import EntryModal from "../Entry/EntryModal";
@@ -82,11 +82,11 @@ const AccountDropdown = ({ headerType }) => {
   };
 
   return (
-    <Fragment>
+    <Fragment headerType>
       <EntryModal onClose={onClose} resetToken={resetToken} />
       {isAuthenticated ? (
         <ButtonBase onClick={toggleOpen}>
-          <ViewerInfo viewer={viewer} />
+          <ViewerInfo viewer={viewer} headerType={headerType}/>
         </ButtonBase>
       ) : (
         <IconButton color="inherit" onClick={toggleOpen}>

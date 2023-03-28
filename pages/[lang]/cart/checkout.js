@@ -13,6 +13,7 @@ import Layout from "components/Layout";
 import PageLoading from "components/PageLoading";
 import { withApollo } from "lib/apollo/withApollo";
 import useCart from "hooks/cart/useCart";
+import Button from "@material-ui/core/Button";
 import useStores from "hooks/useStores";
 import useShop from "hooks/shop/useShop";
 import useAvailablePaymentMethods from "hooks/availablePaymentMethods/useAvailablePaymentMethods";
@@ -30,49 +31,49 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "1440px",
     alignSelf: "center",
     [theme.breakpoints.up("md")]: {
-      paddingRight: "2rem"
-    }
+      paddingRight: "2rem",
+    },
   },
   cartSummary: {
     maxWidth: "400px",
     alignSelf: "flex-start",
     [theme.breakpoints.up("md")]: {
-      paddingRight: "2rem"
-    }
+      paddingRight: "2rem",
+    },
   },
   checkoutContent: {
     flex: "1",
     maxWidth: theme.layout.mainContentMaxWidth,
     padding: "1rem",
     [theme.breakpoints.down("md")]: {
-      maxWidth: "100%"
-    }
+      maxWidth: "100%",
+    },
   },
   checkoutContentContainer: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   flexContainer: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   emptyCartContainer: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   emptyCart: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     width: 320,
-    height: 320
+    height: 320,
   },
   logo: {
     color: theme.palette.reaction.reactionBlue,
     marginRight: theme.spacing(1),
-    borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`
+    borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
   },
   main: {
     flex: "1 1 auto",
@@ -81,10 +82,34 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     padding: `${theme.spacing(3)}px ${theme.spacing(3)}px 0`,
     [theme.breakpoints.up("md")]: {
-      padding: `${theme.spacing(10)}px ${theme.spacing(3)}px 0`
-    }
+      padding: `${theme.spacing(10)}px ${theme.spacing(3)}px 0`,
+    },
   },
-  root: {}
+  continue: {
+    width: "250px",
+    height: "48px",
+    borderRadius: "40px",
+    marginTop: theme.spacing(5),
+    border: "none",
+    display: "flex",
+    textTransform: "uppercase",
+    justifyContent: "center",
+    alignItems: "center",
+    background: theme.palette.secondary.selected,
+    "&:hover": {
+      background: theme.palette.secondary.selected,
+    },
+    "&.MuiButton-root": {
+      fontSize: "20px",
+      color: "#333333",
+      fontFamily: "Ostrich Sans Black",
+      fontWeight: 900,
+
+      lineHeight: "24px",
+      fontFamily: "Ostrich Sans Black",
+    },
+  },
+  root: {},
 }));
 
 const Checkout = ({ router }) => {
@@ -137,7 +162,16 @@ const Checkout = ({ router }) => {
         <div className={classes.emptyCartContainer}>
           <div className={classes.emptyCart}>
             <div>
-              <CartEmptyMessage onClick={() => Router.push("/")} messageText="Your cart is empty." buttonText="Go to main page" />
+              <Button
+                className={classes.continue}
+                InputProps={{ disableUnderline: true }}
+                variant="h6"
+                onClick={() => Router.push("/")}
+              >
+                {" "}
+                Continue Shopping
+              </Button>
+
             </div>
           </div>
         </div>
@@ -150,7 +184,15 @@ const Checkout = ({ router }) => {
           <div className={classes.emptyCartContainer}>
             <div className={classes.emptyCart}>
               <div>
-                <CartEmptyMessage onClick={() => Router.push("/")} messageText="Your cart is empty." buttonText="Go to main page" />
+                <Button
+                  className={classes.continue}
+                  InputProps={{ disableUnderline: true }}
+                  variant="h6"
+                  onClick={() => Router.push("/")}
+                >
+                  {" "}
+                  Continue Shopping
+                </Button>
               </div>
             </div>
           </div>
