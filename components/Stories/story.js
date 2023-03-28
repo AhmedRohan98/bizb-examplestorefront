@@ -309,7 +309,7 @@ const Story = (props) => {
   const [filterproducts, setFilterProducts] = useState(null);
   const filteredItems = !filter ? ITEMS : ITEMS.filter((item) => item.Catagory.includes(filter));
   const filteredproducts = !filterproducts ? itemData : itemData.filter((item) => item.store.includes(filterproducts));
-  console.log(filteredItems, "dddddddddddddddddddddd");
+  // console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item }) {
     const classes = useStyles();
     return (

@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: "312px",
     borderRadius: "10px",
+    cursor:"pointer"
   },
   size: {
     display: "flex",
