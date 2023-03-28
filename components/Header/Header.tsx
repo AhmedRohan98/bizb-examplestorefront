@@ -89,10 +89,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
       <Toolbar className={classes.toolbar}>
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <div className={classes.dark}>
-          <Hidden mdUp>
-            <NavigationToggleMobile onClick={handleNavigationToggleClick} />
-          </Hidden>
-        </div>
+                 </div>
         {/* <Hidden mdUp>
           <NavigationToggleMobile onClick={handleNavigationToggleClick} />
         </Hidden> */}
@@ -105,9 +102,10 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
             </Link> */}
           </Typography>
           {/* @ts-ignore TODO: Refactor link to address type error */}
-          <Hidden smDown>
+         
             <NavigationDesktop headerType={headerType} />
-          </Hidden>
+ 
+ 
           {/* @ts-ignore TODO: Refactor link to address type error */}
         </div>
         {/* @ts-ignore TODO: Refactor link to address type error */}
