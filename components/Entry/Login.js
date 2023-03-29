@@ -14,21 +14,23 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     flexDirection: "column",
   },
-
+  labelSpan: {
+    paddingLeft: theme.spacing(2),
+  },
   input: {
     width: "387px",
-    height: "48px",
     borderRadius: "6px",
     color: "red",
-
     justifyContent: "center",
-    paddingLeft: theme.spacing(2),
     background: "#F7F7F9",
     borderBottomColor: "none",
     "& .MuiInputBase-input": {
+      height: "48px",
+      borderRadius: "6px",
+      paddingLeft: theme.spacing(2),
       color: "#969696",
       fontSize: "17px",
-      padding: "opx",
+      padding: "0px",
     },
   },
   register: {
@@ -45,18 +47,7 @@ const useStyles = makeStyles((theme) => ({
       background: theme.palette.secondary.selected,
     },
   },
-  socialmedia: {
-    width: "250px",
-    height: "48px",
-    borderRadius: "40px",
-    border: "none",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "10px",
 
-    background: theme.palette.secondary.selected,
-  },
   topheader: {
     display: "flex",
     flexDirection: "row",
@@ -80,10 +71,20 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
-
     lineHeight: "24px",
     fontStyle: "normal",
     marginLeft: "15px",
+  },
+  socialmedia: {
+    width: "250px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "10px",
+    background: theme.palette.secondary.selected,
   },
   socialmedia2: {
     display: "flex",
@@ -151,9 +152,11 @@ export default function Login(props) {
           <Grid container>
             <Grid xs={12} item>
               <label className={classes.label} variant="h6">
-                Email
+                <span className={classes.labelSpan}>
+                  Email <span style={{ color: "#FD1010" }}>*</span>
+                </span>
                 <TextField
-                  placeholder="Enter last name"
+                  placeholder="Enter Your Email Address"
                   InputProps={{ disableUnderline: true }}
                   required
                   className={classes.input}
@@ -166,9 +169,11 @@ export default function Login(props) {
 
             <Grid item xs={12}>
               <label className={classes.label}>
-                Password
+                <span className={classes.labelSpan}>
+                  Password <span style={{ color: "#FD1010" }}>*</span>
+                </span>
                 <TextField
-                  placeholder="Enter last name"
+                  placeholder="Enter Your Password"
                   InputProps={{ disableUnderline: true }}
                   required
                   className={classes.input}
