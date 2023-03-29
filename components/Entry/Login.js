@@ -86,17 +86,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px",
     background: theme.palette.secondary.selected,
   },
-  socialmedia: {
-    width: "250px",
-    height: "48px",
-    borderRadius: "40px",
-    border: "none",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "10px",
-    background: theme.palette.secondary.selected,
-  },
   socialmedia2: {
     display: "flex",
     alignItems: "center",
