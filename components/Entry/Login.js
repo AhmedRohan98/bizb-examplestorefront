@@ -70,12 +70,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#333333",
     marginRight: "20px",
-    marginRight: "20px",
     fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
     lineHeight: "24px",
     fontStyle: "normal",
-    marginLeft: "15px",
   },
   socialmedia: {
     width: "250px",
@@ -100,10 +98,6 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-  },
-  socialmediaAuth: {
-    display: "flex",
-    justifyContent: "space-between",
   },
   socialmediaAuth: {
     display: "flex",
