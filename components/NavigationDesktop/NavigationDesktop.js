@@ -21,7 +21,6 @@ const styles = (theme) => ({
 });
 
 class NavigationDesktop extends Component {
-  
   static propTypes = {
     classes: PropTypes.object,
     navItems: PropTypes.object,
@@ -44,63 +43,63 @@ class NavigationDesktop extends Component {
       headerType,
     } = this.props;
 
-
-      return (
-        <>
-          <nav>
-            <div className={headerType ? classNames(light) : classNames(dark)}>
-              <span
-                className="hoverable"
-                style={{
-                  marginRight: "40px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black !important',
-                }}
-              >
-                Home
-              </span>
-              <span
-                className="hoverable"
-                style={{
-                  marginRight: "40px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black !important',
-                }}
-              >
-                Explore
-              </span>
-              <span
-                className="hoverable"
-                style={{
-                  marginRight: "40px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black !important',
-                }}
-              >
-                Byol
-              </span>
-              <span
-                className="hoverable"
-                style={{
-                  marginRight: "40px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black !important',
-                  fontWeight: 900,
-                }}
-              >
-                Sell
-              </span>
-            </div>
-          </nav>
-        </>
-      );
-
-
-  
+    return (
+      <>
+        <nav>
+          <div className={headerType ? classNames(light) : classNames(dark)}>
+            <span
+              className="hoverable"
+              style={{
+                marginRight: "40px",
+                padding: "9px 11px",
+                marginLeft: "30px",
+                fontSize: "18px",
+                fontFamily: '"Ostrich Sans Black !important',
+              }}
+            >
+              Home
+            </span>
+            <span
+              className="hoverable"
+              style={{
+                marginRight: "40px",
+                padding: "9px 11px",
+                marginLeft: "30px",
+                fontSize: "18px",
+                fontFamily: '"Ostrich Sans Black !important',
+              }}
+            >
+              Explore
+            </span>
+            <span
+              className="hoverable"
+              style={{
+                marginRight: "40px",
+                padding: "9px 11px",
+                marginLeft: "30px",
+                fontSize: "18px",
+                fontFamily: '"Ostrich Sans Black !important',
+              }}
+            >
+              Byol
+            </span>
+            <span
+              className="hoverable"
+              style={{
+                marginRight: "40px",
+                padding: "9px 11px",
+                marginLeft: "30px",
+                fontSize: "18px",
+                fontFamily: '"Ostrich Sans Black !important',
+                fontWeight: 900,
+              }}
+            >
+              Sell
+            </span>
+          </div>
+        </nav>
+      </>
+    );
   }
 }
 
