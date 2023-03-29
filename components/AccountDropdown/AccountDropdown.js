@@ -17,35 +17,38 @@ import getAccountsHandler from "../../lib/accountsServer.js";
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
     width: "189px",
-    height:"135px",
-    background:theme.palette.reaction.black80,
+    height: "135px",
+    background: theme.palette.reaction.black80,
     padding: theme.spacing(2),
-    borderBottomLeftRadius:"20px",
-    borderBottomRightRadius:"20px",
-    "& .MuiPopover-paper":{
-      display:"none"
+    borderBottomLeftRadius: "20px",
+    borderBottomRightRadius: "20px",
+    "& .MuiPopover-paper": {
+      display: "none",
     },
-    "& .MuiPaper-root":{
-display:"none"
+    "& .MuiPaper-root": {
+      display: "none",
     },
-    
-    
   },
-  '& .MuiPaper-elevation0': {background: 'black'},
-  "& .MuiPopover-paper":{
-  background:"none"
+  "& .MuiPaper-elevation0": { background: "black" },
+  "& .MuiPopover-paper": {
+    background: "none",
   },
- 
   marginBottom: {
     marginBottom: theme.spacing(2),
   },
-  authbutton:{
-    background:theme.palette.secondary.selected,
-   margin:"5px",
-    color:"#ffffff",
-    borderRadius:"40px",
-     "&:hover": {  background:theme.palette.secondary.selected, }
-  }
+  authbutton: {
+    background: theme.palette.secondary.selected,
+    margin: "5px",
+    color: "#ffffff",
+    borderRadius: "40px",
+    "&:hover": { background: theme.palette.secondary.selected },
+  },
+  popover: {
+    "& .MuiPopover-paper": {
+      borderBottomLeftRadius: "20px",
+      borderBottomRightRadius: "20px",
+    },
+  },
 }));
 
 const AccountDropdown = ({ headerType }) => {
@@ -86,7 +89,7 @@ const AccountDropdown = ({ headerType }) => {
       <EntryModal onClose={onClose} resetToken={resetToken} />
       {isAuthenticated ? (
         <ButtonBase onClick={toggleOpen}>
-          <ViewerInfo viewer={viewer} headerType={headerType}/>
+          <ViewerInfo viewer={viewer} headerType={headerType} />
         </ButtonBase>
       ) : (
         <IconButton color="inherit" onClick={toggleOpen}>
@@ -101,6 +104,7 @@ const AccountDropdown = ({ headerType }) => {
       )}
 
       <Popover
+        className={classes.popover}
         anchorEl={anchorElement}
         anchorOrigin={{
           vertical: "bottom",
