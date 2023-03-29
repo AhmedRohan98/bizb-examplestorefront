@@ -1,21 +1,9 @@
 /* eslint-disable react/no-multi-comp */
 
-import PropTypes from "prop-types";
-import { isEqual, result } from "lodash";
+
 import { useMutation } from "@apollo/client";
-import styled from "styled-components";
-import Actions from "../../reaction-plugins/reaction-component-library/package/src/components/CheckoutActions/v1";
-import ShippingAddressCheckoutAction from "../../reaction-plugins/reaction-component-library/package/src/components/ShippingAddressCheckoutAction/v1";
-import FulfillmentOptionsCheckoutAction from "../../reaction-plugins/reaction-component-library/package/src/components/FulfillmentOptionsCheckoutAction/v1";
-import PaymentsCheckoutAction from "@reactioncommerce/components/PaymentsCheckoutAction/v1";
-import FinalReviewCheckoutAction from "@reactioncommerce/components/FinalReviewCheckoutAction/v1";
-import { addTypographyStyles } from "@reactioncommerce/components/utils";
-import withAddressValidation from "containers/address/withAddressValidation";
-import Dialog from "@material-ui/core/Dialog";
-import PageLoading from "components/PageLoading";
 import Router from "translations/i18nRouter";
-import calculateRemainderDue from "lib/utils/calculateRemainderDue";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+
 
 import { Grid, TextField, Typography, Button } from "@material-ui/core";
 import React, { useState } from "react";
@@ -23,9 +11,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { placeOrderMutation } from "../../hooks/orders/placeOrder.gql";
+
 import { makeStyles } from "@material-ui/core/styles";
-import CheckoutSummary from "../CheckoutSummary/CheckoutSummary";
+
 import { placeOrderQuery } from "../../hooks/orders/query";
 const useStyles = makeStyles((theme) => ({
   label: {
