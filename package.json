@@ -148,6 +148,7 @@
     "subscriptions-transport-ws": "~0.9.15",
     "swr": "^0.5.6",
     "react-lottie": "^1.2.3",
+    "react-toastify": "^7.0.4",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.16.0"
   },

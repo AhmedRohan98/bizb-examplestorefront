@@ -17,7 +17,7 @@ import "swiper/swiper-bundle.css";
 // import 'swiper/components/scrollbar/scrollbar.scss';
 import "../styles/global.css";
 import "../assets/fonts/style.css";
-
+  import "react-toastify/dist/ReactToastify.css";
 import { StripeWrapper } from "components/StripeCard";
 
 export default class App extends NextApp {

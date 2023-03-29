@@ -4,11 +4,14 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import variantById from "lib/utils/variantById";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
-import { json } from "body-parser";
+import CloseIcon from "@material-ui/icons/Close";
+
+  import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: "3vh",
@@ -60,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: "312px",
     borderRadius: "10px",
+    cursor: "pointer",
   },
   size: {
     display: "flex",
@@ -114,11 +118,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
+    borderColor: "none",
     zIndex: 1200,
     transition: "all 0.2s linear",
     "&:hover": {
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
+      background: "#FDC114",
     },
   },
   explore: {
@@ -138,11 +144,15 @@ const useStyles = makeStyles((theme) => ({
   spanofnextword: {
     color: "#FDC114",
   },
+  toast: {
+    background: "green",
+    color: "white",
+  },
 }));
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-
+console.log(props.uiStore, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
  function determineProductPrice() {
@@ -224,11 +234,30 @@ const Justin = (props) => {
 
     // Scroll to the top
   };
+  const CustomCloseButton = () => (
+    <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
+  );
 
+ const notify = () => toast("Wow so easy!");
   const classes = useStyles();
   return (
     <div className={classes.main}>
       <div className={classes.headermain}>
+        <button onClick={notify}>Notify!</button>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeButton={<CustomCloseButton />}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          background="green"
+          toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
+        />
         <Typography variant="h3">
           JUST <span className={classes.spanofnextword}>IN</span>
         </Typography>
@@ -260,15 +289,16 @@ const Justin = (props) => {
                   />
                 </Link>
                 <div className={classes.cartbackground}>
-                  <div
+                  <Button
                     className={classes.cart}
+                    // disabled={cart.includes(shoe.id)}
                     onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                   >
                     <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                     <Typography variant="h5" component="h2">
                       + Cart{" "}
                     </Typography>
-                  </div>
+                  </Button>
                 </div>
                 <Box className={classes.maintitle}>
                   <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
