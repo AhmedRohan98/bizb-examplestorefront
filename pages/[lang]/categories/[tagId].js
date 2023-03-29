@@ -408,7 +408,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories(props) {
-  // console.log(props.category, "prop");
+  console.log(props.category.catalogItems.edges, "prop");
   const [state, setState] = React.useState();
   const [price, setPrice] = React.useState([0, 5000]);
   const [selectedOption, setSelectedOption] = React.useState(null);
@@ -1632,7 +1632,8 @@ function Categories(props) {
       size: "large",
     },
   ];
-  const data = ITEMS.splice(0, 5);
+  const data =ITEMS.splice(0, 5);
+    const categoryproducts = props?.category?.catalogItems?.edges.splice(0, 4);
   const data2 = ITEMS.splice(5, ITEMS.length);
 
   const [products, setProducts] = React.useState([]);
@@ -1684,9 +1685,8 @@ function Categories(props) {
   }
 
   useEffect(() => {
-    // Fetch products from API or any data source
-
-    setProducts(interLeavedImages);
+ setProducts(interLeavedImages);
+ console.log(categoryproducts, "data");
     setDisplayedProducts(interLeavedImages.slice(0, 20));
   }, []);
   const loadMoreProducts = () => {
@@ -1984,52 +1984,6 @@ function Categories(props) {
     <>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
-          <Grid container xs={12} className={classes.mobilefilters}>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOptionMobS}
-                onChange={setSelectedOptionMobS}
-                placeholder="Sort"
-                styles={customStylesMobS}
-                options={options}
-                className={classes.reactselect}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOptionMobColor}
-                onChange={setSelectedOptionMobColor}
-                placeholder="Colour"
-                menuPortalTarget={document.body}
-                dropdownIndicator
-                styles={customStylesMobSize}
-                options={colorOptions}
-                className={classes.reactselect}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOptionMobSize}
-                onChange={setSelectedOptionMobSize}
-                placeholder="Size"
-                menuPortalTarget={document.body}
-                styles={customStylesMobSize}
-                options={Optionsize}
-                className={classes.reactselect}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOption}
-                onChange={setSelectedOption}
-                placeholder="Sort by"
-                components={{ DropdownIndicator }}
-                styles={customStylesMobSize}
-                options={options}
-                className={classes.reactselect}
-              />
-            </Grid>
-          </Grid>
           <Box className={classes.topheader}>
             {["left"].map((anchor) => (
               <React.Fragment key={anchor}>
