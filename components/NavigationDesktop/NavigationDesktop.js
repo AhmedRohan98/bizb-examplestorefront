@@ -55,6 +55,7 @@ class NavigationDesktop extends Component {
                 marginLeft: "30px",
                 fontSize: "18px",
                 fontFamily: '"Ostrich Sans Black !important',
+                fontWeight: 900,
               }}
             >
               Home
@@ -67,6 +68,7 @@ class NavigationDesktop extends Component {
                 marginLeft: "30px",
                 fontSize: "18px",
                 fontFamily: '"Ostrich Sans Black !important',
+                fontWeight: 900,
               }}
             >
               Explore
@@ -79,6 +81,7 @@ class NavigationDesktop extends Component {
                 marginLeft: "30px",
                 fontSize: "18px",
                 fontFamily: '"Ostrich Sans Black !important',
+                fontWeight: 900,
               }}
             >
               Byol
