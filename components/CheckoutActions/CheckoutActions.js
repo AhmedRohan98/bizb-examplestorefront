@@ -407,9 +407,7 @@ const CheckoutActions = (prop) => {
 
       // Send use r to order confirmation page
       Router.push(`/checkout/order`).catch(
-        (error) => {
-          console.error("Error occurred while routing to order confirmation page: ", error);
-        },
+      
       );
       // Send user to order confirmation pageQ
     } catch (error) {

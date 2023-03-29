@@ -408,6 +408,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories(props) {
+  // console.log(props.category, "prop");
   const [state, setState] = React.useState();
   const [price, setPrice] = React.useState([0, 5000]);
   const [selectedOption, setSelectedOption] = React.useState(null);
@@ -1652,7 +1653,7 @@ function Categories(props) {
   const [catalogItems, setCatalogItems] = React.useState(
     props.category.catalogItems.edges.map((item) => item.node?.product),
   );
-  console.log(catalogItems);
+  // console.log(catalogItems);
 
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
@@ -2369,7 +2370,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { lang, tagId } }) {
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
-  console.log(categories);
+  
   return {
     props: {
       category: categories,

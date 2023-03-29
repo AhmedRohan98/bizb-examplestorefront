@@ -152,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-console.log(props.uiStore, "cartx");
+// console.log(props.uiStore, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
  function determineProductPrice() {
@@ -229,7 +229,7 @@ console.log(props.uiStore, "cartx");
 
   const handleOnClick = async (product, variant) => {
     // Pass chosen quantity to onClick callback
-    console.log("handle click");
+    // console.log("handle click");
     await handleAddToCartClick(addToCartQuantity, product, variant);
 
     // Scroll to the top

@@ -15,7 +15,7 @@ products = require("./__mocks__/products").default; ""
 ```jsx
 <CatalogGrid products={products} onItemClick={(event, product) => {
   event.preventDefault();
-  console.log(product.title);
+  // console.log(product.title);
 }} />
 ```
 

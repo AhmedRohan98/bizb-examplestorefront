@@ -87,7 +87,7 @@ import { withTheme } from 'styled-components'
 
 class MyComponent extends Component {
   render() {
-    console.log('Current theme: ', this.props.theme)
+    // console.log('Current theme: ', this.props.theme)
     // ...
   }
 }

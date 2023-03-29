@@ -53,7 +53,7 @@ let _form = null;
 const handleSubmit = (value) => new Promise((resolve, reject) => {
   setState({ isProcessing: true });
   setTimeout(async () => {
-    console.log("Address saved", value);
+    // console.log("Address saved", value);
     setState({ isProcessing: false, savedAddress: value });
     resolve(value)
   }, 2000);
@@ -99,7 +99,7 @@ let _form = null;
 const handleSubmit = (value) => new Promise((resolve, reject) => {
   setState({ isProcessing: true });
   setTimeout(async () => {
-    console.log("Address saved", value);
+    // console.log("Address saved", value);
     setState({ isProcessing: false, updatedAddress: value });
     resolve(value)
   }, 2000);
@@ -134,7 +134,7 @@ let _form = null;
 const handleSubmit = (value) => new Promise((resolve, reject) => {
   setState({ isProcessing: true });
   setTimeout(async () => {
-    console.log("Address saved", value);
+    // console.log("Address saved", value);
     setState({ isProcessing: false, savedAddress: value });
     resolve(value)
   }, 2000);
@@ -143,7 +143,7 @@ const handleSubmit = (value) => new Promise((resolve, reject) => {
 const handleAddressValidation = (value) => new Promise((resolve, reject) => {
   setState({ isProcessing: true, submittedAddress: value });
   setTimeout(async () => {
-    console.log("Address validated", value);
+    // console.log("Address validated", value);
     const validationResults = {
       suggestedAddresses: value.postal[0] === "1" ? [] : [{
         ...value,

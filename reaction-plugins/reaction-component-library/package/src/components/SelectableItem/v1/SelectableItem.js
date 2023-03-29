@@ -200,7 +200,7 @@ class SelectableItem extends Component {
       label,
       value
     } = this.props;
-    console.log('selectable item...', this.props)
+    // console.log('selectable item...', this.props)
     const id = `radio_${this.uniqueInstanceIdentifier}`;
 
     const input = (

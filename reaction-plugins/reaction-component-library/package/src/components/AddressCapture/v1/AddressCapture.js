@@ -290,7 +290,7 @@ class AddressCapture extends Component {
   }
 
   render() {
-    console.log('address capture component', this.props)
+    // console.log('address capture component', this.props)
     const { className } = this.props;
     return <div className={className}>{this.inReview ? this.renderReview() : this.renderForm()}</div>;
   }

@@ -40,7 +40,7 @@ async function recursivelyChangeExtension(fullDirPath, ext, newExt) {
 async function copyFile(file) {
   const buildPath = path.resolve(process.cwd(), "dist", path.basename(file));
   await fse.copy(file, buildPath);
-  console.log(`Copied ${file} to ${buildPath}`);
+  // console.log(`Copied ${file} to ${buildPath}`);
 }
 
 /**
@@ -59,7 +59,7 @@ async function createPackageFile() {
   const stringPackageJson = JSON.stringify(newPackageData, null, 2);
 
   await fse.writeFile(buildPath, `${stringPackageJson}\n`, "utf8");
-  console.log(`Created package.json in ${buildPath}`);
+  // console.log(`Created package.json in ${buildPath}`);
 
   return newPackageData;
 }

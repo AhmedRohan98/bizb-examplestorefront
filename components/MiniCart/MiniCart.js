@@ -194,7 +194,7 @@ const MiniCart = ({ ...props }) => {
 
   const handleCheckoutButtonClick = () => {
     Router.push("/cart/checkout");
-    console.log("button clicked");
+    // console.log("button clicked");
   };
 
   const handleOnClick = () => {
@@ -205,13 +205,13 @@ const MiniCart = ({ ...props }) => {
 
   const handleRemoveItem = async (itemID) => {
     const { onRemoveCartItems } = props;
-    console.log(itemID, "me");
+    // console.log(itemID, "me");
     onRemoveCartItems(itemID);
   };
 
   function renderMiniCart() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems } = props;
-    console.log(cart, "cart");
+    // console.log(cart, "cart");
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
         <MiniCartComponent
