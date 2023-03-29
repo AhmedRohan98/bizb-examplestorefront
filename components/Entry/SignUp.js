@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     flexDirection: "column",
   },
+  labelSpan: {
+    paddingLeft: theme.spacing(2),
+  },
   switchEntryMode: {
     textAlign: "center",
     fontSize: "16px",
@@ -25,18 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "387px",
-    height: "48px",
     borderRadius: "6px",
     color: "red",
-
     justifyContent: "center",
-    paddingLeft: theme.spacing(2),
     background: "#F7F7F9",
     borderBottomColor: "none",
     "& .MuiInputBase-input": {
+      height: "48px",
+      borderRadius: "6px",
+      paddingLeft: theme.spacing(2),
       color: "#969696",
       fontSize: "17px",
-      padding: "opx",
+      padding: "0px",
     },
   },
   register: {
@@ -58,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "40px",
     border: "none",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     margin: "10px",
 
@@ -84,19 +87,24 @@ const useStyles = makeStyles((theme) => ({
   },
   register2: {
     fontSize: "18px",
+    marginRight: "15px",
     color: "#333333",
     fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
 
     lineHeight: "24px",
     fontStyle: "normal",
-    marginLeft: "15px",
+    // marginLeft: "15px",
   },
   socialmedia2: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     flexWrap: "wrap",
+  },
+  socialmediaAuth: {
+    display: "flex",
+    justifyContent: "space-between",
   },
   switchaccout: {
     color: "#FDC114",
@@ -165,9 +173,11 @@ export default function SignUp(props) {
         <Grid container>
           <Grid xs={12} item>
             <label className={classes.label} required>
-              FullName
+              <span className={classes.labelSpan}>
+                Full Name <span style={{ color: "#FD1010" }}>*</span>
+              </span>
               <TextField
-                placeholder="Enter last name"
+                placeholder="Enter Your User Name"
                 InputProps={{ disableUnderline: true }}
                 className={classes.input}
                 onChange={handleFullname}
@@ -177,9 +187,11 @@ export default function SignUp(props) {
           </Grid>
           <Grid xs={12} item>
             <label className={classes.label} variant="h6">
-              Email
+              <span className={classes.labelSpan}>
+                Email <span style={{ color: "#FD1010" }}>*</span>
+              </span>
               <TextField
-                placeholder="Enter last name"
+                placeholder="Enter Your Email Address"
                 InputProps={{ disableUnderline: true }}
                 required
                 className={classes.input}
@@ -192,9 +204,11 @@ export default function SignUp(props) {
 
           <Grid item xs={12}>
             <label className={classes.label}>
-              Phone Number
+              <span className={classes.labelSpan}>
+                Phone Number <span style={{ color: "#FD1010" }}>*</span>
+              </span>
               <TextField
-                placeholder="Enter last name"
+                placeholder="Enter Your Phone Number"
                 InputProps={{ disableUnderline: true }}
                 required
                 className={classes.input}
@@ -205,9 +219,11 @@ export default function SignUp(props) {
           </Grid>
           <Grid item xs={12}>
             <label className={classes.label}>
-              Password
+              <span className={classes.labelSpan}>
+                Password <span style={{ color: "#FD1010" }}>*</span>
+              </span>
               <TextField
-                placeholder="Enter last name"
+                placeholder="Enter Your Password"
                 InputProps={{ disableUnderline: true }}
                 required
                 className={classes.input}
@@ -219,9 +235,11 @@ export default function SignUp(props) {
 
           <Grid item xs={12}>
             <label className={classes.label}>
-              Re-Enter Password
+              <span className={classes.labelSpan}>
+                Re-Enter Password <span style={{ color: "#FD1010" }}>*</span>
+              </span>
               <TextField
-                placeholder="Enter last name"
+                placeholder="Re-Enter Your Password"
                 InputProps={{ disableUnderline: true }}
                 required
                 className={classes.input}
@@ -237,7 +255,7 @@ export default function SignUp(props) {
           />
           <Typography variant="body2" className={classes.terms}>
             {" "}
-            Aggree With term and conditions
+            Agree Term & Conditions
           </Typography>
         </div>
         <div className={classes.socialmedia2}>
@@ -252,16 +270,17 @@ export default function SignUp(props) {
             Register
           </Button>
         </div>
-        <div className={classes.socialmedia2}>
+        <div style={{ textAlign: "center", marginTop: "15px", fontSize: "16px" }}>OR</div>
+        <div className={classes.socialmediaAuth}>
           <Box className={classes.socialmedia}>
-            <img src="/authentication/signup3.svg" alt="Login-SignUP" />
+            <img style={{ marginLeft: "15px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
               {" "}
               Register With Google
             </Typography>
           </Box>
           <Box className={classes.socialmedia}>
-            <img src="/authentication/signup4.svg" alt="Login-SignUP" />
+            <img style={{ marginLeft: "15px" }} src="/authentication/signup4.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
               {" "}
               Register With Facebook
