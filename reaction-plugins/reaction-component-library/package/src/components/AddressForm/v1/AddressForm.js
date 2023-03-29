@@ -392,7 +392,7 @@ class AddressForm extends Component {
     const postalInputId = `postal_${this.uniqueInstanceIdentifier}`;
     const phoneInputId = `phone_${this.uniqueInstanceIdentifier}`;
     const isCommercialInputId = `isCommercial_${this.uniqueInstanceIdentifier}`;
-    {console.log("Fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")}
+   
 
     return (
       <Form

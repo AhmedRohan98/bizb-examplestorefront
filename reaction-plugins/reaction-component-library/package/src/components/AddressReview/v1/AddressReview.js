@@ -160,7 +160,7 @@ class AddressReview extends Component {
       isSaving,
       value
     } = this.props;
-    console.log('address review coponent...', this.props)
+    // console.log('address review coponent...', this.props)
     const options = [
       {
         id: `${ENTERED}_${this.uniqueInstanceIdentifier}`,

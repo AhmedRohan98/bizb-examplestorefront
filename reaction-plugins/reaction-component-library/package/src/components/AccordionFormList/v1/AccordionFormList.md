@@ -12,13 +12,13 @@ const items = [
 ];
 
 const handleItemDeleted = id => {
-  console.log("Deleting", id);
+  // console.log("Deleting", id);
 };
 
 class MyAddForm extends React.Component {
   submit() {
     // AccordionFormList will call this when the submit button is clicked
-    console.log("Adding");
+    // console.log("Adding");
   }
 
   render() {
@@ -35,7 +35,7 @@ class MyAddForm extends React.Component {
 class MyEditForm extends React.Component {
   submit() {
     // AccordionFormList will call this when the submit button is clicked
-    console.log("Editing");
+    // console.log("Editing");
   }
 
   render() {

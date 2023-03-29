@@ -131,7 +131,7 @@ function addAddress(newAddress) {
           }
         });
 
-        console.log("address added", newAddress);
+        // console.log("address added", newAddress);
         resolve(newAddress);
       },
       2000,
@@ -158,7 +158,7 @@ function deleteAddress(_id) {
           }
         });
 
-        console.log("address deleted", _id);
+        // console.log("address deleted", _id);
         resolve(_id);
       },
       2000,
@@ -188,7 +188,7 @@ function editAddress(_id, editedAddress) {
           }
         });
 
-        console.log("address updated", updatedAddress);
+        // console.log("address updated", updatedAddress);
         resolve(_id);
       },
       2000,

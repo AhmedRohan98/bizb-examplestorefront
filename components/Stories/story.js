@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Storyslider from "./storiesslide";
 const Story = (props) => {
-  console.log("all props....", props);
+  // console.log("all props....", props);
   const catagories = props?.nodes;
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
