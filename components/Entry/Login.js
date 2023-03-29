@@ -69,11 +69,11 @@ const useStyles = makeStyles((theme) => ({
   register2: {
     fontSize: "18px",
     color: "#333333",
+    marginRight: "20px",
     fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
     lineHeight: "24px",
     fontStyle: "normal",
-    marginLeft: "15px",
   },
   socialmedia: {
     width: "250px",
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "40px",
     border: "none",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     margin: "10px",
     background: theme.palette.secondary.selected,
@@ -98,6 +98,10 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  socialmediaAuth: {
+    display: "flex",
+    justifyContent: "space-between",
   },
   switchaccout: {
     color: "#FDC114",
@@ -147,7 +151,7 @@ export default function Login(props) {
   return (
     <>
       <>
-        <Typography variant="body1">WELCOME BACK ! </Typography>
+        <Typography variant="body1">WELCOME BACK! </Typography>
         <form>
           <Grid container>
             <Grid xs={12} item>
@@ -207,34 +211,35 @@ export default function Login(props) {
             </Button>
           </div>
         </form>
-        <div className={classes.socialmedia2}>
+        <div style={{ textAlign: "center", marginTop: "15px", fontSize: "16px" }}>OR</div>
+        <div className={classes.socialmediaAuth}>
           <Box className={classes.socialmedia}>
-            <img src="/authentication/signup3.svg" alt="Login-SignUP" />
+            <img style={{ marginLeft: "20px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
               {" "}
               Login With Google
             </Typography>
           </Box>
           <Box className={classes.socialmedia}>
-            <img src="/authentication/signup4.svg" alt="Login-SignUP" />
+            <img style={{ marginLeft: "20px" }} src="/authentication/signup4.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
               {" "}
               Login With Facebook
             </Typography>
           </Box>
           {!!error && <div className={classes.error}>{error}</div>}
-          <div
-            className={classes.switchEntryMode}
-            onClick={handleOpenSignUp}
-            onKeyDown={handleOpenSignUp}
-            role="button"
-            tabIndex={0}
-          >
-            <Typography variant="h5">
-              {" "}
-              Don't have an account? <span className={classes.switchaccout}> Sign Up</span>
-            </Typography>
-          </div>
+        </div>
+        <div
+          className={classes.switchEntryMode}
+          onClick={handleOpenSignUp}
+          onKeyDown={handleOpenSignUp}
+          role="button"
+          tabIndex={0}
+        >
+          <Typography variant="h5">
+            {" "}
+            Don't have an account? <span className={classes.switchaccout}> Sign Up</span>
+          </Typography>
         </div>
       </>
     </>
