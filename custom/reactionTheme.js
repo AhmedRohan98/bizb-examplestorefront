@@ -163,8 +163,8 @@ const theme = createMuiTheme({
     depth2: "0 0 1rem #808080",
   },
   typography: {
-    fontFamily: "Ostrich Sans Black",
-    // fontFamily: "Lato, Montserrat, Helvetica Neue, Helvetica, sans-serif",
+    // fontFamily: "Ostrich Sans Black",
+    fontFamily: "Lato, Montserrat, Helvetica Neue, Helvetica, sans-serif",
     fontSize: 18,
     fontWeightLight: 400,
     fontWeightRegular: 400,
@@ -177,6 +177,7 @@ const theme = createMuiTheme({
     },
     h1: {
       fontSize: "42px",
+      fontFamily: "Ostrich Sans Black",
       color: "Black",
       fontWeight: 400,
       lineHeight: "50px",
@@ -209,7 +210,7 @@ const theme = createMuiTheme({
     h5: {
       fontSize: "16px",
       color: "#000000",
-      fontFamily: "Lato",
+      fontFamily: "Lato", 
       fontStyle: "normal",
       fontWeight: 400,
       weight: 100,

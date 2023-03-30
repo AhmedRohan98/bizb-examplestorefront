@@ -32,6 +32,29 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "17px",
       padding: "0px",
     },
+    "& .MuiInputBase-root": {
+      fontFamily: "Lato",
+    },
+  },
+  password: {
+    width: "387px",
+    fontFamily: "Lato !important",
+    borderRadius: "6px",
+    color: "red",
+    justifyContent: "center",
+    background: "#F7F7F9",
+    borderBottomColor: "none",
+    "& .MuiInputBase-input": {
+      height: "48px",
+      borderRadius: "6px",
+      paddingLeft: theme.spacing(2),
+      color: "#969696",
+      fontSize: "17px",
+      padding: "0px",
+    },
+    "& .MuiInputBase-root": {
+      fontFamily: "Lato",
+    },
   },
   register: {
     width: "214px",
@@ -179,8 +202,9 @@ export default function Login(props) {
                 <TextField
                   placeholder="Enter Your Password"
                   InputProps={{ disableUnderline: true }}
+                  style={{ fontFamily: "Lato" }}
                   required
-                  className={classes.input}
+                  className={classes.password}
                   onChange={handlePasswordChange}
                   value={password}
                   type="password"
@@ -201,6 +225,7 @@ export default function Login(props) {
           <div className={classes.socialmedia2}>
             <Button
               className={classes.register}
+              style={{ fontFamily: "Ostrich Sans Black", fontSize: "20px" }}
               InputProps={{ disableUnderline: true }}
               variant="h5"
               role="button"
@@ -215,14 +240,22 @@ export default function Login(props) {
         <div className={classes.socialmediaAuth}>
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "20px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
-            <Typography variant="h5" className={classes.register2}>
+            <Typography
+              style={{ fontFamily: "Ostrich Sans Black", fontSize: "20px" }}
+              variant="h5"
+              className={classes.register2}
+            >
               {" "}
               Login With Google
             </Typography>
           </Box>
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "20px" }} src="/authentication/signup4.svg" alt="Login-SignUP" />
-            <Typography variant="h5" className={classes.register2}>
+            <Typography
+              style={{ fontFamily: "Ostrich Sans Black", fontSize: "20px" }}
+              variant="h5"
+              className={classes.register2}
+            >
               {" "}
               Login With Facebook
             </Typography>

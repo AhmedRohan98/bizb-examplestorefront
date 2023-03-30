@@ -118,10 +118,13 @@ const styles = (theme) => ({
     marginTop: theme.spacing(3),
     borderBottom: "1px solid #E5E5E5",
     marginBottom: theme.spacing(3),
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
   },
   tabs: {
     borderBottom: "1px solid #E5E5E5",
+    "& .MuiTab-root": {
+      textTransform: "none",
+    },
     "& .tabs-active": {
       borderBottom: "1px solid #FDC114",
     },
@@ -145,7 +148,6 @@ const styles = (theme) => ({
   sliderimage2: {
     position: "realtive",
     display: "inlie-grid",
-
     margin: "0 auto",
     widht: "507px",
     minHeight: "600px",
@@ -306,8 +308,8 @@ const ProductDetail = ({ ...props }) => {
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId },
       width,
     } = props;
-    console.log(pdpSelectedVariantId, "star");
-  console.log(product.variants,"op");
+    // console.log(pdpSelectedVariantId, "star");
+    // console.log(product.variants, "op");
     // Get selected variant or variant option
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
     const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
@@ -316,7 +318,7 @@ const ProductDetail = ({ ...props }) => {
     if (selectedVariantOrOption) {
       // Get the price for the currently selected variant or variant option
       const price = priceByCurrencyCode(currencyCode, selectedVariantOrOption.pricing);
-      
+
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
         {
@@ -324,7 +326,7 @@ const ProductDetail = ({ ...props }) => {
             amount: price.price,
             currencyCode,
           },
-          
+
           metafields: [
             {
               key: "media",
@@ -388,7 +390,6 @@ const ProductDetail = ({ ...props }) => {
     uiStore: { pdpSelectedOptionId, pdpSelectedVariantId },
     width,
   } = props;
- 
 
   // Set the default media as the top-level product's media
   // (all media on all variants and objects)
@@ -424,7 +425,7 @@ const ProductDetail = ({ ...props }) => {
   const productPrice = determineProductPrice();
   const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
- console.log(product, "produ");
+  // console.log(product, "produ");
   return (
     <>
       <Box className={classes.slider}>
@@ -530,41 +531,57 @@ const ProductDetail = ({ ...props }) => {
 
           <Grid item xs={11} md={10} sm={6} lg={3}>
             <div className={classes.carttext}>
-              <Typography variant="subtitle1">{product?.title}</Typography>
+              <Typography style={{ fontWeight: "700" }} variant="subtitle1">
+                {product?.title}
+              </Typography>
               <div className={classes.size}>
                 {" "}
                 <div className={classes.size2}>
                   {" "}
                   <strike>
                     {" "}
-                    <Typography gutterBottom variant="h4" className={classes.price2}>
+                    <Typography
+                      style={{ fontWeight: "500", padding: "4px" }}
+                      gutterBottom
+                      variant="h4"
+                      className={classes.price2}
+                    >
                       {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
-                  <Typography gutterBottom variant="h4" className={classes.price}>
+                  <Typography
+                    style={{ fontWeight: "700", padding: "4px" }}
+                    gutterBottom
+                    variant="h4"
+                    className={classes.price}
+                  >
                     {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
                 <Typography gutterBottom variant="h4" className={classes.offer}>
-                  50 % OFF
+                  50 % off
                 </Typography>
               </div>
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
-                <Typography variant="h4" className={classes.offr}>
+                <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
                   Large
                 </Typography>
               </div>
               <div className={classes.cart}>
                 <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography variant="h4" onClick={handleOnClick}>
+                <Typography
+                  style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                  variant="h4"
+                  onClick={handleOnClick}
+                >
                   + Cart{" "}
                 </Typography>
               </div>
               <TabContext value={value}>
                 <TabList onChange={handleChange} className={classes.tabs}>
                   <Tab label="Description" value="1" />
-                  <Tab label="size chart" value="2" />
+                  <Tab label="Size chart" value="2" />
                 </TabList>
 
                 <TabPanel value="1">
