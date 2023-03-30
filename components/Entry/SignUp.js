@@ -246,7 +246,7 @@ export default function SignUp(props) {
             InputProps={{ disableUnderline: true }}
             variant="h5"
             type="submit"
-         
+            role="button"
           >
             {" "}
             Register
