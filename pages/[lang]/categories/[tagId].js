@@ -46,6 +46,9 @@ import withCart from "containers/cart/withCart";
 import { useState } from "react";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
+import variantById from "../../../lib/utils/variantById";
+
+import priceByCurrencyCode from "../../../lib/utils/priceByCurrencyCode";
 import Layout from "../../../components/Layout";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -529,24 +532,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function Categories({ category }) {
-  console.log(category, "prop");
+function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
+  // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
-  console.log(fourprouduts, "prop");
-  const [state, setState] = React.useState();
-  const [fourpro, setFourpro] = React.useState();
-    const shop = useShop();
-    const [open, setOpen] = useState(false);
-  const [price, setPrice] = React.useState([0, 5000]);
-  const [selectedOption, setSelectedOption] = React.useState(null);
-  const [selectedOptionMobS, setSelectedOptionMobS] = React.useState(null);
-  const [selectedOptionMobSize, setSelectedOptionMobSize] = React.useState(null);
-  const [selectedOptionMobColor, setSelectedOptionMobColor] = React.useState(null);
-     useEffect(() => {
-     setProducts();
 
-     setDisplayedProducts(interLeavedImages?.slice(0, 20));
-   }, [open]);
+  const [state, setState] = useState();
+  const [fourpro, setFourpro] = useState();
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  const shop = useShop();
+  const [open, setOpen] = useState(false);
+  const [price, setPrice] = useState([0, 5000]);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
+  const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
+  const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
+  useEffect(() => {
+    setProducts();
+
+    setDisplayedProducts(interLeavedImages?.slice(0, 20));
+  }, [open]);
   const options = [
     { value: "Recommend", label: "Recommend" },
     { value: "New Arrivals", label: "New Arrivals" },
@@ -736,7 +740,50 @@ function Categories({ category }) {
       size: "large",
     },
   ];
+ const handleAddToCartClick = async (quantity, product, variant) => {
+ 
 
+ 
+    
+
+   // console.log(pdpSelectedVariantId, "star");
+
+ const selectedVariant = variantById(product.variants, variant._id);
+ if (selectedVariant) {
+      await addItemsToCart([
+      
+       {
+         price: {
+           amount: product.pricing[0].minPrice,
+
+           currencyCode,
+         },
+         
+         metafields: [
+           {
+             key: "media",
+             value: product?.primaryImage?.URLs?.medium,
+           },
+         ],
+         productConfiguration: {
+           productId: product.productId, // Pass the productId, not to be confused with _id
+           productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+         },
+         quantity,
+         
+       },
+        
+     ]);
+   }
+ };
+
+ const handleOnClick = async (product, variant) => {
+   // Pass chosen quantity to onClick callback
+   // console.log("handle click");
+   await handleAddToCartClick(addToCartQuantity, product, variant);
+
+   // Scroll to the top
+ };
   const ITEMScategory = [
     {
       image: "/categoriestypes/cat1.svg",
@@ -1818,15 +1865,13 @@ function Categories({ category }) {
     }
   }
 
-
   const loadMoreProducts = () => {
     const currentIndex = displayedProducts.length;
     const nextProducts = products.slice(currentIndex, currentIndex + 10);
-    
+
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
 
- 
   const handleOpen = () => {
     setOpen(true);
   };
@@ -2111,7 +2156,6 @@ function Categories({ category }) {
       </components.DropdownIndicator>
     );
   };
- 
 
   return (
     <Layout shop={shop}>
