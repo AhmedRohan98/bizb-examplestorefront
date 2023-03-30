@@ -41,7 +41,12 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Slider from "@material-ui/core/Slider";
 import Checkbox from "@material-ui/core/Checkbox";
+import withCart from "containers/cart/withCart";
 
+
+import { withApollo } from "lib/apollo/withApollo";
+import useShop from "hooks/shop/useShop";
+import Layout from "../../../components/Layout";
 const useStyles = makeStyles((theme) => ({
   root: {
     top: "10px",
@@ -55,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 24,
     p: 2,
   },
+
   list: {
     width: "379px",
   },
@@ -158,24 +164,140 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "inline-grid",
   },
+  main: {
+    padding: "3vh",
+    width: "100%",
+
+    padding: theme.spacing(4),
+  },
+  cardaction: {
+    height: 312,
+    width: 312,
+  },
+
+  root: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  gridroot: {
+    width: "100%",
+    display: "flex",
+    alignItems: "baseline",
+
+    position: "relative",
+    justifyContent: "center",
+  },
+  typography: {
+    background: "#333333",
+    opacity: "15%",
+    height: "8px",
+
+    width: "180px",
+  },
+
+  text: {
+    position: "absolute",
+    bottom: 60,
+  },
+  header: {
+    height: "50px",
+    position: "relative",
+  },
+
+  headermain: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+
+  imagemai: {
+    width: "312px",
+    borderRadius: "10px",
+    cursor: "pointer",
+  },
+  size: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: theme.spacing(1),
+  },
+  cartimage: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  carttitle: {
+    display: "flex",
+    marginLeft: theme.spacing(1),
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  price: {
+    marginLeft: "20px",
+  },
+  rootimg: {
+    position: "relative",
+    display: "inline-grid",
+    width: "312px",
+
+    maxWidth: "312px",
+    marginLeft: "10px",
+    marginRight: "10px",
+  },
+  cartbackground: {
+    background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+
+    borderRadius: "0px 0px 16px 16px",
+
+    alignItems: "center",
+    justifyContent: "initial",
+    height: "75px",
+    width: "100%",
+    bottom: "20%",
+    display: "inline-grid",
+
+    width: "100%",
+    marginTop: " -75px",
+    padding: "13px 20px",
+  },
   cart: {
     height: "35px",
     width: "84px",
     borderRadius: "40px",
     background: "#FDC114",
-
+    cursor: "pointer",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
-    bottom: "20px",
-    left: "20px",
-
-    position: "absolute",
+    borderColor: "none",
+    zIndex: 1200,
     transition: "all 0.2s linear",
     "&:hover": {
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
+      background: "#FDC114",
     },
+  },
+  explore: {
+    position: "absolute",
+    top: "6px",
+    right: "10px",
+    color: "#FDC114",
+    zIndex: 900,
+  },
+  maintitle: {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "312px",
+    flexDirection: "column",
+  },
+  spanofnextword: {
+    color: "#FDC114",
+  },
+  toast: {
+    background: "green",
+    color: "white",
   },
   modal: {
     display: "flex",
@@ -407,8 +529,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function Categories(props) {
+function Categories({ category }) {
+  console.log(category, "prop");
+  const fourprouduts = category.catalogItems.edges;
+  console.log(fourprouduts, "prop");
   const [state, setState] = React.useState();
+  const [fourpro, setFourpro] = React.useState();
   const [price, setPrice] = React.useState([0, 5000]);
   const [selectedOption, setSelectedOption] = React.useState(null);
   const [selectedOptionMobS, setSelectedOptionMobS] = React.useState(null);
@@ -1632,6 +1758,8 @@ function Categories(props) {
     },
   ];
   const data = ITEMS.splice(0, 5);
+  const firstfour = fourprouduts.slice(0, 4);
+    const allproducts = fourprouduts.slice(4, fourprouduts.length);
   const data2 = ITEMS.splice(5, ITEMS.length);
 
   const [products, setProducts] = React.useState([]);
@@ -1644,15 +1772,17 @@ function Categories(props) {
     acc[`names${index}`] = item;
     return acc;
   }, {});
+  
+//  const fourproduc=fourprouduts.reduce((acc, item, index) => {
+//     acc[`products${index}`] = item;
+//     return acc;
+//   }, {});
   const router = useRouter();
   const classes = useStyles();
   if (router.isFallback) {
     return "loading...";
   }
-  const [catalogItems, setCatalogItems] = React.useState(
-    props.category.catalogItems.edges.map((item) => item.node?.product),
-  );
-  console.log(catalogItems);
+ 
 
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
@@ -1682,10 +1812,10 @@ function Categories(props) {
     }
   }
 
+  const shop = useShop();
   useEffect(() => {
-    // Fetch products from API or any data source
+    setProducts();
 
-    setProducts(interLeavedImages);
     setDisplayedProducts(interLeavedImages.slice(0, 20));
   }, []);
   const loadMoreProducts = () => {
@@ -1979,56 +2109,11 @@ function Categories(props) {
     );
   };
   const [frequency, setFrequency] = React.useState("");
+  
   return (
-    <>
+    <Layout shop={shop}>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
-          <Grid container xs={12} className={classes.mobilefilters}>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOptionMobS}
-                onChange={setSelectedOptionMobS}
-                placeholder="Sort"
-                styles={customStylesMobS}
-                options={options}
-                className={classes.reactselect}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOptionMobColor}
-                onChange={setSelectedOptionMobColor}
-                placeholder="Colour"
-                menuPortalTarget={document.body}
-                dropdownIndicator
-                styles={customStylesMobSize}
-                options={colorOptions}
-                className={classes.reactselect}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOptionMobSize}
-                onChange={setSelectedOptionMobSize}
-                placeholder="Size"
-                menuPortalTarget={document.body}
-                styles={customStylesMobSize}
-                options={Optionsize}
-                className={classes.reactselect}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Select
-                defaultValue={selectedOption}
-                onChange={setSelectedOption}
-                placeholder="Sort by"
-                components={{ DropdownIndicator }}
-                styles={customStylesMobSize}
-                options={options}
-                className={classes.reactselect}
-              />
-            </Grid>
-          </Grid>
           <Box className={classes.topheader}>
             {["left"].map((anchor) => (
               <React.Fragment key={anchor}>
@@ -2161,152 +2246,72 @@ function Categories(props) {
             </Grid>
             <Grid
               item
-              lg={3}
+              lg={6}
+              xs={12}
               sm={6}
               md={12}
-              xs={12}
-              container
-              className={classes.maingrid}
-              direction="row"
-              justifyContent="space-evenly"
+              align="center"
+              justify="center"
+              alignItems="center"
+              className={classes.grid1}
             >
-              <Grid item lg={6} sm={6} md={6} xs={6}>
-                <div className={classes.rootimg}>
-                  <img src={firstarray.names2.image} className={classes.images} />
-                  <div className={classes.cart}>
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography variant="h5" component="h2">
-                      + Cart{" "}
-                    </Typography>
-                  </div>
-                </div>
-                <Box className={classes.maintitle}>
-                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                    {firstarray.names1.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography gutterBottom variant="h4">
-                      size
-                    </Typography>
-                    <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>{firstarray.names1.price}</strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
-              <Grid item lg={6} sm={6} md={6} xs={6}>
-                <div className={classes.rootimg}>
-                  <img src={firstarray.names3.image} className={classes.images} />
-                  <div className={classes.cart}>
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography variant="h5" component="h2">
-                      + Cart{" "}
-                    </Typography>
-                  </div>
-                </div>
+              {firstfour.map((item, key) => (
+                <>
+                  <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
+                    <img
+                      src={
+                        !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
+                          ? "/justin/justin4.svg"
+                          : item?.node?.product?.primaryImage?.URLs?.medium
+                      }
+                      className={classes.imagemai}
+                      key={item?.node?.product?.id}
+                      alt={"hhhh"}
+                    />
 
-                <Box className={classes.maintitle}>
-                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                    {firstarray.names1.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography gutterBottom variant="h4">
-                      size
-                    </Typography>
-                    <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>{firstarray.names1.price}</strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
+                    <div className={classes.cartbackground}>
+                      <Button
+                        className={classes.cart}
+                        // disabled={cart.includes(shoe.id)}
+                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                      >
+                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                        <Typography variant="h5" component="h2">
+                          + Cart{" "}
+                        </Typography>
+                      </Button>
+                    </div>
+                    <Box className={classes.maintitle}>
+                      <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
+                        {item?.node?.product.title}
+                      </Typography>
+                      <div className={classes.size}>
+                        <Typography gutterBottom variant="h4">
+                          Size
+                        </Typography>
+                        <Typography gutterBottom variant="h4">
+                          :Large
+                        </Typography>
+                      </div>
+                      <div className={classes.size}>
+                        {" "}
+                        <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
+                        <Typography gutterBottom variant="h5" className={classes.price}>
+                          {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                        </Typography>
+                      </div>
+                    </Box>
+                  </Grid>
+                </>
+              ))}
             </Grid>
 
-            <Grid
-              item
-              lg={3}
-              sm={6}
-              md={12}
-              xs={12}
-              container
-              className={classes.maingrid}
-              direction="row"
-              justifyContent="space-evenly"
-            >
-              <Grid item lg={6} sm={6} md={6} xs={6}>
-                <div className={classes.rootimg}>
-                  <img src={firstarray.names2.image} className={classes.images} />
-                  <div className={classes.cart}>
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography variant="h5" component="h2">
-                      + Cart{" "}
-                    </Typography>
-                  </div>
-                </div>
-                <Box className={classes.maintitle}>
-                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                    {firstarray.names1.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography gutterBottom variant="h4">
-                      size
-                    </Typography>
-                    <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>{firstarray.names1.price}</strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
-              <Grid item lg={6} sm={6} md={6} xs={6}>
-                <div className={classes.rootimg}>
-                  <img src={firstarray.names3.image} className={classes.images} />
-                  <div className={classes.cart}>
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography variant="h5" component="h2">
-                      + Cart{" "}
-                    </Typography>
-                  </div>
-                </div>
-
-                <Box className={classes.maintitle}>
-                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                    {firstarray.names1.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography gutterBottom variant="h4">
-                      size
-                    </Typography>
-                    <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>{firstarray.names1.price}</strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
-            </Grid>
+         
           </Grid>
           <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
               <Masonry>
-                {displayedProducts.map((item) => (
+                {allproducts.map((item) => (
                   <>
                     <div className={classes.rootimg}>
                       <img src={item.image} className={classes.images} />
@@ -2347,7 +2352,7 @@ function Categories(props) {
           </div>
         </div>
       )}
-    </>
+    </Layout>
   );
 }
 
@@ -2369,11 +2374,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { lang, tagId } }) {
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
-  console.log(categories);
+  
   return {
     props: {
       category: categories,
     },
   };
 }
-export default Categories;
+
+export default withApollo()(withCart( Categories));

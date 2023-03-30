@@ -56,7 +56,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const Footer = ({ ...props }) => (
   // <footer className={props.classes.footer}>
   <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
-    <Grid container >
+    <Grid container>
       <Grid item xs={12} md={4}>
         <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px" }}>
           <span>
@@ -92,9 +92,11 @@ const Footer = ({ ...props }) => (
         <div style={{ marginTop: "50px", fontWeight: "500", fontSize: "18px" }}>
           DOWNLOAD OUR APP
           <div style={{ marginTop: "25px" }}>
-            <span>
-              <img src="/images/appStoreIcon.svg" />
-            </span>
+            <a href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.160110778.68931320.1680106906-903234502.1680106905&_gac=1.22526281.1680107274.Cj0KCQjww4-hBhCtARIsAC9gR3YB_dxCJOL67e-AEyIUm1512spa5Mb19b93QqlTa7QEaeGeSNwY5IEaAi41EALw_wcB&pli=1">
+              <span>
+                <img src="/images/appStoreIcon.svg" />
+              </span>
+            </a>
             <span style={{ marginLeft: "55px" }}>
               <img src="/images/googlePlayIcon.svg" />
             </span>

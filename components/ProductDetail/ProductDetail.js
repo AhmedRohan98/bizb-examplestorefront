@@ -306,8 +306,8 @@ const ProductDetail = ({ ...props }) => {
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId },
       width,
     } = props;
-    console.log(pdpSelectedVariantId, "star");
-  console.log(product.variants,"op");
+  //   console.log(pdpSelectedVariantId, "star");
+  // console.log(product.variants,"op");
     // Get selected variant or variant option
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
     const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
@@ -424,7 +424,7 @@ const ProductDetail = ({ ...props }) => {
   const productPrice = determineProductPrice();
   const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
 
- console.log(product, "produ");
+//  console.log(product, "produ");
   return (
     <>
       <Box className={classes.slider}>

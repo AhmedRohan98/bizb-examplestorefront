@@ -102,11 +102,11 @@ const CartSummary = (props) => {
     taxLabelText,
   } = props;
   const classes = useStyles();
-  console.log(displayShipping, "shipp");
+  // console.log(displayShipping, "shipp");
   const handleSubmit = () => {
     Router.push("/checkout/order");
   };
-  console.log(props);
+  // console.log(props);
   return (
     <>
       {/* <Typography variant="h3" className={classes.mainheading}>
