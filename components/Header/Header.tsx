@@ -25,21 +25,16 @@ const styles = (theme: Theme) =>
   createStyles({
     appBar: {
       textTransform: "uppercase",
-
-      // background: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0.7) 100%)",
-      // opacity: "0.7",
       height: "170px",
       width: "100%",
       background: "none",
       display: "flex",
-
       zIndex: 1200,
       "& .MuiAppBar-colorPrimary": {
         backgroud: "green",
         width: "100%",
       },
     },
-
     controls: {
       alignItems: "inherit",
       display: "inherit",
@@ -51,7 +46,6 @@ const styles = (theme: Theme) =>
       borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
     },
     toolbar: {
-      // alignItems: "center",
       display: "flex",
       justifyContent: "space-between",
       paddingTop: "20px",
@@ -63,7 +57,6 @@ const styles = (theme: Theme) =>
       cursor: "pointer",
       zIndex: 1200,
     },
-
     dark: {
       color: "#333333",
       backgroundImage: "none !important",
@@ -117,7 +110,6 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
         <div
           style={{
             zIndex: -1,
-
             width: "98%",
             display: "flex",
             justifyContent: "center",
