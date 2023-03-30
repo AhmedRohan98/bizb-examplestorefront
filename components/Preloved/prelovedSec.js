@@ -176,7 +176,7 @@ const Preloved = (props) => {
   const clickHandler = (id) => {
     router.push("/en/categories/" + id);
   };
-  console.log(res, "sssss");
+  // console.log(res, "sssss");
 
   function FormRow1() {
     return (

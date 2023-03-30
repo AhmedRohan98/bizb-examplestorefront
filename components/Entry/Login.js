@@ -113,7 +113,7 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [, , refetch] = useViewer();
+  const [viewer, , refetch] = useViewer();
   const { passwordClient } = getAccountsHandler();
 
   const handleEmailChange = (event) => {
@@ -128,21 +128,21 @@ export default function Login(props) {
     openModal("signup");
   };
 
-  const registerUser = async () => {
-    try {
-      await passwordClient.login({
-        user: {
-          email,
-        },
-        password: password,
-      });
-
-      closeModal();
-      await refetch();
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+ const registerUser = async (e) => {
+  e.preventDefault();
+   try {
+     await passwordClient.login({
+       user: {
+         email,
+       },
+       password: password,
+     });
+    closeModal();
+     await refetch();
+   } catch (err) {
+     setError(err.message);
+   }
+ };
 
   const handleForgotPasswordClick = () => {
     openModal("forgot-password");
@@ -151,8 +151,8 @@ export default function Login(props) {
   return (
     <>
       <>
-        <Typography variant="body1">WELCOME BACK! </Typography>
-        <form>
+        <Typography variant="body1">WELCOME BACK ! </Typography>
+        <form onSubmit={registerUser}>
           <Grid container>
             <Grid xs={12} item>
               <label className={classes.label} variant="h6">
@@ -197,7 +197,7 @@ export default function Login(props) {
               Forgot Password?
             </div>
           </Grid>
-
+          {!!error && <div className={classes.error}>{error}</div>}
           <div className={classes.socialmedia2}>
             <Button
               className={classes.register}
@@ -205,7 +205,6 @@ export default function Login(props) {
               variant="h5"
               role="button"
               type="submit"
-              onClick={registerUser}
             >
               Login
             </Button>
@@ -227,7 +226,6 @@ export default function Login(props) {
               Login With Facebook
             </Typography>
           </Box>
-          {!!error && <div className={classes.error}>{error}</div>}
         </div>
         <div
           className={classes.switchEntryMode}

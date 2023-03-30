@@ -33,8 +33,8 @@ class ShippingAddressCheckoutAction extends Component {
   }) {
     return (
       <Address>
-        {console.log("console in shipping address checkout ")}
-        {console.log(shippingAddress)}
+        {/* {console.log("console in shipping address checkout ")}
+        {console.log(shippingAddress)} */}
         {shippingAddress.city},  {shippingAddress.postal} <br />
         {shippingAddress.country}
       </Address>

@@ -53,6 +53,9 @@ a {
    
    
   }
+  span{
+    cursor: pointer;
+  }
   .MuiInput-underline:before {
     left: 0;
     right: 0;
@@ -178,10 +181,25 @@ input:-internal-autofill-selected {
 
   background: #FDC114 ;
   border-radius: 40px;
-  height: 200px !important;
+  height: auto !important;
   transition: "5px";
- padding:9px 11px; 
+ padding:2px 3px; 
   width:260px
+}
+.hoverable {
+
+  background: transparent ;
+  border-radius: "none";
+  height: auto !important;
+
+
+}
+.iMnAVp {
+    border-color:"none"; 
+     border-style: "none"; 
+    border-width: 0px;
+    max-width: 0px;
+    overflow: "none";
 }
 .headerlogo {
   transition: transform 0.3s ease;

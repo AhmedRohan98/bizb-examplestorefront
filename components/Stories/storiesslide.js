@@ -101,7 +101,7 @@ const Storyslider = ({ itemData }) => {
     },
   }));
 
-  console.log(itemData, "nwwwwwwwwwwwwwwwww");
+  // console.log(itemData, "nwwwwwwwwwwwwwwwww");
 
   function Item({ item }) {
     const classes = useStyles();

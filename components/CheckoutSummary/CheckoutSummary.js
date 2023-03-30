@@ -78,7 +78,7 @@ class CheckoutSummary extends Component {
 
   renderCartSummary() {
     const { cart, classes ,handlpay} = this.props;
-    console.log(this.props, "heloo");
+    // console.log(this.props, "heloo");
 
     if (cart && cart.checkout && cart.checkout.summary) {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;

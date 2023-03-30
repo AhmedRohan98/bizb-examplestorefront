@@ -273,8 +273,8 @@ class SelectableList extends Component {
       <BorderedList>
         <fieldset>
           {options.map((option, key) => {
-            console.log('border list option', option)
-            console.log('border list key', key)
+            // console.log('border list option', option)
+            // console.log('border list key', key)
 
             return (
               <BorderedWrapper key={option.id}>
