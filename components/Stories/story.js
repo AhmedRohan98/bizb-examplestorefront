@@ -305,7 +305,7 @@ const Story = (props) => {
     );
   }
   const [resouce, setResource] = useState("OUR PRODUCTS");
-  const [filter, setFilter] = useState(catagories[0]?.displayTitle);
+  const [filter, setFilter] = useState(catagories?.[0]?.displayTitle);
   const [filterproducts, setFilterProducts] = useState(null);
   const filteredItems = !filter ? ITEMS : ITEMS.filter((item) => item.Catagory.includes(filter));
   const filteredproducts = !filterproducts ? itemData : itemData.filter((item) => item.store.includes(filterproducts));
