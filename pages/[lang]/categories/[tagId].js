@@ -530,9 +530,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories({ category }) {
-  console.log(category, "prop");
+  // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
-  console.log(fourprouduts, "prop");
+  // console.log(fourprouduts, "prop");
   const [state, setState] = React.useState();
   const [fourpro, setFourpro] = React.useState();
   const [price, setPrice] = React.useState([0, 5000]);
@@ -1758,8 +1758,8 @@ function Categories({ category }) {
     },
   ];
   const data = ITEMS.splice(0, 5);
-  const firstfour = fourprouduts.slice(0, 4);
-    const allproducts = fourprouduts.slice(4, fourprouduts.length);
+  const firstfour = fourprouduts && fourprouduts?.length > 0 ? fourprouduts?.slice(0, 4) : null;
+    const allproducts = fourprouduts?.slice(4, fourprouduts?.length);
   const data2 = ITEMS.splice(5, ITEMS.length);
 
   const [products, setProducts] = React.useState([]);
