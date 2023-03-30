@@ -1758,7 +1758,8 @@ function Categories({ category }) {
     },
   ];
   const data = ITEMS.splice(0, 5);
-  const firstfour = fourprouduts.splice(0, 4);
+  const firstfour = fourprouduts.slice(0, 4);
+    const allproducts = fourprouduts.slice(4, fourprouduts.length);
   const data2 = ITEMS.splice(5, ITEMS.length);
 
   const [products, setProducts] = React.useState([]);
@@ -1772,10 +1773,10 @@ function Categories({ category }) {
     return acc;
   }, {});
   
- const fourproduc=fourprouduts.reduce((acc, item, index) => {
-    acc[`products${index}`] = item;
-    return acc;
-  }, {});
+//  const fourproduc=fourprouduts.reduce((acc, item, index) => {
+//     acc[`products${index}`] = item;
+//     return acc;
+//   }, {});
   const router = useRouter();
   const classes = useStyles();
   if (router.isFallback) {
@@ -2305,82 +2306,12 @@ function Categories({ category }) {
               ))}
             </Grid>
 
-            <Grid
-              item
-              lg={3}
-              sm={6}
-              md={12}
-              xs={12}
-              container
-              className={classes.maingrid}
-              direction="row"
-              justifyContent="space-evenly"
-            >
-              <Grid item lg={6} sm={6} md={6} xs={6}>
-                <div className={classes.rootimg}>
-                  <img src={firstarray.names2.image} className={classes.images} />
-                  <div className={classes.cart}>
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography variant="h5" component="h2">
-                      + Cart{" "}
-                    </Typography>
-                  </div>
-                </div>
-                <Box className={classes.maintitle}>
-                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                    {firstarray.names1.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography gutterBottom variant="h4">
-                      size
-                    </Typography>
-                    <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>{firstarray.names1.price}</strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
-              <Grid item lg={6} sm={6} md={6} xs={6}>
-                <div className={classes.rootimg}>
-                  <img src={firstarray.names3.image} className={classes.images} />
-                  <div className={classes.cart}>
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography variant="h5" component="h2">
-                      + Cart{" "}
-                    </Typography>
-                  </div>
-                </div>
-
-                <Box className={classes.maintitle}>
-                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                    {firstarray.names1.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography gutterBottom variant="h4">
-                      size
-                    </Typography>
-                    <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>{firstarray.names1.price}</strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      Rs 600
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
-            </Grid>
+         
           </Grid>
           <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
               <Masonry>
-                {displayedProducts.map((item) => (
+                {allproducts.map((item) => (
                   <>
                     <div className={classes.rootimg}>
                       <img src={item.image} className={classes.images} />
