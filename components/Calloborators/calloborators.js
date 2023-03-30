@@ -1,6 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
-
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
@@ -14,8 +13,21 @@ const Caloborators = () => {
     },
     image: {
       height: "100px",
+      display: "flex",
+      allignItems: "center",
+      justifyContent: "center",
       width: "100px",
+      margin: "10px",
       borderRadius: "100%",
+      transition: ".3s ease-in-out",
+      "&:hover": {
+        boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+        transition: ".3s ease-in-out",
+        margin: "0px",
+        marginBottom: "10px",
+        height: "110px",
+        width: "110px",
+      },
     },
     controller: {
       display: "flex",
@@ -123,7 +135,7 @@ const Caloborators = () => {
         <SwiperSlide>
           <div className={classes.box}>
             <img src={item.image} className={classes.image} />
-            <h4>{item.title}</h4>
+            <h4 style={{ marginLeft: "10px" }}>{item.title}</h4>
           </div>
         </SwiperSlide>
       </>

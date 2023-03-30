@@ -20,10 +20,16 @@ const Story = (props) => {
       allignItems: "center",
       justifyContent: "center",
       width: "100px",
+      margin: "10px",
       borderRadius: "100%",
+      transition: ".3s ease-in-out",
       "&:hover": {
-        height: "120px",
-        width: "120px",
+        boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+        transition: ".3s ease-in-out",
+        margin: "0px",
+        marginBottom: "10px",
+        height: "110px",
+        width: "110px",
       },
     },
     controller: {
@@ -292,7 +298,7 @@ const Story = (props) => {
     //  size:"large"
     //   },
   ];
-  
+
   function Filter({ name, onClick, active }) {
     return (
       <Typography
