@@ -197,7 +197,7 @@ export default function Login(props) {
               Forgot Password?
             </div>
           </Grid>
-
+          {!!error && <div className={classes.error}>{error}</div>}
           <div className={classes.socialmedia2}>
             <Button
               className={classes.register}
@@ -226,7 +226,6 @@ export default function Login(props) {
               Login With Facebook
             </Typography>
           </Box>
-          {!!error && <div className={classes.error}>{error}</div>}
         </div>
         <div
           className={classes.switchEntryMode}

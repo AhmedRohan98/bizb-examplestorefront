@@ -244,7 +244,7 @@ const CheckoutActions = (prop) => {
 
   const classes = useStyles();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [address,SetAddress] = useState("");
   const [error, setError] = useState("");
 
   const [fullname, setFullname] = useState("");
@@ -273,8 +273,8 @@ const CheckoutActions = (prop) => {
     setCheckedEmail(event.target.checked);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handleAddress = (event) => {
+    SetAddress(event.target.value);
   };
 
   const items = cart.items.map((item) => ({
@@ -357,8 +357,8 @@ const CheckoutActions = (prop) => {
               {
                 data: {
                   shippingAddress: {
-                    address1: "Address 1",
-                    address2: "Address 1",
+                    address1: address,
+                    address2: address,
                     city: city,
                     company: null,
                     country: "pakistan",
@@ -483,9 +483,9 @@ const CheckoutActions = (prop) => {
                   InputProps={{ disableUnderline: true }}
                   required
                   className={classes.input}
-                  onChange={handlePasswordChange}
+                  onChange={handleAddress}
                   inputProps={{ style: { color: "black" } }}
-                  value={password}
+                  value={address}
                 />
               </label>
             </Grid>
