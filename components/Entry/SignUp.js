@@ -169,7 +169,7 @@ export default function SignUp(props) {
   return (
     <>
       <Typography variant="body1">REGISTRATION </Typography>
-      <form className={classes.root} noValidate>
+      <form className={classes.root} noValidate onSubmit={registerUser}>
         <Grid container>
           <Grid xs={12} item>
             <label className={classes.label} required>
@@ -264,7 +264,7 @@ export default function SignUp(props) {
             InputProps={{ disableUnderline: true }}
             variant="h5"
             type="submit"
-            onClick={registerUser}
+         
           >
             {" "}
             Register
