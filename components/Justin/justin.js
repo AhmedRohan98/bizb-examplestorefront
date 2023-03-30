@@ -62,6 +62,8 @@ const useStyles = makeStyles((theme) => ({
 
   image: {
     width: "312px",
+    maxHeight:"450px",
+    
     borderRadius: "10px",
     cursor: "pointer",
   },
