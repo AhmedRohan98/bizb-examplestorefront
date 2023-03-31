@@ -537,7 +537,8 @@ const useStyles = makeStyles((theme) => ({
 function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [frequency, setFrequency] = useState("");
   const [state, setState] = useState();
   const [fourpro, setFourpro] = useState();
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
@@ -742,50 +743,42 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       size: "large",
     },
   ];
- const handleAddToCartClick = async (quantity, product, variant) => {
- 
+  const handleAddToCartClick = async (quantity, product, variant) => {
+    // console.log(pdpSelectedVariantId, "star");
 
- 
-    
-
-   // console.log(pdpSelectedVariantId, "star");
-
- const selectedVariant = variantById(product.variants, variant._id);
- if (selectedVariant) {
+    const selectedVariant = variantById(product.variants, variant._id);
+    if (selectedVariant) {
       await addItemsToCart([
-      
-       {
-         price: {
-           amount: product.pricing[0].minPrice,
+        {
+          price: {
+            amount: product.pricing[0].minPrice,
 
-           currencyCode,
-         },
-         
-         metafields: [
-           {
-             key: "media",
-             value: product?.primaryImage?.URLs?.medium,
-           },
-         ],
-         productConfiguration: {
-           productId: product.productId, // Pass the productId, not to be confused with _id
-           productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
-         },
-         quantity,
-         
-       },
-        
-     ]);
-   }
- };
+            currencyCode,
+          },
 
- const handleOnClick = async (product, variant) => {
-   // Pass chosen quantity to onClick callback
-   // console.log("handle click");
-   await handleAddToCartClick(addToCartQuantity, product, variant);
+          metafields: [
+            {
+              key: "media",
+              value: product?.primaryImage?.URLs?.medium,
+            },
+          ],
+          productConfiguration: {
+            productId: product.productId, // Pass the productId, not to be confused with _id
+            productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+          },
+          quantity,
+        },
+      ]);
+    }
+  };
 
-   // Scroll to the top
- };
+  const handleOnClick = async (product, variant) => {
+    // Pass chosen quantity to onClick callback
+    // console.log("handle click");
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+
+    // Scroll to the top
+  };
   const ITEMScategory = [
     {
       image: "/categoriestypes/cat1.svg",
@@ -1844,7 +1837,6 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     return <PageLoading />;
   }
 
-
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
       acc[image.size] = [];
@@ -1879,28 +1871,25 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
 
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
   //   setOpen(true);
   // };
   // const handleClose = () => {
   //   setOpen(false);
   // };
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handlePopOverClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
   // const handleOpen = () => {
   //   setOpen(true);
   // };
   // const handleClose = () => {
   //   setOpen(false);
   // };
-  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handlePopOverClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handlePopOverClose = () => {
-    setAnchorEl(null);
+
   const handlePopOverClose = () => {
     setAnchorEl(null);
   };
@@ -2183,8 +2172,6 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       </components.DropdownIndicator>
     );
   };
-  const [frequency, setFrequency] = React.useState("");
-
 
   return (
     <Layout shop={shop}>
@@ -2306,11 +2293,11 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                       className={classes.categorytoggle}
                       onClick={handlePopOverClick}
                     />
-                    <img
+                    {/* <img
                       src={firstarray.names0.image}
                       className={classes.categorytoggle}
                       onClick={handlePopOverClick}
-                    />
+                    /> */}
                   </div>
                 </div>
                 <img src="/categories/mainCategory.svg" className={classes.image} />
@@ -2323,27 +2310,27 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                   open={Boolean(anchorEl)}
                   onClose={handlePopOverClose}
                 >
-                <Popover
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handlePopOverClose}
-                >
-                  <Box sx={style}>
-                    {ITEMScategory.map((item) => (
-                      <div className={classes.modalitems}>
-                        <img src={item.image} className={classes.categoryavatar} />
-                        <Typography variant="h4" className={classes.catgorytitle}>
-                          {" "}
-                          {item.title}
-                        </Typography>
-                      </div>
-                    ))}
-                  </Box>
-                </Popover>
+                  <Popover
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handlePopOverClose}
+                  >
+                    <Box sx={style}>
+                      {ITEMScategory.map((item) => (
+                        <div className={classes.modalitems}>
+                          <img src={item.image} className={classes.categoryavatar} />
+                          <Typography variant="h4" className={classes.catgorytitle}>
+                            {" "}
+                            {item.title}
+                          </Typography>
+                        </div>
+                      ))}
+                    </Box>
+                  </Popover>
                 </Popover>
               </div>
             </Grid>
@@ -2497,13 +2484,11 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { lang, tagId } }) {
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
-
   return {
     props: {
       category: categories,
     },
   };
 }
-
 
 export default withApollo()(withCart(Categories));
