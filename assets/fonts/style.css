@@ -70,3 +70,9 @@
   src: local("Ostrich Sans Black Rounded Medium"),
     url("OstrichSansRoundedMedium.woff") format("woff");
 }
+@font-face {
+  font-family: "Circular Std";
+  font-style: normal;
+  font-weight: normal;
+  src: local("CircularStd.otf"), url("CircularStd-Book.ttf") format("truetype");
+}
