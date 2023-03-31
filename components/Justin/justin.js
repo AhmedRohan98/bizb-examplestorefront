@@ -239,7 +239,7 @@ const Justin = (props) => {
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
-  const notify = () => toast("Wow so easy!");
+//  const notify = () => toast("Wow so easy!");
   const classes = useStyles();
   return (
     <div className={classes.main}>
@@ -325,7 +325,7 @@ const Justin = (props) => {
                   </div>
                   <div className={classes.size}>
                     {" "}
-                    <strike>{item.node.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
+                    <strike>{item.node.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}</strike>
                     <Typography gutterBottom variant="h5" className={classes.price}>
                       {item.node.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
                     </Typography>
