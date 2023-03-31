@@ -245,7 +245,7 @@ const Justin = (props) => {
   return (
     <div className={classes.main}>
       <div className={classes.headermain}>
-        <button onClick={notify}>Notify!</button>
+        {/* <button onClick={notify}>Notify!</button>
         <ToastContainer
           position="bottom-left"
           autoClose={5000}
@@ -259,7 +259,7 @@ const Justin = (props) => {
           theme="colored"
           background="green"
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
-        />
+        /> */}
         <Typography variant="h3">
           JUST <span className={classes.spanofnextword}>IN</span>
         </Typography>
