@@ -116,12 +116,11 @@ const MainSlider = (props) => {
       opacity: "0.7 !important",
       position: "absolute",
 
-     top:"0vh",
-     width:"100%",
-     height:"170px",
-   
-zIndex:1200,
-      
+      top: "0vh",
+      width: "100%",
+      height: "170px",
+
+      zIndex: 1200,
     },
   }));
   const ITEMS = [
@@ -149,7 +148,7 @@ zIndex:1200,
   ];
   function Item({ item }) {
     const classes = useStyles();
-    
+
     return (
       <>
         <SwiperSlide>
@@ -161,7 +160,9 @@ zIndex:1200,
               {" "}
               <img src="/icons/home.svg" className={classes.ie} />
               <Link to="target-element" smooth={true} duration={2000}>
-                <Typography className={classes.text}>Scroll to discover more</Typography>
+                <Typography style={{ fontFamily: "Lato" }} className={classes.text}>
+                  Scroll to discover more
+                </Typography>
               </Link>
             </div>
             <div className={classes.controllera}>
@@ -219,7 +220,7 @@ zIndex:1200,
           </div>
         </div>
       </div>
-    
+
       <Preloved {...props} />
 
       <Justin {...props} />

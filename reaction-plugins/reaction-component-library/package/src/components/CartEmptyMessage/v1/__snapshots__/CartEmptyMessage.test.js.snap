@@ -37,8 +37,8 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #1999dd;
-  border-color: #1999dd;
+  background-color: #fdc114;
+  border-color: #fdc114;
   border-style: solid;
   border-width: 1px;
   border-radius: 2px;
@@ -176,8 +176,8 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #1999dd;
-  border-color: #1999dd;
+  background-color: #fdc114;
+  border-color: #fdc114;
   border-style: solid;
   border-width: 1px;
   border-radius: 2px;
