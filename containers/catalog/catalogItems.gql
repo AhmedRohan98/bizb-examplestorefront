@@ -19,6 +19,7 @@ query catalogItemsQuery(
       startCursor
       hasNextPage
       hasPreviousPage
+      __typename
     }
     edges {
       cursor
@@ -33,12 +34,28 @@ query catalogItemsQuery(
             vendor
             productId
             variants {
+              pricing {
+                compareAtPrice {
+                  displayAmount
+                  __typename
+                }
+                currency {
+                  code
+                  __typename
+                }
+                displayPrice
+                minPrice
+                maxPrice
+                __typename
+              }
               _id
               variantId
               optionTitle
               options {
                 _id
+                __typename
               }
+              __typename
             }
             isLowQuantity
             isSoldOut
@@ -50,27 +67,22 @@ query catalogItemsQuery(
               scope
               value
               valueType
+              __typename
             }
             shop {
               currency {
                 code
+                __typename
               }
+              __typename
             }
-            pricing {
-              compareAtPrice {
-                displayAmount
-              }
-              currency {
-                code
-              }
-              displayPrice
-              minPrice
-              maxPrice
-            }
+
             media {
               URLs {
                 large
+                __typename
               }
+              __typename
             }
             primaryImage {
               URLs {
@@ -78,11 +90,18 @@ query catalogItemsQuery(
                 small
                 medium
                 large
+                __typename
               }
+              __typename
             }
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
+    __typename
   }
 }

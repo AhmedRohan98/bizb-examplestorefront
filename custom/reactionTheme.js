@@ -25,7 +25,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       light: "#26B0F9",
-      main: "#1999DD",
+      main: "#fdc114",
       dark: "#172F3C",
       contrastText: "#FFFFFF",
     },
@@ -91,7 +91,7 @@ const theme = createMuiTheme({
 
       white: "#ffffff",
       // medium colors
-      reactionBlue: "#1999dd",
+      reactionBlue: "#fdc114",
       reactionBlue100: "#ecf8fe",
       reactionBlue200: "#d6e5ed",
       reactionBlue300: "#26b0f9",
@@ -142,7 +142,7 @@ const theme = createMuiTheme({
       blog3: "#FFE0CA",
       gradient: "linear-gradient(#000000, 31.77%, rgba(0, 0, 0, 0), 100%)",
       pageLoading: {
-        innerColor: "#1999dd",
+        innerColor: "#fdc114",
         outerColor: "rgba(9.80392156862745%,59.99999999999995%,86.66666666666667%,0.122)",
       },
       teal: "#8ce0c9",
@@ -210,12 +210,12 @@ const theme = createMuiTheme({
     h5: {
       fontSize: "16px",
       color: "#000000",
-      fontFamily: "Lato", 
+      fontFamily: "Lato",
       fontStyle: "normal",
       fontWeight: 400,
       weight: 100,
       lineHeight: "19px",
-      cursor:"pointer"
+      cursor: "pointer",
     },
     h6: {
       fontSize: "20px",

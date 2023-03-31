@@ -23,8 +23,10 @@ SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
 const styles = (theme) => ({
   slider: {
     paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
     [theme.breakpoints.down(700)]: {
       paddingTop: theme.spacing(0),
+      paddingBottom: theme.spacing(2),
     },
   },
   sliderflex: {
@@ -36,7 +38,7 @@ const styles = (theme) => ({
     display: "flex",
     flexDirection: "column",
 
-    display: "block",
+    display: "contents",
     [theme.breakpoints.down(1100)]: {
       display: "none",
 
@@ -51,20 +53,23 @@ const styles = (theme) => ({
 
   thumb: {
     height: "600px",
+    justifySelf: "end",
     width: "200px",
     "& .swiper-slide": {
       opacity: 0.5,
     },
   },
   controller: {
-    width: "90vh",
+    // width: "90vh",
+    position: "relative",
     display: "inline-grid",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   iconforwad: {
+    cursor:"pointer",
     position: "absolute",
-    left: "480px",
+    right: "0",
     top: "50%",
     background: "#333333",
     color: "FDC114",
@@ -74,8 +79,8 @@ const styles = (theme) => ({
   },
   iconback: {
     position: "absolute",
+    cursor:"pointer",
     top: "50%",
-    left: "10px",
     borderRadius: "4px",
     color: "FDC114",
     background: "#333333",
@@ -103,7 +108,7 @@ const styles = (theme) => ({
   },
   offer: {
     display: "flex",
-    marginRight: theme.spacing(10),
+    // marginRight: theme.spacing(10),
     background: "#E16452",
     padding: "4px",
     borderBotom: "1px solid red",
@@ -142,14 +147,16 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(3),
   },
   carttext: {
-    width: "450px",
+    justifySelf: "end",
+    width: "533px",
   },
 
   sliderimage2: {
-    position: "realtive",
-    display: "inlie-grid",
+    borderRadius: "18px",
+    position: "relative",
+    // display: "inlie-grid",
     margin: "0 auto",
-    widht: "507px",
+    // width: "507px",
     minHeight: "600px",
     alignItems: "center",
     justifyContent: "center",
@@ -173,7 +180,7 @@ const styles = (theme) => ({
   },
   swiperimag: {
     display: "flex",
-    position: "relative",
+    // position: "relative",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -323,7 +330,7 @@ const ProductDetail = ({ ...props }) => {
       await addItemsToCart([
         {
           price: {
-            amount: price.price,
+            amount: product.variants[0]?.pricing[0]?.minPrice,
             currencyCode,
           },
 
@@ -440,7 +447,8 @@ const ProductDetail = ({ ...props }) => {
           alignItems="center"
           justifyContent="center"
         >
-          <Grid item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
+          <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
+          <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
             <div className={classes.thumb}>
               <Swiper
                 onSwiper={setImagesNavSlider}
@@ -474,7 +482,7 @@ const ProductDetail = ({ ...props }) => {
               </Swiper>
             </div>
           </Grid>
-          <Grid item xs={12} md={10} sm={7} lg={5} className={`${classes.sliderimages} swiper_slider`}>
+          <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
             <Swiper
               thumbs={{ swiper: imagesNavSlider }}
               direction="horizontal"
@@ -529,7 +537,7 @@ const ProductDetail = ({ ...props }) => {
             </Swiper>
           </Grid>
 
-          <Grid item xs={11} md={10} sm={6} lg={3}>
+          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={6} lg={4}>
             <div className={classes.carttext}>
               <Typography style={{ fontWeight: "700" }} variant="subtitle1">
                 {product?.title}
@@ -546,7 +554,10 @@ const ProductDetail = ({ ...props }) => {
                       variant="h4"
                       className={classes.price2}
                     >
-                      {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        /\$/g,
+                        "RS ",
+                      )}
                     </Typography>
                   </strike>
                   <Typography
@@ -555,7 +566,7 @@ const ProductDetail = ({ ...props }) => {
                     variant="h4"
                     className={classes.price}
                   >
-                    {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                    {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
                 <Typography gutterBottom variant="h4" className={classes.offer}>
@@ -599,6 +610,7 @@ const ProductDetail = ({ ...props }) => {
               </TabContext>
             </div>
           </Grid>
+          <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
         </Grid>
       </Box>
 
