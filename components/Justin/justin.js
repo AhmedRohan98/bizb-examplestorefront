@@ -6,12 +6,12 @@ import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import variantById from "lib/utils/variantById";
-import {  useState } from "react";
+import { useState } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
 
-  import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: "3vh",
@@ -85,6 +85,8 @@ const useStyles = makeStyles((theme) => ({
   },
   price: {
     marginLeft: "20px",
+    fontWeight: "700",
+    fontSize: "20px",
   },
   rootimg: {
     position: "relative",
@@ -157,21 +159,21 @@ const Justin = (props) => {
 // console.log(props.uiStore, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
- function determineProductPrice() {
-   const { currencyCode, product } = props;
-   const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
-   const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
-   let productPrice = {};
+    function determineProductPrice() {
+      const { currencyCode, product } = props;
+      const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
+      const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
+      let productPrice = {};
 
-   if (pdpSelectedOptionId && selectedVariant) {
-     const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
-     productPrice = priceByCurrencyCode(currencyCode, selectedOption.pricing);
-   } else if (!pdpSelectedOptionId && selectedVariant) {
-     productPrice = priceByCurrencyCode(currencyCode, selectedVariant.pricing);
-   }
+      if (pdpSelectedOptionId && selectedVariant) {
+        const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
+        productPrice = priceByCurrencyCode(currencyCode, selectedOption.pricing);
+      } else if (!pdpSelectedOptionId && selectedVariant) {
+        productPrice = priceByCurrencyCode(currencyCode, selectedVariant.pricing);
+      }
 
-   return productPrice;
- }
+      return productPrice;
+    }
 
     // Select the variant, and if it has options, the first option
     const variantId = variant._id;
@@ -197,13 +199,12 @@ const Justin = (props) => {
     // console.log(pdpSelectedVariantId, "star");
 
     // Get selected variant or variant optiono
-      const selectedVariant = variantById(product.variants, variant._id);
-   
- 
+    const selectedVariant = variantById(product.variants, variant._id);
+
     // console.log("selected variant..", selectedVariantOrOption);
     if (selectedVariant) {
       // Get the price for the currently selected variant or variant option
-  // const price = priceByCurrencyCode(currencyCode, selectVariant.pricing);
+      // const price = priceByCurrencyCode(currencyCode, selectVariant.pricing);
       // console.log("price...", price);
       // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
       await addItemsToCart([
@@ -236,11 +237,9 @@ const Justin = (props) => {
 
     // Scroll to the top
   };
-  const CustomCloseButton = () => (
-    <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
-  );
+  const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
- const notify = () => toast("Wow so easy!");
+  const notify = () => toast("Wow so easy!");
   const classes = useStyles();
   return (
     <div className={classes.main}>
@@ -297,20 +296,24 @@ const Justin = (props) => {
                     onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                   >
                     <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography variant="h5" component="h2">
+                    <Typography
+                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                      variant="h5"
+                      component="h2"
+                    >
                       + Cart{" "}
                     </Typography>
                   </Button>
                 </div>
                 <Box className={classes.maintitle}>
-                  <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
+                  <Typography style={{ fontWeight: "700", fontSize: "24px" }}  gutterBottom variant="h4" component="h2" className={classes.carttitle}>
                     {item.node.product.title}
                   </Typography>
                   <div className={classes.size}>
-                    <Typography gutterBottom variant="h4">
+                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
                       Size
                     </Typography>
-                    <Typography gutterBottom variant="h4">
+                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
                       :Large
                     </Typography>
                   </div>
