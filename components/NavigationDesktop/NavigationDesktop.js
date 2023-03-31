@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 import { NavigationItemDesktop } from "components/NavigationDesktop";
+import Link from "components/Link/Link";
 
 const styles = (theme) => ({
   light: {
@@ -47,19 +48,21 @@ class NavigationDesktop extends Component {
       <>
         <nav>
           <div className={headerType ? classNames(light) : classNames(dark)}>
-            <span
-              className="hoverable"
-              style={{
-                marginRight: "40px",
-                padding: "9px 11px",
-                marginLeft: "30px",
-                fontSize: "18px",
-                fontFamily: '"Ostrich Sans Black !important',
-                fontWeight: 900,
-              }}
-            >
-              Home
-            </span>
+            <Link href="/">
+              <span
+                className="hoverable"
+                style={{
+                  marginRight: "40px",
+                  padding: "9px 11px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black !important',
+                  fontWeight: 900,
+                }}
+              >
+                Home
+              </span>
+            </Link>
             <span
               className="hoverable"
               style={{

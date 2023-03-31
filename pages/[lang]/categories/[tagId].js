@@ -44,6 +44,8 @@ import Slider from "@material-ui/core/Slider";
 import Checkbox from "@material-ui/core/Checkbox";
 import withCart from "containers/cart/withCart";
 import { useState } from "react";
+import Popover from "@material-ui/core/Popover";
+
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
@@ -535,7 +537,8 @@ const useStyles = makeStyles((theme) => ({
 function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [frequency, setFrequency] = useState("");
   const [state, setState] = useState();
   const [fourpro, setFourpro] = useState();
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
@@ -740,50 +743,42 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       size: "large",
     },
   ];
- const handleAddToCartClick = async (quantity, product, variant) => {
- 
+  const handleAddToCartClick = async (quantity, product, variant) => {
+    // console.log(pdpSelectedVariantId, "star");
 
- 
-    
-
-   // console.log(pdpSelectedVariantId, "star");
-
- const selectedVariant = variantById(product.variants, variant._id);
- if (selectedVariant) {
+    const selectedVariant = variantById(product.variants, variant._id);
+    if (selectedVariant) {
       await addItemsToCart([
-      
-       {
-         price: {
-           amount: product.pricing[0].minPrice,
+        {
+          price: {
+            amount: product.pricing[0].minPrice,
 
-           currencyCode,
-         },
-         
-         metafields: [
-           {
-             key: "media",
-             value: product?.primaryImage?.URLs?.medium,
-           },
-         ],
-         productConfiguration: {
-           productId: product.productId, // Pass the productId, not to be confused with _id
-           productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
-         },
-         quantity,
-         
-       },
-        
-     ]);
-   }
- };
+            currencyCode,
+          },
 
- const handleOnClick = async (product, variant) => {
-   // Pass chosen quantity to onClick callback
-   // console.log("handle click");
-   await handleAddToCartClick(addToCartQuantity, product, variant);
+          metafields: [
+            {
+              key: "media",
+              value: product?.primaryImage?.URLs?.medium,
+            },
+          ],
+          productConfiguration: {
+            productId: product.productId, // Pass the productId, not to be confused with _id
+            productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+          },
+          quantity,
+        },
+      ]);
+    }
+  };
 
-   // Scroll to the top
- };
+  const handleOnClick = async (product, variant) => {
+    // Pass chosen quantity to onClick callback
+    // console.log("handle click");
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+
+    // Scroll to the top
+  };
   const ITEMScategory = [
     {
       image: "/categoriestypes/cat1.svg",
@@ -1831,6 +1826,11 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   //     acc[`products${index}`] = item;
   //     return acc;
   //   }, {});
+
+  //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
+  //     acc[`products${index}`] = item;
+  //     return acc;
+  //   }, {});
   const router = useRouter();
   const classes = useStyles();
   if (router.isFallback) {
@@ -1871,19 +1871,37 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
 
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
-  const handleOpen = () => {
-    setOpen(true);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+
+  const handlePopOverClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setOpen(false);
+
+  const handlePopOverClose = () => {
+    setAnchorEl(null);
   };
   const style = {
-    position: "absolute",
-    top: "34%",
-    left: "26%",
-    transform: "translate(-50%, -50%)",
-    width: 250,
+    position: "fixed",
+    borderRadius: "8px",
+    left: "60px",
+    width: 330,
+    position: "fixed",
+    borderRadius: "8px",
+    left: "60px",
+    width: 330,
     bgcolor: "#ffffff",
     outline: "none",
     boxShadow: 24,
@@ -2270,23 +2288,50 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                     <Typography variant="h1" className={classes.categoriesname}>
                       Western
                     </Typography>
-                    <img src={firstarray.names0.image} className={classes.categorytoggle} onClick={handleOpen} />
+                    <img
+                      src={firstarray.names0.image}
+                      className={classes.categorytoggle}
+                      onClick={handlePopOverClick}
+                    />
+                    {/* <img
+                      src={firstarray.names0.image}
+                      className={classes.categorytoggle}
+                      onClick={handlePopOverClick}
+                    /> */}
                   </div>
                 </div>
                 <img src="/categories/mainCategory.svg" className={classes.image} />
-                <Modal className={classes.modal} open={open} onClose={handleClose}>
-                  <Box sx={style}>
-                    {ITEMScategory.map((item) => (
-                      <div className={classes.modalitems}>
-                        <img src={item.image} className={classes.categoryavatar} />
-                        <Typography variant="h4" className={classes.catgorytitle}>
-                          {" "}
-                          {item.title}
-                        </Typography>
-                      </div>
-                    ))}
-                  </Box>
-                </Modal>
+                <Popover
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handlePopOverClose}
+                >
+                  <Popover
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handlePopOverClose}
+                  >
+                    <Box sx={style}>
+                      {ITEMScategory.map((item) => (
+                        <div className={classes.modalitems}>
+                          <img src={item.image} className={classes.categoryavatar} />
+                          <Typography variant="h4" className={classes.catgorytitle}>
+                            {" "}
+                            {item.title}
+                          </Typography>
+                        </div>
+                      ))}
+                    </Box>
+                  </Popover>
+                </Popover>
               </div>
             </Grid>
             <Grid
@@ -2445,6 +2490,5 @@ export async function getStaticProps({ params: { lang, tagId } }) {
     },
   };
 }
-
 
 export default withApollo()(withCart(Categories));

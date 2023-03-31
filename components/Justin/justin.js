@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme) => ({
 
   image: {
     width: "312px",
-    maxHeight:"450px",
-    
+    maxHeight: "450px",
+    objectFit: "cover",
     borderRadius: "10px",
     cursor: "pointer",
   },
@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-// console.log(props.uiStore, "cartx");
+  // console.log(props.uiStore, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
     function determineProductPrice() {
@@ -306,7 +306,13 @@ const Justin = (props) => {
                   </Button>
                 </div>
                 <Box className={classes.maintitle}>
-                  <Typography style={{ fontWeight: "700", fontSize: "24px" }}  gutterBottom variant="h4" component="h2" className={classes.carttitle}>
+                  <Typography
+                    style={{ fontWeight: "700", fontSize: "24px" }}
+                    gutterBottom
+                    variant="h4"
+                    component="h2"
+                    className={classes.carttitle}
+                  >
                     {item.node.product.title}
                   </Typography>
                   <div className={classes.size}>
