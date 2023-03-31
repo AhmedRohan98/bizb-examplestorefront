@@ -330,7 +330,7 @@ const ProductDetail = ({ ...props }) => {
       await addItemsToCart([
         {
           price: {
-            amount: price.price,
+            amount: product.variants[0]?.pricing[0]?.minPrice,
             currencyCode,
           },
 
@@ -554,7 +554,10 @@ const ProductDetail = ({ ...props }) => {
                       variant="h4"
                       className={classes.price2}
                     >
-                      {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        /\$/g,
+                        "RS ",
+                      )}
                     </Typography>
                   </strike>
                   <Typography
@@ -563,7 +566,7 @@ const ProductDetail = ({ ...props }) => {
                     variant="h4"
                     className={classes.price}
                   >
-                    {product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                    {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
                 <Typography gutterBottom variant="h4" className={classes.offer}>

@@ -57,7 +57,7 @@ class NavigationDesktop extends Component {
                   padding: "9px 11px",
                   marginLeft: "30px",
                   fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black !important',
+                  fontFamily: '"Ostrich Sans Black',
                   fontWeight: 900,
                 }}
               >
@@ -71,7 +71,7 @@ class NavigationDesktop extends Component {
                 padding: "9px 11px",
                 marginLeft: "30px",
                 fontSize: "18px",
-                fontFamily: '"Ostrich Sans Black !important',
+                fontFamily: '"Ostrich Sans Black"',
                 fontWeight: 900,
               }}
             >
@@ -84,7 +84,7 @@ class NavigationDesktop extends Component {
                 padding: "9px 11px",
                 marginLeft: "30px",
                 fontSize: "18px",
-                fontFamily: '"Ostrich Sans Black !important',
+                fontFamily: '"Ostrich Sans Black"',
                 fontWeight: 900,
               }}
             >
@@ -97,7 +97,7 @@ class NavigationDesktop extends Component {
                 padding: "9px 11px",
                 marginLeft: "30px",
                 fontSize: "18px",
-                fontFamily: '"Ostrich Sans Black !important',
+                fontFamily: '"Ostrich Sans Black"',
                 fontWeight: 900,
               }}
             >

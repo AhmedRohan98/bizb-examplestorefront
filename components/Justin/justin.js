@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-// console.log(props, "cartx");
+console.log(props, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
     function determineProductPrice() {
@@ -210,7 +210,7 @@ const Justin = (props) => {
       await addItemsToCart([
         {
           price: {
-            amount: product.pricing[0].minPrice,
+            amount: product.variants[0]?.pricing[0]?.minPrice,
 
             currencyCode,
           },
@@ -325,9 +325,17 @@ const Justin = (props) => {
                   </div>
                   <div className={classes.size}>
                     {" "}
-                    <strike>{item.node.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}</strike>
+                    <strike>
+                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        /\$/g,
+                        "RS ",
+                      )}
+                    </strike>
                     <Typography gutterBottom variant="h5" className={classes.price}>
-                      {item.node.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                        /\$/g,
+                        "RS ",
+                      )}
                     </Typography>
                   </div>
                 </Box>
