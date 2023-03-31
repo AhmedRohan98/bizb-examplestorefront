@@ -89,7 +89,7 @@ const styles = (theme) => ({
   cartimage: {
  
     width: "130px",
-
+    height: "160px",
     borderRadius: "10px",
   },
   cartitemtext: {
