@@ -1880,14 +1880,12 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   };
   const style = {
     position: "absolute",
-    top: "20%",
-    left: "20%",
+    top: "34%",
+    left: "26%",
     transform: "translate(-50%, -50%)",
     width: 250,
     bgcolor: "#ffffff",
-
-    border: "none",
-
+    outline: "none",
     boxShadow: 24,
     p: 2,
   };
