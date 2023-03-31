@@ -1833,11 +1833,17 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   //     acc[`products${index}`] = item;
   //     return acc;
   //   }, {});
+
+  //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
+  //     acc[`products${index}`] = item;
+  //     return acc;
+  //   }, {});
   const router = useRouter();
   const classes = useStyles();
   if (router.isFallback) {
     return <PageLoading />;
   }
+
 
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
@@ -1883,11 +1889,26 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handlePopOverClick = (event) => {
     setAnchorEl(event.currentTarget);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handlePopOverClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+  const handlePopOverClose = () => {
+    setAnchorEl(null);
   const handlePopOverClose = () => {
     setAnchorEl(null);
   };
   const style = {
+    position: "fixed",
+    borderRadius: "8px",
+    left: "60px",
+    width: 330,
     position: "fixed",
     borderRadius: "8px",
     left: "60px",
@@ -2164,6 +2185,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   };
   const [frequency, setFrequency] = React.useState("");
 
+
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2284,9 +2306,23 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                       className={classes.categorytoggle}
                       onClick={handlePopOverClick}
                     />
+                    <img
+                      src={firstarray.names0.image}
+                      className={classes.categorytoggle}
+                      onClick={handlePopOverClick}
+                    />
                   </div>
                 </div>
                 <img src="/categories/mainCategory.svg" className={classes.image} />
+                <Popover
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handlePopOverClose}
+                >
                 <Popover
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -2307,6 +2343,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                       </div>
                     ))}
                   </Box>
+                </Popover>
                 </Popover>
               </div>
             </Grid>
@@ -2459,6 +2496,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { lang, tagId } }) {
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
+
 
   return {
     props: {
