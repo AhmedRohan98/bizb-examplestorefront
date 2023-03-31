@@ -221,7 +221,7 @@ const Preloved = (props) => {
               {res?.page2.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
-              {" "}
+          
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
           </div>
@@ -234,7 +234,7 @@ const Preloved = (props) => {
               {res?.page2.displayTitle}
             </Typography>
             <div className={classes.buttonshop}>
-              {" "}
+         
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
           </div>
