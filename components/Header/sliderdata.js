@@ -77,7 +77,7 @@ const MainSlider = (props) => {
     text: {
       fontSize: "18px",
       color: "white",
-      Fontfamily: "lato",
+      Fontfamily: "Circular Std",
     },
     dark: {
       color: "#333333",
