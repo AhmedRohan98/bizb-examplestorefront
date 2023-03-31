@@ -42,7 +42,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Slider from "@material-ui/core/Slider";
 import Checkbox from "@material-ui/core/Checkbox";
 import withCart from "containers/cart/withCart";
-
+import Popover from "@material-ui/core/Popover";
 
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
@@ -1759,7 +1759,7 @@ function Categories({ category }) {
   ];
   const data = ITEMS.splice(0, 5);
   const firstfour = fourprouduts.slice(0, 4);
-    const allproducts = fourprouduts.slice(4, fourprouduts.length);
+  const allproducts = fourprouduts.slice(4, fourprouduts.length);
   const data2 = ITEMS.splice(5, ITEMS.length);
 
   const [products, setProducts] = React.useState([]);
@@ -1772,17 +1772,16 @@ function Categories({ category }) {
     acc[`names${index}`] = item;
     return acc;
   }, {});
-  
-//  const fourproduc=fourprouduts.reduce((acc, item, index) => {
-//     acc[`products${index}`] = item;
-//     return acc;
-//   }, {});
+
+  //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
+  //     acc[`products${index}`] = item;
+  //     return acc;
+  //   }, {});
   const router = useRouter();
   const classes = useStyles();
   if (router.isFallback) {
     return "loading...";
   }
- 
 
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
@@ -1824,18 +1823,24 @@ function Categories({ category }) {
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handlePopOverClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setOpen(false);
+  const handlePopOverClose = () => {
+    setAnchorEl(null);
   };
   const style = {
-    position: "absolute",
-    top: "34%",
-    left: "26%",
-    transform: "translate(-50%, -50%)",
-    width: 250,
+    position: "fixed",
+    borderRadius: "8px",
+    left: "60px",
+    width: 330,
     bgcolor: "#ffffff",
     outline: "none",
     boxShadow: 24,
@@ -2107,7 +2112,7 @@ function Categories({ category }) {
     );
   };
   const [frequency, setFrequency] = React.useState("");
-  
+
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2223,11 +2228,23 @@ function Categories({ category }) {
                     <Typography variant="h1" className={classes.categoriesname}>
                       Western
                     </Typography>
-                    <img src={firstarray.names0.image} className={classes.categorytoggle} onClick={handleOpen} />
+                    <img
+                      src={firstarray.names0.image}
+                      className={classes.categorytoggle}
+                      onClick={handlePopOverClick}
+                    />
                   </div>
                 </div>
                 <img src="/categories/mainCategory.svg" className={classes.image} />
-                <Modal className={classes.modal} open={open} onClose={handleClose}>
+                <Popover
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handlePopOverClose}
+                >
                   <Box sx={style}>
                     {ITEMScategory.map((item) => (
                       <div className={classes.modalitems}>
@@ -2239,7 +2256,7 @@ function Categories({ category }) {
                       </div>
                     ))}
                   </Box>
-                </Modal>
+                </Popover>
               </div>
             </Grid>
             <Grid
@@ -2303,8 +2320,6 @@ function Categories({ category }) {
                 </>
               ))}
             </Grid>
-
-         
           </Grid>
           <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
@@ -2372,7 +2387,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { lang, tagId } }) {
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
-  
   return {
     props: {
       category: categories,
@@ -2380,4 +2394,4 @@ export async function getStaticProps({ params: { lang, tagId } }) {
   };
 }
 
-export default withApollo()(withCart( Categories));
+export default withApollo()(withCart(Categories));
