@@ -145,7 +145,7 @@ const styles = (theme) => ({
   sliderimage2: {
     position: "realtive",
     display: "inlie-grid",
-
+  borderRadius:"40px",
     margin: "0 auto",
     widht: "507px",
     minHeight: "600px",
