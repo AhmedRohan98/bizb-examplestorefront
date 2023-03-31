@@ -44,6 +44,8 @@ import Slider from "@material-ui/core/Slider";
 import Checkbox from "@material-ui/core/Checkbox";
 import withCart from "containers/cart/withCart";
 import { useState } from "react";
+import Popover from "@material-ui/core/Popover";
+
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
@@ -1871,19 +1873,25 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
 
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
-
-  const handleOpen = () => {
-    setOpen(true);
+  const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handlePopOverClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setOpen(false);
+  const handlePopOverClose = () => {
+    setAnchorEl(null);
   };
   const style = {
-    position: "absolute",
-    top: "34%",
-    left: "26%",
-    transform: "translate(-50%, -50%)",
-    width: 250,
+    position: "fixed",
+    borderRadius: "8px",
+    left: "60px",
+    width: 330,
     bgcolor: "#ffffff",
     outline: "none",
     boxShadow: 24,
@@ -2154,6 +2162,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       </components.DropdownIndicator>
     );
   };
+  const [frequency, setFrequency] = React.useState("");
 
   return (
     <Layout shop={shop}>
@@ -2270,11 +2279,23 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                     <Typography variant="h1" className={classes.categoriesname}>
                       Western
                     </Typography>
-                    <img src={firstarray.names0.image} className={classes.categorytoggle} onClick={handleOpen} />
+                    <img
+                      src={firstarray.names0.image}
+                      className={classes.categorytoggle}
+                      onClick={handlePopOverClick}
+                    />
                   </div>
                 </div>
                 <img src="/categories/mainCategory.svg" className={classes.image} />
-                <Modal className={classes.modal} open={open} onClose={handleClose}>
+                <Popover
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handlePopOverClose}
+                >
                   <Box sx={style}>
                     {ITEMScategory.map((item) => (
                       <div className={classes.modalitems}>
@@ -2286,7 +2307,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                       </div>
                     ))}
                   </Box>
-                </Modal>
+                </Popover>
               </div>
             </Grid>
             <Grid
