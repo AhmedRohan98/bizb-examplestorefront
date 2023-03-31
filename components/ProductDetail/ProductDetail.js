@@ -554,7 +554,7 @@ const ProductDetail = ({ ...props }) => {
                       variant="h4"
                       className={classes.price2}
                     >
-                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
                         /\$/g,
                         "RS ",
                       )}
@@ -566,7 +566,7 @@ const ProductDetail = ({ ...props }) => {
                     variant="h4"
                     className={classes.price}
                   >
-                    {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
+                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
                 <Typography gutterBottom variant="h4" className={classes.offer}>
