@@ -9,6 +9,7 @@ import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import InputBase from "@material-ui/core/InputBase";
+import PageLoading from "components/PageLoading";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -42,10 +43,12 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Slider from "@material-ui/core/Slider";
 import Checkbox from "@material-ui/core/Checkbox";
 import withCart from "containers/cart/withCart";
-
-
+import { useState } from "react";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
+import variantById from "../../../lib/utils/variantById";
+
+import priceByCurrencyCode from "../../../lib/utils/priceByCurrencyCode";
 import Layout from "../../../components/Layout";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -529,17 +532,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function Categories({ category }) {
-  console.log(category, "prop");
+function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
+  // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
-  console.log(fourprouduts, "prop");
-  const [state, setState] = React.useState();
-  const [fourpro, setFourpro] = React.useState();
-  const [price, setPrice] = React.useState([0, 5000]);
-  const [selectedOption, setSelectedOption] = React.useState(null);
-  const [selectedOptionMobS, setSelectedOptionMobS] = React.useState(null);
-  const [selectedOptionMobSize, setSelectedOptionMobSize] = React.useState(null);
-  const [selectedOptionMobColor, setSelectedOptionMobColor] = React.useState(null);
+
+  const [state, setState] = useState();
+  const [fourpro, setFourpro] = useState();
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  const shop = useShop();
+  const [open, setOpen] = useState(false);
+  const [price, setPrice] = useState([0, 5000]);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
+  const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
+  const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
+  useEffect(() => {
+    setProducts();
+
+    setDisplayedProducts(interLeavedImages?.slice(0, 20));
+  }, [open]);
   const options = [
     { value: "Recommend", label: "Recommend" },
     { value: "New Arrivals", label: "New Arrivals" },
@@ -729,7 +740,50 @@ function Categories({ category }) {
       size: "large",
     },
   ];
+ const handleAddToCartClick = async (quantity, product, variant) => {
+ 
 
+ 
+    
+
+   // console.log(pdpSelectedVariantId, "star");
+
+ const selectedVariant = variantById(product.variants, variant._id);
+ if (selectedVariant) {
+      await addItemsToCart([
+      
+       {
+         price: {
+           amount: product.pricing[0].minPrice,
+
+           currencyCode,
+         },
+         
+         metafields: [
+           {
+             key: "media",
+             value: product?.primaryImage?.URLs?.medium,
+           },
+         ],
+         productConfiguration: {
+           productId: product.productId, // Pass the productId, not to be confused with _id
+           productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+         },
+         quantity,
+         
+       },
+        
+     ]);
+   }
+ };
+
+ const handleOnClick = async (product, variant) => {
+   // Pass chosen quantity to onClick callback
+   // console.log("handle click");
+   await handleAddToCartClick(addToCartQuantity, product, variant);
+
+   // Scroll to the top
+ };
   const ITEMScategory = [
     {
       image: "/categoriestypes/cat1.svg",
@@ -1758,8 +1812,8 @@ function Categories({ category }) {
     },
   ];
   const data = ITEMS.splice(0, 5);
-  const firstfour = fourprouduts.slice(0, 4);
-    const allproducts = fourprouduts.slice(4, fourprouduts.length);
+  const firstfour = fourprouduts?.slice(0, 4);
+  const allproducts = fourprouduts?.slice(4, fourprouduts?.length);
   const data2 = ITEMS.splice(5, ITEMS.length);
 
   const [products, setProducts] = React.useState([]);
@@ -1772,17 +1826,16 @@ function Categories({ category }) {
     acc[`names${index}`] = item;
     return acc;
   }, {});
-  
-//  const fourproduc=fourprouduts.reduce((acc, item, index) => {
-//     acc[`products${index}`] = item;
-//     return acc;
-//   }, {});
+
+  //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
+  //     acc[`products${index}`] = item;
+  //     return acc;
+  //   }, {});
   const router = useRouter();
   const classes = useStyles();
   if (router.isFallback) {
-    return "loading...";
+    return <PageLoading />;
   }
- 
 
   const groupedImages = ITEMS2.reduce((acc, image) => {
     if (!acc[image.size]) {
@@ -1803,27 +1856,22 @@ function Categories({ category }) {
       [largeImages, smallImages] = [smallImages, largeImages];
     }
     if (largeImages.length) {
-      interLeavedImages.push(largeImages.shift());
+      interLeavedImages?.push(largeImages.shift());
       counter++;
     }
     if (smallImages.length) {
-      interLeavedImages.push(smallImages.shift());
+      interLeavedImages?.push(smallImages.shift());
       counter++;
     }
   }
 
-  const shop = useShop();
-  useEffect(() => {
-    setProducts();
-
-    setDisplayedProducts(interLeavedImages.slice(0, 20));
-  }, []);
   const loadMoreProducts = () => {
     const currentIndex = displayedProducts.length;
     const nextProducts = products.slice(currentIndex, currentIndex + 10);
+
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
-  const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -2108,8 +2156,7 @@ function Categories({ category }) {
       </components.DropdownIndicator>
     );
   };
-  const [frequency, setFrequency] = React.useState("");
-  
+
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2255,7 +2302,7 @@ function Categories({ category }) {
               alignItems="center"
               className={classes.grid1}
             >
-              {firstfour.map((item, key) => (
+              {firstfour?.map((item, key) => (
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                     <img
@@ -2305,41 +2352,57 @@ function Categories({ category }) {
                 </>
               ))}
             </Grid>
-
-         
           </Grid>
           <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
               <Masonry>
-                {allproducts.map((item) => (
+                {allproducts?.map((item) => (
                   <>
-                    <div className={classes.rootimg}>
-                      <img src={item.image} className={classes.images} />
-                      <div className={classes.cart}>
-                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography variant="h5" component="h2">
-                          + Cart{" "}
-                        </Typography>
+                    <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
+                      <img
+                        src={
+                          !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.primaryImage?.URLs?.medium
+                        }
+                        className={classes.imagemai}
+                        key={item?.node?.product?.id}
+                        alt={"hhhh"}
+                      />
+
+                      <div className={classes.cartbackground}>
+                        <Button
+                          className={classes.cart}
+                          // disabled={cart.includes(shoe.id)}
+                          onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                        >
+                          <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                          <Typography variant="h5" component="h2">
+                            + Cart{" "}
+                          </Typography>
+                        </Button>
                       </div>
-                    </div>
-                    <Box className={classes.maintitle}>
-                      <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                        {firstarray.names1.title}
-                      </Typography>
-                      <div className={classes.size}>
-                        <Typography gutterBottom variant="h4">
-                          size
+                      <Box className={classes.maintitle}>
+                        <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
+                          {item?.node?.product.title}
                         </Typography>
-                        <Typography gutterBottom variant="h4">{`:${firstarray.names1.size}`}</Typography>
-                      </div>
-                      <div className={classes.size}>
-                        {" "}
-                        <strike>{firstarray.names1.price}</strike>
-                        <Typography gutterBottom variant="h5" className={classes.price}>
-                          Rs 600
-                        </Typography>
-                      </div>
-                    </Box>
+                        <div className={classes.size}>
+                          <Typography gutterBottom variant="h4">
+                            Size
+                          </Typography>
+                          <Typography gutterBottom variant="h4">
+                            :Large
+                          </Typography>
+                        </div>
+                        <div className={classes.size}>
+                          {" "}
+                          <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
+                          <Typography gutterBottom variant="h5" className={classes.price}>
+                            {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                          </Typography>
+                        </div>
+                      </Box>
+                    </Grid>
                   </>
                 ))}
               </Masonry>
@@ -2358,15 +2421,19 @@ function Categories({ category }) {
 
 export async function getStaticPaths() {
   const tags = await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==");
-  let paths = tags.tags?.nodes.map((tag) => ({
-    params: {
-      lang: "en",
-      tagId: tag?._id,
-    },
-  }));
+  let paths = [];
+
+  if (tags && tags.tags && tags.tags.nodes) {
+    paths = tags.tags.nodes.map((tag) => ({
+      params: {
+        lang: "en",
+        tagId: tag._id,
+      },
+    }));
+  }
 
   return {
-    paths: paths,
+    paths,
     fallback: true,
   };
 }
@@ -2374,7 +2441,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { lang, tagId } }) {
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
-  
   return {
     props: {
       category: categories,
@@ -2382,4 +2448,5 @@ export async function getStaticProps({ params: { lang, tagId } }) {
   };
 }
 
-export default withApollo()(withCart( Categories));
+
+export default withApollo()(withCart(Categories));
