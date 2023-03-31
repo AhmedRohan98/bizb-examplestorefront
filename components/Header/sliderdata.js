@@ -160,7 +160,7 @@ const MainSlider = (props) => {
               {" "}
               <img src="/icons/home.svg" className={classes.ie} />
               <Link to="target-element" smooth={true} duration={2000}>
-                <Typography style={{ fontFamily: "Lato" }} className={classes.text}>
+                <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
                   Scroll to discover more
                 </Typography>
               </Link>
