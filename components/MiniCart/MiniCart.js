@@ -25,7 +25,7 @@ const styles = (theme) => ({
   },
   cart: {
     backgroundColor: theme.palette.common.white,
-    cursor:"pointer"
+    cursor: "pointer",
   },
   emptyCart: {
     display: "flex",
@@ -36,7 +36,7 @@ const styles = (theme) => ({
     width: 20,
     height: 20,
     top: 10,
-    left: 20,
+    left: 7,
   },
   modal: {
     display: "flex",
@@ -87,7 +87,6 @@ const styles = (theme) => ({
     alignItems: "flex-start",
   },
   cartimage: {
- 
     width: "130px",
     height: "160px",
     borderRadius: "10px",
@@ -178,6 +177,11 @@ const styles = (theme) => ({
       fontFamily: "Ostrich Sans Black",
     },
   },
+  lastDiv: {
+    "& $lastChild": {
+      display: "none",
+    },
+  },
 });
 
 const MiniCart = ({ ...props }) => {
@@ -238,13 +242,17 @@ const MiniCart = ({ ...props }) => {
                       <div className={classes.cartmodal}>
                         {" "}
                         <Typography variant="subtitle1">Cart</Typography>
-                        <CloseIcon onClick={handleClose} />
+                        <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
                       </div>
                       <div className={classes.cartitems}>
                         {cart.items.map((item) => {
                           return (
                             <div className={classes.cartitem}>
-                              <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage}></img>
+                              <img
+                                src={item?.metafields[0]?.value}
+                                alt={item.title}
+                                className={classes.cartimage}
+                              ></img>
                               {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
                               <div className={classes.cartitemtext}>
                                 {" "}
@@ -257,7 +265,12 @@ const MiniCart = ({ ...props }) => {
                                 </Typography>
                               </div>
 
-                              <img src="/cart/icon.svg" alt={item.title} onClick={() => handleRemoveItem(item._id)} />
+                              <img
+                                style={{ cursor: "pointer" }}
+                                src="/cart/icon.svg"
+                                alt={item.title}
+                                onClick={() => handleRemoveItem(item._id)}
+                              />
                             </div>
                           );
                         })}
@@ -268,19 +281,17 @@ const MiniCart = ({ ...props }) => {
                           <Typography variant="h4">RS: {cart?.checkout?.summary?.total?.amount}</Typography>
                         </div>
                         <div className={classes.total1}>
-                          <div className={classes.cart1}>
-                            <Typography
-                              gutterBottom
-                              variant="h5"
-                              component="h2"
-                              className={classes.carttext}
-                              onClick={handleOnClick}
-                            >
+                          <div style={{ cursor: "pointer" }} onClick={handleOnClick} className={classes.cart1}>
+                            <Typography gutterBottom variant="h5" component="h2" className={classes.carttext}>
                               VIEW CART{" "}
                             </Typography>
                           </div>
-                          <div className={classes.cart}>
-                            <Typography gutterBottom variant="h5" component="h2" onClick={handleCheckoutButtonClick}>
+                          <div
+                            style={{ cursor: "pointer" }}
+                            onClick={handleCheckoutButtonClick}
+                            className={classes.cart}
+                          >
+                            <Typography gutterBottom variant="h5" component="h2">
                               CHECKOUT
                             </Typography>
                           </div>
@@ -341,7 +352,7 @@ const MiniCart = ({ ...props }) => {
 
   return (
     <Fragment>
-      <div>
+      <div className={classes.lastDiv}>
         <IconButton color="inherit" onClick={handleOpen}>
           {cart && cart.totalItemQuantity > 0 ? (
             <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
@@ -394,4 +405,3 @@ MiniCart.propTypes = {
 };
 
 export default withStyles(styles, { name: "SkMiniCart" })(withCart(inject("uiStore")(MiniCart)));
- 

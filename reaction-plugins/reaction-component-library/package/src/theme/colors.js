@@ -28,7 +28,7 @@ export default {
   white: "#ffffff",
 
   // medium colors
-  reactionBlue: "#1999dd",
+  reactionBlue: "#fdc114",
   reactionBlue100: "#ecf8fe",
   reactionBlue200: "#d6e5ed",
   reactionBlue300: "#26b0f9",
@@ -102,5 +102,5 @@ export default {
   teal300: "#a3f2dc",
   teal400: "#55e4be",
   teal500: "#447467",
-  teal600: "#34584f"
+  teal600: "#34584f",
 };
