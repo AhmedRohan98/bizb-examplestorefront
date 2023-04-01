@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import Link from "next/link";
 import InputBase from "@material-ui/core/InputBase";
 import PageLoading from "components/PageLoading";
 import Divider from "@material-ui/core/Divider";
@@ -121,7 +122,13 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "58px",
     fontStyle: "normal",
   },
-  image: {},
+  image: {
+    width: "312px",
+    maxHeight: "450px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    cursor: "pointer",
+  },
   typography: {
     background: "#333333",
     opacity: "15%",
@@ -2300,7 +2307,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                     /> */}
                   </div>
                 </div>
-                <img src="/categories/mainCategory.svg" className={classes.image} />
+                <img src="/categories/mainCategory.svg" className={classes.imageg} />
                 <Popover
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -2348,17 +2355,21 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               {firstfour?.map((item, key) => (
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                    <img
-                      src={
-                        !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                          ? "/justin/justin4.svg"
-                          : item?.node?.product?.primaryImage?.URLs?.medium
-                      }
-                      className={classes.imagemai}
-                      key={item?.node?.product?.id}
-                      alt={"hhhh"}
-                    />
-
+                    <Link
+                      href={item.node.product.slug && "/product/[...slugOrId]"}
+                      as={item.node.product.slug && `/product/${item.node.product.slug}`}
+                    >
+                      <img
+                        src={
+                          !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.primaryImage?.URLs?.large
+                        }
+                        className={classes.image}
+                        key={item?.node?.product?.id}
+                        alt={"hhhh"}
+                      />
+                    </Link>
                     <div className={classes.cartbackground}>
                       <Button
                         className={classes.cart}
@@ -2408,7 +2419,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                             ? "/justin/justin4.svg"
                             : item?.node?.product?.primaryImage?.URLs?.medium
                         }
-                        className={classes.imagemai}
+                        className={classes.image}
                         key={item?.node?.product?.id}
                         alt={"hhhh"}
                       />

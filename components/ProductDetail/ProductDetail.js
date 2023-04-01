@@ -246,7 +246,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  // console.log(props, "new");
+  console.log(props, "new");
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -330,7 +330,7 @@ const ProductDetail = ({ ...props }) => {
       await addItemsToCart([
         {
           price: {
-            amount: product.variants[0]?.pricing[0]?.minPrice,
+            amount:price.price,
             currencyCode,
           },
 
@@ -554,10 +554,7 @@ const ProductDetail = ({ ...props }) => {
                       variant="h4"
                       className={classes.price2}
                     >
-                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-                        /\$/g,
-                        "RS ",
-                      )}
+                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
                   <Typography
@@ -576,7 +573,7 @@ const ProductDetail = ({ ...props }) => {
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
                 <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                  Large
+                {  product?.variants[0]?.media[0]?.optionTitle?.json.parse(size)}
                 </Typography>
               </div>
               <div className={classes.cart}>
