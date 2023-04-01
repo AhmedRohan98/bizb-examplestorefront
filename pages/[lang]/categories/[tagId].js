@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+
 import { fetchAllCategories, fetchTags } from "../../../staticUtils/tags/fetchAllTags";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -24,6 +24,7 @@ import FormControl from "@material-ui/core/FormControl";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
+import { useRouter } from "next/router";
 
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
@@ -50,7 +51,7 @@ import Popover from "@material-ui/core/Popover";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
-
+import inject from "../../../hocs/inject";
 import priceByCurrencyCode from "../../../lib/utils/priceByCurrencyCode";
 import Layout from "../../../components/Layout";
 const useStyles = makeStyles((theme) => ({
@@ -542,7 +543,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
-  // console.log(category, "prop");
+  console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
@@ -556,6 +557,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
+  const router = useRouter();
   useEffect(() => {
     setProducts();
 
@@ -758,15 +760,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       await addItemsToCart([
         {
           price: {
-            amount: product.pricing[0].minPrice,
-
-            currencyCode,
+            amount: product?.pricing[0]?.minPrice,
+            currencyCode: "USD",
           },
 
           metafields: [
             {
               key: "media",
-              value: product?.primaryImage?.URLs?.medium,
+              value: product?.primaryImage?.URLs?.large,
             },
           ],
           productConfiguration: {
@@ -779,6 +780,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     }
   };
 
+  const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
     // Pass chosen quantity to onClick callback
     // console.log("handle click");
@@ -1838,7 +1840,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   //     acc[`products${index}`] = item;
   //     return acc;
   //   }, {});
-  const router = useRouter();
+
   const classes = useStyles();
   if (router.isFallback) {
     return <PageLoading />;
@@ -2356,8 +2358,8 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                     <Link
-                      href={item.node.product.slug && "/product/[...slugOrId]"}
-                      as={item.node.product.slug && `/product/${item.node.product.slug}`}
+                      href={item.node.product.slug && "en/product/[...slugOrId]"}
+                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                     >
                       <img
                         src={
@@ -2502,4 +2504,4 @@ export async function getStaticProps({ params: { lang, tagId } }) {
   };
 }
 
-export default withApollo()(withCart(Categories));
+export default withApollo()(withCart(inject("routingStore", "uiStore")(Categories)));

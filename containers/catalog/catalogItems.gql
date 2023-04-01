@@ -39,6 +39,7 @@ query catalogItemsQuery(
                   displayAmount
                   __typename
                 }
+                
                 currency {
                   code
                   __typename
