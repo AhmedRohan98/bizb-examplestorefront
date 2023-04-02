@@ -24,7 +24,7 @@ const Instagram = (props) => {
       position: "relative",
     },
     image: {
-      width: "382px",
+      width: "122px",
       height: "auto",
       marginBottom:"20px"
     },
@@ -38,7 +38,7 @@ const Instagram = (props) => {
   
       top: "40px",
       left: "40px",
-      width: "382px",
+      width: "2px",
       height: "auto",
 
 

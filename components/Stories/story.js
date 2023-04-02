@@ -7,6 +7,7 @@ import Storyslider from "./storiesslide";
 const Story = (props) => {
   // console.log("all props....", props);
   const catagories = props?.nodes;
+  const catgormobile = catagories.slice(0, 3);
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,6 +62,21 @@ const Story = (props) => {
       display: "flex",
       flexDirection: "row",
       marginTop: theme.spacing(3),
+      [theme.breakpoints.down(700)]: {
+        display: "none",
+        marginTop: theme.spacing(0),
+      },
+    },
+    catgorytagm: {
+   
+      display: "none",
+
+      [theme.breakpoints.down(700)]: {
+        display: "flex",
+        flexDirection: "row",
+
+        marginTop: theme.spacing(3),
+      },
     },
     title: {
       color: theme.palette.reaction.reactionBlue,
@@ -311,7 +327,7 @@ const Story = (props) => {
     );
   }
   const [resouce, setResource] = useState("OUR PRODUCTS");
-  const [filter, setFilter] = useState(catagories?.[0]?.displayTitle);
+  const [filter, setFilter] = useState(catagories?.[0]?.displayTitle || catgormobile?.[0]?.displayTitle);
   const [filterproducts, setFilterProducts] = useState(null);
   const filteredItems = !filter ? ITEMS : ITEMS.filter((item) => item.Catagory.includes(filter));
   const filteredproducts = !filterproducts ? itemData : itemData.filter((item) => item.store.includes(filterproducts));
@@ -359,7 +375,17 @@ const Story = (props) => {
             />
           ))}
         </div>
+        <div className={classes.catgorytagm}>
+          {catgormobile?.map((filterName) => (
+            <Filter
+              name={filterName.displayTitle}
+              onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}
+              active={filterName.displayTitle === filter}
+            />
+          ))}
+        </div>
       </div>
+
       <div className={classes.root}>
         <Swiper
           ref={sliderRef}
