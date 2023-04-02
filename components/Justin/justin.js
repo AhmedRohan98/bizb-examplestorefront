@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-console.log(props, "cartx");
+// console.log(props, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
     function determineProductPrice() {

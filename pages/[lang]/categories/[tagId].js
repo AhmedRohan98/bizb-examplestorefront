@@ -543,7 +543,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
-  console.log(category, "prop");
+  // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
@@ -558,11 +558,8 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-  useEffect(() => {
-    setProducts();
-
-    setDisplayedProducts(interLeavedImages?.slice(0, 20));
-  }, [open]);
+  
+ 
   const options = [
     { value: "Recommend", label: "Recommend" },
     { value: "New Arrivals", label: "New Arrivals" },
@@ -1876,7 +1873,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
 
   const loadMoreProducts = () => {
     const currentIndex = displayedProducts.length;
-    const nextProducts = products.slice(currentIndex, currentIndex + 10);
+    const nextProducts = allproducts.slice(currentIndex, currentIndex + 1);
 
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
@@ -2181,7 +2178,11 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       </components.DropdownIndicator>
     );
   };
+ useEffect(() => {
+   setProducts();
 
+   setDisplayedProducts(allproducts?.slice(0, 3));
+ }, [open]);
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2357,6 +2358,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               {firstfour?.map((item, key) => (
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
+                    {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")}
                     <Link
                       href={item.node.product.slug && "en/product/[...slugOrId]"}
                       as={item.node.product.slug && `en/product/${item.node.product.slug}`}
@@ -2412,14 +2414,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
           <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
               <Masonry>
-                {allproducts?.map((item) => (
+                {displayedProducts?.map((item) => (
                   <>
                     <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                       <img
                         src={
                           !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
                             ? "/justin/justin4.svg"
-                            : item?.node?.product?.primaryImage?.URLs?.medium
+                            : item?.node?.product?.primaryImage?.URLs?.large
                         }
                         className={classes.image}
                         key={item?.node?.product?.id}
@@ -2464,11 +2466,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               </Masonry>
             </ResponsiveMasonry>
           </div>
-          <div className={classes.loadmorediv}>
-            <button onClick={loadMoreProducts} className={classes.loadmore}>
-              Load More
-            </button>
-          </div>
+          {displayedProducts.length > 2 && displayedProducts && displayedProducts.length !== fourprouduts.length-4 && (
+            <div className={classes.loadmorediv}>
+              <button onClick={loadMoreProducts} className={classes.loadmore}>
+                Load More
+              </button>
+            </div>
+          )}
+     
         </div>
       )}
     </Layout>
