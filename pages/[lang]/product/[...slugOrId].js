@@ -4,7 +4,7 @@ import Helmet from "react-helmet";
 import { useRouter } from "next/router";
 import Typography from "@material-ui/core/Typography";
 import withCart from "containers/cart/withCart";
-
+import withCatalogItems from "../../../containers/catalog/withCatalogItems";
 import PageLoading from "components/PageLoading";
 import Layout from "components/Layout";
 import { withApollo } from "lib/apollo/withApollo";
@@ -77,7 +77,7 @@ function buildJSONLd(product, shop) {
  * @param {Object} shop - the shop this product belong to
  * @return {React.Component} The product detail page
  */
-function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop }) {
+function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems }) {
   const router = useRouter();
   const currencyCode = (shop && shop.currency.code) || "USD";
   const JSONLd = useMemo(() => {
@@ -97,7 +97,13 @@ function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop }) 
         meta={[{ name: "description", content: product && product.description }]}
         script={[{ type: "application/ld+json", innerHTML: JSONLd }]}
       />
-      <DynamicSlider addItemsToCart={addItemsToCart} currencyCode={currencyCode} product={product} shop={shop} />
+      <DynamicSlider
+        addItemsToCart={addItemsToCart}
+        currencyCode={currencyCode}
+        product={product}
+        shop={shop}
+        catalogItems={catalogItems}
+      />
     </Layout>
   );
 }
@@ -114,6 +120,7 @@ DynamicSlider.propTypes = {
   /**
    * Catalog Product item
    */
+  catalogItems: PropTypes.array,
   product: PropTypes.object,
   shop: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -151,6 +158,7 @@ export async function getStaticProps({ params: { slugOrId, lang } }) {
       ...(await fetchTranslations(lang, ["common", "productDetail"])),
       ...(await fetchCatalogProduct(productSlug)),
       ...(await fetchAllTags(lang)),
+     
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes
@@ -169,4 +177,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default withApollo()(withCart(ProductDetailPage));
+export default withApollo()(withCart(withCatalogItems(ProductDetailPage)));

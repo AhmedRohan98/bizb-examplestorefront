@@ -10,7 +10,8 @@ import variantById from "lib/utils/variantById";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
 import Box from "@material-ui/core/Box";
-
+import Link from "next/link";
+import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRef, useCallback, useState } from "react";
 import Typography from "@material-ui/core/Typography";
@@ -18,6 +19,7 @@ import Tab from "@material-ui/core/Tab";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
+import { useRouter } from "next/router";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
 const styles = (theme) => ({
@@ -67,7 +69,7 @@ const styles = (theme) => ({
     justifyContent: "space-between",
   },
   iconforwad: {
-    cursor:"pointer",
+    cursor: "pointer",
     position: "absolute",
     right: "0",
     top: "50%",
@@ -79,7 +81,7 @@ const styles = (theme) => ({
   },
   iconback: {
     position: "absolute",
-    cursor:"pointer",
+    cursor: "pointer",
     top: "50%",
     borderRadius: "4px",
     color: "FDC114",
@@ -88,14 +90,14 @@ const styles = (theme) => ({
     zIndex: 1251,
   },
 
-  size: {
+  size2: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(3),
   },
-  size2: {
+  size: {
     display: "flex",
     flexDirection: "row",
   },
@@ -134,7 +136,152 @@ const styles = (theme) => ({
       borderBottom: "1px solid #FDC114",
     },
   },
+  main: {
+    padding: "3vh",
+    width: "100%",
+
+    padding: theme.spacing(4),
+  },
+  cardaction: {
+    height: 312,
+    width: 312,
+  },
+
+  root: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  gridroot: {
+    width: "100%",
+    display: "flex",
+    alignItems: "baseline",
+
+    position: "relative",
+    justifyContent: "center",
+  },
+  typography: {
+    background: "#333333",
+    opacity: "15%",
+    height: "8px",
+
+    width: "180px",
+  },
+
+  text: {
+    position: "absolute",
+    bottom: 60,
+  },
+  header: {
+    height: "50px",
+    position: "relative",
+  },
+
+  headermain: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+
+  image: {
+    width: "312px",
+    maxHeight: "450px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    cursor: "pointer",
+  },
+  size: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: theme.spacing(1),
+  },
+  cartimage: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  carttitle: {
+    display: "flex",
+    marginLeft: theme.spacing(1),
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  price: {
+    marginLeft: "20px",
+    fontWeight: "700",
+    fontSize: "20px",
+  },
+  rootimg: {
+    position: "relative",
+    display: "inline-grid",
+    width: "312px",
+
+    maxWidth: "312px",
+    marginLeft: "10px",
+    marginRight: "10px",
+  },
+  cartbackground: {
+    background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+
+    borderRadius: "0px 0px 16px 16px",
+
+    alignItems: "center",
+    justifyContent: "initial",
+    height: "75px",
+    width: "100%",
+    bottom: "20%",
+    display: "inline-grid",
+
+    width: "100%",
+    marginTop: " -75px",
+    padding: "13px 20px",
+  },
   cart: {
+    height: "35px",
+    width: "84px",
+    borderRadius: "40px",
+    background: "#FDC114",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    borderColor: "none",
+    zIndex: 1200,
+    transition: "all 0.2s linear",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
+  },
+  explore: {
+    position: "absolute",
+    top: "6px",
+    right: "10px",
+    color: "#FDC114",
+    zIndex: 900,
+  },
+  maintitle: {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "312px",
+    flexDirection: "column",
+  },
+  spanofnextword: {
+    color: "#FDC114",
+  },
+  toast: {
+    background: "green",
+    color: "white",
+  },
+ 
+  related: {
+    color: "#000000",
+    marginLeft: theme.spacing(5),
+  },
+
+  cart2: {
     height: "35px",
     width: "100%",
     borderRadius: "40px",
@@ -247,6 +394,25 @@ const slide = [
 
 const ProductDetail = ({ ...props }) => {
   console.log(props, "new");
+  const {product,catalogItems} =props
+const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
+console.log(tagIds, "Tag ID");
+
+
+const filteredProducts = catalogItems.filter((product) => {
+  const productTags = product?.node?.product?.tagIds;
+;
+
+  if (!productTags) {
+    console.warn("No tags found for product:", product);
+    return false;
+  }
+
+  return productTags.some((tag) => tag === tagIds);
+});
+
+
+console.log(filteredProducts,"fil")
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -267,12 +433,12 @@ const ProductDetail = ({ ...props }) => {
   };
 
   useEffect(() => {
-    const { product } = props;
+  
 
     selectVariant(product.variants[0]);
   }, []);
   function selectVariant(variant, optionId) {
-    const { product, uiStore } = props;
+    const {  uiStore } = props;
 
     // Select the variant, and if it has options, the first option
     const variantId = variant._id;
@@ -330,7 +496,7 @@ const ProductDetail = ({ ...props }) => {
       await addItemsToCart([
         {
           price: {
-            amount:price.price,
+            amount: price.price,
             currencyCode,
           },
 
@@ -359,7 +525,7 @@ const ProductDetail = ({ ...props }) => {
    * @returns {undefined} No return
    */
   const handleSelectOption = (option) => {
-    const { product, uiStore } = props;
+    const {  uiStore } = props;
 
     // If we are clicking an option, it must be for the current selected variant
     const variant = product.variants.find((vnt) => vnt._id === uiStore.pdpSelectedVariantId);
@@ -374,7 +540,7 @@ const ProductDetail = ({ ...props }) => {
    * @returns {Object} An pricing object
    */
   function determineProductPrice() {
-    const { currencyCode, product } = props;
+    const { currencyCode } = props;
     const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
     const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
     let productPrice = {};
@@ -392,7 +558,7 @@ const ProductDetail = ({ ...props }) => {
   const {
     classes,
     currencyCode,
-    product,
+   
     routingStore,
     uiStore: { pdpSelectedOptionId, pdpSelectedVariantId },
     width,
@@ -431,7 +597,10 @@ const ProductDetail = ({ ...props }) => {
   };
   const productPrice = determineProductPrice();
   const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
-
+  const router = useRouter();
+   const clickHandler = (item) => {
+     router.push("/en/product/" + item);
+   };
   // console.log(product, "produ");
   return (
     <>
@@ -542,9 +711,9 @@ const ProductDetail = ({ ...props }) => {
               <Typography style={{ fontWeight: "700" }} variant="subtitle1">
                 {product?.title}
               </Typography>
-              <div className={classes.size}>
+              <div className={classes.size2}>
                 {" "}
-                <div className={classes.size2}>
+                <div className={classes.size}>
                   {" "}
                   <strike>
                     {" "}
@@ -576,7 +745,7 @@ const ProductDetail = ({ ...props }) => {
                   {product?.variants[0]?.media[0]?.optionTitle?.json.parse(size)}
                 </Typography>
               </div>
-              <div className={classes.cart}>
+              <div className={classes.cart2}>
                 <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                 <Typography
                   style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
@@ -605,7 +774,123 @@ const ProductDetail = ({ ...props }) => {
         </Grid>
       </Box>
 
-   
+      {/* <Fragment>
+        <Grid container spacing={5}>
+          <Grid item className={classes.breadcrumbGrid} xs={12}>
+            <Breadcrumbs isPDP tagId={routingStore.tagId} product={product} />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div className={classes.section}>
+              <MediaGallery mediaItems={pdpMediaItems} />
+            </div>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
+            <div className={classes.info}>
+              <ProductDetailVendor>{product.vendor}</ProductDetailVendor>
+            </div>
+            <div className={classes.info}>
+              <ProductDetailPrice
+                className={classes.bottomMargin}
+                compareAtPrice={compareAtDisplayPrice}
+                price={productPrice.displayPrice}
+              />
+            </div>
+            <div className={classes.info}>
+              <ProductDetailDescription>{product.description}</ProductDetailDescription>
+            </div>
+            <VariantList
+              onSelectOption={handleSelectOption}
+              onSelectVariant={handleSelectVariant}
+              product={product}
+              selectedOptionId={pdpSelectedOptionId}
+              selectedVariantId={pdpSelectedVariantId}
+              currencyCode={currencyCode}
+              variants={product.variants}
+            />
+            <ProductDetailAddToCart
+              onClick={handleAddToCartClick}
+              selectedOptionId={pdpSelectedOptionId}
+              selectedVariantId={pdpSelectedVariantId}
+              variants={product.variants}
+            />
+          </Grid>
+        </Grid>
+      </Fragment> */}
+      <Typography variant="h3" className={classes.related}>
+        Related <span className={classes.spanofnextword}>Products</span>
+      </Typography>
+      <div className={classes.root}>
+        <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
+          {filteredProducts?.map((item, key) => (
+            <>
+              <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+               
+                  <img
+                    src={
+                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                        ? "/justin/justin4.svg"
+                        : item?.node?.product?.media[0]?.URLs?.large
+                    }
+                    className={classes.image}
+                    key={item?.node?.product?.id}
+                    alt={"hhhh"}
+                             onClick={() => clickHandler(item.node.product.slug)}
+                  />
+               
+                <div className={classes.cartbackground}>
+                  <Button
+                    className={classes.cart}
+                    // disabled={cart.includes(shoe.id)}
+                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                  >
+                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                    <Typography
+                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                      variant="h5"
+                      component="h2"
+                    >
+                      + Cart{" "}
+                    </Typography>
+                  </Button>
+                </div>
+                <Box className={classes.maintitle}>
+                  <Typography
+                    style={{ fontWeight: "700", fontSize: "24px" }}
+                    gutterBottom
+                    variant="h4"
+                    component="h2"
+                    className={classes.carttitle}
+                  >
+                    {item.node.product.title}
+                  </Typography>
+                  <div className={classes.size}>
+                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                      Size
+                    </Typography>
+                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                      {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
+                    </Typography>
+                  </div>
+                  <div className={classes.size}>
+                    {" "}
+                    <strike>
+                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        /\$/g,
+                        "RS ",
+                      )}
+                    </strike>
+                    <Typography gutterBottom variant="h5" className={classes.price}>
+                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
+                    </Typography>
+                  </div>
+                </Box>
+              </Grid>
+            </>
+          ))}
+        </Grid>
+      </div>
     </>
   );
 };
@@ -627,6 +912,7 @@ ProductDetail.propTypes = {
   theme: PropTypes.object,
   uiStore: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired,
+  catalogItems: PropTypes.array,
 };
 export default withWidth({ initialWidth: "md" })(
   withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)),

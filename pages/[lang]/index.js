@@ -87,7 +87,7 @@ const addItemsToCart = this.props.addItemsToCart ;
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
         {/* <ProductGrid
-          catalogItems={catalogItems}
+          // catalogItems={catalogItems}
           currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
           isLoadingCatalogItems={isLoadingCatalogItems}
           pageInfo={catalogItemsPageInfo}
