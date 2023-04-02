@@ -559,7 +559,11 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
   
- 
+  useEffect(() => {
+    setProducts();
+
+    setDisplayedProducts(allproducts?.slice(0, 3));
+  }, [open]);
   const options = [
     { value: "Recommend", label: "Recommend" },
     { value: "New Arrivals", label: "New Arrivals" },
@@ -1872,8 +1876,8 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   }
 
   const loadMoreProducts = () => {
-    const currentIndex = displayedProducts.length;
-    const nextProducts = allproducts.slice(currentIndex, currentIndex + 1);
+    const currentIndex = displayedProducts?.length;
+    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 1);
 
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
@@ -2178,11 +2182,10 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       </components.DropdownIndicator>
     );
   };
- useEffect(() => {
-   setProducts();
 
-   setDisplayedProducts(allproducts?.slice(0, 3));
- }, [open]);
+   const clickHandler = (item) => {
+     router.push("/en/product/" + item);
+   };
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2359,10 +2362,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                     {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")}
-                    <Link
-                      href={item.node.product.slug && "en/product/[...slugOrId]"}
-                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                    >
+                   
                       <img
                         src={
                           !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
@@ -2372,8 +2372,9 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                         className={classes.image}
                         key={item?.node?.product?.id}
                         alt={"hhhh"}
+                        onClick={() => clickHandler(item.node.product.slug)}
                       />
-                    </Link>
+              
                     <div className={classes.cartbackground}>
                       <Button
                         className={classes.cart}
@@ -2466,7 +2467,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               </Masonry>
             </ResponsiveMasonry>
           </div>
-          {displayedProducts.length > 2 && displayedProducts && displayedProducts.length !== fourprouduts.length-4 && (
+          {displayedProducts?.length > 2 && displayedProducts && displayedProducts?.length !== fourprouduts?.length-4 && (
             <div className={classes.loadmorediv}>
               <button onClick={loadMoreProducts} className={classes.loadmore}>
                 Load More

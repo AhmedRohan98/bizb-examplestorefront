@@ -167,7 +167,7 @@ cursor:"pointer",
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  console.log("all props....", props.nodes);
+  // console.log("all props....", props.nodes);
 
   var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;
