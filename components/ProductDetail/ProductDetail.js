@@ -573,7 +573,7 @@ const ProductDetail = ({ ...props }) => {
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
                 <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                {  product?.variants[0]?.media[0]?.optionTitle?.json.parse(size)}
+                  {product?.variants[0]?.media[0]?.optionTitle?.json.parse(size)}
                 </Typography>
               </div>
               <div className={classes.cart}>
@@ -592,13 +592,7 @@ const ProductDetail = ({ ...props }) => {
                   <Tab label="Size chart" value="2" />
                 </TabList>
 
-                <TabPanel value="1">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum.
-                </TabPanel>
+                <TabPanel value="1">{product?.description}</TabPanel>
 
                 <TabPanel value="2">
                   ffffffffffffffffffff voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint

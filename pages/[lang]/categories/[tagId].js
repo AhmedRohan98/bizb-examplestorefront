@@ -2362,19 +2362,19 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                     {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")}
-                   
-                      <img
-                        src={
-                          !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                            ? "/justin/justin4.svg"
-                            : item?.node?.product?.primaryImage?.URLs?.large
-                        }
-                        className={classes.image}
-                        key={item?.node?.product?.id}
-                        alt={"hhhh"}
-                        onClick={() => clickHandler(item.node.product.slug)}
-                      />
-              
+
+                    <img
+                      src={
+                        !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
+                          ? "/justin/justin4.svg"
+                          : item?.node?.product?.primaryImage?.URLs?.large
+                      }
+                      className={classes.image}
+                      key={item?.node?.product?.id}
+                      alt={"hhhh"}
+                      onClick={() => clickHandler(item.node.product.slug)}
+                    />
+
                     <div className={classes.cartbackground}>
                       <Button
                         className={classes.cart}
@@ -2427,6 +2427,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                         className={classes.image}
                         key={item?.node?.product?.id}
                         alt={"hhhh"}
+                        onClick={() => clickHandler(item.node.product.slug)}
                       />
 
                       <div className={classes.cartbackground}>
@@ -2467,14 +2468,15 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               </Masonry>
             </ResponsiveMasonry>
           </div>
-          {displayedProducts?.length > 2 && displayedProducts && displayedProducts?.length !== fourprouduts?.length-4 && (
-            <div className={classes.loadmorediv}>
-              <button onClick={loadMoreProducts} className={classes.loadmore}>
-                Load More
-              </button>
-            </div>
-          )}
-     
+          {displayedProducts?.length > 2 &&
+            displayedProducts &&
+            displayedProducts?.length !== fourprouduts?.length - 4 && (
+              <div className={classes.loadmorediv}>
+                <button onClick={loadMoreProducts} className={classes.loadmore}>
+                  Load More
+                </button>
+              </div>
+            )}
         </div>
       )}
     </Layout>
