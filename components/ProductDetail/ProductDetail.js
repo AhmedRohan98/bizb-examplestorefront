@@ -275,10 +275,11 @@ const styles = (theme) => ({
     background: "green",
     color: "white",
   },
- 
+
   related: {
     color: "#000000",
     marginLeft: theme.spacing(5),
+    margin: theme.spacing(5),
   },
 
   cart2: {
