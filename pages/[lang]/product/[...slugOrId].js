@@ -158,7 +158,6 @@ export async function getStaticProps({ params: { slugOrId, lang } }) {
       ...(await fetchTranslations(lang, ["common", "productDetail"])),
       ...(await fetchCatalogProduct(productSlug)),
       ...(await fetchAllTags(lang)),
-     
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes
@@ -176,5 +175,6 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
+
 
 export default withApollo()(withCart(withCatalogItems(ProductDetailPage)));

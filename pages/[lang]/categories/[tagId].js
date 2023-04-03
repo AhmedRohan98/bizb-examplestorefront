@@ -2479,7 +2479,7 @@ export async function getStaticPaths() {
     paths = tags?.tags?.nodes?.map((tag) => ({
       params: {
         lang: "en",
-        tagId: tag?._id,
+        tagId: tag._id,
       },
     }));
   }
