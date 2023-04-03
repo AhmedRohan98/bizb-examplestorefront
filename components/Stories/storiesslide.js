@@ -1,4 +1,4 @@
-import { Swiper, SwiperSlide }from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
@@ -73,7 +73,7 @@ const Storyslider = ({ itemData }) => {
       background: "#333333",
       color: "FDC114",
       borderRadius: "4px",
-
+      cursor: "pointer",
       zIndex: 1251,
     },
     iconback: {
@@ -83,7 +83,7 @@ const Storyslider = ({ itemData }) => {
       borderRadius: "4px",
       color: "FDC114",
       background: "#333333",
-
+      cursor: "pointer",
       zIndex: 1251,
     },
 
@@ -112,7 +112,7 @@ const Storyslider = ({ itemData }) => {
           <img component="img" alt="loading" src={item.image} className={classes.image} />
           <div className={classes.cart}>
             <img component="img" src="/icons/cart.svg" />
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
               + Cart{" "}
             </Typography>
           </div>

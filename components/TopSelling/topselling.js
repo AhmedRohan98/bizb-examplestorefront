@@ -80,7 +80,7 @@ const TopSelling = () => {
       background: "#333333",
       color: "FDC114",
       borderRadius: "4px",
-
+      cursor: "pointer",
       zIndex: 1251,
     },
     iconback: {
@@ -90,7 +90,7 @@ const TopSelling = () => {
       borderRadius: "4px",
       color: "FDC114",
       background: "#333333",
-
+      cursor: "pointer",
       zIndex: 1251,
     },
 

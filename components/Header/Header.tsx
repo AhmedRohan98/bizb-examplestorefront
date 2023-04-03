@@ -125,19 +125,25 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
               className="headerlogo"
             /></Link>
           ) : (<Link href="/">
-            <img
-              style={{ zIndex: 0, width: "50px", width: "95px" }}
+            <Hidden smDown><img
+              style={{ zIndex: 0, width: "50px", width: "95px",cursor:"pointer" }}
               src="/images/logoDark.svg"
               className="headerlogo"
-            /></Link>
+            /></Hidden>
+            <Hidden mdUp><img
+              style={{ zIndex: 0, width: "50px", width: "60px",cursor:"pointer" }}
+              src="/images/logo-mobile.svg"
+              className="headerlogo"
+            /></Hidden></Link>
           )}
         </div>
-
+          
         <AccountDropdown
           headerType={headerType}
           style={{ marginRight: "25px", marginLeft: "25px" }}
         />
         {/* @ts-ignore TODO: Refactor link to address type error */}
+        <Hidden smDown>
         <span style={{ marginRight: "25px", marginLeft: "25px" }}>
           {/* @ts-ignore TODO: Refactor link to address type error */}
           {headerType ? (
@@ -145,7 +151,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
           ) : (
             <img src="/images/searchIconDark.svg" className="headerlogo" />
           )}
-        </span>
+        </span></Hidden>
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <MiniCart
           headerType={headerType}
