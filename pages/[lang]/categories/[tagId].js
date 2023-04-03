@@ -2476,7 +2476,7 @@ export async function getStaticPaths() {
   let paths = [];
 
   if (tags && tags.tags && tags.tags.nodes) {
-    paths = tags.tags.nodes.map((tag) => ({
+    paths = tags?.tags?.nodes?.map((tag) => ({
       params: {
         lang: "en",
         tagId: tag._id,
