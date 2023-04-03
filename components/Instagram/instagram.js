@@ -7,47 +7,46 @@ const Instagram = (props) => {
   // console.log("instagram props", props.feed);
   const data=props?.feed?.data
  const images = data?.filter((media) => media.media_type === "IMAGE").slice(0, 6);
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "column",
-    },
-    gridroot: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+ const useStyles = makeStyles((theme) => ({
+   root: {
+     flexGrow: 1,
+     display: "flex",
+     alignItems: "center",
+     justifyContent: "center",
+     flexDirection: "column",
+   },
+   gridroot: {
+     display: "flex",
+     alignItems: "center",
+     justifyContent: "center",
 
-      
-      position: "relative",
-    },
-    image: {
-      width: "382px",
-      height: "auto",
-      marginBottom:"20px"
-    },
+     position: "relative",
+   },
+   image: {
+     width: "382px",
+     height: "auto",
+     marginBottom: "20px",
+   },
 
-    mainheading: {
-      paddingTop: "30px",
-      paddingLeft: "50px",
-    },
-    text: {
-      position: "absolute",
-  
-      top: "40px",
-      left: "40px",
-      width: "382px",
-      height: "auto",
+   mainheading: {
+     paddingTop: "30px",
+     paddingLeft: "50px",
+   },
+   text: {
+     position: "absolute",
 
+     top: "40px",
+     left: "40px",
+     width: "382px",
+     height: "auto",
 
-      color: "white",
-      padding: "1rem",
+     color: "white",
+     padding: "1rem",
 
-      backgroundColor: "rgba(0, 0, 0, 0.7)",
-    },
-  }));
+     backgroundColor: "rgba(0, 0, 0, 0.7)",
+   },
+ }));
+
 const lastImageIndex = images?.length - 1;
   const classes = useStyles();
   return (

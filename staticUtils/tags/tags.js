@@ -45,7 +45,7 @@ query tags($shopId: ID!) {
 }
 `;
 
-export const fetchAllCategoriesQuery =`
+export const fetchAllCategoriesQuery = `
 query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,) {
   catalogItems(
     shopIds:$shopIds
@@ -77,8 +77,30 @@ query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,) {
             updatedAt
             productType
             isBackorder
-            variants {
+             variants {
+              pricing {
+                compareAtPrice {
+                  displayAmount
+                  __typename
+                }
+                
+                currency {
+                  code
+                  __typename
+                }
+                displayPrice
+                minPrice
+                maxPrice
+                __typename
+              }
               _id
+              variantId
+              optionTitle
+              options {
+                _id
+                __typename
+              }
+              __typename
             }
             tagIds
             metafields {
@@ -131,4 +153,4 @@ query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,) {
     }
     __typename
   }
-}`
+}`;

@@ -15,6 +15,7 @@ import { withApollo } from "lib/apollo/withApollo";
 import useCart from "hooks/cart/useCart";
 import Button from "@material-ui/core/Button";
 import useStores from "hooks/useStores";
+import Link from "next/link";
 import useShop from "hooks/shop/useShop";
 import useAvailablePaymentMethods from "hooks/availablePaymentMethods/useAvailablePaymentMethods";
 // import useAddressValidation from "hooks/address/useAddressValidation";
