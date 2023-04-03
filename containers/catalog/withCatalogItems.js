@@ -26,7 +26,7 @@ export default function withCatalogItems(Component) {
     render() {
       const { primaryShopId, routingStore, uiStore, tag } = this.props;
       const [sortBy, sortOrder] = uiStore.sortBy.split("-");
-      const tagIds = tag && [tag._id];
+      const tagIds = tag && [tag?._id];
 
       if (!primaryShopId) {
         return (
