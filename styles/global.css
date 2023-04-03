@@ -18,7 +18,10 @@
 .swiper-slide-thumb-active{
   opacity: 1 !important;
 }
-
+ .form-error {
+    font-size: 1.4rem;
+    color: #b22b27;
+  }
 .jVuAYU {
   border: none !important
 }

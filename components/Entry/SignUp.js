@@ -8,7 +8,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import PropTypes from "prop-types";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
-
+import * as Yup from "yup";
+import { useFormik } from "formik";
 const useStyles = makeStyles((theme) => ({
   label: {
     display: "flex",
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   labelSpan: {
     paddingLeft: theme.spacing(2),
   },
+
   switchEntryMode: {
     textAlign: "center",
     fontSize: "16px",
@@ -109,6 +111,13 @@ const useStyles = makeStyles((theme) => ({
   switchaccout: {
     color: "#FDC114",
   },
+  formerror: {
+    paddingLeft: theme.spacing(1),
+    fontSize: "16px",
+    cursor: "pointer",
+    color: "#b22b27",
+    fontFamily: "Lato",
+  },
 }));
 
 /**
@@ -117,124 +126,174 @@ const useStyles = makeStyles((theme) => ({
  * @returns {Object} jsx
  */
 export default function SignUp(props) {
+
   const [checkedEmail, setCheckedEmail] = React.useState(true);
 
   const { closeModal, openModal } = props;
   const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
   const [error, setError] = useState("");
   const [, , refetch] = useViewer();
   const { passwordClient } = getAccountsHandler();
-  const [fullname, setFullname] = useState("");
-  const [phonenumber, setPhoneNumber] = useState("");
+ 
+ 
 
-  const [resetpassword, setResetPassword] = useState("");
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+ 
 
-  const handleresetpsssword = (event) => {
-    setResetPassword(event.target.value);
-  };
-  const handlephonenumber = (event) => {
-    setPhoneNumber(event.target.value);
-  };
-  const handleFullname = (event) => {
-    setFullname(event.target.value);
-  };
+ 
 
   const handleChangeEmail = (event) => {
     setCheckedEmail(event.target.checked);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
 
   const handleOpenLogIn = () => {
     openModal("login");
   };
 
-  const registerUser = async () => {
-    try {
-      // Creating user will login also
-      await passwordClient.createUser({ email, password: hashPassword(password) });
-      closeModal();
-      await refetch();
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  // const registerUser = async () => {
+  //   try {
+  //     // Creating user will login also
+  //     await passwordClient.createUser({ email, password: hashPassword(password) });
+  //     closeModal();
+  //     await refetch();
+  //   } catch (err) {
+  //     setError(err.message);
+  //   }
+  // };
+  
+    const initialValues = {
+      FullName: "",
+      email: "",
+      password: "",
+      confirm_password: "",
+      phonenumber:"",
+    };
+      const signUpSchema = Yup.object({
+        FullName: Yup.string().min(3).max(25).required("Please enter your name"),
+        email: Yup.string().email().required("Please enter your email"),
+        phonenumber: Yup.string().matches(/^[0-9]{1}$/, 'Please enter your 11 digits mobile number')
+    .required('Phone number is required'),
+        password: Yup.string().min(6).required("Please enter your password"),
+        confirm_password: Yup.string()
+          .required()
+          .oneOf([Yup.ref("password"), null], "Password must match"),
+      });
+   const registerUser2 = async (values, action) => {
+     try {
+       // Creating user will login also
+       await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
+       action.resetForm(); // to get rid of all the values after submitting the form
+       closeModal();
+       await refetch();
+     } catch (err) {
+       setError(err.message);
+     }
+   };
+    const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+      initialValues,
+      validationSchema: signUpSchema,
+      validateOnChange: true,
+      validateOnBlur: false,
+      //// By disabling validation onChange and onBlur formik will validate on submit.
+      onSubmit: async(values, action) => {
+          await registerUser2(values, action);
+        //// to get rid of all the values after submitting the form
+        action.resetForm();
+      },
+    });
+  
   return (
     <>
       <Typography variant="body1">REGISTRATION </Typography>
-      <form className={classes.root} noValidate onSubmit={registerUser}>
+      <form className={classes.root} noValidate onSubmit={handleSubmit}>
         <Grid container>
           <Grid xs={12} item>
-            <label className={classes.label} required>
-              <span className={classes.labelSpan}>
+            <label className={classes.label}>
+              <span className={classes.labelSpan} htmlFor="FullName">
                 Full Name <span style={{ color: "#FD1010" }}>*</span>
               </span>
               <TextField
                 placeholder="Enter Your User Name"
                 InputProps={{ disableUnderline: true }}
                 className={classes.input}
-                onChange={handleFullname}
-                value={fullname}
+                type="FullName"
+                autoComplete="off"
+                name="FullName"
+                id="FullName"
+                value={values.FullName}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </label>
+            {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
           </Grid>
           <Grid xs={12} item>
-            <label className={classes.label} variant="h6">
+            <label className={classes.label} variant="h6" htmlFor="email">
               <span className={classes.labelSpan}>
                 Email <span style={{ color: "#FD1010" }}>*</span>
               </span>
               <TextField
                 placeholder="Enter Your Email Address"
                 InputProps={{ disableUnderline: true }}
-                required
                 className={classes.input}
-                onChange={handleEmailChange}
-                value={email}
                 type="email"
+                autoComplete="off"
+                name="email"
+                id="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </label>
+            {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
           </Grid>
 
           <Grid item xs={12}>
-            <label className={classes.label}>
+            <label className={classes.label} htmlFor="phonenumber">
               <span className={classes.labelSpan}>
                 Phone Number <span style={{ color: "#FD1010" }}>*</span>
               </span>
               <TextField
                 placeholder="Enter Your Phone Number"
                 InputProps={{ disableUnderline: true }}
-                required
                 className={classes.input}
-                onChange={handlephonenumber}
-                value={phonenumber}
+                type="number"
+                autoComplete="off"
+                name="phonenumber"
+                id="phonenumber"
+                value={values.phonenumber}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </label>
+            {touched.phonenumber && errors.phonenumber ? (
+              <p className={classes.formerror}>{errors.phonenumber}</p>
+            ) : null}
           </Grid>
           <Grid item xs={12}>
-            <label className={classes.label}>
+            <label className={classes.label} htmlFor="password">
               <span className={classes.labelSpan}>
                 Password <span style={{ color: "#FD1010" }}>*</span>
               </span>
               <TextField
                 placeholder="Enter Your Password"
                 InputProps={{ disableUnderline: true }}
-                required
                 className={classes.input}
-                onChange={handlePasswordChange}
-                value={password}
+                type="password"
+                autoComplete="off"
+                name="password"
+                id="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
             </label>
+            {errors.password && touched.password ? <p className={classes.formerror}>{errors.password}</p> : null}
           </Grid>
 
           <Grid item xs={12}>
-            <label className={classes.label}>
+            <label className={classes.label} htmlFor="confirm_password">
               <span className={classes.labelSpan}>
                 Re-Enter Password <span style={{ color: "#FD1010" }}>*</span>
               </span>
@@ -243,10 +302,18 @@ export default function SignUp(props) {
                 InputProps={{ disableUnderline: true }}
                 required
                 className={classes.input}
-                onChange={handleresetpsssword}
-                value={resetpassword}
+                type="password"
+                autoComplete="off"
+                name="confirm_password"
+                id="confirm_password"
+                value={values.confirm_password}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
-            </label>{" "}
+            </label>
+            {errors.confirm_password && touched.confirm_password ? (
+              <p className={classes.formerror}>{errors.confirm_password}</p>
+            ) : null}
           </Grid>
         </Grid>
         <div className={classes.checkboxdiv}>
@@ -288,7 +355,7 @@ export default function SignUp(props) {
           </Box>
         </div>
 
-        {!!error && <div className={classes.error}>{error}</div>}
+        {!!error && <div className={classes.formerror}>{error}</div>}
         <div
           className={classes.switchEntryMode}
           onClick={handleOpenLogIn}

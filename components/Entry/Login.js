@@ -6,13 +6,21 @@ import { Grid, TextField, Button, Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
-
+import * as Yup from "yup";
+import { useFormik } from "formik";
 const useStyles = makeStyles((theme) => ({
   label: {
     display: "flex",
     marginTop: theme.spacing(1),
     color: "#333333",
     flexDirection: "column",
+  },
+  formerror: {
+    paddingLeft: theme.spacing(1),
+    fontSize: "16px",
+    cursor: "pointer",
+    color: "#b22b27",
+    fontFamily: "Lato",
   },
   labelSpan: {
     paddingLeft: theme.spacing(2),
@@ -133,31 +141,29 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
   const { closeModal, openModal } = props;
   const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
   const [viewer, , refetch] = useViewer();
   const { passwordClient } = getAccountsHandler();
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   const handleOpenSignUp = () => {
     openModal("signup");
   };
+ const signUpSchema = Yup.object({
+   
+   email: Yup.string().email().required("Please enter your email"),
 
- const registerUser = async (e) => {
-  e.preventDefault();
+   password: Yup.string().min(5).required("Please enter your password"),
+ 
+ });
+ const registerUser = async (values, action) => {
+const { email, password } = values;
    try {
      await passwordClient.login({
        user: {
          email,
        },
+
        password: password,
      });
     closeModal();
@@ -170,46 +176,80 @@ export default function Login(props) {
   const handleForgotPasswordClick = () => {
     openModal("forgot-password");
   };
-
+const registerUser2 = async (values, action) => {
+  try {
+    // Creating user will login also
+    await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
+    action.resetForm(); // to get rid of all the values after submitting the form
+    closeModal();
+    await refetch();
+  } catch (err) {
+    setError(err.message);
+  }
+};
+ const initialValues = {
+   email: "",
+   password: "",
+ };
+const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+  initialValues,
+  validationSchema: signUpSchema,
+  validateOnChange: true,
+  validateOnBlur: false,
+  //// By disabling validation onChange and onBlur formik will validate on submit.
+  onSubmit: async (values, action) => {
+    await registerUser(values, action);
+    //// to get rid of all the values after submitting the form
+   
+  },
+});
   return (
     <>
       <>
         <Typography variant="body1">WELCOME BACK ! </Typography>
-        <form onSubmit={registerUser}>
+        <form onSubmit={handleSubmit}>
           <Grid container>
             <Grid xs={12} item>
-              <label className={classes.label} variant="h6">
+              <label className={classes.label} variant="h6" htmlFor="email">
                 <span className={classes.labelSpan}>
                   Email <span style={{ color: "#FD1010" }}>*</span>
                 </span>
                 <TextField
                   placeholder="Enter Your Email Address"
                   InputProps={{ disableUnderline: true }}
-                  required
                   className={classes.input}
-                  onChange={handleEmailChange}
-                  value={email}
                   type="email"
+                  autoComplete="off"
+                  name="email"
+                  id="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
               </label>
+              {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
             </Grid>
 
             <Grid item xs={12}>
-              <label className={classes.label}>
-                <span className={classes.labelSpan}>
+              <label className={classes.label} htmlFor="password">
+                <span className={classes.labelSpan} htmlFor="password">
                   Password <span style={{ color: "#FD1010" }}>*</span>
                 </span>
                 <TextField
                   placeholder="Enter Your Password"
                   InputProps={{ disableUnderline: true }}
                   style={{ fontFamily: "Lato" }}
-                  required
-                  className={classes.password}
-                  onChange={handlePasswordChange}
-                  value={password}
                   type="password"
+                  autoComplete="off"
+                  name="password"
+                  id="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={classes.password}
                 />
               </label>
+              {errors.password && touched.password ? <p className={classes.formerror}>{errors.password}</p> : null}
             </Grid>
             <div
               className={classes.forgotPassword}
