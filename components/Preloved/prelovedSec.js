@@ -24,9 +24,17 @@ const useStyles = makeStyles((theme) => ({
   PrelovedHeader: {
     display: "flex",
     justifyContent: "center",
-    marginBottom:"20px",
+    marginBottom: "20px",
     flexDirection: "column",
     alignItems: "center",
+    [theme.breakpoints.down(600)]: {
+      fontSize: "36px",
+    },
+  },
+  preloved: {
+    [theme.breakpoints.down(600)]: {
+      fontSize: "36px !important",
+    },
   },
   PrelovedHeader2: {
     display: "flex",
@@ -296,14 +304,18 @@ const Preloved = (props) => {
   return (
     <>
       <Container className={classes.PrelovedHeader}>
-        <Typography style={{ fontSize: "36px", fontFamily: "Ostrich Sans Black" }} variant="h1">
+        <Typography className={classes.preloved} style={{ fontFamily: "Ostrich Sans Black" }} variant="h1">
           Share Your
         </Typography>
         <Container className={classes.PrelovedHeader2}>
-          <Typography style={{ fontSize: "36px", fontFamily: "Ostrich Sans Black", marginRight: "10px" }} variant="h2">
+          <Typography
+            className={classes.preloved}
+            style={{ fontFamily: "Ostrich Sans Black", marginRight: "10px" }}
+            variant="h2"
+          >
             PRE-LOVED
           </Typography>
-          <Typography style={{ fontSize: "36px", fontFamily: "Ostrich Sans Black" }} variant="h1">
+          <Typography className={classes.preloved} style={{ fontFamily: "Ostrich Sans Black" }} variant="h1">
             Fashion
           </Typography>
         </Container>
