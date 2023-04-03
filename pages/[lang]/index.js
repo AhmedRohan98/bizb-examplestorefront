@@ -133,7 +133,7 @@ export async function getStaticProps({ params: { lang } }) {
   return {
     props: {
       ...primaryShop,
-      ...(await fetchTags(primaryShop?.shop._id)),
+      ...(await fetchTags(primaryShop?.shop?._id)),
       feed,
     },
     // eslint-disable-next-line camelcase
