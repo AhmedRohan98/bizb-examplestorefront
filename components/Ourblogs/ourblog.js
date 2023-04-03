@@ -1,10 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from '@material-ui/core/Grid';
-import Box  from '@material-ui/core/Box';
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 const OurBlogs = () => {
-
-
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -20,8 +18,12 @@ const OurBlogs = () => {
       justifyContent: "center",
       borderRadious: "0px",
       backgroundColor: theme.palette.reaction.blog1,
-
       transition: "left 0.8s linear",
+      [theme.breakpoints.down(600)]: {
+        width: "100vw",
+        paddingRight: "0",
+        paddingLeft: "0",
+      },
     },
     wardrobe: {
       height: "225px",
@@ -33,6 +35,11 @@ const OurBlogs = () => {
       justifyContent: "center",
       borderRadious: "0px",
       backgroundColor: theme.palette.reaction.blog2,
+      [theme.breakpoints.down(600)]: {
+        width: "100vw",
+        paddingRight: "0",
+        paddingLeft: "0",
+      },
     },
     trend: {
       height: "225px",
@@ -44,6 +51,11 @@ const OurBlogs = () => {
       justifyContent: "center",
       borderRadious: "0px",
       backgroundColor: theme.palette.reaction.blog3,
+      [theme.breakpoints.down(600)]: {
+        width: "100vw",
+        paddingRight: "0",
+        paddingLeft: "0",
+      },
     },
     mainheading: {
       paddingTop: "30px",
@@ -62,11 +74,10 @@ const OurBlogs = () => {
     },
     spanofnextword: {
       color: "#FDC114",
-      marginLeft:"10px",
+      marginLeft: "10px",
     },
   }));
-  
-  
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -76,7 +87,7 @@ const OurBlogs = () => {
           <span className={classes.spanofnextword}>Blogs</span>
         </Typography>
       </div>
-      <Grid container spacing={3} className={classes.gridroot}>
+      <Grid container spacing={0} className={classes.gridroot}>
         <Grid item>
           <Box className={classes.look}>
             <Typography variant="h4" className={classes.blogtext}>
