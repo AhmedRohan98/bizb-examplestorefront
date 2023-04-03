@@ -144,7 +144,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(700)]: {
       display: "block",
       height: "60px",
-      width: "350px",
+      width: "90vw",
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-evenly",
