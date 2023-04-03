@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-console.log(props, "cartx");
+// console.log(props, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore } = props;
     function determineProductPrice() {
@@ -320,7 +320,7 @@ console.log(props, "cartx");
                       Size
                     </Typography>
                     <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                      :Large
+                   {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
                     </Typography>
                   </div>
                   <div className={classes.size}>
@@ -332,10 +332,7 @@ console.log(props, "cartx");
                       )}
                     </strike>
                     <Typography gutterBottom variant="h5" className={classes.price}>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                        /\$/g,
-                        "RS ",
-                      )}
+                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
                     </Typography>
                   </div>
                 </Box>

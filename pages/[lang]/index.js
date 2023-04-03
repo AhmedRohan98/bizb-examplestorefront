@@ -87,7 +87,7 @@ const addItemsToCart = this.props.addItemsToCart ;
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
         {/* <ProductGrid
-          catalogItems={catalogItems}
+          // catalogItems={catalogItems}
           currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
           isLoadingCatalogItems={isLoadingCatalogItems}
           pageInfo={catalogItemsPageInfo}
@@ -133,7 +133,7 @@ export async function getStaticProps({ params: { lang } }) {
   return {
     props: {
       ...primaryShop,
-      ...(await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==")),
+      ...(await fetchTags(primaryShop?.shop._id)),
       feed,
     },
     // eslint-disable-next-line camelcase

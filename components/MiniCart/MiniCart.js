@@ -80,15 +80,20 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+
   cartitem: {
     padding: theme.spacing(1),
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "flex-start",
   },
-  cartimage: {
-    width: "130px",
+  cartitemimage: {
+    width: "270px",
     height: "160px",
+  },
+  cartimage: {
+    width: "100%",
+    height: "100%",
     borderRadius: "10px",
   },
   cartitemtext: {
@@ -248,11 +253,13 @@ const MiniCart = ({ ...props }) => {
                         {cart.items.map((item) => {
                           return (
                             <div className={classes.cartitem}>
-                              <img
-                                src={item?.metafields[0]?.value}
-                                alt={item.title}
-                                className={classes.cartimage}
-                              ></img>
+                              <div className={classes.cartitemimage}>
+                                <img
+                                  src={item?.metafields[0]?.value}
+                                  alt={item.title}
+                                  className={classes.cartimage}
+                                ></img>
+                              </div>
                               {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
                               <div className={classes.cartitemtext}>
                                 {" "}

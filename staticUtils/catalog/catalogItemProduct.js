@@ -61,6 +61,7 @@ query catalogItemProductQuery($slugOrId: String!) {
             name
             slug
             position
+            _id
           }
         }
         variants {

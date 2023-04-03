@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+
 import { fetchAllCategories, fetchTags } from "../../../staticUtils/tags/fetchAllTags";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import Link from "next/link";
 import InputBase from "@material-ui/core/InputBase";
 import PageLoading from "components/PageLoading";
 import Divider from "@material-ui/core/Divider";
@@ -23,6 +24,7 @@ import FormControl from "@material-ui/core/FormControl";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
+import { useRouter } from "next/router";
 
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
@@ -49,7 +51,7 @@ import Popover from "@material-ui/core/Popover";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
-
+import inject from "../../../hocs/inject";
 import priceByCurrencyCode from "../../../lib/utils/priceByCurrencyCode";
 import Layout from "../../../components/Layout";
 const useStyles = makeStyles((theme) => ({
@@ -121,7 +123,13 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "58px",
     fontStyle: "normal",
   },
-  image: {},
+  image: {
+    width: "312px",
+    maxHeight: "450px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    cursor: "pointer",
+  },
   typography: {
     background: "#333333",
     opacity: "15%",
@@ -549,10 +557,12 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
+  const router = useRouter();
+  
   useEffect(() => {
     setProducts();
 
-    setDisplayedProducts(interLeavedImages?.slice(0, 20));
+    setDisplayedProducts(allproducts?.slice(0, 3));
   }, [open]);
   const options = [
     { value: "Recommend", label: "Recommend" },
@@ -751,15 +761,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       await addItemsToCart([
         {
           price: {
-            amount: product.pricing[0].minPrice,
-
-            currencyCode,
+            amount: product?.pricing[0]?.minPrice,
+            currencyCode: "USD",
           },
 
           metafields: [
             {
               key: "media",
-              value: product?.primaryImage?.URLs?.medium,
+              value: product?.primaryImage?.URLs?.large,
             },
           ],
           productConfiguration: {
@@ -772,6 +781,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     }
   };
 
+  const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
     // Pass chosen quantity to onClick callback
     // console.log("handle click");
@@ -1831,7 +1841,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   //     acc[`products${index}`] = item;
   //     return acc;
   //   }, {});
-  const router = useRouter();
+
   const classes = useStyles();
   if (router.isFallback) {
     return <PageLoading />;
@@ -1866,8 +1876,8 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   }
 
   const loadMoreProducts = () => {
-    const currentIndex = displayedProducts.length;
-    const nextProducts = products.slice(currentIndex, currentIndex + 10);
+    const currentIndex = displayedProducts?.length;
+    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 1);
 
     setDisplayedProducts([...displayedProducts, ...nextProducts]);
   };
@@ -2173,6 +2183,9 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     );
   };
 
+   const clickHandler = (item) => {
+     router.push("/en/product/" + item);
+   };
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2300,7 +2313,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                     /> */}
                   </div>
                 </div>
-                <img src="/categories/mainCategory.svg" className={classes.image} />
+                <img src="/categories/mainCategory.svg" className={classes.imageg} />
                 <Popover
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -2348,15 +2361,18 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               {firstfour?.map((item, key) => (
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
+                    {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")}
+
                     <img
                       src={
                         !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
                           ? "/justin/justin4.svg"
-                          : item?.node?.product?.primaryImage?.URLs?.medium
+                          : item?.node?.product?.primaryImage?.URLs?.large
                       }
-                      className={classes.imagemai}
+                      className={classes.image}
                       key={item?.node?.product?.id}
                       alt={"hhhh"}
+                      onClick={() => clickHandler(item.node.product.slug)}
                     />
 
                     <div className={classes.cartbackground}>
@@ -2399,18 +2415,19 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
           <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
               <Masonry>
-                {allproducts?.map((item) => (
+                {displayedProducts?.map((item) => (
                   <>
                     <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                       <img
                         src={
                           !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
                             ? "/justin/justin4.svg"
-                            : item?.node?.product?.primaryImage?.URLs?.medium
+                            : item?.node?.product?.primaryImage?.URLs?.large
                         }
-                        className={classes.imagemai}
+                        className={classes.image}
                         key={item?.node?.product?.id}
                         alt={"hhhh"}
+                        onClick={() => clickHandler(item.node.product.slug)}
                       />
 
                       <div className={classes.cartbackground}>
@@ -2451,11 +2468,15 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               </Masonry>
             </ResponsiveMasonry>
           </div>
-          <div className={classes.loadmorediv}>
-            <button onClick={loadMoreProducts} className={classes.loadmore}>
-              Load More
-            </button>
-          </div>
+          {displayedProducts?.length > 2 &&
+            displayedProducts &&
+            displayedProducts?.length !== fourprouduts?.length - 4 && (
+              <div className={classes.loadmorediv}>
+                <button onClick={loadMoreProducts} className={classes.loadmore}>
+                  Load More
+                </button>
+              </div>
+            )}
         </div>
       )}
     </Layout>
@@ -2491,4 +2512,4 @@ export async function getStaticProps({ params: { lang, tagId } }) {
   };
 }
 
-export default withApollo()(withCart(Categories));
+export default withApollo()(withCart(inject("routingStore", "uiStore")(Categories)));
