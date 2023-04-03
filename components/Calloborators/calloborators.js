@@ -35,13 +35,14 @@ const Caloborators = () => {
       justifyContent: "space-between",
     },
     iconforwad: {
+      cursor: "pointer",
       position: "absolute",
       bottom: "82px",
       right: "20px",
       background: "#333333",
       color: "FDC114",
       borderRadius: "4px",
-
+      cursor: "pointer",
       zIndex: 1251,
     },
     iconback: {
@@ -51,7 +52,7 @@ const Caloborators = () => {
       borderRadius: "4px",
       color: "FDC114",
       background: "#333333",
-
+      cursor: "pointer",
       zIndex: 1251,
     },
 

@@ -1,4 +1,3 @@
-
 import { fetchAllCategories, fetchTags } from "../../../staticUtils/tags/fetchAllTags";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -368,6 +367,7 @@ const useStyles = makeStyles((theme) => ({
   },
   loadmore: {
     width: "305px",
+    cursor: "pointer",
     height: "50px",
     borderRadius: "40px",
     border: "none",
@@ -402,10 +402,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   categoryavatar: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   catgorytitle: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(3),
     "&:hover": {
       color: theme.palette.secondary.selected,
@@ -558,7 +560,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-  
+
   useEffect(() => {
     setProducts();
 
@@ -1906,11 +1908,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const style = {
     position: "fixed",
     borderRadius: "8px",
-    left: "60px",
-    width: 330,
-    position: "fixed",
-    borderRadius: "8px",
-    left: "60px",
+    left: "12%",
     width: 330,
     bgcolor: "#ffffff",
     outline: "none",
@@ -2183,9 +2181,9 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     );
   };
 
-   const clickHandler = (item) => {
-     router.push("/en/product/" + item);
-   };
+  const clickHandler = (item) => {
+    router.push("/en/product/" + item);
+  };
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2323,27 +2321,17 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                   open={Boolean(anchorEl)}
                   onClose={handlePopOverClose}
                 >
-                  <Popover
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={handlePopOverClose}
-                  >
-                    <Box sx={style}>
-                      {ITEMScategory.map((item) => (
-                        <div className={classes.modalitems}>
-                          <img src={item.image} className={classes.categoryavatar} />
-                          <Typography variant="h4" className={classes.catgorytitle}>
-                            {" "}
-                            {item.title}
-                          </Typography>
-                        </div>
-                      ))}
-                    </Box>
-                  </Popover>
+                  <Box sx={style}>
+                    {ITEMScategory.map((item) => (
+                      <div className={classes.modalitems}>
+                        <img src={item.image} className={classes.categoryavatar} />
+                        <Typography variant="h4" className={classes.catgorytitle}>
+                          {" "}
+                          {item.title}
+                        </Typography>
+                      </div>
+                    ))}
+                  </Box>
                 </Popover>
               </div>
             </Grid>
@@ -2361,7 +2349,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               {firstfour?.map((item, key) => (
                 <>
                   <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                    {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")}
+                    {/* {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")} */}
 
                     <img
                       src={
@@ -2382,7 +2370,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                         onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                       >
                         <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography variant="h5" component="h2">
+                        <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
                           + Cart{" "}
                         </Typography>
                       </Button>
@@ -2437,7 +2425,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                           onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                         >
                           <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                          <Typography variant="h5" component="h2">
+                          <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
                             + Cart{" "}
                           </Typography>
                         </Button>

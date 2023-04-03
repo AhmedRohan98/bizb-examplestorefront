@@ -83,10 +83,12 @@ const MainSlider = (props) => {
       color: "#333333",
     },
     iconforwad: {
+      cursor: "pointer",
       height: "auto",
       color: "white",
     },
     iconback: {
+      cursor: "pointer",
       height: "auto",
       color: "white",
     },
