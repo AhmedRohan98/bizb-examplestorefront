@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
-import {  Element } from "react-scroll";
+import { Element } from "react-scroll";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   PrelovedHeader: {
     display: "flex",
     justifyContent: "center",
-
+    marginBottom:"20px",
     flexDirection: "column",
     alignItems: "center",
   },
@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitlet: {
     color: "#1F1F1F",
-
     fontFamily: "Lato",
     textAlign: "center",
   },
@@ -61,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
   cart: {
     height: "35px",
     width: "84px",
-
     bottom: "50%",
     left: "20px",
     position: "absolute",
@@ -69,10 +67,13 @@ const useStyles = makeStyles((theme) => ({
   cart2: {
     height: "35px",
     width: "84px",
-
     bottom: "50%",
     right: "18%",
     position: "absolute",
+    [theme.breakpoints.down(600)]: {
+      top: "10%",
+      right: "25%",
+    },
   },
   imagec: {
     width: "100%",
@@ -100,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "150px",
     height: "35px",
-    border:"none",
+    border: "none",
     right: "50px",
     borderRadius: "40px",
     transition: "all 0.2s linear",
@@ -115,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 900,
     fontStyle: "Black",
     lineHeight: "26px",
-cursor:"pointer",
+    cursor: "pointer",
     fontFamily: "Ostrich Sans Black",
   },
   mobileview: {
@@ -183,7 +184,6 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-         
           <img src={res?.page1.heroMediaUrl} className={classes.imagess} />
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
@@ -296,10 +296,16 @@ const Preloved = (props) => {
   return (
     <>
       <Container className={classes.PrelovedHeader}>
-        <Typography variant="h1">Share Your</Typography>
+        <Typography style={{ fontSize: "36px", fontFamily: "Ostrich Sans Black" }} variant="h1">
+          Share Your
+        </Typography>
         <Container className={classes.PrelovedHeader2}>
-          <Typography variant="h2">Pre-Loved</Typography>
-          <Typography variant="h1">Fashion</Typography>
+          <Typography style={{ fontSize: "36px", fontFamily: "Ostrich Sans Black", marginRight: "10px" }} variant="h2">
+            PRE-LOVED
+          </Typography>
+          <Typography style={{ fontSize: "36px", fontFamily: "Ostrich Sans Black" }} variant="h1">
+            Fashion
+          </Typography>
         </Container>
       </Container>
       <div className={classes.root2}>
@@ -311,15 +317,15 @@ const Preloved = (props) => {
         <div className={classes.mobileview}>
           <div className={classes.mobileviewfixed}>
             <img src="/app-section/home.svg" />
-            <Typography variant="h5" className={classes.mobileviewfixedText}>
+            <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
               {" "}
               Home{" "}
             </Typography>
           </div>
           <div className={classes.mobileviewfixed}>
             {" "}
-            <img src="/app-section/search.svg" />
-            <Typography variant="h5" className={classes.mobileviewfixedText}>
+            <img src="/app-section/sell-icn.svg" />
+            <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
               {" "}
               Sell
             </Typography>
@@ -327,7 +333,7 @@ const Preloved = (props) => {
           <div className={classes.mobileviewfixed}>
             {" "}
             <img src="/app-section/explore.svg" />
-            <Typography variant="h5" className={classes.mobileviewfixedText}>
+            <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
               {" "}
               Explore
             </Typography>

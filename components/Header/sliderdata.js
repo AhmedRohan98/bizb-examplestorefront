@@ -1,11 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-
 import Story from "../Stories/story";
 import Justin from "../Justin/justin";
 import Typography from "@material-ui/core/Typography";
@@ -17,6 +13,7 @@ import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
+
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props.catalogItems;
