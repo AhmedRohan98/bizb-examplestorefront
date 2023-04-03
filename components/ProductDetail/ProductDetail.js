@@ -400,7 +400,7 @@ const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
 
 
 
-const filteredProducts = catalogItems.filter((product) => {
+const filteredProducts = catalogItems?.filter((product) => {
   const productTags = product?.node?.product?.tagIds;
 ;
 
@@ -529,7 +529,7 @@ console.log(filteredProducts,"fil")
     const {  uiStore } = props;
 
     // If we are clicking an option, it must be for the current selected variant
-    const variant = product.variants.find((vnt) => vnt._id === uiStore.pdpSelectedVariantId);
+    const variant = product?.variants?.find((vnt) => vnt._id === uiStore.pdpSelectedVariantId);
 
     selectVariant(variant, option._id);
   };
@@ -572,7 +572,7 @@ console.log(filteredProducts,"fil")
   // If we have a selected variant (we always should)
   // check to see if media is available, and use this media instead
   // Revert to original media if variant doesn't have specific media
-  const selectedVariant = product.variants.find((variant) => variant._id === pdpSelectedVariantId);
+  const selectedVariant = product?.variants?.find((variant) => variant._id === pdpSelectedVariantId);
   if (selectedVariant) {
     if (selectedVariant.media && selectedVariant.media.length) {
       pdpMediaItems = selectedVariant.media;
@@ -581,7 +581,7 @@ console.log(filteredProducts,"fil")
     // If we have a selected option, do the same check
     // Will revert to variant check if no option media is available
     if (Array.isArray(selectedVariant.options) && selectedVariant.options.length) {
-      const selectedOption = selectedVariant.options.find((option) => option._id === pdpSelectedOptionId);
+      const selectedOption = selectedVariant?.options?.find((option) => option._id === pdpSelectedOptionId);
       if (selectedOption) {
         if (selectedOption.media && selectedOption.media.length) {
           pdpMediaItems = selectedOption.media;
