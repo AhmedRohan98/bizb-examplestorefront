@@ -316,7 +316,7 @@ const styles = (theme) => ({
     borderRadius: "18px",
     height: "180px",
     width: "180px",
-    paddingTop: "10px",
+    // paddingTop: "10px",
   },
   carttex: {
     fontSize: "18px",
@@ -395,7 +395,26 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  console.log(props, "new");
+  // console.log(props, "new");
+  const {product,catalogItems} =props
+const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
+
+
+
+const filteredProducts = catalogItems?.filter((product) => {
+  const productTags = product?.node?.product?.tagIds;
+;
+
+  if (!productTags) {
+    
+    return false;
+  }
+
+  return productTags?.some((tag) => tag === tagIds);
+});
+
+
+// console.log(filteredProducts,"fil")
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -416,8 +435,6 @@ const ProductDetail = ({ ...props }) => {
   };
 
   useEffect(() => {
-  
-
     selectVariant(product.variants[0]);
   }, []);
   function selectVariant(variant, optionId) {
@@ -590,7 +607,7 @@ const ProductDetail = ({ ...props }) => {
       <Box className={classes.slider}>
         <Grid
           container
-          spacing={2}
+          spacing={0}
           className={classes.sliderflex}
           xs={12}
           md={12}
