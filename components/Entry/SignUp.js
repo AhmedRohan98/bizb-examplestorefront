@@ -172,8 +172,8 @@ export default function SignUp(props) {
       const signUpSchema = Yup.object({
         FullName: Yup.string().min(3).max(25).required("Please enter your name"),
         email: Yup.string().email().required("Please enter your email"),
-        phonenumber: Yup.string().matches(/^[0-9]{1}$/, 'Please enter your 11 digits mobile number')
-    .required('Phone number is required'),
+        phonenumber: Yup.string().matches(/^[0-9]+$/, 'Please enter a valid mobile number')
+        .required('Phone number is required'),
         password: Yup.string().min(6).required("Please enter your password"),
         confirm_password: Yup.string()
           .required()

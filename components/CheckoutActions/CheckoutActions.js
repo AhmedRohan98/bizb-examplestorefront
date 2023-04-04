@@ -427,7 +427,7 @@ const CheckoutActions = (prop) => {
   };
  const initialValues = {
    email: "", 
-   fullname:"",
+   Fullname:"",
    city:"",
    phonenumber:"",
    completeAddress:"",
@@ -437,7 +437,11 @@ const CheckoutActions = (prop) => {
   const addressSchema = Yup.object({
     email: Yup.string().email().required("Please enter your email"),
 
-    password: Yup.string().min(5).required("Please enter your password"),
+    FullName: Yup.string().min(3).max(25).required("Please enter your name"),
+    phonenumber: Yup.string()
+      .matches(/^[0-9]+$/, "Please enter a valid mobile number")
+      .required("Phone number is required"),
+    address: Yup.string().min(5).max(50).required("Please enter your address"),
   });
  const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
    initialValues,
