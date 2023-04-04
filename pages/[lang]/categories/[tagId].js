@@ -360,6 +360,11 @@ const useStyles = makeStyles((theme) => ({
   },
   categorytoggle: {
     marginLeft: theme.spacing(2),
+    cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+    },
   },
   massonary: {
     width: "92%",
@@ -795,12 +800,12 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     {
       image: "/categoriestypes/cat1.svg",
       id: 1,
-      title: "Causal",
+      title: "Casual",
     },
     {
       image: "/categoriestypes/cat2.svg",
       id: 2,
-      title: "Westren",
+      title: "Western",
     },
     {
       image: "/categoriestypes/cat3.svg",
@@ -1908,12 +1913,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const style = {
     position: "fixed",
     borderRadius: "8px",
+    marginTop: "12px",
     left: "12%",
     width: 330,
     bgcolor: "#ffffff",
     outline: "none",
     boxShadow: 24,
     p: 2,
+    minHeight: "0",
   };
 
   const customStylesMobSize = {
@@ -2311,7 +2318,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                     /> */}
                   </div>
                 </div>
-                <img src="/categories/mainCategory.svg" className={classes.imageg} />
+                <img style={{ borderRadius: "16px" }} src="/categories/mainCategory.svg" className={classes.imageg} />
                 <Popover
                   anchorEl={anchorEl}
                   anchorOrigin={{
