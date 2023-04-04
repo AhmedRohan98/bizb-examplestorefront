@@ -203,7 +203,7 @@ export default function SignUp(props) {
   return (
     <>
       <Typography variant="body1">REGISTRATION </Typography>
-      <form className={classes.root} noValidate onSubmit={handleSubmit}>
+      <form className={classes.root} onSubmit={handleSubmit}>
         <Grid container>
           <Grid xs={12} item>
             <label className={classes.label}>
