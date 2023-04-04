@@ -400,7 +400,7 @@ const ProductDetail = ({ ...props }) => {
   });
 
 
-// console.log(filteredProducts,"fil")
+  // console.log(filteredProducts,"fil")
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
