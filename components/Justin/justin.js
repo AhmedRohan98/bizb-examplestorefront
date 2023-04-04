@@ -14,38 +14,32 @@ import CloseIcon from "@material-ui/icons/Close";
 import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   main: {
-    padding: "3vh",
     width: "100%",
-
-    padding: theme.spacing(4),
+    padding: "75px",
   },
   cardaction: {
     height: 312,
     width: 312,
   },
-
   root: {
     display: "flex",
     width: "100%",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   gridroot: {
     width: "100%",
     display: "flex",
     alignItems: "baseline",
-
     position: "relative",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   typography: {
     background: "#333333",
     opacity: "15%",
     height: "8px",
-
     width: "180px",
   },
-
   text: {
     position: "absolute",
     bottom: 60,
@@ -54,12 +48,10 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     position: "relative",
   },
-
   headermain: {
     display: "flex",
     justifyContent: "space-between",
   },
-
   image: {
     width: "312px",
     maxHeight: "450px",
@@ -99,16 +91,13 @@ const useStyles = makeStyles((theme) => ({
   },
   cartbackground: {
     background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-
     borderRadius: "0px 0px 16px 16px",
-
     alignItems: "center",
     justifyContent: "initial",
     height: "75px",
     width: "100%",
     bottom: "20%",
     display: "inline-grid",
-
     width: "100%",
     marginTop: " -75px",
     padding: "13px 20px",
@@ -283,7 +272,7 @@ const Justin = (props) => {
         </div>
       </div>
       <div className={classes.root}>
-        <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
+        <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
           {catalogdata?.map((item, key) => (
             <>
               <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>

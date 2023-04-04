@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Storyslider from "./storiesslide";
 const Story = (props) => {
@@ -74,7 +75,6 @@ const Story = (props) => {
       [theme.breakpoints.down(700)]: {
         display: "flex",
         flexDirection: "row",
-
         marginTop: theme.spacing(3),
       },
     },
@@ -102,7 +102,6 @@ const Story = (props) => {
       textDecorationThickness: "4px",
       textDecorationColor: "rgba(51,51,51,0.15)",
       marginRight: theme.spacing(3),
-
       "&:hover": {
         color: "#FDC114",
       },
