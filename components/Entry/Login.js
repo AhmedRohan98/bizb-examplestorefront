@@ -261,7 +261,7 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
               Forgot Password?
             </div>
           </Grid>
-          {!!error && <div className={classes.error}>{error}</div>}
+          {!!error && <p className={classes.formerror}>{error}</p>}
           <div className={classes.socialmedia2}>
             <Button
               className={classes.register}
