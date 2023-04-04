@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 const Storyslider = ({ itemData }) => {
@@ -60,6 +61,12 @@ const Storyslider = ({ itemData }) => {
       bottom: "15px",
       left: "10px",
       position: "absolute",
+      transition: "all 0.2s linear",
+      "&:hover": {
+        transform: "scale(1.08)",
+        transition: "left 0.2s linear",
+        background: "#FDC114",
+      },
     },
     controller: {
       display: "flex",
@@ -86,7 +93,6 @@ const Storyslider = ({ itemData }) => {
       cursor: "pointer",
       zIndex: 1251,
     },
-
     title: {
       color: theme.palette.reaction.reactionBlue,
       marginRight: theme.spacing(),
@@ -110,11 +116,13 @@ const Storyslider = ({ itemData }) => {
       <>
         <div className={classes.rootimg}>
           <img component="img" alt="loading" src={item.image} className={classes.image} />
-          <div className={classes.cart}>
-            <img component="img" src="/icons/cart.svg" />
-            <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
-              + Cart{" "}
-            </Typography>
+          <div>
+            <Button onClick={() => console.log("do something")} className={classes.cart}>
+              <img component="img" src="/icons/cart.svg" />
+              <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
+                + Cart{" "}
+              </Typography>
+            </Button>
           </div>
         </div>
         <Typography gutterBottom variant="h5" component="h2">
