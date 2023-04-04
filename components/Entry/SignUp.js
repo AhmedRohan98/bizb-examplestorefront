@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "17px",
       padding: "0px",
     },
+    "& .MuiInputBase-root": {
+      fontFamily: "Lato",
+    },
   },
   register: {
     width: "214px",
