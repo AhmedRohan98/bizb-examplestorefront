@@ -332,7 +332,6 @@ const styles = (theme) => ({
   },
 });
 
-
 const slides = [
   {
     image: "/cart/cart1.svg",
@@ -709,7 +708,6 @@ const ProductDetail = ({ ...props }) => {
                       variant="h4"
                       className={classes.price2}
                     >
-                     
                       {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
