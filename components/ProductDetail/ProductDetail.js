@@ -316,8 +316,7 @@ const styles = (theme) => ({
     borderRadius: "18px",
     height: "180px",
     width: "180px",
-    paddingTop: "10px",
-  
+    // paddingTop: "10px",
   },
   carttex: {
     fontSize: "18px",
@@ -586,7 +585,7 @@ const ProductDetail = ({ ...props }) => {
       <Box className={classes.slider}>
         <Grid
           container
-          spacing={2}
+          spacing={0}
           className={classes.sliderflex}
           xs={12}
           md={12}
