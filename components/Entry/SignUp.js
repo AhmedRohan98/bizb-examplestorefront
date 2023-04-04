@@ -170,7 +170,7 @@ export default function SignUp(props) {
       phonenumber:"",
     };
       const signUpSchema = Yup.object({
-        FullName: Yup.string().min(3).max(25).required("Please enter your name"),
+        FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
         email: Yup.string().email().required("Please enter your email"),
         phonenumber: Yup.string().matches(/^[0-9]+$/, 'Please enter a valid mobile number')
         .required('Phone number is required'),
@@ -181,9 +181,8 @@ export default function SignUp(props) {
       });
    const registerUser2 = async (values, action) => {
      try {
-       // Creating user will login also
        await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
-       action.resetForm(); // to get rid of all the values after submitting the form
+       action.resetForm(); 
        closeModal();
        await refetch();
      } catch (err) {
@@ -195,10 +194,8 @@ export default function SignUp(props) {
       validationSchema: signUpSchema,
       validateOnChange: true,
       validateOnBlur: false,
-      //// By disabling validation onChange and onBlur formik will validate on submit.
       onSubmit: async(values, action) => {
           await registerUser2(values, action);
-        //// to get rid of all the values after submitting the form
         action.resetForm();
       },
     });

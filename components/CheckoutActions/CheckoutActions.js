@@ -437,22 +437,23 @@ const CheckoutActions = (prop) => {
   const addressSchema = Yup.object({
     email: Yup.string().email().required("Please enter your email"),
 
-    FullName: Yup.string().min(3).max(25).required("Please enter your name"),
+    FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
     phonenumber: Yup.string()
       .matches(/^[0-9]+$/, "Please enter a valid mobile number")
       .required("Phone number is required"),
-    address: Yup.string().min(5).max(50).required("Please enter your address"),
+    city: Yup.string().required("Please select a city"),
+    completeAddress: Yup.string().min(5).max(50).required("Please enter your address"),
+    orderNotes: Yup.string().min(5).max(50).required("Please enter your address"),
   });
  const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
    initialValues,
    validationSchema: addressSchema,
    validateOnChange: true,
    validateOnBlur: false,
-   //// By disabling validation onChange and onBlur formik will validate on submit.
-   onSubmit: async (values, action) => {
-     await registerUser(values, action);
-     //// to get rid of all the values after submitting the form
-   },
+ 
+   onsubmit:  (values, action) => {
+    console.log(values,"ffffffffffffff")
+   }
  });
 
   return (
@@ -465,22 +466,30 @@ const CheckoutActions = (prop) => {
         <form className={classes.root} noValidate>
           <Grid container xs={12}>
             <Grid xs={12} item>
-              <label className={classes.label} required variant="h4">
-                Full Name
+              <label className={classes.label}>
+                <span className={classes.labelSpan} htmlFor="FullName">
+                  Full Name <span style={{ color: "#FD1010" }}>*</span>
+                </span>
                 <TextField
-                  placeholder="Enter your Full name"
-                  type="text"
+                  placeholder="Enter Your User Name"
                   InputProps={{ disableUnderline: true }}
-                  inputProps={{ style: { color: "black" } }}
                   className={classes.input}
-                  onChange={handleFullname}
-                  value={fullname}
+                  type="FullName"
+                  autoComplete="off"
+                  name="FullName"
+                  id="FullName"
+                  value={values.FullName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
               </label>
+              {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
             </Grid>
             <Grid xs={12} item>
-              <label className={classes.label} variant="h4">
-                Phone
+              <label className={classes.label} htmlFor="phonenumber">
+                <span className={classes.labelSpan}>
+                  Phone Number <span style={{ color: "#FD1010" }}>*</span>
+                </span>
                 <TextField
                   placeholder="Enter your name"
                   type="number"
@@ -493,27 +502,37 @@ const CheckoutActions = (prop) => {
                       </InputAdornment>
                     ),
                   }}
-                  required
+                  name="phonenumber"
+                  id="phonenumber"
+                  value={values.phonenumber}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   className={classes.input}
-                  onChange={handleEmailChange}
-                  value={email}
                 />
               </label>
+              {touched.phonenumber && errors.phonenumber ? (
+                <p className={classes.formerror}>{errors.phonenumber}</p>
+              ) : null}
             </Grid>
-
-            <Grid item xs={12}>
-              <label className={classes.label} variant="h4">
-                Email
+            <Grid xs={12} item>
+              <label className={classes.label} variant="h6" htmlFor="email">
+                <span className={classes.labelSpan}>
+                  Email <span style={{ color: "#FD1010" }}>*</span>
+                </span>
                 <TextField
-                  placeholder="Enter your Email Adress"
+                  placeholder="Enter Your Email Address"
                   InputProps={{ disableUnderline: true }}
-                  required
                   className={classes.input}
-                  inputProps={{ style: { color: "black" } }}
-                  onChange={handlephonenumber}
-                  value={phonenumber}
+                  type="email"
+                  autoComplete="off"
+                  name="email"
+                  id="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
               </label>
+              {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
             </Grid>
             <Grid item xs={12}>
               <label className={classes.label} variant="h4">
@@ -620,9 +639,7 @@ const CheckoutActions = (prop) => {
                   variant="h6"
                   role="button"
                   type="submit"
-                  onClick={() => {
-                    handlepay();
-                  }}
+                  onClick={()=>handleSubmit}
                 >
                   Place Order
                 </Button>
