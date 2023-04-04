@@ -399,7 +399,6 @@ const ProductDetail = ({ ...props }) => {
     return productTags?.some((tag) => tag === tagIds);
   });
 
-
   // console.log(filteredProducts,"fil")
   const sliderRef = useRef(null);
 
@@ -525,7 +524,6 @@ const ProductDetail = ({ ...props }) => {
    * use the selected option if available, otherwise it will use the selected variant.
    * @returns {Object} An pricing object
    */
- 
 
   const {
     classes,
