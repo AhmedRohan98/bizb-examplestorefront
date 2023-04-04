@@ -147,7 +147,7 @@ const Justin = (props) => {
   const catalogdata = props?.catalogItems;
   // console.log(props, "cartx");
   function selectVariant(variant, optionId) {
-    const { product, uiStore } = props;
+    const { product, uiStore,cart } = props;
     function determineProductPrice() {
       const { currencyCode, product } = props;
       const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
@@ -181,7 +181,7 @@ const Justin = (props) => {
     const {
       addItemsToCart,
       currencyCode,
-
+cart,
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
     } = props;
 
@@ -191,31 +191,37 @@ const Justin = (props) => {
     const selectedVariant = variantById(product.variants, variant._id);
 
     // console.log("selected variant..", selectedVariantOrOption);
-    if (selectedVariant) {
-      // Get the price for the currently selected variant or variant option
-      // const price = priceByCurrencyCode(currencyCode, selectVariant.pricing);
-      // console.log("price...", price);
-      // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
-      await addItemsToCart([
-        {
-          price: {
-            amount: product.variants[0]?.pricing[0]?.minPrice,
+    if (selectedVariant,cart) {
+       for (let i = 0; i < cart?.items?.length; i++) {
+         if (cart?.items[i]._id === product?.productId) {
+         
+           return "Item already in cart";
+         }
+         else{
+            await addItemsToCart([
+              {
+                price: {
+                  amount: product.variants[0]?.pricing[0]?.minPrice,
 
-            currencyCode,
-          },
-          metafields: [
-            {
-              key: "media",
-              value: product?.media[0]?.URLs?.large,
-            },
-          ],
-          productConfiguration: {
-            productId: product.productId, // Pass the productId, not to be confused with _id
-            productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
-          },
-          quantity,
-        },
-      ]);
+                  currencyCode,
+                },
+                metafields: [
+                  {
+                    key: "media",
+                    value: product?.media[0]?.URLs?.large,
+                  },
+                ],
+                productConfiguration: {
+                  productId: product.productId, // Pass the productId, not to be confused with _id
+                  productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+                },
+                quantity,
+              },
+            ]);
+         }
+        }
+       
+    
     }
   };
 
