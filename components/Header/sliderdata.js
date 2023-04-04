@@ -19,7 +19,7 @@ const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props.catalogItems;
   SwiperCore.use([ Autoplay]);
-  // console.log(products, "new products");
+  console.log(props, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
       marginTop: "-170px",
