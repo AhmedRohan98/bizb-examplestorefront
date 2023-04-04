@@ -278,7 +278,7 @@ const CheckoutActions = (prop) => {
     quantity: item.quantity,
   }));
 
-  const handlepay = async () => {
+  const handlepay = async (values, action) => {
     try {
       // const { data } = apolloClient.mutate({
       //   mutation: placeOrderMutation,
@@ -345,26 +345,35 @@ const CheckoutActions = (prop) => {
             cartId: cartStore.accountCartId,
             currencyCode: cart.shop.currency.code,
 
-            email: cart.account.emailRecords[0].address,
+            email: values.email,
 
             fulfillmentGroups: [
               {
                 data: {
                   shippingAddress: {
-                    address1: address,
-                    address2: address,
-                    city: city,
+                    address1: values.completeAddress,
+                    address2: values.orderNotes,
+                    city: values.city,
                     company: null,
                     country: "pakistan",
-                    fullName: "sardar umer javed",
+                    fullName: values.FullName,
                     isBillingDefault: false,
                     isCommercial: false,
                     isShippingDefault: false,
-                    phone: phonenumber,
+                    phone: values.phonenumber,
                     postal: "pak",
                     region: "pandi",
                   },
                 },
+                //                  const initialValues = {
+                //    email: "",
+                //    FullName: "",
+                //    phonenumber: "",
+                //    completeAddress: "",
+                //    orderNotes: "",
+
+                //    city:"",
+                //  };
                 items,
                 // displayShipping: fulfillmentTotal && fulfillmentTotal.displayAmount,
                 // displaySubtotal: itemTotal.displayAmount,
@@ -397,12 +406,8 @@ const CheckoutActions = (prop) => {
       // // Also destroy the collected and cached payment input
       // cartStore.resetCheckoutPayments();
 
-     
-
       // Send use r to order confirmation page
-      Router.push(`/checkout/order`).catch(
-      
-      );
+      Router.push(`/checkout/order`).catch();
       // Send user to order confirmation pageQ
     } catch (error) {
       console.log(error);
@@ -435,10 +440,11 @@ const CheckoutActions = (prop) => {
    validateOnChange: true,
    validateOnBlur: false,
 
-   onSubmit: async (values, action) => {
-   console.log(values,"ffff")
-     action.resetForm();
-   },
+     onSubmit: async(values, action) => {
+          await handlepay(values, action);
+        action.resetForm();
+      },
+    
  });
    const customStyles = {
      indicatorSeparator: () => ({
