@@ -13,9 +13,19 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 import { makeStyles } from "@material-ui/core/styles";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 import { placeOrderQuery } from "../../hooks/orders/query";
 const useStyles = makeStyles((theme) => ({
+  formerror: {
+    paddingLeft: theme.spacing(1),
+    fontSize: "16px",
+    cursor: "pointer",
+    color: "#b22b27",
+    fontFamily: "Lato",
+  },
+
   label: {
     display: "flex",
     marginTop: theme.spacing(1),
@@ -166,9 +176,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cartdelivery: {
     fontWeight: 400,
- 
+
     color: "#333333",
-    marginLeft:theme.spacing(2)
+    marginLeft: theme.spacing(2),
   },
   cartdelivery2: {
     width: "350px",
@@ -212,9 +222,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
-  summary:{
-    display:"flex",
-    flexDirection:"column",
+  summary: {
+    display: "flex",
+    flexDirection: "column",
   },
   register: {
     width: "261px",
@@ -235,6 +245,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutActions = (prop) => {
   const { cart, apolloClient, cartStore } = prop;
+
 
   const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
   const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
@@ -414,6 +425,35 @@ const CheckoutActions = (prop) => {
       console.log(error);
     }
   };
+ const initialValues = {
+   email: "", 
+   Fullname:"",
+   city:"",
+   phonenumber:"",
+   completeAddress:"",
+   orderNotes:""
+
+ };
+  const addressSchema = Yup.object({
+    email: Yup.string().email().required("Please enter your email"),
+
+    FullName: Yup.string().min(3).max(25).required("Please enter your name"),
+    phonenumber: Yup.string()
+      .matches(/^[0-9]+$/, "Please enter a valid mobile number")
+      .required("Phone number is required"),
+    address: Yup.string().min(5).max(50).required("Please enter your address"),
+  });
+ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+   initialValues,
+   validationSchema: addressSchema,
+   validateOnChange: true,
+   validateOnBlur: false,
+   //// By disabling validation onChange and onBlur formik will validate on submit.
+   onSubmit: async (values, action) => {
+     await registerUser(values, action);
+     //// to get rid of all the values after submitting the form
+   },
+ });
 
   return (
     <Grid container xs={12}>
