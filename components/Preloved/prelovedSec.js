@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import { Element } from "react-scroll";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -19,14 +20,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: theme.spacing(6),
+    marginBottom: "70px",
   },
   PrelovedHeader: {
     display: "flex",
     justifyContent: "center",
-    marginBottom: "20px",
+    marginBottom: "12px",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: "30px",
     [theme.breakpoints.down(600)]: {
       fontSize: "36px",
     },
@@ -42,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
   },
-
   titleBar: {
     background: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " + "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
   },
@@ -111,11 +112,13 @@ const useStyles = makeStyles((theme) => ({
     height: "35px",
     border: "none",
     right: "50px",
+    position: "initial",
     borderRadius: "40px",
     transition: "all 0.2s linear",
     "&:hover": {
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
+      background: theme.palette.secondary.selected,
     },
   },
   buttonshopt: {
@@ -197,10 +200,10 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page1.displayTitle}
             </Typography>
-            <button className={classes.buttonshop} onClick={() => clickHandler(res?.page1._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page1._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-            </button>
+            </Button>
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
@@ -210,10 +213,10 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page5.displayTitle}
             </Typography>
-            <button className={classes.buttonshop} onClick={() => clickHandler(res?.page5._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page5._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-            </button>
+            </Button>
           </div>
         </Grid>
       </React.Fragment>
@@ -229,9 +232,9 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page2.displayTitle}
             </Typography>
-            <button className={classes.buttonshop} onClick={() => clickHandler(res?.page2._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page2._id)}>
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-            </button>
+            </Button>
           </div>
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>
@@ -259,10 +262,10 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page3.displayTitle}
             </Typography>
-            <button className={classes.buttonshop} onClick={() => clickHandler(res?.page3._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page3._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-            </button>
+            </Button>
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
@@ -272,10 +275,10 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page0.displayTitle}
             </Typography>
-            <button className={classes.buttonshop} onClick={() => clickHandler(res?.page0._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page0._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-            </button>
+            </Button>
           </div>
         </Grid>
       </React.Fragment>
@@ -291,10 +294,10 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page4.displayTitle}
             </Typography>
-            <button className={classes.buttonshop} onClick={() => clickHandler(res?.page4._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page4._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-            </button>
+            </Button>
           </div>
         </Grid>
       </React.Fragment>
