@@ -208,37 +208,66 @@ const Justin = (props) => {
       return "Invalid parameters";
     }
 
-    for (let i = 0; i < cart.items.length; i++) {
-      console.log("cart items , ", cart.items.length);
-      console.log("productConfiguration", cart.items[i].productConfiguration.productId);
-      console.log("product id , ", product.productId);
-      if (cart.items[i].productConfiguration.productId === product.productId) {
+  if (cart?.items?.length === 0) {
+    // If cart is empty, add the new item
+    console.log("added");
+    addItemsToCart([
+      {
+        price: {
+          amount: product.variants[0]?.pricing[0]?.minPrice,
+          currencyCode,
+        },
+        metafields: [
+          {
+            key: "media",
+            value: product.media[0]?.URLs?.large,
+          },
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity,
+      },
+    ]);
+  } else {
+    let found = false;
+    // Check if the selected variant is already in the cart
+    for (let i = 0; i < cart?.items?.length; i++) {
+      if (cart.items[i].productConfiguration.productVariantId === selectedVariant.variantId) {
+        // If variant is already in the cart, update the quantity
+        found = true;
         setFound(true);
         setDisableButton(true);
-        console.log("stopped");
-      } else {
-        console.log("added");
-        addItemsToCart([
-          {
-            price: {
-              amount: product.variants[0]?.pricing[0]?.minPrice,
-              currencyCode,
-            },
-            metafields: [
-              {
-                key: "media",
-                value: product.media[0]?.URLs?.large,
-              },
-            ],
-            productConfiguration: {
-              productId: product.productId,
-              productVariantId: selectedVariant.variantId,
-            },
-            quantity,
-          },
-        ]);
+        console.log("updated");
+        console.log("Already added")
+        break;
       }
     }
+    // If variant is not already in the cart, add the new item
+    if (!found) {
+      console.log("added");
+      addItemsToCart([
+        {
+          price: {
+            amount: product.variants[0]?.pricing[0]?.minPrice,
+            currencyCode,
+          },
+          metafields: [
+            {
+              key: "media",
+              value: product.media[0]?.URLs?.large,
+            },
+          ],
+          productConfiguration: {
+            productId: product.productId,
+            productVariantId: selectedVariant.variantId,
+          },
+          quantity,
+        },
+      ]);
+    }
+  }
 
     return "Item added to cart";
   };
