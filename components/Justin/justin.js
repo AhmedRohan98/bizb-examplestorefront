@@ -156,9 +156,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
-// console.log(props, "cartx");
+  const [found, setFound] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
+  // console.log(props, "cartx");
   function selectVariant(variant, optionId) {
-    const { product, uiStore } = props;
+    const { product, uiStore, cart } = props;
     function determineProductPrice() {
       const { currencyCode, product } = props;
       const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
@@ -192,7 +194,7 @@ const Justin = (props) => {
     const {
       addItemsToCart,
       currencyCode,
-
+      cart,
       uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
     } = props;
 
@@ -202,32 +204,43 @@ const Justin = (props) => {
     const selectedVariant = variantById(product.variants, variant._id);
 
     // console.log("selected variant..", selectedVariantOrOption);
-    if (selectedVariant) {
-      // Get the price for the currently selected variant or variant option
-      // const price = priceByCurrencyCode(currencyCode, selectVariant.pricing);
-      // console.log("price...", price);
-      // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
-      await addItemsToCart([
-        {
-          price: {
-            amount: product.variants[0]?.pricing[0]?.minPrice,
-
-            currencyCode,
-          },
-          metafields: [
-            {
-              key: "media",
-              value: product?.media[0]?.URLs?.large,
-            },
-          ],
-          productConfiguration: {
-            productId: product.productId, // Pass the productId, not to be confused with _id
-            productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
-          },
-          quantity,
-        },
-      ]);
+    if (!selectedVariant || !cart) {
+      return "Invalid parameters";
     }
+
+    for (let i = 0; i < cart.items.length; i++) {
+      console.log("cart items , ", cart.items.length);
+      console.log("productConfiguration", cart.items[i].productConfiguration.productId);
+      console.log("product id , ", product.productId);
+      if (cart.items[i].productConfiguration.productId === product.productId) {
+        setFound(true);
+        setDisableButton(true);
+        console.log("stopped");
+      } else {
+        console.log("added");
+        addItemsToCart([
+          {
+            price: {
+              amount: product.variants[0]?.pricing[0]?.minPrice,
+              currencyCode,
+            },
+            metafields: [
+              {
+                key: "media",
+                value: product.media[0]?.URLs?.large,
+              },
+            ],
+            productConfiguration: {
+              productId: product.productId,
+              productVariantId: selectedVariant.variantId,
+            },
+            quantity,
+          },
+        ]);
+      }
+    }
+
+    return "Item added to cart";
   };
 
   const handleOnClick = async (product, variant) => {
@@ -239,7 +252,7 @@ const Justin = (props) => {
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
-//  const notify = () => toast("Wow so easy!");
+  //  const notify = () => toast("Wow so easy!");
   const classes = useStyles();
   return (
     <div className={classes.main}>
@@ -320,7 +333,7 @@ const Justin = (props) => {
                       Size
                     </Typography>
                     <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                   {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
+                      {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
                     </Typography>
                   </div>
                   <div className={classes.size}>

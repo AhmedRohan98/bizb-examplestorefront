@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay } from "swiper";
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,7 +18,8 @@ import { Link } from "react-scroll";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props.catalogItems;
-  // console.log(products, "new products");
+  SwiperCore.use([ Autoplay]);
+  console.log(props, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
       marginTop: "-170px",
@@ -193,7 +195,7 @@ const MainSlider = (props) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-  var menu = ["Slide 1", "Slide 2", "Slide 3"];
+ 
   const classes = useStyles();
   const pagination = {
     renderCustom: (_, current, total) => {
@@ -206,7 +208,7 @@ const MainSlider = (props) => {
       <div className={classes.main}>
         <div className={classes.root}>
           <div className={classes.sliderr}>
-            <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}>
+            <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)} autoplay>
               {ITEMS.map((item) => (
                 <SwiperSlide>
                   <Item item={item} />

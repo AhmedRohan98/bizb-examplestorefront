@@ -1,10 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import Typography from "@material-ui/core/Typography";
+import SwiperCore, { Autoplay } from "swiper";
 import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 const Caloborators = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+   SwiperCore.use([ Autoplay]);
   const useStyles = makeStyles((theme) => ({
     root: {
       background: theme.palette.reaction.gradient,
@@ -164,6 +166,8 @@ const Caloborators = () => {
       <div className={classes.root}>
         <Swiper
           ref={sliderRef}
+          autoplay={{ delay: 3000 }}
+          loop={true}
           breakpoints={{
             1600: {
               width: 1600,

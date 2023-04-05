@@ -55,6 +55,7 @@ class ProductGridPage extends Component {
       catalogItems,
       catalogItemsPageInfo,
       isLoadingCatalogItems,
+      cart,
       routingStore: { query },
       shop,
       uiStore,
@@ -83,6 +84,7 @@ const addItemsToCart = this.props.addItemsToCart ;
           addItemsToCart={addItemsToCart}
           currencyCode={(shop && shop.currency && shop.currency.code) || "USD"}
           shop={shop}
+          cart={cart}
         />
 
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
