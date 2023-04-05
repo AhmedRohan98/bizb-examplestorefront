@@ -306,7 +306,7 @@ const styles = (theme) => ({
   },
   thumbimage: {
     borderRadius: "18px",
-    height: "180px",
+    height: "160px",
     width: "180px",
     // paddingTop: "10px",
   },
@@ -399,7 +399,7 @@ const ProductDetail = ({ ...props }) => {
     return productTags?.some((tag) => tag === tagIds);
   });
 
-  // console.log(filteredProducts,"fil")
+  // console.log(filteredProducts, "fil");
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
