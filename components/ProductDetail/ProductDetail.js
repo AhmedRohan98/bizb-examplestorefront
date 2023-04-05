@@ -317,7 +317,7 @@ const styles = (theme) => ({
     height: "180px",
     width: "180px",
     paddingTop: "10px",
-    objectFit: "contain",
+  
   },
   carttex: {
     fontSize: "18px",
@@ -623,7 +623,7 @@ const ProductDetail = ({ ...props }) => {
                     return (
                       <SwiperSlide key={index}>
                         <div className={classes.thumbimage}>
-                          <img src={product?.media[0].URLs.small} alt="" className={classes.thumbimage} />
+                          <img src={product?.media[0].URLs.thumbnail} alt="" className={classes.thumbimage} />
                         </div>
                       </SwiperSlide>
                     );
