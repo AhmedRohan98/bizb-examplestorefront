@@ -191,38 +191,41 @@ cart,
     const selectedVariant = variantById(product.variants, variant._id);
 
     // console.log("selected variant..", selectedVariantOrOption);
-    if (selectedVariant,cart) {
-       for (let i = 0; i < cart?.items?.length; i++) {
-         if (cart?.items[i]._id === product?.productId) {
-         
-           return "Item already in cart";
-         }
-         else{
-            await addItemsToCart([
-              {
-                price: {
-                  amount: product.variants[0]?.pricing[0]?.minPrice,
+  if (!selectedVariant || !cart) {
+    return "Invalid parameters";
+  }
 
-                  currencyCode,
-                },
-                metafields: [
-                  {
-                    key: "media",
-                    value: product?.media[0]?.URLs?.large,
-                  },
-                ],
-                productConfiguration: {
-                  productId: product.productId, // Pass the productId, not to be confused with _id
-                  productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
-                },
-                quantity,
-              },
-            ]);
-         }
-        }
-       
-    
+  let foundMatch = false;
+  for (let i = 0; i < cart.items.length; i++) {
+    if (cart.items[i].productConfiguration.productId === product.productId) {
+      foundMatch = true;
+      break;
     }
+  }
+
+  if (!foundMatch) {
+    addItemsToCart([
+      {
+        price: {
+          amount: product.variants[0]?.pricing[0]?.minPrice,
+          currencyCode,
+        },
+        metafields: [
+          {
+            key: "media",
+            value: product.media[0]?.URLs?.large,
+          },
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity,
+      },
+    ]);
+  }
+
+  return "Item added to cart";
   };
 
   const handleOnClick = async (product, variant) => {
