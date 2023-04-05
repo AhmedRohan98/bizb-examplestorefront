@@ -300,9 +300,9 @@ const styles = (theme) => ({
   },
 
   sliderimage2: {
-    position: "realtive",
-    display: "inlie-grid",
-    borderRadius: "40px",
+    borderRadius: "18px",
+    position: "relative",
+    // display: "inlie-grid",
     margin: "0 auto",
     // width: "507px",
     minHeight: "600px",
@@ -317,6 +317,7 @@ const styles = (theme) => ({
     height: "180px",
     width: "180px",
     paddingTop: "10px",
+    objectFit: "contain",
   },
   carttex: {
     fontSize: "18px",
@@ -339,7 +340,6 @@ const styles = (theme) => ({
     justifyContent: "center",
   },
 });
-
 
 const slides = [
   {
@@ -396,6 +396,19 @@ const slide = [
 
 const ProductDetail = ({ ...props }) => {
   console.log(props, "new");
+  const { product, catalogItems } = props;
+  const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
+
+  const filteredProducts = catalogItems?.filter((product) => {
+    const productTags = product?.node?.product?.tagIds;
+    if (!productTags) {
+      return false;
+    }
+
+    return productTags?.some((tag) => tag === tagIds);
+  });
+
+  console.log(filteredProducts, "fil");
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -416,12 +429,10 @@ const ProductDetail = ({ ...props }) => {
   };
 
   useEffect(() => {
-  
-
     selectVariant(product.variants[0]);
   }, []);
   function selectVariant(variant, optionId) {
-    const {  uiStore } = props;
+    const { uiStore } = props;
 
     // Select the variant, and if it has options, the first option
     const variantId = variant._id;
@@ -508,7 +519,7 @@ const ProductDetail = ({ ...props }) => {
    * @returns {undefined} No return
    */
   const handleSelectOption = (option) => {
-    const {  uiStore } = props;
+    const { uiStore } = props;
 
     // If we are clicking an option, it must be for the current selected variant
     const variant = product?.variants?.find((vnt) => vnt._id === uiStore.pdpSelectedVariantId);
@@ -522,26 +533,12 @@ const ProductDetail = ({ ...props }) => {
    * use the selected option if available, otherwise it will use the selected variant.
    * @returns {Object} An pricing object
    */
-  function determineProductPrice() {
-    const { currencyCode } = props;
-    const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
-    const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
-    let productPrice = {};
-
-    if (pdpSelectedOptionId && selectedVariant) {
-      const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
-      productPrice = priceByCurrencyCode(currencyCode, selectedOption.pricing);
-    } else if (!pdpSelectedOptionId && selectedVariant) {
-      productPrice = priceByCurrencyCode(currencyCode, selectedVariant.pricing);
-    }
-
-    return productPrice;
-  }
+ 
 
   const {
     classes,
     currencyCode,
-   
+
     routingStore,
     uiStore: { pdpSelectedOptionId, pdpSelectedVariantId },
     width,
@@ -578,12 +575,11 @@ const ProductDetail = ({ ...props }) => {
 
     // Scroll to the top
   };
-  const productPrice = determineProductPrice();
-  const compareAtDisplayPrice = (productPrice.compareAtPrice && productPrice.compareAtPrice.displayAmount) || null;
+
   const router = useRouter();
-   const clickHandler = (item) => {
-     router.push("/en/product/" + item);
-   };
+  const clickHandler = (item) => {
+    router.push("/en/product/" + item);
+  };
   // console.log(product, "produ");
   return (
     <>
@@ -622,15 +618,16 @@ const ProductDetail = ({ ...props }) => {
                 }}
                 modules={[Navigation, Thumbs]}
               >
-                {slides.map((slide, index) => {
-                  return (
-                    <SwiperSlide key={index}>
-                      <div className={classes.thumbimage}>
-                        <img src={product?.media[0].URLs.small} alt="" className={classes.thumbimage} />
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
+                {product?.media[0].URLs.medium &&
+                  slides.map((slide, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <div className={classes.thumbimage}>
+                          <img src={product?.media[0].URLs.small} alt="" className={classes.thumbimage} />
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
               </Swiper>
             </div>
           </Grid>
@@ -706,8 +703,7 @@ const ProductDetail = ({ ...props }) => {
                       variant="h4"
                       className={classes.price2}
                     >
-                     
-                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount.replace(/\$/g, "RS ")}
+                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
                   <Typography
@@ -716,12 +712,12 @@ const ProductDetail = ({ ...props }) => {
                     variant="h4"
                     className={classes.price}
                   >
-                    {product?.variants[0]?.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
-                {/* <Typography gutterBottom variant="h4" className={classes.offer}>
+                <Typography gutterBottom variant="h4" className={classes.offer}>
                   50 % off
-                </Typography> */}
+                </Typography>
               </div>
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
@@ -810,19 +806,18 @@ const ProductDetail = ({ ...props }) => {
           {filteredProducts?.map((item, key) => (
             <>
               <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-               
-                  <img
-                    src={
-                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.media[0]?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                             onClick={() => clickHandler(item.node.product.slug)}
-                  />
-               
+                <img
+                  src={
+                    !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                      ? "/justin/justin4.svg"
+                      : item?.node?.product?.media[0]?.URLs?.large
+                  }
+                  className={classes.image}
+                  key={item?.node?.product?.id}
+                  alt={"hhhh"}
+                  onClick={() => clickHandler(item.node.product.slug)}
+                />
+
                 <div className={classes.cartbackground}>
                   <Button
                     className={classes.cart}
