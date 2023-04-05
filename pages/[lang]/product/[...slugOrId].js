@@ -15,7 +15,7 @@ import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchCatalogProduct from "staticUtils/catalog/fetchCatalogProduct";
 import fetchAllTags from "staticUtils/tags/fetchAllTags";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
-
+console.log("oririiririiriri")
 /**
  *
  * @name buildJSONLd
