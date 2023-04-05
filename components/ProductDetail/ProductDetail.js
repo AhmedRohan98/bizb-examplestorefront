@@ -300,9 +300,9 @@ const styles = (theme) => ({
   },
 
   sliderimage2: {
-    borderRadius: "18px",
-    position: "relative",
-    // display: "inlie-grid",
+    position: "realtive",
+    display: "inlie-grid",
+    borderRadius: "40px",
     margin: "0 auto",
     // width: "507px",
     minHeight: "600px",
@@ -339,6 +339,7 @@ const styles = (theme) => ({
     justifyContent: "center",
   },
 });
+
 
 const slides = [
   {
@@ -395,25 +396,6 @@ const slide = [
 
 const ProductDetail = ({ ...props }) => {
   console.log(props, "new");
-  const {product,catalogItems} =props
-const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
-
-
-
-const filteredProducts = catalogItems?.filter((product) => {
-  const productTags = product?.node?.product?.tagIds;
-;
-
-  if (!productTags) {
-    
-    return false;
-  }
-
-  return productTags?.some((tag) => tag === tagIds);
-});
-
-
-console.log(filteredProducts,"fil")
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -724,7 +706,8 @@ console.log(filteredProducts,"fil")
                       variant="h4"
                       className={classes.price2}
                     >
-                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/\$/g, "RS ")}
+                     
+                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
                   <Typography
@@ -733,12 +716,12 @@ console.log(filteredProducts,"fil")
                     variant="h4"
                     className={classes.price}
                   >
-                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
+                    {product?.variants[0]?.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
-                <Typography gutterBottom variant="h4" className={classes.offer}>
+                {/* <Typography gutterBottom variant="h4" className={classes.offer}>
                   50 % off
-                </Typography>
+                </Typography> */}
               </div>
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
