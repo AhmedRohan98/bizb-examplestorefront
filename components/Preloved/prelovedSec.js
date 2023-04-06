@@ -107,7 +107,6 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.selected,
     display: "flex",
     justifyContent: "center",
-    display: "flex",
     alignItems: "center",
     width: "150px",
     height: "35px",
