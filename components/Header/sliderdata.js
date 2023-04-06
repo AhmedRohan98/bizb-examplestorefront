@@ -125,7 +125,7 @@ const MainSlider = (props) => {
   }));
   const ITEMS = [
     {
-      image: "/Desktop-images/desktop2.svg",
+      image: "/Desktop-images/desktop1.svg",
       id: 1,
     },
     {
@@ -142,7 +142,7 @@ const MainSlider = (props) => {
     },
 
     {
-      image: "/Desktop-images/desktop6.svg",
+      image: "/Desktop-images/desktop5.svg",
       id: 6,
     },
   ];
