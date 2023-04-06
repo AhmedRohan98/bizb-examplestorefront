@@ -71,7 +71,7 @@ const Instagram = (props) => {
           <Grid container xs={12} spacing={10} alignItems="center" justify="center">
             {images?.map((item, i) => (
               <Grid item className={classes.gridroot}>
-                <a href={item.permalink}>
+                <a target="_blank" href={item.permalink}>
                   <img src={item.media_url} className={classes.image} />
                   {i === lastImageIndex ? (
                     <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>
@@ -85,7 +85,7 @@ const Instagram = (props) => {
           <Grid container xs={12} alignItems="center" justify="center">
             {images?.map((item, i) => (
               <Grid item className={classes.gridroot}>
-                <a href={item.permalink}>
+                <a target="_blank" href={item.permalink}>
                   <img src={item.media_url} className={classes.image} />
                   {i === lastImageIndex ? (
                     <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>

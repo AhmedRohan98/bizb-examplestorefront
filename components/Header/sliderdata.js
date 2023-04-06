@@ -18,7 +18,7 @@ import { Link } from "react-scroll";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props?.catalogItems;
-  SwiperCore.use([ Autoplay]);
+  SwiperCore.use([Autoplay]);
   // console.log(props, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
@@ -48,7 +48,6 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       gap: "4vh",
-
       right: "5vh",
     },
     controllert: {
@@ -56,7 +55,6 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       gap: "5px",
-
       left: "5vh",
       bottom: "20px",
     },
@@ -69,7 +67,6 @@ const MainSlider = (props) => {
     top: {
       // alignItems: "center",
       display: "flex",
-
       marginTop: "200px",
     },
     text: {
@@ -102,7 +99,6 @@ const MainSlider = (props) => {
     },
     imagedesktop: {
       display: "block",
-
       [theme.breakpoints.up(900)]: {
         display: "none",
       },
@@ -115,11 +111,9 @@ const MainSlider = (props) => {
       backgroundImage: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0) 100%) !important",
       opacity: "0.7 !important",
       position: "absolute",
-
       top: "0vh",
       width: "100%",
       height: "170px",
-
       zIndex: 1200,
     },
   }));
@@ -157,12 +151,14 @@ const MainSlider = (props) => {
           <div className={classes.controller}>
             <div className={classes.topheaderfor}></div>
             <div className={classes.controllert}>
-              {" "}
-              <img src="/icons/home.svg" className={classes.ie} />
               <Link to="target-element" smooth={true} duration={2000}>
-                <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
-                  Scroll to discover more
-                </Typography>
+                {" "}
+                <div style={{ display: "flex", cursor: "pointer" }}>
+                  <img style={{ marginRight: "12px" }} src="/icons/home.svg" className={classes.ie} />
+                  <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
+                    Scroll to discover more
+                  </Typography>
+                </div>
               </Link>
             </div>
             <div className={classes.controllera}>
@@ -198,7 +194,7 @@ const MainSlider = (props) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
- 
+
   const classes = useStyles();
   const pagination = {
     renderCustom: (_, current, total) => {
