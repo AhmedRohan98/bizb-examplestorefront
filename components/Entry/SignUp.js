@@ -329,7 +329,7 @@ export default function SignUp(props) {
             type="submit"
             role="button"
           >
-            {" "}
+    
             Register
           </Button>
         </div>
@@ -338,14 +338,12 @@ export default function SignUp(props) {
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "15px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
-              {" "}
               Register With Google
             </Typography>
           </Box>
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "15px" }} src="/authentication/signup4.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
-              {" "}
               Register With Facebook
             </Typography>
           </Box>

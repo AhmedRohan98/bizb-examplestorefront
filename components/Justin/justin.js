@@ -149,7 +149,8 @@ const useStyles = makeStyles((theme) => ({
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
   const [found, setFound] = useState(false);
-  const [disableButton, setDisableButton] = useState(false);
+   const [disabledButtons, setDisabledButtons] = useState({});
+    const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   // console.log(props, "cartx");
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
@@ -180,60 +181,102 @@ const Justin = (props) => {
 
     Router.replace("/product/[...slugOrId]", `/product/${product.slug}/${selectOptionId || variantId}`);
   }
-  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
 
-  const handleAddToCartClick = async (quantity, product, variant) => {
-    const {
-      addItemsToCart,
-      currencyCode,
-      cart,
-      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
-    } = props;
 
-    // console.log(pdpSelectedVariantId, "star");
+const handleAddToCartClick = async (quantity, product, variant) => {
+  const {
+    addItemsToCart,
+    currencyCode,
+    cart,
+    uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+  } = props;
 
-    // Get selected variant or variant optiono
-    const selectedVariant = variantById(product.variants, variant._id);
-
-    // console.log("selected variant..", selectedVariantOrOption);
-    if (!selectedVariant || !cart) {
-      return "Invalid parameters";
+  // Disable button after it has been clicked
+  
+    if (disabledButtons[product.productId]) {
+      alert("This button is disabled.");
+    } else {
+      setDisabledButtons((prevState) => ({
+        ...prevState,
+        [product.productId]: true,
+      }));
     }
+  
 
-    for (let i = 0; i < cart.items.length; i++) {
-      // console.log("cart items , ", cart.items.length);
-      // console.log("productConfiguration", cart.items[i].productConfiguration.productId);
-      // console.log("product id , ", product.productId);
-      if (cart.items[i].productConfiguration.productId === product.productId) {
-        setFound(true);
-        setDisableButton(true);
-        // console.log("stopped");
-      } else {
-        // console.log("added");
-        addItemsToCart([
+  // console.log(pdpSelectedVariantId, "star");
+
+  // Get selected variant or variant optiono
+  const selectedVariant = variantById(product.variants, variant._id);
+
+  // console.log("selected variant..", selectedVariantOrOption);
+  if (!selectedVariant || !cart) {
+    return "Invalid parameters";
+  }
+
+  if (cart?.items?.length === 0) {
+    // If cart is empty, add the new item
+    // console.log("added");
+    await addItemsToCart([
+      {
+        price: {
+          amount: product.variants[0]?.pricing[0]?.minPrice,
+          currencyCode,
+        },
+        metafields: [
           {
-            price: {
-              amount: product.variants[0]?.pricing[0]?.minPrice,
-              currencyCode,
-            },
-            metafields: [
-              {
-                key: "media",
-                value: product.media[0]?.URLs?.large,
-              },
-            ],
-            productConfiguration: {
-              productId: product.productId,
-              productVariantId: selectedVariant.variantId,
-            },
-            quantity,
+            key: "media",
+            value: product.media[0]?.URLs?.large,
           },
-        ]);
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity,
+      },
+    ]);
+  } else {
+    let itemAdded = false;
+    // Check if the selected variant is already in the cart
+    for (let i = 0; i < cart?.items?.length; i++) {
+      // console.log(cart.items[i].productConfiguration.productId, "id in cart");
+      // console.log(product.productId, "id without cart");
+      if (cart.items[i].productConfiguration.productId === product.productId) {
+        // If variant is already in the cart, update the quantity
+        itemAdded = true;
+        setFound(true);
+        // console.log("Already ");
+        break;
       }
     }
+    // If variant is not already in the cart, add the new item
+    if (!itemAdded) {
+      // console.log("addednn");
+      setFound(true);
+      await addItemsToCart([
+        {
+          price: {
+            amount: product.variants[0]?.pricing[0]?.minPrice,
+            currencyCode,
+          },
+          metafields: [
+            {
+              key: "media",
+              value: product.media[0]?.URLs?.large,
+            },
+          ],
+          productConfiguration: {
+            productId: product.productId,
+            productVariantId: selectedVariant.variantId,
+          },
+          quantity,
+        },
 
-    return "Item added to cart";
-  };
+        ]);
+      }
+  }
+  return "Item added to cart";
+};
 
   const handleOnClick = async (product, variant) => {
     // Pass chosen quantity to onClick callback
@@ -299,6 +342,7 @@ const Justin = (props) => {
                     className={classes.cart}
                     // disabled={cart.includes(shoe.id)}
                     onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                    disabled={disabledButtons[item?.node?.product?.productId]}
                   >
                     <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                     <Typography
@@ -306,7 +350,8 @@ const Justin = (props) => {
                       variant="h5"
                       component="h2"
                     >
-                      + Cart{" "}
+                      {" "}
+                      {disabledButtons[item?.node?.product?.productId] ? "Added" : "+ Cart"}
                     </Typography>
                   </Button>
                 </div>
