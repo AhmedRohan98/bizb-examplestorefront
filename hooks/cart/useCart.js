@@ -158,35 +158,35 @@ export default function useCart() {
     [cartStore.anonymousCartId, cartStore.accountCartId, cartStore.anonymousCartToken]
   );
 
-  const handleAddItemsToCart = async (data, isCreating) => {
-    const input = {
-      items: data.items
-    };
-
-    if (!isCreating && (!viewer || !viewer._id) && cartStore.hasAnonymousCartCredentials) {
-      // Given an anonymous user, with a cart, add token and cartId to input
-      const { anonymousCartId, anonymousCartToken } = cartStore;
-
-      // Add items to an existing anonymous cart
-      input.cartToken = anonymousCartToken;
-      input.cartId = anonymousCartId;
-    } else if (!isCreating && viewer && viewer._id && cartStore.hasAccountCart) {
-      // With an account and an account cart, set the accountCartId on the input object
-      input.cartId = cartStore.accountCartId;
-    } else if (isCreating) {
-      // With no anonymous or account cart, add shop Id to input as it will be needed for the create cart mutation
-      input.shopId = shop._id;
-    }
-
-    // Run the mutation function provided as a param.
-    // It may take the form of `createCart` or `addCartItems` depending on the
-    // availability of a cart for either an anonymous or logged-in account.
-    return addOrCreateCartMutation({
-      variables: {
-        input
-      }
-    });
+const handleAddItemsToCart = async (data, isCreating) => {
+  const input = {
+    items: data.items,
   };
+
+  if (!isCreating && (!viewer || !viewer._id) && cartStore.hasAnonymousCartCredentials) {
+    // Given an anonymous user, with a cart, add token and cartId to input
+    const { anonymousCartId, anonymousCartToken } = cartStore;
+
+    // Add items to an existing anonymous cart
+    input.cartToken = anonymousCartToken;
+    input.cartId = anonymousCartId;
+  } else if (!isCreating && viewer && viewer._id && cartStore.hasAccountCart) {
+    // With an account and an account cart, set the accountCartId on the input object
+    input.cartId = cartStore.accountCartId;
+  } else if (isCreating) {
+    // With no anonymous or account cart, add shop Id to input as it will be needed for the create cart mutation
+    input.shopId = shop._id;
+  }
+
+  // Run the mutation function provided as a param.
+  // It may take the form of `createCart` or `addCartItems` depending on the
+  // availability of a cart for either an anonymous or logged-in account.
+  return addOrCreateCartMutation({
+    variables: {
+      input,
+    },
+  });
+};
 
   const handleUpdateFulfillmentOptionsForGroup = async (fulfillmentGroupId) => {
     await apolloClient.mutate({
