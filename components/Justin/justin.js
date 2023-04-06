@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   main: {
     width: "100%",
     padding: "75px",
+    [theme.breakpoints.down("xs")]: {
+      padding: "0",
+    },
   },
   cardaction: {
     height: 312,
@@ -198,15 +201,15 @@ const Justin = (props) => {
     }
 
     for (let i = 0; i < cart.items.length; i++) {
-      console.log("cart items , ", cart.items.length);
-      console.log("productConfiguration", cart.items[i].productConfiguration.productId);
-      console.log("product id , ", product.productId);
+      // console.log("cart items , ", cart.items.length);
+      // console.log("productConfiguration", cart.items[i].productConfiguration.productId);
+      // console.log("product id , ", product.productId);
       if (cart.items[i].productConfiguration.productId === product.productId) {
         setFound(true);
         setDisableButton(true);
-        console.log("stopped");
+        // console.log("stopped");
       } else {
-        console.log("added");
+        // console.log("added");
         addItemsToCart([
           {
             price: {

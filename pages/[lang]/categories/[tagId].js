@@ -2441,7 +2441,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
           </Grid>
           {/* Products Below Image   */}
           <Grid container className={classes.gridroot}>
-            {console.log("These are displayed products", displayedProducts)}
+            {/* {console.log("These are displayed products", displayedProducts)} */}
             {displayedProducts?.map((item) => (
               <>
                 <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
