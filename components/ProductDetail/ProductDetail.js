@@ -608,12 +608,12 @@ const ProductDetail = ({ ...props }) => {
                 }}
                 modules={[Navigation, Thumbs]}
               >
-                {product?.media[0].URLs.medium &&
-                  slides.map((slide, index) => {
+                {product?.variants[0].media[1] &&
+                  product?.variants[0].media.map((slide, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <div className={classes.thumbimage}>
-                          <img src={product?.media[0].URLs.thumbnail} alt="" className={classes.thumbimage} />
+                          <img src={slide.URLs.thumbnail} alt="" className={classes.thumbimage} />
                         </div>
                       </SwiperSlide>
                     );
@@ -649,13 +649,13 @@ const ProductDetail = ({ ...props }) => {
               modules={[Navigation, Thumbs, Mousewheel, Pagination]}
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
             >
-              {slide.map((slide, index) => {
+              {product?.variants[0].media.map((slide, index) => {
                 return (
                   <SwiperSlide key={index} className={classes.swiperimag}>
                     <div className={classes.controller}>
-                      <img src={product?.media[0].URLs.large} alt="" className={classes.sliderimage2} />
+                      <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
 
-                      {activeIndex < slides.length - 1 ? (
+                      {activeIndex.length ? (
                         <ArrowForwardIos
                           className={classes.iconforwad}
                           style={{ fill: "#FDC114" }}
@@ -664,7 +664,7 @@ const ProductDetail = ({ ...props }) => {
                       ) : (
                         ""
                       )}
-                      {activeIndex - 0 ? (
+                      {activeIndex.length? (
                         <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
                       ) : (
                         ""
