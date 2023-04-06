@@ -8,7 +8,7 @@ import Storyslider from "./storiesslide";
 const Story = (props) => {
   // console.log("all props....", props);
   const catagories = props?.nodes;
-  const catgormobile = catagories.slice(0, 3);
+  const catgormobile = catagories?.slice(0, 3);
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
     root: {
