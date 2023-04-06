@@ -389,7 +389,7 @@ const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
   const { product, catalogItems } = props;
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
-
+console.log("dddd",product)
   const filteredProducts = catalogItems?.filter((product) => {
     const productTags = product?.node?.product?.tagIds;
     if (!productTags) {
@@ -481,8 +481,8 @@ const ProductDetail = ({ ...props }) => {
       await addItemsToCart([
         {
           price: {
-            amount: price.price,
-            currencyCode,
+            amount: product.variants[0]?.pricing[0]?.price,
+            currencyCode: "USD",
           },
 
           metafields: [
@@ -664,7 +664,7 @@ const ProductDetail = ({ ...props }) => {
                       ) : (
                         ""
                       )}
-                      {activeIndex.length? (
+                      {activeIndex.length ? (
                         <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
                       ) : (
                         ""
@@ -693,7 +693,8 @@ const ProductDetail = ({ ...props }) => {
                       variant="h4"
                       className={classes.price2}
                     >
-                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/\$/g, "RS ")}
+                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/\.00$/, "")
+                        ?.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
                   <Typography
@@ -702,7 +703,7 @@ const ProductDetail = ({ ...props }) => {
                     variant="h4"
                     className={classes.price}
                   >
-                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
+                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
                   </Typography>
                 </div>
                 <Typography gutterBottom variant="h4" className={classes.offer}>

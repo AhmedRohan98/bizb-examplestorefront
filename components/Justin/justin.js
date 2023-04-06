@@ -376,13 +376,14 @@ const handleAddToCartClick = async (quantity, product, variant) => {
                   <div className={classes.size}>
                     {" "}
                     <strike>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-                        /\$/g,
-                        "RS ",
-                      )}
+                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                        ?.replace(/\.00$/, "")
+                        .replace(/\$/g, "RS ")}
                     </strike>
                     <Typography gutterBottom variant="h5" className={classes.price}>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
+                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                        ?.replace(/\.00$/, "")
+                        .replace(/\$/g, "RS ")}
                     </Typography>
                   </div>
                 </Box>

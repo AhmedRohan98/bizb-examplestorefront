@@ -256,8 +256,8 @@ const useStyles = makeStyles((theme) => ({
   },
   socialmedia2: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "start",
+    justifyContent: "start",
     flexWrap: "wrap",
   },
   switchEntryMode: {
@@ -343,7 +343,7 @@ const CheckoutComplete =() =>{
 
               <>
                 <Typography variant="body1">REGISTRATION </Typography>
-                {/* <form className={classes.root} onSubmit={handleSubmit}>
+                <form className={classes.root} onSubmit={handleSubmit}>
                   <Grid container>
                     <Grid xs={12} item>
                       <label className={classes.label}>
@@ -389,51 +389,6 @@ const CheckoutComplete =() =>{
                     </Grid>
 
                     <Grid item xs={12}>
-                      <label className={classes.label} htmlFor="phonenumber">
-                        <span className={classes.labelSpan}>
-                          Phone Number <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your Phone Number"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="number"
-                          autoComplete="off"
-                          name="phonenumber"
-                          id="phonenumber"
-                          value={values.phonenumber}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {touched.phonenumber && errors.phonenumber ? (
-                        <p className={classes.formerror}>{errors.phonenumber}</p>
-                      ) : null}
-                    </Grid>
-                    <Grid item xs={12}>
-                      <label className={classes.label} htmlFor="password">
-                        <span className={classes.labelSpan}>
-                          Password <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your Password"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="password"
-                          autoComplete="off"
-                          name="password"
-                          id="password"
-                          value={values.password}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {errors.password && touched.password ? (
-                        <p className={classes.formerror}>{errors.password}</p>
-                      ) : null}
-                    </Grid>
-
-                    <Grid item xs={12}>
                       <label className={classes.label} htmlFor="confirm_password">
                         <span className={classes.labelSpan}>
                           Re-Enter Password <span style={{ color: "#FD1010" }}>*</span>
@@ -457,17 +412,7 @@ const CheckoutComplete =() =>{
                       ) : null}
                     </Grid>
                   </Grid>
-                  <div className={classes.checkboxdiv}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox  className={classes.checkbox} />
-                      }
-                    />
-                    <Typography variant="body2" className={classes.terms}>
-                      {" "}
-                      Agree Term & Conditions
-                    </Typography>
-                  </div>
+             
                   <div className={classes.socialmedia2}>
                     <Button
                       className={classes.register}
@@ -476,38 +421,10 @@ const CheckoutComplete =() =>{
                       type="submit"
                       role="button"
                     >
-                      Register
+                      SUBMIT
                     </Button>
                   </div>
-                  <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
-                  <div className={classes.socialmediaAuth}>
-                    <Box className={classes.socialmedia}>
-                      <img style={{ marginLeft: "15px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
-                      <Typography variant="h5" className={classes.register2}>
-                        Register With Google
-                      </Typography>
-                    </Box>
-                    <Box className={classes.socialmedia}>
-                      <img style={{ marginLeft: "15px" }} src="/authentication/signup4.svg" alt="Login-SignUP" />
-                      <Typography variant="h5" className={classes.register2}>
-                        Register With Facebook
-                      </Typography>
-                    </Box>
-                  </div>
-
-                  {!!error && <div className={classes.formerror}>{error}</div>}
-                  <div
-                    className={classes.switchEntryMode}
-                    onClick={handleOpenLogIn}
-                    onKeyDown={handleOpenLogIn}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <Typography variant="h5">
-                      Don't have an account ? <span className={classes.switchaccout}>Login</span>
-                    </Typography>
-                  </div>
-                </form> */}
+                </form>
               </>
               <Typography className={classes.connect}>Make Your Wardrobe Smart Using Our App</Typography>
               <img src="/cart/mobile.svg" className={classes.imagemobile} alt="thanyou"></img>
