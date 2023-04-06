@@ -9,7 +9,8 @@ const OurBlogs = () => {
       padding: "50px",
     },
     look: {
-      height: "225px",
+      overflow: "hidden",
+      height: "450px",
       width: "426px",
       marginTop: theme.spacing(2),
       display: "flex",
@@ -26,7 +27,8 @@ const OurBlogs = () => {
       },
     },
     wardrobe: {
-      height: "225px",
+      overflow: "hidden",
+      height: "450px",
       width: "426px",
       marginTop: theme.spacing(2),
       display: "flex",
@@ -42,7 +44,8 @@ const OurBlogs = () => {
       },
     },
     trend: {
-      height: "225px",
+      overflow: "hidden",
+      height: "450px",
       width: "426px",
       marginTop: theme.spacing(2),
       display: "flex",
@@ -90,6 +93,7 @@ const OurBlogs = () => {
       <Grid container spacing={0} className={classes.gridroot}>
         <Grid item>
           <Box className={classes.look}>
+            <img style={{ overflow: "hidden" }} src="/blogsImages/2.webp" />
             <Typography variant="h4" className={classes.blogtext}>
               Get the perfect Look
             </Typography>
@@ -97,7 +101,10 @@ const OurBlogs = () => {
             <Typography variant="h6" className={classes.blogtext}>
               Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But
               even the queen needs some…{" "}
-              <a href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/">
+              <a
+                target="_blank"
+                href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
+              >
                 <span className={classes.blogtextr}>Read More</span>
               </a>
             </Typography>
@@ -105,13 +112,17 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.wardrobe}>
+            <img style={{ overflow: "hidden" }} src="/blogsImages/3.png" />
             <Typography variant="h4" className={classes.blogtext}>
-              Get the perfect Look
+              Circular Economy
             </Typography>
             <Typography variant="h6" className={classes.blogtext}>
-              Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But
-              even the queen needs some…{" "}
-              <a href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/">
+              Why is second hand apparel so important for the planet? Because sustainability and ethical consumerism is
+              one of the biggest issues …{" "}
+              <a
+                target="_blank"
+                href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
+              >
                 <span className={classes.blogtextr}>Read More</span>
               </a>
             </Typography>
@@ -119,13 +130,14 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.trend}>
+            <img style={{ overflow: "hidden" }} src="/blogsImages/1.jpg" />
             <Typography variant="h4" className={classes.blogtext}>
-              Get the perfect Look
+              Making Sustainability Stylish
             </Typography>
             <Typography variant="h6" className={classes.blogtext}>
-              Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But
-              even the queen needs some…
-              <a href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/">
+              Second-hand market has been on the rise across the globe for years with the COVID-19 pandemic providing an
+              additional boost bringing…
+              <a target="_blank" href="https://bizb.store/preloved-clothing-making-fashion-sustainable-in-pakistan/">
                 <span className={classes.blogtextr}>Read More</span>
               </a>
             </Typography>
