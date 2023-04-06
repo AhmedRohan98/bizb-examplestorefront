@@ -216,7 +216,7 @@ const handleAddToCartClick = async (quantity, product, variant) => {
   if (cart?.items?.length === 0) {
     // If cart is empty, add the new item
     console.log("added");
-    addItemsToCart([
+    await addItemsToCart([
       {
         price: {
           amount: product.variants[0]?.pricing[0]?.minPrice,
@@ -236,23 +236,24 @@ const handleAddToCartClick = async (quantity, product, variant) => {
       },
     ]);
   } else {
-    let found = false;
+    let itemAdded = false;
     // Check if the selected variant is already in the cart
     for (let i = 0; i < cart?.items?.length; i++) {
-      if (cart.items[i].productConfiguration.productVariantId === selectedVariant.variantId) {
+      console.log(cart.items[i].productConfiguration.productId, "id in cart");
+      console.log(product.productId, "id without cart");
+      if (cart.items[i].productConfiguration.productId === product.productId) {
         // If variant is already in the cart, update the quantity
-        found = true;
+        itemAdded = true;
         setFound(true);
-        setDisableButton(true);
-        console.log("updated");
-        console.log("Already added")
+        console.log("Already ");
         break;
       }
     }
     // If variant is not already in the cart, add the new item
-    if (!found) {
-      console.log("added");
-      addItemsToCart([
+    if (!itemAdded) {
+      console.log("addednn");
+      setFound(true);
+      await addItemsToCart([
         {
           price: {
             amount: product.variants[0]?.pricing[0]?.minPrice,
@@ -270,12 +271,12 @@ const handleAddToCartClick = async (quantity, product, variant) => {
           },
           quantity,
         },
-      ]);
-    }
-  }
 
-    return "Item added to cart";
-  };
+        ]);
+      }
+  }
+  return "Item added to cart";
+};
 
   const handleOnClick = async (product, variant) => {
     // Pass chosen quantity to onClick callback
