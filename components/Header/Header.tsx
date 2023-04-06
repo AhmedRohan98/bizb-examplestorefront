@@ -51,6 +51,7 @@ const styles = (theme: Theme) =>
       paddingTop: "20px",
       height: "170px",
       zIndex: 1200,
+      
     },
     light: {
       color: "#FFFFFF",

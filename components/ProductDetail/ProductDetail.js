@@ -39,11 +39,9 @@ const styles = (theme) => ({
   slidercol: {
     display: "flex",
     flexDirection: "column",
-
     display: "contents",
     [theme.breakpoints.down(1100)]: {
       display: "none",
-
       width: "0px",
       height: "0px",
     },
@@ -76,7 +74,6 @@ const styles = (theme) => ({
     background: "#333333",
     color: "FDC114",
     borderRadius: "4px",
-
     zIndex: 1251,
   },
   iconback: {
@@ -139,7 +136,6 @@ const styles = (theme) => ({
   main: {
     padding: "3vh",
     width: "100%",
-
     padding: theme.spacing(4),
   },
   cardaction: {
@@ -157,7 +153,6 @@ const styles = (theme) => ({
     width: "100%",
     display: "flex",
     alignItems: "baseline",
-
     position: "relative",
     justifyContent: "center",
   },
@@ -165,7 +160,6 @@ const styles = (theme) => ({
     background: "#333333",
     opacity: "15%",
     height: "8px",
-
     width: "180px",
   },
 
@@ -215,23 +209,19 @@ const styles = (theme) => ({
     position: "relative",
     display: "inline-grid",
     width: "312px",
-
     maxWidth: "312px",
     marginLeft: "10px",
     marginRight: "10px",
   },
   cartbackground: {
     background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-
     borderRadius: "0px 0px 16px 16px",
-
     alignItems: "center",
     justifyContent: "initial",
     height: "75px",
     width: "100%",
     bottom: "20%",
     display: "inline-grid",
-
     width: "100%",
     marginTop: " -75px",
     padding: "13px 20px",
@@ -275,13 +265,11 @@ const styles = (theme) => ({
     background: "green",
     color: "white",
   },
-
   related: {
     color: "#000000",
     marginLeft: theme.spacing(5),
     margin: theme.spacing(5),
   },
-
   cart2: {
     height: "35px",
     width: "100%",
@@ -293,12 +281,16 @@ const styles = (theme) => ({
     cursor: "pointer",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
+    "&.MuiButton-root:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      backgroundColor: "#FDC114",
+    },
   },
   carttext: {
     justifySelf: "end",
     width: "533px",
   },
-
   sliderimage2: {
     borderRadius: "18px",
     position: "relative",
@@ -316,8 +308,7 @@ const styles = (theme) => ({
     borderRadius: "18px",
     height: "180px",
     width: "180px",
-    paddingTop: "10px",
-  
+    // paddingTop: "10px",
   },
   carttex: {
     fontSize: "18px",
@@ -395,7 +386,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  console.log(props, "new");
+  // console.log(props, "new");
   const { product, catalogItems } = props;
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
 
@@ -408,7 +399,7 @@ const ProductDetail = ({ ...props }) => {
     return productTags?.some((tag) => tag === tagIds);
   });
 
-  console.log(filteredProducts, "fil");
+  // console.log(filteredProducts,"fil")
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -533,7 +524,6 @@ const ProductDetail = ({ ...props }) => {
    * use the selected option if available, otherwise it will use the selected variant.
    * @returns {Object} An pricing object
    */
- 
 
   const {
     classes,
@@ -586,7 +576,7 @@ const ProductDetail = ({ ...props }) => {
       <Box className={classes.slider}>
         <Grid
           container
-          spacing={2}
+          spacing={0}
           className={classes.sliderflex}
           xs={12}
           md={12}
@@ -725,15 +715,13 @@ const ProductDetail = ({ ...props }) => {
                   {product?.variants[0]?.media[0]?.optionTitle?.json.parse(size)}
                 </Typography>
               </div>
-              <div className={classes.cart2}>
-                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                <Typography
-                  style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                  variant="h4"
-                  onClick={handleOnClick}
-                >
-                  + Cart{" "}
-                </Typography>
+              <div>
+                <Button className={classes.cart2} fullWidth onClick={handleOnClick}>
+                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                  <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
+                    + Cart{" "}
+                  </Typography>
+                </Button>
               </div>
               <TabContext value={value}>
                 <TabList onChange={handleChange} className={classes.tabs}>

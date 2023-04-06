@@ -304,6 +304,7 @@ const useStyles = makeStyles((theme) => ({
     width: "312px",
     flexDirection: "column",
   },
+
   spanofnextword: {
     color: "#FDC114",
   },
@@ -360,10 +361,37 @@ const useStyles = makeStyles((theme) => ({
   },
   categorytoggle: {
     marginLeft: theme.spacing(2),
+    cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+    },
+  },
+  rootimg: {
+    position: "relative",
+    display: "inline-grid",
+    width: "312px",
+
+    maxWidth: "312px",
+    marginLeft: "10px",
+    marginRight: "10px",
+  },
+  cartbackground: {
+    background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+    borderRadius: "0px 0px 16px 16px",
+    alignItems: "center",
+    justifyContent: "initial",
+    height: "75px",
+    width: "100%",
+    bottom: "20%",
+    display: "inline-grid",
+    width: "100%",
+    marginTop: " -75px",
+    padding: "13px 20px",
   },
   massonary: {
     width: "92%",
-    margin: "8%",
+    // margin: "8%",
   },
   loadmore: {
     width: "305px",
@@ -542,6 +570,13 @@ const useStyles = makeStyles((theme) => ({
         display: "block",
       },
     },
+  },
+  gridroot: {
+    width: "100%",
+    display: "flex",
+    alignItems: "baseline",
+    position: "relative",
+    justifyContent: "space-between",
   },
 }));
 function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
@@ -795,12 +830,12 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     {
       image: "/categoriestypes/cat1.svg",
       id: 1,
-      title: "Causal",
+      title: "Casual",
     },
     {
       image: "/categoriestypes/cat2.svg",
       id: 2,
-      title: "Westren",
+      title: "Western",
     },
     {
       image: "/categoriestypes/cat3.svg",
@@ -1908,12 +1943,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const style = {
     position: "fixed",
     borderRadius: "8px",
+    marginTop: "12px",
     left: "12%",
     width: 330,
     bgcolor: "#ffffff",
     outline: "none",
     boxShadow: 24,
     p: 2,
+    minHeight: "0",
   };
 
   const customStylesMobSize = {
@@ -2287,12 +2324,12 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
             lg={12}
             sm={12}
             md={12}
-            align="center"
-            justify="center"
-            alignItems="center"
+            // align="center"
+            // justify="center"
+            // alignItems="center"
             className={classes.grid1}
           >
-            <Grid item lg={6} xs={12} sm={6} md={12}>
+            <Grid style={{ display: "flex", justifyContent: "end" }} item lg={6} xs={12} sm={6} md={12}>
               <div className={classes.mainimage}>
                 <div className={classes.categoriestext}>
                   <div className={classes.categoriestexts}>
@@ -2311,7 +2348,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                     /> */}
                   </div>
                 </div>
-                <img src="/categories/mainCategory.svg" className={classes.imageg} />
+                <img style={{ borderRadius: "16px" }} src="/categories/mainCategory.svg" className={classes.imageg} />
                 <Popover
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -2341,71 +2378,17 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
               xs={12}
               sm={6}
               md={12}
-              align="center"
-              justify="center"
-              alignItems="center"
+              // align="center"
+              // justify="center"
+              // alignItems="center"
               className={classes.grid1}
             >
-              {firstfour?.map((item, key) => (
-                <>
-                  <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                    {/* {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")} */}
-
-                    <img
-                      src={
-                        !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                          ? "/justin/justin4.svg"
-                          : item?.node?.product?.primaryImage?.URLs?.large
-                      }
-                      className={classes.image}
-                      key={item?.node?.product?.id}
-                      alt={"hhhh"}
-                      onClick={() => clickHandler(item.node.product.slug)}
-                    />
-
-                    <div className={classes.cartbackground}>
-                      <Button
-                        className={classes.cart}
-                        // disabled={cart.includes(shoe.id)}
-                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                      >
-                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
-                          + Cart{" "}
-                        </Typography>
-                      </Button>
-                    </div>
-                    <Box className={classes.maintitle}>
-                      <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                        {item?.node?.product.title}
-                      </Typography>
-                      <div className={classes.size}>
-                        <Typography gutterBottom variant="h4">
-                          Size
-                        </Typography>
-                        <Typography gutterBottom variant="h4">
-                          :Large
-                        </Typography>
-                      </div>
-                      <div className={classes.size}>
-                        {" "}
-                        <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
-                        <Typography gutterBottom variant="h5" className={classes.price}>
-                          {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
-                        </Typography>
-                      </div>
-                    </Box>
-                  </Grid>
-                </>
-              ))}
-            </Grid>
-          </Grid>
-          <div className={classes.massonary}>
-            <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
-              <Masonry>
-                {displayedProducts?.map((item) => (
+              <Grid container>
+                {firstfour?.map((item, key) => (
                   <>
                     <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
+                      {/* {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")} */}
+
                       <img
                         src={
                           !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
@@ -2453,9 +2436,70 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
                     </Grid>
                   </>
                 ))}
+              </Grid>
+            </Grid>
+          </Grid>
+          {/* Products Below Image   */}
+          <Grid container className={classes.gridroot}>
+            {/* {console.log("These are displayed products", displayedProducts)} */}
+            {displayedProducts?.map((item) => (
+              <>
+                <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
+                  <img
+                    src={
+                      !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
+                        ? "/justin/justin4.svg"
+                        : item?.node?.product?.primaryImage?.URLs?.large
+                    }
+                    className={classes.image}
+                    key={item?.node?.product?.id}
+                    alt={"hhhh"}
+                    onClick={() => clickHandler(item.node.product.slug)}
+                  />
+
+                  <div className={classes.cartbackground}>
+                    <Button
+                      className={classes.cart}
+                      // disabled={cart.includes(shoe.id)}
+                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                    >
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
+                        + Cart{" "}
+                      </Typography>
+                    </Button>
+                  </div>
+                  <Box className={classes.maintitle}>
+                    <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
+                      {item?.node?.product.title}
+                    </Typography>
+                    <div className={classes.size}>
+                      <Typography gutterBottom variant="h4">
+                        Size
+                      </Typography>
+                      <Typography gutterBottom variant="h4">
+                        :Large
+                      </Typography>
+                    </div>
+                    <div className={classes.size}>
+                      {" "}
+                      <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
+                      <Typography gutterBottom variant="h5" className={classes.price}>
+                        {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                      </Typography>
+                    </div>
+                  </Box>
+                </Grid>
+              </>
+            ))}
+          </Grid>
+          {/* <div className={classes.massonary}>
+            <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
+              <Masonry>
+                
               </Masonry>
             </ResponsiveMasonry>
-          </div>
+          </div> */}
           {displayedProducts?.length > 2 &&
             displayedProducts &&
             displayedProducts?.length !== fourprouduts?.length - 4 && (

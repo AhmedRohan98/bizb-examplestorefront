@@ -16,7 +16,7 @@ initialState = { isSavingEmail:false };
 const setEmailAddress = (value) => new Promise((resolve, reject) => {
   setState({isSavingEmail: true});
   setTimeout(() => {
-    console.log("GuestForm value", value)
+    // console.log("GuestForm value", value)
     setState({isSavingEmail: false});
     resolve(value);
   }, 5000);

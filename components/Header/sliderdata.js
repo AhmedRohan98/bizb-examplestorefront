@@ -45,7 +45,6 @@ const MainSlider = (props) => {
     },
     controllera: {
       position: "absolute",
-
       display: "flex",
       flexDirection: "row",
       gap: "4vh",
@@ -126,7 +125,7 @@ const MainSlider = (props) => {
   }));
   const ITEMS = [
     {
-      image: "/Desktop-images/desktop2.svg",
+      image: "/Desktop-images/desktop1.svg",
       id: 1,
     },
     {
@@ -143,7 +142,7 @@ const MainSlider = (props) => {
     },
 
     {
-      image: "/Desktop-images/desktop6.svg",
+      image: "/Desktop-images/desktop5.svg",
       id: 6,
     },
   ];
@@ -168,10 +167,14 @@ const MainSlider = (props) => {
             </div>
             <div className={classes.controllera}>
               {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
+              <div style={{ display: "flex" }}>
+                <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
+                <h1 style={{ marginRight: "5px", marginLeft: "5px" }} className={classes.arrowc}>
+                  |
+                </h1>
+                <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+              </div>
 
-              <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
-              <h1 className={classes.arrowc}>|</h1>
-              <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
               {activeIndex < ITEMS.length - 1 ? (
                 <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
               ) : (

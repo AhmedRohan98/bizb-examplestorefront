@@ -14,38 +14,35 @@ import CloseIcon from "@material-ui/icons/Close";
 import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   main: {
-    padding: "3vh",
     width: "100%",
-
-    padding: theme.spacing(4),
+    padding: "75px",
+    [theme.breakpoints.down("xs")]: {
+      padding: "0",
+    },
   },
   cardaction: {
     height: 312,
     width: 312,
   },
-
   root: {
     display: "flex",
     width: "100%",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   gridroot: {
     width: "100%",
     display: "flex",
     alignItems: "baseline",
-
     position: "relative",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   typography: {
     background: "#333333",
     opacity: "15%",
     height: "8px",
-
     width: "180px",
   },
-
   text: {
     position: "absolute",
     bottom: 60,
@@ -54,12 +51,10 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     position: "relative",
   },
-
   headermain: {
     display: "flex",
     justifyContent: "space-between",
   },
-
   image: {
     width: "312px",
     maxHeight: "450px",
@@ -99,16 +94,13 @@ const useStyles = makeStyles((theme) => ({
   },
   cartbackground: {
     background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-
     borderRadius: "0px 0px 16px 16px",
-
     alignItems: "center",
     justifyContent: "initial",
     height: "75px",
     width: "100%",
     bottom: "20%",
     display: "inline-grid",
-
     width: "100%",
     marginTop: " -75px",
     padding: "13px 20px",
@@ -208,66 +200,37 @@ const Justin = (props) => {
       return "Invalid parameters";
     }
 
-  if (cart?.items?.length === 0) {
-    // If cart is empty, add the new item
-    console.log("added");
-    addItemsToCart([
-      {
-        price: {
-          amount: product.variants[0]?.pricing[0]?.minPrice,
-          currencyCode,
-        },
-        metafields: [
-          {
-            key: "media",
-            value: product.media[0]?.URLs?.large,
-          },
-        ],
-        productConfiguration: {
-          productId: product.productId,
-          productVariantId: selectedVariant.variantId,
-        },
-        quantity,
-      },
-    ]);
-  } else {
-    let found = false;
-    // Check if the selected variant is already in the cart
-    for (let i = 0; i < cart?.items?.length; i++) {
-      if (cart.items[i].productConfiguration.productVariantId === selectedVariant.variantId) {
-        // If variant is already in the cart, update the quantity
-        found = true;
+    for (let i = 0; i < cart.items.length; i++) {
+      // console.log("cart items , ", cart.items.length);
+      // console.log("productConfiguration", cart.items[i].productConfiguration.productId);
+      // console.log("product id , ", product.productId);
+      if (cart.items[i].productConfiguration.productId === product.productId) {
         setFound(true);
         setDisableButton(true);
-        console.log("updated");
-        console.log("Already added")
-        break;
+        // console.log("stopped");
+      } else {
+        // console.log("added");
+        addItemsToCart([
+          {
+            price: {
+              amount: product.variants[0]?.pricing[0]?.minPrice,
+              currencyCode,
+            },
+            metafields: [
+              {
+                key: "media",
+                value: product.media[0]?.URLs?.large,
+              },
+            ],
+            productConfiguration: {
+              productId: product.productId,
+              productVariantId: selectedVariant.variantId,
+            },
+            quantity,
+          },
+        ]);
       }
     }
-    // If variant is not already in the cart, add the new item
-    if (!found) {
-      console.log("added");
-      addItemsToCart([
-        {
-          price: {
-            amount: product.variants[0]?.pricing[0]?.minPrice,
-            currencyCode,
-          },
-          metafields: [
-            {
-              key: "media",
-              value: product.media[0]?.URLs?.large,
-            },
-          ],
-          productConfiguration: {
-            productId: product.productId,
-            productVariantId: selectedVariant.variantId,
-          },
-          quantity,
-        },
-      ]);
-    }
-  }
 
     return "Item added to cart";
   };
@@ -312,7 +275,7 @@ const Justin = (props) => {
         </div>
       </div>
       <div className={classes.root}>
-        <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
+        <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
           {catalogdata?.map((item, key) => (
             <>
               <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>

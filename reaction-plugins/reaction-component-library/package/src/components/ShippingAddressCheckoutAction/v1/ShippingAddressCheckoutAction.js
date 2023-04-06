@@ -201,7 +201,7 @@ class ShippingAddressCheckoutAction extends Component {
   };
 
   renderAddressCapture() {
-    console.log("render address capture..", this.props);
+    // console.log("render address capture..", this.props);
     const {
       addressValidationResults,
       components: { AddressCapture },
