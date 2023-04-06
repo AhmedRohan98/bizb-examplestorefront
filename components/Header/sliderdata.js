@@ -18,7 +18,7 @@ import { Link } from "react-scroll";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props?.catalogItems;
-  SwiperCore.use([ Autoplay]);
+  SwiperCore.use([Autoplay]);
   // console.log(props, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
