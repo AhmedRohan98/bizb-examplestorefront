@@ -215,7 +215,7 @@ const handleAddToCartClick = async (quantity, product, variant) => {
 
   if (cart?.items?.length === 0) {
     // If cart is empty, add the new item
-    console.log("added");
+    // console.log("added");
     await addItemsToCart([
       {
         price: {
@@ -239,19 +239,19 @@ const handleAddToCartClick = async (quantity, product, variant) => {
     let itemAdded = false;
     // Check if the selected variant is already in the cart
     for (let i = 0; i < cart?.items?.length; i++) {
-      console.log(cart.items[i].productConfiguration.productId, "id in cart");
-      console.log(product.productId, "id without cart");
+      // console.log(cart.items[i].productConfiguration.productId, "id in cart");
+      // console.log(product.productId, "id without cart");
       if (cart.items[i].productConfiguration.productId === product.productId) {
         // If variant is already in the cart, update the quantity
         itemAdded = true;
         setFound(true);
-        console.log("Already ");
+        // console.log("Already ");
         break;
       }
     }
     // If variant is not already in the cart, add the new item
     if (!itemAdded) {
-      console.log("addednn");
+      // console.log("addednn");
       setFound(true);
       await addItemsToCart([
         {
