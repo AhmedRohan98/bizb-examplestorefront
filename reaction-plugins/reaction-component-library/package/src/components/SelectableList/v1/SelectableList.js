@@ -304,8 +304,8 @@ class SelectableList extends Component {
       <StyledList>
         <fieldset>
           {options.map((option, key) => {
-            console.log('render list option...',option)
-            console.log('render list key...',key)
+            // console.log('render list option...',option)
+            // console.log('render list key...',key)
   
             return (
               <StyledWrapper key={option.id}>
@@ -333,8 +333,8 @@ class SelectableList extends Component {
     return (
       <HorizontalList>
         {options.map((option, key) => {
-          console.log('option...',option)
-          console.log('key...',key)
+          // console.log('option...',option)
+          // console.log('key...',key)
 
           return (
             <HorizontalWrapper key={option.id}>
@@ -358,7 +358,7 @@ class SelectableList extends Component {
 
   render() {
     const { className, isBordered, isHorizontal } = this.props;
-    console.log('horizontal list...')
+    // console.log('horizontal list...')
     return (
       <div className={className}>
         {// eslint-disable-next-line

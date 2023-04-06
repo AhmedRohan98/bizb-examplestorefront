@@ -249,7 +249,7 @@ const CheckoutActions = (prop) => {
  const [selectedOption, setSelectedOption] = useState(null);
   const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
   const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
-  console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
+  // console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
   const [checkedEmail, setCheckedEmail] = React.useState(true);
   const [placeOrder] = useMutation(placeOrderQuery);
 
