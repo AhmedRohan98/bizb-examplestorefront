@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
-
+import { JSON } from "global";
 import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -149,13 +149,12 @@ const useStyles = makeStyles((theme) => ({
 const Justin = (props) => {
   const catalogdata = props?.catalogItems;
   const [found, setFound] = useState(false);
-   const [disabledButtons, setDisabledButtons] = useState({});
-    const [addToCartQuantity, setAddToCartQuantity] = useState(1);
-    const {cart}=props
-  console.log(cart, "cartx");
+  const [disabledButtons, setDisabledButtons] = useState({});
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  const { cart } = props;
+  console.log(catalogdata, "cartx");
   useEffect(() => {
     if (cart?.items?.length) {
-   
       const filteredProducts = catalogdata?.filter((product) => {
         const productTags = product?.productId;
         if (!productTags) {
@@ -171,7 +170,6 @@ const Justin = (props) => {
 
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
-  
 
     function determineProductPrice() {
       const { currencyCode, product } = props;
@@ -201,70 +199,29 @@ const Justin = (props) => {
     Router.replace("/product/[...slugOrId]", `/product/${product.slug}/${selectOptionId || variantId}`);
   }
 
+  const handleAddToCartClick = async (quantity, product, variant) => {
+    const {
+      addItemsToCart,
+      currencyCode,
+      cart,
+      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+    } = props;
 
-const handleAddToCartClick = async (quantity, product, variant) => {
-  const {
-    addItemsToCart,
-    currencyCode,
-    cart,
-    uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
-  } = props;
+    // Disable button after it has been clicked
 
-  // Disable button after it has been clicked
-  
-  
-  
+    // console.log(pdpSelectedVariantId, "star");
 
-  // console.log(pdpSelectedVariantId, "star");
+    // Get selected variant or variant optiono
+    const selectedVariant = variantById(product.variants, variant._id);
 
-  // Get selected variant or variant optiono
-  const selectedVariant = variantById(product.variants, variant._id);
-
-  // console.log("selected variant..", selectedVariantOrOption);
-  if (!selectedVariant || !cart) {
-    return "Invalid parameters";
-  }
-
-  if (cart?.items?.length === 0) {
-    // If cart is empty, add the new item
-    // console.log("added");
-    await addItemsToCart([
-      {
-        price: {
-          amount: product.variants[0]?.pricing[0]?.minPrice,
-          currencyCode: "USD",
-        },
-        metafields: [
-          {
-            key: "media",
-            value: product.media[0]?.URLs?.large,
-          },
-        ],
-        productConfiguration: {
-          productId: product.productId,
-          productVariantId: selectedVariant.variantId,
-        },
-        quantity,
-      },
-    ]);
-  } else {
-    let itemAdded = false;
-    // Check if the selected variant is already in the cart
-    for (let i = 0; i < cart?.items?.length; i++) {
-      // console.log(cart.items[i].productConfiguration.productId, "id in cart");
-      // console.log(product.productId, "id without cart");
-      if (cart.items[i].productConfiguration.productId === product.productId) {
-        // If variant is already in the cart, update the quantity
-        itemAdded = true;
-        setFound(true);
-        // console.log("Already ");
-        break;
-      }
+    // console.log("selected variant..", selectedVariantOrOption);
+    if (!selectedVariant || !cart) {
+      return "Invalid parameters";
     }
-    // If variant is not already in the cart, add the new item
-    if (!itemAdded) {
-      // console.log("addednn");
-      setFound(true);
+
+    if (cart?.items?.length === 0) {
+      // If cart is empty, add the new item
+      // console.log("added");
       await addItemsToCart([
         {
           price: {
@@ -284,10 +241,47 @@ const handleAddToCartClick = async (quantity, product, variant) => {
           quantity,
         },
       ]);
+    } else {
+      let itemAdded = false;
+      // Check if the selected variant is already in the cart
+      for (let i = 0; i < cart?.items?.length; i++) {
+        // console.log(cart.items[i].productConfiguration.productId, "id in cart");
+        // console.log(product.productId, "id without cart");
+        if (cart.items[i].productConfiguration.productId === product.productId) {
+          // If variant is already in the cart, update the quantity
+          itemAdded = true;
+          setFound(true);
+          // console.log("Already ");
+          break;
+        }
       }
-  }
-  return "Item added to cart";
-};
+      // If variant is not already in the cart, add the new item
+      if (!itemAdded) {
+        // console.log("addednn");
+        setFound(true);
+        await addItemsToCart([
+          {
+            price: {
+              amount: product.variants[0]?.pricing[0]?.minPrice,
+              currencyCode: "USD",
+            },
+            metafields: [
+              {
+                key: "media",
+                value: product.media[0]?.URLs?.large,
+              },
+            ],
+            productConfiguration: {
+              productId: product.productId,
+              productVariantId: selectedVariant.variantId,
+            },
+            quantity,
+          },
+        ]);
+      }
+    }
+    return "Item added to cart";
+  };
 
   const handleOnClick = async (product, variant) => {
     // Pass chosen quantity to onClick callback
@@ -330,77 +324,89 @@ const handleAddToCartClick = async (quantity, product, variant) => {
       </div>
       <div className={classes.root}>
         <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
-          {catalogdata?.map((item, key) => (
-            <>
-              <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                <Link
-                  href={item.node.product.slug && "en/product/[...slugOrId]"}
-                  as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                >
-                  <img
-                    src={
-                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.media[0]?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                  />
-                </Link>
-                <div className={classes.cartbackground}>
-                  <Button
-                    className={classes.cart}
-                    // disabled={cart.includes(shoe.id)}
-                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                    disabled={disabledButtons[item?.node?.product?.productId]}
+          {catalogdata?.map((item, key) => {
+            const cartitem = props?.cart?.items;
+            const isDisabled = cartitem?.some((data) => {
+              return data.productConfiguration.productId === item?.node?.product?.productId;
+            });
+            console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+           const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+           const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+           const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+
+            return (
+              <>
+                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                  <Link
+                    href={item.node.product.slug && "en/product/[...slugOrId]"}
+                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                   >
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography
-                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                      variant="h5"
-                      component="h2"
+                    <img
+                      src={
+                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                          ? "/justin/justin4.svg"
+                          : item?.node?.product?.media[0]?.URLs?.large
+                      }
+                      className={classes.image}
+                      key={item?.node?.product?.id}
+                      alt={"hhhh"}
+                    />
+                  </Link>
+                  <div className={classes.cartbackground}>
+                    <Button
+                      className={classes.cart}
+                      // disabled={cart.includes(shoe.id)}
+                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                      // disabled={disabledButtons[item?.node?.product?.productId]}
+                      disabled={isDisabled ? "Added" : "+ Cart"}
                     >
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography
+                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                        variant="h5"
+                        component="h2"
+                      >
+                        {" "}
+                        {disabledButtons[item?.node?.product?.productId] ? "Added" : "+ Cart"}
+                      </Typography>
+                    </Button>
+                  </div>
+                  <Box className={classes.maintitle}>
+                    <Typography
+                      style={{ fontWeight: "700", fontSize: "24px" }}
+                      gutterBottom
+                      variant="h4"
+                      component="h2"
+                      className={classes.carttitle}
+                    >
+                      {item.node.product.title}
+                    </Typography>
+                    <div className={classes.size}>
+                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                        Size :
+                      </Typography>
+                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                        {size}
+                      </Typography>
+                    </div>
+                    <div className={classes.size}>
                       {" "}
-                      {disabledButtons[item?.node?.product?.productId] ? "Added" : "+ Cart"}
-                    </Typography>
-                  </Button>
-                </div>
-                <Box className={classes.maintitle}>
-                  <Typography
-                    style={{ fontWeight: "700", fontSize: "24px" }}
-                    gutterBottom
-                    variant="h4"
-                    component="h2"
-                    className={classes.carttitle}
-                  >
-                    {item.node.product.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                      Size
-                    </Typography>
-                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                      {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
-                    </Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                        ?.replace(/\.00$/, "")
-                        .replace(/\$/g, "RS ")}
-                    </strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                        ?.replace(/\.00$/, "")
-                        .replace(/\$/g, "RS ")}
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
-            </>
-          ))}
+                      <strike>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "RS ")}
+                      </strike>
+                      <Typography gutterBottom variant="h5" className={classes.price}>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "RS ")}
+                      </Typography>
+                    </div>
+                  </Box>
+                </Grid>
+              </>
+            );
+          })}
         </Grid>
       </div>
     </div>

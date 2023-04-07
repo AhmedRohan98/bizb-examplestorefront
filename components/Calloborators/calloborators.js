@@ -142,8 +142,8 @@ const Caloborators = () => {
       <>
         <SwiperSlide>
           <div className={classes.box}>
-            <img src={item.image} className={classes.image} />
-            <h4 style={{ marginLeft: "10px" }}>{item.title}</h4>
+            <img src={item.picture} className={classes.image} />
+            <h4 style={{ marginLeft: "10px" }}>{item.storeName}</h4>
           </div>
         </SwiperSlide>
       </>
@@ -215,7 +215,7 @@ const Caloborators = () => {
               ""
             )}
           </div>
-          {ITEMS.map((item) => (
+          {sellers?.map((item) => (
             <SwiperSlide key={item.id}>
               <Item item={item} />
             </SwiperSlide>
