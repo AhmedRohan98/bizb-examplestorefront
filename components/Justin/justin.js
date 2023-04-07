@@ -220,7 +220,7 @@ const handleAddToCartClick = async (quantity, product, variant) => {
       {
         price: {
           amount: product.variants[0]?.pricing[0]?.minPrice,
-          currencyCode,
+          currencyCode: "USD",
         },
         metafields: [
           {
@@ -257,7 +257,7 @@ const handleAddToCartClick = async (quantity, product, variant) => {
         {
           price: {
             amount: product.variants[0]?.pricing[0]?.minPrice,
-            currencyCode,
+            currencyCode: "USD",
           },
           metafields: [
             {
@@ -271,8 +271,7 @@ const handleAddToCartClick = async (quantity, product, variant) => {
           },
           quantity,
         },
-
-        ]);
+      ]);
       }
   }
   return "Item added to cart";
