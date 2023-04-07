@@ -136,7 +136,7 @@ export default function useCart() {
     update(cache, { data: mutationData }) {
       if (mutationData && mutationData.removeCartItems) {
         const { cart: cartPayload } = mutationData.removeCartItems;
-
+console.log(cart,"rrrrrrrrrrr")
         if (cartPayload) {
           // Update Apollo cache
           cache.writeQuery({
@@ -166,7 +166,7 @@ export default function useCart() {
     const input = {
       items: data.items,
     };
-
+console.log(data,"item")
     if (!isCreating && (!viewer || !viewer._id) && cartStore.hasAnonymousCartCredentials) {
       // Given an anonymous user, with a cart, add token and cartId to input
       const { anonymousCartId, anonymousCartToken } = cartStore;

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import variantById from "lib/utils/variantById";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
@@ -151,9 +151,28 @@ const Justin = (props) => {
   const [found, setFound] = useState(false);
    const [disabledButtons, setDisabledButtons] = useState({});
     const [addToCartQuantity, setAddToCartQuantity] = useState(1);
-  // console.log(props, "cartx");
+    const {cart}=props
+  console.log(cart, "cartx");
+  useEffect(() => {
+    if (cart?.items?.length) {
+   
+      const filteredProducts = catalogdata?.filter((product) => {
+        const productTags = product?.productId;
+        if (!productTags) {
+          return false;
+        }
+        console.log("------------------------------------------------------------------------------------");
+        console.log(productTags, "nweee");
+        return cart.items.find((tag) => tag?.productConfiguration.productId === filteredProducts);
+      });
+      console.log(filteredProducts, "rrrrrrrrr");
+    }
+  }, [cart, cart.items, catalogdata]);
+
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
+  
+
     function determineProductPrice() {
       const { currencyCode, product } = props;
       const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
@@ -193,14 +212,7 @@ const handleAddToCartClick = async (quantity, product, variant) => {
 
   // Disable button after it has been clicked
   
-    if (disabledButtons[product.productId]) {
-      alert("This button is disabled.");
-    } else {
-      setDisabledButtons((prevState) => ({
-        ...prevState,
-        [product.productId]: true,
-      }));
-    }
+  
   
 
   // console.log(pdpSelectedVariantId, "star");
