@@ -1,14 +1,19 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
+import useGetAllSeller from "../../hooks/sellers/useGetAllSeller";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Storyslider from "./storiesslide";
 const Story = (props) => {
   // console.log("all props....", props);
+  const [sellers, loading, refetch] = useGetAllSeller();
+  useEffect(() => {
+    console.log("Sellers All", sellers);
+  }, [sellers]);
   const catagories = props?.nodes;
-  const catgormobile = catagories.slice(0, 3);
+  const catgormobile = catagories?.slice(0, 3);
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,7 +74,6 @@ const Story = (props) => {
       },
     },
     catgorytagm: {
-   
       display: "none",
 
       [theme.breakpoints.down(700)]: {

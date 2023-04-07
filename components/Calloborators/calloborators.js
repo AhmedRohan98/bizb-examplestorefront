@@ -1,12 +1,17 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import SwiperCore, { Autoplay } from "swiper";
+import useGetAllSeller from "../../hooks/sellers/useGetAllSeller";
 import { makeStyles } from "@material-ui/core/styles";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 const Caloborators = () => {
+  const [sellers, loading, refetch] = useGetAllSeller();
   const [activeIndex, setActiveIndex] = useState(0);
-   SwiperCore.use([ Autoplay]);
+  useEffect(() => {
+    console.log("Sellers All", sellers);
+  }, [sellers]);
+  SwiperCore.use([Autoplay]);
   const useStyles = makeStyles((theme) => ({
     root: {
       background: theme.palette.reaction.gradient,
