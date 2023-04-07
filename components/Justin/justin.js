@@ -382,10 +382,18 @@ const Justin = (props) => {
                       {item.node.product.title}
                     </Typography>
                     <div className={classes.size}>
-                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                      <Typography
+                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                        gutterBottom
+                        variant="h4"
+                      >
                         Size :
                       </Typography>
-                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                      <Typography
+                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft:"10px"}}
+                        gutterBottom
+                        variant="h4"
+                      >
                         {size}
                       </Typography>
                     </div>
