@@ -3,7 +3,7 @@ import { useLazyQuery, useMutation, useApolloClient } from "@apollo/client";
 import useStores from "hooks/useStores";
 import useShop from "hooks/shop/useShop";
 import useViewer from "hooks/viewer/useViewer";
-import cartItemsConnectionToArray from "lib/utils/cartItemsConnectionToArray";
+import cartItemsConnectionToArray from "lib/utils/cartItemsConnectionToArray"
 import {
   createCartMutation,
   addCartItemsMutation,
@@ -13,7 +13,7 @@ import {
   setFulfillmentOptionCartMutation,
   setShippingAddressCartMutation,
   updateCartItemsQuantityMutation,
-  updateFulfillmentOptionsForGroup
+  updateFulfillmentOptionsForGroup,
 } from "./mutations.gql";
 import { accountCartByAccountIdQuery, anonymousCartByCartIdQuery } from "./queries.gql";
 
@@ -31,29 +31,33 @@ export default function useCart() {
 
   const accountId = viewer && viewer._id;
 
-  const shouldSkipAccountCartByAccountIdQuery = Boolean(!accountId || cartStore.hasAnonymousCartCredentials || isLoadingViewer || !shop || !shop._id);
-  const shouldSkipAnonymousCartByCartIdQuery = Boolean(accountId || isLoadingViewer || !cartStore.anonymousCartId || !cartStore.anonymousCartToken);
+  const shouldSkipAccountCartByAccountIdQuery = Boolean(
+    !accountId || cartStore.hasAnonymousCartCredentials || isLoadingViewer || !shop || !shop._id,
+  );
+  const shouldSkipAnonymousCartByCartIdQuery = Boolean(
+    accountId || isLoadingViewer || !cartStore.anonymousCartId || !cartStore.anonymousCartToken,
+  );
 
   const [
     fetchAccountCart,
-    { loading: isLoading, called: accountCartQueryCalled, data: cartData, fetchMore, refetch: refetchAccountCart }
+    { loading: isLoading, called: accountCartQueryCalled, data: cartData, fetchMore, refetch: refetchAccountCart },
   ] = useLazyQuery(accountCartByAccountIdQuery, {
     variables: {
       accountId,
-      shopId: shop && shop._id
+      shopId: shop && shop._id,
     },
-    pollInterval: shouldSkipAccountCartByAccountIdQuery ? 0 : 10000
+    pollInterval: shouldSkipAccountCartByAccountIdQuery ? 0 : 10000,
   });
 
   const [
     fetchAnonymousCart,
-    { data: cartDataAnonymous, called: anonymousCartQueryCalled, refetch: refetchAnonymousCart }
+    { data: cartDataAnonymous, called: anonymousCartQueryCalled, refetch: refetchAnonymousCart },
   ] = useLazyQuery(anonymousCartByCartIdQuery, {
     variables: {
       cartId: cartStore.anonymousCartId,
-      cartToken: cartStore.anonymousCartToken
+      cartToken: cartStore.anonymousCartToken,
     },
-    pollInterval: shouldSkipAnonymousCartByCartIdQuery ? 0 : 10000
+    pollInterval: shouldSkipAnonymousCartByCartIdQuery ? 0 : 10000,
   });
 
   if (!accountCartQueryCalled && !shouldSkipAccountCartByAccountIdQuery) {
@@ -105,7 +109,7 @@ export default function useCart() {
 
     return {
       cartId: accountCartId || anonymousCartId,
-      ...cartToken
+      ...cartToken,
     };
   };
 
@@ -124,8 +128,8 @@ export default function useCart() {
         } else if (anonymousCartToken) {
           refetchAnonymousCart();
         }
-      }
-    }
+      },
+    },
   );
 
   const [removeCartItemsMutationFun, { loading: removeCartItemsLoading }] = useMutation(removeCartItemsMutation, {
@@ -137,11 +141,11 @@ export default function useCart() {
           // Update Apollo cache
           cache.writeQuery({
             query: cartPayload.account ? accountCartByAccountIdQuery : anonymousCartByCartIdQuery,
-            data: { cart: cartPayload }
+            data: { cart: cartPayload },
           });
         }
       }
-    }
+    },
   });
 
   const handleRemoveCartItems = useCallback(
@@ -151,42 +155,42 @@ export default function useCart() {
           input: {
             cartId: cartStore.anonymousCartId || cartStore.accountCartId,
             cartItemIds: (Array.isArray(itemIds) && itemIds) || [itemIds],
-            cartToken: cartStore.anonymousCartToken || null
-          }
-        }
+            cartToken: cartStore.anonymousCartToken || null,
+          },
+        },
       }),
-    [cartStore.anonymousCartId, cartStore.accountCartId, cartStore.anonymousCartToken]
+    [cartStore.anonymousCartId, cartStore.accountCartId, cartStore.anonymousCartToken],
   );
 
-const handleAddItemsToCart = async (data, isCreating) => {
-  const input = {
-    items: data.items,
+  const handleAddItemsToCart = async (data, isCreating) => {
+    const input = {
+      items: data.items,
+    };
+
+    if (!isCreating && (!viewer || !viewer._id) && cartStore.hasAnonymousCartCredentials) {
+      // Given an anonymous user, with a cart, add token and cartId to input
+      const { anonymousCartId, anonymousCartToken } = cartStore;
+
+      // Add items to an existing anonymous cart
+      input.cartToken = anonymousCartToken;
+      input.cartId = anonymousCartId;
+    } else if (!isCreating && viewer && viewer._id && cartStore.hasAccountCart) {
+      // With an account and an account cart, set the accountCartId on the input object
+      input.cartId = cartStore.accountCartId;
+    } else if (isCreating) {
+      // With no anonymous or account cart, add shop Id to input as it will be needed for the create cart mutation
+      input.shopId = shop._id;
+    }
+
+    // Run the mutation function provided as a param.
+    // It may take the form of `createCart` or `addCartItems` depending on the
+    // availability of a cart for either an anonymous or logged-in account.
+    return addOrCreateCartMutation({
+      variables: {
+        input,
+      },
+    });
   };
-
-  if (!isCreating && (!viewer || !viewer._id) && cartStore.hasAnonymousCartCredentials) {
-    // Given an anonymous user, with a cart, add token and cartId to input
-    const { anonymousCartId, anonymousCartToken } = cartStore;
-
-    // Add items to an existing anonymous cart
-    input.cartToken = anonymousCartToken;
-    input.cartId = anonymousCartId;
-  } else if (!isCreating && viewer && viewer._id && cartStore.hasAccountCart) {
-    // With an account and an account cart, set the accountCartId on the input object
-    input.cartId = cartStore.accountCartId;
-  } else if (isCreating) {
-    // With no anonymous or account cart, add shop Id to input as it will be needed for the create cart mutation
-    input.shopId = shop._id;
-  }
-
-  // Run the mutation function provided as a param.
-  // It may take the form of `createCart` or `addCartItems` depending on the
-  // availability of a cart for either an anonymous or logged-in account.
-  return addOrCreateCartMutation({
-    variables: {
-      input,
-    },
-  });
-};
 
   const handleUpdateFulfillmentOptionsForGroup = async (fulfillmentGroupId) => {
     await apolloClient.mutate({
@@ -194,9 +198,9 @@ const handleAddItemsToCart = async (data, isCreating) => {
       variables: {
         input: {
           ...cartIdAndCartToken(),
-          fulfillmentGroupId
-        }
-      }
+          fulfillmentGroupId,
+        },
+      },
     });
   };
 
@@ -220,7 +224,7 @@ const handleAddItemsToCart = async (data, isCreating) => {
               // Update cache for account cart query
               cache.writeQuery({
                 query: accountCartByAccountIdQuery,
-                data: { cart: cartPayload }
+                data: { cart: cartPayload },
               });
 
               // Refetch cart
@@ -235,9 +239,9 @@ const handleAddItemsToCart = async (data, isCreating) => {
           input: {
             anonymousCartId: cartStore.anonymousCartId,
             cartToken: cartStore.anonymousCartToken,
-            shopId: shop && shop._id
-          }
-        }
+            shopId: shop && shop._id,
+          },
+        },
       });
     }
   }, [viewer?._id, cartStore.hasAnonymousCartCredentials, isReconcilingCarts, apolloClient]);
@@ -246,7 +250,7 @@ const handleAddItemsToCart = async (data, isCreating) => {
   if (cart) {
     processedCartData = {
       ...cart,
-      items: cartItemsConnectionToArray(cart.items)
+      items: cartItemsConnectionToArray(cart.items),
     };
   }
 
@@ -266,9 +270,9 @@ const handleAddItemsToCart = async (data, isCreating) => {
             input: {
               ...cartIdData,
               fulfillmentGroupId,
-              fulfillmentMethodId
-            }
-          }
+              fulfillmentMethodId,
+            },
+          },
         });
 
         return response;
@@ -279,26 +283,26 @@ const handleAddItemsToCart = async (data, isCreating) => {
           variables: {
             input: {
               ...cartIdAndCartToken(),
-              address
-            }
-          }
+              address,
+            },
+          },
         });
 
         // Update fulfillment options for current cart
         const {
-          data: { setShippingAddressOnCart }
+          data: { setShippingAddressOnCart },
         } = response;
         handleUpdateFulfillmentOptionsForGroup(setShippingAddressOnCart.cart.checkout.fulfillmentGroups[0]._id);
 
         return response;
-      }
+      },
     },
     hasMoreCartItems: (pageInfo && pageInfo.hasNextPage) || false,
     isLoadingCart: isLoadingViewer || isLoading,
     loadMoreCartItems: () => {
       fetchMore({
         variables: {
-          itemsAfterCursor: (pageInfo && pageInfo.endCursor) || null
+          itemsAfterCursor: (pageInfo && pageInfo.endCursor) || null,
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           const { cart: fetchMoreCart } = fetchMoreResult;
@@ -318,15 +322,15 @@ const handleAddItemsToCart = async (data, isCreating) => {
                 items: {
                   __typename: previousResult.cart.items.__typename,
                   pageInfo: fetchMoreCart.items.pageInfo,
-                  edges: [...previousResult.cart.items.edges, ...fetchMoreCart.items.edges]
-                }
-              }
+                  edges: [...previousResult.cart.items.edges, ...fetchMoreCart.items.edges],
+                },
+              },
             };
           }
 
           // Send the previous result if the new result contains no additional data
           return previousResult;
-        }
+        },
       });
     },
     onChangeCartItemsQuantity: async (cartItems) => {
@@ -336,8 +340,8 @@ const handleAddItemsToCart = async (data, isCreating) => {
           input: {
             cartId: cartStore.anonymousCartId || cartStore.accountCartId,
             items: (Array.isArray(cartItems) && cartItems) || [cartItems],
-            cartToken: cartStore.anonymousCartToken || null
-          }
+            cartToken: cartStore.anonymousCartToken || null,
+          },
         },
         update: (cache, { data: mutationData }) => {
           if (mutationData && mutationData.updateCartItemsQuantity) {
@@ -347,11 +351,11 @@ const handleAddItemsToCart = async (data, isCreating) => {
               // Update Apollo cache
               cache.writeQuery({
                 query: cartPayload.account ? accountCartByAccountIdQuery : anonymousCartByCartIdQuery,
-                data: { cart: cartPayload }
+                data: { cart: cartPayload },
               });
             }
           }
-        }
+        },
       });
     },
     onRemoveCartItems: handleRemoveCartItems,
@@ -363,8 +367,8 @@ const handleAddItemsToCart = async (data, isCreating) => {
           data: { cart: null },
           variables: {
             accountId: viewer && viewer._id,
-            shopId: shop && shop._id
-          }
+            shopId: shop && shop._id,
+          },
         });
       }
     },
@@ -375,10 +379,10 @@ const handleAddItemsToCart = async (data, isCreating) => {
         variables: {
           input: {
             ...cartIdAndCartToken(),
-            email
-          }
-        }
+            email,
+          },
+        },
       });
-    }
+    },
   };
 }
