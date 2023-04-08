@@ -171,20 +171,18 @@ const Justin = (props) => {
   // }, [cart, cart.items, catalogdata]);
   console.log(catalogdata,"data")
 useEffect(() => {
-  const allProductsExistInCart = catalogdata?.map((product) => {
-    return items.some((item) => item.productConfiguration?.productId === product?.node.product?.productId);
-  });
-
   const updatedItems = items.map((item) => {
+    const isItemInCart = catalogdata?.some((product) => {
+      return item.productConfiguration?.productId === product?.node.product?.productId;
+    });
     return {
       ...item,
-      disabled: allProductsExistInCart,
+      disabled: item.inCart || isItemInCart,
     };
   });
-  console.log(allProductsExistInCart, "all");
-
+  console.log(updatedItems, "all");
   // do something with updatedItems
-}, [items]);
+}, [items, catalogdata]);
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
 
@@ -372,10 +370,8 @@ useEffect(() => {
                   <div className={classes.cartbackground}>
                     <Button
                       className={classes.cart}
-                      // disabled={cart.includes(shoe.id)}
                       onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                      // disabled={disabledButtons[item?.node?.product?.productId]}
-                      
+                      disabled={isDisabled}
                     >
                       <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                       <Typography
@@ -383,8 +379,7 @@ useEffect(() => {
                         variant="h5"
                         component="h2"
                       >
-                        {" "}
-                        {disabledButtons[item?.node?.product?.productId] ? "Added" : "+ Cart"}
+                        {isDisabled ? "Added" : "+ Cart"}
                       </Typography>
                     </Button>
                   </div>
