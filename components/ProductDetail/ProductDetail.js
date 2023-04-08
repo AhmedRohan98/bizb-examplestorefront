@@ -386,10 +386,11 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  // console.log(props, "new");
-  const { product, catalogItems } = props;
+  console.log(props, "new");
+  const { product, catalogItems ,cart} = props;
+   const { items } = cart;
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
-console.log("dddd",product)
+console.log("dddd",props)
   const filteredProducts = catalogItems?.filter((product) => {
     const productTags = product?.node?.product?.tagIds;
     if (!productTags) {
@@ -418,7 +419,19 @@ console.log("dddd",product)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+useEffect(() => {
+  const updatedItems = items.map((item) => {
+    const isItemInCart = filteredProducts?.some((product) => {
+      return item.productConfiguration?.productId === product?.node.product?.productId;
+    });
+    return {
+      ...item,
+      disabled: item.inCart || isItemInCart,
+    };
+  });
+  console.log(updatedItems, "all");
+  // do something with updatedItems
+}, [items, product]);
   useEffect(() => {
     selectVariant(product.variants[0]);
   }, []);
@@ -571,6 +584,9 @@ console.log("dddd",product)
     router.push("/en/product/" + item);
   };
   // console.log(product, "produ");
+    const isDisabled = items?.some((data) => {
+      return data.productConfiguration.productId ===product?.productId;
+    });
   return (
     <>
       <Box className={classes.slider}>
@@ -693,7 +709,8 @@ console.log("dddd",product)
                       variant="h4"
                       className={classes.price2}
                     >
-                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/\.00$/, "")
+                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                        ?.replace(/\.00$/, "")
                         ?.replace(/\$/g, "RS ")}
                     </Typography>
                   </strike>
@@ -717,10 +734,11 @@ console.log("dddd",product)
                 </Typography>
               </div>
               <div>
-                <Button className={classes.cart2} fullWidth onClick={handleOnClick}>
+               
+                <Button className={classes.cart2} fullWidth onClick={handleOnClick} disabled={isDisabled}>
                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                   <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
-                    + Cart{" "}
+                    {isDisabled ? "Added" : "+ Cart"}
                   </Typography>
                 </Button>
               </div>
@@ -792,71 +810,77 @@ console.log("dddd",product)
       </Typography>
       <div className={classes.root}>
         <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-          {filteredProducts?.map((item, key) => (
-            <>
-              <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                <img
-                  src={
-                    !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                      ? "/justin/justin4.svg"
-                      : item?.node?.product?.media[0]?.URLs?.large
-                  }
-                  className={classes.image}
-                  key={item?.node?.product?.id}
-                  alt={"hhhh"}
-                  onClick={() => clickHandler(item.node.product.slug)}
-                />
+          {filteredProducts?.map((item, key) => {
+            const isDisabled = items?.some((data) => {
+              return data.productConfiguration.productId === item?.node?.product?.productId;
+            });
+            return (
+              <>
+                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                  <img
+                    src={
+                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                        ? "/justin/justin4.svg"
+                        : item?.node?.product?.media[0]?.URLs?.large
+                    }
+                    className={classes.image}
+                    key={item?.node?.product?.id}
+                    alt={"hhhh"}
+                    onClick={() => clickHandler(item.node.product.slug)}
+                  />
 
-                <div className={classes.cartbackground}>
-                  <Button
-                    className={classes.cart}
-                    // disabled={cart.includes(shoe.id)}
-                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                  >
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                    <Typography
-                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                      variant="h5"
-                      component="h2"
+                  <div className={classes.cartbackground}>
+                    <Button
+                      className={classes.cart}
+                      // disabled={cart.includes(shoe.id)}
+                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                      disabled={isDisabled}
                     >
-                      + Cart{" "}
-                    </Typography>
-                  </Button>
-                </div>
-                <Box className={classes.maintitle}>
-                  <Typography
-                    style={{ fontWeight: "700", fontSize: "24px" }}
-                    gutterBottom
-                    variant="h4"
-                    component="h2"
-                    className={classes.carttitle}
-                  >
-                    {item.node.product.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                      Size
-                    </Typography>
-                    <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                      {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
-                    </Typography>
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography
+                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                        variant="h5"
+                        component="h2"
+                      >
+                        {isDisabled ? "Added" : "+ Cart"}
+                      </Typography>
+                    </Button>
                   </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-                        /\$/g,
-                        "RS ",
-                      )}
-                    </strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
+                  <Box className={classes.maintitle}>
+                    <Typography
+                      style={{ fontWeight: "700", fontSize: "24px" }}
+                      gutterBottom
+                      variant="h4"
+                      component="h2"
+                      className={classes.carttitle}
+                    >
+                      {item.node.product.title}
                     </Typography>
-                  </div>
-                </Box>
-              </Grid>
-            </>
-          ))}
+                    <div className={classes.size}>
+                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                        Size
+                      </Typography>
+                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
+                        {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
+                      </Typography>
+                    </div>
+                    <div className={classes.size}>
+                      {" "}
+                      <strike>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                          /\$/g,
+                          "RS ",
+                        )}
+                      </strike>
+                      <Typography gutterBottom variant="h5" className={classes.price}>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
+                      </Typography>
+                    </div>
+                  </Box>
+                </Grid>
+              </>
+            );
+          })}
         </Grid>
       </div>
     </>
@@ -880,6 +904,7 @@ ProductDetail.propTypes = {
   theme: PropTypes.object,
   uiStore: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired,
+  cart: PropTypes.array,
   catalogItems: PropTypes.array,
 };
 export default withWidth({ initialWidth: "md" })(
