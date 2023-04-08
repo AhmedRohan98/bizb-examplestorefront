@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
+import PageLoading from "../PageLoading";
 import { JSON } from "global";
 import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
@@ -151,6 +152,7 @@ const Justin = (props) => {
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
   const { cart } = props;
   console.log(cart, "cartx");
   const {items}=cart
@@ -229,51 +231,11 @@ useEffect(() => {
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
 
-    // console.log("selected variant..", selectedVariantOrOption);
-    if (!selectedVariant || !cart) {
-      return "Invalid parameters";
-    }
 
-    if (cart?.items?.length === 0) {
-      // If cart is empty, add the new item
-      // console.log("added");
-      await addItemsToCart([
-        {
-          price: {
-            amount: product.variants[0]?.pricing[0]?.minPrice,
-            currencyCode: "USD",
-          },
-          metafields: [
-            {
-              key: "media",
-              value: product.media[0]?.URLs?.large,
-            },
-          ],
-          productConfiguration: {
-            productId: product.productId,
-            productVariantId: selectedVariant.variantId,
-          },
-          quantity,
-        },
-      ]);
-    } else {
-      let itemAdded = false;
-      // Check if the selected variant is already in the cart
-      for (let i = 0; i < cart?.items?.length; i++) {
-        // console.log(cart.items[i].productConfiguration.productId, "id in cart");
-        // console.log(product.productId, "id without cart");
-        if (cart.items[i].productConfiguration.productId === product.productId) {
-          // If variant is already in the cart, update the quantity
-          itemAdded = true;
-          setFound(true);
-          // console.log("Already ");
-          break;
-        }
-      }
+   
+  
       // If variant is not already in the cart, add the new item
-      if (!itemAdded) {
-        // console.log("addednn");
-        setFound(true);
+    
         await addItemsToCart([
           {
             price: {
@@ -294,15 +256,13 @@ useEffect(() => {
           },
         ]);
       }
-    }
-    return "Item added to cart";
-  };
+
 
   const handleOnClick = async (product, variant) => {
-    // Pass chosen quantity to onClick callback
-    // console.log("handle click");
-    await handleAddToCartClick(addToCartQuantity, product, variant);
+    setIsLoading(true);
 
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+    setIsLoading(false);
     // Scroll to the top
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -373,6 +333,7 @@ useEffect(() => {
                       onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                       disabled={isDisabled}
                     >
+                      {isLoading && <PageLoading />}
                       <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                       <Typography
                         style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
