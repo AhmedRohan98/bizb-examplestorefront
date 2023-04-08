@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import variantById from "lib/utils/variantById";
 import { useState, useEffect } from "react";
-import { useState, useEffect } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
@@ -153,22 +152,39 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const { cart } = props;
-  console.log(catalogdata, "cartx");
-  useEffect(() => {
-    if (cart?.items?.length) {
-      const filteredProducts = catalogdata?.filter((product) => {
-        const productTags = product?.productId;
-        if (!productTags) {
-          return false;
-        }
-        console.log("------------------------------------------------------------------------------------");
-        console.log(productTags, "nweee");
-        return cart.items.find((tag) => tag?.productConfiguration.productId === filteredProducts);
-      });
-      console.log(filteredProducts, "rrrrrrrrr");
-    }
-  }, [cart, cart.items, catalogdata]);
+  console.log(cart, "cartx");
+  const {items}=cart
+  // useEffect(() => {
+  //   if (cart?.items?.length) {
+  //     const filteredProducts = catalogdata?.filter((product) => {
+  //       const productTags = product?.productId;
+  //       if (!productTags) {
+  //         return false;
+  //       }
+  //       console.log("------------------------------------------------------------------------------------");
+  //       console.log(productTags, "nweee");
+  //       return cart.items.find((tag) => tag?.productConfiguration.productId === filteredProducts);
+  //     });
+  //     console.log(filteredProducts, "rrrrrrrrr");
+  //   }
+    
+  // }, [cart, cart.items, catalogdata]);
+  console.log(catalogdata,"data")
+useEffect(() => {
+  const allProductsExistInCart = catalogdata?.map((product) => {
+    return items.some((item) => item.productConfiguration?.productId === product?.node.product?.productId);
+  });
 
+  const updatedItems = items.map((item) => {
+    return {
+      ...item,
+      disabled: allProductsExistInCart,
+    };
+  });
+  console.log(allProductsExistInCart, "all");
+
+  // do something with updatedItems
+}, [items]);
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
 
@@ -359,7 +375,7 @@ const Justin = (props) => {
                       // disabled={cart.includes(shoe.id)}
                       onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                       // disabled={disabledButtons[item?.node?.product?.productId]}
-                      disabled={isDisabled ? "Added" : "+ Cart"}
+                      
                     >
                       <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                       <Typography
@@ -391,7 +407,7 @@ const Justin = (props) => {
                         Size :
                       </Typography>
                       <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft:"10px"}}
+                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
                         gutterBottom
                         variant="h4"
                       >
