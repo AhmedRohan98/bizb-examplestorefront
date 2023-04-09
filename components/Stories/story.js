@@ -127,6 +127,9 @@ const Story = (props) => {
       allignItems: "center",
       marginTop: theme.spacing(2),
     },
+    storeName:{
+      color:"black"
+    }
   }));
   const ITEMS = [
     {
@@ -337,14 +340,17 @@ const Story = (props) => {
   // console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item }) {
     const classes = useStyles();
+    console.log(item.storeName,"name")
     return (
       <>
         <SwiperSlide>
           <div className={classes.box}>
-            <img src={item.image} className={classes.image} />
-            <Typography variant="h5" className={classes.heading}>
-              {" "}
-              {item.title}
+            <img
+              src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
+              className={classes.image}
+            />
+            <Typography style={{ marginLeft: "10px" }} variant="h4" className="storename">
+              {item.storeName}
             </Typography>
           </div>
         </SwiperSlide>
@@ -379,7 +385,7 @@ const Story = (props) => {
           ))}
         </div>
         <div className={classes.catgorytagm}>
-          {catgormobile?.map((filterName) => (
+          {sellers?.map((filterName) => (
             <Filter
               name={filterName.displayTitle}
               onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}
@@ -434,7 +440,7 @@ const Story = (props) => {
               ""
             )}
           </div>
-          {filteredItems.map((item) => (
+          {sellers.map((item) => (
             <SwiperSlide
               key={item.id}
               onClick={() => setFilterProducts(item.store)}

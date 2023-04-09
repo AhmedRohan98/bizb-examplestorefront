@@ -7,10 +7,10 @@ import getAllSeller from "./getAllSeller.gql";
  *
  * @returns {Array} the viewer's data
  */
-export default function useGetAllSeller() {
+export default function useGetAllSeller () {
   const authToken = typeof window !== "undefined" ? window.localStorage.getItem("accounts:accessToken") : undefined;
 
-  const { loading, data, refetch } = useQuery(getAllSeller);
+  const { loading, data, refetch } =useQuery(getAllSeller);
 
   const sellers = data?.getAllSeller;
   useEffect(() => {
