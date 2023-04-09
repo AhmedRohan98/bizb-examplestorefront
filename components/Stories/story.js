@@ -440,7 +440,7 @@ const Story = (props) => {
               ""
             )}
           </div>
-          {sellers.map((item) => (
+          {sellers?.map((item) => (
             <SwiperSlide
               key={item.id}
               onClick={() => setFilterProducts(item.store)}
@@ -450,7 +450,7 @@ const Story = (props) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <Storyslider itemData={filteredproducts} />
+        <Storyslider itemData={filteredproducts} cart={props?.cart}/>
       </div>
     </div>
   );
