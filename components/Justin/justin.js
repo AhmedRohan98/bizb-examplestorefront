@@ -143,8 +143,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#FDC114",
   },
   toast: {
-    background: "green",
-    color: "white",
+    background: "yellow",
+    color: "black",
   },
 }));
 
@@ -263,6 +263,9 @@ useEffect(() => {
     setIsLoading(true);
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
+       toast.success(" added to cart successfully!", {
+      
+       });
     setIsLoading(false);
     // Scroll to the top
   };
@@ -329,21 +332,39 @@ useEffect(() => {
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    {isLoading ? <CircularProgress /> : <Button
-                      className={classes.cart}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                      disabled={isDisabled}
-                    >
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography
-                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                        variant="h5"
-                        component="h2"
+                    {isLoading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Button
+                        className={classes.cart}
+                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                        disabled={isDisabled}
                       >
-                        {isDisabled ? "Added" : "+ Cart"}
-                      </Typography>
-                    </Button>}
-                   
+                        <ToastContainer
+                          position="top-right"
+                          autoClose={5000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeButton={<CustomCloseButton />}
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                          theme="colored"
+                          background="green"
+                          toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "16px",fontFamily:"lato" }}
+                        />{" "}
+                       
+                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                        <Typography
+                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                          variant="h5"
+                          component="h2"
+                        >
+                          {isDisabled ? "Added" : "+ Cart"}
+                        </Typography>
+                      </Button>
+                    )}
                   </div>
                   <Box className={classes.maintitle}>
                     <Typography
