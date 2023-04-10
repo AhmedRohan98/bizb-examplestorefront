@@ -83,58 +83,6 @@ const Caloborators = () => {
       paddingLeft: "50px",
     },
   }));
-  const ITEMS = [
-    {
-      image: "/stories/story.svg",
-      id: 1,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story1.svg",
-      id: 2,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story2.svg",
-      id: 3,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story.svg",
-      id: 4,
-      title: "Charizma store",
-    },
-    {
-      image: "/stories/story.svg",
-      id: 5,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story2.svg",
-      id: 6,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story2.svg",
-      id: 7,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story.svg",
-      id: 8,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story.svg",
-      id: 9,
-      title: "Charizma Store",
-    },
-    {
-      image: "/stories/story2.svg",
-      id: 10,
-      title: "Charizma Store",
-    },
-  ];
 
   function Item({ item }) {
     const classes = useStyles();
@@ -142,8 +90,11 @@ const Caloborators = () => {
       <>
         <SwiperSlide>
           <div className={classes.box}>
-            <img src={item.image} className={classes.image} />
-            <h4 style={{ marginLeft: "10px" }}>{item.title}</h4>
+            <img
+              src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
+              className={classes.image}
+            />
+            <h4 style={{ marginLeft: "10px" }}>{item.storeName}</h4>
           </div>
         </SwiperSlide>
       </>
@@ -204,7 +155,7 @@ const Caloborators = () => {
         >
           {" "}
           <div className={classes.controller}>
-            {activeIndex < ITEMS.length - 1 ? (
+            {activeIndex < sellers?.length - 1 ? (
               <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
             ) : (
               ""
@@ -215,7 +166,7 @@ const Caloborators = () => {
               ""
             )}
           </div>
-          {ITEMS.map((item) => (
+          {sellers?.map((item) => (
             <SwiperSlide key={item.id}>
               <Item item={item} />
             </SwiperSlide>

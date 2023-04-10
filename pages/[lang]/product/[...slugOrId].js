@@ -77,7 +77,7 @@ function buildJSONLd(product, shop) {
  * @param {Object} shop - the shop this product belong to
  * @return {React.Component} The product detail page
  */
-function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems }) {
+function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems ,cart}) {
   const router = useRouter();
   const currencyCode = (shop && shop.currency.code) || "USD";
   const JSONLd = useMemo(() => {
@@ -103,6 +103,7 @@ function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, ca
         product={product}
         shop={shop}
         catalogItems={catalogItems}
+        cart={cart}
       />
     </Layout>
   );
@@ -120,6 +121,7 @@ DynamicSlider.propTypes = {
   /**
    * Catalog Product item
    */
+   cart:PropTypes.array,
   catalogItems: PropTypes.array,
   product: PropTypes.object,
   shop: PropTypes.shape({

@@ -16,7 +16,7 @@ import hashPassword from "../../lib/utils/hashPassword";
 const useStyles = makeStyles((theme) => ({
   orderThankYou: {
     display: "flex",
-    marginTop: theme.spacing(25),
+    marginTop: theme.spacing(5),
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
@@ -25,21 +25,23 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(3),
   },
   mainheading: {
-    width: "334px",
-    height: "58px",
+    width: "90%",
+   marginTop:theme.spacing(1),
+   marginBottom:theme.spacing(5)
   },
   orderThankYoupara: {
     fontSize: "24px",
     color: "#333333",
     fontWeight: 500,
     marginTop: theme.spacing(2),
+
     fontFamily: "Lato",
     fontStyle: "normal",
-    textAlign: "center",
+    textAlign: "start",
     lineHeight: "29px",
   },
   sociallinks: {
-    marginTop: theme.spacing(6),
+    marginTop: theme.spacing(2),
     display: "flex",
     flexDirection: "row",
   },
@@ -142,7 +144,8 @@ const useStyles = makeStyles((theme) => ({
   imges: {
     width: "51px",
     height: "51px",
- 
+    marginRight:theme.spacing(2),
+
     "& .hover": {
       transform: "scale(1.2)",
     },
@@ -164,7 +167,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
   },
   input: {
-    width: "387px",
+    width: "331px",
     borderRadius: "6px",
     color: "red",
     justifyContent: "center",
@@ -183,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   password: {
-    width: "387px",
+    width: "331px",
     fontFamily: "Lato !important",
     borderRadius: "6px",
     color: "red",
@@ -245,19 +248,20 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
   },
   socialmediafo: {
-    width: "250px",
+    width: "170px",
     height: "48px",
     borderRadius: "40px",
+    marginTop:theme.spacing(10),
     border: "none",
     display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    margin: "10px",
+    justifyContent: "flex-start",
+   
+  
   },
   socialmedia2: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "start",
+    justifyContent: "start",
     flexWrap: "wrap",
   },
   switchEntryMode: {
@@ -274,6 +278,30 @@ const useStyles = makeStyles((theme) => ({
   switchaccout: {
     color: "#FDC114",
   },
+  inputorder: {
+    width: "331px",
+    height: "137px",
+    borderRadius: "6px",
+    color: "red",
+
+    paddingLeft: theme.spacing(2),
+    background: "#F7F7F9",
+    borderBottomColor: "none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "16px",
+      fontFamily: "lato",
+      padding: "opx",
+    },
+    "& .MuiInputBase-input.active": {
+      color: "#eeeeeeeeeee6",
+      fontSize: "17px",
+      padding: "opx",
+    },
+  },
+  coneect:{
+    marginLeft:theme.spacing(2)
+  }
 }));
 
 const CheckoutComplete =() =>{
@@ -284,20 +312,13 @@ const CheckoutComplete =() =>{
  const sendmail = Yup.object({
    FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
    email: Yup.string().email().required("Please enter your email"),
-   phonenumber: Yup.string()
-     .matches(/^[0-9]+$/, "Please enter a valid mobile number")
-     .required("Phone number is required"),
-   password: Yup.string().min(6).required("Please enter your password"),
-   confirm_password: Yup.string()
-     .required()
-     .oneOf([Yup.ref("password"), null], "Password must match"),
+   orderNotes: Yup.string().min(5).max(50).required("Please enter your message "),
  });
  const initialValues = {
    FullName: "",
    email: "",
-   password: "",
-   confirm_password: "",
-   phonenumber: "",
+   orderNotes: "",
+  
  };
  const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
    initialValues,
@@ -315,212 +336,118 @@ const CheckoutComplete =() =>{
         {typeof window !== "undefined" && (
           <>
             <div className={classes.orderThankYou}>
-              <Typography variant="h3">Let’s Talk</Typography>
-              <div className={classes.mainheading}>
-                <Typography variant="h4" className={classes.orderThankYoupara}>
-                  {" "}
-                  Fill up the form and our team will get back to you within 24 hours.
-                </Typography>
-              </div>
-              <div className={classes.sociallinks}>
-                <img src="/icons/email.svg" className={classes.email} alt="thanyou"></img>
-                <Typography className={classes.con} variant="h5">
-                  Hello@bizb.store
-                </Typography>
-              </div>
-              <div className={classes.sociallinks}>
-                <img src="/icons/phone.svg" className={classes.email} alt="thanyou"></img>
-                <Typography className={classes.con} variant="h5">
-                  +92 312 5253680
-                </Typography>
-              </div>
-              <div className={classes.socialmediafo}>
-                <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
-                <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
-                <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
-              </div>
-              <Typography className={classes.connect}>Facebook Reviews</Typography>
-
-              <>
-                <Typography variant="body1">REGISTRATION </Typography>
-                {/* <form className={classes.root} onSubmit={handleSubmit}>
-                  <Grid container>
-                    <Grid xs={12} item>
-                      <label className={classes.label}>
-                        <span className={classes.labelSpan} htmlFor="FullName">
-                          Full Name <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your User Name"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="FullName"
-                          autoComplete="off"
-                          name="FullName"
-                          id="FullName"
-                          value={values.FullName}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {touched.FullName && errors.FullName ? (
-                        <p className={classes.formerror}>{errors.FullName}</p>
-                      ) : null}
-                    </Grid>
-                    <Grid xs={12} item>
-                      <label className={classes.label} variant="h6" htmlFor="email">
-                        <span className={classes.labelSpan}>
-                          Email <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your Email Address"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="email"
-                          autoComplete="off"
-                          name="email"
-                          id="email"
-                          value={values.email}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <label className={classes.label} htmlFor="phonenumber">
-                        <span className={classes.labelSpan}>
-                          Phone Number <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your Phone Number"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="number"
-                          autoComplete="off"
-                          name="phonenumber"
-                          id="phonenumber"
-                          value={values.phonenumber}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {touched.phonenumber && errors.phonenumber ? (
-                        <p className={classes.formerror}>{errors.phonenumber}</p>
-                      ) : null}
-                    </Grid>
-                    <Grid item xs={12}>
-                      <label className={classes.label} htmlFor="password">
-                        <span className={classes.labelSpan}>
-                          Password <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your Password"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="password"
-                          autoComplete="off"
-                          name="password"
-                          id="password"
-                          value={values.password}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {errors.password && touched.password ? (
-                        <p className={classes.formerror}>{errors.password}</p>
-                      ) : null}
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <label className={classes.label} htmlFor="confirm_password">
-                        <span className={classes.labelSpan}>
-                          Re-Enter Password <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Re-Enter Your Password"
-                          InputProps={{ disableUnderline: true }}
-                          required
-                          className={classes.input}
-                          type="password"
-                          autoComplete="off"
-                          name="confirm_password"
-                          id="confirm_password"
-                          value={values.confirm_password}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {errors.confirm_password && touched.confirm_password ? (
-                        <p className={classes.formerror}>{errors.confirm_password}</p>
-                      ) : null}
-                    </Grid>
-                  </Grid>
-                  <div className={classes.checkboxdiv}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox  className={classes.checkbox} />
-                      }
-                    />
-                    <Typography variant="body2" className={classes.terms}>
+              <Grid container xs={12}>
+                <Grid item xs={6}>
+                  <Typography variant="h3">Let’s Talk</Typography>
+                  <div className={classes.mainheading}>
+                    <Typography variant="h4" className={classes.orderThankYoupara}>
                       {" "}
-                      Agree Term & Conditions
+                      Fill up the form and our team will get back to you within 24 hours.
                     </Typography>
                   </div>
-                  <div className={classes.socialmedia2}>
-                    <Button
-                      className={classes.register}
-                      InputProps={{ disableUnderline: true }}
-                      variant="h5"
-                      type="submit"
-                      role="button"
-                    >
-                      Register
-                    </Button>
+                  <div className={classes.sociallinks}>
+                    <img src="/icons/email.svg" className={classes.email} alt="thanyou"></img>
+                    <Typography className={classes.coneect} variant="h5">
+                      Hello@bizb.store
+                    </Typography>
                   </div>
-                  <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
-                  <div className={classes.socialmediaAuth}>
-                    <Box className={classes.socialmedia}>
-                      <img style={{ marginLeft: "15px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
-                      <Typography variant="h5" className={classes.register2}>
-                        Register With Google
-                      </Typography>
-                    </Box>
-                    <Box className={classes.socialmedia}>
-                      <img style={{ marginLeft: "15px" }} src="/authentication/signup4.svg" alt="Login-SignUP" />
-                      <Typography variant="h5" className={classes.register2}>
-                        Register With Facebook
-                      </Typography>
-                    </Box>
+                  <div className={classes.sociallinks}>
+                    <img src="/icons/phone.svg" className={classes.email} alt="thanyou"></img>
+                    <Typography className={classes.coneect} variant="h5">
+                      +92 312 5253680
+                    </Typography>
                   </div>
+                  <div className={classes.socialmediafo}>
+                    <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
+                    <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
+                    <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <form className={classes.root} onSubmit={handleSubmit}>
+                    <Grid container>
+                      <Grid xs={12} item>
+                        <label className={classes.label}>
+                          <span className={classes.labelSpan} htmlFor="FullName">
+                            Full Name <span style={{ color: "#FD1010" }}>*</span>
+                          </span>
+                          <TextField
+                            placeholder="Enter Your User Name"
+                            InputProps={{ disableUnderline: true }}
+                            className={classes.input}
+                            type="FullName"
+                            autoComplete="off"
+                            name="FullName"
+                            id="FullName"
+                            value={values.FullName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </label>
+                        {touched.FullName && errors.FullName ? (
+                          <p className={classes.formerror}>{errors.FullName}</p>
+                        ) : null}
+                      </Grid>
+                      <Grid xs={12} item>
+                        <label className={classes.label} variant="h6" htmlFor="email">
+                          <span className={classes.labelSpan}>
+                            Email <span style={{ color: "#FD1010" }}>*</span>
+                          </span>
+                          <TextField
+                            placeholder="Enter Your Email Address"
+                            InputProps={{ disableUnderline: true }}
+                            className={classes.input}
+                            type="email"
+                            autoComplete="off"
+                            name="email"
+                            id="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </label>
+                        {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
+                      </Grid>
 
-                  {!!error && <div className={classes.formerror}>{error}</div>}
-                  <div
-                    className={classes.switchEntryMode}
-                    onClick={handleOpenLogIn}
-                    onKeyDown={handleOpenLogIn}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <Typography variant="h5">
-                      Don't have an account ? <span className={classes.switchaccout}>Login</span>
-                    </Typography>
-                  </div>
-                </form> */}
-              </>
-              <Typography className={classes.connect}>Make Your Wardrobe Smart Using Our App</Typography>
-              <img src="/cart/mobile.svg" className={classes.imagemobile} alt="thanyou"></img>
-              <Button
-                className={classes.register}
-                InputProps={{ disableUnderline: true }}
-                variant="h6"
-                role="button"
-                type="submit"
-                href="/"
-              >
-                Back To Home
-              </Button>
+                      <Grid item xs={12}>
+                        <label className={classes.label} variant="h4" htmlFor="orderNotes">
+                          <span className={classes.labelSpan}>
+                            Message<span style={{ color: "#FD1010" }}>*</span>
+                          </span>
+                          <TextField
+                            placeholder="Type your message here..."
+                            InputProps={{ disableUnderline: true }}
+                            className={classes.inputorder}
+                            inputProps={{ style: { color: "black" } }}
+                            autoComplete="off"
+                            type="text"
+                            name="orderNotes"
+                            id="orderNotes"
+                            value={values.orderNotes}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </label>
+                        {errors.orderNotes && touched.orderNotes ? (
+                          <p className={classes.formerror}>{errors.orderNotes}</p>
+                        ) : null}
+                      </Grid>
+                    </Grid>
+
+                    <div className={classes.socialmedia2}>
+                      <Button
+                        className={classes.register}
+                        InputProps={{ disableUnderline: true }}
+                        variant="h5"
+                        type="submit"
+                        role="button"
+                      >
+                        SUBMIT
+                      </Button>
+                    </div>
+                  </form>
+                </Grid>
+              </Grid>
             </div>
           </>
         )}

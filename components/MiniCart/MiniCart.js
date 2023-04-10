@@ -89,21 +89,23 @@ const styles = (theme) => ({
   cartitem: {
     padding: theme.spacing(1),
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
     alignItems: "flex-start",
     borderBottom: "1px solid #e5e5e5",
   },
   cartitemimage: {
-    width: "270px",
+    width: "320px",
     height: "160px",
   },
   cartimage: {
     width: "100%",
     height: "100%",
     borderRadius: "10px",
+    objectFit: "cover",
   },
   cartitemtext: {
     display: "flex",
+    
     flexDirection: "column",
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(1),

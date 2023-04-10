@@ -114,6 +114,7 @@
     "body-parser": "~1.19.0",
     "classnames": "~2.2.6",
     "client-sessions": "^0.8.0",
+    "global": "^4.4.0",
     "compression": "~1.7.3",
     "cookie-parser": "~1.4.3",
     "react-responsive-masonry": "^2.1.7",
@@ -151,9 +152,9 @@
     "react-toastify": "^7.0.4",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.16.0",
-     "yup": "^0.32.9",
-     "formik": "^2.2.9"
-        },
+    "yup": "^0.32.9",
+    "formik": "^2.2.9"
+  },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
