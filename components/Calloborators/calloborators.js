@@ -69,6 +69,9 @@ const Caloborators = () => {
     box: {
       display: "flex",
       flexDirection: "column",
+      allignItems:"start",
+      justifyContent:"start",
+      width:"122px",
     },
     dark: {
       color: "#333333",
@@ -80,7 +83,12 @@ const Caloborators = () => {
       paddingTop: "30px",
       paddingLeft: "50px",
     },
-  }));
+    swiperslide:{
+      display:"flex",
+      allignItems:"center",
+      justifyContent:"center"
+    }
+    }));
 
   function Item({ item }) {
     const classes = useStyles();
@@ -92,7 +100,7 @@ const Caloborators = () => {
               src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
               className={classes.image}
             />
-            <h4 style={{ marginLeft: "10px" }}>{item.storeName}</h4>
+            <h4 style={{textAlign:"center" }}>{item.storeName}</h4>
           </div>
         </SwiperSlide>
       </>
@@ -165,7 +173,7 @@ const Caloborators = () => {
             )}
           </div>
           {sellers?.map((item) => (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item.id} className={classes.swiperslide}>
               <Item item={item} />
             </SwiperSlide>
           ))}
