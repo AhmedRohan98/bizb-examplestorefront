@@ -12,6 +12,7 @@ import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
 import PageLoading from "../PageLoading";
 import { JSON } from "global";
+import { CircularProgress } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -328,21 +329,24 @@ useEffect(() => {
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    <Button
-                      className={classes.cart}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                      disabled={isDisabled}
-                    >
-                      {isLoading && <PageLoading />}
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography
-                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                        variant="h5"
-                        component="h2"
+                    {isLoading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Button
+                        className={classes.cart}
+                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                        disabled={isDisabled}
                       >
-                        {isDisabled ? "Added" : "+ Cart"}
-                      </Typography>
-                    </Button>
+                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                        <Typography
+                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                          variant="h5"
+                          component="h2"
+                        >
+                          {isDisabled ? "Added" : "+ Cart"}
+                        </Typography>
+                      </Button>
+                    )}
                   </div>
                   <Box className={classes.maintitle}>
                     <Typography
