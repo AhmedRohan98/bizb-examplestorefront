@@ -8,9 +8,7 @@ import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 const Caloborators = () => {
   const [sellers, loading, refetch] = useGetAllSeller();
   const [activeIndex, setActiveIndex] = useState(0);
-  useEffect(() => {
-    console.log("Sellers All", sellers);
-  }, [sellers]);
+
   SwiperCore.use([Autoplay]);
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +42,7 @@ const Caloborators = () => {
     iconforwad: {
       cursor: "pointer",
       position: "absolute",
-      bottom: "82px",
+      bottom: "98px",
       right: "20px",
       background: "#333333",
       color: "FDC114",
@@ -54,7 +52,7 @@ const Caloborators = () => {
     },
     iconback: {
       position: "absolute",
-      bottom: "82px",
+      bottom: "98px",
       left: "20px",
       borderRadius: "4px",
       color: "FDC114",

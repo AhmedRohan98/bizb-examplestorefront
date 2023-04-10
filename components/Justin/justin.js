@@ -155,7 +155,7 @@ const Justin = (props) => {
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
   const { cart } = props;
-  console.log(cart, "cartx");
+  // console.log(cart, "cartx");
   const {items}=cart
   // useEffect(() => {
   //   if (cart?.items?.length) {
@@ -172,7 +172,7 @@ const Justin = (props) => {
   //   }
     
   // }, [cart, cart.items, catalogdata]);
-  console.log(catalogdata,"data")
+  // console.log(catalogdata,"data")
 useEffect(() => {
   const updatedItems = items.map((item) => {
     const isItemInCart = catalogdata?.some((product) => {
@@ -183,7 +183,7 @@ useEffect(() => {
       disabled: item.inCart || isItemInCart,
     };
   });
-  console.log(updatedItems, "all");
+  // console.log(updatedItems, "all");
   // do something with updatedItems
 }, [items, catalogdata]);
   function selectVariant(variant, optionId) {
@@ -305,7 +305,7 @@ useEffect(() => {
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });
-            console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
