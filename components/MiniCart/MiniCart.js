@@ -98,6 +98,7 @@ const styles = (theme) => ({
   cartitemimage: {
     width: "173px",
     height: "194px",
+    marginBottom:theme.spacing(2),
   },
   cartimage: {
     width: "100%",

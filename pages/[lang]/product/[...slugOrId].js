@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { useRouter } from "next/router";
@@ -82,6 +82,10 @@ function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, ca
   console.log(uiStore,"page si")
   const {setPageSize}=uiStore;
   
+useEffect(() => {
+  setPageSize(100);
+}, []);
+
   const currencyCode = (shop && shop.currency.code) || "USD";
   const JSONLd = useMemo(() => {
     if (product && shop) {
