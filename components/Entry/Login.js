@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
   },
   formerror: {
     paddingLeft: theme.spacing(1),
-    fontSize: "16px",
-    cursor: "pointer",
+    margin: "0px",
+    fontSize: "14px",
     color: "#b22b27",
     fontFamily: "Lato",
   },

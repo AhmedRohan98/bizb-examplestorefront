@@ -12,7 +12,7 @@ In the hosting project it will be necessary to obtain a reference to the `stripe
 class MyComponent extends Component {
   handlePayment = () => {
     this._stripe.createToken().then(({ token }) => {
-      console.log("token", token);
+      // console.log("token", token);
     });
   };
 

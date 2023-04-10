@@ -17,9 +17,9 @@ import { Link } from "react-scroll";
 
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const products = props.catalogItems;
-  SwiperCore.use([ Autoplay]);
-  console.log(props, "new products");
+  const products = props?.catalogItems;
+  SwiperCore.use([Autoplay]);
+  // console.log(props, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
       marginTop: "-170px",
@@ -45,11 +45,9 @@ const MainSlider = (props) => {
     },
     controllera: {
       position: "absolute",
-
       display: "flex",
       flexDirection: "row",
       gap: "4vh",
-
       right: "5vh",
     },
     controllert: {
@@ -57,7 +55,6 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       gap: "5px",
-
       left: "5vh",
       bottom: "20px",
     },
@@ -70,7 +67,6 @@ const MainSlider = (props) => {
     top: {
       // alignItems: "center",
       display: "flex",
-
       marginTop: "200px",
     },
     text: {
@@ -103,7 +99,6 @@ const MainSlider = (props) => {
     },
     imagedesktop: {
       display: "block",
-
       [theme.breakpoints.up(900)]: {
         display: "none",
       },
@@ -116,17 +111,15 @@ const MainSlider = (props) => {
       backgroundImage: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0) 100%) !important",
       opacity: "0.7 !important",
       position: "absolute",
-
       top: "0vh",
       width: "100%",
       height: "170px",
-
       zIndex: 1200,
     },
   }));
   const ITEMS = [
     {
-      image: "/Desktop-images/desktop2.svg",
+      image: "/Desktop-images/desktop1.svg",
       id: 1,
     },
     {
@@ -143,7 +136,7 @@ const MainSlider = (props) => {
     },
 
     {
-      image: "/Desktop-images/desktop6.svg",
+      image: "/Desktop-images/desktop5.svg",
       id: 6,
     },
   ];
@@ -158,20 +151,26 @@ const MainSlider = (props) => {
           <div className={classes.controller}>
             <div className={classes.topheaderfor}></div>
             <div className={classes.controllert}>
-              {" "}
-              <img src="/icons/home.svg" className={classes.ie} />
               <Link to="target-element" smooth={true} duration={2000}>
-                <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
-                  Scroll to discover more
-                </Typography>
+                {" "}
+                <div style={{ display: "flex", cursor: "pointer" }}>
+                  <img style={{ marginRight: "12px" }} src="/icons/home.svg" className={classes.ie} />
+                  <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
+                    Scroll to discover more
+                  </Typography>
+                </div>
               </Link>
             </div>
             <div className={classes.controllera}>
               {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
+              <div style={{ display: "flex" }}>
+                <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
+                <h1 style={{ marginRight: "5px", marginLeft: "5px" }} className={classes.arrowc}>
+                  |
+                </h1>
+                <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+              </div>
 
-              <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
-              <h1 className={classes.arrowc}>|</h1>
-              <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
               {activeIndex < ITEMS.length - 1 ? (
                 <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
               ) : (
@@ -195,7 +194,7 @@ const MainSlider = (props) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
- 
+
   const classes = useStyles();
   const pagination = {
     renderCustom: (_, current, total) => {

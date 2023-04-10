@@ -261,7 +261,7 @@ let _form = null;
 const handleSubmit = (value) => new Promise((resolve, reject) => {
   setState({ isProcessing: true });
   setTimeout(async () => {
-    console.log("Address saved", value);
+    // console.log("Address saved", value);
     setState({ isProcessing: false });
     resolve(value)
   }, 2000);

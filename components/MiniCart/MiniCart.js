@@ -26,6 +26,11 @@ const styles = (theme) => ({
   cart: {
     backgroundColor: theme.palette.common.white,
     cursor: "pointer",
+    "&.MuiButton-root:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      backgroundColor: theme.palette.common.white,
+    },
   },
   emptyCart: {
     display: "flex",
@@ -35,8 +40,8 @@ const styles = (theme) => ({
   badge: {
     width: 20,
     height: 20,
-    top: 10,
-    left: 7,
+    top: 5,
+    left: 15,
   },
   modal: {
     display: "flex",
@@ -84,20 +89,23 @@ const styles = (theme) => ({
   cartitem: {
     padding: theme.spacing(1),
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
     alignItems: "flex-start",
+    borderBottom: "1px solid #e5e5e5",
   },
   cartitemimage: {
-    width: "270px",
+    width: "320px",
     height: "160px",
   },
   cartimage: {
     width: "100%",
     height: "100%",
     borderRadius: "10px",
+    objectFit: "cover",
   },
   cartitemtext: {
     display: "flex",
+    
     flexDirection: "column",
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(1),
@@ -126,10 +134,14 @@ const styles = (theme) => ({
     borderRadius: "40px",
     background: theme.palette.reaction.black,
     display: "flex",
-
     justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: "10px",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: theme.palette.reaction.black,
+    },
   },
   cart: {
     height: "48px",
@@ -140,6 +152,11 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: theme.palette.secondary.selected,
+    },
   },
   carttext: {
     color: theme.palette.primary.contrastText,
@@ -182,11 +199,7 @@ const styles = (theme) => ({
       fontFamily: "Ostrich Sans Black",
     },
   },
-  lastDiv: {
-    "& $lastChild": {
-      display: "none",
-    },
-  },
+  lastDiv: {},
 });
 
 const MiniCart = ({ ...props }) => {
@@ -246,7 +259,9 @@ const MiniCart = ({ ...props }) => {
                     <div className={classes.paper}>
                       <div className={classes.cartmodal}>
                         {" "}
-                        <Typography variant="subtitle1">Cart</Typography>
+                        <Typography style={{ fontWeight: "700", fontFamily: "Lato" }} variant="subtitle1">
+                          Cart
+                        </Typography>
                         <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
                       </div>
                       <div className={classes.cartitems}>
@@ -288,19 +303,19 @@ const MiniCart = ({ ...props }) => {
                           <Typography variant="h4">RS: {cart?.checkout?.summary?.total?.amount}</Typography>
                         </div>
                         <div className={classes.total1}>
-                          <div style={{ cursor: "pointer" }} onClick={handleOnClick} className={classes.cart1}>
-                            <Typography gutterBottom variant="h5" component="h2" className={classes.carttext}>
-                              VIEW CART{" "}
-                            </Typography>
+                          <div style={{ cursor: "pointer" }}>
+                            <Button className={classes.cart1} onClick={handleOnClick}>
+                              <Typography gutterBottom variant="h5" component="h2" className={classes.carttext}>
+                                VIEW CART{" "}
+                              </Typography>
+                            </Button>
                           </div>
-                          <div
-                            style={{ cursor: "pointer" }}
-                            onClick={handleCheckoutButtonClick}
-                            className={classes.cart}
-                          >
-                            <Typography gutterBottom variant="h5" component="h2">
-                              CHECKOUT
-                            </Typography>
+                          <div style={{ cursor: "pointer" }}>
+                            <Button onClick={handleCheckoutButtonClick} className={classes.cart}>
+                              <Typography gutterBottom variant="h5" component="h2">
+                                CHECKOUT
+                              </Typography>
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -333,7 +348,9 @@ const MiniCart = ({ ...props }) => {
             <div className={classes.paper}>
               <div className={classes.cartmodal}>
                 {" "}
-                <Typography variant="subtitle1">Cart</Typography>
+                <Typography style={{ fontWeight: "700", fontFamily: "Lato" }} variant="subtitle1">
+                  Cart
+                </Typography>
                 <CloseIcon onClick={handleClose} />
               </div>
               <div className={classes.paper2}>

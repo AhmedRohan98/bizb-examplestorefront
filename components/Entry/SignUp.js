@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "17px",
       padding: "0px",
     },
+    "& .MuiInputBase-root": {
+      fontFamily: "Lato",
+    },
   },
   register: {
     width: "214px",
@@ -75,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   terms: {
-    lineHeight: "100px",
+    lineHeight: "55px",
   },
   checkbox: {
     color: "green",
@@ -113,8 +116,8 @@ const useStyles = makeStyles((theme) => ({
   },
   formerror: {
     paddingLeft: theme.spacing(1),
-    fontSize: "16px",
-    cursor: "pointer",
+    margin: "0px",
+    fontSize: "14px",
     color: "#b22b27",
     fontFamily: "Lato",
   },
@@ -126,26 +129,18 @@ const useStyles = makeStyles((theme) => ({
  * @returns {Object} jsx
  */
 export default function SignUp(props) {
-
   const [checkedEmail, setCheckedEmail] = React.useState(true);
 
   const { closeModal, openModal } = props;
   const classes = useStyles();
-  
+
   const [error, setError] = useState("");
   const [, , refetch] = useViewer();
   const { passwordClient } = getAccountsHandler();
- 
- 
-
- 
-
- 
 
   const handleChangeEmail = (event) => {
     setCheckedEmail(event.target.checked);
   };
-
 
   const handleOpenLogIn = () => {
     openModal("login");
@@ -161,45 +156,49 @@ export default function SignUp(props) {
   //     setError(err.message);
   //   }
   // };
-  
-    const initialValues = {
-      FullName: "",
-      email: "",
-      password: "",
-      confirm_password: "",
-      phonenumber:"",
-    };
-      const signUpSchema = Yup.object({
-        FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
-        email: Yup.string().email().required("Please enter your email"),
-        phonenumber: Yup.string().matches(/^[0-9]+$/, 'Please enter a valid mobile number')
-        .required('Phone number is required'),
-        password: Yup.string().min(6).required("Please enter your password"),
-        confirm_password: Yup.string()
-          .required()
-          .oneOf([Yup.ref("password"), null], "Password must match"),
-      });
-   const registerUser2 = async (values, action) => {
-     try {
-       await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
-       action.resetForm(); 
-       closeModal();
-       await refetch();
-     } catch (err) {
-       setError(err.message);
-     }
-   };
-    const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
-      initialValues,
-      validationSchema: signUpSchema,
-      validateOnChange: true,
-      validateOnBlur: false,
-      onSubmit: async(values, action) => {
-          await registerUser2(values, action);
-        action.resetForm();
-      },
-    });
-  
+
+  const initialValues = {
+    FullName: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+    phonenumber: "",
+  };
+  const signUpSchema = Yup.object({
+    FullName: Yup.string().min(3).max(25).required("Please enter your name"),
+    email: Yup.string().email().required("Please enter your email"),
+    phonenumber: Yup.string()
+      .matches(/^[0-9]+$/, "Please enter a valid mobile number")
+      .required("Phone number is required"),
+    password: Yup.string().min(6).required("Please enter your password"),
+    confirm_password: Yup.string()
+      .required()
+      .oneOf([Yup.ref("password"), null], "Password must match"),
+  });
+  const registerUser2 = async (values, action) => {
+    try {
+      // Creating user will login also
+      await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
+      action.resetForm(); // to get rid of all the values after submitting the form
+      closeModal();
+      await refetch();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+    initialValues,
+    validationSchema: signUpSchema,
+    validateOnChange: true,
+    validateOnBlur: false,
+    //// By disabling validation onChange and onBlur formik will validate on submit.
+    onSubmit: async (values, action) => {
+      await registerUser2(values, action);
+      //// to get rid of all the values after submitting the form
+      action.resetForm();
+    },
+  });
+
   return (
     <>
       <Typography variant="body1">REGISTRATION </Typography>
@@ -330,23 +329,21 @@ export default function SignUp(props) {
             type="submit"
             role="button"
           >
-            {" "}
+    
             Register
           </Button>
         </div>
-        <div style={{ textAlign: "center", marginTop: "15px", fontSize: "16px" }}>OR</div>
+        <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
         <div className={classes.socialmediaAuth}>
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "15px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
-              {" "}
               Register With Google
             </Typography>
           </Box>
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "15px" }} src="/authentication/signup4.svg" alt="Login-SignUP" />
             <Typography variant="h5" className={classes.register2}>
-              {" "}
               Register With Facebook
             </Typography>
           </Box>

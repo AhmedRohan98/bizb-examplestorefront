@@ -1,6 +1,6 @@
 //@ts-ignore
 //@ts-nocheck
-import React from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import inject from "hocs/inject";
 import AppBar from "@material-ui/core/AppBar";
 import Hidden from "@material-ui/core/Hidden";
@@ -17,7 +17,7 @@ import AccountDropdown from "components/AccountDropdown";
 import ShopLogo from "@reactioncommerce/components/ShopLogo/v1";
 import Link from "components/Link";
 import MiniCart from "components/MiniCart";
-
+import Search from "components/Search";
 import type { FC } from "react";
 import type { WithStyles, Theme } from "@material-ui/core";
 
@@ -51,6 +51,7 @@ const styles = (theme: Theme) =>
       paddingTop: "20px",
       height: "170px",
       zIndex: 1200,
+      
     },
     light: {
       color: "#FFFFFF",
@@ -77,6 +78,11 @@ interface HeaderProps extends WithStyles<typeof styles> {
   /* @ts-ignore TODO: Refactor link to address type error */
 }
 const Header: any = ({ classes, shop, uiStore, headerType }) => {
+  const [modalFlag, setModalFlag] = useState(false);
+  const handleOpenModal = () => {
+    console.log("ModalFlag",modalFlag);
+    setModalFlag(true);
+  };
   const handleNavigationToggleClick = () => {
     uiStore.toggleMenuDrawerOpen();
   };
@@ -144,7 +150,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
         />
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <Hidden smDown>
-        <span style={{ marginRight: "25px", marginLeft: "25px" }}>
+        <span onClick={handleOpenModal} style={{ marginRight: "25px", marginLeft: "25px" }}>
           {/* @ts-ignore TODO: Refactor link to address type error */}
           {headerType ? (
             <img src="/images/searchIconLight.svg" className="headerlogo" />
@@ -152,6 +158,8 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
             <img src="/images/searchIconDark.svg" className="headerlogo" />
           )}
         </span></Hidden>
+        {/* @ts-ignore TODO: Refactor link to address type error */}
+        <Search modalFlag={modalFlag} setModalFlag={setModalFlag}/>
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <MiniCart
           headerType={headerType}

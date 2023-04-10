@@ -6,7 +6,6 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-// import PartTownLogo from "/images/PartTown-Logo.svg";
 import ProgressiveImage from "components/ProgressiveImage";
 const date = new Date();
 
@@ -25,7 +24,6 @@ const styles = (theme) => ({
   rightText: {
     display: "flex",
     flexDirection: "column",
-    // justifyContent: "right",
     fontSize: "20px",
   },
   footerText: {
@@ -58,7 +56,7 @@ const Footer = ({ ...props }) => (
   <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
     <Grid container>
       <Grid item xs={12} md={4}>
-        <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px" }}>
+        <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px", textAlign: "center" }}>
           <span>
             <img src="/images/logoLight.svg" />
           </span>
@@ -66,7 +64,7 @@ const Footer = ({ ...props }) => (
         <div style={{ fontSize: "20px", marginLeft: "90px", fontWeight: "500" }}>IN. FB. TW. LI</div>
       </Grid>
       <Grid item xs={12} md={3}>
-        <div style={{ fontWeight: "700", fontSize: "26px" }}>
+        <div style={{ fontWeight: "700", fontSize: "26px", textAlign: "center" }}>
           <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>Home</div>
           <div style={{ marginTop: "25px", cursor: "pointer" }}>Explore</div>
           <div style={{ marginTop: "25px", cursor: "pointer" }}>How to Sell</div>
@@ -76,7 +74,7 @@ const Footer = ({ ...props }) => (
         </div>
       </Grid>
       <Grid item xs={12} md={5}>
-        <div style={{ fontWeight: "500", fontSize: "18px" }}>
+        <div style={{ fontWeight: "500", fontSize: "15px", textAlign: "center" }}>
           <div style={{ marginTop: "80px" }}>FEEL FREE TO CONTACT US, ANYTIME, ANYWHERE</div>
           <div style={{ marginTop: "20px" }}>
             <span>
