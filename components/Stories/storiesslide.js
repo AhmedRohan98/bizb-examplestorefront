@@ -284,6 +284,10 @@ const { edges } = sellers?.sellerCatalogItems ?? {};
       <Swiper
         ref={sliderRef}
         breakpoints={{
+          1500: {
+            width: 1500,
+            slidesPerView: 4,
+          },
           1200: {
             width: 1200,
             slidesPerView: 4,
@@ -312,100 +316,104 @@ const { edges } = sellers?.sellerCatalogItems ?? {};
             ""
           )}
         </div>
-           <div className={classes.root}>
-        <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center"></Grid>
-        {edges?.map((item) => 
-        { 
+        <Grid />
+        <div className={classes.root}>
+          <Grid
+            container
+            className={classes.gridroot}
+            align="center"
+            justify="space-between"
+            alignItems="center"
+          ></Grid>
+          {edges?.map((item) => {
             const cartitem = cart?.items;
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });
-            console.log(item?.node?.product?.productId, "ssss", cart?.items[0]?.productConfiguration?.productId);
+            // console.log(item?.node?.product?.productId, "ssss", cart?.items[0]?.productConfiguration?.productId);
             const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
             const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
             const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-          return (
-            <SwiperSlide key={item.id}>
-              <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                <Link
-                  href={item.node.product.slug && "en/product/[...slugOrId]"}
-                  as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                >
-                  <img
-                    src={
-                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.media[0]?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                  />
-                </Link>
-                <div className={classes.cartbackground}>
-                  <Button
-                    className={classes.cart}
-                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                    disabled={isDisabled}
+            return (
+              <SwiperSlide key={item.id}>
+                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                  <Link
+                    href={item.node.product.slug && "en/product/[...slugOrId]"}
+                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                   >
-                    {/* {isLoading && <PageLoading />} */}
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                    <img
+                      src={
+                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                          ? "/justin/justin4.svg"
+                          : item?.node?.product?.media[0]?.URLs?.large
+                      }
+                      className={classes.image}
+                      key={item?.node?.product?.id}
+                      alt={"hhhh"}
+                    />
+                  </Link>
+                  <div className={classes.cartbackground}>
+                    <Button
+                      className={classes.cart}
+                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                      disabled={isDisabled}
+                    >
+                      {/* {isLoading && <PageLoading />} */}
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography
+                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                        variant="h5"
+                        component="h2"
+                      >
+                        {isDisabled ? "Added" : "+ Cart"}
+                      </Typography>
+                    </Button>
+                  </div>
+                  <Box className={classes.maintitle}>
                     <Typography
-                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                      variant="h5"
+                      style={{ fontWeight: "700", fontSize: "24px" }}
+                      gutterBottom
+                      variant="h4"
                       component="h2"
+                      className={classes.carttitle}
                     >
-                      {isDisabled ? "Added" : "+ Cart"}
+                      {item.node.product.title}
                     </Typography>
-                  </Button>
-                </div>
-                <Box className={classes.maintitle}>
-                  <Typography
-                    style={{ fontWeight: "700", fontSize: "24px" }}
-                    gutterBottom
-                    variant="h4"
-                    component="h2"
-                    className={classes.carttitle}
-                  >
-                    {item.node.product.title}
-                  </Typography>
-                  <div className={classes.size}>
-                    <Typography
-                      style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                      gutterBottom
-                      variant="h4"
-                    >
-                      Size :
-                    </Typography>
-                    <Typography
-                      style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                      gutterBottom
-                      variant="h4"
-                    >
-                      {size}
-                    </Typography>
-                  </div>
-                  <div className={classes.size}>
-                    {" "}
-                    <strike>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                        ?.replace(/\.00$/, "")
-                        .replace(/\$/g, "RS ")}
-                    </strike>
-                    <Typography gutterBottom variant="h5" className={classes.price}>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                        ?.replace(/\.00$/, "")
-                        .replace(/\$/g, "RS ")}
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
-            </SwiperSlide>
-          );
-         }
-      )}
-      </div>
-      <Grid/>
+                    <div className={classes.size}>
+                      <Typography
+                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                        gutterBottom
+                        variant="h4"
+                      >
+                        Size :
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                        gutterBottom
+                        variant="h4"
+                      >
+                        {size}
+                      </Typography>
+                    </div>
+                    <div className={classes.size}>
+                      {" "}
+                      <strike>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "RS ")}
+                      </strike>
+                      <Typography gutterBottom variant="h5" className={classes.price}>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "RS ")}
+                      </Typography>
+                    </div>
+                  </Box>
+                </Grid>
+              </SwiperSlide>
+            );
+          })}
+        </div>
       </Swiper>
       {activeIndex < itemData.length + 1 ? (
         <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />

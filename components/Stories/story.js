@@ -46,7 +46,7 @@ const Story = (props) => {
     },
     iconforwad: {
       position: "absolute",
-      bottom: "60px",
+      bottom: "130px",
       right: "20px",
       background: "#333333",
       color: "FDC114",
@@ -56,7 +56,7 @@ const Story = (props) => {
     },
     iconback: {
       position: "absolute",
-      bottom: "60px",
+      bottom: "130px",
       left: "20px",
       borderRadius: "4px",
       color: "FDC114",
@@ -349,7 +349,7 @@ const Story = (props) => {
               src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
               className={classes.image}
             />
-            <Typography style={{ marginLeft: "10px" }} variant="h4" className="storename">
+            <Typography style={{ textAlign: "center", marginBottom: "60px", marginTop: "10px" }} variant="h5">
               {item.storeName}
             </Typography>
           </div>
