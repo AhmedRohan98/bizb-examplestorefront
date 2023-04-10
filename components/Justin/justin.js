@@ -154,9 +154,9 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-  const { cart } = props;
+ 
   // console.log(cart, "cartx");
-  const {items}=cart
+  const {items}=props?.cart
   // useEffect(() => {
   //   if (cart?.items?.length) {
   //     const filteredProducts = catalogdata?.filter((product) => {
@@ -174,13 +174,13 @@ const Justin = (props) => {
   // }, [cart, cart.items, catalogdata]);
   // console.log(catalogdata,"data")
 useEffect(() => {
-  const updatedItems = items.map((item) => {
+  const updatedItems = items?.map((item) => {
     const isItemInCart = catalogdata?.some((product) => {
-      return item.productConfiguration?.productId === product?.node.product?.productId;
+      return item?.productConfiguration?.productId === product?.node.product?.productId;
     });
     return {
       ...item,
-      disabled: item.inCart || isItemInCart,
+      disabled: item?.inCart || isItemInCart,
     };
   });
   // console.log(updatedItems, "all");
