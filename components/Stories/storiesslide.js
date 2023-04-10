@@ -92,7 +92,7 @@ const { edges } = sellers?.sellerCatalogItems ?? {};
     },
     iconforwad: {
       position: "absolute",
-      bottom: "202px",
+      bottom: "332px",
       right: "10px",
       background: "#333333",
       color: "FDC114",
@@ -102,7 +102,7 @@ const { edges } = sellers?.sellerCatalogItems ?? {};
     },
     iconback: {
       position: "absolute",
-      bottom: "202px",
+      bottom: "332px",
       left: "20px",
       borderRadius: "4px",
       color: "FDC114",
