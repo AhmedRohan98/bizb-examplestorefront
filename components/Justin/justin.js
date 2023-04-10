@@ -329,24 +329,21 @@ useEffect(() => {
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    {isLoading ? (
-                      <CircularProgress />
-                    ) : (
-                      <Button
-                        className={classes.cart}
-                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled}
+                    {isLoading ? <CircularProgress /> : <Button
+                      className={classes.cart}
+                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                      disabled={isDisabled}
+                    >
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography
+                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                        variant="h5"
+                        component="h2"
                       >
-                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography
-                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                          variant="h5"
-                          component="h2"
-                        >
-                          {isDisabled ? "Added" : "+ Cart"}
-                        </Typography>
-                      </Button>
-                    )}
+                        {isDisabled ? "Added" : "+ Cart"}
+                      </Typography>
+                    </Button>}
+                   
                   </div>
                   <Box className={classes.maintitle}>
                     <Typography
