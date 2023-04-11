@@ -157,7 +157,7 @@ const Justin = (props) => {
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({});
 
   // console.log(cart, "cartx");
   const { items } = props?.cart;
@@ -266,11 +266,17 @@ const Justin = (props) => {
   };
 
   const handleOnClick = async (product, variant) => {
-    setIsLoading(true);
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: true,
+  }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!", {});
-    setIsLoading(false);
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: false,
+  }));
     // Scroll to the top
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -336,7 +342,7 @@ const Justin = (props) => {
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    {isLoading ? (
+                    {isLoading [item?.node?.product?.productId]  ? (
                       <CircularProgress />
                     ) : (
                       <Button

@@ -16,7 +16,7 @@ export default function useGetAllSeller(id) {
 
   const sellers = data?.sellerCatalogItems?.edges;
 
-  console.log("data in sellers", sellers);
+ 
   useEffect(() => {
     refetch();
   });

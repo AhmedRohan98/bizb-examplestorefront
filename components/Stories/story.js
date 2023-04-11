@@ -346,7 +346,7 @@ const Story = (props) => {
   const filteredItems = !filter ? ITEMS : ITEMS.filter((item) => item.Catagory.includes(filter));
   const filteredproducts = !filterproducts ? itemData : itemData.filter((item) => item.store.includes(filterproducts));
   // console.log(filteredItems, "dddddddddddddddddddddd");
-  function Item({ item }) {
+  function Item({ item ,active}) {
     const classes = useStyles();
     console.log(item.storeName, "name");
     return (
@@ -357,7 +357,11 @@ const Story = (props) => {
               src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
               className={classes.image}
             />
-            <Typography style={{ textAlign: "center", marginBottom: "60px", marginTop: "10px" }} variant="h5">
+            <Typography
+              style={{ textAlign: "center", marginBottom: "60px", marginTop: "10px" }}
+              variant="h5"
+              className={active ? classes.catagoriesactive : classes.catagoriesinactive}
+            >
               {item.storeName}
             </Typography>
           </div>
