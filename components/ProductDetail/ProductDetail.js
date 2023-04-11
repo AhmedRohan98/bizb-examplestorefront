@@ -390,7 +390,8 @@ const ProductDetail = ({ ...props }) => {
   const { product, catalogItems ,cart} = props;
    const { items } = cart;
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
-console.log("dddd",props)
+// console.log("dddd",props)
+  const { uiStore } = props;
   const filteredProducts = catalogItems?.filter((product) => {
     const productTags = product?.node?.product?.tagIds;
     if (!productTags) {
@@ -434,7 +435,9 @@ useEffect(() => {
 }, [items, product]);
   useEffect(() => {
     selectVariant(product.variants[0]);
+      uiStore?.setPageSize(500);
   }, []);
+
   function selectVariant(variant, optionId) {
     const { uiStore } = props;
 
@@ -583,7 +586,9 @@ useEffect(() => {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
-  // console.log(product, "produ");
+  const optionTitle = product?.variants[0]?.optionTitle;
+  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+  const size= validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
     const isDisabled = items?.some((data) => {
       return data.productConfiguration.productId ===product?.productId;
     });
@@ -730,11 +735,10 @@ useEffect(() => {
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
                 <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                  {product?.variants[0]?.media[0]?.optionTitle?.json.parse(size)}
+                  {size}
                 </Typography>
               </div>
               <div>
-               
                 <Button className={classes.cart2} fullWidth onClick={handleOnClick} disabled={isDisabled}>
                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                   <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">

@@ -10,8 +10,8 @@ import Storyslider from "./storiesslide";
 const Story = (props) => {
   // console.log("all props....", props);
   const [sellers, loading, refetch] = useGetAllSeller();
-  const [sellerToGet, setSellerToGet] = useState();
-  const [intialvalues, setIntial] = useState("");
+  const [sellerToGet, setSellerToGet] = useState(sellers ? sellers[1]?._id : "");
+  const [intialvalues, setIntial] = useState(sellers ? sellers[1]?._id :"");
   const [sellerss, loadingSellerss, refetchSellerss] = useGetAllSellers(sellerToGet ? sellerToGet : intialvalues);
 
  
@@ -329,6 +329,7 @@ const Story = (props) => {
   ];
 
   function Filter({ name, onClick, active }) {
+    console.log(active, "name");
     return (
       <Typography
         onClick={onClick}
@@ -348,7 +349,7 @@ const Story = (props) => {
   // console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item ,active}) {
     const classes = useStyles();
-    console.log(item.storeName, "name");
+    console.log(active, "name");
     return (
       <>
         <SwiperSlide>
