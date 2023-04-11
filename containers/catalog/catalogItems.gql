@@ -1,6 +1,7 @@
 query catalogItemsQuery(
   $shopId: ID!
   $tagIds: [ID]
+  $first: ConnectionLimitInt
   $sortBy: CatalogItemSortByField
   $sortByPriceCurrencyCode: String
   $sortOrder: SortOrder
@@ -8,7 +9,7 @@ query catalogItemsQuery(
   catalogItems(
     shopIds: [$shopId]
     tagIds: $tagIds
-    first: 16
+    first: $first
     sortBy: $sortBy
     sortByPriceCurrencyCode: $sortByPriceCurrencyCode
     sortOrder: $sortOrder

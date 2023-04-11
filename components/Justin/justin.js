@@ -6,13 +6,16 @@ import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import variantById from "lib/utils/variantById";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
 import PageLoading from "../PageLoading";
 import { JSON } from "global";
+import { CircularProgress } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
+import { UIContext } from "../../context/UIContext.js";
+
 const useStyles = makeStyles((theme) => ({
   main: {
     width: "100%",
@@ -142,20 +145,26 @@ const useStyles = makeStyles((theme) => ({
     color: "#FDC114",
   },
   toast: {
-    background: "green",
-    color: "white",
+    background: "yellow",
+    color: "black",
   },
 }));
 
 const Justin = (props) => {
+  // const UIContextJustInPage = useContext(UIContext);
   const catalogdata = props?.catalogItems;
+  const { uiStore } = props;
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
-  const { cart } = props;
-  console.log(cart, "cartx");
-  const {items}=cart
+  const [isLoading, setIsLoading] = useState(false);
+console.log(uiStore,"iuuuuuuu")
+  // console.log(cart, "cartx");
+  const { items } = props?.cart;
+
+  useEffect(() => {
+    uiStore?.setPageSize(16);
+  }, []);
   // useEffect(() => {
   //   if (cart?.items?.length) {
   //     const filteredProducts = catalogdata?.filter((product) => {
@@ -169,22 +178,23 @@ const Justin = (props) => {
   //     });
   //     console.log(filteredProducts, "rrrrrrrrr");
   //   }
-    
+
   // }, [cart, cart.items, catalogdata]);
-  console.log(catalogdata,"data")
-useEffect(() => {
-  const updatedItems = items.map((item) => {
-    const isItemInCart = catalogdata?.some((product) => {
-      return item.productConfiguration?.productId === product?.node.product?.productId;
+  // console.log(catalogdata,"data")
+  useEffect(() => {
+    const updatedItems = items?.map((item) => {
+      const isItemInCart = catalogdata?.some((product) => {
+        return item?.productConfiguration?.productId === product?.node.product?.productId;
+      });
+      // setpageSize(20);
+      return {
+        ...item,
+        disabled: item?.inCart || isItemInCart,
+      };
     });
-    return {
-      ...item,
-      disabled: item.inCart || isItemInCart,
-    };
-  });
-  console.log(updatedItems, "all");
-  // do something with updatedItems
-}, [items, catalogdata]);
+    // console.log(updatedItems, "all");
+    // do something with updatedItems
+  }, [items, catalogdata]);
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
 
@@ -231,37 +241,34 @@ useEffect(() => {
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
 
+    // If variant is not already in the cart, add the new item
 
-   
-  
-      // If variant is not already in the cart, add the new item
-    
-        await addItemsToCart([
+    await addItemsToCart([
+      {
+        price: {
+          amount: product.variants[0]?.pricing[0]?.minPrice,
+          currencyCode: "USD",
+        },
+        metafields: [
           {
-            price: {
-              amount: product.variants[0]?.pricing[0]?.minPrice,
-              currencyCode: "USD",
-            },
-            metafields: [
-              {
-                key: "media",
-                value: product.media[0]?.URLs?.large,
-              },
-            ],
-            productConfiguration: {
-              productId: product.productId,
-              productVariantId: selectedVariant.variantId,
-            },
-            quantity,
+            key: "media",
+            value: product.media[0]?.URLs?.large,
           },
-        ]);
-      }
-
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity,
+      },
+    ]);
+  };
 
   const handleOnClick = async (product, variant) => {
     setIsLoading(true);
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
+    toast.success(" added to cart successfully!", {});
     setIsLoading(false);
     // Scroll to the top
   };
@@ -304,10 +311,10 @@ useEffect(() => {
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });
-            console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-           const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-           const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-           const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
 
             return (
               <>
@@ -328,21 +335,43 @@ useEffect(() => {
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    <Button
-                      className={classes.cart}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                      disabled={isDisabled}
-                    >
-                      {isLoading && <PageLoading />}
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography
-                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                        variant="h5"
-                        component="h2"
+                    {isLoading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Button
+                        className={classes.cart}
+                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                        disabled={isDisabled}
                       >
-                        {isDisabled ? "Added" : "+ Cart"}
-                      </Typography>
-                    </Button>
+                        <ToastContainer
+                          position="top-right"
+                          autoClose={5000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeButton={<CustomCloseButton />}
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                          theme="colored"
+                          background="green"
+                          toastStyle={{
+                            backgroundColor: "#FDC114",
+                            color: "black",
+                            fontSize: "16px",
+                            fontFamily: "lato",
+                          }}
+                        />{" "}
+                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                        <Typography
+                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                          variant="h5"
+                          component="h2"
+                        >
+                          {isDisabled ? "Added" : "+ Cart"}
+                        </Typography>
+                      </Button>
+                    )}
                   </div>
                   <Box className={classes.maintitle}>
                     <Typography

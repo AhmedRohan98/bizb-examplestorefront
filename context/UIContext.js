@@ -18,6 +18,7 @@ export const UIProvider = ({ children }) => {
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
   const [entryModal, setEntryModal] = useState(null);
+  
 
   const setPDPSelectedVariantId = (variantId, optionId) => {
     setPdpSelectedVariantId(variantId);

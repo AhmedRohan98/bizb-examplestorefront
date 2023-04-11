@@ -8,9 +8,7 @@ import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 const Caloborators = () => {
   const [sellers, loading, refetch] = useGetAllSeller();
   const [activeIndex, setActiveIndex] = useState(0);
-  useEffect(() => {
-    console.log("Sellers All", sellers);
-  }, [sellers]);
+
   SwiperCore.use([Autoplay]);
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +42,7 @@ const Caloborators = () => {
     iconforwad: {
       cursor: "pointer",
       position: "absolute",
-      bottom: "82px",
+      bottom: "90px",
       right: "20px",
       background: "#333333",
       color: "FDC114",
@@ -54,7 +52,7 @@ const Caloborators = () => {
     },
     iconback: {
       position: "absolute",
-      bottom: "82px",
+      bottom: "90px",
       left: "20px",
       borderRadius: "4px",
       color: "FDC114",
@@ -71,6 +69,9 @@ const Caloborators = () => {
     box: {
       display: "flex",
       flexDirection: "column",
+      allignItems: "start",
+      justifyContent: "start",
+      width: "122px",
     },
     dark: {
       color: "#333333",
@@ -81,6 +82,11 @@ const Caloborators = () => {
     mainheading: {
       paddingTop: "30px",
       paddingLeft: "50px",
+    },
+    swiperslide: {
+      display: "flex",
+      allignItems: "center",
+      justifyContent: "center",
     },
   }));
 
@@ -94,7 +100,7 @@ const Caloborators = () => {
               src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
               className={classes.image}
             />
-            <h4 style={{ marginLeft: "10px" }}>{item.storeName}</h4>
+            <Typography style={{ textAlign: "center", marginBottom:"20px" ,marginTop:"10px"}} variant='h5'>{item.storeName}</Typography>
           </div>
         </SwiperSlide>
       </>
@@ -112,18 +118,21 @@ const Caloborators = () => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-
+//  console.log("active index is ", activeIndex);
+//  console.log("active index sellerlength", sellers?.length); 
+const lastIndex = sellers?.length - 1;
   const classes = useStyles();
   return (
     <div className={classes.main}>
       <div className={classes.mainheading}>
         <Typography variant="h3">Collaborators</Typography>
       </div>
+
       <div className={classes.root}>
         <Swiper
           ref={sliderRef}
           autoplay={{ delay: 3000 }}
-          loop={true}
+          loop={false}
           breakpoints={{
             1600: {
               width: 1600,
@@ -153,9 +162,8 @@ const Caloborators = () => {
           }}
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
-          {" "}
           <div className={classes.controller}>
-            {activeIndex < sellers?.length - 1 ? (
+            {lastIndex === sellers?.length - 1 ? (
               <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
             ) : (
               ""
@@ -167,7 +175,7 @@ const Caloborators = () => {
             )}
           </div>
           {sellers?.map((item) => (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item.id} className={classes.swiperslide}>
               <Item item={item} />
             </SwiperSlide>
           ))}
