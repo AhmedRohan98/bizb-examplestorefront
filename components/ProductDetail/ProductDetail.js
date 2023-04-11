@@ -313,9 +313,17 @@ const styles = (theme) => ({
   carttex: {
     fontSize: "18px",
     color: "#333333",
-    fontFamily: "Ostrich Sans Black",
+    fontFamily: "lato",
     fontStyle: "normal",
     fontWeight: 900,
+    lineHeight: "22px",
+  },
+  sizechart: {
+    fontSize: "18px",
+    color: "#333333",
+    fontFamily: "lato",
+    fontStyle: "normal",
+    fontWeight: 400,
     lineHeight: "22px",
   },
   swiperimag: {
@@ -749,15 +757,12 @@ useEffect(() => {
               <TabContext value={value}>
                 <TabList onChange={handleChange} className={classes.tabs}>
                   <Tab label="Description" value="1" />
-                  <Tab label="Size chart" value="2" />
+                
                 </TabList>
 
-                <TabPanel value="1">{product?.description}</TabPanel>
+                <TabPanel value="1" className={classes.sizechart}>{product?.description}</TabPanel>
 
-                <TabPanel value="2">
-                  ffffffffffffffffffff voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                  occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </TabPanel>
+              
               </TabContext>
             </div>
           </Grid>
