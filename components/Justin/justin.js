@@ -158,12 +158,13 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-console.log(uiStore,"iuuuuuuu")
+
   // console.log(cart, "cartx");
   const { items } = props?.cart;
 
   useEffect(() => {
-    uiStore?.setPageSize(16);
+    uiStore?.setPageSize(15);
+  
   }, []);
   // useEffect(() => {
   //   if (cart?.items?.length) {
