@@ -814,7 +814,7 @@ useEffect(() => {
       </Typography>
       <div className={classes.root}>
         <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-          {filteredProducts?.map((item, key) => {
+          {filteredProducts?.splice(0,5)?.map((item, key) => {
             const isDisabled = items?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });
