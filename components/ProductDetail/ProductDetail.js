@@ -842,7 +842,7 @@ useEffect(() => {
                         variant="h5"
                         component="h2"
                       >
-                        {isDisabled ? "Added" : "+ art"}
+                        {isDisabled ? "Added" : "+ Cart"}
                       </Typography>
                     </Button>
                   </div>

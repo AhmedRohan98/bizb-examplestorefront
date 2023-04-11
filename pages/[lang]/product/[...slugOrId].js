@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { useRouter } from "next/router";
@@ -77,8 +77,15 @@ function buildJSONLd(product, shop) {
  * @param {Object} shop - the shop this product belong to
  * @return {React.Component} The product detail page
  */
-function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems ,cart}) {
+function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems ,cart,uiStore}) {
   const router = useRouter();
+  console.log(uiStore,"page si")
+  const {setPageSize}=uiStore;
+  
+useEffect(() => {
+  setPageSize(100);
+}, []);
+
   const currencyCode = (shop && shop.currency.code) || "USD";
   const JSONLd = useMemo(() => {
     if (product && shop) {

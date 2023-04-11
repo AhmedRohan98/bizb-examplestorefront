@@ -88,14 +88,17 @@ const styles = (theme) => ({
 
   cartitem: {
     padding: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     borderBottom: "1px solid #e5e5e5",
   },
   cartitemimage: {
-    width: "320px",
-    height: "160px",
+    width: "173px",
+    height: "194px",
+    marginBottom:theme.spacing(2),
   },
   cartimage: {
     width: "100%",
@@ -105,7 +108,7 @@ const styles = (theme) => ({
   },
   cartitemtext: {
     display: "flex",
-    
+    width: "240px",
     flexDirection: "column",
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(1),
@@ -280,7 +283,7 @@ const MiniCart = ({ ...props }) => {
                                 {" "}
                                 <Typography variant="h4">{item.title}</Typography>
                                 <Typography variant="h4" className={classes.cartpric}>
-                                  Store:{item?.productVendor}
+                                  Store:{item?.productVendor?.slice(0,10)}
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
                                   RS: {item?.price?.amount}
