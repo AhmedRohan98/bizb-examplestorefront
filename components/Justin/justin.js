@@ -163,7 +163,7 @@ console.log(uiStore,"iuuuuuuu")
   const { items } = props?.cart;
 
   useEffect(() => {
-    uiStore?.setPageSize(5);
+    uiStore?.setPageSize(16);
   }, []);
   // useEffect(() => {
   //   if (cart?.items?.length) {
