@@ -580,8 +580,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
-  // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
+
+  console.log(fourprouduts, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
   const [state, setState] = useState();
@@ -595,12 +596,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-
+console.log(category,"ffffff")
   useEffect(() => {
     setProducts();
 
     setDisplayedProducts(allproducts?.slice(0, 3));
   }, [open]);
+
+
   const options = [
     { value: "Recommend", label: "Recommend" },
     { value: "New Arrivals", label: "New Arrivals" },
@@ -790,9 +793,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       size: "large",
     },
   ];
+    useEffect(() => {
+     console.log(category?.catalogItems, "rrrrrrrr");
+      uiStore?.setPageSize(500000);
+    }, []);
+   
   const handleAddToCartClick = async (quantity, product, variant) => {
     // console.log(pdpSelectedVariantId, "star");
-
+ 
     const selectedVariant = variantById(product.variants, variant._id);
     if (selectedVariant) {
       await addItemsToCart([
@@ -2221,6 +2229,9 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
+  
+  
+  console.log(category,"dis");
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (

@@ -349,7 +349,7 @@ const Story = (props) => {
   // console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item ,active}) {
     const classes = useStyles();
-    console.log(active, "name");
+    // console.log(active, "name");
     return (
       <>
         <SwiperSlide>
@@ -388,7 +388,7 @@ const Story = (props) => {
      }
      refetchSellerss();
      setIntial(sellers ? sellers[1]?._id : "");
-     console.log("data in sellerss bhjjknkn", sellers);
+    //  console.log("data in sellerss bhjjknkn", sellers);
    }, [sellerToGet, intialvalues]);
 
   const classes = useStyles();

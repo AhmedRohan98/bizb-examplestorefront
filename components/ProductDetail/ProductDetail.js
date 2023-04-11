@@ -394,7 +394,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  console.log(props, "new");
+  // console.log(props, "new");
   const { product, catalogItems ,cart} = props;
    const { items } = cart;
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
@@ -438,7 +438,7 @@ useEffect(() => {
       disabled: item.inCart || isItemInCart,
     };
   });
-  console.log(updatedItems, "all");
+  // console.log(updatedItems, "all");
   // do something with updatedItems
 }, [items, product]);
   useEffect(() => {

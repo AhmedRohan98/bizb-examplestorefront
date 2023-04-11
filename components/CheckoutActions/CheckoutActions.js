@@ -1,9 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 
-
 import { useMutation } from "@apollo/client";
 import Router from "translations/i18nRouter";
-
 
 import { Grid, TextField, Typography, Button } from "@material-ui/core";
 import React, { useState } from "react";
@@ -246,7 +244,7 @@ const useStyles = makeStyles((theme) => ({
 const CheckoutActions = (prop) => {
   const { cart, apolloClient, cartStore } = prop;
 
- const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
   const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
   const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
   // console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
@@ -254,22 +252,12 @@ const CheckoutActions = (prop) => {
   const [placeOrder] = useMutation(placeOrderQuery);
 
   const classes = useStyles();
-  
- 
+
   const [error, setError] = useState("");
-
-
-
-
- 
-
-
 
   const handleChangeEmail = (event) => {
     setCheckedEmail(event.target.checked);
   };
-
- 
 
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
@@ -351,7 +339,7 @@ const CheckoutActions = (prop) => {
               {
                 data: {
                   shippingAddress: {
-                    address1: values.completeAddress,
+                    address1: values.CompleteAddress,
                     address2: values.orderNotes,
                     city: values.city,
                     company: null,
@@ -369,7 +357,7 @@ const CheckoutActions = (prop) => {
                 //    email: "",
                 //    FullName: "",
                 //    phonenumber: "",
-                //    completeAddress: "",
+                //    CompleteAddress: "",
                 //    orderNotes: "",
 
                 //    city:"",
@@ -413,15 +401,15 @@ const CheckoutActions = (prop) => {
       console.log(error);
     }
   };
- const initialValues = {
-   email: "",
-   FullName: "",
-   phonenumber: "",
-   completeAddress: "",
-   orderNotes: "",
-  
-   city:"",
- };
+  const initialValues = {
+    email: "",
+    FullName: "",
+    phonenumber: "",
+    CompleteAddress: "",
+    orderNotes: "",
+
+    city: "",
+  };
   const addressSchema = Yup.object({
     email: Yup.string().email().required("Please enter your email"),
 
@@ -431,109 +419,106 @@ const CheckoutActions = (prop) => {
       .matches(/^[0-9]+$/, "Please enter a valid mobile number"),
 
     city: Yup.string().required("Please select a city"),
-    completeAddress: Yup.string().min(5).max(50).required("Please enter your address"),
+    CompleteAddress: Yup.string().min(5).max(50).required("Please enter your address"),
     orderNotes: Yup.string().min(5).max(50).required("Please enter any additional details "),
   });
- const { values, handleBlur, handleChange, handleSubmit, errors, touched , setFieldValue  } = useFormik({
-   initialValues,
-   validationSchema: addressSchema,
-   validateOnChange: true,
-   validateOnBlur: false,
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
+    initialValues,
+    validationSchema: addressSchema,
+    validateOnChange: true,
+    validateOnBlur: false,
 
-     onSubmit: async(values, action) => {
-          await handlepay(values, action);
-        action.resetForm();
+    onSubmit: async (values, action) => {
+      await handlepay(values, action);
+      action.resetForm();
+    },
+  });
+  const customStyles = {
+    indicatorSeparator: () => ({
+      height: "48px",
+
+      color: "black",
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      height: "48px",
+      width: "430px",
+      marginTop: "10px",
+      background: "#F7F7F9",
+      borderRadius: "6px",
+      border: state.isFocused ? "none" : "none",
+      boxShadow: state.isFocused ? "none" : "none",
+      // Change this to the desired width
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      // Set the width of the menu to the full viewport width
+      maxWidth: "none",
+      width: "430px",
+
+      // Ensure that the menu can extend beyond the width of the container
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      width: "430px",
+      border: "none",
+    }),
+    option: (provided, state) => ({
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: state.isFocused ? 800 : 500,
+      color: "#969696",
+      fontSize: "16px",
+      fontFamily: "lato",
+      padding: "opx",
+      width: "430px",
+      letterSpacin: "0.05em",
+      padding: "13px",
+      borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
+      color: state.isFocused ? "#000000" : "#989898",
+      "&:hover": {
+        color: "#000000",
       },
-    
- });
-   const customStyles = {
-     indicatorSeparator: () => ({
-       height: "48px",
+    }),
+    dropdownIndicator: (base, state) => ({
+      ...base,
+      icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
+      "&:hover": {
+        color: "green",
+      },
+    }),
+    input: (provided) => ({
+      width: "430px !important",
+      color: "#969696",
+      color: "#969696",
+      fontSize: "16px",
+      fontFamily: "lato",
+      padding: "opx",
+    }),
+    placeholder: (defaultStyles) => {
+      return {
+        ...defaultStyles,
+        fontFamily: "Lato",
+        fontStyle: "normal",
+        color: "#969696",
+        fontSize: "16px",
+        fontFamily: "lato",
+        padding: "opx",
 
-       color: "black",
-     }),
-     control: (provided, state) => ({
-       ...provided,
-       height: "48px",
-       width: "430px",
-       marginTop: "10px",
-       background: "#F7F7F9",
-       borderRadius: "6px",
-       border: state.isFocused ? "none" : "none",
-       boxShadow: state.isFocused ? "none" : "none",
-       // Change this to the desired width
-     }),
-     menu: (provided, state) => ({
-       ...provided,
-       // Set the width of the menu to the full viewport width
-       maxWidth: "none",
-       width: "430px",
-
-       // Ensure that the menu can extend beyond the width of the container
-     }),
-     menuList: (provided, state) => ({
-       ...provided,
-       width: "430px",
-       border: "none",
-     }),
-     option: (provided, state) => ({
-       fontFamily: "Lato",
-       fontStyle: "normal",
-       fontWeight: state.isFocused ? 800 : 500,
-       color: "#969696",
-       fontSize: "16px",
-       fontFamily: "lato",
-       padding: "opx",
-       width: "430px",
-       letterSpacin: "0.05em",
-       padding: "13px",
-       borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
-       color: state.isFocused ? "#000000" : "#989898",
-       "&:hover": {
-         color: "#000000",
-       },
-     }),
-     dropdownIndicator: (base, state) => ({
-       ...base,
-       icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
-       "&:hover": {
-         color: "green",
-       },
-     }),
-     input: (provided) => ({
-     
-       width: "430px !important",
-       color: "#969696",
-       color: "#969696",
-       fontSize: "16px",
-       fontFamily: "lato",
-       padding: "opx",
-    
-     }),
-     placeholder: (defaultStyles) => {
-       return {
-         ...defaultStyles,
-         fontFamily: "Lato",
-         fontStyle: "normal",
-         color: "#969696",
-         fontSize: "16px",
-         fontFamily: "lato",
-         padding: "opx",
-        
-         color: "#969696",
-         "&:hover": {
-           color: "#FDC114",
-         },
-       };
-     },
-   };
- const DropdownIndicator = (props) => {
-   return (
-     <components.DropdownIndicator {...props}>
-       <img src="/colors/vector.svg" />
-     </components.DropdownIndicator>
-   );
- };
+        color: "#969696",
+        "&:hover": {
+          color: "#FDC114",
+        },
+      };
+    },
+  };
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <img src="/colors/vector.svg" />
+      </components.DropdownIndicator>
+    );
+  };
   const options = [
     { value: "Lahore", label: "Lahore" },
     { value: "Islamabad", label: "Islamabad" },
@@ -620,7 +605,7 @@ const CheckoutActions = (prop) => {
                 {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
               </Grid>
               <Grid item xs={12}>
-                <label className={classes.label} variant="h6" htmlFor="completeAddress">
+                <label className={classes.label} variant="h6" htmlFor="CompleteAddress">
                   <span className={classes.labelSpan}>
                     Complete Address <span style={{ color: "#FD1010" }}>*</span>
                   </span>
@@ -629,17 +614,17 @@ const CheckoutActions = (prop) => {
                     InputProps={{ disableUnderline: true }}
                     autoComplete="off"
                     type="text"
-                    name="completeAddress"
-                    id="completeAddress"
-                    value={values.completeAddress}
+                    name="CompleteAddress"
+                    id="CompleteAddress"
+                    value={values.CompleteAddress}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={classes.input}
                     inputProps={{ style: { color: "black" } }}
                   />
                 </label>
-                {errors.completeAddress && touched.completeAddress ? (
-                  <p className={classes.formerror}>{errors.completeAddress}</p>
+                {errors.CompleteAddress && touched.CompleteAddress ? (
+                  <p className={classes.formerror}>{errors.CompleteAddress}</p>
                 ) : null}
               </Grid>
 
