@@ -1,9 +1,17 @@
-query {
+query sellerItemsQuery(
+  $sellerIds: ID!
+  $tagIds: [ID]
+  $sortBy: CatalogItemSortByField
+  $sortByPriceCurrencyCode: String
+  $sortOrder: SortOrder
+) {
   sellerCatalogItems(
-    sellerIds: ["64131387e7794d243b804f3e"]
-    sortBy: updatedAt
-    sortByPriceCurrencyCode: "USD"
-    sortOrder: desc
+    sellerIds: [$sellerIds]
+    tagIds: $tagIds
+    first: 16
+    sortBy: $sortBy
+    sortByPriceCurrencyCode: $sortByPriceCurrencyCode
+    sortOrder: $sortOrder
   ) {
     totalCount
     pageInfo {

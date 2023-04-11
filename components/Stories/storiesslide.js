@@ -7,17 +7,16 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from "next/link";
 import Box from "@material-ui/core/Box";
-import useGetAllSeller from "../../hooks/sellerByID/useGetAllproductsbySeller";
-const Storyslider = ({ itemData ,cart}) => {
+
+const Storyslider = ({ itemData ,cart,sellerss}) => {
  
-   const [sellers, loading, refetch] = useGetAllSeller();
-const { edges } = sellers?.sellerCatalogItems ?? {};
+ 
    const {item}=cart
-   console.log(edges, "sellers");
+   
    const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const updatedItems = item?.map((item) => {
-      const isItemInCart = edges?.some((product) => {
+      const isItemInCart = sellerss?.some((product) => {
         return item.productConfiguration?.productId === product?.node.product?.productId;
       });
       return {
@@ -27,7 +26,7 @@ const { edges } = sellers?.sellerCatalogItems ?? {};
     });
     console.log(updatedItems, "all");
     // do something with updatedItems
-  }, [item, edges]);
+  }, [item, sellerss]);
   const useStyles = makeStyles((theme) => ({
   
    
@@ -325,7 +324,7 @@ const { edges } = sellers?.sellerCatalogItems ?? {};
             justify="space-between"
             alignItems="center"
           ></Grid>
-          {edges?.map((item) => {
+          {sellerss ? sellerss?.map((item) => {
             const cartitem = cart?.items;
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
@@ -412,10 +411,10 @@ const { edges } = sellers?.sellerCatalogItems ?? {};
                 </Grid>
               </SwiperSlide>
             );
-          })}
+          }) : ""}
         </div>
       </Swiper>
-      {activeIndex < itemData.length + 1 ? (
+      {activeIndex <sellerss?.length + 1 ? (
         <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
       ) : (
         ""

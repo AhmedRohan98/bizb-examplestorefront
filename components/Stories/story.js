@@ -5,13 +5,20 @@ import Typography from "@material-ui/core/Typography";
 import useGetAllSeller from "../../hooks/sellers/useGetAllSeller";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import useGetAllSellers from "../../hooks/sellerByID/useGetAllproductsbySeller";
 import Storyslider from "./storiesslide";
 const Story = (props) => {
   // console.log("all props....", props);
   const [sellers, loading, refetch] = useGetAllSeller();
-  useEffect(() => {
-    console.log("Sellers All", sellers);
-  }, [sellers]);
+  const [sellerToGet, setSellerToGet] = useState();
+  const [intialvalues, setIntial] = useState("");
+  const [sellerss, loadingSellerss, refetchSellerss] = useGetAllSellers(sellerToGet ? sellerToGet : intialvalues);
+
+ 
+  // const { edges } = sellers?.sellerCatalogItems ?? {};
+  // useEffect(() => {
+  //   console.log("Sellers All", sellers);
+  // }, [sellers]);
   const catagories = props?.nodes;
   const catgormobile = catagories?.slice(0, 3);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -127,9 +134,9 @@ const Story = (props) => {
       allignItems: "center",
       marginTop: theme.spacing(2),
     },
-    storeName:{
-      color:"black"
-    }
+    storeName: {
+      color: "black",
+    },
   }));
   const ITEMS = [
     {
@@ -332,6 +339,7 @@ const Story = (props) => {
       </Typography>
     );
   }
+  
   const [resouce, setResource] = useState("OUR PRODUCTS");
   const [filter, setFilter] = useState(catagories?.[0]?.displayTitle || catgormobile?.[0]?.displayTitle);
   const [filterproducts, setFilterProducts] = useState(null);
@@ -340,7 +348,7 @@ const Story = (props) => {
   // console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item }) {
     const classes = useStyles();
-    console.log(item.storeName,"name")
+    console.log(item.storeName, "name");
     return (
       <>
         <SwiperSlide>
@@ -369,6 +377,14 @@ const Story = (props) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
+ useEffect(() => {
+     if (!sellers) {
+       refetch();
+     }
+     refetchSellerss();
+     setIntial(sellers ? sellers[1]?._id : "");
+     console.log("data in sellerss bhjjknkn", sellers);
+   }, [sellerToGet, intialvalues]);
 
   const classes = useStyles();
   return (
@@ -384,15 +400,7 @@ const Story = (props) => {
             />
           ))}
         </div>
-        <div className={classes.catgorytagm}>
-          {sellers?.map((filterName) => (
-            <Filter
-              name={filterName.displayTitle}
-              onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}
-              active={filterName.displayTitle === filter}
-            />
-          ))}
-        </div>
+       
       </div>
 
       <div className={classes.root}>
@@ -440,17 +448,14 @@ const Story = (props) => {
               ""
             )}
           </div>
+          {/* {setIntial(sellers[1]?._id)} */}
           {sellers?.map((item) => (
-            <SwiperSlide
-              key={item.id}
-              onClick={() => setFilterProducts(item.store)}
-              active={item.store === filterproducts}
-            >
+            <SwiperSlide key={item.id} onClick={() => setSellerToGet(item?._id)} active={item.store === filterproducts}>
               <Item item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
-        <Storyslider itemData={filteredproducts} cart={props?.cart}/>
+        <Storyslider sellerss={sellerss} cart={props?.cart} />
       </div>
     </div>
   );
