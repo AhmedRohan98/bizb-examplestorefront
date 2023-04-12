@@ -51,9 +51,9 @@ export const fetchTags = async(shopId) => {
 }
 
 
-export const fetchAllCategories = async(shopIds, tagIds) => {
+export const fetchAllCategories = async(shopIds, tagIds,after) => {
   const categories = await graphQLRequest(fetchAllCategoriesQuery, {
-    shopIds,tagIds
+    shopIds,tagIds,after
   });
  
   return categories

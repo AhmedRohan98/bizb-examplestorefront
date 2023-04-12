@@ -7,6 +7,7 @@ export const UIContext = createContext();
 export const UIProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false);
+  const [endCursor, _setEndCursor] = useState("");
   const [language, setLanguage] = useState("en");
   const [locales, setLocales] = useState({});
   const [orderStatusQuery, setOrderStatusQuery] = useState([]);
@@ -18,7 +19,6 @@ export const UIProvider = ({ children }) => {
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
   const [entryModal, setEntryModal] = useState(null);
-  
 
   const setPDPSelectedVariantId = (variantId, optionId) => {
     setPdpSelectedVariantId(variantId);
@@ -74,6 +74,9 @@ export const UIProvider = ({ children }) => {
     _setPageSize(inPageSizes(size) ? size : PAGE_SIZES._20);
   };
 
+  const setEndCursor = (value) => {
+    _setEndCursor(value);
+  };
   return (
     <UIContext.Provider
       value={{
@@ -90,6 +93,8 @@ export const UIProvider = ({ children }) => {
         sortByCurrencyCode,
         entryModal,
         setLocales,
+        endCursor,
+        setEndCursor,
         setPDPSelectedVariantId,
         setLanguage,
         openCart,
@@ -101,7 +106,7 @@ export const UIProvider = ({ children }) => {
         setOrderStatusSelectValue,
         setPageSize,
         setSortBy,
-        setEntryModal
+        setEntryModal,
       }}
     >
       {children}
@@ -110,5 +115,5 @@ export const UIProvider = ({ children }) => {
 };
 
 UIProvider.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

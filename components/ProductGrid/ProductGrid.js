@@ -6,6 +6,7 @@ import CatalogGrid from "../../reaction-plugins/reaction-component-library/packa
 import PageLoading from "components/PageLoading";
 import PageStepper from "components/PageStepper";
 import PageSizeSelector from "components/PageSizeSelector";
+import withCatalogItems from "containers/catalog/withCatalogItems";
 import SortBySelector from "components/SortBySelector";
 import ProductGridEmptyMessage from "./ProductGridEmptyMessage";
 
