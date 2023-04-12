@@ -581,8 +581,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogItems }) {
-   console.log(catalogItems, "cat");
+function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogItems, }) {
+   console.log(currencyCode, "cat");
   const fourprouduts = category?.catalogItems?.edges;
 
   const [page, setpagess] = useState(category?.pageInfo?.endCursor);
