@@ -20,9 +20,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import PropTypes from "prop-types";
+import withCatalogItems from "containers/catalog/withCatalogItems";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
+import PageStepper from "../../../components/PageStepper/PageStepper";
 import { useRouter } from "next/router";
 
 import clsx from "clsx";
@@ -51,7 +54,6 @@ import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
 import inject from "../../../hocs/inject";
-import priceByCurrencyCode from "../../../lib/utils/priceByCurrencyCode";
 import Layout from "../../../components/Layout";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -579,10 +581,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
+function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogItems }) {
+   console.log(catalogItems, "cat");
   const fourprouduts = category?.catalogItems?.edges;
 
-  console.log(fourprouduts, "ffff");
+  const [page, setpagess] = useState(category?.pageInfo?.endCursor);
+  console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
   const [state, setState] = useState();
@@ -596,13 +600,12 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-console.log(category,"ffffff")
+  console.log(category, "ffffff");
   useEffect(() => {
     setProducts();
 
-    setDisplayedProducts(allproducts?.slice(0, 3));
+    setDisplayedProducts(allproducts?.slice(0, 10));
   }, [open]);
-
 
   const options = [
     { value: "Recommend", label: "Recommend" },
@@ -793,14 +796,14 @@ console.log(category,"ffffff")
       size: "large",
     },
   ];
-    useEffect(() => {
-     console.log(category?.catalogItems, "rrrrrrrr");
-      uiStore?.setPageSize(500000);
-    }, []);
-   
+  useEffect(() => {
+    uiStore?.setEndCursor(category?.catalogItems?.pageInfo?.endCursor);
+    uiStore?.setPageSize(500000);
+  }, []);
+  console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
     // console.log(pdpSelectedVariantId, "star");
- 
+
     const selectedVariant = variantById(product.variants, variant._id);
     if (selectedVariant) {
       await addItemsToCart([
@@ -1920,22 +1923,12 @@ console.log(category,"ffffff")
     }
   }
 
-const loadMoreProducts = async () => {
-  const currentIndex = displayedProducts?.length;
-  let nextPageExists = category?.pageInfo?.hasNextPage;
+  const loadMoreProducts = () => {
+    const currentIndex = displayedProducts?.length;
+    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 10);
 
-  console.log("Loading more products...");
-  while (nextPageExists) {
-    console.log("looaaaaaaaaaa")
-    const data = category?.pageInfo?.endCursor;
-  // Fetch the next set of products using the endCursor
-    const nextProducts = data?.allProducts?.edges?.map(({ node }) => node); // Extract the product nodes from the fetched data
-    setDisplayedProducts([...currentIndex, ...nextProducts]);
-
-    // Update the variables for the next iteration
-    nextPageExists = data?.allProducts?.pageInfo?.hasNextPage;
-  }
-};
+    setDisplayedProducts([...displayedProducts, ...nextProducts]);
+  };
 
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
@@ -2240,9 +2233,8 @@ const loadMoreProducts = async () => {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
-  
-  
-  console.log(category,"dis");
+
+  console.log(category, "dis");
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2528,7 +2520,7 @@ const loadMoreProducts = async () => {
             category?.catalogItems?.pageInfo.hasNextPage && (
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
-                  Load More
+                  {/* <PageStepper pageInfo={catalogItems?.pageInfo}></PageStepper> */}
                 </button>
               </div>
             )}
@@ -2539,6 +2531,8 @@ const loadMoreProducts = async () => {
 }
 
 export async function getStaticPaths() {
+ 
+
   const tags = await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==");
   let paths = [];
 
@@ -2547,24 +2541,47 @@ export async function getStaticPaths() {
       params: {
         lang: "en",
         tagId: tag._id,
+        endCursor: [],
       },
     }));
   }
-
+ // add this line
+  console.log(paths,"end"); 
   return {
+    
     paths,
     fallback: true,
   };
 }
 
-export async function getStaticProps({ params: { lang, tagId } }) {
-  const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
+export async function getStaticProps({ params: { lang, tagId, endCursor }, ...context }) {
 
+  const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId],endCursor);
   return {
     props: {
       category: categories,
+   
     },
   };
 }
 
-export default withApollo()(withCart(inject("routingStore", "uiStore")(Categories)));
+export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(Categories))));
+
+Categories.propTypes = {
+  catalogItems: PropTypes.arrayOf(PropTypes.object),
+  classes: PropTypes.object,
+  currencyCode: PropTypes.string.isRequired,
+  isLoadingCatalogItems: PropTypes.bool,
+  pageInfo: PropTypes.shape({
+    startCursor: PropTypes.string,
+    endCursor: PropTypes.string,
+    hasNextPage: PropTypes.bool,
+    hasPreviousPage: PropTypes.bool,
+    loadNextPage: PropTypes.func,
+    loadPreviousPage: PropTypes.func,
+  }),
+  pageSize: PropTypes.number.isRequired,
+  setPageSize: PropTypes.func.isRequired,
+  setSortBy: PropTypes.func.isRequired,
+  sortBy: PropTypes.string.isRequired,
+};
