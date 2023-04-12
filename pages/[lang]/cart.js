@@ -79,7 +79,12 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
 // }));
 const styles = (theme) => ({
   cartEmptyMessageContainer: {
-    margin: "80px 0",
+ display:"flex",
+ alignItems:"center",
+ marginTop:"10px",
+ marginBottom:"60px",
+
+ justifyContent:"center"
   },
   formerror: {
     paddingLeft: theme.spacing(1),
@@ -411,6 +416,7 @@ justifyContent:"center"
     "&:hover": {
       background: theme.palette.secondary.selected,
     },
+    
   },
 });
 
