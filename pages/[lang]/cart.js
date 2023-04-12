@@ -567,7 +567,7 @@ class CartPage extends Component {
           </div>
           <section>
            
-            <Grid container spacing={3}>
+            <Grid container >
               {this.renderCartItems()}
               {this.renderCartSummary()}
              
