@@ -10,8 +10,8 @@ import Storyslider from "./storiesslide";
 const Story = (props) => {
   // console.log("all props....", props);
   const [sellers, loading, refetch] = useGetAllSeller();
-  const [sellerToGet, setSellerToGet] = useState();
-  const [intialvalues, setIntial] = useState("");
+  const [sellerToGet, setSellerToGet] = useState(sellers ? sellers[1]?._id : "");
+  const [intialvalues, setIntial] = useState(sellers ? sellers[1]?._id :"");
   const [sellerss, loadingSellerss, refetchSellerss] = useGetAllSellers(sellerToGet ? sellerToGet : intialvalues);
 
  
@@ -329,6 +329,7 @@ const Story = (props) => {
   ];
 
   function Filter({ name, onClick, active }) {
+    console.log(active, "name");
     return (
       <Typography
         onClick={onClick}
@@ -346,9 +347,9 @@ const Story = (props) => {
   const filteredItems = !filter ? ITEMS : ITEMS.filter((item) => item.Catagory.includes(filter));
   const filteredproducts = !filterproducts ? itemData : itemData.filter((item) => item.store.includes(filterproducts));
   // console.log(filteredItems, "dddddddddddddddddddddd");
-  function Item({ item }) {
+  function Item({ item ,active}) {
     const classes = useStyles();
-    console.log(item.storeName, "name");
+    // console.log(active, "name");
     return (
       <>
         <SwiperSlide>
@@ -357,7 +358,11 @@ const Story = (props) => {
               src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
               className={classes.image}
             />
-            <Typography style={{ textAlign: "center", marginBottom: "60px", marginTop: "10px" }} variant="h5">
+            <Typography
+              style={{ textAlign: "center", marginBottom: "60px", marginTop: "10px" }}
+              variant="h5"
+              className={active ? classes.catagoriesactive : classes.catagoriesinactive}
+            >
               {item.storeName}
             </Typography>
           </div>
@@ -383,7 +388,7 @@ const Story = (props) => {
      }
      refetchSellerss();
      setIntial(sellers ? sellers[1]?._id : "");
-     console.log("data in sellerss bhjjknkn", sellers);
+    //  console.log("data in sellerss bhjjknkn", sellers);
    }, [sellerToGet, intialvalues]);
 
   const classes = useStyles();

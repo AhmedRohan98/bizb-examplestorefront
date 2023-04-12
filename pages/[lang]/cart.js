@@ -81,6 +81,235 @@ const styles = (theme) => ({
   cartEmptyMessageContainer: {
     margin: "80px 0",
   },
+  formerror: {
+    paddingLeft: theme.spacing(1),
+    fontSize: "16px",
+    cursor: "pointer",
+    color: "#b22b27",
+    fontFamily: "Lato",
+  },
+
+  label: {
+    display: "flex",
+    marginTop: theme.spacing(1),
+
+    fontSize: "24px",
+    marginBottom: theme.spacing(1),
+    color: "#333333",
+    flexDirection: "column",
+  },
+  switchEntryMode: {
+    textAlign: "center",
+    fontSize: "16px",
+    cursor: "pointer",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  input: {
+    width: "430px",
+    height: "48px",
+    borderRadius: "6px",
+    color: "red",
+
+    justifyContent: "center",
+    paddingLeft: theme.spacing(2),
+    background: "#F7F7F9",
+    borderBottomColor: "none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "16px",
+      fontFamily: "lato",
+      padding: "opx",
+    },
+    "& .MuiInputBase-input.active": {
+      color: "#eeeeeeeeeee6",
+      fontSize: "17px",
+      padding: "opx",
+    },
+  },
+  inputorder: {
+    width: "430px",
+    height: "218px",
+    borderRadius: "6px",
+    color: "red",
+
+    paddingLeft: theme.spacing(2),
+    background: "#F7F7F9",
+    borderBottomColor: "none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "16px",
+      fontFamily: "lato",
+      padding: "opx",
+    },
+    "& .MuiInputBase-input.active": {
+      color: "#eeeeeeeeeee6",
+      fontSize: "17px",
+      padding: "opx",
+    },
+  },
+
+  register: {
+    width: "214px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: theme.palette.secondary.selected,
+    "&:hover": {
+      background: theme.palette.secondary.selected,
+    },
+  },
+  socialmedia: {
+    width: "250px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "10px",
+
+    background: theme.palette.secondary.selected,
+  },
+  topheader: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  terms: {
+    lineHeight: "100px",
+  },
+
+  checkbox: {
+    color: "green",
+    "& .MuiIconButton-label ": {
+      color: theme.palette.secondary.selected,
+    },
+  },
+
+  checkboxdiv: {
+    display: "flex",
+    flexDirection: "row",
+    width: "430px",
+    borderBottom: `solid 1px  #00000030 `,
+  },
+  register2: {
+    fontSize: "18px",
+    color: "#333333",
+    fontFamily: "Ostrich Sans Black",
+    fontWeight: 900,
+
+    lineHeight: "24px",
+    fontStyle: "normal",
+    marginLeft: "15px",
+  },
+  socialmedia2: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap",
+  },
+  switchaccout: {
+    color: "#FDC114",
+  },
+  mainheading: {
+    textTransform: "uppercase",
+  },
+
+  phone: {
+    color: "#333333",
+    fontSize: "17px",
+  },
+  mainheading: {
+    textTransform: "uppercase",
+  },
+  ellipse: {
+    height: "18px",
+    width: "18px",
+    borderRadius: "100%",
+  },
+  cartpayment: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+  },
+  cartdelivery: {
+    fontWeight: 400,
+
+    color: "#333333",
+    marginLeft: theme.spacing(2),
+  },
+  cartdelivery2: {
+    width: "350px",
+    marginTop: theme.spacing(3),
+    fontWeight: 700,
+    lineHeight: "39px",
+    marginBottom: "10px",
+  },
+  cartcard: {
+    height: "391px",
+    width: "391px",
+    boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
+    borderRadius: "18px",
+    padding: theme.spacing(2),
+  },
+  carttotalsummar:{
+display:"flex",
+width:"100%",
+alignItems:"center",
+justifyContent:"center"
+  },
+  shipping: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  empty: {
+    height: "1px",
+    width: "100%",
+    marginTop: theme.spacing(3),
+    borderBottom: "1px solid #E5E5E5",
+    color: "#000000",
+    opacity: "1",
+  },
+  subtotal: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: theme.spacing(2),
+  },
+  subtotalamount: {
+    fontWeight: 700,
+    lineHeight: "34px",
+  },
+  orderbutn: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  summary: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  register: {
+    width: "261px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+
+    display: "flex",
+    marginTop: theme.spacing(4),
+    justifyContent: "center",
+    alignItems: "center",
+    background: theme.palette.secondary.selected,
+    "&:hover": {
+      background: theme.palette.secondary.selected,
+    },
+  },
   checkoutButtonsContainer: {
     backgroundColor: theme.palette.reaction.black02,
     padding: theme.spacing(2),
@@ -110,7 +339,7 @@ const styles = (theme) => ({
     zIndex: 999,
     left: "50%",
     right: "50%",
-  
+
     position: "absolute",
     display: "flex",
     flexDirection: "column",
@@ -122,12 +351,12 @@ const styles = (theme) => ({
     position: "absolute",
     zIndex: 999,
     background: "rgba(0, 0, 0, 0.6)",
-    bottom:"0px",
-    top:"0px",
-    width:"100%",
-  display:"flex",
-  alignItems:"center",
-  justifyContent:"center",
+    bottom: "0px",
+    top: "0px",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     height: "100%",
   },
   heading: {
@@ -135,7 +364,6 @@ const styles = (theme) => ({
     margin: theme.spacing(2),
   },
   topgrid: {
- 
     display: "flex",
 
     justifyContent: "center",
@@ -165,7 +393,6 @@ const styles = (theme) => ({
   },
   title: {
     fontWeight: theme.typography.fontWeightRegular,
-   
   },
   itemWrapper: {
     borderTop: theme.palette.borders.default,
@@ -253,7 +480,7 @@ class CartPage extends Component {
 
     return (
       <Grid item xs={12} className={classes.cartEmptyMessageContainer}>
-        <CartEmptyMessage onClick={this.handleClick} />
+      <h2>idr empty cart ka message show krna h </h2>
       </Grid>
     );
   }
@@ -266,14 +493,41 @@ class CartPage extends Component {
 
       return (
         <Grid item xs={12} md={3}>
-          <CartSummary
-            displayShipping={fulfillmentTotal && fulfillmentTotal.displayAmount}
-            displaySubtotal={itemTotal && itemTotal.displayAmount}
-            displaySurcharge={surchargeTotal && surchargeTotal.displayAmount}
-            displayTax={taxTotal && taxTotal.displayAmount}
-            displayTotal={total && total.displayAmount}
-            itemsQuantity={cart.totalItemQuantity}
-          />
+          <div className={classes.carttotalsummar}>
+            <div className={classes.cartcard}>
+              <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
+                Cart Totals
+              </Typography>
+              <div className={classes.empty}></div>
+              <div className={classes.shipping}>
+                <div className={classes.subtotal}>
+                  <Typography gutterBottom variant="h4">
+                    Subtotal
+                  </Typography>
+                  <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                    {cart.checkout.summary.itemTotal.amount}
+                  </Typography>
+                </div>
+                <div className={classes.subtotal}>
+                  <Typography gutterBottom variant="h4">
+                    Shipping Cost
+                  </Typography>
+                  <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                    {10}
+                  </Typography>
+                </div>
+              </div>
+              <div className={classes.empty}></div>
+              <div className={classes.subtotal}>
+                <Typography gutterBottom variant="h4">
+                  Total
+                </Typography>
+                <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                  {cart.checkout.summary.itemTotal.amount + 10}
+                </Typography>
+              </div>
+            </div>
+          </div>
           <div className={classes.checkoutButtonsContainer}>
             <a href="/en/cart/checkout">
               <Button

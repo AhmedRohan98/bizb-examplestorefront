@@ -313,9 +313,17 @@ const styles = (theme) => ({
   carttex: {
     fontSize: "18px",
     color: "#333333",
-    fontFamily: "Ostrich Sans Black",
+    fontFamily: "lato",
     fontStyle: "normal",
     fontWeight: 900,
+    lineHeight: "22px",
+  },
+  sizechart: {
+    fontSize: "18px",
+    color: "#333333",
+    fontFamily: "lato",
+    fontStyle: "normal",
+    fontWeight: 400,
     lineHeight: "22px",
   },
   swiperimag: {
@@ -386,11 +394,12 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  console.log(props, "new");
+  // console.log(props, "new");
   const { product, catalogItems ,cart} = props;
    const { items } = cart;
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
-console.log("dddd",props)
+// console.log("dddd",props)
+  const { uiStore } = props;
   const filteredProducts = catalogItems?.filter((product) => {
     const productTags = product?.node?.product?.tagIds;
     if (!productTags) {
@@ -429,12 +438,14 @@ useEffect(() => {
       disabled: item.inCart || isItemInCart,
     };
   });
-  console.log(updatedItems, "all");
+  // console.log(updatedItems, "all");
   // do something with updatedItems
 }, [items, product]);
   useEffect(() => {
     selectVariant(product.variants[0]);
+      uiStore?.setPageSize(500);
   }, []);
+
   function selectVariant(variant, optionId) {
     const { uiStore } = props;
 
@@ -583,7 +594,9 @@ useEffect(() => {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
-  // console.log(product, "produ");
+  const optionTitle = product?.variants[0]?.optionTitle;
+  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+  const size= validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
     const isDisabled = items?.some((data) => {
       return data.productConfiguration.productId ===product?.productId;
     });
@@ -730,11 +743,10 @@ useEffect(() => {
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
                 <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                  {product?.variants[0]?.media[0]?.optionTitle?.json.parse(size)}
+                  {size}
                 </Typography>
               </div>
               <div>
-               
                 <Button className={classes.cart2} fullWidth onClick={handleOnClick} disabled={isDisabled}>
                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                   <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
@@ -745,15 +757,12 @@ useEffect(() => {
               <TabContext value={value}>
                 <TabList onChange={handleChange} className={classes.tabs}>
                   <Tab label="Description" value="1" />
-                  <Tab label="Size chart" value="2" />
+                
                 </TabList>
 
-                <TabPanel value="1">{product?.description}</TabPanel>
+                <TabPanel value="1" className={classes.sizechart}>{product?.description}</TabPanel>
 
-                <TabPanel value="2">
-                  ffffffffffffffffffff voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                  occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </TabPanel>
+              
               </TabContext>
             </div>
           </Grid>
@@ -810,7 +819,7 @@ useEffect(() => {
       </Typography>
       <div className={classes.root}>
         <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-          {filteredProducts?.map((item, key) => {
+          {filteredProducts?.splice(0,5)?.map((item, key) => {
             const isDisabled = items?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });

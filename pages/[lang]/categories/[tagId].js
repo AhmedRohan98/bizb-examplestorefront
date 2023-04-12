@@ -580,8 +580,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
-  // console.log(category, "prop");
   const fourprouduts = category?.catalogItems?.edges;
+
+  console.log(fourprouduts, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
   const [state, setState] = useState();
@@ -595,12 +596,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-
+console.log(category,"ffffff")
   useEffect(() => {
     setProducts();
 
     setDisplayedProducts(allproducts?.slice(0, 3));
   }, [open]);
+
+
   const options = [
     { value: "Recommend", label: "Recommend" },
     { value: "New Arrivals", label: "New Arrivals" },
@@ -790,9 +793,14 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
       size: "large",
     },
   ];
+    useEffect(() => {
+     console.log(category?.catalogItems, "rrrrrrrr");
+      uiStore?.setPageSize(500000);
+    }, []);
+   
   const handleAddToCartClick = async (quantity, product, variant) => {
     // console.log(pdpSelectedVariantId, "star");
-
+ 
     const selectedVariant = variantById(product.variants, variant._id);
     if (selectedVariant) {
       await addItemsToCart([
@@ -1912,12 +1920,23 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
     }
   }
 
-  const loadMoreProducts = () => {
-    const currentIndex = displayedProducts?.length;
-    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 1);
+const loadMoreProducts = async () => {
+  const currentIndex = displayedProducts?.length;
+  let nextPageExists = category?.pageInfo?.hasNextPage;
 
-    setDisplayedProducts([...displayedProducts, ...nextProducts]);
-  };
+  console.log("Loading more products...");
+  while (nextPageExists) {
+    console.log("looaaaaaaaaaa")
+    const data = category?.pageInfo?.endCursor;
+  // Fetch the next set of products using the endCursor
+    const nextProducts = data?.allProducts?.edges?.map(({ node }) => node); // Extract the product nodes from the fetched data
+    setDisplayedProducts([...currentIndex, ...nextProducts]);
+
+    // Update the variables for the next iteration
+    nextPageExists = data?.allProducts?.pageInfo?.hasNextPage;
+  }
+};
+
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
   //   setOpen(true);
@@ -2221,6 +2240,9 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
+  
+  
+  console.log(category,"dis");
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2502,7 +2524,8 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
           </div> */}
           {displayedProducts?.length > 2 &&
             displayedProducts &&
-            displayedProducts?.length !== fourprouduts?.length - 4 && (
+            displayedProducts?.length !== fourprouduts?.length - 4 &&
+            category?.catalogItems?.pageInfo.hasNextPage && (
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
                   Load More
