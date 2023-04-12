@@ -8,7 +8,7 @@ query sellerItemsQuery(
   sellerCatalogItems(
     sellerIds: [$sellerIds]
     tagIds: $tagIds
-    first: 16
+    first: 20
     sortBy: $sortBy
     sortByPriceCurrencyCode: $sortByPriceCurrencyCode
     sortOrder: $sortOrder

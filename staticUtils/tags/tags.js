@@ -46,11 +46,13 @@ query tags($shopId: ID!) {
 `;
 
 export const fetchAllCategoriesQuery = `
-query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,) {
+query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,  $first: ConnectionLimitInt,
+  $sortBy: CatalogItemSortByField) {
   catalogItems(
     shopIds:$shopIds
     tagIds: $tagIds
-    first: 10
+    first: $first
+    sortBy: $sortBy
   ) {
     totalCount
     pageInfo {

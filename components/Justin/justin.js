@@ -157,13 +157,14 @@ const Justin = (props) => {
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-console.log(uiStore,"iuuuuuuu")
+  const [isLoading, setIsLoading] = useState({});
+
   // console.log(cart, "cartx");
   const { items } = props?.cart;
 
   useEffect(() => {
-    uiStore?.setPageSize(16);
+    uiStore?.setPageSize(15);
+  
   }, []);
   // useEffect(() => {
   //   if (cart?.items?.length) {
@@ -265,11 +266,17 @@ console.log(uiStore,"iuuuuuuu")
   };
 
   const handleOnClick = async (product, variant) => {
-    setIsLoading(true);
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: true,
+  }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!", {});
-    setIsLoading(false);
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: false,
+  }));
     // Scroll to the top
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -335,7 +342,7 @@ console.log(uiStore,"iuuuuuuu")
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    {isLoading ? (
+                    {isLoading [item?.node?.product?.productId]  ? (
                       <CircularProgress />
                     ) : (
                       <Button
