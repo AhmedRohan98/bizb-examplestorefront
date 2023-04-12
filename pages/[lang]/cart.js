@@ -505,7 +505,7 @@ class CartPage extends Component {
                     Subtotal
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {cart.checkout.summary.itemTotal.amount}
+                   RS: {cart.checkout.summary.itemTotal.amount}
                   </Typography>
                 </div>
                 <div className={classes.subtotal}>
@@ -513,7 +513,7 @@ class CartPage extends Component {
                     Shipping Cost
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {10}
+                    RS: {10}
                   </Typography>
                 </div>
               </div>
@@ -523,7 +523,7 @@ class CartPage extends Component {
                   Total
                 </Typography>
                 <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                  {cart.checkout.summary.itemTotal.amount + 10}
+                RS:  {cart.checkout.summary.itemTotal.amount + 10}
                 </Typography>
               </div>
             </div>
