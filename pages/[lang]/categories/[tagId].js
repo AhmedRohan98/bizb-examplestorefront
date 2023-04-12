@@ -1920,12 +1920,23 @@ console.log(category,"ffffff")
     }
   }
 
-  const loadMoreProducts = () => {
-    const currentIndex = displayedProducts?.length;
-    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 1);
+const loadMoreProducts = async () => {
+  const currentIndex = displayedProducts?.length;
+  let nextPageExists = category?.pageInfo?.hasNextPage;
 
-    setDisplayedProducts([...displayedProducts, ...nextProducts]);
-  };
+  console.log("Loading more products...");
+  while (nextPageExists) {
+    console.log("looaaaaaaaaaa")
+    const data = category?.pageInfo?.endCursor;
+  // Fetch the next set of products using the endCursor
+    const nextProducts = data?.allProducts?.edges?.map(({ node }) => node); // Extract the product nodes from the fetched data
+    setDisplayedProducts([...currentIndex, ...nextProducts]);
+
+    // Update the variables for the next iteration
+    nextPageExists = data?.allProducts?.pageInfo?.hasNextPage;
+  }
+};
+
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
   //   setOpen(true);
@@ -2513,7 +2524,8 @@ console.log(category,"ffffff")
           </div> */}
           {displayedProducts?.length > 2 &&
             displayedProducts &&
-            displayedProducts?.length !== fourprouduts?.length - 4 && (
+            displayedProducts?.length !== fourprouduts?.length - 4 &&
+            category?.catalogItems?.pageInfo.hasNextPage && (
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
                   Load More

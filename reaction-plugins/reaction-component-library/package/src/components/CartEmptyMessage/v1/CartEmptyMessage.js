@@ -7,6 +7,7 @@ import { addTypographyStyles, applyTheme, CustomPropTypes } from "../../../utils
 const EmptyButton = styled.div`
   display: flex;
   justify-content: center;
+  
 `;
 
 const EmptyMessage = styled.div`
