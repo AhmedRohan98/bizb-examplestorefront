@@ -492,7 +492,7 @@ class CartPage extends Component {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
       return (
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4} display="flex" justifyContent="center" alignItems="center" >
           <div className={classes.carttotalsummar}>
             <div className={classes.cartcard}>
               <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
