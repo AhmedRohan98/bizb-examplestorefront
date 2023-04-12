@@ -463,7 +463,6 @@ class CartPage extends Component {
       return (
         <>
           <Grid item xs={12} md={8}>
-          
             <div className={classes.itemWrapper}>
               <CartItems
                 hasMoreCartItems={hasMoreCartItems}
@@ -473,6 +472,9 @@ class CartPage extends Component {
                 onRemoveItemFromCart={this.handleRemoveItem}
               />
             </div>
+           <div>
+
+           </div>
           </Grid>
         </>
       );
@@ -480,7 +482,7 @@ class CartPage extends Component {
 
     return (
       <Grid item xs={12} className={classes.cartEmptyMessageContainer}>
-      <h2>idr empty cart ka message show krna h </h2>
+     <Button  className={classes.register}>Continue Shopping </Button>
       </Grid>
     );
   }
