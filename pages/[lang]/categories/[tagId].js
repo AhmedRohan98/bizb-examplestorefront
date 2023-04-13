@@ -27,7 +27,7 @@ import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
 import PageStepper from "../../../components/PageStepper/PageStepper";
 import { useRouter } from "next/router";
-
+import SortBySelector from "../../../components/SortBySelector/SortBySelector";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -580,13 +580,18 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
+ 
 function Categories(props) {
 
-  const { category, uiStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo } = props;
+  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy } =
+    props;
   console.log("props.......", props);
      const router = useRouter();
      const { tagId } = router.query;
-
+ const setSortBy = (sortBy) => {
+   routingStore.setSearch({ sortby: sortBy });
+   uiStore.setSortBy(sortBy);
+ };
      console.log(tagId);
 
 
@@ -1892,7 +1897,7 @@ function Categories(props) {
   }, {});
   useEffect(() => {
 uiStore.setEndCursor(tagId)
-    uiStore?.setPageSize(20);
+    
   }, []);
 
   //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
@@ -2358,6 +2363,7 @@ uiStore.setEndCursor(tagId)
             // alignItems="center"
             className={classes.grid1}
           >
+            <SortBySelector sortBy={sortBy} onChange={setSortBy} />
             <Grid style={{ display: "flex", justifyContent: "end" }} item lg={6} xs={12} sm={6} md={12}>
               <div className={classes.mainimage}>
                 <div className={classes.categoriestext}>
