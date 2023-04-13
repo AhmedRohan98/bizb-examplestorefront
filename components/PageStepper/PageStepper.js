@@ -7,21 +7,20 @@ import withStyles from "@material-ui/core/styles/withStyles";
 const styles = (theme) => ({
   root: {
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2)
-  }
+    paddingBottom: theme.spacing(2),
+  },
 });
-
 
 class PageStepper extends Component {
   static propTypes = {
     classes: PropTypes.object,
     pageInfo: PropTypes.shape({
       hasNextPage: PropTypes.bool,
-
+      hasPreviousPage: PropTypes.bool,
       loadNextPage: PropTypes.func,
-      loadPreviousPage: PropTypes.func
+      loadPreviousPage: PropTypes.func,
     }).isRequired,
-    theme: PropTypes.object
+    theme: PropTypes.object,
   };
 
   handleNextClick = () => {
@@ -32,7 +31,7 @@ class PageStepper extends Component {
     }
 
     pageInfo.loadNextPage();
-  }
+  };
 
   handlePreviousClick = () => {
     const { pageInfo } = this.props;
@@ -42,21 +41,15 @@ class PageStepper extends Component {
     }
 
     pageInfo.loadPreviousPage();
-  }
+  };
 
   render() {
     const { classes, pageInfo } = this.props;
 
     return (
       <Grid className={classes.root} container justify="space-between">
-        <Grid item>
-        
-        </Grid>
-        <Grid item>
-          {pageInfo.hasNextPage &&
-            <Button onClick={this.handleNextClick}>Next</Button>
-          }
-        </Grid>
+        <Grid item>{pageInfo.hasPreviousPage && <Button onClick={this.handlePreviousClick}>Previous</Button>}</Grid>
+        <Grid item>{pageInfo.hasNextPage && <Button onClick={this.handleNextClick}>Next</Button>}</Grid>
       </Grid>
     );
   }

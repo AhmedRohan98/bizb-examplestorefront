@@ -49,7 +49,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import withCart from "containers/cart/withCart";
 import { useState } from "react";
 import Popover from "@material-ui/core/Popover";
-
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
@@ -582,9 +581,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Categories(props) {
+
   const { category, uiStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo } = props;
   console.log("props.......", props);
-  console.log("catalogItems", catalogItemsPageInfo);
+  console.log("catalogItems", catalogItems);
   const fourprouduts = category?.catalogItems?.edges;
 
   const [page, setpagess] = useState(category?.pageInfo?.endCursor);
@@ -602,16 +602,14 @@ function Categories(props) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-  // console.log(category, "ffffff");
+  console.log(router, "ffffff");
   useEffect(() => {
     setProducts();
 
     setDisplayedProducts(allproducts?.slice(0, 10));
   }, [open]);
 
-  useEffect(() => {
-    uiStore.setPageSize(5);
-  }, [uiStore]);
+
 
   const options = [
     { value: "Recommend", label: "Recommend" },
@@ -802,10 +800,7 @@ function Categories(props) {
       size: "large",
     },
   ];
-  useEffect(() => {
-    uiStore?.setEndCursor(category?.catalogItems?.pageInfo?.endCursor);
-    uiStore?.setPageSize(500000);
-  }, []);
+
   // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
     // console.log(pdpSelectedVariantId, "star");
@@ -1885,6 +1880,10 @@ function Categories(props) {
     acc[`names${index}`] = item;
     return acc;
   }, {});
+  useEffect(() => {
+
+    uiStore?.setPageSize(20);
+  }, []);
 
   //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
   //     acc[`products${index}`] = item;
@@ -2501,13 +2500,7 @@ function Categories(props) {
                         :Large
                       </Typography>
                     </div>
-                    <div className={classes.size}>
-                      {" "}
-                    
-                      <Typography gutterBottom variant="h5" className={classes.price}>
-                      
-                      </Typography>
-                    </div>
+                    <div className={classes.size}> </div>
                   </Box>
                 </Grid>
               </>
@@ -2520,16 +2513,13 @@ function Categories(props) {
               </Masonry>
             </ResponsiveMasonry>
           </div> */}
-          {displayedProducts?.length > 2 &&
-            displayedProducts &&
-            displayedProducts?.length !== fourprouduts?.length - 4 &&
-           (
+          
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
-                  Load More
+                  {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
                 </button>
               </div>
-            )}
+        
         </div>
       )}
     </Layout>
