@@ -11,7 +11,8 @@ import CartSummary from "@reactioncommerce/components/CartSummary/v1";
 import withCart from "containers/cart/withCart";
 import CartItems from "components/CartItems";
 
-import Link from "components/Link";
+import Link from "next/link";
+
 import Layout from "components/Layout";
 import Router from "translations/i18nRouter";
 import PageLoading from "components/PageLoading";
@@ -488,7 +489,9 @@ class CartPage extends Component {
 
     return (
       <Grid item xs={12} className={classes.cartEmptyMessageContainer}>
-     <Button  className={classes.register}>Continue Shopping </Button>
+        <Link href="/">
+          <Button className={classes.register}>Continue Shopping </Button>
+        </Link>
       </Grid>
     );
   }
