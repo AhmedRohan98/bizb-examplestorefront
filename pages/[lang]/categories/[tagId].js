@@ -2526,7 +2526,7 @@ function Categories(props) {
            (
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
-                {catalogItemsPageInfo?.hasNextPage  &&<PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
+                  Load More
                 </button>
               </div>
             )}
