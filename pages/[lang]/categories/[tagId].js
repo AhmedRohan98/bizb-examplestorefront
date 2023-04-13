@@ -2462,7 +2462,7 @@ function Categories(props) {
           {/* Products Below Image   */}
           <Grid container className={classes.gridroot}>
             {/* {console.log("These are displayed products", displayedProducts)} */}
-            {displayedProducts?.map((item) => (
+            {catalogItems?.map((item) => (
               <>
                 <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                   <img
@@ -2503,9 +2503,9 @@ function Categories(props) {
                     </div>
                     <div className={classes.size}>
                       {" "}
-                      <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
+                    
                       <Typography gutterBottom variant="h5" className={classes.price}>
-                        {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                      
                       </Typography>
                     </div>
                   </Box>
@@ -2526,7 +2526,7 @@ function Categories(props) {
            (
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
-                  <PageStepper pageInfo={catalogItemsPageInfo?.pageInfo}></PageStepper>
+                {catalogItemsPageInfo?.hasNextPage  &&<PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
                 </button>
               </div>
             )}
