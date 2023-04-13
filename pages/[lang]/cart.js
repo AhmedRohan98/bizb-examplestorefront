@@ -363,11 +363,11 @@ justifyContent:"center"
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "100%",
+    height: "99%",
   },
   heading: {
     color: theme.palette.primary.contrastText,
-    margin: theme.spacing(2),
+  
   },
   topgrid: {
     display: "flex",
