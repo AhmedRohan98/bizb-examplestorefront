@@ -39,6 +39,6 @@ export default function useTranslation(namespace) {
 
   return {
     t, // eslint-disable-line id-length
-    locale: lang || "de"
+    locale: lang || "en"
   };
 }
