@@ -584,6 +584,16 @@ function Categories(props) {
 
   const { category, uiStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo } = props;
   console.log("props.......", props);
+     const router = useRouter();
+     const { tagId } = router.query;
+
+     console.log(tagId);
+
+
+
+
+   const filteredProducts = catalogItems.filter((product) => product?.node?.product?.tagIds[0]=== tagId);
+   console.log(filteredProducts, "catalogItems3");
   console.log("catalogItems", catalogItems);
   const fourprouduts = category?.catalogItems?.edges;
 
@@ -601,8 +611,8 @@ function Categories(props) {
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
-  const router = useRouter();
-  console.log(router, "ffffff");
+
+
   useEffect(() => {
     setProducts();
 
@@ -1881,7 +1891,7 @@ function Categories(props) {
     return acc;
   }, {});
   useEffect(() => {
-
+uiStore.setEndCursor(tagId)
     uiStore?.setPageSize(20);
   }, []);
 
@@ -2505,6 +2515,50 @@ function Categories(props) {
                 </Grid>
               </>
             ))}
+            {filteredProducts?.map((item) => (
+              <>
+                <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
+                  <img
+                    src={
+                      !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
+                        ? "/justin/justin4.svg"
+                        : item?.node?.product?.primaryImage?.URLs?.large
+                    }
+                    className={classes.image}
+                    key={item?.node?.product?.id}
+                    alt={"hhhh"}
+                    onClick={() => clickHandler(item.node.product.slug)}
+                  />
+
+                  <div className={classes.cartbackground}>
+                    <Button
+                      className={classes.cart}
+                      // disabled={cart.includes(shoe.id)}
+                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                    >
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
+                        + Cart{" "}
+                      </Typography>
+                    </Button>
+                  </div>
+                  <Box className={classes.maintitle}>
+                    <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
+                      {item?.node?.product.title}
+                    </Typography>
+                    <div className={classes.size}>
+                      <Typography gutterBottom variant="h4">
+                        Size
+                      </Typography>
+                      <Typography gutterBottom variant="h4">
+                        :Large
+                      </Typography>
+                    </div>
+                    <div className={classes.size}> </div>
+                  </Box>
+                </Grid>
+              </>
+            ))}
           </Grid>
           {/* <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
@@ -2513,13 +2567,12 @@ function Categories(props) {
               </Masonry>
             </ResponsiveMasonry>
           </div> */}
-          
-              <div className={classes.loadmorediv}>
-                <button onClick={loadMoreProducts} className={classes.loadmore}>
-                  {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
-                </button>
-              </div>
-        
+
+          <div className={classes.loadmorediv}>
+            <button onClick={loadMoreProducts} className={classes.loadmore}>
+              {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
+            </button>
+          </div>
         </div>
       )}
     </Layout>

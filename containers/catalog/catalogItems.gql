@@ -39,6 +39,12 @@ query catalogItemsQuery(
             slug
             description
             vendor
+            tags {
+              nodes {
+                name
+                displayTitle
+              }
+            }
             productId
 
             variants {
