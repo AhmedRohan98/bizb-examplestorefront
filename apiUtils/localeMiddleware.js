@@ -6,10 +6,8 @@ export default (req, res) => {
     query: { slug, ...rest }
   } = req;
 
-  const fallback = "de";
+  const fallback = "en";
   const allowedLocales = [
-    { name: "de-DE", locale: "de" },
-    { name: "de", locale: "de" },
     { name: "en-AU", locale: "en" },
     { name: "en-IN", locale: "en" },
     { name: "en-CA", locale: "en" },
@@ -27,8 +25,8 @@ export default (req, res) => {
   if (detections && detections.length) {
     detections.forEach((language) => {
       if (found || typeof language !== "string") return;
-
-      const lookedUpLocale = allowedLocales.find((allowedLocale) => allowedLocale.name === language);
+      console.log("allowedLocales",allowedLocales)
+      const lookedUpLocale = allowedLocales?.find((allowedLocale) => allowedLocale.name === language);
 
       if (lookedUpLocale) {
         found = lookedUpLocale.locale;
