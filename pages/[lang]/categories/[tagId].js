@@ -32,7 +32,7 @@ import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-
+import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -581,12 +581,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogItems, }) {
-   console.log(currencyCode, "cat");
+function Categories(props) {
+  const { category, uiStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo } = props;
+  console.log("props.......", props);
+  console.log("catalogItems", catalogItemsPageInfo);
   const fourprouduts = category?.catalogItems?.edges;
 
   const [page, setpagess] = useState(category?.pageInfo?.endCursor);
-  console.log(category, "ffff");
+  // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
   const [state, setState] = useState();
@@ -600,12 +602,16 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogIt
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-  console.log(category, "ffffff");
+  // console.log(category, "ffffff");
   useEffect(() => {
     setProducts();
 
     setDisplayedProducts(allproducts?.slice(0, 10));
   }, [open]);
+
+  useEffect(() => {
+    uiStore.setPageSize(5);
+  }, [uiStore]);
 
   const options = [
     { value: "Recommend", label: "Recommend" },
@@ -800,7 +806,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogIt
     uiStore?.setEndCursor(category?.catalogItems?.pageInfo?.endCursor);
     uiStore?.setPageSize(500000);
   }, []);
-  console.log("end", uiStore?.endCursor);
+  // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
     // console.log(pdpSelectedVariantId, "star");
 
@@ -2234,7 +2240,7 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogIt
     router.push("/en/product/" + item);
   };
 
-  console.log(category, "dis");
+  // console.log(category, "dis");
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2517,10 +2523,10 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogIt
           {displayedProducts?.length > 2 &&
             displayedProducts &&
             displayedProducts?.length !== fourprouduts?.length - 4 &&
-            category?.catalogItems?.pageInfo.hasNextPage && (
+           (
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
-                  {/* <PageStepper pageInfo={catalogItems?.pageInfo}></PageStepper> */}
+                  <PageStepper pageInfo={catalogItemsPageInfo?.pageInfo}></PageStepper>
                 </button>
               </div>
             )}
@@ -2530,45 +2536,8 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart, catalogIt
   );
 }
 
-export async function getStaticPaths() {
- 
-
-  const tags = await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==");
-  let paths = [];
-
-  if (tags && tags.tags && tags.tags.nodes) {
-    paths = tags?.tags?.nodes?.map((tag) => ({
-      params: {
-        lang: "en",
-        tagId: tag._id,
-        endCursor: [],
-      },
-    }));
-  }
- // add this line
-  console.log(paths,"end"); 
-  return {
-    
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params: { lang, tagId, endCursor }, ...context }) {
-
-  const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId],endCursor);
-  return {
-    props: {
-      category: categories,
-   
-    },
-  };
-}
-
-export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(Categories))));
-
 Categories.propTypes = {
-  catalogItems: PropTypes.arrayOf(PropTypes.object),
+  catalogItems: PropTypes.array,
   classes: PropTypes.object,
   currencyCode: PropTypes.string.isRequired,
   isLoadingCatalogItems: PropTypes.bool,
@@ -2585,3 +2554,36 @@ Categories.propTypes = {
   setSortBy: PropTypes.func.isRequired,
   sortBy: PropTypes.string.isRequired,
 };
+export async function getStaticPaths() {
+  const tags = await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==");
+  let paths = [];
+
+  if (tags && tags.tags && tags.tags.nodes) {
+    paths = tags?.tags?.nodes?.map((tag) => ({
+      params: {
+        lang: "en",
+        tagId: tag._id,
+      },
+    }));
+  }
+  // add this line
+  // console.log(paths,"end");
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params: { lang, tagId }, ...context }) {
+   const primaryShop = await fetchPrimaryShop(lang);
+  const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
+
+  return {
+    props: {
+      ...primaryShop,
+      category: categories,
+    },
+  };
+}
+
+export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(Categories))));
