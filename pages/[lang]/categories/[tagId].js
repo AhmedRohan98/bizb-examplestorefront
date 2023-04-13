@@ -20,16 +20,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import PropTypes from "prop-types";
+import withCatalogItems from "containers/catalog/withCatalogItems";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
+import PageStepper from "../../../components/PageStepper/PageStepper";
 import { useRouter } from "next/router";
 
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-
+import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -51,7 +54,6 @@ import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
 import inject from "../../../hocs/inject";
-import priceByCurrencyCode from "../../../lib/utils/priceByCurrencyCode";
 import Layout from "../../../components/Layout";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -579,10 +581,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
+function Categories(props) {
+  const { category, uiStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo } = props;
+  console.log("props.......", props);
+  console.log("catalogItems", catalogItemsPageInfo);
   const fourprouduts = category?.catalogItems?.edges;
 
-  console.log(fourprouduts, "ffff");
+  const [page, setpagess] = useState(category?.pageInfo?.endCursor);
+  // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
   const [state, setState] = useState();
@@ -596,13 +602,16 @@ function Categories({ category, uiStore, currencyCode, addItemsToCart }) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const router = useRouter();
-console.log(category,"ffffff")
+  // console.log(category, "ffffff");
   useEffect(() => {
     setProducts();
 
-    setDisplayedProducts(allproducts?.slice(0, 3));
+    setDisplayedProducts(allproducts?.slice(0, 10));
   }, [open]);
 
+  useEffect(() => {
+    uiStore.setPageSize(5);
+  }, [uiStore]);
 
   const options = [
     { value: "Recommend", label: "Recommend" },
@@ -793,14 +802,14 @@ console.log(category,"ffffff")
       size: "large",
     },
   ];
-    useEffect(() => {
-     console.log(category?.catalogItems, "rrrrrrrr");
-      uiStore?.setPageSize(500000);
-    }, []);
-   
+  useEffect(() => {
+    uiStore?.setEndCursor(category?.catalogItems?.pageInfo?.endCursor);
+    uiStore?.setPageSize(500000);
+  }, []);
+  // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
     // console.log(pdpSelectedVariantId, "star");
- 
+
     const selectedVariant = variantById(product.variants, variant._id);
     if (selectedVariant) {
       await addItemsToCart([
@@ -1920,22 +1929,12 @@ console.log(category,"ffffff")
     }
   }
 
-const loadMoreProducts = async () => {
-  const currentIndex = displayedProducts?.length;
-  let nextPageExists = category?.pageInfo?.hasNextPage;
+  const loadMoreProducts = () => {
+    const currentIndex = displayedProducts?.length;
+    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 10);
 
-  console.log("Loading more products...");
-  while (nextPageExists) {
-    console.log("looaaaaaaaaaa")
-    const data = category?.pageInfo?.endCursor;
-  // Fetch the next set of products using the endCursor
-    const nextProducts = data?.allProducts?.edges?.map(({ node }) => node); // Extract the product nodes from the fetched data
-    setDisplayedProducts([...currentIndex, ...nextProducts]);
-
-    // Update the variables for the next iteration
-    nextPageExists = data?.allProducts?.pageInfo?.hasNextPage;
-  }
-};
+    setDisplayedProducts([...displayedProducts, ...nextProducts]);
+  };
 
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
@@ -2240,9 +2239,8 @@ const loadMoreProducts = async () => {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
-  
-  
-  console.log(category,"dis");
+
+  // console.log(category, "dis");
   return (
     <Layout shop={shop}>
       {typeof window !== "undefined" && (
@@ -2464,7 +2462,7 @@ const loadMoreProducts = async () => {
           {/* Products Below Image   */}
           <Grid container className={classes.gridroot}>
             {/* {console.log("These are displayed products", displayedProducts)} */}
-            {displayedProducts?.map((item) => (
+            {catalogItems?.map((item) => (
               <>
                 <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
                   <img
@@ -2505,9 +2503,9 @@ const loadMoreProducts = async () => {
                     </div>
                     <div className={classes.size}>
                       {" "}
-                      <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
+                    
                       <Typography gutterBottom variant="h5" className={classes.price}>
-                        {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                      
                       </Typography>
                     </div>
                   </Box>
@@ -2525,7 +2523,7 @@ const loadMoreProducts = async () => {
           {displayedProducts?.length > 2 &&
             displayedProducts &&
             displayedProducts?.length !== fourprouduts?.length - 4 &&
-            category?.catalogItems?.pageInfo.hasNextPage && (
+           (
               <div className={classes.loadmorediv}>
                 <button onClick={loadMoreProducts} className={classes.loadmore}>
                   Load More
@@ -2538,6 +2536,24 @@ const loadMoreProducts = async () => {
   );
 }
 
+Categories.propTypes = {
+  catalogItems: PropTypes.array,
+  classes: PropTypes.object,
+  currencyCode: PropTypes.string.isRequired,
+  isLoadingCatalogItems: PropTypes.bool,
+  pageInfo: PropTypes.shape({
+    startCursor: PropTypes.string,
+    endCursor: PropTypes.string,
+    hasNextPage: PropTypes.bool,
+    hasPreviousPage: PropTypes.bool,
+    loadNextPage: PropTypes.func,
+    loadPreviousPage: PropTypes.func,
+  }),
+  pageSize: PropTypes.number.isRequired,
+  setPageSize: PropTypes.func.isRequired,
+  setSortBy: PropTypes.func.isRequired,
+  sortBy: PropTypes.string.isRequired,
+};
 export async function getStaticPaths() {
   const tags = await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==");
   let paths = [];
@@ -2550,21 +2566,24 @@ export async function getStaticPaths() {
       },
     }));
   }
-
+  // add this line
+  // console.log(paths,"end");
   return {
     paths,
     fallback: true,
   };
 }
 
-export async function getStaticProps({ params: { lang, tagId } }) {
+export async function getStaticProps({ params: { lang, tagId }, ...context }) {
+   const primaryShop = await fetchPrimaryShop(lang);
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
   return {
     props: {
+      ...primaryShop,
       category: categories,
     },
   };
 }
 
-export default withApollo()(withCart(inject("routingStore", "uiStore")(Categories)));
+export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(Categories))));

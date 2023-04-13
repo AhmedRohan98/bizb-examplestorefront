@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { Element } from "react-scroll";
+import { Element, Link } from "react-scroll";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -179,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  // console.log("all props....", props.nodes);
+  console.log("all props....", props.nodes);
 
   var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;
@@ -226,15 +226,17 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} md={5} sm={12} lg={5} className={classes.carts}>
-          <img src={res?.page2.heroMediaUrl} className={classes.imagess} />
+          <img src={res?.page6.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page2.displayTitle}
+              {res?.page6.displayTitle}
             </Typography>
-            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page2._id)}>
-              <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-            </Button>
+            <Link href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1">
+              <Button className={classes.buttonshop}>
+                <h4 className={classes.buttonshopt}>Become a Seller</h4>
+              </Button>
+            </Link>
           </div>
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>

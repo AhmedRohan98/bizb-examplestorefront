@@ -313,6 +313,7 @@ class CartItems extends Component {
             </TableBody>
           </Table>
         </TableContainer>
+       
       </Fragment>
     );
   }
