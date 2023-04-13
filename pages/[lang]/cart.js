@@ -363,7 +363,7 @@ justifyContent:"center"
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "99%",
+    height: "99.2%",
   },
   heading: {
     color: theme.palette.primary.contrastText,
