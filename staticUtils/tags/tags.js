@@ -2,9 +2,10 @@ export default `
 query tagsQuery($shopId: ID!, $cursor: ConnectionCursor) {
   tags(shopId: $shopId, first: 200, after: $cursor, sortBy: createdAt) {
     pageInfo {
-      endCursor
+       endCursor
       startCursor
       hasNextPage
+      hasPreviousPage
     }
     edges {
       cursor
@@ -47,12 +48,13 @@ query tags($shopId: ID!) {
 
 export const fetchAllCategoriesQuery = `
 query GetCatalogItems($shopIds:[ID]!, $tagIds:[ID]!,  $first: ConnectionLimitInt,
-  $sortBy: CatalogItemSortByField) {
+  $sortBy: CatalogItemSortByField,$after:ConnectionCursor) {
   catalogItems(
     shopIds:$shopIds
     tagIds: $tagIds
     first: $first
     sortBy: $sortBy
+    after:$after
   ) {
     totalCount
     pageInfo {

@@ -11,7 +11,8 @@ import CartSummary from "@reactioncommerce/components/CartSummary/v1";
 import withCart from "containers/cart/withCart";
 import CartItems from "components/CartItems";
 
-import Link from "components/Link";
+import Link from "next/link";
+
 import Layout from "components/Layout";
 import Router from "translations/i18nRouter";
 import PageLoading from "components/PageLoading";
@@ -79,7 +80,12 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
 // }));
 const styles = (theme) => ({
   cartEmptyMessageContainer: {
-    margin: "80px 0",
+ display:"flex",
+ alignItems:"center",
+ marginTop:"10px",
+ marginBottom:"60px",
+
+ justifyContent:"center"
   },
   formerror: {
     paddingLeft: theme.spacing(1),
@@ -411,6 +417,7 @@ justifyContent:"center"
     "&:hover": {
       background: theme.palette.secondary.selected,
     },
+    
   },
 });
 
@@ -463,7 +470,6 @@ class CartPage extends Component {
       return (
         <>
           <Grid item xs={12} md={8}>
-          
             <div className={classes.itemWrapper}>
               <CartItems
                 hasMoreCartItems={hasMoreCartItems}
@@ -473,6 +479,9 @@ class CartPage extends Component {
                 onRemoveItemFromCart={this.handleRemoveItem}
               />
             </div>
+           <div>
+
+           </div>
           </Grid>
         </>
       );
@@ -480,7 +489,9 @@ class CartPage extends Component {
 
     return (
       <Grid item xs={12} className={classes.cartEmptyMessageContainer}>
-      <h2>idr empty cart ka message show krna h </h2>
+        <Link href="/">
+          <Button className={classes.register}>Continue Shopping </Button>
+        </Link>
       </Grid>
     );
   }
@@ -492,7 +503,7 @@ class CartPage extends Component {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
       return (
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4} display="flex" justifyContent="center" alignItems="center" >
           <div className={classes.carttotalsummar}>
             <div className={classes.cartcard}>
               <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
@@ -505,7 +516,7 @@ class CartPage extends Component {
                     Subtotal
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {cart.checkout.summary.itemTotal.amount}
+                   RS: {cart.checkout.summary.itemTotal.amount}
                   </Typography>
                 </div>
                 <div className={classes.subtotal}>
@@ -513,7 +524,7 @@ class CartPage extends Component {
                     Shipping Cost
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {10}
+                    RS: {10}
                   </Typography>
                 </div>
               </div>
@@ -523,7 +534,7 @@ class CartPage extends Component {
                   Total
                 </Typography>
                 <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                  {cart.checkout.summary.itemTotal.amount + 10}
+                RS:  {cart.checkout.summary.itemTotal.amount + 10}
                 </Typography>
               </div>
             </div>
@@ -567,7 +578,7 @@ class CartPage extends Component {
           </div>
           <section>
            
-            <Grid container spacing={3}>
+            <Grid container >
               {this.renderCartItems()}
               {this.renderCartSummary()}
              

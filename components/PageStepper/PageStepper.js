@@ -17,7 +17,7 @@ class PageStepper extends Component {
     classes: PropTypes.object,
     pageInfo: PropTypes.shape({
       hasNextPage: PropTypes.bool,
-      hasPreviousPage: PropTypes.bool,
+
       loadNextPage: PropTypes.func,
       loadPreviousPage: PropTypes.func
     }).isRequired,
@@ -50,9 +50,7 @@ class PageStepper extends Component {
     return (
       <Grid className={classes.root} container justify="space-between">
         <Grid item>
-          {pageInfo.hasPreviousPage &&
-            <Button onClick={this.handlePreviousClick}>Previous</Button>
-          }
+        
         </Grid>
         <Grid item>
           {pageInfo.hasNextPage &&
