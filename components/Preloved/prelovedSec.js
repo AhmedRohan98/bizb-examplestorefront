@@ -68,16 +68,17 @@ const useStyles = makeStyles((theme) => ({
   },
   cart: {
     height: "35px",
-    width: "84px",
+    width: "200px",
     bottom: "50%",
+
     left: "20px",
     position: "absolute",
   },
   cart2: {
     height: "35px",
-    width: "84px",
+    width: "250px",
     bottom: "50%",
-    right: "18%",
+    right: "2%",
     position: "absolute",
     [theme.breakpoints.down(600)]: {
       top: "10%",
@@ -109,6 +110,26 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     width: "150px",
+    height: "35px",
+    position:"relative",
+    border: "none",
+    zIndex:1200,
+    right: "50px",
+    position: "initial",
+    borderRadius: "40px",
+    transition: "all 0.2s linear",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: theme.palette.secondary.selected,
+    },
+  },
+  buttonshoptbecome: {
+    background: theme.palette.secondary.selected,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "170px",
     height: "35px",
     border: "none",
     right: "50px",
@@ -233,7 +254,7 @@ const Preloved = (props) => {
               {res?.page6.displayTitle}
             </Typography>
             <Link href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1">
-              <Button className={classes.buttonshop}>
+              <Button className={classes.buttonshoptbecome}>
                 <h4 className={classes.buttonshopt}>Become a Seller</h4>
               </Button>
             </Link>
