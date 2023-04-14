@@ -202,6 +202,7 @@ const styles = (theme) => ({
       fontFamily: "Ostrich Sans Black",
     },
   },
+  
   lastDiv: {},
 });
 
@@ -379,7 +380,7 @@ const MiniCart = ({ ...props }) => {
 
   return (
     <Fragment>
-      <div className={classes.lastDiv}>
+      <div className={classes.lastDiv} headerType>
         <IconButton color="inherit" onClick={handleOpen}>
           {cart && cart.totalItemQuantity > 0 ? (
             <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
