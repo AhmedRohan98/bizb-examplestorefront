@@ -592,12 +592,11 @@ function Categories(props) {
    routingStore.setSearch({ sortby: sortBy });
    uiStore.setSortBy(sortBy);
  };
-     console.log(tagId);
 
 
 
 
-   const filteredProducts = catalogItems.filter((product) => product?.node?.product?.tagIds[0]=== tagId);
+   const filteredProducts = catalogItems?.filter((product) => product?.node?.product?.tagIds[0]=== tagId);
    console.log(filteredProducts, "catalogItems3");
   console.log("catalogItems", catalogItems);
   const fourprouduts = category?.catalogItems?.edges;
@@ -620,7 +619,7 @@ function Categories(props) {
 
   useEffect(() => {
     setProducts();
-
+uiStore?.setPageSize(5)
     setDisplayedProducts(allproducts?.slice(0, 10));
   }, [open]);
 
@@ -2256,7 +2255,7 @@ uiStore.setEndCursor(tagId)
 
   // console.log(category, "dis");
   return (
-    <Layout shop={shop}>
+    <Layout shop={shop} tagId={tagId}>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
           <Box className={classes.topheader}>
@@ -2630,6 +2629,7 @@ export async function getStaticProps({ params: { lang, tagId }, ...context }) {
   return {
     props: {
       ...primaryShop,
+      tagId,
       category: categories,
     },
   };

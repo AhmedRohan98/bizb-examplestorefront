@@ -17,36 +17,31 @@ export default function withCatalogItems(Component) {
     static propTypes = {
       primaryShopId: PropTypes.string,
       routingStore: PropTypes.object.isRequired,
-      tag: PropTypes.shape({
-        _id: PropTypes.string.isRequired
+      tagId: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
       }),
-      uiStore: PropTypes.object.isRequired
+      uiStore: PropTypes.object.isRequired,
     };
 
     render() {
-      const { primaryShopId, routingStore, uiStore, tag } = this.props;
+      const { primaryShopId, routingStore, uiStore, tagId } = this.props;
       const [sortBy, sortOrder] = uiStore.sortBy.split("-");
-      const tagIds = tag && [tag._id];
 
       if (!primaryShopId) {
-        return (
-          <Component
-            {...this.props}
-          />
-        );
+        return <Component {...this.props} />;
       }
 
       const variables = {
         shopId: primaryShopId,
         ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
-        tagIds,
+        tagIds: tagId,
         sortBy,
         sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
-        sortOrder
+        sortOrder,
       };
 
       return (
-        <Query errorPolicy="all" query={catalogItemsQuery} variables={variables} >
+        <Query errorPolicy="all" query={catalogItemsQuery} variables={variables}>
           {({ data, fetchMore, loading }) => {
             const { catalogItems } = data || {};
             return (
@@ -57,7 +52,7 @@ export default function withCatalogItems(Component) {
                   routingStore,
                   data,
                   queryName: "catalogItems",
-                  limit: uiStore.pageSize
+                  limit: uiStore.pageSize,
                 })}
                 catalogItems={(catalogItems && catalogItems.edges) || []}
                 isLoadingCatalogItems={loading}
