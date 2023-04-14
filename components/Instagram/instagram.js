@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Hidden from "@material-ui/core/Hidden";
-import Link from "next/link";
+
 import Typography from "@material-ui/core/Typography";
 const Instagram = (props) => {
   // console.log("instagram props", props.feed);

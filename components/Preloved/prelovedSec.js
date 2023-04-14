@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { Element, Link } from "react-scroll";
+import { Element} from "react-scroll";
+import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -253,11 +254,11 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page6.displayTitle}
             </Typography>
-            <Link href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1">
+            <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
               <Button className={classes.buttonshoptbecome}>
                 <h4 className={classes.buttonshopt}>Become a Seller</h4>
               </Button>
-            </Link>
+            </a>
           </div>
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>
