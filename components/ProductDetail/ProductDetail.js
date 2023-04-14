@@ -21,7 +21,7 @@ import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { useRouter } from "next/router";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
 SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
 const styles = (theme) => ({
   slider: {
@@ -685,7 +685,7 @@ useEffect(() => {
                   <SwiperSlide key={index} className={classes.swiperimag}>
                     <div className={classes.controller}>
                       {/* <img src={slide.URLs.large} alt="" className={classes.sliderimage2} /> */}
-                      <ReactImageMagnify
+                      {/* <ReactImageMagnify
                         {...{
                           smallImage: {
                             alt: "Wristwatch by Ted Baker London",
@@ -698,7 +698,7 @@ useEffect(() => {
                             height: 1800,
                           },
                         }}
-                      />
+                      /> */}
                       {activeIndex.length ? (
                         <ArrowForwardIos
                           className={classes.iconforwad}

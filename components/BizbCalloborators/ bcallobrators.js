@@ -17,9 +17,10 @@ const BizbCalloborators = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      width: "100%",
-      borderRadius:"10vh",
-      height: "100%",
+   
+      borderRadius: "40px",
+      width: "120px",
+      height: "48px",
       right: "50px",
 
       transition: "all 0.2s linear",
@@ -29,7 +30,7 @@ const BizbCalloborators = () => {
       },
     },
     buttonshopt: {
-      fontSize: "2vh",
+      fontSize: "16px",
       color: "#000000",
       fontWeight: 900,
       fontStyle: "Black",
@@ -51,7 +52,7 @@ const BizbCalloborators = () => {
       position: "absolute",
       right: "2%",
       bottom: "8%",
-      cursor:"pointer"
+      cursor: "pointer",
     },
   }));
   
@@ -65,7 +66,7 @@ const BizbCalloborators = () => {
 
           <div className={classes.cart}>
             <div className={classes.buttonshop}>
-              <h4 className={classes.buttonshopt}>SHOP NOW</h4>
+              <h4 className={classes.buttonshopt} variant="h4">SHOP NOW</h4>
             </div>
           </div>
         </div>
