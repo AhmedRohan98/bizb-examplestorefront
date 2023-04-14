@@ -130,9 +130,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "170px",
+    width: "180px",
     height: "35px",
     border: "none",
+    
     right: "50px",
     position: "initial",
     borderRadius: "40px",
