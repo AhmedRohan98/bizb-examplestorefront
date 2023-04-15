@@ -148,6 +148,12 @@ const useStyles = makeStyles((theme) => ({
     background: "yellow",
     color: "black",
   },
+  pricing: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const Justin = (props) => {
@@ -406,7 +412,7 @@ const Justin = (props) => {
                         {size}
                       </Typography>
                     </div>
-                    <div className={classes.size}>
+                    <div className={classes.pricing}>
                       {" "}
                       <strike>
                         {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount

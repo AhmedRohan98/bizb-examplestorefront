@@ -400,26 +400,7 @@ const useStyles = makeStyles((theme) => ({
     width: "92%",
     // margin: "8%",
   },
-  loadmore: {
-    width: "305px",
-    cursor: "pointer",
-    height: "50px",
-    borderRadius: "40px",
-    border: "none",
-    display: "flex",
-    fontSize: "28px",
-    color: "#333333",
-    lineHeight: "32px",
-    fontFamily: "Ostrich Sans Black",
-    fontWeight: 900,
-    fontStyle: "normal",
-    justifyContent: "center",
-    alignItems: "center",
-    background: theme.palette.secondary.selected,
-    "&:hover": {
-      background: theme.palette.secondary.selected,
-    },
-  },
+
   modalitems: {
     display: "flex",
     flexDirection: "row",
@@ -494,7 +475,10 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-
+loadmore:{
+marginLeft:theme.spacing(5),
+marginRight:theme.spacing(5)
+},
   filternames: {
     borderBottom: "2px solid #000000",
     marginLeft: theme.spacing(3),
@@ -2269,7 +2253,7 @@ const handleChangeSortBy = (selectedOption) => {
  }, [cart?.items]);
   // console.log(category, "dis");
   return (
-    <Layout shop={shop} tagId={tagId} >
+    <Layout shop={shop} tagId={tagId}>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
           <Box className={classes.topheader}>
@@ -2429,11 +2413,9 @@ const handleChangeSortBy = (selectedOption) => {
               // align="center"
               // justify="center"
               // alignItems="center"
-             
             >
               <Grid container>
-                
-                       {firstfour?.map((item, key) => {
+                {firstfour?.map((item, key) => {
                   const cartitem = cart?.items;
                   const isDisabled = cartitem?.some((data) => {
                     return data.productConfiguration.productId === item?.node?.product?.productId;
@@ -2544,9 +2526,7 @@ const handleChangeSortBy = (selectedOption) => {
                       </Grid>
                     </>
                   );
-                })
-                }
-                
+                })}
               </Grid>
             </Grid>
           </Grid>
@@ -2678,10 +2658,10 @@ const handleChangeSortBy = (selectedOption) => {
             </ResponsiveMasonry>
           </div> */}
 
-          <div className={classes.loadmorediv}>
-            <button className={classes.loadmore}>
+          <div className={classes.loadmore}>
+          
               {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
-            </button>
+        
           </div>
         </div>
       )}
