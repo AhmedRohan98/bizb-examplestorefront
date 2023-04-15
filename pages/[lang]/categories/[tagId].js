@@ -577,6 +577,9 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     justifyContent: "space-between",
   },
+  grid1:{
+    marginTop:theme.spacing(6)
+  }
 }));
  
 function Categories(props) {
@@ -2421,7 +2424,7 @@ const handleChangeSortBy = (selectedOption) => {
               // align="center"
               // justify="center"
               // alignItems="center"
-              className={classes.grid1}
+             
             >
               <Grid container>
                 
