@@ -580,9 +580,9 @@ const useStyles = makeStyles((theme) => ({
 }));
  
 function Categories(props) {
-  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,items } =
+  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart } =
     props;
-  console.log("props.......", props);
+  console.log("item", cart);
   const router = useRouter();
   const { tagId } = router.query;
   const setSortBy = (sortBy) => {
@@ -593,7 +593,7 @@ function Categories(props) {
   const filteredProducts = catalogItems?.filter((product) => product?.node?.product?.tagIds[0] === tagId);
   console.log(filteredProducts, "catalogItems3");
   console.log("catalogItems", catalogItems);
-  const fourprouduts = category?.catalogItems?.edges;
+ 
   const [isLoading, setIsLoading] = useState({});
   // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
@@ -1880,8 +1880,8 @@ const handleChangeSortBy = (selectedOption) => {
   ];
   const data = ITEMS.splice(0, 5);
   const firstfour = catalogItems?.slice(0, 4);
-  const allproducts = catalogItems?.slice(4, fourprouduts?.length);
-  const data2 = ITEMS.splice(5, ITEMS.length);
+  const allproducts = catalogItems?.slice(4, catalogItems.length);
+ 
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
@@ -2246,8 +2246,8 @@ const handleChangeSortBy = (selectedOption) => {
     router.push("/en/product/" + item);
   };
  useEffect(() => {
-   const updatedItems = items?.map((item) => {
-     const isItemInCart = catalogdata?.some((product) => {
+   const updatedItems = cart?.items?.map((item) => {
+     const isItemInCart = catalogItems?.some((product) => {
        return item?.productConfiguration?.productId === product?.node.product?.productId;
      });
      // setpageSize(20);
@@ -2258,7 +2258,7 @@ const handleChangeSortBy = (selectedOption) => {
    });
    // console.log(updatedItems, "all");
    // do something with updatedItems
- }, [items]);
+ }, [cart?.items]);
   // console.log(category, "dis");
   return (
     <Layout shop={shop} tagId={tagId} >
@@ -2424,65 +2424,121 @@ const handleChangeSortBy = (selectedOption) => {
               className={classes.grid1}
             >
               <Grid container>
-                {firstfour?.map((item, key) => (
-                  <>
-                    <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                      {/* {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")} */}
+                
+                       {firstfour?.map((item, key) => {
+                  const cartitem = cart?.items;
+                  const isDisabled = cartitem?.some((data) => {
+                    return data.productConfiguration.productId === item?.node?.product?.productId;
+                  });
+                  console.log(cart?.items, "item");
+                  // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                  const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
 
-                      <img
-                        src={
-                          !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                            ? "/justin/justin4.svg"
-                            : item?.node?.product?.primaryImage?.URLs?.large
-                        }
-                        className={classes.image}
-                        key={item?.node?.product?.id}
-                        alt={"hhhh"}
-                        onClick={() => clickHandler(item.node.product.slug)}
-                      />
-
-                      <div className={classes.cartbackground}>
-                        <Button
-                          className={classes.cart}
-                          // disabled={cart.includes(shoe.id)}
-                          onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                  return (
+                    <>
+                      <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                        <Link
+                          href={item.node.product.slug && "en/product/[...slugOrId]"}
+                          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                         >
-                          <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                          <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
-                            + Cart{" "}
-                          </Typography>
-                        </Button>
-                      </div>
-                      <Box className={classes.maintitle}>
-                        <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                          {item?.node?.product.title}
-                        </Typography>
-                        <div className={classes.size}>
-                          <Typography gutterBottom variant="h4">
-                            Size
-                          </Typography>
-                          <Typography gutterBottom variant="h4">
-                            :Large
-                          </Typography>
+                          <img
+                            src={
+                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                ? "/justin/justin4.svg"
+                                : item?.node?.product?.media[0]?.URLs?.large
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            alt={"hhhh"}
+                          />
+                        </Link>
+                        <div className={classes.cartbackground}>
+                          {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress />
+                          ) : (
+                            <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled}
+                            >
+                              <ToastContainer
+                                position="top-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeButton={<CustomCloseButton />}
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="colored"
+                                background="green"
+                                toastStyle={{
+                                  backgroundColor: "#FDC114",
+                                  color: "black",
+                                  fontSize: "16px",
+                                  fontFamily: "lato",
+                                }}
+                              />{" "}
+                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                              <Typography
+                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                variant="h5"
+                                component="h2"
+                              >
+                                {isDisabled ? "Added" : "+ Cart"}
+                              </Typography>
+                            </Button>
+                          )}
                         </div>
-                        <div className={classes.size}>
-                          {" "}
-                          <strike>
+                        <Box className={classes.maintitle}>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px" }}
+                            gutterBottom
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            {item.node.product.title}
+                          </Typography>
+                          <div className={classes.size}>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              Size :
+                            </Typography>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              {size}
+                            </Typography>
+                          </div>
+                          <div className={classes.size}>
                             {" "}
-                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "RS ")}
-                          </strike>
-                          <Typography gutterBottom variant="h5" className={classes.price}>
-                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "RS ")}
-                          </Typography>
-                        </div>
-                      </Box>
-                    </Grid>
-                  </>
-                ))}
+                            <strike>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </strike>
+                            <Typography gutterBottom variant="h5" className={classes.price}>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </Typography>
+                          </div>
+                        </Box>
+                      </Grid>
+                    </>
+                  );
+                })
+                }
+                
               </Grid>
             </Grid>
           </Grid>
@@ -2492,10 +2548,11 @@ const handleChangeSortBy = (selectedOption) => {
             <div className={classes.headermain}>
               <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
                 {allproducts?.map((item, key) => {
-                  const cartitem = props?.cart?.items;
+                  const cartitem = cart?.items;
                   const isDisabled = cartitem?.some((data) => {
                     return data.productConfiguration.productId === item?.node?.product?.productId;
                   });
+                  console.log(cart?.items, "item");
                   // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
