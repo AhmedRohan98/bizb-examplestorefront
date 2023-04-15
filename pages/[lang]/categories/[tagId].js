@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     marginLeft: theme.spacing(1),
-    marginBottom:theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   cartimage: {
     display: "flex",
@@ -403,7 +403,7 @@ const useStyles = makeStyles((theme) => ({
 
   modalitems: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     borderBottom: "0.5px dotted #0101013b",
   },
   loadmorediv: {
@@ -475,10 +475,10 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-loadmore:{
-marginLeft:theme.spacing(5),
-marginRight:theme.spacing(5)
-},
+  loadmore: {
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
+  },
   filternames: {
     borderBottom: "2px solid #000000",
     marginLeft: theme.spacing(3),
@@ -572,9 +572,10 @@ marginRight:theme.spacing(5)
 }));
  
 function Categories(props) {
-  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart } =
+  
+  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart ,tags} =
     props;
-  console.log("item", cart);
+  console.log("items", tags);
   const router = useRouter();
   const { tagId } = router.query;
   const setSortBy = (sortBy) => {
@@ -2126,7 +2127,7 @@ const handleChangeSortBy = (selectedOption) => {
       borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
       color: state.isFocused ? "#000000" : "#989898",
       "&:hover": {
-        color: "#000000",
+        color: "#FDC114",
       },
     }),
     dropdownIndicator: (base, state) => ({
@@ -2391,15 +2392,17 @@ const handleChangeSortBy = (selectedOption) => {
                   onClose={handlePopOverClose}
                 >
                   <Box sx={style}>
-                    {ITEMScategory.map((item) => (
-                      <div className={classes.modalitems}>
+                    <div className={classes.modalitems}>
+                      {ITEMScategory.map((item) => (
                         <img src={item.image} className={classes.categoryavatar} />
+                      ))}
+                      {tags?.nodes?.map((itemtitle) => (
                         <Typography variant="h4" className={classes.catgorytitle}>
                           {" "}
-                          {item.title}
+                          {itemtitle?.displayTitle}
                         </Typography>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </Box>
                 </Popover>
               </div>
@@ -2659,9 +2662,7 @@ const handleChangeSortBy = (selectedOption) => {
           </div> */}
 
           <div className={classes.loadmore}>
-          
-              {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
-        
+            {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
           </div>
         </div>
       )}
@@ -2716,6 +2717,7 @@ export async function getStaticProps({ params: { lang, tagId }, ...context }) {
       ...primaryShop,
       tagId,
       category: categories,
+      ...(await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==")),
     },
   };
 }
