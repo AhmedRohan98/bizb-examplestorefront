@@ -15,11 +15,13 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { CircularProgress } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import { ToastContainer, toast } from "react-toastify";
 import PropTypes from "prop-types";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
@@ -147,10 +149,6 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
 
-  headermain: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
 
   size: {
     display: "flex",
@@ -177,11 +175,13 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "inline-grid",
   },
+ 
   main: {
-    padding: "3vh",
     width: "100%",
-
-    padding: theme.spacing(4),
+    padding: "25px",
+    [theme.breakpoints.down("xs")]: {
+      padding: "0",
+    },
   },
   cardaction: {
     height: 312,
@@ -446,9 +446,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3),
   },
 
-  main: {
-    width: "100%",
-  },
+
   filters: {
     display: "flex",
     justifyContent: "space-between",
@@ -582,26 +580,21 @@ const useStyles = makeStyles((theme) => ({
 }));
  
 function Categories(props) {
-
-  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy } =
+  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,items } =
     props;
   console.log("props.......", props);
-     const router = useRouter();
-     const { tagId } = router.query;
- const setSortBy = (sortBy) => {
-   routingStore.setSearch({ sortby: sortBy });
-   uiStore.setSortBy(sortBy);
- };
+  const router = useRouter();
+  const { tagId } = router.query;
+  const setSortBy = (sortBy) => {
+    routingStore.setSearch({ sortby: sortBy });
+    uiStore.setSortBy(sortBy);
+  };
 
-
-
-
-   const filteredProducts = catalogItems?.filter((product) => product?.node?.product?.tagIds[0]=== tagId);
-   console.log(filteredProducts, "catalogItems3");
+  const filteredProducts = catalogItems?.filter((product) => product?.node?.product?.tagIds[0] === tagId);
+  console.log(filteredProducts, "catalogItems3");
   console.log("catalogItems", catalogItems);
   const fourprouduts = category?.catalogItems?.edges;
-
-  const [page, setpagess] = useState(category?.pageInfo?.endCursor);
+  const [isLoading, setIsLoading] = useState({});
   // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
@@ -615,22 +608,23 @@ function Categories(props) {
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
-
+  const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   useEffect(() => {
-    setProducts();
-uiStore?.setPageSize(5)
-    setDisplayedProducts(allproducts?.slice(0, 10));
-  }, [open]);
-
-
+ 
+    uiStore?.setPageSize(20);
+   
+  }, []);
 
   const options = [
     { value: "Recommend", label: "Recommend" },
-    { value: "New Arrivals", label: "New Arrivals" },
-    { value: "Price Low To High", label: "Price Low To High" },
-    { value: "Price High To Low", label: "Price High To Low" },
+    { value: "updatedAt-desc", label: "New Arrivals" },
+    { value: "minPrice-asc", label: "Price Low To High" },
+    { value: "minPrice-desc", label: "Price High To Low" },
   ];
+const handleChangeSortBy = (selectedOption) => {
+  setSortBy(selectedOption.value);
+};
   const Optionsize = [
     { value: "Medium", label: "Medium" },
     { value: "Medium", label: "Medium" },
@@ -824,19 +818,18 @@ uiStore?.setPageSize(5)
       await addItemsToCart([
         {
           price: {
-            amount: product?.pricing[0]?.minPrice,
+            amount: product.variants[0]?.pricing[0]?.minPrice,
             currencyCode: "USD",
           },
-
           metafields: [
             {
               key: "media",
-              value: product?.primaryImage?.URLs?.large,
+              value: product.media[0]?.URLs?.large,
             },
           ],
           productConfiguration: {
-            productId: product.productId, // Pass the productId, not to be confused with _id
-            productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+            productId: product.productId,
+            productVariantId: selectedVariant.variantId,
           },
           quantity,
         },
@@ -846,12 +839,18 @@ uiStore?.setPageSize(5)
 
   const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
-    // Pass chosen quantity to onClick callback
-    // console.log("handle click");
-    await handleAddToCartClick(addToCartQuantity, product, variant);
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: true,
+  }));
 
-    // Scroll to the top
-  };
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+    toast.success(" added to cart successfully!", {});
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: false,
+  }));
+}
   const ITEMScategory = [
     {
       image: "/categoriestypes/cat1.svg",
@@ -1880,8 +1879,8 @@ uiStore?.setPageSize(5)
     },
   ];
   const data = ITEMS.splice(0, 5);
-  const firstfour = fourprouduts?.slice(0, 4);
-  const allproducts = fourprouduts?.slice(4, fourprouduts?.length);
+  const firstfour = catalogItems?.slice(0, 4);
+  const allproducts = catalogItems?.slice(4, fourprouduts?.length);
   const data2 = ITEMS.splice(5, ITEMS.length);
 
   const [products, setProducts] = React.useState([]);
@@ -1895,8 +1894,7 @@ uiStore?.setPageSize(5)
     return acc;
   }, {});
   useEffect(() => {
-uiStore.setEndCursor(tagId)
-    
+    uiStore.setEndCursor(tagId);
   }, []);
 
   //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
@@ -1942,12 +1940,7 @@ uiStore.setEndCursor(tagId)
     }
   }
 
-  const loadMoreProducts = () => {
-    const currentIndex = displayedProducts?.length;
-    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 10);
 
-    setDisplayedProducts([...displayedProducts, ...nextProducts]);
-  };
 
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
@@ -2252,10 +2245,23 @@ uiStore.setEndCursor(tagId)
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
-
+ useEffect(() => {
+   const updatedItems = items?.map((item) => {
+     const isItemInCart = catalogdata?.some((product) => {
+       return item?.productConfiguration?.productId === product?.node.product?.productId;
+     });
+     // setpageSize(20);
+     return {
+       ...item,
+       disabled: item?.inCart || isItemInCart,
+     };
+   });
+   // console.log(updatedItems, "all");
+   // do something with updatedItems
+ }, [items]);
   // console.log(category, "dis");
   return (
-    <Layout shop={shop} tagId={tagId}>
+    <Layout shop={shop} tagId={tagId} >
       {typeof window !== "undefined" && (
         <div className={classes.main}>
           <Box className={classes.topheader}>
@@ -2343,11 +2349,12 @@ uiStore.setEndCursor(tagId)
             <div className={classes.selectDesktop}>
               <Select
                 defaultValue={selectedOption}
-                onChange={setSelectedOption}
                 placeholder="Sort by"
                 components={{ DropdownIndicator }}
                 styles={customStyles}
                 options={options}
+                onChange={handleChangeSortBy}
+                value={options.find((option) => option.value === sortBy)}
                 className={classes.reactselect}
               />
             </div>
@@ -2362,7 +2369,6 @@ uiStore.setEndCursor(tagId)
             // alignItems="center"
             className={classes.grid1}
           >
-            <SortBySelector sortBy={sortBy} onChange={setSortBy} />
             <Grid style={{ display: "flex", justifyContent: "end" }} item lg={6} xs={12} sm={6} md={12}>
               <div className={classes.mainimage}>
                 <div className={classes.categoriestext}>
@@ -2461,9 +2467,16 @@ uiStore.setEndCursor(tagId)
                         </div>
                         <div className={classes.size}>
                           {" "}
-                          <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
+                          <strike>
+                            {" "}
+                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "RS ")}
+                          </strike>
                           <Typography gutterBottom variant="h5" className={classes.price}>
-                            {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "RS ")}
                           </Typography>
                         </div>
                       </Box>
@@ -2474,97 +2487,124 @@ uiStore.setEndCursor(tagId)
             </Grid>
           </Grid>
           {/* Products Below Image   */}
-          <Grid container className={classes.gridroot}>
-            {/* {console.log("These are displayed products", displayedProducts)} */}
-            {catalogItems?.map((item) => (
-              <>
-                <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                  <img
-                    src={
-                      !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.primaryImage?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                    onClick={() => clickHandler(item.node.product.slug)}
-                  />
 
-                  <div className={classes.cartbackground}>
-                    <Button
-                      className={classes.cart}
-                      // disabled={cart.includes(shoe.id)}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                    >
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
-                        + Cart{" "}
-                      </Typography>
-                    </Button>
-                  </div>
-                  <Box className={classes.maintitle}>
-                    <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                      {item?.node?.product.title}
-                    </Typography>
-                    <div className={classes.size}>
-                      <Typography gutterBottom variant="h4">
-                        Size
-                      </Typography>
-                      <Typography gutterBottom variant="h4">
-                        :Large
-                      </Typography>
-                    </div>
-                    <div className={classes.size}> </div>
-                  </Box>
-                </Grid>
-              </>
-            ))}
-            {filteredProducts?.map((item) => (
-              <>
-                <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                  <img
-                    src={
-                      !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.primaryImage?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                    onClick={() => clickHandler(item.node.product.slug)}
-                  />
+          <div className={classes.main}>
+            <div className={classes.headermain}>
+              <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
+                {allproducts?.map((item, key) => {
+                  const cartitem = props?.cart?.items;
+                  const isDisabled = cartitem?.some((data) => {
+                    return data.productConfiguration.productId === item?.node?.product?.productId;
+                  });
+                  // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                  const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
 
-                  <div className={classes.cartbackground}>
-                    <Button
-                      className={classes.cart}
-                      // disabled={cart.includes(shoe.id)}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                    >
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
-                        + Cart{" "}
-                      </Typography>
-                    </Button>
-                  </div>
-                  <Box className={classes.maintitle}>
-                    <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                      {item?.node?.product.title}
-                    </Typography>
-                    <div className={classes.size}>
-                      <Typography gutterBottom variant="h4">
-                        Size
-                      </Typography>
-                      <Typography gutterBottom variant="h4">
-                        :Large
-                      </Typography>
-                    </div>
-                    <div className={classes.size}> </div>
-                  </Box>
-                </Grid>
-              </>
-            ))}
-          </Grid>
+                  return (
+                    <>
+                      <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                        <Link
+                          href={item.node.product.slug && "en/product/[...slugOrId]"}
+                          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                        >
+                          <img
+                            src={
+                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                ? "/justin/justin4.svg"
+                                : item?.node?.product?.media[0]?.URLs?.large
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            alt={"hhhh"}
+                          />
+                        </Link>
+                        <div className={classes.cartbackground}>
+                          {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress />
+                          ) : (
+                            <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled}
+                            >
+                              <ToastContainer
+                                position="top-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeButton={<CustomCloseButton />}
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="colored"
+                                background="green"
+                                toastStyle={{
+                                  backgroundColor: "#FDC114",
+                                  color: "black",
+                                  fontSize: "16px",
+                                  fontFamily: "lato",
+                                }}
+                              />{" "}
+                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                              <Typography
+                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                variant="h5"
+                                component="h2"
+                              >
+                                {isDisabled ? "Added" : "+ Cart"}
+                              </Typography>
+                            </Button>
+                          )}
+                        </div>
+                        <Box className={classes.maintitle}>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px" }}
+                            gutterBottom
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            {item.node.product.title}
+                          </Typography>
+                          <div className={classes.size}>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              Size :
+                            </Typography>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              {size}
+                            </Typography>
+                          </div>
+                          <div className={classes.size}>
+                            {" "}
+                            <strike>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </strike>
+                            <Typography gutterBottom variant="h5" className={classes.price}>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </Typography>
+                          </div>
+                        </Box>
+                      </Grid>
+                    </>
+                  );
+                })}
+              </Grid>
+            </div>
+          </div>
           {/* <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
               <Masonry>
@@ -2574,7 +2614,7 @@ uiStore.setEndCursor(tagId)
           </div> */}
 
           <div className={classes.loadmorediv}>
-            <button onClick={loadMoreProducts} className={classes.loadmore}>
+            <button className={classes.loadmore}>
               {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
             </button>
           </div>
