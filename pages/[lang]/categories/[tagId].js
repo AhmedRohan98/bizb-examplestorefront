@@ -149,11 +149,17 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
 
-
   size: {
     display: "flex",
     flexDirection: "row",
     marginLeft: theme.spacing(1),
+  },
+
+  pricing: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: theme.spacing(1),
+    marginBottom:theme.spacing(2)
   },
   cartimage: {
     display: "flex",
@@ -175,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "inline-grid",
   },
- 
+
   main: {
     width: "100%",
     padding: "25px",
@@ -446,7 +452,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3),
   },
 
-
   filters: {
     display: "flex",
     justifyContent: "space-between",
@@ -577,9 +582,9 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     justifyContent: "space-between",
   },
-  grid1:{
-    marginTop:theme.spacing(6)
-  }
+  grid1: {
+    marginTop: theme.spacing(6),
+  },
 }));
  
 function Categories(props) {
@@ -2522,7 +2527,7 @@ const handleChangeSortBy = (selectedOption) => {
                               {size}
                             </Typography>
                           </div>
-                          <div className={classes.size}>
+                          <div className={classes.pricing}>
                             {" "}
                             <strike>
                               {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
@@ -2644,7 +2649,7 @@ const handleChangeSortBy = (selectedOption) => {
                               {size}
                             </Typography>
                           </div>
-                          <div className={classes.size}>
+                          <div className={classes.pricing}>
                             {" "}
                             <strike>
                               {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
