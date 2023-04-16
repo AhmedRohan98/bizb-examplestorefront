@@ -383,7 +383,7 @@ const MiniCart = ({ ...props }) => {
       <div className={classes.lastDiv} headerType>
         <IconButton color="inherit" onClick={handleOpen}>
           {cart && cart.totalItemQuantity > 0 ? (
-            <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
+            <Badge badgeContent={cart.totalItemQuantity}  classes={{ badge: classes.badge }}>
               <span>
                 {headerType ? (
                   <img src="/images/cartIconLight.svg" className="headerlogo" />
