@@ -98,7 +98,7 @@ const styles = (theme) => ({
   cartitemimage: {
     width: "173px",
     height: "194px",
-    marginBottom:theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   cartimage: {
     width: "100%",
@@ -190,7 +190,9 @@ const styles = (theme) => ({
     alignItems: "center",
     background: theme.palette.secondary.selected,
     "&:hover": {
-      background: theme.palette.secondary.selected,
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
     },
     "&.MuiButton-root": {
       fontSize: "20px",
@@ -202,7 +204,22 @@ const styles = (theme) => ({
       fontFamily: "Ostrich Sans Black",
     },
   },
-  
+  bagecontet: {
+    marginBottom: "50px",
+    marginLeft: "40px",
+    position: "absolute",
+    color: "black",
+    fontWeight: "400",
+    fontFamily: "Lato",
+  },
+  bagecontetd: {
+    marginBottom: "50px",
+    marginLeft: "40px",
+    position: "absolute",
+    color: "white",
+    fontWeight: "400",
+    fontFamily: "Lato",
+  },
   lastDiv: {},
 });
 
@@ -383,15 +400,20 @@ const MiniCart = ({ ...props }) => {
       <div className={classes.lastDiv} headerType>
         <IconButton color="inherit" onClick={handleOpen}>
           {cart && cart.totalItemQuantity > 0 ? (
-            <Badge badgeContent={cart.totalItemQuantity}  classes={{ badge: classes.badge }}>
-              <span>
-                {headerType ? (
-                  <img src="/images/cartIconLight.svg" className="headerlogo" />
-                ) : (
-                  <img src="/images/cartIconDark.svg" className="headerlogo" />
-                )}
-              </span>
-            </Badge>
+            <>  {headerType ? (
+              <span className={classes.bagecontetd}>{cart.totalItemQuantity} </span>):
+              (
+              <span className={classes.bagecontet}>{cart.totalItemQuantity} </span>)}
+              <Badge classes={{ badge: classes.badge }}>
+                <span>
+                  {headerType ? (
+                    <img src="/images/cartIconLight.svg" className="headerlogo" />
+                  ) : (
+                    <img src="/images/cartIconDark.svg" className="headerlogo" />
+                  )}
+                </span>
+              </Badge>
+            </>
           ) : (
             <span>
               {headerType ? (

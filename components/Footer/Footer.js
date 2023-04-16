@@ -68,7 +68,13 @@ const Footer = ({ ...props }) => (
           <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>Home</div>
           <div style={{ marginTop: "25px", cursor: "pointer" }}>Explore</div>
           <div style={{ marginTop: "25px", cursor: "pointer" }}>How to Sell</div>
-          <div style={{ marginTop: "25px", cursor: "pointer" }}>Our Blogs</div>
+          <a
+            target="_blank"
+            href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
+          >
+            {" "}
+            <div style={{ marginTop: "25px", cursor: "pointer" ,color:"white"}}> Our Blogs</div>{" "}
+          </a>
           <div style={{ marginTop: "25px", cursor: "pointer" }}>Contact Us</div>
           <div style={{ marginTop: "25px", marginBottom: "107px", cursor: "pointer" }}>About Us</div>
         </div>
