@@ -403,8 +403,17 @@ const useStyles = makeStyles((theme) => ({
 
   modalitems: {
     display: "flex",
+    flexDirection: "row",
+  },
+  modalitemsimage: {
+    display: "flex",
     flexDirection: "column",
-    borderBottom: "0.5px dotted #0101013b",
+  },
+  modalitemstitle: {
+    display: "flex",
+    width:"90%",
+  
+    flexDirection: "column",
   },
   loadmorediv: {
     display: "flex",
@@ -418,13 +427,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   categoryavatar: {
-    marginTop: theme.spacing(1),
+    marginTop: "13px",
+    height: "34px",
+    width: "27px",
     marginBottom: theme.spacing(1),
   },
   catgorytitle: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(3),
+    width: "80%",
+    borderBottom: "0.5px dotted #0101013b",
     "&:hover": {
       color: theme.palette.secondary.selected,
     },
@@ -846,39 +859,34 @@ const handleChangeSortBy = (selectedOption) => {
 }
   const ITEMScategory = [
     {
-      image: "/categoriestypes/cat1.svg",
+      image: "/categoriestypes/junior.svg",
       id: 1,
       title: "Casual",
     },
     {
-      image: "/categoriestypes/cat2.svg",
+      image: "/categoriestypes/causal.svg",
       id: 2,
       title: "Western",
     },
     {
-      image: "/categoriestypes/cat3.svg",
+      image: "/categoriestypes/party.svg",
       id: 3,
       title: "Shoes",
     },
     {
-      image: "/categoriestypes/cat4.svg",
+      image: "/categoriestypes/shoes.svg",
       id: 4,
       title: "Bridal",
     },
     {
-      image: "/categoriestypes/cat5.svg",
+      image: "/categoriestypes/asseso.svg",
       id: 5,
       title: "Party Wear",
     },
     {
-      image: "/categoriestypes/cat6.svg",
+      image: "/categoriestypes/westrn.svg",
       id: 6,
       title: "Accessories",
-    },
-    {
-      image: "/categoriestypes/cat7.svg",
-      id: 6,
-      title: "Junior",
     },
   ];
   const ITEMS2 = [
@@ -1961,7 +1969,7 @@ const handleChangeSortBy = (selectedOption) => {
     position: "fixed",
     borderRadius: "8px",
     marginTop: "12px",
-    left: "12%",
+    left: "15%",
     width: 330,
     bgcolor: "#ffffff",
     outline: "none",
@@ -2393,15 +2401,21 @@ const handleChangeSortBy = (selectedOption) => {
                 >
                   <Box sx={style}>
                     <div className={classes.modalitems}>
-                      {ITEMScategory.map((item) => (
-                        <img src={item.image} className={classes.categoryavatar} />
-                      ))}
-                      {tags?.nodes?.map((itemtitle) => (
-                        <Typography variant="h4" className={classes.catgorytitle}>
-                          {" "}
-                          {itemtitle?.displayTitle}
-                        </Typography>
-                      ))}
+                      <div className={classes.modalitemsimage}>
+                        {ITEMScategory.map((item) => (
+                          <img src={item.image} className={classes.categoryavatar} />
+                        ))}
+                      </div>
+
+                      <div className={classes.modalitemstitle}>
+                        {tags?.nodes?.slice(0,6)?.map((itemtitle) => (
+                          <a href={itemtitle._id}>
+                            <Typography variant="h4" className={classes.catgorytitle}>
+                              {itemtitle.displayTitle}
+                            </Typography>
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </Box>
                 </Popover>
