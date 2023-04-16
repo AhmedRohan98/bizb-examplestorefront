@@ -684,7 +684,7 @@ useEffect(() => {
                 return (
                   <SwiperSlide key={index} className={classes.swiperimag}>
                     <div className={classes.controller}>
-                      {/* <img src={slide.URLs.large} alt="" className={classes.sliderimage2} /> */}
+                      <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
                       {/* <ReactImageMagnify
                         {...{
                           smallImage: {
@@ -699,7 +699,7 @@ useEffect(() => {
                           },
                         }}
                       /> */}
-                      {activeIndex.length ? (
+                      {product?.variants[0].media ? (
                         <ArrowForwardIos
                           className={classes.iconforwad}
                           style={{ fill: "#FDC114" }}
@@ -708,7 +708,7 @@ useEffect(() => {
                       ) : (
                         ""
                       )}
-                      {activeIndex.length ? (
+                      {product?.variants[0].media+1 ? (
                         <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
                       ) : (
                         ""

@@ -452,17 +452,8 @@ class CartPage extends Component {
 
   handleClick = () => Router.push("/");
 
-  handleItemQuantityChange = (quantity, cartItemId) => {
-    const { onChangeCartItemsQuantity } = this.props;
-
-    onChangeCartItemsQuantity({ quantity, cartItemId });
-  };
-
-  handleRemoveItem = async (itemId) => {
-    const { onRemoveCartItems } = this.props;
-
-    await onRemoveCartItems(itemId);
-  };
+ 
+ 
 
   renderCartItems() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems ,  catalogItems} = this.props;
