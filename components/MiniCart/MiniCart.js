@@ -403,7 +403,7 @@ const MiniCart = ({ ...props }) => {
   return (
     <Fragment>
       <div className={classes.lastDiv} headerType>
-        <IconButton color="none" border="none" onClick={handleOpen} className={classes.lastDiv}>
+        <IconButton color="none" borderBottom="none" onClick={handleOpen} className={classes.lastDiv} headerType>
           {cart && cart.totalItemQuantity > 0 ? (
             <>
               {" "}
