@@ -216,7 +216,7 @@ const Checkout = ({ router }) => {
       );
 
       return (
-        <StripeProvider stripe={stripe}>
+        // <StripeProvider stripe={stripe}>
           <div className={classes.checkoutContentContainer}>
             <div className={classes.checkoutContent}>
               <Grid container spacing={3}>
@@ -247,7 +247,7 @@ const Checkout = ({ router }) => {
               </Grid>
             </div>
           </div>
-        </StripeProvider>
+        // </StripeProvider>
       );
     }
 

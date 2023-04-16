@@ -209,6 +209,7 @@ const styles = (theme) => ({
     marginLeft: "40px",
     position: "absolute",
     color: "black",
+    fontSize:"25px",
     fontWeight: "400",
     fontFamily: "Lato",
   },
@@ -217,10 +218,14 @@ const styles = (theme) => ({
     marginLeft: "40px",
     position: "absolute",
     color: "white",
+     fontSize:"25px",
     fontWeight: "400",
     fontFamily: "Lato",
   },
-  lastDiv: {},
+  lastDiv: {
+   
+    border:"none"
+  },
 });
 
 const MiniCart = ({ ...props }) => {
@@ -398,13 +403,16 @@ const MiniCart = ({ ...props }) => {
   return (
     <Fragment>
       <div className={classes.lastDiv} headerType>
-        <IconButton color="inherit" onClick={handleOpen}>
+        <IconButton color="none" border="none" onClick={handleOpen} className={classes.lastDiv}>
           {cart && cart.totalItemQuantity > 0 ? (
-            <>  {headerType ? (
-              <span className={classes.bagecontetd}>{cart.totalItemQuantity} </span>):
-              (
-              <span className={classes.bagecontet}>{cart.totalItemQuantity} </span>)}
-              <Badge classes={{ badge: classes.badge }}>
+            <>
+              {" "}
+              {headerType ? (
+                <span className={classes.bagecontetd}>{cart.totalItemQuantity} </span>
+              ) : (
+                <span className={classes.bagecontet}>{cart.totalItemQuantity} </span>
+              )}
+              <Badge color="none" border="none" classes={{ badge: classes.badge }}>
                 <span>
                   {headerType ? (
                     <img src="/images/cartIconLight.svg" className="headerlogo" />
