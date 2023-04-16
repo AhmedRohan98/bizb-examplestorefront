@@ -7,6 +7,7 @@ import inject from "hocs/inject";
 import Router from "translations/i18nRouter";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import variantById from "lib/utils/variantById";
+import CloseIcon from "@material-ui/icons/Close";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
 import Box from "@material-ui/core/Box";
@@ -16,9 +17,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useRef, useCallback, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
+import { ToastContainer, toast } from "react-toastify";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
+import { CircularProgress } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 // import ReactImageMagnify from "react-image-magnify";
@@ -87,7 +90,12 @@ const styles = (theme) => ({
 
     zIndex: 1251,
   },
-
+  pricing: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
   size2: {
     display: "flex",
     flexDirection: "row",
@@ -422,6 +430,7 @@ const ProductDetail = ({ ...props }) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
+    const [isLoading, setIsLoading] = useState({});
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -429,6 +438,10 @@ const ProductDetail = ({ ...props }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+    const CustomCloseButton = () => (
+      <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
+    );
+
 useEffect(() => {
   const updatedItems = items.map((item) => {
     const isItemInCart = filteredProducts?.some((product) => {
@@ -483,49 +496,44 @@ useEffect(() => {
    * @returns {undefined} No return
    */
 
-  const handleAddToCartClick = async (quantity) => {
-    const {
-      addItemsToCart,
-      currencyCode,
-      product,
-      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId },
-      width,
-    } = props;
-    // console.log(pdpSelectedVariantId, "star");
-    // console.log(product.variants, "op");
-    // Get selected variant or variant option
-    const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
-    const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
-    const selectedVariantOrOption = selectedOption || selectedVariant;
 
-    if (selectedVariantOrOption) {
-      // Get the price for the currently selected variant or variant option
-      const price = priceByCurrencyCode(currencyCode, selectedVariantOrOption.pricing);
+ const handleAddToCartClick = async (quantity, product, variant) => {
+   const {
+     addItemsToCart,
+     currencyCode,
+     cart,
+     uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+   } = props;
 
-      // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
-      await addItemsToCart([
-        {
-          price: {
-            amount: product.variants[0]?.pricing[0]?.price,
-            currencyCode: "USD",
-          },
+   // Disable button after it has been clicked
 
-          metafields: [
-            {
-              key: "media",
-              value: product?.media[0]?.URLs?.large,
-            },
-          ],
-          productConfiguration: {
-            productId: product.productId, // Pass the productId, not to be confused with _id
-            productVariantId: selectedVariantOrOption.variantId, // Pass the variantId, not to be confused with _id
-          },
-          quantity,
-        },
-      ]);
-    }
-  };
+   // console.log(pdpSelectedVariantId, "star");
 
+   // Get selected variant or variant optiono
+   const selectedVariant = variantById(product.variants, variant._id);
+
+   // If variant is not already in the cart, add the new item
+
+   await addItemsToCart([
+     {
+       price: {
+         amount: product.variants[0]?.pricing[0]?.minPrice,
+         currencyCode: "USD",
+       },
+       metafields: [
+         {
+           key: "media",
+           value: product.media[0]?.URLs?.large,
+         },
+       ],
+       productConfiguration: {
+         productId: product.productId,
+         productVariantId: selectedVariant.variantId,
+       },
+       quantity,
+     },
+   ]);
+ };
   /**
    * @name handleSelectOption
    * @summary Called when an option is selected in the option list
@@ -583,14 +591,70 @@ useEffect(() => {
       }
     }
   }
+  
+ const handleOnClick = async (product, variant) => {
+   setIsLoading((prevState) => ({
+     ...prevState,
+     [product.productId]: true,
+   }));
 
-  const handleOnClick = async () => {
+   await handleAddToCartClick(addToCartQuantity, product, variant);
+   toast.success(" added to cart successfully!", {});
+   setIsLoading((prevState) => ({
+     ...prevState,
+     [product.productId]: false,
+   }));
+   // Scroll to the top
+ };
+  const handleAddToCartClickforsingle = async (quantity) => {
+    const {
+      addItemsToCart,
+      currencyCode,
+      product,
+      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId },
+      width,
+    } = props;
+    // console.log(pdpSelectedVariantId, "star");
+    // console.log(product.variants, "op");
+    // Get selected variant or variant option
+    const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
+    const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
+    const selectedVariantOrOption = selectedOption || selectedVariant;
+
+    if (selectedVariantOrOption) {
+      // Get the price for the currently selected variant or variant option
+      const price = priceByCurrencyCode(currencyCode, selectedVariantOrOption.pricing);
+
+      // Call addItemsToCart with an object matching the GraphQL `CartItemInput` schema
+      await addItemsToCart([
+        {
+          price: {
+            amount: price.price,
+            currencyCode,
+          },
+
+          metafields: [
+            {
+              key: "media",
+              value: product?.media[0]?.URLs?.large,
+            },
+          ],
+          productConfiguration: {
+            productId: product.productId, // Pass the productId, not to be confused with _id
+            productVariantId: selectedVariantOrOption.variantId, // Pass the variantId, not to be confused with _id
+          },
+          quantity,
+        },
+      ]);
+    }
+  };
+
+  const handleOnClickforsingle = async () => {
     // Pass chosen quantity to onClick callback
-    await handleAddToCartClick(addToCartQuantity);
+    await handleAddToCartClickforsingle(addToCartQuantity);
 
     // Scroll to the top
   };
-
   const router = useRouter();
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
@@ -680,7 +744,6 @@ useEffect(() => {
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
             >
               {product?.variants[0].media.map((slide, index) => {
-
                 return (
                   <SwiperSlide key={index} className={classes.swiperimag}>
                     <div className={classes.controller}>
@@ -761,7 +824,7 @@ useEffect(() => {
                 </Typography>
               </div>
               <div>
-                <Button className={classes.cart2} fullWidth onClick={handleOnClick} disabled={isDisabled}>
+                <Button className={classes.cart2} fullWidth onClick={handleOnClickforsingle} disabled={isDisabled}>
                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                   <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
                     {isDisabled ? "Added" : "+ Cart"}
@@ -771,12 +834,11 @@ useEffect(() => {
               <TabContext value={value}>
                 <TabList onChange={handleChange} className={classes.tabs}>
                   <Tab label="Description" value="1" />
-                
                 </TabList>
 
-                <TabPanel value="1" className={classes.sizechart}>{product?.description}</TabPanel>
-
-              
+                <TabPanel value="1" className={classes.sizechart}>
+                  {product?.description}
+                </TabPanel>
               </TabContext>
             </div>
           </Grid>
@@ -833,76 +895,103 @@ useEffect(() => {
       </Typography>
       <div className={classes.root}>
         <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-          {filteredProducts?.splice(0,5)?.map((item, key) => {
-            const isDisabled = items?.some((data) => {
+          {filteredProducts?.slice(0,5)?.map((item, key) => {
+            const cartitem = cart?.items;
+            const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });
-            return (
-              <>
-                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                  <img
-                    src={
-                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.media[0]?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                    onClick={() => clickHandler(item.node.product.slug)}
-                  />
+            // console.log(cart?.items, "item");
+            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+   return (
+     <>
+       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+         <img
+           src={
+             !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+               ? "/justin/justin4.svg"
+               : item?.node?.product?.media[0]?.URLs?.large
+           }
+           className={classes.image}
+           key={item?.node?.product?.id}
+           alt={"hhhh"}
+           onClick={() => clickHandler(item.node.product.slug)}
+         />
 
-                  <div className={classes.cartbackground}>
-                    <Button
-                      className={classes.cart}
-                      // disabled={cart.includes(shoe.id)}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                      disabled={isDisabled}
-                    >
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography
-                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                        variant="h5"
-                        component="h2"
-                      >
-                        {isDisabled ? "Added" : "+ Cart"}
-                      </Typography>
-                    </Button>
-                  </div>
-                  <Box className={classes.maintitle}>
-                    <Typography
-                      style={{ fontWeight: "700", fontSize: "24px" }}
-                      gutterBottom
-                      variant="h4"
-                      component="h2"
-                      className={classes.carttitle}
-                    >
-                      {item.node.product.title}
-                    </Typography>
-                    <div className={classes.size}>
-                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                        Size
-                      </Typography>
-                      <Typography style={{ fontWeight: "700", fontSize: "24px" }} gutterBottom variant="h4">
-                        {item?.node?.product?.variants[0]?.optionTitle?.json?.parse(size)}
-                      </Typography>
-                    </div>
-                    <div className={classes.size}>
-                      {" "}
-                      <strike>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-                          /\$/g,
-                          "RS ",
-                        )}
-                      </strike>
-                      <Typography gutterBottom variant="h5" className={classes.price}>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\$/g, "RS ")}
-                      </Typography>
-                    </div>
-                  </Box>
-                </Grid>
-              </>
-            );
+         <div className={classes.cartbackground}>
+           {isLoading[item?.node?.product?.productId] ? (
+             <CircularProgress />
+           ) : (
+             <Button
+               className={classes.cart}
+               onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+               disabled={isDisabled}
+             >
+               <ToastContainer
+                 position="top-right"
+                 autoClose={5000}
+                 hideProgressBar={false}
+                 newestOnTop={false}
+                 closeButton={<CustomCloseButton />}
+                 rtl={false}
+                 pauseOnFocusLoss
+                 draggable
+                 pauseOnHover
+                 theme="colored"
+                 background="green"
+                 toastStyle={{
+                   backgroundColor: "#FDC114",
+                   color: "black",
+                   fontSize: "16px",
+                   fontFamily: "lato",
+                 }}
+               />{" "}
+               <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+               <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h5" component="h2">
+                 {isDisabled ? "Added" : "+ Cart"}
+               </Typography>
+             </Button>
+           )}
+         </div>
+         <Box className={classes.maintitle}>
+           <Typography
+             style={{ fontWeight: "700", fontSize: "24px" }}
+             gutterBottom
+             variant="h4"
+             component="h2"
+             className={classes.carttitle}
+           >
+             {item.node.product.title}
+           </Typography>
+           <div className={classes.size}>
+             <Typography style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }} gutterBottom variant="h4">
+               Size :
+             </Typography>
+             <Typography
+               style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+               gutterBottom
+               variant="h4"
+             >
+               {size}
+             </Typography>
+           </div>
+           <div className={classes.pricing}>
+             {" "}
+             <strike>
+               {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                 ?.replace(/\.00$/, "")
+                 .replace(/\$/g, "RS ")}
+             </strike>
+             <Typography gutterBottom variant="h5" className={classes.price}>
+               {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+             </Typography>
+           </div>
+         </Box>
+       </Grid>
+     </>
+   );
           })}
         </Grid>
       </div>
@@ -920,7 +1009,7 @@ ProductDetail.propTypes = {
    */
   addItemsToCart: PropTypes.func,
   classes: PropTypes.object,
-  currencyCode: PropTypes.string.isRequired,
+
   product: PropTypes.object,
   routingStore: PropTypes.object.isRequired,
   shop: PropTypes.object.isRequired,

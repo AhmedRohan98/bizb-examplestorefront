@@ -587,7 +587,7 @@ const useStyles = makeStyles((theme) => ({
  
 function Categories(props) {
   
-  const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart ,tags} =
+  const { category, uiStore, routingStore,  addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart ,tags} =
     props;
     const [isLoading, setIsLoading] = useState({});
     
@@ -828,7 +828,7 @@ const handleChangeSortBy = (selectedOption) => {
         {
           price: {
             amount: product.variants[0]?.pricing[0]?.minPrice,
-            currencyCode: "USD",
+            currencyCode,
           },
           metafields: [
             {
