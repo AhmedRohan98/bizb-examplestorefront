@@ -699,16 +699,15 @@ useEffect(() => {
                           },
                         }}
                       /> */}
-                      {product?.variants[0].media ? (
+                      {activeIndex < product?.variants[0].media.length - 1 && (
                         <ArrowForwardIos
                           className={classes.iconforwad}
                           style={{ fill: "#FDC114" }}
                           onClick={handleNext}
                         />
-                      ) : (
-                        ""
                       )}
-                      {product?.variants[0].media+1 ? (
+
+                      {activeIndex - 0 ? (
                         <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
                       ) : (
                         ""

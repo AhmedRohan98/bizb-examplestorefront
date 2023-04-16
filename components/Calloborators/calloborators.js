@@ -163,10 +163,8 @@ const lastIndex = sellers?.length - 1;
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
           <div className={classes.controller}>
-            {lastIndex === sellers?.length - 1 ? (
+            {activeIndex < sellers?.length- 1 && (
               <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
-            ) : (
-              ""
             )}
             {activeIndex - 0 ? (
               <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />

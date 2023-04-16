@@ -2449,21 +2449,18 @@ const handleChangeSortBy = (selectedOption) => {
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                        <Link
-                          href={item.node.product.slug && "en/product/[...slugOrId]"}
-                          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                        >
-                          <img
-                            src={
-                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                ? "/justin/justin4.svg"
-                                : item?.node?.product?.media[0]?.URLs?.large
-                            }
-                            className={classes.image}
-                            key={item?.node?.product?.id}
-                            alt={"hhhh"}
-                          />
-                        </Link>
+                        <img
+                          src={
+                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              ? "/justin/justin4.svg"
+                              : item?.node?.product?.media[0]?.URLs?.large
+                          }
+                          className={classes.image}
+                          key={item?.node?.product?.id}
+                          alt={"hhhh"}
+                          onClick={() => clickHandler(item.node.product.slug)}
+                        />
+
                         <div className={classes.cartbackground}>
                           {isLoading[item?.node?.product?.productId] ? (
                             <CircularProgress />
@@ -2569,10 +2566,7 @@ const handleChangeSortBy = (selectedOption) => {
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                        <Link
-                          href={item.node.product.slug && "en/product/[...slugOrId]"}
-                          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                        >
+                      
                           <img
                             src={
                               !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
@@ -2582,8 +2576,9 @@ const handleChangeSortBy = (selectedOption) => {
                             className={classes.image}
                             key={item?.node?.product?.id}
                             alt={"hhhh"}
+                            onClick={() => clickHandler(item.node.product.slug)}
                           />
-                        </Link>
+                     
                         <div className={classes.cartbackground}>
                           {isLoading[item?.node?.product?.productId] ? (
                             <CircularProgress />
