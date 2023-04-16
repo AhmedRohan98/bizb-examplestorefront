@@ -11,8 +11,8 @@ import CartSummary from "@reactioncommerce/components/CartSummary/v1";
 import withCart from "containers/cart/withCart";
 import CartItems from "components/CartItems";
 
+import withCatalogItems from "../../containers/catalog/withCatalogItems";
 import Link from "next/link";
-
 import Layout from "components/Layout";
 import Router from "translations/i18nRouter";
 import PageLoading from "components/PageLoading";
@@ -426,17 +426,18 @@ class CartPage extends Component {
     cart: PropTypes.shape({
       totalItems: PropTypes.number,
       items: PropTypes.arrayOf(PropTypes.object),
+      catalogItems: PropTypes.array,
       checkout: PropTypes.shape({
         fulfillmentTotal: PropTypes.shape({
-          displayAmount: PropTypes.string
+          displayAmount: PropTypes.string,
         }),
         itemTotal: PropTypes.shape({
-          displayAmount: PropTypes.string
+          displayAmount: PropTypes.string,
         }),
         taxTotal: PropTypes.shape({
-          displayAmount: PropTypes.string
-        })
-      })
+          displayAmount: PropTypes.string,
+        }),
+      }),
     }),
     classes: PropTypes.object,
     hasMoreCartItems: PropTypes.bool,
@@ -445,8 +446,8 @@ class CartPage extends Component {
     onRemoveCartItems: PropTypes.func,
     shop: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      description: PropTypes.string
-    })
+      description: PropTypes.string,
+    }),
   };
 
   handleClick = () => Router.push("/");
@@ -464,8 +465,8 @@ class CartPage extends Component {
   };
 
   renderCartItems() {
-    const { cart, classes, hasMoreCartItems, loadMoreCartItems } = this.props;
-
+    const { cart, classes, hasMoreCartItems, loadMoreCartItems ,  catalogItems} = this.props;
+console.log(catalogItems,"itemssss")
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
         <>
@@ -479,9 +480,7 @@ class CartPage extends Component {
                 onRemoveItemFromCart={this.handleRemoveItem}
               />
             </div>
-           <div>
-
-           </div>
+            <div></div>
           </Grid>
         </>
       );
@@ -503,7 +502,7 @@ class CartPage extends Component {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
       return (
-        <Grid item xs={12} md={4} display="flex" justifyContent="center" alignItems="center" >
+        <Grid item xs={12} md={4} display="flex" justifyContent="center" alignItems="center">
           <div className={classes.carttotalsummar}>
             <div className={classes.cartcard}>
               <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
@@ -516,7 +515,7 @@ class CartPage extends Component {
                     Subtotal
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                   RS: {cart.checkout.summary.itemTotal.amount}
+                    RS: {cart.checkout.summary.itemTotal.amount}
                   </Typography>
                 </div>
                 <div className={classes.subtotal}>
@@ -534,7 +533,7 @@ class CartPage extends Component {
                   Total
                 </Typography>
                 <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                RS:  {cart.checkout.summary.itemTotal.amount + 10}
+                  RS: {cart.checkout.summary.itemTotal.amount + 10}
                 </Typography>
               </div>
             </div>
@@ -568,20 +567,16 @@ class CartPage extends Component {
     return (
       <>
         <Layout shop={shop}>
-        
           <div className={classes.topimage}>
-        
             <img src="/cart/viewcart.svg" alt="view cart" className={classes.image} />
             <div className={classes.topheading}>
               <img src="/cart/fashionsustainable.svg" alt="view cart" className={classes.heading} />
             </div>
           </div>
           <section>
-           
-            <Grid container >
+            <Grid container>
               {this.renderCartItems()}
               {this.renderCartSummary()}
-             
             </Grid>
           </section>
         </Layout>
@@ -605,4 +600,4 @@ export async function getServerSideProps({ params: { lang } }) {
   };
 }
 
-export default withApollo()(withStyles(styles)(withCart(inject("uiStore")(CartPage))));
+export default withApollo()(withStyles(styles)(withCart(withCatalogItems(inject("uiStore")(CartPage)))));
