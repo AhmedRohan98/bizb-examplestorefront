@@ -56,6 +56,7 @@ import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
 import inject from "../../../hocs/inject";
 import Layout from "../../../components/Layout";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     top: "10px",
@@ -588,7 +589,9 @@ function Categories(props) {
   
   const { category, uiStore, routingStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart ,tags} =
     props;
-  console.log("items", tags);
+    const [isLoading, setIsLoading] = useState({});
+    
+  // console.log("items", tags);
   const router = useRouter();
   const { tagId } = router.query;
   const setSortBy = (sortBy) => {
@@ -597,10 +600,10 @@ function Categories(props) {
   };
 
   const filteredProducts = catalogItems?.filter((product) => product?.node?.product?.tagIds[0] === tagId);
-  console.log(filteredProducts, "catalogItems3");
-  console.log("catalogItems", catalogItems);
+  // console.log(filteredProducts, "catalogItems3");
+  // console.log("catalogItems", catalogItems);
  
-  const [isLoading, setIsLoading] = useState({});
+  
   // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
@@ -2437,7 +2440,7 @@ const handleChangeSortBy = (selectedOption) => {
                   const isDisabled = cartitem?.some((data) => {
                     return data.productConfiguration.productId === item?.node?.product?.productId;
                   });
-                  console.log(cart?.items, "item");
+                  // console.log(cart?.items, "item");
                   // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
@@ -2557,7 +2560,7 @@ const handleChangeSortBy = (selectedOption) => {
                   const isDisabled = cartitem?.some((data) => {
                     return data.productConfiguration.productId === item?.node?.product?.productId;
                   });
-                  console.log(cart?.items, "item");
+                  // console.log(cart?.items, "item");
                   // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
