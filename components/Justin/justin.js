@@ -312,9 +312,11 @@ const Justin = (props) => {
         </Typography>
         <div className={classes.header}>
           <h1 className={classes.typography}></h1>
-          <Typography gutterBottom variant="body1" className={classes.explore}>
-            Explore More
-          </Typography>
+          <a href="http://localhost:4000/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+            <Typography gutterBottom variant="body1" className={classes.explore}>
+              Explore More
+            </Typography>
+          </a>
         </div>
       </div>
       <div className={classes.root}>
@@ -348,7 +350,7 @@ const Justin = (props) => {
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    {isLoading [item?.node?.product?.productId]  ? (
+                    {isLoading[item?.node?.product?.productId] ? (
                       <CircularProgress />
                     ) : (
                       <Button
