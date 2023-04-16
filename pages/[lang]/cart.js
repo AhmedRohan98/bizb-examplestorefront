@@ -720,7 +720,8 @@ console.log(catalogItems,"cat")
             {cart?.items?.length ? (
               <>
                 <Typography variant="h3" className={classes.related}>
-                  Related <span className={classes.spanofnextword}>Products</span>
+                  You <span className={classes.spanofnextword}>may</span>
+                  Also <span className={classes.spanofnextword}>Like"</span>
                 </Typography>
                 <div className={classes.root}>
                   <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
@@ -835,8 +836,9 @@ console.log(catalogItems,"cat")
                   </Grid>
                 </div>
               </>
-              
-            ):""}
+            ) : (
+              ""
+            )}
           </section>
         </Layout>
       </>
