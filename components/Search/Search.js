@@ -1,8 +1,8 @@
 import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import withCatalogItems from "containers/catalog/withCatalogItems";
-import React, { useState } from "react";
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
@@ -24,28 +24,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = ({ modalFlag, setModalFlag,catalogItems }) => {
-  console.log(catalogItems,"catatttttttttttttttttt")
-    const [searchTerm, setSearchTerm] = useState("");
+const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
+  console.log(uiStore, "store");
+
+  const [searchLocal, setSearhcLocal] = React.useState("");
+
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+    // uiStore?.setSearchItems(event.target.value);
+    setSearhcLocal(event.target.value);
   };
-  const handleSearchSubmit = (event) => {
+
+  const handleSearchSubmit = (event, searchQuery) => {
     event.preventDefault();
-    
+    // add your search logic here
+    uiStore?.setSearchItems('"' + searchLocal + '"');
   };
+  React.useEffect(() => {
+    console.log("search item", uiStore?.searchItems);
+  }, [uiStore?.searchItems]);
+  console.log(uiStore?.searchItems, "catatttttttttttttttttt");
+
   const classes = useStyles();
   return (
     <>
       <form onSubmit={handleSearchSubmit}>
-        <input type="text" value={searchTerm} onChange={handleSearchChange} />
+        <input type="text" value={searchLocal} onChange={handleSearchChange} />
         <button type="submit">Search</button>
       </form>
       <ul>
-        {catalogItems.map((product) => (
-          <li key={product.id}>
-            {product.title}
-            </li>
+        {catalogItems?.map((product) => (
+          <li key={product.id}>{product.title}</li>
         ))}
       </ul>
     </>
@@ -144,4 +152,4 @@ const Search = ({ modalFlag, setModalFlag,catalogItems }) => {
   );
 };
 
-export default withCatalogItems(Search)
+export default withCatalogItems(Search);
