@@ -164,7 +164,7 @@ const lastIndex = sellers?.length - 1;
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
           <div className={classes.controller}>
-            { lastIndex -1 && (
+            { lastIndex  && (
               <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
             )}
 

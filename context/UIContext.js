@@ -16,6 +16,7 @@ export const UIProvider = ({ children }) => {
   const [pdpSelectedOptionId, setPdpSelectedOptionId] = useState(null);
   const [pdpSelectedVariantId, setPdpSelectedVariantId] = useState(null);
   const [sortBy, setSortBy] = useState("updatedAt-desc");
+  const [searchItems, setSearchItems] = useState("");
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
   const [entryModal, setEntryModal] = useState(null);
@@ -90,6 +91,8 @@ export const UIProvider = ({ children }) => {
         pdpSelectedOptionId,
         pdpSelectedVariantId,
         sortBy,
+        searchItems,
+        setSearchItems,
         sortByCurrencyCode,
         entryModal,
         setLocales,
