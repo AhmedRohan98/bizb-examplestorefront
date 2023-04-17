@@ -103,8 +103,12 @@ const Appsec = () => {
           <div className={classes.title2}>
             <Typography variant="h3">Revamp Your Wardrobe Using Our App</Typography>
           </div>
-          <img src="/app-section/appsec2.svg" className={classes.image} />
-          <img src="/app-section/appsec3.svg" className={classes.image} />
+          <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
+            <img src="/app-section/appsec2.svg" className={classes.image} />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
+            <img src="/app-section/appsec3.svg" className={classes.image} />
+          </a>
         </Grid>
         <Grid item lg={6} sm={6} md={6} xs={6} className={classes.grid1}>
           <img src="/app-section/appsec4.svg" className={classes.imae} />

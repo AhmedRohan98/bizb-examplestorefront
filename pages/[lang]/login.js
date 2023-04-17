@@ -11,139 +11,122 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Grid, TextField, Button,  Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
- 
   modal: {
-    display: 'flex',
-   
+    display: "flex",
+
     flexDirection: "row",
-    justifyContent: 'center',
-    background:"green"
+    justifyContent: "center",
+    background: "green",
   },
   paper: {
-    height:"931px",
-    width:"1074",
-   borderRadius:"4px",
-
-
+    height: "931px",
+    width: "1074",
+    borderRadius: "4px",
   },
-  label:{
-    display: 'flex',
-    marginTop:theme.spacing(1),
-    color:"#333333",
+  label: {
+    display: "flex",
+    marginTop: theme.spacing(1),
+    color: "#333333",
     flexDirection: "column",
- 
   },
-  image:{
-    height:"863px"
+  image: {
+    height: "863px",
   },
-  image2:{
-    height:"96px",
-    display:"flex",
-    marginTop:theme.spacing(2),
-    marginBottom:theme.spacing(2),
-    justifyContent:"center",
-    alignItems:"center"
-  
+  image2: {
+    height: "96px",
+    display: "flex",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    justifyContent: "center",
+    alignItems: "center",
   },
-  image3:{
-    height:"105",
-    width:"304px",
+  image3: {
+    height: "105",
+    width: "304px",
 
-    marginTop:theme.spacing(2),
-    
-  
+    marginTop: theme.spacing(2),
   },
-  grid1:{
-
-    display:"flex",
+  grid1: {
+    display: "flex",
     flexDirection: "column",
-    justifyContent:"center",
-    alignItems:"center",
-  
-    background:theme.palette.secondary.selected,
-    
-  },
-  grid2:{
+    justifyContent: "center",
+    alignItems: "center",
 
-    display:"flex",
+    background: theme.palette.secondary.selected,
+  },
+  grid2: {
+    display: "flex",
     flexDirection: "column",
-    background:theme.palette.background.default,
-    
-    paddingLeft:theme.spacing(3),
-    
+    background: theme.palette.background.default,
+
+    paddingLeft: theme.spacing(3),
   },
-  icon:{
-   marginTop:theme.spacing(2),
-   marginRight:theme.spacing(2),
+  icon: {
+    marginTop: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
 
-  input:{
-    width:"387px",
-    height:"48px",
-    borderRadius:"6px",
-     color:"red",
-    
-     justifyContent:"center",
-   paddingLeft:theme.spacing(2),
-    background:"#F7F7F9",
-    borderBottomColor:"none",
+  input: {
+    width: "387px",
+    height: "48px",
+    borderRadius: "6px",
+    color: "red",
+
+    justifyContent: "center",
+    paddingLeft: theme.spacing(2),
+    background: "#F7F7F9",
+    borderBottomColor: "none",
     "& .MuiInputBase-input": {
       color: "#969696",
       fontSize: "14px",
-      padding:"opx",
-   
-    }
-    
-
+      padding: "opx",
+    },
   },
-register:{
-  width:"214px",
-  height:"48px",
-  borderRadius:"40px",
-  border:"none",
-  display:"flex",
-  justifyContent:"center",
-  alignItems:"center",
-  background:theme.palette.secondary.selected,
-  "&:hover": {
-
-    background:theme.palette.secondary.selected,
-}
-
-},
-socialmedia:{
-  width:"230px",
-  height:"48px",
-  borderRadius:"40px",
-  border:"none",
-  display:"flex",
-  justifyContent:"center",
-  alignItems:"center",
-  margin:"10px",
-  padding:"3px",
-  background:theme.palette.secondary.selected,
-
-},
-topheader:{
-  display:"flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-},
-terms:{
-  lineHeight:"100px"
-    
-},
-checkbox:{
-  color:"green",
-  "& .MuiIconButton-label ":{
-   color:theme.palette.secondary.selected,
+  register: {
+    width: "214px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: theme.palette.secondary.selected,
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
   },
-  
- },
- checkboxdiv:{
-  display:"flex",
-  flexDirection: "row",
- }
+  socialmedia: {
+    width: "230px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "10px",
+    padding: "3px",
+    background: theme.palette.secondary.selected,
+  },
+  topheader: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  terms: {
+    lineHeight: "100px",
+  },
+  checkbox: {
+    color: "green",
+    "& .MuiIconButton-label ": {
+      color: theme.palette.secondary.selected,
+    },
+  },
+  checkboxdiv: {
+    display: "flex",
+    flexDirection: "row",
+  },
 }));
 
 export default function TransitionsModal() {

@@ -98,7 +98,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     background: theme.palette.secondary.selected,
     "&:hover": {
-      background: theme.palette.secondary.selected,
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
     },
     "&.MuiButton-root": {
       fontSize: "20px",
@@ -214,7 +216,7 @@ const Checkout = ({ router }) => {
       );
 
       return (
-        <StripeProvider stripe={stripe}>
+        // <StripeProvider stripe={stripe}>
           <div className={classes.checkoutContentContainer}>
             <div className={classes.checkoutContent}>
               <Grid container spacing={3}>
@@ -245,7 +247,7 @@ const Checkout = ({ router }) => {
               </Grid>
             </div>
           </div>
-        </StripeProvider>
+        // </StripeProvider>
       );
     }
 

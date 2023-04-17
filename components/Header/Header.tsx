@@ -51,7 +51,9 @@ const styles = (theme: Theme) =>
       paddingTop: "20px",
       height: "170px",
       zIndex: 1200,
-      
+      "& > *:last-child": {
+        border: "none !important", // or any other custom styles you want to apply
+      },
     },
     light: {
       color: "#FFFFFF",
@@ -163,7 +165,7 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <MiniCart
           headerType={headerType}
-          style={{ marginRight: "25px", marginLeft: "25px" }}
+          style={{ marginRight: "25px", marginLeft: "25px" ,background:"none"}}
           className="headerlogo"
         />
         {/* @ts-ignore TODO: Refactor link to address type error */}

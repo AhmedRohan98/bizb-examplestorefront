@@ -115,136 +115,130 @@ import { Grid,Button, Box,  Typography} from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 const useStyles = makeStyles((theme) => ({
   orderThankYou: {
- 
-    display:"flex",
-    marginTop:theme.spacing(25),
-    justifyContent:"center",
-    alignItems:"center",
+    display: "flex",
+    marginTop: theme.spacing(25),
+    justifyContent: "center",
+    alignItems: "center",
     flexDirection: "column",
   },
   img: {
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(3),
   },
-  mainheading:{
-width:"334px",
-height:"58px"
+  mainheading: {
+    width: "334px",
+    height: "58px",
   },
-  orderThankYoupara:{
+  orderThankYoupara: {
     fontSize: "24px",
     color: "#333333",
     fontWeight: 500,
-marginTop:theme.spacing(2),
+    marginTop: theme.spacing(2),
     fontFamily: "Lato",
     fontStyle: "normal",
     textAlign: "center",
     lineHeight: "29px",
   },
-   orderThankYouconnect:{
-    marginTop:theme.spacing(25),
-   },
-   connect:{
+  orderThankYouconnect: {
+    marginTop: theme.spacing(25),
+  },
+  connect: {
     fontSize: "34px",
     color: "#333333",
     fontWeight: 700,
-marginTop:theme.spacing(2),
+    marginTop: theme.spacing(2),
     fontFamily: "Lato",
     fontStyle: "normal",
     textAlign: "center",
     lineHeight: "41px",
-   },
-   socialmedia:{
-     
-    display:"flex",
-    marginTop:theme.spacing(2),
-    justifyContent:"space-between",
-    width:"260px",
-    alignItems:"center",
+  },
+  socialmedia: {
+    display: "flex",
+    marginTop: theme.spacing(2),
+    justifyContent: "space-between",
+    width: "260px",
+    alignItems: "center",
     flexDirection: "row",
-    marginBottom:theme.spacing(5)
-   },
-   look: {
+    marginBottom: theme.spacing(5),
+  },
+  look: {
     height: "197px",
     width: "409px",
-marginTop:theme.spacing(2),
-padding:theme.spacing(3),
-    display:"flex",
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(3),
+    display: "flex",
     flexDirection: "column",
-   
-   borderRadious:"0px",
-   backgroundColor:"#F7F7F9",
-    
+
+    borderRadious: "0px",
+    backgroundColor: "#F7F7F9",
   },
-  imagemobile:{
-    marginTop:theme.spacing(2),
-    marginBottom:theme.spacing(2),
+  imagemobile: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
-  register:{
-    width:"263px",
-    height:"48px",
-    borderRadius:"40px",
-    border:"none",
-    marginBottom:theme.spacing(10),
-    display:"flex",
-    marginTop:theme.spacing(4),
-    justifyContent:"center",
-    alignItems:"center",
-    background:theme.palette.secondary.selected,
+  register: {
+    width: "263px",
+    height: "48px",
+    borderRadius: "40px",
+    border: "none",
+    marginBottom: theme.spacing(10),
+    display: "flex",
+    marginTop: theme.spacing(4),
+    justifyContent: "center",
+    alignItems: "center",
+    background: theme.palette.secondary.selected,
     "&:hover": {
-  
-      background:theme.palette.secondary.selected,
-  }},
-reviews:{
-  display:"flex",
-  marginTop:theme.spacing(),
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
+  },
+  reviews: {
+    display: "flex",
+    marginTop: theme.spacing(),
 
+    flexDirection: "row",
+  },
+  cardimage: {
+    marginRight: theme.spacing(1),
+  },
+  facebookreview: {
+    fontSize: "24px",
+    color: "#333333",
+    fontWeight: 500,
 
+    fontFamily: "Lato",
+    fontStyle: "normal",
 
-  flexDirection: "row",
-
-},
-cardimage:{
-
-  marginRight:theme.spacing(1)
-},
-facebookreview:{
-  fontSize: "24px",
-  color: "#333333",
-  fontWeight: 500,
-
-  fontFamily: "Lato",
-  fontStyle: "normal",
-
-  lineHeight: "29px",
-},
-ratingtime:{
-  display:"flex",
- width:"180px",
-  justifyContent:"space-between",
-  alignItems:"center",
-  flexDirection: "row", 
-},
-ratingday:{
-  fontSize: "16px",
-  color: "#969696",
-  fontFamily: "Lato",
-  fontStyle: "normal",
-  fontWeight: 500,
-  weight: 100,
-  lineHeight: "19px",
-},
-blogtext: {
- fontSize: "16px",
-  color: "#333333",
-  fontFamily: "Lato",
-  fontStyle: "normal",
-  fontWeight: 500,
-marginTop:theme.spacing(1),
-  lineHeight: "19px",
-},
-blogtextr: {
-
-  color:theme.palette.secondary.selected,
-},
+    lineHeight: "29px",
+  },
+  ratingtime: {
+    display: "flex",
+    width: "180px",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  ratingday: {
+    fontSize: "16px",
+    color: "#969696",
+    fontFamily: "Lato",
+    fontStyle: "normal",
+    fontWeight: 500,
+    weight: 100,
+    lineHeight: "19px",
+  },
+  blogtext: {
+    fontSize: "16px",
+    color: "#333333",
+    fontFamily: "Lato",
+    fontStyle: "normal",
+    fontWeight: 500,
+    marginTop: theme.spacing(1),
+    lineHeight: "19px",
+  },
+  blogtextr: {
+    color: theme.palette.secondary.selected,
+  },
 }));
 
 const CheckoutComplete =() =>{

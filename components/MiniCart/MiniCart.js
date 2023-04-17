@@ -98,7 +98,7 @@ const styles = (theme) => ({
   cartitemimage: {
     width: "173px",
     height: "194px",
-    marginBottom:theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   cartimage: {
     width: "100%",
@@ -190,7 +190,9 @@ const styles = (theme) => ({
     alignItems: "center",
     background: theme.palette.secondary.selected,
     "&:hover": {
-      background: theme.palette.secondary.selected,
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
     },
     "&.MuiButton-root": {
       fontSize: "20px",
@@ -202,7 +204,28 @@ const styles = (theme) => ({
       fontFamily: "Ostrich Sans Black",
     },
   },
-  lastDiv: {},
+  bagecontet: {
+    marginBottom: "50px",
+    marginLeft: "40px",
+    position: "absolute",
+    color: "black",
+    fontSize:"25px",
+    fontWeight: "400",
+    fontFamily: "Lato",
+  },
+  bagecontetd: {
+    marginBottom: "50px",
+    marginLeft: "40px",
+    position: "absolute",
+    color: "white",
+     fontSize:"25px",
+    fontWeight: "400",
+    fontFamily: "Lato",
+  },
+  lastDiv: {
+   
+    border:"none"
+  },
 });
 
 const MiniCart = ({ ...props }) => {
@@ -379,18 +402,26 @@ const MiniCart = ({ ...props }) => {
 
   return (
     <Fragment>
-      <div className={classes.lastDiv}>
-        <IconButton color="inherit" onClick={handleOpen}>
+      <div className={classes.lastDiv} headerType>
+        <IconButton color="none" borderBottom="none" onClick={handleOpen} className={classes.lastDiv} headerType>
           {cart && cart.totalItemQuantity > 0 ? (
-            <Badge badgeContent={cart.totalItemQuantity} color="primary" classes={{ badge: classes.badge }}>
-              <span>
-                {headerType ? (
-                  <img src="/images/cartIconLight.svg" className="headerlogo" />
-                ) : (
-                  <img src="/images/cartIconDark.svg" className="headerlogo" />
-                )}
-              </span>
-            </Badge>
+            <>
+              {" "}
+              {headerType ? (
+                <span className={classes.bagecontetd}>{cart.totalItemQuantity} </span>
+              ) : (
+                <span className={classes.bagecontet}>{cart.totalItemQuantity} </span>
+              )}
+              <Badge color="none" border="none" classes={{ badge: classes.badge }}>
+                <span>
+                  {headerType ? (
+                    <img src="/images/cartIconLight.svg" className="headerlogo" />
+                  ) : (
+                    <img src="/images/cartIconDark.svg" className="headerlogo" />
+                  )}
+                </span>
+              </Badge>
+            </>
           ) : (
             <span>
               {headerType ? (

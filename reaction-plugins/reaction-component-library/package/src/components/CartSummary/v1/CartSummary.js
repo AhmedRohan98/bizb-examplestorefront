@@ -78,7 +78,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     background: theme.palette.secondary.selected,
     "&:hover": {
-      background: theme.palette.secondary.selected,
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
     },
   },
 }));

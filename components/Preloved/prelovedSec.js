@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { Element, Link } from "react-scroll";
+import { Element} from "react-scroll";
+import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -68,16 +69,17 @@ const useStyles = makeStyles((theme) => ({
   },
   cart: {
     height: "35px",
-    width: "84px",
+    width: "200px",
     bottom: "50%",
+
     left: "20px",
     position: "absolute",
   },
   cart2: {
     height: "35px",
-    width: "84px",
+    width: "250px",
     bottom: "50%",
-    right: "18%",
+    right: "2%",
     position: "absolute",
     [theme.breakpoints.down(600)]: {
       top: "10%",
@@ -110,7 +112,28 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "150px",
     height: "35px",
+    position:"relative",
     border: "none",
+    zIndex:1200,
+    right: "50px",
+    position: "initial",
+    borderRadius: "40px",
+    transition: "all 0.2s linear",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: theme.palette.secondary.selected,
+    },
+  },
+  buttonshoptbecome: {
+    background: theme.palette.secondary.selected,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "180px",
+    height: "35px",
+    border: "none",
+    
     right: "50px",
     position: "initial",
     borderRadius: "40px",
@@ -232,11 +255,11 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page6.displayTitle}
             </Typography>
-            <Link href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1">
-              <Button className={classes.buttonshop}>
+            <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
+              <Button className={classes.buttonshoptbecome}>
                 <h4 className={classes.buttonshopt}>Become a Seller</h4>
               </Button>
-            </Link>
+            </a>
           </div>
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>
