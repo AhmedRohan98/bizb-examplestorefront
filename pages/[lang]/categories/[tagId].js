@@ -828,7 +828,7 @@ const handleChangeSortBy = (selectedOption) => {
         {
           price: {
             amount: product.variants[0]?.pricing[0]?.minPrice,
-            currencyCode,
+            currencyCode: "USD",
           },
           metafields: [
             {
