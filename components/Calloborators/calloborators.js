@@ -121,6 +121,7 @@ const Caloborators = () => {
 //  console.log("active index is ", activeIndex);
 //  console.log("active index sellerlength", sellers?.length); 
 const lastIndex = sellers?.length - 1;
+
   const classes = useStyles();
   return (
     <div className={classes.main}>
@@ -163,9 +164,10 @@ const lastIndex = sellers?.length - 1;
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
           <div className={classes.controller}>
-            {activeIndex < sellers?.length- 1 && (
+            { lastIndex -1 && (
               <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
             )}
+
             {activeIndex - 0 ? (
               <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
             ) : (
