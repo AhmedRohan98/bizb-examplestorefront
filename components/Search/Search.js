@@ -2,6 +2,7 @@ import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Select from "react-select";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,133 +23,98 @@ const useStyles = makeStyles((theme) => ({
       transition: "left 0.2s linear",
     },
   },
+  image: {
+    width: "254px",
+    height: "188px",
+    objectFit: "contain",
+    borderRadius: "18px",
+    cursor: "pointer",
+  },
 }));
-
 const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
-  console.log(uiStore, "store");
+  const [searchLocal, setSearchLocal] = useState();
+  // fetch products and update catalogItems
 
-  const [searchLocal, setSearhcLocal] = React.useState("");
+  const filteredItems = catalogItems?.filter((product) => {
+    const title = product?.node?.product.title.trim().toLowerCase();
+    return title.includes(searchLocal) || title.indexOf(searchLocal) !== -1;
+  });
 
-  const handleSearchChange = (event) => {
-    // uiStore?.setSearchItems(event.target.value);
-    setSearhcLocal(event.target.value);
-  };
-
-  const handleSearchSubmit = (event, searchQuery) => {
+  const handleSearchSubmit = (event) => {
     event.preventDefault();
-    // add your search logic here
-    uiStore?.setSearchItems('"' + searchLocal + '"');
+    uiStore?.setSearchItems(searchLocal);
   };
-  React.useEffect(() => {
-    console.log("search item", uiStore?.searchItems);
-  }, [uiStore?.searchItems]);
-  console.log(uiStore?.searchItems, "catatttttttttttttttttt");
-
+  const handleSearchChange = (event) => {
+    const searchQuery = event.target.value.trim().toLowerCase();
+    setSearchLocal(searchQuery);
+    handleSearchSubmit(event);
+  };
   const classes = useStyles();
   return (
     <>
-      <form onSubmit={handleSearchSubmit}>
-        <input type="text" value={searchLocal} onChange={handleSearchChange} />
-        <button type="submit">Search</button>
-      </form>
-      <ul>
-        {catalogItems?.map((product) => (
-          <li key={product.id}>{product.title}</li>
-        ))}
-      </ul>
+      <></>
+      <Modal open={modalFlag} onClose={() => setModalFlag(false)}>
+        <div>
+          <div
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: "18px",
+              height: "65px",
+              display: "flex",
+              alignItems: "center",
+              padding: "0 10px",
+            }}
+          >
+            <form onSubmit={handleSearchSubmit}>
+              <input type="text" value={searchLocal} onChange={handleSearchChange} onKeyUp={handleSearchSubmit} />
+              <button type="submit">Search</button>
+            </form>
+
+            <div
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: "18px",
+                height: "65px",
+                display: "flex",
+                alignItems: "center",
+                padding: "0 10px",
+              }}
+            >
+              <img
+                style={{ marginTop: "17px", marginLeft: "15px" }}
+                src="/images/searchIconDark.svg"
+                className="headerlogo"
+              />
+
+              <CloseIcon onClick={() => setModalFlag(false)} />
+              <input />
+            </div>
+          </div>
+          <div style={{ backgroundColor: "#fff", borderRadius: "18px", marginTop: "10px" }}>
+            <div style={{ display: "flex" }}>
+              <div style={{ marginTop: "40px" }}>
+                <ul>
+                  {filteredItems?.slice(0,2)?.map((product) => {
+                    console.log(filteredItems, "fil");
+                    return (
+                      <div key={product.node.product.id}>
+                
+
+                        <img src={product?.node?.product?.media[0]?.URLs?.large} className={classes.image}></img>
+                        <h3>{product?.node?.product?.title}</h3>
+                        <p>{product?.node?.product?.description}</p>
+                      
+                      </div>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+           <h1>{filteredItems?.length}</h1>
+          </div>
+        </div>
+      </Modal>
     </>
-    // <Modal open={modalFlag} onClose={() => setModalFlag(false)}>
-    //   <div className={classes.paper}>
-    //     <div
-    //       style={{
-    //         backgroundColor: "#fff",
-    //         borderRadius: "18px",
-    //         height: "65px",
-    //         display: "flex",
-    //         alignItems: "center",
-    //         padding: "0 10px",
-    //       }}
-    //     >
-    //       <img
-    //         style={{ marginTop: "17px", marginLeft: "15px" }}
-    //         src="/images/searchIconDark.svg"
-    //         className="headerlogo"
-    //       />
-
-    //       <CloseIcon className={classes.icon} onClick={() => setModalFlag(false)} />
-    //       <div
-    //         style={{
-    //           backgroundColor: "#fff",
-    //           borderRadius: "18px",
-    //           height: "65px",
-    //           display: "flex",
-    //           alignItems: "center",
-    //           padding: "0 10px",
-    //         }}
-    //       >
-    //         <img
-    //           style={{ marginTop: "17px", marginLeft: "15px" }}
-    //           src="/images/searchIconDark.svg"
-    //           className="headerlogo"
-    //         />
-
-    //         <CloseIcon className={classes.icon} onClick={() => setModalFlag(false)} />
-    //         <input />
-    //       </div>
-    //     </div>
-    //     <div style={{ backgroundColor: "#fff", borderRadius: "18px", marginTop: "10px" }}>
-    //       <div style={{ display: "flex" }}>
-    //         <div style={{ marginTop: "40px" }}>
-    //           <img style={{ marginLeft: "16px" }} src="/search/1.svg" />
-    //         </div>
-    //         <div
-    //           style={{
-    //             display: "flex",
-    //             flexDirection: "column",
-    //             marginTop: "40px",
-    //             color: "#333333",
-    //             fontFamily: "Lato",
-    //             marginLeft: "16px",
-    //           }}
-    //         >
-    //           <div style={{ fontSize: "24px", fontWeight: "400", fontFamily: "Lato" }}>Floral Shirt for sale</div>
-    //           <div style={{ fontFamily: "Lato", fontSize: "24px", fontWeight: "400" }}>
-    //             <span style={{ fontWeight: "700" }}>Store</span>Mariam67
-    //           </div>
-    //           <div style={{ fontWeight: "700", fontSize: "20px" }}>
-    //             <strike style={{ color: "#FDC114" }}>RS 1200</strike>
-    //             <span> RS 600</span>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <hr style={{ width: "85%", color: "#000000", opacity: "0.1", marginTop: "20px", marginBottom: "20px" }} />
-    //       <div style={{ display: "flex" }}>
-    //         <div>
-    //           <img style={{ marginLeft: "16px" }} src="/search/1.svg" />
-    //         </div>
-    //         <div
-    //           style={{
-    //             display: "flex",
-    //             flexDirection: "column",
-    //             // marginTop: "40px",
-    //             color: "#333333",
-    //             fontFamily: "Lato",
-    //             marginLeft: "16px",
-    //           }}
-    //         >
-    //           <div style={{ fontSize: "24px", fontWeight: "400", fontFamily: "Lato" }}>Floral Shirt for sale</div>
-    //           <div style={{ fontFamily: "Lato", fontSize: "24px", fontWeight: "400" }}>
-    //             <span style={{ fontWeight: "700" }}>Store</span>Mariam67
-    //           </div>
-    //           <div style={{ fontWeight: "700", fontSize: "20px" }}>
-    //             <strike style={{ color: "#FDC114" }}>RS 1200</strike>
-    //             <span> RS 600</span>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </Modal>
   );
 };
 
