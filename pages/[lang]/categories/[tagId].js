@@ -15,11 +15,13 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { CircularProgress } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import { ToastContainer, toast } from "react-toastify";
 import PropTypes from "prop-types";
 import withCatalogItems from "containers/catalog/withCatalogItems";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
@@ -27,7 +29,7 @@ import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
 import PageStepper from "../../../components/PageStepper/PageStepper";
 import { useRouter } from "next/router";
-
+import SortBySelector from "../../../components/SortBySelector/SortBySelector";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -49,12 +51,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 import withCart from "containers/cart/withCart";
 import { useState } from "react";
 import Popover from "@material-ui/core/Popover";
-
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
 import inject from "../../../hocs/inject";
 import Layout from "../../../components/Layout";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     top: "10px",
@@ -148,15 +150,17 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
 
-  headermain: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-
   size: {
     display: "flex",
     flexDirection: "row",
     marginLeft: theme.spacing(1),
+  },
+
+  pricing: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   cartimage: {
     display: "flex",
@@ -178,11 +182,13 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "inline-grid",
   },
-  main: {
-    padding: "3vh",
-    width: "100%",
 
-    padding: theme.spacing(4),
+  main: {
+    width: "100%",
+    padding: "25px",
+    [theme.breakpoints.down("xs")]: {
+      padding: "0",
+    },
   },
   cardaction: {
     height: 312,
@@ -395,30 +401,20 @@ const useStyles = makeStyles((theme) => ({
     width: "92%",
     // margin: "8%",
   },
-  loadmore: {
-    width: "305px",
-    cursor: "pointer",
-    height: "50px",
-    borderRadius: "40px",
-    border: "none",
-    display: "flex",
-    fontSize: "28px",
-    color: "#333333",
-    lineHeight: "32px",
-    fontFamily: "Ostrich Sans Black",
-    fontWeight: 900,
-    fontStyle: "normal",
-    justifyContent: "center",
-    alignItems: "center",
-    background: theme.palette.secondary.selected,
-    "&:hover": {
-      background: theme.palette.secondary.selected,
-    },
-  },
+
   modalitems: {
     display: "flex",
     flexDirection: "row",
-    borderBottom: "0.5px dotted #0101013b",
+  },
+  modalitemsimage: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  modalitemstitle: {
+    display: "flex",
+    width:"90%",
+  
+    flexDirection: "column",
   },
   loadmorediv: {
     display: "flex",
@@ -432,13 +428,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   categoryavatar: {
-    marginTop: theme.spacing(1),
+    marginTop: "13px",
+    height: "34px",
+    width: "27px",
     marginBottom: theme.spacing(1),
   },
   catgorytitle: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
     marginLeft: theme.spacing(3),
+    width: "80%",
+    borderBottom: "0.5px dotted #0101013b",
     "&:hover": {
       color: theme.palette.secondary.selected,
     },
@@ -447,9 +447,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3),
   },
 
-  main: {
-    width: "100%",
-  },
   filters: {
     display: "flex",
     justifyContent: "space-between",
@@ -492,7 +489,10 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-
+  loadmore: {
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
+  },
   filternames: {
     borderBottom: "2px solid #000000",
     marginLeft: theme.spacing(3),
@@ -580,14 +580,30 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     justifyContent: "space-between",
   },
+  grid1: {
+    marginTop: theme.spacing(6),
+  },
 }));
+ 
 function Categories(props) {
-  const { category, uiStore, currencyCode, addItemsToCart, catalogItems, catalogItemsPageInfo } = props;
-  console.log("props.......", props);
-  console.log("catalogItems", catalogItemsPageInfo);
-  const fourprouduts = category?.catalogItems?.edges;
+  
+  const { category, uiStore, routingStore,  addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart ,tags} =
+    props;
+    const [isLoading, setIsLoading] = useState({});
+    
+  // console.log("items", tags);
+  const router = useRouter();
+  const { tagId } = router.query;
+  const setSortBy = (sortBy) => {
+    routingStore.setSearch({ sortby: sortBy });
+    uiStore.setSortBy(sortBy);
+  };
 
-  const [page, setpagess] = useState(category?.pageInfo?.endCursor);
+  const filteredProducts = catalogItems?.filter((product) => product?.node?.product?.tagIds[0] === tagId);
+  // console.log(filteredProducts, "catalogItems3");
+  // console.log("catalogItems", catalogItems);
+ 
+  
   // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
@@ -601,24 +617,23 @@ function Categories(props) {
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
-  const router = useRouter();
-  // console.log(category, "ffffff");
-  useEffect(() => {
-    setProducts();
-
-    setDisplayedProducts(allproducts?.slice(0, 10));
-  }, [open]);
+  const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   useEffect(() => {
-    uiStore.setPageSize(5);
-  }, [uiStore]);
+ 
+    uiStore?.setPageSize(20);
+   
+  }, []);
 
   const options = [
     { value: "Recommend", label: "Recommend" },
-    { value: "New Arrivals", label: "New Arrivals" },
-    { value: "Price Low To High", label: "Price Low To High" },
-    { value: "Price High To Low", label: "Price High To Low" },
+    { value: "updatedAt-desc", label: "New Arrivals" },
+    { value: "minPrice-asc", label: "Price Low To High" },
+    { value: "minPrice-desc", label: "Price High To Low" },
   ];
+const handleChangeSortBy = (selectedOption) => {
+  setSortBy(selectedOption.value);
+};
   const Optionsize = [
     { value: "Medium", label: "Medium" },
     { value: "Medium", label: "Medium" },
@@ -802,10 +817,7 @@ function Categories(props) {
       size: "large",
     },
   ];
-  useEffect(() => {
-    uiStore?.setEndCursor(category?.catalogItems?.pageInfo?.endCursor);
-    uiStore?.setPageSize(500000);
-  }, []);
+
   // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
     // console.log(pdpSelectedVariantId, "star");
@@ -815,19 +827,18 @@ function Categories(props) {
       await addItemsToCart([
         {
           price: {
-            amount: product?.pricing[0]?.minPrice,
-            currencyCode: "USD",
+            amount: product.variants[0]?.pricing[0]?.minPrice,
+            currencyCode,
           },
-
           metafields: [
             {
               key: "media",
-              value: product?.primaryImage?.URLs?.large,
+              value: product.media[0]?.URLs?.large,
             },
           ],
           productConfiguration: {
-            productId: product.productId, // Pass the productId, not to be confused with _id
-            productVariantId: selectedVariant.variantId, // Pass the variantId, not to be confused with _id
+            productId: product.productId,
+            productVariantId: selectedVariant.variantId,
           },
           quantity,
         },
@@ -837,47 +848,48 @@ function Categories(props) {
 
   const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
-    // Pass chosen quantity to onClick callback
-    // console.log("handle click");
-    await handleAddToCartClick(addToCartQuantity, product, variant);
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: true,
+  }));
 
-    // Scroll to the top
-  };
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+    toast.success(" added to cart successfully!", {});
+    setIsLoading((prevState) => ({
+    ...prevState,
+    [product.productId]: false,
+  }));
+}
   const ITEMScategory = [
     {
-      image: "/categoriestypes/cat1.svg",
+      image: "/categoriestypes/junior.svg",
       id: 1,
       title: "Casual",
     },
     {
-      image: "/categoriestypes/cat2.svg",
+      image: "/categoriestypes/causal.svg",
       id: 2,
       title: "Western",
     },
     {
-      image: "/categoriestypes/cat3.svg",
+      image: "/categoriestypes/party.svg",
       id: 3,
       title: "Shoes",
     },
     {
-      image: "/categoriestypes/cat4.svg",
+      image: "/categoriestypes/shoes.svg",
       id: 4,
       title: "Bridal",
     },
     {
-      image: "/categoriestypes/cat5.svg",
+      image: "/categoriestypes/asseso.svg",
       id: 5,
       title: "Party Wear",
     },
     {
-      image: "/categoriestypes/cat6.svg",
+      image: "/categoriestypes/westrn.svg",
       id: 6,
       title: "Accessories",
-    },
-    {
-      image: "/categoriestypes/cat7.svg",
-      id: 6,
-      title: "Junior",
     },
   ];
   const ITEMS2 = [
@@ -1871,9 +1883,9 @@ function Categories(props) {
     },
   ];
   const data = ITEMS.splice(0, 5);
-  const firstfour = fourprouduts?.slice(0, 4);
-  const allproducts = fourprouduts?.slice(4, fourprouduts?.length);
-  const data2 = ITEMS.splice(5, ITEMS.length);
+  const firstfour = catalogItems?.slice(0, 4);
+  const allproducts = catalogItems?.slice(4, catalogItems.length);
+ 
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
@@ -1885,6 +1897,9 @@ function Categories(props) {
     acc[`names${index}`] = item;
     return acc;
   }, {});
+  useEffect(() => {
+    uiStore.setEndCursor(tagId);
+  }, []);
 
   //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
   //     acc[`products${index}`] = item;
@@ -1929,12 +1944,7 @@ function Categories(props) {
     }
   }
 
-  const loadMoreProducts = () => {
-    const currentIndex = displayedProducts?.length;
-    const nextProducts = allproducts?.slice(currentIndex, currentIndex + 10);
 
-    setDisplayedProducts([...displayedProducts, ...nextProducts]);
-  };
 
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
@@ -1962,7 +1972,7 @@ function Categories(props) {
     position: "fixed",
     borderRadius: "8px",
     marginTop: "12px",
-    left: "12%",
+    left: "15%",
     width: 330,
     bgcolor: "#ffffff",
     outline: "none",
@@ -2128,7 +2138,7 @@ function Categories(props) {
       borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
       color: state.isFocused ? "#000000" : "#989898",
       "&:hover": {
-        color: "#000000",
+        color: "#FDC114",
       },
     }),
     dropdownIndicator: (base, state) => ({
@@ -2239,10 +2249,23 @@ function Categories(props) {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
-
+ useEffect(() => {
+   const updatedItems = cart?.items?.map((item) => {
+     const isItemInCart = catalogItems?.some((product) => {
+       return item?.productConfiguration?.productId === product?.node.product?.productId;
+     });
+     // setpageSize(20);
+     return {
+       ...item,
+       disabled: item?.inCart || isItemInCart,
+     };
+   });
+   // console.log(updatedItems, "all");
+   // do something with updatedItems
+ }, [cart?.items]);
   // console.log(category, "dis");
   return (
-    <Layout shop={shop}>
+    <Layout shop={shop} tagId={tagId}>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
           <Box className={classes.topheader}>
@@ -2330,11 +2353,12 @@ function Categories(props) {
             <div className={classes.selectDesktop}>
               <Select
                 defaultValue={selectedOption}
-                onChange={setSelectedOption}
                 placeholder="Sort by"
                 components={{ DropdownIndicator }}
                 styles={customStyles}
                 options={options}
+                onChange={handleChangeSortBy}
+                value={options.find((option) => option.value === sortBy)}
                 className={classes.reactselect}
               />
             </div>
@@ -2379,15 +2403,23 @@ function Categories(props) {
                   onClose={handlePopOverClose}
                 >
                   <Box sx={style}>
-                    {ITEMScategory.map((item) => (
-                      <div className={classes.modalitems}>
-                        <img src={item.image} className={classes.categoryavatar} />
-                        <Typography variant="h4" className={classes.catgorytitle}>
-                          {" "}
-                          {item.title}
-                        </Typography>
+                    <div className={classes.modalitems}>
+                      <div className={classes.modalitemsimage}>
+                        {ITEMScategory.map((item) => (
+                          <img src={item.image} className={classes.categoryavatar} />
+                        ))}
                       </div>
-                    ))}
+
+                      <div className={classes.modalitemstitle}>
+                        {tags?.nodes?.slice(0,6)?.map((itemtitle) => (
+                          <a href={itemtitle._id}>
+                            <Typography variant="h4" className={classes.catgorytitle}>
+                              {itemtitle.displayTitle}
+                            </Typography>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
                   </Box>
                 </Popover>
               </div>
@@ -2401,118 +2433,238 @@ function Categories(props) {
               // align="center"
               // justify="center"
               // alignItems="center"
-              className={classes.grid1}
             >
               <Grid container>
-                {firstfour?.map((item, key) => (
-                  <>
-                    <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                      {/* {console.log(item.node.product.slug, "nnnnnnnnnnnnnn")} */}
+                {firstfour?.map((item, key) => {
+                  const cartitem = cart?.items;
+                  const isDisabled = cartitem?.some((data) => {
+                    return data.productConfiguration.productId === item?.node?.product?.productId;
+                  });
+                  // console.log(cart?.items, "item");
+                  // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                  const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
 
-                      <img
-                        src={
-                          !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                            ? "/justin/justin4.svg"
-                            : item?.node?.product?.primaryImage?.URLs?.large
-                        }
-                        className={classes.image}
-                        key={item?.node?.product?.id}
-                        alt={"hhhh"}
-                        onClick={() => clickHandler(item.node.product.slug)}
-                      />
+                  return (
+                    <>
+                      <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                        <img
+                          src={
+                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              ? "/justin/justin4.svg"
+                              : item?.node?.product?.media[0]?.URLs?.large
+                          }
+                          className={classes.image}
+                          key={item?.node?.product?.id}
+                          alt={"hhhh"}
+                          onClick={() => clickHandler(item.node.product.slug)}
+                        />
 
-                      <div className={classes.cartbackground}>
-                        <Button
-                          className={classes.cart}
-                          // disabled={cart.includes(shoe.id)}
-                          onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        >
-                          <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                          <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
-                            + Cart{" "}
-                          </Typography>
-                        </Button>
-                      </div>
-                      <Box className={classes.maintitle}>
-                        <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                          {item?.node?.product.title}
-                        </Typography>
-                        <div className={classes.size}>
-                          <Typography gutterBottom variant="h4">
-                            Size
-                          </Typography>
-                          <Typography gutterBottom variant="h4">
-                            :Large
-                          </Typography>
+                        <div className={classes.cartbackground}>
+                          {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress />
+                          ) : (
+                            <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled}
+                            >
+                              <ToastContainer
+                                position="top-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeButton={<CustomCloseButton />}
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="colored"
+                                background="green"
+                                toastStyle={{
+                                  backgroundColor: "#FDC114",
+                                  color: "black",
+                                  fontSize: "16px",
+                                  fontFamily: "lato",
+                                }}
+                              />{" "}
+                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                              <Typography
+                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                variant="h5"
+                                component="h2"
+                              >
+                                {isDisabled ? "Added" : "+ Cart"}
+                              </Typography>
+                            </Button>
+                          )}
                         </div>
-                        <div className={classes.size}>
-                          {" "}
-                          <strike>{item?.node?.product.pricing[0]?.comparePrice?.replace(/\$/g, "RS ")}</strike>
-                          <Typography gutterBottom variant="h5" className={classes.price}>
-                            {item?.node?.product.pricing[0]?.displayPrice.replace(/\$/g, "RS ")}
+                        <Box className={classes.maintitle}>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px" }}
+                            gutterBottom
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            {item.node.product.title}
                           </Typography>
-                        </div>
-                      </Box>
-                    </Grid>
-                  </>
-                ))}
+                          <div className={classes.size}>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              Size :
+                            </Typography>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              {size}
+                            </Typography>
+                          </div>
+                          <div className={classes.pricing}>
+                            {" "}
+                            <strike>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </strike>
+                            <Typography gutterBottom variant="h5" className={classes.price}>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </Typography>
+                          </div>
+                        </Box>
+                      </Grid>
+                    </>
+                  );
+                })}
               </Grid>
             </Grid>
           </Grid>
           {/* Products Below Image   */}
-          <Grid container className={classes.gridroot}>
-            {/* {console.log("These are displayed products", displayedProducts)} */}
-            {catalogItems?.map((item) => (
-              <>
-                <Grid item lg={3} sm={3} md={3} xs={12} className={classes.rootimg}>
-                  <img
-                    src={
-                      !item?.node?.product?.primaryImage || !item?.node?.product?.primaryImage?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.primaryImage?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                    onClick={() => clickHandler(item.node.product.slug)}
-                  />
 
-                  <div className={classes.cartbackground}>
-                    <Button
-                      className={classes.cart}
-                      // disabled={cart.includes(shoe.id)}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                    >
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography style={{ fontFamily: "Ostrich Sans Black" }} variant="h5" component="h2">
-                        + Cart{" "}
-                      </Typography>
-                    </Button>
-                  </div>
-                  <Box className={classes.maintitle}>
-                    <Typography gutterBottom variant="h4" component="h2" className={classes.carttitle}>
-                      {item?.node?.product.title}
-                    </Typography>
-                    <div className={classes.size}>
-                      <Typography gutterBottom variant="h4">
-                        Size
-                      </Typography>
-                      <Typography gutterBottom variant="h4">
-                        :Large
-                      </Typography>
-                    </div>
-                    <div className={classes.size}>
-                      {" "}
-                    
-                      <Typography gutterBottom variant="h5" className={classes.price}>
+          <div className={classes.main}>
+            <div className={classes.headermain}>
+              <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
+                {allproducts?.map((item, key) => {
+                  const cartitem = cart?.items;
+                  const isDisabled = cartitem?.some((data) => {
+                    return data.productConfiguration.productId === item?.node?.product?.productId;
+                  });
+                  // console.log(cart?.items, "item");
+                  // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                  const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+
+                  return (
+                    <>
+                      <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
                       
-                      </Typography>
-                    </div>
-                  </Box>
-                </Grid>
-              </>
-            ))}
-          </Grid>
+                          <img
+                            src={
+                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                ? "/justin/justin4.svg"
+                                : item?.node?.product?.media[0]?.URLs?.large
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            alt={"hhhh"}
+                            onClick={() => clickHandler(item.node.product.slug)}
+                          />
+                     
+                        <div className={classes.cartbackground}>
+                          {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress />
+                          ) : (
+                            <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled}
+                            >
+                              <ToastContainer
+                                position="top-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeButton={<CustomCloseButton />}
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="colored"
+                                background="green"
+                                toastStyle={{
+                                  backgroundColor: "#FDC114",
+                                  color: "black",
+                                  fontSize: "16px",
+                                  fontFamily: "lato",
+                                }}
+                              />{" "}
+                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                              <Typography
+                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                variant="h5"
+                                component="h2"
+                              >
+                                {isDisabled ? "Added" : "+ Cart"}
+                              </Typography>
+                            </Button>
+                          )}
+                        </div>
+                        <Box className={classes.maintitle}>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px" }}
+                            gutterBottom
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            {item.node.product.title}
+                          </Typography>
+                          <div className={classes.size}>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              Size :
+                            </Typography>
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              {size}
+                            </Typography>
+                          </div>
+                          <div className={classes.pricing}>
+                            {" "}
+                            <strike>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </strike>
+                            <Typography gutterBottom variant="h5" className={classes.price}>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </Typography>
+                          </div>
+                        </Box>
+                      </Grid>
+                    </>
+                  );
+                })}
+              </Grid>
+            </div>
+          </div>
           {/* <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
               <Masonry>
@@ -2520,16 +2672,10 @@ function Categories(props) {
               </Masonry>
             </ResponsiveMasonry>
           </div> */}
-          {displayedProducts?.length > 2 &&
-            displayedProducts &&
-            displayedProducts?.length !== fourprouduts?.length - 4 &&
-           (
-              <div className={classes.loadmorediv}>
-                <button onClick={loadMoreProducts} className={classes.loadmore}>
-                  Load More
-                </button>
-              </div>
-            )}
+
+          <div className={classes.loadmore}>
+            {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
+          </div>
         </div>
       )}
     </Layout>
@@ -2581,7 +2727,9 @@ export async function getStaticProps({ params: { lang, tagId }, ...context }) {
   return {
     props: {
       ...primaryShop,
+      tagId,
       category: categories,
+      ...(await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==")),
     },
   };
 }

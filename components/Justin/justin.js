@@ -148,6 +148,12 @@ const useStyles = makeStyles((theme) => ({
     background: "yellow",
     color: "black",
   },
+  pricing: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const Justin = (props) => {
@@ -306,9 +312,11 @@ const Justin = (props) => {
         </Typography>
         <div className={classes.header}>
           <h1 className={classes.typography}></h1>
-          <Typography gutterBottom variant="body1" className={classes.explore}>
-            Explore More
-          </Typography>
+          <a href="http://localhost:4000/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+            <Typography gutterBottom variant="body1" className={classes.explore}>
+              Explore More
+            </Typography>
+          </a>
         </div>
       </div>
       <div className={classes.root}>
@@ -342,7 +350,7 @@ const Justin = (props) => {
                     />
                   </Link>
                   <div className={classes.cartbackground}>
-                    {isLoading [item?.node?.product?.productId]  ? (
+                    {isLoading[item?.node?.product?.productId] ? (
                       <CircularProgress />
                     ) : (
                       <Button
@@ -406,7 +414,7 @@ const Justin = (props) => {
                         {size}
                       </Typography>
                     </div>
-                    <div className={classes.size}>
+                    <div className={classes.pricing}>
                       {" "}
                       <strike>
                         {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount

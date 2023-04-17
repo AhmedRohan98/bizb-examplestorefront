@@ -204,14 +204,14 @@ class CatalogGridItem extends Component {
       currencyCode,
       product: { pricing, title, vendor }
     } = this.props;
-    const productPrice = priceByCurrencyCode(currencyCode, pricing) || {};
+  
 
     return (
       <div>
         <ProductInfo>
           <ProductTitle>{title}</ProductTitle>
           <PriceContainer>
-            <Price displayPrice={productPrice.displayPrice} />
+            <Price displayPrice/>
           </PriceContainer>
         </ProductInfo>
         <div>
