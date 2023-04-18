@@ -279,7 +279,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
 
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
-                {" "}
+           
                 {`See all results(${filteredItems?.length})`}
               </Typography>
             </div>
