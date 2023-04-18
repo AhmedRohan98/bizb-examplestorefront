@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { InputAdornment, IconButton, TextField } from "@material-ui/core";
+import Link from "next/link";
 
 import withCatalogItems from "containers/catalog/withCatalogItems";
 const useStyles = makeStyles((theme) => ({
@@ -279,8 +280,9 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
 
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
-           
-                {`See all results(${filteredItems?.length})`}
+                <Link href={`/en/allresults/${filteredItems?.length}`}>
+                  <a style={{ color: "#FDC114" }}> {`See all results(${filteredItems?.length})`}</a>
+                </Link>
               </Typography>
             </div>
           ) : (

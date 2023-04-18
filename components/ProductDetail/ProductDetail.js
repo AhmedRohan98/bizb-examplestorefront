@@ -457,7 +457,7 @@ useEffect(() => {
   // do something with updatedItems
 }, [items, product]);
   useEffect(() => {
-    selectVariant(product.variants[0]);
+    selectVariant(product?.variants[0]);
       uiStore?.setPageSize(500);
   }, []);
 
