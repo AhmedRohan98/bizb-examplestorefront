@@ -14,6 +14,7 @@ import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import { fetchTags } from "../../staticUtils/tags/fetchAllTags";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
+import tags from "../../staticUtils/tags/tags";
 
 class ProductGridPage extends Component {
   static propTypes = {
@@ -60,6 +61,7 @@ class ProductGridPage extends Component {
       shop,
       uiStore,
       feed,
+      tags
     } = this.props;
     const pageSize = query && inPageSizes(query.limit) ? parseInt(query.limit, 0) : uiStore.pageSize;
     const sortBy = query && query.sortby ? query.sortby : uiStore.sortBy;
@@ -74,7 +76,7 @@ class ProductGridPage extends Component {
     const addItemsToCart = this.props.addItemsToCart;
 
     return typeof window !== undefined ? (
-      <Layout headerType={true}>
+      <Layout headerType={true} tags={tags}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
         <DynamicSlider

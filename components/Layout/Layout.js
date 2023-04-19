@@ -26,6 +26,7 @@ class Layout extends Component {
     shop: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }),
+    tags:PropTypes.arrayOf(),
     viewer: PropTypes.object,
   };
 
@@ -34,18 +35,17 @@ class Layout extends Component {
   };
 
   render() {
-    const { classes, children, shop, viewer, headerType } = this.props;
-
+    const { classes, children, shop, viewer, headerType,tags } = this.props;
     return (
       <React.Fragment>
         <div className={classes.root}>
           <Hidden mdUp>
             <div style={{ paddingBottom: "120px" }}>
-              <Header shop={shop} viewer={viewer} headerType={0} />
+              <Header shop={shop} viewer={viewer} headerType={0} tags={tags} />
             </div>
           </Hidden>
           <Hidden smDown>
-            <Header shop={shop} viewer={viewer} headerType={headerType} />
+            <Header shop={shop} viewer={viewer} headerType={headerType} tags={tags} />
           </Hidden>
           {/* <Header shop={shop} viewer={viewer} headerType={headerType} /> */}
           <main className={classes.main}>
