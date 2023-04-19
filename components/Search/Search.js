@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { InputAdornment, IconButton, TextField } from "@material-ui/core";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import withCatalogItems from "containers/catalog/withCatalogItems";
 const useStyles = makeStyles((theme) => ({
@@ -123,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
   totatlproducts: {
     color: theme.palette.secondary.selected,
     fontSize: "24px",
-    padding :theme.spacing(4)
+    padding: theme.spacing(4),
   },
   cartpric: {
     paddingTop: "10px",
@@ -142,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
 const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
   const [searchLocal, setSearchLocal] = useState();
   // fetch products and update catalogItems
-
+  const router = useRouter();
   const filteredItems = catalogItems?.filter((product) => {
     const title = product?.node?.product.title.trim().toLowerCase();
     return title.includes(searchLocal) || title.indexOf(searchLocal) !== -1;
@@ -151,6 +152,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     uiStore?.setSearchItems(searchLocal);
+    console.log(searchLocal, "query2");
   };
   const handleSearchChange = (event) => {
     const searchQuery = event.target.value.trim().toLowerCase();
@@ -159,6 +161,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   };
   const classes = useStyles();
   // IF ITS NOT WORKIS THEN I HAVE TO ADD '\"'+searchTitle+'\"';
+  console.log(searchLocal, "query");
   return (
     <>
       <></>
@@ -280,7 +283,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
 
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
-                <Link href={`/en/allresults/${filteredItems?.length}`}>
+                <Link href={`/en/${searchLocal}/${filteredItems?.length}`}>
                   <a style={{ color: "#FDC114" }}> {`See all results(${filteredItems?.length})`}</a>
                 </Link>
               </Typography>
