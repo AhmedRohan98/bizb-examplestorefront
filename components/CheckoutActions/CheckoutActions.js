@@ -387,13 +387,13 @@ const CheckoutActions = (prop) => {
               method: "iou_example",
             },
           ],
+          
           total: cart.checkout.summary.itemTotal.amount + 10,
           totalItemQuantity: 1,
         },
       });
 
-      // cartStore.clearAnonymousCartCredentials();
-      // clearAuthenticatedUsersCart();
+     
 
       // // Also destroy the collected and cached payment input
       // cartStore.resetCheckoutPayments();
@@ -404,6 +404,8 @@ const CheckoutActions = (prop) => {
     } catch (error) {
       console.log(error);
     }
+     cartStore.clearAnonymousCartCredentials();
+     clearAuthenticatedUsersCart();
   };
   const initialValues = {
     email: "",
