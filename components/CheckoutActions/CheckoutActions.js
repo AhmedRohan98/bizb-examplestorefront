@@ -423,8 +423,8 @@ const CheckoutActions = (prop) => {
       .matches(/^[0-9]+$/, "Please enter a valid mobile number"),
 
     city: Yup.string().required("Please select a city"),
-    CompleteAddress: Yup.string().min(5).max(50).required("Please enter your address"),
-    orderNotes: Yup.string().min(5).max(50).required("Please enter any additional details "),
+    CompleteAddress: Yup.string().min(5).required("Please enter your address"),
+    orderNotes: Yup.string().min(5).required("Please enter any additional details "),
   });
   const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
     initialValues,
@@ -677,6 +677,7 @@ const CheckoutActions = (prop) => {
                   value={values.orderNotes}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  multiline={true}
                 />
               </label>
               {errors.orderNotes && touched.orderNotes ? (
