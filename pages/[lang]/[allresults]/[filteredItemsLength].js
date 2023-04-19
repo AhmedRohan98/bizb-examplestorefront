@@ -243,6 +243,10 @@ function AllResults(props) {
    }));
    // Scroll to the top
  };
+   const router = useRouter();
+  const clickHandler = (item) => {
+    router.push("/en/product/" + item);
+  };
   const classes = useStyles();
   return (
     <Layout shop={shop}>
@@ -264,9 +268,10 @@ function AllResults(props) {
           background="green"
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
+            {/* Search Results for "Search word Here" */}
             <Typography variant="h3">
-              you <span className={classes.spanofnextword}>have</span> {totalLength}
-              <span className={classes.spanofnextword}>   Results</span>
+              Search <span className={classes.spanofnextword}>Results</span> for
+              <span className={classes.spanofnextword}> {totalLength}</span>
             </Typography>
           </div>
           <div className={classes.root}>
@@ -284,21 +289,18 @@ function AllResults(props) {
                 return (
                   <>
                     <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                      <Link
-                        href={item.node.product.slug && "en/product/[...slugOrId]"}
-                        as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                      >
-                        <img
-                          src={
-                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? "/justin/justin4.svg"
-                              : item?.node?.product?.media[0]?.URLs?.large
-                          }
-                          className={classes.image}
-                          key={item?.node?.product?.id}
-                          alt={"hhhh"}
-                        />
-                      </Link>
+                      <img
+                        src={
+                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.media[0]?.URLs?.large
+                        }
+                        className={classes.image}
+                        key={item?.node?.product?.id}
+                        alt={"hhhh"}
+                        onClick={() => clickHandler(item.node.product.slug)}
+                      />
+
                       <div className={classes.cartbackground}>
                         {isLoading[item?.node?.product?.productId] ? (
                           <CircularProgress />
