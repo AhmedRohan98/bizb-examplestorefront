@@ -256,8 +256,8 @@ const Preloved = (props) => {
               {res?.page6.displayTitle}
             </Typography>
             <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
-              <Button className={classes.buttonshoptbecome}>
-                <h4 className={classes.buttonshopt}>Become a Seller</h4>
+              <Button className={classes.buttonshop}>
+                <h4 className={classes.buttonshopt}>Sell Now</h4>
               </Button>
             </a>
           </div>
