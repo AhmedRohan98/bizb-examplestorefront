@@ -331,7 +331,7 @@ const Justin = (props) => {
             const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
             const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
 const str = item.node.product.title;
-const words = str.split(" ");
+const words = str.match(/[a-zA-Z0-9]+/g);
 const firstThreeWords = words.slice(0, 3).join(" ");
             return (
               <>
