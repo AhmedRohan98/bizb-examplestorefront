@@ -1436,7 +1436,9 @@ const handleChangeSortBy = (selectedOption) => {
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-
+const str = item.node.product.title;
+const words = str.match(/[a-zA-Z0-9]+/g);
+const firstThreeWords = words.slice(0, 3).join(" ");
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
@@ -1499,7 +1501,7 @@ const handleChangeSortBy = (selectedOption) => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item.node.product.title}
+                            {firstThreeWords}
                           </Typography>
                           <div className={classes.size}>
                             <Typography
@@ -1553,7 +1555,9 @@ const handleChangeSortBy = (selectedOption) => {
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-
+const str = item.node.product.title;
+const words = str.match(/[a-zA-Z0-9]+/g);
+const firstThreeWords = words.slice(0, 3).join(" ");
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
@@ -1616,7 +1620,7 @@ const handleChangeSortBy = (selectedOption) => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item.node.product.title}
+                            {firstThreeWords}
                           </Typography>
                           <div className={classes.size}>
                             <Typography
