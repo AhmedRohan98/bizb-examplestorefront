@@ -332,8 +332,7 @@ const Justin = (props) => {
             const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
 const str = item.node.product.title;
 const words = str.split(" ");
-const firstThreeWords = words.slice(0, 3);
-
+const firstThreeWords = words.slice(0, 3).join(" ");
             return (
               <>
                 <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
