@@ -573,6 +573,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  mainimageofcategory:{
+height:"900px",
+width:"700px",
+objectFit:"cover"
+  },
   gridroot: {
     width: "100%",
     display: "flex",
@@ -1377,7 +1382,7 @@ const handleChangeSortBy = (selectedOption) => {
                 <img
                   style={{ borderRadius: "16px" }}
                   src={filteredProducts[0]?.heroMediaUrl}
-                  className={classes.imageg}
+                  className={classes.mainimageofcategory}
                 />
                 <Popover
                   anchorEl={anchorEl}
@@ -1603,7 +1608,7 @@ const handleChangeSortBy = (selectedOption) => {
                             </Button>
                           )}
                         </div>
-                        <Box className={classes.maintitle}>
+                        <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
                           <Typography
                             style={{ fontWeight: "700", fontSize: "24px" }}
                             gutterBottom
