@@ -330,7 +330,9 @@ const Justin = (props) => {
             const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
             const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
             const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-
+const str = item.node.product.title;
+const words = str.match(/[a-zA-Z0-9]+/g);
+const firstThreeWords = words.slice(0, 3).join(" ");
             return (
               <>
                 <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
@@ -388,46 +390,51 @@ const Justin = (props) => {
                       </Button>
                     )}
                   </div>
-                  <Box className={classes.maintitle}>
-                    <Typography
-                      style={{ fontWeight: "700", fontSize: "24px" }}
-                      gutterBottom
-                      variant="h4"
-                      component="h2"
-                      className={classes.carttitle}
-                    >
-                      {item.node.product.title}
-                    </Typography>
-                    <div className={classes.size}>
+                  <Link
+                    href={item.node.product.slug && "en/product/[...slugOrId]"}
+                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                  >
+                    <Box className={classes.maintitle}>
                       <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                        style={{ fontWeight: "700", fontSize: "24px" }}
                         gutterBottom
                         variant="h4"
+                        component="h2"
+                        className={classes.carttitle}
                       >
-                        Size :
+                        {firstThreeWords}
                       </Typography>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                        gutterBottom
-                        variant="h4"
-                      >
-                        {size}
-                      </Typography>
-                    </div>
-                    <div className={classes.pricing}>
-                      {" "}
-                      <strike>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </strike>
-                      <Typography gutterBottom variant="h5" className={classes.price}>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </Typography>
-                    </div>
-                  </Box>
+                      <div className={classes.size}>
+                        <Typography
+                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                          gutterBottom
+                          variant="h4"
+                        >
+                          Size :
+                        </Typography>
+                        <Typography
+                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                          gutterBottom
+                          variant="h4"
+                        >
+                          {size}
+                        </Typography>
+                      </div>
+                      <div className={classes.pricing}>
+                        {" "}
+                        <strike>
+                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                            ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+                        </strike>
+                        <Typography gutterBottom variant="h5" className={classes.price}>
+                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                            ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+                        </Typography>
+                      </div>
+                    </Box>
+                  </Link>
                 </Grid>
               </>
             );

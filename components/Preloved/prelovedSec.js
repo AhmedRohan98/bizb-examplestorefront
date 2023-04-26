@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: "50%",
     right: "2%",
     position: "absolute",
+
     [theme.breakpoints.down(600)]: {
       top: "10%",
       right: "25%",
@@ -112,9 +113,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "150px",
     height: "35px",
-    position:"relative",
+    position: "relative",
     border: "none",
-    zIndex:1200,
+    zIndex: 1200,
     right: "50px",
     position: "initial",
     borderRadius: "40px",
@@ -133,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
     width: "180px",
     height: "35px",
     border: "none",
-    
+
     right: "50px",
     position: "initial",
     borderRadius: "40px",

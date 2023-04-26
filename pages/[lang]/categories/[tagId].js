@@ -573,6 +573,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  mainimageofcategory:{
+height:"900px",
+width:"700px",
+objectFit:"cover"
+  },
   gridroot: {
     width: "100%",
     display: "flex",
@@ -591,7 +596,7 @@ function Categories(props) {
     props;
     const [isLoading, setIsLoading] = useState({});
     
-  // console.log("items", tags);
+  console.log("items", tags);
   const router = useRouter();
   const { tagId } = router.query;
   const setSortBy = (sortBy) => {
@@ -599,7 +604,8 @@ function Categories(props) {
     uiStore.setSortBy(sortBy);
   };
 
-  const filteredProducts = catalogItems?.filter((product) => product?.node?.product?.tagIds[0] === tagId);
+  const filteredProducts = tags?.nodes.filter((product) => product?._id=== tagId);
+ 
   // console.log(filteredProducts, "catalogItems3");
   // console.log("catalogItems", catalogItems);
  
@@ -892,997 +898,8 @@ const handleChangeSortBy = (selectedOption) => {
       title: "Accessories",
     },
   ];
-  const ITEMS2 = [
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
+ 
 
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub5.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub6.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-  ];
-  const data = ITEMS.splice(0, 5);
   const firstfour = catalogItems?.slice(0, 4);
   const allproducts = catalogItems?.slice(4, catalogItems.length);
  
@@ -1893,10 +910,7 @@ const handleChangeSortBy = (selectedOption) => {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-  var firstarray = data.reduce((acc, item, index) => {
-    acc[`names${index}`] = item;
-    return acc;
-  }, {});
+  
   useEffect(() => {
     uiStore.setEndCursor(tagId);
   }, []);
@@ -1916,34 +930,7 @@ const handleChangeSortBy = (selectedOption) => {
     return <PageLoading />;
   }
 
-  const groupedImages = ITEMS2.reduce((acc, image) => {
-    if (!acc[image.size]) {
-      acc[image.size] = [];
-    }
-    acc[image.size].push(image);
-    return acc;
-  }, {});
-
-  const interLeavedImages = [];
-  let largeImages = groupedImages["large"];
-  let smallImages = groupedImages["small"];
-  let counter = 0;
-
-  while (largeImages.length || smallImages.length) {
-    if (counter === 4) {
-      counter = 0;
-      [largeImages, smallImages] = [smallImages, largeImages];
-    }
-    if (largeImages.length) {
-      interLeavedImages?.push(largeImages.shift());
-      counter++;
-    }
-    if (smallImages.length) {
-      interLeavedImages?.push(smallImages.shift());
-      counter++;
-    }
-  }
-
+  
 
 
   // const [open, setOpen] = React.useState(false);
@@ -1969,7 +956,6 @@ const handleChangeSortBy = (selectedOption) => {
     setAnchorEl(null);
   };
   const style = {
-    position: "fixed",
     borderRadius: "8px",
     marginTop: "12px",
     left: "15%",
@@ -2378,10 +1364,10 @@ const handleChangeSortBy = (selectedOption) => {
                 <div className={classes.categoriestext}>
                   <div className={classes.categoriestexts}>
                     <Typography variant="h1" className={classes.categoriesname}>
-                      Western
+                      {filteredProducts[0]?.displayTitle}
                     </Typography>
                     <img
-                      src={firstarray.names0.image}
+                      src="/categories/categoriestoggle.svg"
                       className={classes.categorytoggle}
                       onClick={handlePopOverClick}
                     />
@@ -2392,15 +1378,25 @@ const handleChangeSortBy = (selectedOption) => {
                     /> */}
                   </div>
                 </div>
-                <img style={{ borderRadius: "16px" }} src="/categories/mainCategory.svg" className={classes.imageg} />
+                <img
+                  style={{ borderRadius: "16px" }}
+                  src={filteredProducts[0]?.heroMediaUrl}
+                  className={classes.mainimageofcategory}
+                />
                 <Popover
                   anchorEl={anchorEl}
+                  transformOrigin={{
+                    vertical: "center",
+                    horizontal: "center",
+                  }}
                   anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
+                    vertical: "center",
+                    horizontal: "center",
+                  
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handlePopOverClose}
+                  style={{ marginTop: "210px" }}
                 >
                   <Box sx={style}>
                     <div className={classes.modalitems}>
@@ -2411,7 +1407,7 @@ const handleChangeSortBy = (selectedOption) => {
                       </div>
 
                       <div className={classes.modalitemstitle}>
-                        {tags?.nodes?.slice(0,6)?.map((itemtitle) => (
+                        {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
                           <a href={itemtitle._id}>
                             <Typography variant="h4" className={classes.catgorytitle}>
                               {itemtitle.displayTitle}
@@ -2445,7 +1441,9 @@ const handleChangeSortBy = (selectedOption) => {
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-
+                  const str = item.node.product.title;
+                  const words = str.match(/[a-zA-Z0-9]+/g);
+                  const firstThreeWords = words.slice(0, 3).join(" ");
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
@@ -2508,7 +1506,7 @@ const handleChangeSortBy = (selectedOption) => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item.node.product.title}
+                            {firstThreeWords}
                           </Typography>
                           <div className={classes.size}>
                             <Typography
@@ -2562,23 +1560,24 @@ const handleChangeSortBy = (selectedOption) => {
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-
+                  const str = item.node.product.title;
+                  const words = str.match(/[a-zA-Z0-9]+/g);
+                  const firstThreeWords = words.slice(0, 3).join(" ");
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                      
-                          <img
-                            src={
-                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                ? "/justin/justin4.svg"
-                                : item?.node?.product?.media[0]?.URLs?.large
-                            }
-                            className={classes.image}
-                            key={item?.node?.product?.id}
-                            alt={"hhhh"}
-                            onClick={() => clickHandler(item.node.product.slug)}
-                          />
-                     
+                        <img
+                          src={
+                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              ? "/justin/justin4.svg"
+                              : item?.node?.product?.media[0]?.URLs?.large
+                          }
+                          className={classes.image}
+                          key={item?.node?.product?.id}
+                          alt={"hhhh"}
+                          onClick={() => clickHandler(item.node.product.slug)}
+                        />
+
                         <div className={classes.cartbackground}>
                           {isLoading[item?.node?.product?.productId] ? (
                             <CircularProgress />
@@ -2618,7 +1617,7 @@ const handleChangeSortBy = (selectedOption) => {
                             </Button>
                           )}
                         </div>
-                        <Box className={classes.maintitle}>
+                        <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
                           <Typography
                             style={{ fontWeight: "700", fontSize: "24px" }}
                             gutterBottom
@@ -2626,7 +1625,7 @@ const handleChangeSortBy = (selectedOption) => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item.node.product.title}
+                            {firstThreeWords}
                           </Typography>
                           <div className={classes.size}>
                             <Typography

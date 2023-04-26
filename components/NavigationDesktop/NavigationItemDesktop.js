@@ -197,13 +197,15 @@ class NavigationItemDesktop extends Component {
 
     return (
       <Fragment>
-        <Button
-          // className={classNames(primaryNavItem)}
-          color="inherit"
-          // onClick={this.onClick} href={this.linkPath(navItem)}
-        >
-          Home
-        </Button>
+        <Link href="/">
+          <Button
+            // className={classNames(primaryNavItem)}
+            color="inherit"
+            // onClick={this.onClick} href={this.linkPath(navItem)}
+          >
+            Home
+          </Button>
+        </Link>
         {this.hasSubNavItems && this.renderPopover()}
       </Fragment>
     );
