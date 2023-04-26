@@ -25,19 +25,10 @@ const styles = (theme) => ({
     height: "34px",
     width: "27px",
     marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(2),
+   
     marginBottom: theme.spacing(1),
   },
-  catgorytitle: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
-    marginLeft: theme.spacing(3),
-    width: "80%",
-    borderBottom: "0.5px dotted #0101013b",
-    "&:hover": {
-      color: theme.palette.secondary.selected,
-    },
-  },
+
   modalitems: {
     display: "flex",
     flexDirection: "row",
@@ -51,6 +42,16 @@ const styles = (theme) => ({
     width: "90%",
 
     flexDirection: "column",
+  },
+  catgorytitle: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+    width: "80%",
+    borderBottom: "0.5px dotted #0101013b",
+    "&:hover": {
+      color: theme.palette.secondary.selected,
+    },
   },
 });
 
@@ -100,19 +101,17 @@ class NavigationDesktop extends Component {
       headerType,
     } = this.props;
     console.log(tags, "tags in deskyop");
-    const style = {
-   display:"flex",
-      borderRadius: "8px",
-      marginTop: "12px",
-      left: "15%",
-      width: 330,
-      bgcolor: "#ffffff",
-      outline: "none",
-      boxShadow: 24,
-      
-      p: 2,
-      minHeight: "0",
-    };
+  const style = {
+    borderRadius: "8px",
+    marginTop: "12px",
+    left: "15%",
+    width: 330,
+    bgcolor: "#ffffff",
+    outline: "none",
+    boxShadow: 24,
+    p: 2,
+    minHeight: "0",
+  };
     const { anchorEl } = this.state;
  const ITEMScategory = [
    {

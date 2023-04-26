@@ -956,7 +956,6 @@ const handleChangeSortBy = (selectedOption) => {
     setAnchorEl(null);
   };
   const style = {
-    position: "fixed",
     borderRadius: "8px",
     marginTop: "12px",
     left: "15%",
@@ -1386,12 +1385,18 @@ const handleChangeSortBy = (selectedOption) => {
                 />
                 <Popover
                   anchorEl={anchorEl}
+                  transformOrigin={{
+                    vertical: "center",
+                    horizontal: "center",
+                  }}
                   anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
+                    vertical: "center",
+                    horizontal: "center",
+                  
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handlePopOverClose}
+                  style={{ marginTop: "210px" }}
                 >
                   <Box sx={style}>
                     <div className={classes.modalitems}>
@@ -1436,9 +1441,9 @@ const handleChangeSortBy = (selectedOption) => {
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-const str = item.node.product.title;
-const words = str.match(/[a-zA-Z0-9]+/g);
-const firstThreeWords = words.slice(0, 3).join(" ");
+                  const str = item.node.product.title;
+                  const words = str.match(/[a-zA-Z0-9]+/g);
+                  const firstThreeWords = words.slice(0, 3).join(" ");
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
@@ -1555,9 +1560,9 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-const str = item.node.product.title;
-const words = str.match(/[a-zA-Z0-9]+/g);
-const firstThreeWords = words.slice(0, 3).join(" ");
+                  const str = item.node.product.title;
+                  const words = str.match(/[a-zA-Z0-9]+/g);
+                  const firstThreeWords = words.slice(0, 3).join(" ");
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
