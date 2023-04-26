@@ -119,24 +119,24 @@ const MainSlider = (props) => {
   }));
   const ITEMS = [
     {
-      image: "/Desktop-images/desktop1.svg",
+      image: "/Desktop-images/desktop1.webp",
       id: 1,
     },
     {
-      image: "/Desktop-images/desktop2.svg",
+      image: "/Desktop-images/desktop2.webp",
       id: 2,
     },
     {
-      image: "/Desktop-images/desktop3.svg",
+      image: "/Desktop-images/desktop3.webp",
       id: 3,
     },
     {
-      image: "/Desktop-images/desktop4.svg",
+      image: "/Desktop-images/desktop4.webp",
       id: 4,
     },
 
     {
-      image: "/Desktop-images/desktop5.svg",
+      image: "/Desktop-images/desktop5.webp",
       id: 6,
     },
   ];
@@ -154,7 +154,7 @@ const MainSlider = (props) => {
               <Link to="target-element" smooth={true} duration={2000}>
                 {" "}
                 <div style={{ display: "flex", cursor: "pointer" }}>
-                  <img style={{ marginRight: "12px" }} src="/icons/home.svg" className={classes.ie} />
+                  <img style={{ marginRight: "12px" }} src="/icons/home.webo" className={classes.ie} />
                   <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
                     Scroll to discover more
                   </Typography>
@@ -216,7 +216,7 @@ const MainSlider = (props) => {
             </Swiper>
           </div>
           <div className={classes.imagedesktop}>
-            <img src="/Desktop-images/mobile.svg" className={classes.mobileima} />
+            <img src="/Desktop-images/mobile.webp" className={classes.mobileima} />
           </div>
         </div>
       </div>
