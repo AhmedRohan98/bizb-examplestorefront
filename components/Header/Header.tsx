@@ -74,12 +74,13 @@ interface HeaderProps extends WithStyles<typeof styles> {
     toggleMenuDrawerOpen: Function;
   };
   viewer: any;
+  tags:PropTypes.arrayOf,
 }
 
 {
   /* @ts-ignore TODO: Refactor link to address type error */
 }
-const Header: any = ({ classes, shop, uiStore, headerType }) => {
+const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
   const [modalFlag, setModalFlag] = useState(false);
   const handleOpenModal = () => {
     console.log("ModalFlag",modalFlag);
@@ -110,7 +111,11 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
           </Typography>
           {/* @ts-ignore TODO: Refactor link to address type error */}
           <Hidden smDown>
-            <NavigationDesktop headerType={headerType} />
+            <NavigationDesktop
+              headerType={headerType}
+              tags={tags}
+              classes={classes}
+            />
           </Hidden>
           {/* @ts-ignore TODO: Refactor link to address type error */}
         </div>
@@ -126,46 +131,77 @@ const Header: any = ({ classes, shop, uiStore, headerType }) => {
           }}
         >
           {/* @ts-ignore TODO: Refactor link to address type error */}
-          {headerType ? (<Link href="/">
-            <img
-              style={{ zIndex: 0, width: "50px", width: "95px", cursor:"pointer" }}
-              src="/images/logoLight.svg"
-              className="headerlogo"
-            /></Link>
-          ) : (<Link href="/">
-            <Hidden smDown><img
-              style={{ zIndex: 0, width: "50px", width: "95px",cursor:"pointer" }}
-              src="/images/logoDark.svg"
-              className="headerlogo"
-            /></Hidden>
-            <Hidden mdUp><img
-              style={{ zIndex: 0, width: "50px", width: "60px",cursor:"pointer" }}
-              src="/images/logo-mobile.svg"
-              className="headerlogo"
-            /></Hidden></Link>
+          {headerType ? (
+            <Link href="/">
+              <img
+                style={{
+                  zIndex: 0,
+                  width: "50px",
+                  width: "95px",
+                  cursor: "pointer",
+                }}
+                src="/images/logoLight.svg"
+                className="headerlogo"
+              />
+            </Link>
+          ) : (
+            <Link href="/">
+              <Hidden smDown>
+                <img
+                  style={{
+                    zIndex: 0,
+                    width: "50px",
+                    width: "95px",
+                    cursor: "pointer",
+                  }}
+                  src="/images/logoDark.svg"
+                  className="headerlogo"
+                />
+              </Hidden>
+              <Hidden mdUp>
+                <img
+                  style={{
+                    zIndex: 0,
+                    width: "50px",
+                    width: "60px",
+                    cursor: "pointer",
+                  }}
+                  src="/images/logo-mobile.svg"
+                  className="headerlogo"
+                />
+              </Hidden>
+            </Link>
           )}
         </div>
-          
+
         <AccountDropdown
           headerType={headerType}
           style={{ marginRight: "25px", marginLeft: "25px" }}
         />
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <Hidden smDown>
-        <span onClick={handleOpenModal} style={{ marginRight: "25px", marginLeft: "25px" }}>
-          {/* @ts-ignore TODO: Refactor link to address type error */}
-          {headerType ? (
-            <img src="/images/searchIconLight.svg" className="headerlogo" />
-          ) : (
-            <img src="/images/searchIconDark.svg" className="headerlogo" />
-          )}
-        </span></Hidden>
+          <span
+            onClick={handleOpenModal}
+            style={{ marginRight: "25px", marginLeft: "25px" }}
+          >
+            {/* @ts-ignore TODO: Refactor link to address type error */}
+            {headerType ? (
+              <img src="/images/searchIconLight.svg" className="headerlogo" />
+            ) : (
+              <img src="/images/searchIconDark.svg" className="headerlogo" />
+            )}
+          </span>
+        </Hidden>
         {/* @ts-ignore TODO: Refactor link to address type error */}
-        <Search modalFlag={modalFlag} setModalFlag={setModalFlag}/>
+        <Search modalFlag={modalFlag} setModalFlag={setModalFlag} />
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <MiniCart
           headerType={headerType}
-          style={{ marginRight: "25px", marginLeft: "25px" ,background:"none"}}
+          style={{
+            marginRight: "25px",
+            marginLeft: "25px",
+            background: "none",
+          }}
           className="headerlogo"
         />
         {/* @ts-ignore TODO: Refactor link to address type error */}

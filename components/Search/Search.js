@@ -283,7 +283,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
 
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
-                <Link href={`/en/${searchLocal}/${filteredItems?.length}`}>
+                <Link href={`/en/search/${searchLocal}`}>
                   <a style={{ color: "#FDC114" }}> {`See all results(${filteredItems?.length})`}</a>
                 </Link>
               </Typography>

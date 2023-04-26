@@ -123,11 +123,13 @@ class NavigationMobile extends Component {
             <Divider />
           </div>
           <nav className={classes.menu}>
-            {/* <MenuList disablePadding>{navItems.items.map(this.renderNavItem)}</MenuList> */}
-            <MenuList className={classes.navButtonActive}>
-              Home
-              {/* @ts-ignore TODO: Refactor link to address type error */}
-            </MenuList>
+            <Link href="/">
+              {/* <MenuList disablePadding>{navItems.items.map(this.renderNavItem)}</MenuList> */}
+              <MenuList className={classes.navButtonActive}>
+                Home
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </Link>
             <br />
             <MenuList className={classes.navButtonActive}>
               Explore
