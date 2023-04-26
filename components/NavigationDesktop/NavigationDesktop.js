@@ -20,6 +20,24 @@ const styles = (theme) => ({
     cursor: "pointer",
     zIndex: 1200,
   },
+  categoryavatar: {
+    marginTop: "13px",
+    height: "34px",
+    width: "27px",
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+  },
+  catgorytitle: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+    width: "80%",
+    borderBottom: "0.5px dotted #0101013b",
+    "&:hover": {
+      color: theme.palette.secondary.selected,
+    },
+  },
   modalitems: {
     display: "flex",
     flexDirection: "row",
@@ -83,7 +101,7 @@ class NavigationDesktop extends Component {
     } = this.props;
     console.log(tags, "tags in deskyop");
     const style = {
-      position: "fixed",
+   display:"flex",
       borderRadius: "8px",
       marginTop: "12px",
       left: "15%",
@@ -91,11 +109,43 @@ class NavigationDesktop extends Component {
       bgcolor: "#ffffff",
       outline: "none",
       boxShadow: 24,
+      
       p: 2,
       minHeight: "0",
     };
     const { anchorEl } = this.state;
-
+ const ITEMScategory = [
+   {
+     image: "/categoriestypes/junior.svg",
+     id: 1,
+     title: "Casual",
+   },
+   {
+     image: "/categoriestypes/causal.svg",
+     id: 2,
+     title: "Western",
+   },
+   {
+     image: "/categoriestypes/party.svg",
+     id: 3,
+     title: "Shoes",
+   },
+   {
+     image: "/categoriestypes/shoes.svg",
+     id: 4,
+     title: "Bridal",
+   },
+   {
+     image: "/categoriestypes/asseso.svg",
+     id: 5,
+     title: "Party Wear",
+   },
+   {
+     image: "/categoriestypes/westrn.svg",
+     id: 6,
+     title: "Accessories",
+   },
+ ];
     return (
       <>
         <nav>
@@ -132,20 +182,30 @@ class NavigationDesktop extends Component {
             </span>
             <Popover
               anchorEl={anchorEl}
+              transformOrigin={{
+                vertical: "center",
+                horizontal: "center",
+              }}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: "center",
+                horizontal: "center",
+                marginTop: "100px",
               }}
               open={Boolean(anchorEl)}
               onClose={this.handlePopOverClose}
+              style={{ marginTop: "100px" }}
             >
               <Box sx={style}>
                 <div className={classes.modalitems}>
-                  <div className={classes.modalitemsimage}></div>
+                  <div className={classes.modalitemsimage}>
+                    {ITEMScategory.map((item) => (
+                      <img src={item.image} className={classes.categoryavatar} />
+                    ))}
+                  </div>
 
                   <div className={classes.modalitemstitle}>
                     {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
-                      <a href={`/en/categories/${itemtitle._id}`}>
+                      <a href={itemtitle._id}>
                         <Typography variant="h4" className={classes.catgorytitle}>
                           {itemtitle.displayTitle}
                         </Typography>
