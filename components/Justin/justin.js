@@ -379,7 +379,7 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                             fontFamily: "lato",
                           }}
                         />{" "}
-                        <img component="img" src="/icons/cart.webp" className={classes.cartimage} />
+                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                         <Typography
                           style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
                           variant="h5"
