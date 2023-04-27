@@ -39,6 +39,7 @@ export default function withCatalogItems(Component) {
         sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
         sortOrder,
         searchQuery: uiStore?.searchItems,
+        simpleFilters:uiStore?.filters
       };
 
       return (

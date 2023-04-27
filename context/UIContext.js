@@ -19,6 +19,7 @@ export const UIProvider = ({ children }) => {
   const [searchItems, setSearchItems] = useState("");
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
+  const [filters,setFilters]=useState([])
   const [entryModal, setEntryModal] = useState(null);
 
   const setPDPSelectedVariantId = (variantId, optionId) => {
@@ -94,6 +95,8 @@ export const UIProvider = ({ children }) => {
         searchItems,
         setSearchItems,
         sortByCurrencyCode,
+        filters,
+        setFilters,
         entryModal,
         setLocales,
         endCursor,

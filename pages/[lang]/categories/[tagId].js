@@ -603,7 +603,24 @@ function Categories(props) {
     routingStore.setSearch({ sortby: sortBy });
     uiStore.setSortBy(sortBy);
   };
+const handleChangeChecksize = (event) => {
+  const selectedSize = event.target.name;
+  const updatedFilters = uiStore.filters
+    .filter((filter) => filter.name !== "size")
+    .concat({ name: "size", value: selectedSize });
+  uiStore.setFilters(updatedFilters);
+};
 
+
+const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
+  setPrice(newValue);
+  const { value } = event.target;
+  const updatedFilters = uiStore.filters
+    .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
+    .concat({ name: minFilterName, value: newValue[0] })
+    .concat({ name: maxFilterName, value: newValue[1] });
+  uiStore.setFilters(updatedFilters);
+};
   const filteredProducts = tags?.nodes.filter((product) => product?._id=== tagId);
  
   // console.log(filteredProducts, "catalogItems3");
@@ -666,163 +683,8 @@ const handleChangeSortBy = (selectedOption) => {
     });
   };
 
-  const Colors = [
-    {
-      image: "/colors/black.svg",
-      id: 1,
-      title: "Black",
-    },
-    {
-      image: "/colors/blue.svg",
-      id: 2,
-      title: "Blue",
-    },
-    {
-      image: "/colors/green.svg",
-      id: 3,
-      title: "Green",
-    },
-    {
-      image: "/colors/red.svg",
-      id: 4,
-      title: "Red",
-    },
-    {
-      image: "/colors/yellow.svg",
-      id: 5,
-      title: "Yellow",
-    },
-    {
-      image: "/colors/orange.svg",
-      id: 6,
-      title: "Orange",
-    },
-  ];
 
-  const ITEMS = [
-    {
-      image: "/categories/categoriestoggle.svg",
-      id: 1,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
 
-    {
-      image: "/categories/sub1.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 8,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 9,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub5.svg",
-      id: 10,
-      price: "Rs 12c00",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub6.svg",
-      id: 10,
-      price: "Rs 12c00",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-  ];
 
   // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
@@ -1076,15 +938,7 @@ const handleChangeSortBy = (selectedOption) => {
     }),
   };
 
-  const colorOptions = Colors.map((color) => ({
-    value: color.id,
-    label: (
-      <div>
-        <img src={color.image} alt={color.title} height="10" width="10" />
-        <span className={classes.sizesfiltes}>{color.title}</span>
-      </div>
-    ),
-  }));
+ 
 
   const customStyles = {
     indicatorSeparator: () => ({
@@ -1281,10 +1135,17 @@ const handleChangeSortBy = (selectedOption) => {
                       <Typography variant="h4" className={classes.filternames}>
                         SIZE
                       </Typography>
-                      {["Small", "Medium", "large", "Extra-Large"].map((text, index) => (
+                      {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
                         <ListItem button key={text}>
                           <FormControlLabel
-                            control={<Checkbox onChange={handleChangeCheck} name={text} variant="h6" />}
+                            control={
+                              <Checkbox
+                                onChange={handleChangeChecksize}
+                                name={text}
+                                variant="h6"
+                                className="size-checkbox"
+                              />
+                            }
                             label={text}
                             className={classes.checkbox}
                           />
@@ -1292,19 +1153,7 @@ const handleChangeSortBy = (selectedOption) => {
                       ))}
                     </List>
                     <Divider />
-                    <List>
-                      <Typography variant="h4" className={classes.filternames2}>
-                        COLOR
-                      </Typography>
-                      {Colors.map((text, index) => (
-                        <div className={classes.colorsmain}>
-                          <img src={text.image} />
-                          <Typography variant="h4" className={classes.colortitle}>
-                            {text.title}
-                          </Typography>
-                        </div>
-                      ))}
-                    </List>
+
                     <Divider />
                     <List>
                       <Typography variant="h4" className={classes.filternames2}>
@@ -1323,10 +1172,10 @@ const handleChangeSortBy = (selectedOption) => {
                       <div className={classes.slidervalue}>
                         <Slider
                           value={price}
-                          onChange={priceHandler}
                           aria-labelledby="range-slider"
                           min={0}
                           max={5000}
+                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minprice", "maxprice")}
                           className={classes.slider}
                           valueLabelDisplay="auto"
                         />
@@ -1392,7 +1241,6 @@ const handleChangeSortBy = (selectedOption) => {
                   anchorOrigin={{
                     vertical: "center",
                     horizontal: "center",
-                  
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handlePopOverClose}

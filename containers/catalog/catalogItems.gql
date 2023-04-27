@@ -9,6 +9,7 @@ query catalogItemsQuery(
   $sortByPriceCurrencyCode: String
   $sortOrder: SortOrder
   $searchQuery: String
+  $simpleFilters: [simpleCatalogFilter]
 ) {
   catalogItems(
     shopIds: [$shopId]
@@ -21,6 +22,7 @@ query catalogItemsQuery(
     sortByPriceCurrencyCode: $sortByPriceCurrencyCode
     sortOrder: $sortOrder
     searchQuery: $searchQuery
+    simpleFilters: $simpleFilters
   ) {
     totalCount
     pageInfo {
@@ -61,8 +63,6 @@ query catalogItemsQuery(
                   __typename
                 }
                 displayPrice
-                minPrice
-                maxPrice
                 __typename
               }
               _id

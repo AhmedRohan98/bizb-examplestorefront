@@ -16,7 +16,7 @@ import Link from "next/link";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRef, useCallback, useState } from "react";
-
+import MagnifyImage from "./imageMagnify";
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
 import { ToastContainer, toast } from "react-toastify";
@@ -349,9 +349,32 @@ const styles = (theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-   magnifyContainer:{
-    width:"1000px"
-   }
+  magnifyContainer: {
+    width: "1000px",
+  },
+  body2: {
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    width:"100%",
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
+    },
+  },
+  images: {
+    flex: "0 0 50%",
+    [theme.breakpoints.up("md")]: {
+      flex: "0 0 33.5%",
+    },
+  },
+  text2: {
+    borderLeft: "2px solid grey",
+    padding: "40px",
+    fontFamily: "sans-serif",
+  },
+  imagesslider:{
+   width:"1000px" 
+  }
 });
 
 const slides = [
@@ -409,10 +432,10 @@ const slide = [
 
 const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
-  const { product, catalogItems ,cart} = props;
-   const { items } = cart;
+  const { product, catalogItems, cart } = props;
+  const { items } = cart;
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
-// console.log("dddd",props)
+  // console.log("dddd",props)
   const { uiStore } = props;
   const filteredProducts = catalogItems?.filter((product) => {
     const productTags = product?.node?.product?.tagIds;
@@ -435,7 +458,7 @@ const ProductDetail = ({ ...props }) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-    const [isLoading, setIsLoading] = useState({});
+  const [isLoading, setIsLoading] = useState({});
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -443,26 +466,24 @@ const ProductDetail = ({ ...props }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-    const CustomCloseButton = () => (
-      <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
-    );
+  const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
-useEffect(() => {
-  const updatedItems = items.map((item) => {
-    const isItemInCart = filteredProducts?.some((product) => {
-      return item.productConfiguration?.productId === product?.node.product?.productId;
+  useEffect(() => {
+    const updatedItems = items.map((item) => {
+      const isItemInCart = filteredProducts?.some((product) => {
+        return item.productConfiguration?.productId === product?.node.product?.productId;
+      });
+      return {
+        ...item,
+        disabled: item.inCart || isItemInCart,
+      };
     });
-    return {
-      ...item,
-      disabled: item.inCart || isItemInCart,
-    };
-  });
-  // console.log(updatedItems, "all");
-  // do something with updatedItems
-}, [items, product]);
+    // console.log(updatedItems, "all");
+    // do something with updatedItems
+  }, [items, product]);
   useEffect(() => {
     selectVariant(product?.variants[0]);
-      uiStore?.setPageSize(500);
+    uiStore?.setPageSize(500);
   }, []);
 
   function selectVariant(variant, optionId) {
@@ -501,44 +522,43 @@ useEffect(() => {
    * @returns {undefined} No return
    */
 
+  const handleAddToCartClick = async (quantity, product, variant) => {
+    const {
+      addItemsToCart,
+      currencyCode,
+      cart,
+      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+    } = props;
 
- const handleAddToCartClick = async (quantity, product, variant) => {
-   const {
-     addItemsToCart,
-     currencyCode,
-     cart,
-     uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
-   } = props;
+    // Disable button after it has been clicked
 
-   // Disable button after it has been clicked
+    // console.log(pdpSelectedVariantId, "star");
 
-   // console.log(pdpSelectedVariantId, "star");
+    // Get selected variant or variant optiono
+    const selectedVariant = variantById(product.variants, variant._id);
 
-   // Get selected variant or variant optiono
-   const selectedVariant = variantById(product.variants, variant._id);
+    // If variant is not already in the cart, add the new item
 
-   // If variant is not already in the cart, add the new item
-
-   await addItemsToCart([
-     {
-       price: {
-         amount: product.variants[0]?.pricing[0]?.minPrice,
-         currencyCode: "USD",
-       },
-       metafields: [
-         {
-           key: "media",
-           value: product.media[0]?.URLs?.large,
-         },
-       ],
-       productConfiguration: {
-         productId: product.productId,
-         productVariantId: selectedVariant.variantId,
-       },
-       quantity,
-     },
-   ]);
- };
+    await addItemsToCart([
+      {
+        price: {
+          amount: product.variants[0]?.pricing[0]?.minPrice,
+          currencyCode: "USD",
+        },
+        metafields: [
+          {
+            key: "media",
+            value: product.media[0]?.URLs?.large,
+          },
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity,
+      },
+    ]);
+  };
   /**
    * @name handleSelectOption
    * @summary Called when an option is selected in the option list
@@ -596,21 +616,21 @@ useEffect(() => {
       }
     }
   }
-  
- const handleOnClick = async (product, variant) => {
-   setIsLoading((prevState) => ({
-     ...prevState,
-     [product.productId]: true,
-   }));
 
-   await handleAddToCartClick(addToCartQuantity, product, variant);
-   toast.success(" added to cart successfully!", {});
-   setIsLoading((prevState) => ({
-     ...prevState,
-     [product.productId]: false,
-   }));
-   // Scroll to the top
- };
+  const handleOnClick = async (product, variant) => {
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: true,
+    }));
+
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+    toast.success(" added to cart successfully!", {});
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: false,
+    }));
+    // Scroll to the top
+  };
   const handleAddToCartClickforsingle = async (quantity) => {
     const {
       addItemsToCart,
@@ -666,35 +686,24 @@ useEffect(() => {
   };
   const optionTitle = product?.variants[0]?.optionTitle;
   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-  const size= validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-    const isDisabled = items?.some((data) => {
-      return data.productConfiguration.productId ===product?.productId;
+  const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+  const isDisabled = items?.some((data) => {
+    return data.productConfiguration.productId === product?.productId;
+  });
+  const imageBaseUrl = "https://res.cloudinary.com/olanetsoft/image/upload/cat.jpg";
+
+  const sizes = ["355", "481", "600", "600", "600", "600", "600", "600", "600", "600", "600"];
+
+  const srcSet = () => {
+    sizes.forEach((i) => {
+      return `https://res.cloudinary.com/olanetsoft/image/upload/w_${i},c_scale/cat.jpg`;
     });
-      const imageBaseUrl = "https://res.cloudinary.com/olanetsoft/image/upload/cat.jpg";
-
-      const sizes = ["355", "481", "600", "600", "600", "600", "600", "600", "600", "600", "600"];
-
-      const srcSet = () => {
-        sizes.forEach((i) => {
-          return `https://res.cloudinary.com/olanetsoft/image/upload/w_${i},c_scale/cat.jpg`;
-        });
-      };
+  };
   return (
     <>
       <Box className={classes.slider}>
-        <Grid
-          container
-          spacing={0}
-          className={classes.sliderflex}
-          xs={12}
-          md={12}
-          sm={12}
-          lg={12}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
-          <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
+        <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
+        {/* <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
             <div className={classes.thumb}>
               <Swiper
                 onSwiper={setImagesNavSlider}
@@ -728,75 +737,46 @@ useEffect(() => {
                   })}
               </Swiper>
             </div>
-          </Grid>
-          <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
+          </Grid> */}
+        <div className={classes.body2}>
+          <div>
             <Swiper
               thumbs={{ swiper: imagesNavSlider }}
               direction="horizontal"
               slidesPerView={1}
-              spaceBetween={32}
-              ref={sliderRef}
-              pagination={{
-                clickable: true,
-              }}
-              mousewheel={true}
-              navigation={{
-                nextEl: ".slider__next",
-                prevEl: ".slider__prev",
-              }}
+              spaceBetween={0}
+              pagination={{ clickable: true }}
+              navigation={{ nextEl: ".slider__next", prevEl: ".slider__prev" }}
               breakpoints={{
-                0: {
-                  direction: "horizontal",
-                  thumbs: "false",
-                },
-                768: {
-                  direction: "horizontal",
-                },
+                0: { direction: "horizontal", thumbs: false },
+                768: { direction: "horizontal" },
               }}
-              className={classes.container2}
-              modules={[Navigation, Thumbs, Mousewheel, Pagination]}
-              onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+              modules={[Navigation, Thumbs, Pagination]}
             >
               {product?.variants[0].media.map((slide, index) => {
+                const imageBaseUrl = slide.URLs.large;
                 return (
-                  <SwiperSlide key={index} className={classes.swiperimag}>
-                    <div className={classes.controller}>
-                      <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
-                      {/* <ReactImageMagnify
-                        {...{
-                          smallImage: {
-                            alt: "Wristwatch by Ted Baker London",
-                            isFluidWidth: true,
-                            src:"/justin/justin4.svg" ,
-                          },
-                          largeImage: {
-                           src:"/justin/justin4.svg"  ,
-                            width: 1200,
-                            height: 1800,
-                          },
-                        }}
-                      /> */}
-                      {activeIndex < product?.variants[0].media.length - 1 && (
-                        <ArrowForwardIos
-                          className={classes.iconforwad}
-                          style={{ fill: "#FDC114" }}
-                          onClick={handleNext}
-                        />
-                      )}
-
-                      {activeIndex - 0 ? (
-                        <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                  <SwiperSlide key={index} className={classes.images}>
+                    <img src={imageBaseUrl} alt="" className={classes.sliderimage2} />
                   </SwiperSlide>
                 );
               })}
             </Swiper>
-          </Grid>
+          </div>
+          <div className={classes.text2}>
+            <h2>E-commerce Product Image Zoom Lens in Next.js</h2>
+            <h3>Touch</h3>
+            <p>Hover image to magnify</p>
+          </div>
+        </div>
 
-          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={6} lg={4}>
+        <div className={classes.text2}>
+          <h2>E-commerce Product Image Zoom Lens in Next.js</h2>
+          <h3>Touch</h3>
+          <p>Hover image to magnify</p>
+        </div>
+
+        {/* <Grid style={{ display: "grid" }} item xs={11} md={10} sm={6} lg={4}>
             <div className={classes.carttext}>
               <Typography style={{ fontWeight: "700" }} variant="subtitle1">
                 {product?.title}
@@ -855,9 +835,8 @@ useEffect(() => {
                 </TabPanel>
               </TabContext>
             </div>
-          </Grid>
-          <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
-        </Grid>
+          </Grid> */}
+        <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
       </Box>
 
       {/* <Fragment>
@@ -1020,15 +999,15 @@ useEffect(() => {
           })}
         </Grid>
       </div>
-      <div className="body2">
-        <div className="images">
+      <div className={classes.body2}>
+        <div className={classes.images}>
           <ReactImageMagnify
             {...{
               smallImage: {
                 alt: "Cat",
                 isFluidWidth: true,
                 src: `${imageBaseUrl}`,
-                className: "images",
+                className: classes.images,
                 srcSet,
                 sizes: "(min-width: 1000px) 33.5vw, (min-width: 415px) 50vw, 100vw",
               },
@@ -1042,10 +1021,9 @@ useEffect(() => {
             }}
           />
         </div>
-        <div className="text2">
+        <div className={classes.text2}>
           <h2>E-commerce Product Image Zoom Lens in Next.js</h2>
           <h3>Touch</h3>
-
           <p>Hover image to magnify</p>
         </div>
       </div>
