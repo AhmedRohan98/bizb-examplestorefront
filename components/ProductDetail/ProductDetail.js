@@ -16,7 +16,7 @@ import Link from "next/link";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRef, useCallback, useState } from "react";
-import MagnifyImage from "./imageMagnify";
+
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
 import { ToastContainer, toast } from "react-toastify";
@@ -352,7 +352,7 @@ const styles = (theme) => ({
   magnifyContainer: {
     width: "1000px",
   },
-  body2: {
+   body2: {
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",
@@ -375,6 +375,7 @@ const styles = (theme) => ({
   imagesslider:{
    width:"1000px" 
   }
+
 });
 
 const slides = [
@@ -702,8 +703,19 @@ const ProductDetail = ({ ...props }) => {
   return (
     <>
       <Box className={classes.slider}>
-        <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
-        {/* <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
+        <Grid
+          container
+          spacing={0}
+          className={classes.sliderflex}
+          xs={12}
+          md={12}
+          sm={12}
+          lg={12}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
+          <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
             <div className={classes.thumb}>
               <Swiper
                 onSwiper={setImagesNavSlider}
@@ -737,46 +749,75 @@ const ProductDetail = ({ ...props }) => {
                   })}
               </Swiper>
             </div>
-          </Grid> */}
-        <div className={classes.body2}>
-          <div>
+          </Grid>
+          <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
             <Swiper
               thumbs={{ swiper: imagesNavSlider }}
               direction="horizontal"
               slidesPerView={1}
-              spaceBetween={0}
-              pagination={{ clickable: true }}
-              navigation={{ nextEl: ".slider__next", prevEl: ".slider__prev" }}
-              breakpoints={{
-                0: { direction: "horizontal", thumbs: false },
-                768: { direction: "horizontal" },
+              spaceBetween={32}
+              ref={sliderRef}
+              pagination={{
+                clickable: true,
               }}
-              modules={[Navigation, Thumbs, Pagination]}
+              mousewheel={true}
+              navigation={{
+                nextEl: ".slider__next",
+                prevEl: ".slider__prev",
+              }}
+              breakpoints={{
+                0: {
+                  direction: "horizontal",
+                  thumbs: "false",
+                },
+                768: {
+                  direction: "horizontal",
+                },
+              }}
+              className={classes.container2}
+              modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+              onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
             >
               {product?.variants[0].media.map((slide, index) => {
-                const imageBaseUrl = slide.URLs.large;
                 return (
-                  <SwiperSlide key={index} className={classes.images}>
-                    <img src={imageBaseUrl} alt="" className={classes.sliderimage2} />
+                  <SwiperSlide key={index} className={classes.swiperimag}>
+                    <div className={classes.controller}>
+                      <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
+                      {/* <ReactImageMagnify
+                        {...{
+                          smallImage: {
+                            alt: "Wristwatch by Ted Baker London",
+                            isFluidWidth: true,
+                            src:"/justin/justin4.svg" ,
+                          },
+                          largeImage: {
+                           src:"/justin/justin4.svg"  ,
+                            width: 1200,
+                            height: 1800,
+                          },
+                        }}
+                      /> */}
+                      {activeIndex < product?.variants[0].media.length - 1 && (
+                        <ArrowForwardIos
+                          className={classes.iconforwad}
+                          style={{ fill: "#FDC114" }}
+                          onClick={handleNext}
+                        />
+                      )}
+
+                      {activeIndex - 0 ? (
+                        <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </SwiperSlide>
                 );
               })}
             </Swiper>
-          </div>
-          <div className={classes.text2}>
-            <h2>E-commerce Product Image Zoom Lens in Next.js</h2>
-            <h3>Touch</h3>
-            <p>Hover image to magnify</p>
-          </div>
-        </div>
+          </Grid>
 
-        <div className={classes.text2}>
-          <h2>E-commerce Product Image Zoom Lens in Next.js</h2>
-          <h3>Touch</h3>
-          <p>Hover image to magnify</p>
-        </div>
-
-        {/* <Grid style={{ display: "grid" }} item xs={11} md={10} sm={6} lg={4}>
+          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={6} lg={4}>
             <div className={classes.carttext}>
               <Typography style={{ fontWeight: "700" }} variant="subtitle1">
                 {product?.title}
@@ -835,8 +876,9 @@ const ProductDetail = ({ ...props }) => {
                 </TabPanel>
               </TabContext>
             </div>
-          </Grid> */}
-        <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
+          </Grid>
+          <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
+        </Grid>
       </Box>
 
       {/* <Fragment>
@@ -999,15 +1041,15 @@ const ProductDetail = ({ ...props }) => {
           })}
         </Grid>
       </div>
-      <div className={classes.body2}>
-        <div className={classes.images}>
+      <div className="body2">
+        <div className="images">
           <ReactImageMagnify
             {...{
               smallImage: {
                 alt: "Cat",
                 isFluidWidth: true,
                 src: `${imageBaseUrl}`,
-                className: classes.images,
+               
                 srcSet,
                 sizes: "(min-width: 1000px) 33.5vw, (min-width: 415px) 50vw, 100vw",
               },
@@ -1021,9 +1063,10 @@ const ProductDetail = ({ ...props }) => {
             }}
           />
         </div>
-        <div className={classes.text2}>
+        <div className="text2">
           <h2>E-commerce Product Image Zoom Lens in Next.js</h2>
           <h3>Touch</h3>
+
           <p>Hover image to magnify</p>
         </div>
       </div>
