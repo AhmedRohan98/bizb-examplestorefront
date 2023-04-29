@@ -58,7 +58,9 @@ const Footer = ({ ...props }) => (
       <Grid item xs={12} md={4}>
         <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px", textAlign: "center" }}>
           <span>
-            <img src="/images/logoLight.svg" />
+            <a href="/">
+              <img src="/images/logoLight.svg" />
+            </a>
           </span>
         </div>
         <div style={{ fontSize: "20px", marginLeft: "90px", fontWeight: "500" }}>IN. FB. TW. LI</div>
@@ -69,7 +71,7 @@ const Footer = ({ ...props }) => (
             {" "}
             <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>Home</div>
           </a>
-          <a href="http://localhost:4000/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0">
+          <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0">
             <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Explore</div>
           </a>
           <div style={{ marginTop: "25px", cursor: "pointer" }}>How to Sell</div>

@@ -312,7 +312,7 @@ const Justin = (props) => {
         </Typography>
         <div className={classes.header}>
           <h1 className={classes.typography}></h1>
-          <a href="http://localhost:4000/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+          <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
             <Typography gutterBottom variant="body1" className={classes.explore}>
               Explore More
             </Typography>
