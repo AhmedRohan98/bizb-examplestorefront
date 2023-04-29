@@ -256,7 +256,7 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page6.displayTitle}
             </Typography>
-            <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
+            <a href="https://bizb.store/vendor-register/" target="_blank">
               <Button className={classes.buttonshop}>
                 <h4 className={classes.buttonshopt}>Sell Now</h4>
               </Button>
