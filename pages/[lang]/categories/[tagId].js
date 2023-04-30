@@ -617,8 +617,8 @@ const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
   const { value } = event.target;
   const updatedFilters = uiStore.filters
     .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
-    .concat({ name: minFilterName, value: newValue[0] })
-    .concat({ name: maxFilterName, value: newValue[1] });
+    .concat({ name: minFilterName, value: newValue[0].toString() })
+    .concat({ name: maxFilterName, value: newValue[1].toString() });
   uiStore.setFilters(updatedFilters);
 };
   const filteredProducts = tags?.nodes.filter((product) => product?._id=== tagId);
