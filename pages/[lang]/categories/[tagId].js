@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.selected,
     },
     "& .MuiCheckbox-colorSecondary": {
-      color: "#333333",
+      color: "1px solid #333333",
     },
   },
   mainimage: {
@@ -412,8 +412,8 @@ const useStyles = makeStyles((theme) => ({
   },
   modalitemstitle: {
     display: "flex",
-    width:"90%",
-  
+    width: "90%",
+
     flexDirection: "column",
   },
   loadmorediv: {
@@ -477,8 +477,9 @@ const useStyles = makeStyles((theme) => ({
       border: "none",
     },
     "& .MuiSlider-thumb": {
-      width: "16px",
-      height: "16px",
+      width: "13px",
+      height: "13px",
+
       backgroundColor: "#fff",
       border: "0.5px solid #9E9E9E",
       "&:before": {
@@ -499,8 +500,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: theme.spacing(1),
-    marginTop: theme.spacing(1),
+
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
     width: "62px",
   },
   slidervalues: {
@@ -522,9 +524,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    width: "92px",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(0),
+    width: "75px",
   },
   colorsmain: {
     display: "flex",
@@ -541,7 +543,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   filternameprice: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
     color: "#989898",
     lineHeight: "19px",
     fontWeight: 400,
@@ -573,10 +575,10 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  mainimageofcategory:{
-height:"900px",
-width:"700px",
-objectFit:"cover"
+  mainimageofcategory: {
+    height: "900px",
+    width: "700px",
+    objectFit: "cover",
   },
   gridroot: {
     width: "100%",
@@ -1162,10 +1164,10 @@ const handleChangeSortBy = (selectedOption) => {
                       <div className={classes.slidervaluesmain}>
                         <div className={classes.slidervalues}>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS 500
+                            RS. 500
                           </Typography>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS 1000
+                            RS. 10,00
                           </Typography>
                         </div>
                       </div>
