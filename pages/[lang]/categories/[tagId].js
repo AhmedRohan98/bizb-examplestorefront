@@ -82,24 +82,37 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     fontFamily: "Lato",
     fontWeight: 500,
-
+    marginTop: "10px",
     lineHeight: "24px",
     fontStyle: "normal",
     color: theme.palette.secondary.selected,
     "& .MuiTypography-body1": {
       fontSize: "20px",
-      color: "#333333",
+      color: "#000000",
       fontFamily: "Lato",
       fontWeight: 500,
-
+      marginTop: "10px",
+      marginLeft: "10px",
       lineHeight: "24px",
       fontStyle: "normal",
     },
     "& .MuiCheckbox-colorSecondary.Mui-checked": {
       color: theme.palette.secondary.selected,
+      outline: "none",
     },
     "& .MuiCheckbox-colorSecondary": {
-      color: "1px solid #333333",
+      outline: "1px solid #333333",
+      
+    },
+    "& .MuiCheckbox-root": {
+      outline: "1px solid #333333",
+      marginLeft: "20px",
+      marginRight: "10px",
+      marginTop: "10px",
+
+      borderRadius: 0,
+      width: 21,
+      height: 21,
     },
   },
   mainimage: {
@@ -1138,7 +1151,7 @@ const handleChangeSortBy = (selectedOption) => {
                         SIZE
                       </Typography>
                       {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
-                        <ListItem button key={text}>
+                        <ListItem button key={text} >
                           <FormControlLabel
                             control={
                               <Checkbox
