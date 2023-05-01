@@ -760,38 +760,37 @@ const ProductDetail = ({ ...props }) => {
                   {product?.variants[0].media.map((slide, index) => {
                     return (
                       <SwiperSlide>
-                        <ReactImageMagnify
-                          {...{
-                            smallImage: {
-                              alt: "Small image",
-                              src: slide.URLs.large,
-                              width: 400,
-                              height: 600,
-                            },
-                            largeImage: {
-                              src: slide.URLs.large,
-                              width: 1200,
-                              height: 1800,
-                              enlargedImageClassName: "enlarged",
-                            },
-lensStyle:{
-
-},
-                            enlargedImageContainerDimensions: {
-                              width: "200%",
-                              height: "150%",
-                              margin: "100px",
-                            },
-                            enlargedImageContainerStyle: {
-                              marginLeft: "100px",
-                              width: "200%",
-                              height: "100px",
-                              background: "green",
-                            },
-                            //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
-                          }}
-                        />
-                        {/* <ReactImageMagnify
+                        <div className={classes.controller}>
+                          <ReactImageMagnify
+                            {...{
+                              smallImage: {
+                                alt: "Small image",
+                                src: slide.URLs.large,
+                                width: 400,
+                                height: 600,
+                              },
+                              largeImage: {
+                                src: slide.URLs.large,
+                                width: 1200,
+                                height: 1800,
+                                enlargedImageClassName: "enlarged",
+                              },
+                              lensStyle: {},
+                              enlargedImageContainerDimensions: {
+                                width: "200%",
+                                height: "150%",
+                                margin: "100px",
+                              },
+                              enlargedImageContainerStyle: {
+                                marginLeft: "100px",
+                                width: "200%",
+                                height: "100px",
+                                background: "green",
+                              },
+                              //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
+                            }}
+                          />
+                          {/* <ReactImageMagnify
                         {...{
                           smallImage: {
                             alt: "Wristwatch by Ted Baker London",
@@ -805,9 +804,29 @@ lensStyle:{
                           },
                         }}
                       /> */}
+                          {activeIndex < product?.variants[0].media.length - 1 && (
+                            <ArrowForwardIos
+                              className={classes.iconforwad}
+                              style={{ fill: "#FDC114" }}
+                              onClick={handleNext}
+                            />
+                          )}
+
+                          {activeIndex - 0 ? (
+                            <ArrowBackIos
+                              className={classes.iconback}
+                              style={{ fill: "#FDC114" }}
+                              onClick={handlePrev}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       </SwiperSlide>
                     );
                   })}
+                 
+
                 </Swiper>
               </div>
             </div>
