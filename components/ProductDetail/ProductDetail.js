@@ -771,11 +771,26 @@ const ProductDetail = ({ ...props }) => {
                               },
                               largeImage: {
                                 src: slide.URLs.large,
-                                width: 1200,
+                                width: 1400,
                                 height: 1800,
                                 enlargedImageClassName: "enlarged",
                               },
-                              lensStyle: {},
+                              // lensStyle: {
+                              //   position: "absolute",
+                              //   width: "80px",
+                              //   height: "80px",
+                              //   border: "2px solid #ddd",
+                              //   borderRadius: "50%",
+                              //   backgroundColor: "rgba(255, 255, 255, 0.5)",
+                              //   cursor: "zoom-in",
+                              //   boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.3)",
+                              //   zIndex: 10,
+                              //   backgroundImage: `url("/images/logoLight.svg")`,
+                              //   backgroundPosition: "center",
+                              //   backgroundRepeat: "no-repeat",
+                              //   backgroundSize: "cover",
+                              //   transform: "translate(-50%, -50%)",
+                              // },
                               enlargedImageContainerDimensions: {
                                 width: "200%",
                                 height: "150%",
@@ -787,9 +802,10 @@ const ProductDetail = ({ ...props }) => {
                                 height: "100px",
                                 background: "green",
                               },
+
                               //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
                             }}
-                          />
+                          ></ReactImageMagnify>
                           {/* <ReactImageMagnify
                         {...{
                           smallImage: {
