@@ -630,9 +630,10 @@ class CartPage extends Component {
 
   renderCartSummary() {
     const { cart, classes, catalogItems } = this.props;
-    const { items } = cart;
+   
 
-const tagIds = items && items[0] && items[0].productConfiguration && items[0].productConfiguration.productId;
+const tagIds =
+  cart?.items && cart?.items[0] && cart?.items[0].productConfiguration && cart?.items[0].productConfiguration.productId;
 
 const filteredProducts = catalogItems?.filter((product) => {
   const productTags = product?.node?.product?.productId;

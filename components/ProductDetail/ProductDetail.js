@@ -434,7 +434,7 @@ const slide = [
 const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
   const { product, catalogItems, cart } = props;
-  const { items } = cart;
+
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
   // console.log("dddd",props)
   const { uiStore } = props;
@@ -470,7 +470,7 @@ const ProductDetail = ({ ...props }) => {
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   useEffect(() => {
-    const updatedItems = items.map((item) => {
+    const updatedItems = cart?.items.map((item) => {
       const isItemInCart = filteredProducts?.some((product) => {
         return item.productConfiguration?.productId === product?.node.product?.productId;
       });
@@ -481,7 +481,7 @@ const ProductDetail = ({ ...props }) => {
     });
     // console.log(updatedItems, "all");
     // do something with updatedItems
-  }, [items, product]);
+  }, [cart?.items, product]);
   useEffect(() => {
     selectVariant(product?.variants[0]);
     uiStore?.setPageSize(500);
@@ -688,7 +688,7 @@ const ProductDetail = ({ ...props }) => {
   const optionTitle = product?.variants[0]?.optionTitle;
   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-  const isDisabled = items?.some((data) => {
+  const isDisabled = cart?.items?.some((data) => {
     return data.productConfiguration.productId === product?.productId;
   });
   const imageBaseUrl = "https://res.cloudinary.com/olanetsoft/image/upload/cat.jpg";
