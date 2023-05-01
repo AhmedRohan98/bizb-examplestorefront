@@ -74,7 +74,9 @@ const Footer = ({ ...props }) => (
           <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0">
             <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Explore</div>
           </a>
-          <div style={{ marginTop: "25px", cursor: "pointer" }}>How to Sell</div>
+          <a target="_blank" href="https://bizb.store/how-to-sell/">
+            <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>How to Sell</div>
+          </a>
           <a
             target="_blank"
             href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
@@ -83,7 +85,9 @@ const Footer = ({ ...props }) => (
             <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}> Our Blogs</div>{" "}
           </a>
           <div style={{ marginTop: "25px", cursor: "pointer" }}>Contact Us</div>
-          <div style={{ marginTop: "25px", marginBottom: "107px", cursor: "pointer" }}>About Us</div>
+          <a target="_blank" href="https://bizb.store/about-us/">
+            <div style={{ marginTop: "25px", marginBottom: "107px", cursor: "pointer", color: "white" }}>About Us</div>
+          </a>
         </div>
       </Grid>
       <Grid item xs={12} md={5}>
@@ -103,13 +107,21 @@ const Footer = ({ ...props }) => (
         <div style={{ marginTop: "50px", fontWeight: "500", fontSize: "18px" }}>
           DOWNLOAD OUR APP
           <div style={{ marginTop: "25px" }}>
-            <a href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.160110778.68931320.1680106906-903234502.1680106905&_gac=1.22526281.1680107274.Cj0KCQjww4-hBhCtARIsAC9gR3YB_dxCJOL67e-AEyIUm1512spa5Mb19b93QqlTa7QEaeGeSNwY5IEaAi41EALw_wcB&pli=1">
+            <a
+              target="_blank"
+              href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.160110778.68931320.1680106906-903234502.1680106905&_gac=1.22526281.1680107274.Cj0KCQjww4-hBhCtARIsAC9gR3YB_dxCJOL67e-AEyIUm1512spa5Mb19b93QqlTa7QEaeGeSNwY5IEaAi41EALw_wcB&pli=1"
+            >
               <span>
                 <img src="/images/appStoreIcon.svg" />
               </span>
             </a>
             <span style={{ marginLeft: "55px" }}>
-              <img src="/images/googlePlayIcon.svg" />
+              <a
+                target="_blank"
+                href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.74994514.1337725914.1682938429-218131156.1681233136&_gac=1.86957418.1682759140.Cj0KCQjwgLOiBhC7ARIsAIeetVDrNuIWkimFzY2OMGgR1kIA3Jtu4RDwNAlEFpyiranTB0hEjTuqcZQaAjrAEALw_wcB"
+              >
+                <img src="/images/googlePlayIcon.svg" />
+              </a>
             </span>
           </div>
         </div>
