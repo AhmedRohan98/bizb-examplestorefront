@@ -352,30 +352,6 @@ const styles = (theme) => ({
   magnifyContainer: {
     width: "1000px",
   },
-   body2: {
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    width:"100%",
-    [theme.breakpoints.up("sm")]: {
-      flexDirection: "row",
-    },
-  },
-  images: {
-    flex: "0 0 50%",
-    [theme.breakpoints.up("md")]: {
-      flex: "0 0 33.5%",
-    },
-  },
-  text2: {
-    borderLeft: "2px solid grey",
-    padding: "40px",
-    fontFamily: "sans-serif",
-  },
-  imagesslider:{
-   width:"1000px" 
-  }
-
 });
 
 const slides = [
@@ -434,7 +410,7 @@ const slide = [
 const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
   const { product, catalogItems, cart } = props;
-
+  
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
   // console.log("dddd",props)
   const { uiStore } = props;
@@ -484,7 +460,7 @@ const ProductDetail = ({ ...props }) => {
   }, [cart?.items, product]);
   useEffect(() => {
     selectVariant(product?.variants[0]);
-    uiStore?.setPageSize(500);
+    uiStore.setEndCursor(tagIds);
   }, []);
 
   function selectVariant(variant, optionId) {
@@ -735,7 +711,8 @@ const ProductDetail = ({ ...props }) => {
                     direction: "vertical",
                   },
                 }}
-                modules={[Navigation, Thumbs]}
+                modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+                onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               >
                 {product?.variants[0].media[1] &&
                   product?.variants[0].media.map((slide, index) => {
@@ -751,39 +728,70 @@ const ProductDetail = ({ ...props }) => {
             </div>
           </Grid>
           <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
-            <Swiper
-              thumbs={{ swiper: imagesNavSlider }}
-              direction="horizontal"
-              slidesPerView={1}
-              spaceBetween={32}
-              ref={sliderRef}
-              pagination={{
-                clickable: true,
-              }}
-              mousewheel={true}
-              navigation={{
-                nextEl: ".slider__next",
-                prevEl: ".slider__prev",
-              }}
-              breakpoints={{
-                0: {
-                  direction: "horizontal",
-                  thumbs: "false",
-                },
-                768: {
-                  direction: "horizontal",
-                },
-              }}
-              className={classes.container2}
-              modules={[Navigation, Thumbs, Mousewheel, Pagination]}
-              onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
-            >
-              {product?.variants[0].media.map((slide, index) => {
-                return (
-                  <SwiperSlide key={index} className={classes.swiperimag}>
-                    <div className={classes.controller}>
-                      <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
-                      {/* <ReactImageMagnify
+            <div className="perimeter">
+              <div className="image">
+                <Swiper
+                  thumbs={{ swiper: imagesNavSlider }}
+                  direction="horizontal"
+                  slidesPerView={1}
+                  spaceBetween={32}
+                  ref={sliderRef}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  mousewheel={true}
+                  navigation={{
+                    nextEl: ".slider__next",
+                    prevEl: ".slider__prev",
+                  }}
+                  breakpoints={{
+                    0: {
+                      direction: "horizontal",
+                      thumbs: "false",
+                    },
+                    768: {
+                      direction: "horizontal",
+                    },
+                  }}
+                  className="swipersss"
+                  modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+                  onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+                >
+                  {product?.variants[0].media.map((slide, index) => {
+                    return (
+                      <SwiperSlide>
+                        <ReactImageMagnify
+                          {...{
+                            smallImage: {
+                              alt: "Small image",
+                              src: slide.URLs.large,
+                              width: 400,
+                              height: 600,
+                            },
+                            largeImage: {
+                              src: slide.URLs.large,
+                              width: 1200,
+                              height: 1800,
+                              enlargedImageClassName: "enlarged",
+                            },
+lensStyle:{
+
+},
+                            enlargedImageContainerDimensions: {
+                              width: "200%",
+                              height: "150%",
+                              margin: "100px",
+                            },
+                            enlargedImageContainerStyle: {
+                              marginLeft: "100px",
+                              width: "200%",
+                              height: "100px",
+                              background: "green",
+                            },
+                            //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
+                          }}
+                        />
+                        {/* <ReactImageMagnify
                         {...{
                           smallImage: {
                             alt: "Wristwatch by Ted Baker London",
@@ -797,24 +805,12 @@ const ProductDetail = ({ ...props }) => {
                           },
                         }}
                       /> */}
-                      {activeIndex < product?.variants[0].media.length - 1 && (
-                        <ArrowForwardIos
-                          className={classes.iconforwad}
-                          style={{ fill: "#FDC114" }}
-                          onClick={handleNext}
-                        />
-                      )}
-
-                      {activeIndex - 0 ? (
-                        <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
+            </div>
           </Grid>
 
           <Grid style={{ display: "grid" }} item xs={11} md={10} sm={6} lg={4}>
@@ -995,7 +991,7 @@ const ProductDetail = ({ ...props }) => {
                       </Button>
                     )}
                   </div>
-                  <Box className={classes.maintitle}>
+                  <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
                     <Typography
                       style={{ fontWeight: "700", fontSize: "24px" }}
                       gutterBottom
@@ -1040,35 +1036,6 @@ const ProductDetail = ({ ...props }) => {
             );
           })}
         </Grid>
-      </div>
-      <div className="body2">
-        <div className="images">
-          <ReactImageMagnify
-            {...{
-              smallImage: {
-                alt: "Cat",
-                isFluidWidth: true,
-                src: `${imageBaseUrl}`,
-               
-                srcSet,
-                sizes: "(min-width: 1000px) 33.5vw, (min-width: 415px) 50vw, 100vw",
-              },
-              largeImage: {
-                alt: "",
-                src: `${imageBaseUrl}`,
-                width: 1200,
-                height: 1800,
-              },
-              isHintEnabled: true,
-            }}
-          />
-        </div>
-        <div className="text2">
-          <h2>E-commerce Product Image Zoom Lens in Next.js</h2>
-          <h3>Touch</h3>
-
-          <p>Hover image to magnify</p>
-        </div>
       </div>
     </>
   );

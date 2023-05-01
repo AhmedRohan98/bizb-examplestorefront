@@ -232,3 +232,47 @@ input:-internal-autofill-selected {
 }
 
 
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.perimeter {
+  
+  margin: 0 auto;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+}
+
+
+.image {
+
+  width: 700px;
+}
+
+.copy {
+  padding: 0px;
+  height: 2000px;
+  font-family: sans-serif;
+}
+
+
+@media (min-width: 415px) {
+  .perimeter {
+    flex-direction: row;
+  }
+  
+  .image {
+    flex: 0 0 50%;
+  }
+}
+
+@media (min-width: 800px) {
+  .image {
+    flex: 0 0 33.5%;
+  }
+}
+
+.swipersss{
+  width: 1200px;
+}
