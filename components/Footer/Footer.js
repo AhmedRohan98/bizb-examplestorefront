@@ -84,7 +84,9 @@ const Footer = ({ ...props }) => (
             {" "}
             <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}> Our Blogs</div>{" "}
           </a>
-          <div style={{ marginTop: "25px", cursor: "pointer" }}>Contact Us</div>
+          <a href="/en/contactus">
+            <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Contact Us</div>
+          </a>
           <a target="_blank" href="https://bizb.store/about-us/">
             <div style={{ marginTop: "25px", marginBottom: "107px", cursor: "pointer", color: "white" }}>About Us</div>
           </a>

@@ -4,22 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Button, Box, Typography, TextField } from "@material-ui/core";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import Rating from "@material-ui/lab/Rating";
-import useViewer from "hooks/viewer/useViewer";
-
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import PropTypes from "prop-types";
-import getAccountsHandler from "../../lib/accountsServer.js";
-import hashPassword from "../../lib/utils/hashPassword";
+import Layout from "components/Layout";
+import withCart from "containers/cart/withCart";
+import { withApollo } from "lib/apollo/withApollo";
 const useStyles = makeStyles((theme) => ({
-  orderThankYou: {
-    display: "flex",
-    marginTop: theme.spacing(5),
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-  },
+ orderThankYou: {
+  display: "flex",
+  marginTop: theme.spacing(5),
+  justifyContent: "center",
+  paddingLeft:theme.spacing(50),
+  alignItems: "center",
+  width: "100%",
+},
   img: {
     marginBottom: theme.spacing(3),
   },
@@ -303,6 +299,13 @@ const useStyles = makeStyles((theme) => ({
   coneect: {
     marginLeft: theme.spacing(2),
   },
+  contactus: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    width:"60%",
+    flexDirection: "column",
+  },
 }));
 
 const CheckoutComplete = () => {
@@ -332,125 +335,130 @@ const CheckoutComplete = () => {
   return (
     <>
       {typeof window !== "undefined" && (
-        <>
+        <Layout headerType={false}>
           <div className={classes.orderThankYou}>
-            <Grid container xs={12}>
-              <Grid item xs={6}>
-                <Typography variant="h3">Let’s Talk</Typography>
-                <div className={classes.mainheading}>
-                  <Typography variant="h4" className={classes.orderThankYoupara}>
-                    {" "}
-                    Fill up the form and our team will get back to you within 24 hours.
-                  </Typography>
-                </div>
-                <div className={classes.sociallinks}>
-                  <img src="/icons/email.svg" className={classes.email} alt="thanyou"></img>
-                  <Typography className={classes.coneect} variant="h5">
-                    Hello@bizb.store
-                  </Typography>
-                </div>
-                <div className={classes.sociallinks}>
-                  <img src="/icons/phone.svg" className={classes.email} alt="thanyou"></img>
-                  <Typography className={classes.coneect} variant="h5">
-                    +92 312 5253680
-                  </Typography>
-                </div>
-                <div className={classes.socialmediafo}>
-                  <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
-                  <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
-                  <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <form className={classes.root} onSubmit={handleSubmit}>
-                  <Grid container>
-                    <Grid xs={12} item>
-                      <label className={classes.label}>
-                        <span className={classes.labelSpan} htmlFor="FullName">
-                          Full Name <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your User Name"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="FullName"
-                          autoComplete="off"
-                          name="FullName"
-                          id="FullName"
-                          value={values.FullName}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {touched.FullName && errors.FullName ? (
-                        <p className={classes.formerror}>{errors.FullName}</p>
-                      ) : null}
-                    </Grid>
-                    <Grid xs={12} item>
-                      <label className={classes.label} variant="h6" htmlFor="email">
-                        <span className={classes.labelSpan}>
-                          Email <span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Enter Your Email Address"
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.input}
-                          type="email"
-                          autoComplete="off"
-                          name="email"
-                          id="email"
-                          value={values.email}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <label className={classes.label} variant="h4" htmlFor="orderNotes">
-                        <span className={classes.labelSpan}>
-                          Message<span style={{ color: "#FD1010" }}>*</span>
-                        </span>
-                        <TextField
-                          placeholder="Type your message here..."
-                          InputProps={{ disableUnderline: true }}
-                          className={classes.inputorder}
-                          inputProps={{ style: { color: "black" } }}
-                          autoComplete="off"
-                          type="text"
-                          name="orderNotes"
-                          id="orderNotes"
-                          value={values.orderNotes}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </label>
-                      {errors.orderNotes && touched.orderNotes ? (
-                        <p className={classes.formerror}>{errors.orderNotes}</p>
-                      ) : null}
-                    </Grid>
-                  </Grid>
-
-                  <div className={classes.socialmedia2}>
-                    <Button
-                      className={classes.register}
-                      InputProps={{ disableUnderline: true }}
-                      variant="h5"
-                      type="submit"
-                      role="button"
-                    >
-                      SUBMIT
-                    </Button>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center"  }}>
+              <Grid container xs={12}>
+                <Grid item xs={6} className={classes.contactus}>
+                  <Typography variant="h3">Let’s Talk</Typography>
+                  <div className={classes.mainheading}>
+                    <Typography variant="h4" className={classes.orderThankYoupara}>
+                      {" "}
+                      Fill up the form and our team will get back to you within 24 hours.
+                    </Typography>
                   </div>
-                </form>
+                  <div className={classes.sociallinks}>
+                    <img src="/icons/email.svg" className={classes.email} alt="thanyou"></img>
+                    <Typography className={classes.coneect} variant="h5">
+                      Hello@bizb.store
+                    </Typography>
+                  </div>
+                  <div className={classes.sociallinks}>
+                    <img src="/icons/phone.svg" className={classes.email} alt="thanyou"></img>
+                    <Typography className={classes.coneect} variant="h5">
+                      +92 312 5253680
+                    </Typography>
+                  </div>
+                  <div className={classes.socialmediafo}>
+                    <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
+                    <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
+                    <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
+                  </div>
+                </Grid>
+                <Grid item xs={6} className={classes.contactus}>
+                  <form className={classes.root} onSubmit={handleSubmit}>
+                    <Grid container>
+                      <Grid xs={12} item>
+                        <label className={classes.label}>
+                          <span className={classes.labelSpan} htmlFor="FullName">
+                            Full Name <span style={{ color: "#FD1010" }}>*</span>
+                          </span>
+                          <TextField
+                            placeholder="Enter Your User Name"
+                            InputProps={{ disableUnderline: true }}
+                            className={classes.input}
+                            type="FullName"
+                            autoComplete="off"
+                            name="FullName"
+                            id="FullName"
+                            value={values.FullName}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </label>
+                        {touched.FullName && errors.FullName ? (
+                          <p className={classes.formerror}>{errors.FullName}</p>
+                        ) : null}
+                      </Grid>
+                      <Grid xs={12} item>
+                        <label className={classes.label} variant="h6" htmlFor="email">
+                          <span className={classes.labelSpan}>
+                            Email <span style={{ color: "#FD1010" }}>*</span>
+                          </span>
+                          <TextField
+                            placeholder="Enter Your Email Address"
+                            InputProps={{ disableUnderline: true }}
+                            className={classes.input}
+                            type="email"
+                            autoComplete="off"
+                            name="email"
+                            id="email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </label>
+                        {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <label className={classes.label} variant="h4" htmlFor="orderNotes">
+                          <span className={classes.labelSpan}>
+                            Message<span style={{ color: "#FD1010" }}>*</span>
+                          </span>
+                          <TextField
+                            placeholder="Type your message here..."
+                            InputProps={{ disableUnderline: true }}
+                            className={classes.inputorder}
+                            inputProps={{ style: { color: "black" } }}
+                            autoComplete="off"
+                            type="text"
+                            name="orderNotes"
+                            id="orderNotes"
+                            value={values.orderNotes}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            multiline={true}
+                            maxRows={4}
+                          />
+                        </label>
+                        {errors.orderNotes && touched.orderNotes ? (
+                          <p className={classes.formerror}>{errors.orderNotes}</p>
+                        ) : null}
+                      </Grid>
+                    </Grid>
+
+                    <div className={classes.socialmedia2}>
+                      <Button
+                        className={classes.register}
+                        InputProps={{ disableUnderline: true }}
+                        variant="h5"
+                        type="submit"
+                        role="button"
+                      >
+                        SUBMIT
+                      </Button>
+                    </div>
+                  </form>
+                </Grid>
               </Grid>
-            </Grid>
+            </div>
           </div>
-        </>
+        </Layout>
       )}
     </>
   );
 };
 
-export default CheckoutComplete;
+
+export default withApollo()(withCart(CheckoutComplete));

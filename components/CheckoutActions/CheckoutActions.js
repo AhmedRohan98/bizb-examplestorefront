@@ -719,6 +719,7 @@ promise
                   onChange={handleChange}
                   onBlur={handleBlur}
                   multiline={true}
+                  maxRows={4}
                 />
               </label>
               {errors.orderNotes && touched.orderNotes ? (
