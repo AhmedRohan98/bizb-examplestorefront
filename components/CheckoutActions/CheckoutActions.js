@@ -2,14 +2,14 @@
 
 import { useMutation } from "@apollo/client";
 import Router from "translations/i18nRouter";
-
+import CloseIcon from "@material-ui/icons/Close";
 import { Grid, TextField, Typography, Button } from "@material-ui/core";
 import React, { useState } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+import { ToastContainer, toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     color: "#333333",
     flexDirection: "column",
+  },
+  toast: {
+    background: "yellow",
+    color: "black",
   },
   switchEntryMode: {
     textAlign: "center",
@@ -247,6 +251,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutActions = (prop) => {
   const { cart, apolloClient, cartStore } = prop;
+  const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   const [selectedOption, setSelectedOption] = useState(null);
   const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
@@ -397,9 +402,24 @@ const CheckoutActions = (prop) => {
 
       // // Also destroy the collected and cached payment input
       // cartStore.resetCheckoutPayments();
+const promise = new Promise((resolve) => {
+  toast.success("Order placed successfully!", {
+    duration: 5000,
+    onClose: () => {
+      resolve();
+    },
+  });
+});
 
-      // Send use r to order confirmation page
-      Router.push(`/checkout/order`).catch();
+promise
+  .then(() => {
+    Router.push("/checkout/order").catch((error) => {
+      console.log(error);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
       // Send user to order confirmation pageQ
     } catch (error) {
       console.log(error);
@@ -428,6 +448,7 @@ const CheckoutActions = (prop) => {
     CompleteAddress: Yup.string().min(5).required("Please enter your address"),
     orderNotes: Yup.string().min(5).required("Please enter any additional details "),
   });
+  
   const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
     initialValues,
     validationSchema: addressSchema,
@@ -437,6 +458,24 @@ const CheckoutActions = (prop) => {
     onSubmit: async (values, action) => {
       await handlepay(values, action);
       action.resetForm();
+  const promise = new Promise((resolve) => {
+    toast.success("Order placed successfully!", {
+      duration: 5000,
+      onClose: () => {
+        resolve();
+      },
+    });
+  });
+
+  promise
+    .then(() => {
+      Router.push("/checkout/order").catch((error) => {
+        console.log(error);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
     },
   });
   const customStyles = {
@@ -742,6 +781,25 @@ const CheckoutActions = (prop) => {
                   >
                     Place Order
                   </Button>
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeButton={<CustomCloseButton />}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                    background="green"
+                    toastStyle={{
+                      backgroundColor: "#FDC114",
+                      color: "black",
+                      fontSize: "16px",
+                      fontFamily: "lato",
+                    }}
+                  />
                 </div>
               </>
             </Grid>

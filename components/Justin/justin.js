@@ -166,7 +166,6 @@ const Justin = (props) => {
   const [isLoading, setIsLoading] = useState({});
 
   // console.log(cart, "cartx");
-  const { items } = props?.cart;
 
   useEffect(() => {
     uiStore?.setPageSize(15);
@@ -189,7 +188,7 @@ const Justin = (props) => {
   // }, [cart, cart.items, catalogdata]);
   // console.log(catalogdata,"data")
   useEffect(() => {
-    const updatedItems = items?.map((item) => {
+    const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = catalogdata?.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
       });
@@ -201,7 +200,7 @@ const Justin = (props) => {
     });
     // console.log(updatedItems, "all");
     // do something with updatedItems
-  }, [items, catalogdata]);
+  }, [props?.cart?.items, catalogdata]);
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
 
@@ -253,7 +252,7 @@ const Justin = (props) => {
     await addItemsToCart([
       {
         price: {
-          amount: product.variants[0]?.pricing[0]?.minPrice,
+          amount: 563,
           currencyCode: "USD",
         },
         metafields: [
