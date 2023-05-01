@@ -832,7 +832,7 @@ const ProductDetail = ({ ...props }) => {
             </div>
           </Grid>
 
-          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={6} lg={4}>
+          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={5} lg={4}>
             <div className={classes.carttext}>
               <Typography style={{ fontWeight: "700" }} variant="subtitle1">
                 {product?.title}
