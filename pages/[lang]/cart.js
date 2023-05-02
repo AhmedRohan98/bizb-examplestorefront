@@ -20,6 +20,7 @@ import PageLoading from "components/PageLoading";
 import { withApollo } from "lib/apollo/withApollo";
 import { ToastContainer, toast } from "react-toastify";
 import { CircularProgress } from "@material-ui/core";
+import variantById from "lib/utils/variantById";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 // const useStyles = makeStyles((theme) => ({
@@ -592,6 +593,12 @@ class CartPage extends Component {
       description: PropTypes.string,
     }),
   };
+constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: {},
+    };
+  }
 
   componentDidMount() {
     const { cart, classes, shop, catalogItems, uiStore } = this.props;
@@ -630,8 +637,65 @@ class CartPage extends Component {
   }
 
   handleClick = () => Router.push("/");
+  
+
+
+    // Your async logic here
+ 
   clickHandler = (item) => {
     this.props.router.push("/en/product/" + item);
+  };
+  handleAddToCartClick = async ( product, variant) => {
+    const { addItemsToCart } = this.props;
+console.log("called",product)
+    // Disable button after it has been clicked
+
+    // console.log(pdpSelectedVariantId, "star");
+
+    // Get selected variant or variant optiono
+ const selectedVariant = variantById(product.variants, variant._id);
+
+    // If variant is not already in the cart, add the new item
+    const price = parseFloat(product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
+    await addItemsToCart([
+      {
+        price: {
+          amount: price,
+          currencyCode: "USD",
+        },
+        metafields: [
+          {
+            key: "media",
+            value: product.media[0]?.URLs?.large,
+          },
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity :1,
+      },
+    ]);
+  };
+
+  handleOnClick = async (product, variant) => {
+    console.log("called");
+    this.setState((prevState) => ({
+      isLoading: {
+        ...prevState.isLoading,
+        [product.productId]: true,
+      },
+    }));
+
+    await this.handleAddToCartClick(product, variant);
+    toast.success(" added to cart successfully!");
+    this.setState((prevState) => ({
+      isLoading: {
+        ...prevState.isLoading,
+        [product.productId]: false,
+      },
+    }));
+    // Scroll to the top
   };
   renderCartItems() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems, catalogItems } = this.props;
@@ -748,7 +812,7 @@ class CartPage extends Component {
     console.log("endcursor.. render", tagIds);
     console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
-
+const { isLoading } = this.state;
     return (
       <>
         <Layout shop={shop}>
@@ -799,7 +863,9 @@ class CartPage extends Component {
                             <div className={classes.cartbackground}>
                               <Button
                                 className={classes.cart}
-                                onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                onClick={() =>
+                                  this.handleOnClick(item?.node?.product, item?.node?.product?.variants[0])
+                                }
                                 disabled={isDisabled}
                               >
                                 <ToastContainer
@@ -830,7 +896,10 @@ class CartPage extends Component {
                                 </Typography>
                               </Button>
                             </div>
-                            <Box className={classes.maintitle}>
+                            <Box
+                              className={classes.maintitle}
+                              onClick={() => this.clickHandler(item.node.product.slug)}
+                            >
                               <Typography
                                 style={{ fontWeight: "700", fontSize: "24px" }}
                                 gutterBottom
