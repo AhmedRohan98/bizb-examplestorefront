@@ -137,7 +137,6 @@ fragment CartItemConnectionFragment on CartItemConnection {
       productConfiguration {
         productId
         productVariantId
-        
       }
       addedAt
       attributes {
@@ -165,7 +164,7 @@ fragment CartItemConnectionFragment on CartItemConnection {
         weight
         height
       }
-      
+
       price {
         amount
         displayAmount
@@ -190,11 +189,13 @@ fragment CartItemConnectionFragment on CartItemConnection {
         displayAmount
       }
       title
+      
       productTags {
         nodes {
           name
         }
       }
+
       productVendor
       variantTitle
       optionTitle

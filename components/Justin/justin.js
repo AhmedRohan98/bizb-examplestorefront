@@ -277,7 +277,7 @@ const Justin = (props) => {
   }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
-    toast.success(" added to cart successfully!", {});
+    toast.success(" added to cart successfully!");
     setIsLoading((prevState) => ({
     ...prevState,
     [product.productId]: false,

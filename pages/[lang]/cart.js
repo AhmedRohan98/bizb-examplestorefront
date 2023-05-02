@@ -633,8 +633,8 @@ class CartPage extends Component {
    
 
 const tagIds =
-  cart?.items && cart?.items[0] && cart?.items[0].productConfiguration && cart?.items[0].productConfiguration.productId;
-
+  cart?.items && cart?.items[0] && cart?.items[0].productTags.nodes[0].name && cart?.items[0]?.productTags.nodes[0].name;
+console.log(cart?.items[0], "cat");
 const filteredProducts = catalogItems?.filter((product) => {
   const productTags = product?.node?.product?.productId;
   if (!Array.isArray(productTags)) {
@@ -643,7 +643,7 @@ const filteredProducts = catalogItems?.filter((product) => {
 
   return productTags?.some((tag) => tag === tagIds);
 });
-  console.log(filteredProducts,"cat")
+  console.log(catalogItems,"cat")
     if (cart && cart.checkout && cart.checkout.summary && Array.isArray(cart.items) && cart.items.length) {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
@@ -709,7 +709,7 @@ const filteredProducts = catalogItems?.filter((product) => {
     // when a user has no item in cart in a new session, this.props.cart is null
     // when the app is still loading, this.props.cart is undefined
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
-console.log(catalogItems,"cat")
+
     return (
       <>
         <Layout shop={shop}>
@@ -728,7 +728,7 @@ console.log(catalogItems,"cat")
               <>
                 <Typography variant="h3" className={classes.related}>
                   You <span className={classes.spanofnextword}>may</span>
-                  Also <span className={classes.spanofnextword}>Like"</span>
+                  Also <span className={classes.spanofnextword}>Like</span>
                 </Typography>
                 <div className={classes.root}>
                   <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
