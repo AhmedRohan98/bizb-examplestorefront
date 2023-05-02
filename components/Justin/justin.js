@@ -248,11 +248,12 @@ const Justin = (props) => {
     const selectedVariant = variantById(product.variants, variant._id);
 
     // If variant is not already in the cart, add the new item
-
+// parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
+const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
     await addItemsToCart([
       {
         price: {
-          amount: 563,
+          amount:price,
           currencyCode: "USD",
         },
         metafields: [

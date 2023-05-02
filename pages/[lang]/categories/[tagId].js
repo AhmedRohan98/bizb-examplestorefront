@@ -102,7 +102,6 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiCheckbox-colorSecondary": {
       outline: "1px solid #333333",
-      
     },
     "& .MuiCheckbox-root": {
       outline: "1px solid #333333",
@@ -604,13 +603,44 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(6),
   },
 }));
- 
+const ITEMScategory = [
+  {
+    image: "/categoriestypes/junior.svg",
+    id: 1,
+    title: "Casual",
+  },
+  {
+    image: "/categoriestypes/causal.svg",
+    id: 2,
+    title: "Western",
+  },
+  {
+    image: "/categoriestypes/party.svg",
+    id: 3,
+    title: "Shoes",
+  },
+  {
+    image: "/categoriestypes/shoes.svg",
+    id: 4,
+    title: "Bridal",
+  },
+  {
+    image: "/categoriestypes/asseso.svg",
+    id: 5,
+    title: "Party Wear",
+  },
+  {
+    image: "/categoriestypes/westrn.svg",
+    id: 6,
+    title: "Accessories",
+  },
+];
+
 function Categories(props) {
-  
-  const { category, uiStore, routingStore,  addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart ,tags} =
+  const { category, uiStore, routingStore, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy, cart, tags } =
     props;
-    const [isLoading, setIsLoading] = useState({});
-    
+  const [isLoading, setIsLoading] = useState({});
+
   console.log("items", tags);
   const router = useRouter();
   const { tagId } = router.query;
@@ -618,30 +648,28 @@ function Categories(props) {
     routingStore.setSearch({ sortby: sortBy });
     uiStore.setSortBy(sortBy);
   };
-const handleChangeChecksize = (event) => {
-  const selectedSize = event.target.name;
-  const updatedFilters = uiStore.filters
-    .filter((filter) => filter.name !== "size")
-    .concat({ name: "size", value: selectedSize });
-  uiStore.setFilters(updatedFilters);
-};
+  const handleChangeChecksize = (event) => {
+    const selectedSize = event.target.name;
+    const updatedFilters = uiStore.filters
+      .filter((filter) => filter.name !== "size")
+      .concat({ name: "size", value: selectedSize });
+    uiStore.setFilters(updatedFilters);
+  };
 
+  const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
+    setPrice(newValue);
+    const { value } = event.target;
+    const updatedFilters = uiStore.filters
+      .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
+      .concat({ name: minFilterName, value: newValue[0].toString() })
+      .concat({ name: maxFilterName, value: newValue[1].toString() });
+    uiStore.setFilters(updatedFilters);
+  };
+  const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
-const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
-  setPrice(newValue);
-  const { value } = event.target;
-  const updatedFilters = uiStore.filters
-    .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
-    .concat({ name: minFilterName, value: newValue[0].toString() })
-    .concat({ name: maxFilterName, value: newValue[1].toString() });
-  uiStore.setFilters(updatedFilters);
-};
-  const filteredProducts = tags?.nodes.filter((product) => product?._id=== tagId);
- 
   // console.log(filteredProducts, "catalogItems3");
   // console.log("catalogItems", catalogItems);
- 
-  
+
   // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
@@ -658,9 +686,7 @@ const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   useEffect(() => {
- 
     uiStore?.setPageSize(20);
-   
   }, []);
 
   const options = [
@@ -669,9 +695,9 @@ const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
     { value: "minPrice-asc", label: "Price Low To High" },
     { value: "minPrice-desc", label: "Price High To Low" },
   ];
-const handleChangeSortBy = (selectedOption) => {
-  setSortBy(selectedOption.value);
-};
+  const handleChangeSortBy = (selectedOption) => {
+    setSortBy(selectedOption.value);
+  };
   const Optionsize = [
     { value: "Medium", label: "Medium" },
     { value: "Medium", label: "Medium" },
@@ -697,9 +723,6 @@ const handleChangeSortBy = (selectedOption) => {
       [event.target.name]: event.target.checked,
     });
   };
-
-
-
 
   // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
@@ -732,54 +755,20 @@ const handleChangeSortBy = (selectedOption) => {
   const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: true,
-  }));
+      ...prevState,
+      [product.productId]: true,
+    }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!", {});
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: false,
-  }));
-}
-  const ITEMScategory = [
-    {
-      image: "/categoriestypes/junior.svg",
-      id: 1,
-      title: "Casual",
-    },
-    {
-      image: "/categoriestypes/causal.svg",
-      id: 2,
-      title: "Western",
-    },
-    {
-      image: "/categoriestypes/party.svg",
-      id: 3,
-      title: "Shoes",
-    },
-    {
-      image: "/categoriestypes/shoes.svg",
-      id: 4,
-      title: "Bridal",
-    },
-    {
-      image: "/categoriestypes/asseso.svg",
-      id: 5,
-      title: "Party Wear",
-    },
-    {
-      image: "/categoriestypes/westrn.svg",
-      id: 6,
-      title: "Accessories",
-    },
-  ];
- 
+      ...prevState,
+      [product.productId]: false,
+    }));
+  };
 
   const firstfour = catalogItems?.slice(0, 4);
   const allproducts = catalogItems?.slice(4, catalogItems.length);
- 
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
@@ -787,7 +776,7 @@ const handleChangeSortBy = (selectedOption) => {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-  
+
   useEffect(() => {
     uiStore.setEndCursor(tagId);
   }, []);
@@ -806,9 +795,6 @@ const handleChangeSortBy = (selectedOption) => {
   if (router.isFallback) {
     return <PageLoading />;
   }
-
-  
-
 
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
@@ -952,8 +938,6 @@ const handleChangeSortBy = (selectedOption) => {
       },
     }),
   };
-
- 
 
   const customStyles = {
     indicatorSeparator: () => ({
@@ -1104,20 +1088,20 @@ const handleChangeSortBy = (selectedOption) => {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
- useEffect(() => {
-   const updatedItems = cart?.items?.map((item) => {
-     const isItemInCart = catalogItems?.some((product) => {
-       return item?.productConfiguration?.productId === product?.node.product?.productId;
-     });
-     // setpageSize(20);
-     return {
-       ...item,
-       disabled: item?.inCart || isItemInCart,
-     };
-   });
-   // console.log(updatedItems, "all");
-   // do something with updatedItems
- }, [cart?.items]);
+  useEffect(() => {
+    const updatedItems = cart?.items?.map((item) => {
+      const isItemInCart = catalogItems?.some((product) => {
+        return item?.productConfiguration?.productId === product?.node.product?.productId;
+      });
+      // setpageSize(20);
+      return {
+        ...item,
+        disabled: item?.inCart || isItemInCart,
+      };
+    });
+    // console.log(updatedItems, "all");
+    // do something with updatedItems
+  }, [cart?.items]);
   // console.log(category, "dis");
   return (
     <Layout shop={shop} tagId={tagId}>
@@ -1151,7 +1135,7 @@ const handleChangeSortBy = (selectedOption) => {
                         SIZE
                       </Typography>
                       {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
-                        <ListItem button key={text} >
+                        <ListItem button key={text}>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -1583,7 +1567,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { lang, tagId }, ...context }) {
-   const primaryShop = await fetchPrimaryShop(lang);
+  const primaryShop = await fetchPrimaryShop(lang);
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
   return {

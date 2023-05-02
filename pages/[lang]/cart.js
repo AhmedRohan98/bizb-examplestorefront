@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import inject from "hocs/inject";
 import Grid from "@material-ui/core/Grid";
-import { Button }from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CartEmptyMessage from "@reactioncommerce/components/CartEmptyMessage/v1";
@@ -564,7 +564,6 @@ const styles = (theme) => ({
 });
 
 class CartPage extends Component {
-  
   static propTypes = {
     cart: PropTypes.shape({
       totalItems: PropTypes.number,
@@ -592,6 +591,41 @@ class CartPage extends Component {
       description: PropTypes.string,
     }),
   };
+
+  componentDidMount() {
+    const { cart, classes, shop, catalogItems, uiStore } = this.props;
+  }
+  myfunction() {
+    const { cart, classes, shop, catalogItems, uiStore } = this.props;
+    const tagIds =
+      cart?.items &&
+      cart?.items[0] &&
+      cart?.items[0].productTags.nodes[0]._id &&
+      cart?.items[0]?.productTags.nodes[0]._id;
+    uiStore?.setEndCursor(tagIds);
+    console.log("Testing my function...", uiStore?.endCursor);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const { cart, classes, shop, catalogItems, uiStore } = this.props;
+    console.log("props useeffect", this.props);
+    // console.log("catalogItems", cart.items);
+    const tagIds =
+      cart?.items &&
+      cart?.items[0] &&
+      cart?.items[0].productTags.nodes[0]._id &&
+      cart?.items[0]?.productTags.nodes[0]._id;
+    // console.log(tagIds, "cat");
+    console.log("endcursor.. didmount", catalogItems);
+    console.log("tag ids on component did update...", tagIds);
+    this.myfunction();
+    //  uiStore?.setEndCursor(tagIds);
+    console.log("endcursorx", uiStore?.endCursor);
+
+    if (prevProps.cart !== this.props.cart) {
+      // Only re-render if someProp has changed
+      this.setState({});
+    }
+  }
 
   handleClick = () => Router.push("/");
 
@@ -626,11 +660,9 @@ class CartPage extends Component {
     );
   }
 
-
   renderCartSummary() {
     const { cart, classes, catalogItems } = this.props;
 
-   
     if (cart && cart.checkout && cart.checkout.summary && Array.isArray(cart.items) && cart.items.length) {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
@@ -695,21 +727,22 @@ class CartPage extends Component {
     const { cart, classes, shop, catalogItems } = this.props;
     // when a user has no item in cart in a new session, this.props.cart is null
     // when the app is still loading, this.props.cart is undefined
-     const tagIds =
-       cart?.items &&
-       cart?.items[0] &&
-       cart?.items[0].productTags.nodes[0]._id &&
-       cart?.items[0]?.productTags.nodes[0]._id;
-     console.log(tagIds, "cat");
-     const filteredProducts = catalogItems?.filter((product) => {
-       const productTags = product?.node?.product?.tagIds;
-       if (!Array.isArray(productTags)) {
-         return false;
-       }
+    const tagIds =
+      cart?.items &&
+      cart?.items[0] &&
+      cart?.items[0].productTags.nodes[0]._id &&
+      cart?.items[0]?.productTags.nodes[0]._id;
+    console.log(tagIds, "cat");
+    const filteredProducts = catalogItems?.filter((product) => {
+      const productTags = product?.node?.product?.tagIds;
+      if (!Array.isArray(productTags)) {
+        return false;
+      }
 
-       return productTags?.some((tag) => tag === tagIds);
-     });
-     console.log(filteredProducts, "cat");
+      return productTags?.some((tag) => tag === tagIds);
+    });
+    console.log("endcursor.. render", tagIds);
+    console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
 
     return (
@@ -864,9 +897,9 @@ class CartPage extends Component {
 export async function getServerSideProps({ params: { lang } }) {
   return {
     props: {
-      ...await fetchPrimaryShop(lang),
-      ...await fetchTranslations(lang, ["common"])
-    }
+      ...(await fetchPrimaryShop(lang)),
+      ...(await fetchTranslations(lang, ["common"])),
+    },
   };
 }
 
