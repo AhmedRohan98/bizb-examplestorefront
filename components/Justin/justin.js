@@ -332,6 +332,7 @@ const Justin = (props) => {
 const str = item.node.product.title;
 const words = str.match(/[a-zA-Z0-9]+/g);
 const firstThreeWords = words.slice(0, 3).join(" ");
+console.log("query to change", item?.node?.product);
             return (
               <>
                 <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>

@@ -564,6 +564,7 @@ const styles = (theme) => ({
 });
 
 class CartPage extends Component {
+  
   static propTypes = {
     cart: PropTypes.shape({
       totalItems: PropTypes.number,
@@ -594,11 +595,8 @@ class CartPage extends Component {
 
   handleClick = () => Router.push("/");
 
- 
- 
-
   renderCartItems() {
-    const { cart, classes, hasMoreCartItems, loadMoreCartItems ,  catalogItems} = this.props;
+    const { cart, classes, hasMoreCartItems, loadMoreCartItems, catalogItems } = this.props;
 
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
@@ -628,22 +626,11 @@ class CartPage extends Component {
     );
   }
 
+
   renderCartSummary() {
     const { cart, classes, catalogItems } = this.props;
+
    
-
-const tagIds =
-  cart?.items && cart?.items[0] && cart?.items[0].productTags.nodes[0].name && cart?.items[0]?.productTags.nodes[0].name;
-console.log(cart?.items[0], "cat");
-const filteredProducts = catalogItems?.filter((product) => {
-  const productTags = product?.node?.product?.productId;
-  if (!Array.isArray(productTags)) {
-    return false;
-  }
-
-  return productTags?.some((tag) => tag === tagIds);
-});
-  console.log(catalogItems,"cat")
     if (cart && cart.checkout && cart.checkout.summary && Array.isArray(cart.items) && cart.items.length) {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
@@ -705,9 +692,24 @@ const filteredProducts = catalogItems?.filter((product) => {
   }
 
   render() {
-    const { cart, classes, shop ,catalogItems} = this.props;
+    const { cart, classes, shop, catalogItems } = this.props;
     // when a user has no item in cart in a new session, this.props.cart is null
     // when the app is still loading, this.props.cart is undefined
+     const tagIds =
+       cart?.items &&
+       cart?.items[0] &&
+       cart?.items[0].productTags.nodes[0]._id &&
+       cart?.items[0]?.productTags.nodes[0]._id;
+     console.log(tagIds, "cat");
+     const filteredProducts = catalogItems?.filter((product) => {
+       const productTags = product?.node?.product?.tagIds;
+       if (!Array.isArray(productTags)) {
+         return false;
+       }
+
+       return productTags?.some((tag) => tag === tagIds);
+     });
+     console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
 
     return (
@@ -732,7 +734,7 @@ const filteredProducts = catalogItems?.filter((product) => {
                 </Typography>
                 <div className={classes.root}>
                   <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-                    {catalogItems?.slice(0, 5)?.map((item, key) => {
+                    {filteredProducts?.slice(0, 5)?.map((item, key) => {
                       const cartitem = cart?.items;
                       const isDisabled = cartitem?.some((data) => {
                         return data.productConfiguration.productId === item?.node?.product?.productId;

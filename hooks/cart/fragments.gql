@@ -185,14 +185,17 @@ fragment CartItemConnectionFragment on CartItemConnection {
       shop {
         _id
       }
+    
       subtotal {
         displayAmount
       }
       title
-      
+
       productTags {
         nodes {
-          name
+          name,
+          _id
+          
         }
       }
 

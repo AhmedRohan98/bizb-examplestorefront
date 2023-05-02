@@ -111,7 +111,7 @@ const Appsec = () => {
           </a>
         </Grid>
         <Grid item lg={6} sm={6} md={6} xs={6} className={classes.grid1}>
-          <img src="/app-section/appsec4.svg" className={classes.imae} />
+          <img src="/app-section/appsecmobile.webp" className={classes.imae} />
         </Grid>
       </Grid>
     </div>
