@@ -15,6 +15,7 @@ import withCatalogItems from "../../containers/catalog/withCatalogItems";
 import Link from "next/link";
 import Layout from "components/Layout";
 import Router from "translations/i18nRouter";
+import { withRouter } from "next/router";
 import PageLoading from "components/PageLoading";
 import { withApollo } from "lib/apollo/withApollo";
 import { ToastContainer, toast } from "react-toastify";
@@ -605,6 +606,7 @@ class CartPage extends Component {
     uiStore?.setEndCursor(tagIds);
     console.log("Testing my function...", uiStore?.endCursor);
   }
+
   componentDidUpdate(prevProps, prevState) {
     const { cart, classes, shop, catalogItems, uiStore } = this.props;
     console.log("props useeffect", this.props);
@@ -628,7 +630,9 @@ class CartPage extends Component {
   }
 
   handleClick = () => Router.push("/");
-
+  clickHandler = (item) => {
+    this.props.router.push("/en/product/" + item);
+  };
   renderCartItems() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems, catalogItems } = this.props;
 
@@ -789,7 +793,7 @@ class CartPage extends Component {
                               className={classes.image}
                               key={item?.node?.product?.id}
                               alt={"hhhh"}
-                              onClick={() => clickHandler(item.node.product.slug)}
+                              onClick={() => this.clickHandler(item.node.product.slug)}
                             />
 
                             <div className={classes.cartbackground}>
