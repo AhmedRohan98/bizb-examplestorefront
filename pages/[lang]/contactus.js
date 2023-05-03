@@ -10,6 +10,7 @@ import { withApollo } from "lib/apollo/withApollo";
 import {SendContactForm} from "../../hooks/sendForm/sendform";
 import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
+import CloseIcon from "@material-ui/icons/Close";
 const useStyles = makeStyles((theme) => ({
  orderThankYou: {
   display: "flex",
@@ -324,14 +325,13 @@ const [sendContactForm] = useMutation(SendContactForm);
     email: "",
     orderNotes: "",
   };
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
-    initialValues,
-    validationSchema: sendmail,
-    validateOnChange: true,
-    validateOnBlur: true,
-    //// By disabling validation onChange and onBlur formik will validate on submit.
-    onSubmit: async (values, action) => {
-      try {
+const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetForm } = useFormik({
+  initialValues,
+  validationSchema: sendmail,
+  validateOnChange: true,
+  validateOnBlur: true,
+  onSubmit: async (values, action) => {
+    try {
       const { data } = await sendContactForm({
         variables: {
           name: values.FullName.toString(),
@@ -341,14 +341,12 @@ const [sendContactForm] = useMutation(SendContactForm);
       });
       console.log(data); // do something with the response data
       resetForm();
-       toast.success(" added to cart successfully!"); // reset the form after submitting
+      toast.success("Email sent Successfully"); // reset the form after submitting
     } catch (error) {
       console.error(error);
     }
-  
-      //// to get rid of all the values after submitting the form
-    },
-  });
+  },
+});
     const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   return (
@@ -458,25 +456,6 @@ const [sendContactForm] = useMutation(SendContactForm);
                     </Grid>
 
                     <div className={classes.socialmedia2}>
-                      <ToastContainer
-                        position="top-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeButton={<CustomCloseButton />}
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="colored"
-                        background="green"
-                        toastStyle={{
-                          backgroundColor: "#FDC114",
-                          color: "black",
-                          fontSize: "16px",
-                          fontFamily: "lato",
-                        }}
-                      />{" "}
                       <Button
                         className={classes.register}
                         InputProps={{ disableUnderline: true }}
@@ -488,6 +467,25 @@ const [sendContactForm] = useMutation(SendContactForm);
                       </Button>
                     </div>
                   </form>
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeButton={<CustomCloseButton />}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                    background="green"
+                    toastStyle={{
+                      backgroundColor: "#FDC114",
+                      color: "black",
+                      fontSize: "16px",
+                      fontFamily: "lato",
+                    }}
+                  />{" "}
                 </Grid>
               </Grid>
             </div>
