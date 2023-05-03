@@ -775,32 +775,19 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                                 height: 1800,
                                 enlargedImageClassName: "enlarged",
                               },
-                              // lensStyle: {
-                              //   position: "absolute",
-                              //   width: "80px",
-                              //   height: "80px",
-                              //   border: "2px solid #ddd",
-                              //   borderRadius: "50%",
-                              //   backgroundColor: "rgba(255, 255, 255, 0.5)",
-                              //   cursor: "zoom-in",
-                              //   boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, 0.3)",
-                              //   zIndex: 10,
-                              //   backgroundImage: `url("/images/logoLight.svg")`,
-                              //   backgroundPosition: "center",
-                              //   backgroundRepeat: "no-repeat",
-                              //   backgroundSize: "cover",
-                              //   transform: "translate(-50%, -50%)",
-                              // },
+                      
                               enlargedImageContainerDimensions: {
                                 width: "200%",
                                 height: "150%",
                                 margin: "100px",
+                                enlargedImagePortalId: "portal",
                               },
                               enlargedImageContainerStyle: {
                                 marginLeft: "100px",
                                 width: "200%",
                                 height: "100px",
                                 background: "green",
+                                
                               },
 
                               //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
@@ -848,7 +835,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             </div>
           </Grid>
 
-          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={5} lg={4}>
+          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={5} lg={4} >
             <div className={classes.carttext}>
               <Typography style={{ fontWeight: "700" }} variant="subtitle1">
                 {product?.title}

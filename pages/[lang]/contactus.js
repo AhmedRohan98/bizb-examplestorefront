@@ -7,6 +7,9 @@ import { useFormik } from "formik";
 import Layout from "components/Layout";
 import withCart from "containers/cart/withCart";
 import { withApollo } from "lib/apollo/withApollo";
+import {SendContactForm} from "../../hooks/sendForm/sendform";
+import { useMutation } from "@apollo/client";
+import { ToastContainer, toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
  orderThankYou: {
   display: "flex",
@@ -310,7 +313,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutComplete = () => {
   const classes = useStyles();
-
+const [sendContactForm] = useMutation(SendContactForm);
   const sendmail = Yup.object({
     FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
     email: Yup.string().email().required("Please enter your email"),
@@ -328,16 +331,32 @@ const CheckoutComplete = () => {
     validateOnBlur: true,
     //// By disabling validation onChange and onBlur formik will validate on submit.
     onSubmit: async (values, action) => {
-      await registerUser(values, action);
+      try {
+      const { data } = await sendContactForm({
+        variables: {
+          name: values.FullName.toString(),
+          email: values.email,
+          message: values.orderNotes.toString(),
+        },
+      });
+      console.log(data); // do something with the response data
+      resetForm();
+       toast.success(" added to cart successfully!"); // reset the form after submitting
+    } catch (error) {
+      console.error(error);
+    }
+  
       //// to get rid of all the values after submitting the form
     },
   });
+    const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
+
   return (
     <>
       {typeof window !== "undefined" && (
         <Layout headerType={false}>
           <div className={classes.orderThankYou}>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center"  }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <Grid container xs={12}>
                 <Grid item xs={6} className={classes.contactus}>
                   <Typography variant="h3">Let’s Talk</Typography>
@@ -439,6 +458,25 @@ const CheckoutComplete = () => {
                     </Grid>
 
                     <div className={classes.socialmedia2}>
+                      <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeButton={<CustomCloseButton />}
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="colored"
+                        background="green"
+                        toastStyle={{
+                          backgroundColor: "#FDC114",
+                          color: "black",
+                          fontSize: "16px",
+                          fontFamily: "lato",
+                        }}
+                      />{" "}
                       <Button
                         className={classes.register}
                         InputProps={{ disableUnderline: true }}

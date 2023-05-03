@@ -164,6 +164,7 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
+// 
 
   // console.log(cart, "cartx");
 
@@ -333,7 +334,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
 const str = item.node.product.title;
 const words = str.match(/[a-zA-Z0-9]+/g);
 const firstThreeWords = words.slice(0, 3).join(" ");
-console.log("query to change", item?.node?.product);
+
             return (
               <>
                 <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
