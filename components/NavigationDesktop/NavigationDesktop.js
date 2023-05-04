@@ -100,7 +100,7 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-    console.log(tags, "tags in deskyop");
+    // console.log(tags, "tags in deskyop");
   const style = {
     borderRadius: "8px",
     marginTop: "12px",

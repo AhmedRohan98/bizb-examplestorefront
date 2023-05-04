@@ -161,7 +161,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   };
   const classes = useStyles();
   // IF ITS NOT WORKIS THEN I HAVE TO ADD '\"'+searchTitle+'\"';
-  console.log(searchLocal, "query");
+  // console.log(searchLocal, "query");
   return (
     <>
       <></>

@@ -159,101 +159,7 @@ const Checkout = ({ router }) => {
     [stripe]; // eslint-disable-line no-sequences
 
   // eslint-disable-next-line react/no-multi-comp
-  const renderCheckoutContent = () => {
-    // sanity check that "tries" to render the correct /cart view if SSR doesn't provide the `cart`
-
-    if (!cart) {
-      return (
-        <div className={classes.emptyCartContainer}>
-          <div className={classes.emptyCart}>
-            <div>
-              <Link href="/">
-                <Button
-                  className={classes.continue}
-                  InputProps={{ disableUnderline: true }}
-                  variant="h6"
-                  // onClick={}
-                >
-                  {" "}
-                  Continue Shopping
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (hasIdentity && cart) {
-      if (cart && Array.isArray(cart.items) && cart.items.length === 0) {
-        return (
-          <div className={classes.emptyCartContainer}>
-            <div className={classes.emptyCart}>
-              <div>
-                <Button
-                  className={classes.continue}
-                  InputProps={{ disableUnderline: true }}
-                  variant="h6"
-                  onClick={() => Router.push("/")}
-                >
-                  {" "}
-                  Continue Shopping
-                </Button>
-              </div>
-            </div>
-          </div>
-        );
-      }
-
-      const orderEmailAddress =
-        (cart && cart.account && Array.isArray(cart.account.emailRecords) && cart.account.emailRecords[0].address) ||
-        (cart ? cart.email : null);
-
-      // Filter the hard-coded definedPaymentMethods list from the client to remove any
-      // payment methods that were not returned from the API as currently available.
-      const paymentMethods = definedPaymentMethods.filter(
-        (method) => !!availablePaymentMethods.find((availableMethod) => availableMethod.name === method.name),
-      );
-
-      return (
-        // <StripeProvider stripe={stripe}>
-          <div className={classes.checkoutContentContainer}>
-            <div className={classes.checkoutContent}>
-              <Grid container spacing={3}>
-                <div className={classes.flexContainer}>
-                  <div className={classes.checkoutActions}>
-                    <CheckoutActions
-                      cart={cart}
-                      cartStore={cartStore}
-                      checkoutMutations={checkoutMutations}
-                      clearAuthenticatedUsersCart={clearAuthenticatedUsersCart}
-                      orderEmailAddress={orderEmailAddress}
-                      paymentMethods={paymentMethods}
-                    />
-                  </div>
-                </div>
-
-                <div className={classes.flexContainer}>
-                  <div className={classes.cartSummary}>
-                    <CheckoutSummary
-                      cart={cart}
-                      hasMoreCartItems={hasMoreCartItems}
-                      onRemoveCartItems={onRemoveCartItems}
-                      onChangeCartItemsQuantity={onChangeCartItemsQuantity}
-                      onLoadMoreCartItems={loadMoreCartItems}
-                    />
-                  </div>
-                </div>
-              </Grid>
-            </div>
-          </div>
-        // </StripeProvider>
-      );
-    }
-
-    // Render nothing by default
-    return null;
-  };
+ 
 
   if (isLoadingCart || isLoadingAvailablePaymentMethods) {
     return (
@@ -277,7 +183,101 @@ const Checkout = ({ router }) => {
 Checkout.propTypes = {
   router: PropTypes.object,
 };
+ const renderCheckoutContent = () => {
+   // sanity check that "tries" to render the correct /cart view if SSR doesn't provide the `cart`
 
+   if (!cart) {
+     return (
+       <div className={classes.emptyCartContainer}>
+         <div className={classes.emptyCart}>
+           <div>
+             <Link href="/">
+               <Button
+                 className={classes.continue}
+                 InputProps={{ disableUnderline: true }}
+                 variant="h6"
+                 // onClick={}
+               >
+                 {" "}
+                 Continue Shopping
+               </Button>
+             </Link>
+           </div>
+         </div>
+       </div>
+     );
+   }
+
+   if (hasIdentity && cart) {
+     if (cart && Array.isArray(cart.items) && cart.items.length === 0) {
+       return (
+         <div className={classes.emptyCartContainer}>
+           <div className={classes.emptyCart}>
+             <div>
+               <Button
+                 className={classes.continue}
+                 InputProps={{ disableUnderline: true }}
+                 variant="h6"
+                 onClick={() => Router.push("/")}
+               >
+                 {" "}
+                 Continue Shopping
+               </Button>
+             </div>
+           </div>
+         </div>
+       );
+     }
+
+     const orderEmailAddress =
+       (cart && cart.account && Array.isArray(cart.account.emailRecords) && cart.account.emailRecords[0].address) ||
+       (cart ? cart.email : null);
+
+     // Filter the hard-coded definedPaymentMethods list from the client to remove any
+     // payment methods that were not returned from the API as currently available.
+     const paymentMethods = definedPaymentMethods.filter(
+       (method) => !!availablePaymentMethods.find((availableMethod) => availableMethod.name === method.name),
+     );
+
+     return (
+       // <StripeProvider stripe={stripe}>
+       <div className={classes.checkoutContentContainer}>
+         <div className={classes.checkoutContent}>
+           <Grid container spacing={3}>
+             <div className={classes.flexContainer}>
+               <div className={classes.checkoutActions}>
+                 <CheckoutActions
+                   cart={cart}
+                   cartStore={cartStore}
+                   checkoutMutations={checkoutMutations}
+                   clearAuthenticatedUsersCart={clearAuthenticatedUsersCart}
+                   orderEmailAddress={orderEmailAddress}
+                   paymentMethods={paymentMethods}
+                 />
+               </div>
+             </div>
+
+             <div className={classes.flexContainer}>
+               <div className={classes.cartSummary}>
+                 <CheckoutSummary
+                   cart={cart}
+                   hasMoreCartItems={hasMoreCartItems}
+                   onRemoveCartItems={onRemoveCartItems}
+                   onChangeCartItemsQuantity={onChangeCartItemsQuantity}
+                   onLoadMoreCartItems={loadMoreCartItems}
+                 />
+               </div>
+             </div>
+           </Grid>
+         </div>
+       </div>
+       // </StripeProvider>
+     );
+   }
+
+   // Render nothing by default
+   return null;
+ };
 /**
  *  Static props for the cart
  *
