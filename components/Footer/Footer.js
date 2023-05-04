@@ -76,10 +76,12 @@ const Footer = () =>{
                 </span>
                 <span style={{ marginLeft: "10px", color: "white" }}> Hello@bizb.store </span>
               </a>
-              <span style={{ marginLeft: "20px" }}>
-                <img src="/images/phoneIcon.svg" />
-              </span>
-              <span style={{ marginLeft: "10px" }}> +92 312 5253680</span>
+              <a href="tel:+92 312 5253680" target="_blank">
+                <span style={{ marginLeft: "20px" }}>
+                  <img src="/images/phoneIcon.svg" />
+                </span>
+                <span style={{ marginLeft: "10px",color:"white" }}> +92 312 5253680</span>
+              </a>
             </div>
             <div
               style={{
