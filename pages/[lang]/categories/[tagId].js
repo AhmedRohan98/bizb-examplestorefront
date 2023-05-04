@@ -82,24 +82,36 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     fontFamily: "Lato",
     fontWeight: 500,
-
+    marginTop: "10px",
     lineHeight: "24px",
     fontStyle: "normal",
     color: theme.palette.secondary.selected,
     "& .MuiTypography-body1": {
       fontSize: "20px",
-      color: "#333333",
+      color: "#000000",
       fontFamily: "Lato",
       fontWeight: 500,
-
+      marginTop: "10px",
+      marginLeft: "10px",
       lineHeight: "24px",
       fontStyle: "normal",
     },
     "& .MuiCheckbox-colorSecondary.Mui-checked": {
       color: theme.palette.secondary.selected,
+      outline: "none",
     },
     "& .MuiCheckbox-colorSecondary": {
-      color: "#333333",
+      outline: "1px solid #333333",
+    },
+    "& .MuiCheckbox-root": {
+      outline: "1px solid #333333",
+      marginLeft: "20px",
+      marginRight: "10px",
+      marginTop: "10px",
+
+      borderRadius: 0,
+      width: 21,
+      height: 21,
     },
   },
   mainimage: {
@@ -412,8 +424,8 @@ const useStyles = makeStyles((theme) => ({
   },
   modalitemstitle: {
     display: "flex",
-    width:"90%",
-  
+    width: "90%",
+
     flexDirection: "column",
   },
   loadmorediv: {
@@ -477,8 +489,9 @@ const useStyles = makeStyles((theme) => ({
       border: "none",
     },
     "& .MuiSlider-thumb": {
-      width: "16px",
-      height: "16px",
+      width: "13px",
+      height: "13px",
+
       backgroundColor: "#fff",
       border: "0.5px solid #9E9E9E",
       "&:before": {
@@ -499,8 +512,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: theme.spacing(1),
-    marginTop: theme.spacing(1),
+
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
     width: "62px",
   },
   slidervalues: {
@@ -522,9 +536,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    width: "92px",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(0),
+    width: "75px",
   },
   colorsmain: {
     display: "flex",
@@ -541,7 +555,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   filternameprice: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
     color: "#989898",
     lineHeight: "19px",
     fontWeight: 400,
@@ -573,10 +587,10 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  mainimageofcategory:{
-height:"900px",
-width:"700px",
-objectFit:"cover"
+  mainimageofcategory: {
+    height: "900px",
+    width: "700px",
+    objectFit: "cover",
   },
   gridroot: {
     width: "100%",
@@ -589,13 +603,44 @@ objectFit:"cover"
     marginTop: theme.spacing(6),
   },
 }));
- 
+const ITEMScategory = [
+  {
+    image: "/categoriestypes/junior.svg",
+    id: 1,
+    title: "Casual",
+  },
+  {
+    image: "/categoriestypes/causal.svg",
+    id: 2,
+    title: "Western",
+  },
+  {
+    image: "/categoriestypes/party.svg",
+    id: 3,
+    title: "Shoes",
+  },
+  {
+    image: "/categoriestypes/shoes.svg",
+    id: 4,
+    title: "Bridal",
+  },
+  {
+    image: "/categoriestypes/asseso.svg",
+    id: 5,
+    title: "Party Wear",
+  },
+  {
+    image: "/categoriestypes/westrn.svg",
+    id: 6,
+    title: "Accessories",
+  },
+];
+
 function Categories(props) {
-  
-  const { category, uiStore, routingStore,  addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy,cart ,tags} =
+  const { category, uiStore, routingStore, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy, cart, tags } =
     props;
-    const [isLoading, setIsLoading] = useState({});
-    
+  const [isLoading, setIsLoading] = useState({});
+
   console.log("items", tags);
   const router = useRouter();
   const { tagId } = router.query;
@@ -603,13 +648,28 @@ function Categories(props) {
     routingStore.setSearch({ sortby: sortBy });
     uiStore.setSortBy(sortBy);
   };
+  const handleChangeChecksize = (event) => {
+    const selectedSize = event.target.name;
+    const updatedFilters = uiStore.filters
+      .filter((filter) => filter.name !== "size")
+      .concat({ name: "size", value: selectedSize });
+    uiStore.setFilters(updatedFilters);
+  };
 
-  const filteredProducts = tags?.nodes.filter((product) => product?._id=== tagId);
- 
+  const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
+    setPrice(newValue);
+    const { value } = event.target;
+    const updatedFilters = uiStore.filters
+      .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
+      .concat({ name: minFilterName, value: newValue[0].toString() })
+      .concat({ name: maxFilterName, value: newValue[1].toString() });
+    uiStore.setFilters(updatedFilters);
+  };
+  const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
+
   // console.log(filteredProducts, "catalogItems3");
   // console.log("catalogItems", catalogItems);
- 
-  
+
   // console.log(category, "ffff");
   const [anchorEl, setAnchorEl] = useState(null);
   const [frequency, setFrequency] = useState("");
@@ -626,9 +686,7 @@ function Categories(props) {
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   useEffect(() => {
- 
     uiStore?.setPageSize(20);
-   
   }, []);
 
   const options = [
@@ -637,9 +695,9 @@ function Categories(props) {
     { value: "minPrice-asc", label: "Price Low To High" },
     { value: "minPrice-desc", label: "Price High To Low" },
   ];
-const handleChangeSortBy = (selectedOption) => {
-  setSortBy(selectedOption.value);
-};
+  const handleChangeSortBy = (selectedOption) => {
+    setSortBy(selectedOption.value);
+  };
   const Optionsize = [
     { value: "Medium", label: "Medium" },
     { value: "Medium", label: "Medium" },
@@ -665,164 +723,6 @@ const handleChangeSortBy = (selectedOption) => {
       [event.target.name]: event.target.checked,
     });
   };
-
-  const Colors = [
-    {
-      image: "/colors/black.svg",
-      id: 1,
-      title: "Black",
-    },
-    {
-      image: "/colors/blue.svg",
-      id: 2,
-      title: "Blue",
-    },
-    {
-      image: "/colors/green.svg",
-      id: 3,
-      title: "Green",
-    },
-    {
-      image: "/colors/red.svg",
-      id: 4,
-      title: "Red",
-    },
-    {
-      image: "/colors/yellow.svg",
-      id: 5,
-      title: "Yellow",
-    },
-    {
-      image: "/colors/orange.svg",
-      id: 6,
-      title: "Orange",
-    },
-  ];
-
-  const ITEMS = [
-    {
-      image: "/categories/categoriestoggle.svg",
-      id: 1,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub1.svg",
-      id: 6,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 7,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 8,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 9,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub5.svg",
-      id: 10,
-      price: "Rs 12c00",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub1.svg",
-      id: 2,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub2.svg",
-      id: 3,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-    {
-      image: "/categories/sub3.svg",
-      id: 4,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "small",
-    },
-    {
-      image: "/categories/sub4.svg",
-      id: 5,
-      price: "Rs 1200",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-
-    {
-      image: "/categories/sub6.svg",
-      id: 10,
-      price: "Rs 12c00",
-      newprice: "Rs 600",
-      title: "floral shirt for",
-      size: "large",
-    },
-  ];
 
   // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
@@ -855,54 +755,20 @@ const handleChangeSortBy = (selectedOption) => {
   const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: true,
-  }));
+      ...prevState,
+      [product.productId]: true,
+    }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!", {});
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: false,
-  }));
-}
-  const ITEMScategory = [
-    {
-      image: "/categoriestypes/junior.svg",
-      id: 1,
-      title: "Casual",
-    },
-    {
-      image: "/categoriestypes/causal.svg",
-      id: 2,
-      title: "Western",
-    },
-    {
-      image: "/categoriestypes/party.svg",
-      id: 3,
-      title: "Shoes",
-    },
-    {
-      image: "/categoriestypes/shoes.svg",
-      id: 4,
-      title: "Bridal",
-    },
-    {
-      image: "/categoriestypes/asseso.svg",
-      id: 5,
-      title: "Party Wear",
-    },
-    {
-      image: "/categoriestypes/westrn.svg",
-      id: 6,
-      title: "Accessories",
-    },
-  ];
- 
+      ...prevState,
+      [product.productId]: false,
+    }));
+  };
 
   const firstfour = catalogItems?.slice(0, 4);
   const allproducts = catalogItems?.slice(4, catalogItems.length);
- 
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
@@ -910,7 +776,7 @@ const handleChangeSortBy = (selectedOption) => {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-  
+
   useEffect(() => {
     uiStore.setEndCursor(tagId);
   }, []);
@@ -929,9 +795,6 @@ const handleChangeSortBy = (selectedOption) => {
   if (router.isFallback) {
     return <PageLoading />;
   }
-
-  
-
 
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => {
@@ -1075,16 +938,6 @@ const handleChangeSortBy = (selectedOption) => {
       },
     }),
   };
-
-  const colorOptions = Colors.map((color) => ({
-    value: color.id,
-    label: (
-      <div>
-        <img src={color.image} alt={color.title} height="10" width="10" />
-        <span className={classes.sizesfiltes}>{color.title}</span>
-      </div>
-    ),
-  }));
 
   const customStyles = {
     indicatorSeparator: () => ({
@@ -1235,20 +1088,20 @@ const handleChangeSortBy = (selectedOption) => {
   const clickHandler = (item) => {
     router.push("/en/product/" + item);
   };
- useEffect(() => {
-   const updatedItems = cart?.items?.map((item) => {
-     const isItemInCart = catalogItems?.some((product) => {
-       return item?.productConfiguration?.productId === product?.node.product?.productId;
-     });
-     // setpageSize(20);
-     return {
-       ...item,
-       disabled: item?.inCart || isItemInCart,
-     };
-   });
-   // console.log(updatedItems, "all");
-   // do something with updatedItems
- }, [cart?.items]);
+  useEffect(() => {
+    const updatedItems = cart?.items?.map((item) => {
+      const isItemInCart = catalogItems?.some((product) => {
+        return item?.productConfiguration?.productId === product?.node.product?.productId;
+      });
+      // setpageSize(20);
+      return {
+        ...item,
+        disabled: item?.inCart || isItemInCart,
+      };
+    });
+    // console.log(updatedItems, "all");
+    // do something with updatedItems
+  }, [cart?.items]);
   // console.log(category, "dis");
   return (
     <Layout shop={shop} tagId={tagId}>
@@ -1281,10 +1134,17 @@ const handleChangeSortBy = (selectedOption) => {
                       <Typography variant="h4" className={classes.filternames}>
                         SIZE
                       </Typography>
-                      {["Small", "Medium", "large", "Extra-Large"].map((text, index) => (
+                      {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
                         <ListItem button key={text}>
                           <FormControlLabel
-                            control={<Checkbox onChange={handleChangeCheck} name={text} variant="h6" />}
+                            control={
+                              <Checkbox
+                                onChange={handleChangeChecksize}
+                                name={text}
+                                variant="h6"
+                                className="size-checkbox"
+                              />
+                            }
                             label={text}
                             className={classes.checkbox}
                           />
@@ -1292,19 +1152,7 @@ const handleChangeSortBy = (selectedOption) => {
                       ))}
                     </List>
                     <Divider />
-                    <List>
-                      <Typography variant="h4" className={classes.filternames2}>
-                        COLOR
-                      </Typography>
-                      {Colors.map((text, index) => (
-                        <div className={classes.colorsmain}>
-                          <img src={text.image} />
-                          <Typography variant="h4" className={classes.colortitle}>
-                            {text.title}
-                          </Typography>
-                        </div>
-                      ))}
-                    </List>
+
                     <Divider />
                     <List>
                       <Typography variant="h4" className={classes.filternames2}>
@@ -1313,20 +1161,20 @@ const handleChangeSortBy = (selectedOption) => {
                       <div className={classes.slidervaluesmain}>
                         <div className={classes.slidervalues}>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS 500
+                            RS. 500
                           </Typography>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS 1000
+                            RS. 10,00
                           </Typography>
                         </div>
                       </div>
                       <div className={classes.slidervalue}>
                         <Slider
                           value={price}
-                          onChange={priceHandler}
                           aria-labelledby="range-slider"
                           min={0}
                           max={5000}
+                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minprice", "maxprice")}
                           className={classes.slider}
                           valueLabelDisplay="auto"
                         />
@@ -1392,7 +1240,6 @@ const handleChangeSortBy = (selectedOption) => {
                   anchorOrigin={{
                     vertical: "center",
                     horizontal: "center",
-                  
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handlePopOverClose}
@@ -1720,7 +1567,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { lang, tagId }, ...context }) {
-   const primaryShop = await fetchPrimaryShop(lang);
+  const primaryShop = await fetchPrimaryShop(lang);
   const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
 
   return {

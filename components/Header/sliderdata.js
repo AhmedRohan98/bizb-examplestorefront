@@ -154,7 +154,7 @@ const MainSlider = (props) => {
               <Link to="target-element" smooth={true} duration={2000}>
                 {" "}
                 <div style={{ display: "flex", cursor: "pointer" }}>
-                  <img style={{ marginRight: "12px" }} src="/icons/home.svg" className={classes.ie} />
+                  <img style={{ marginRight: "12px" }} src="/icons/home.webp" className={classes.ie} />
                   <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
                     Scroll to discover more
                   </Typography>
@@ -221,19 +221,19 @@ const MainSlider = (props) => {
         </div>
       </div>
 
-      <Preloved {...props} />
+      {/* <Preloved {...props} />
 
       <Justin {...props} />
 
       <Story {...props} />
 
-      <BizbCalloborators />
+      <BizbCalloborators /> */}
 
       <Appsec />
 
-      <Caloborators />
+      {/* <Caloborators />
       <OurBlogs />
-      <Instagram {...props} />
+      <Instagram {...props} /> */}
     </>
   );
 };

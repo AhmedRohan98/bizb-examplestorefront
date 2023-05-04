@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { PAGE_SIZES, inPageSizes } from "lib/utils/pageSizes";
 
@@ -19,6 +19,7 @@ export const UIProvider = ({ children }) => {
   const [searchItems, setSearchItems] = useState("");
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
+  const [filters, setFilters] = useState([]);
   const [entryModal, setEntryModal] = useState(null);
 
   const setPDPSelectedVariantId = (variantId, optionId) => {
@@ -78,6 +79,10 @@ export const UIProvider = ({ children }) => {
   const setEndCursor = (value) => {
     _setEndCursor(value);
   };
+
+  useEffect(() => {
+    console.log("updating end cursor...", endCursor);
+  }, [endCursor]);
   return (
     <UIContext.Provider
       value={{
@@ -94,6 +99,8 @@ export const UIProvider = ({ children }) => {
         searchItems,
         setSearchItems,
         sortByCurrencyCode,
+        filters,
+        setFilters,
         entryModal,
         setLocales,
         endCursor,

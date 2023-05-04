@@ -397,7 +397,7 @@ const Story = (props) => {
       <div className={classes.mainheading}>
         <Typography variant="h3">STORES</Typography>
         <div className={classes.catgorytag}>
-          {catagories?.map((filterName) => (
+          {catagories?.slice(0,6)?.map((filterName) => (
             <Filter
               name={filterName.displayTitle}
               onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}

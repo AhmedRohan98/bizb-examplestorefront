@@ -26,42 +26,79 @@ export default function withCatalogItems(Component) {
     render() {
       const { primaryShopId, routingStore, uiStore, tagId } = this.props;
       const [sortBy, sortOrder] = uiStore.sortBy.split("-");
+const {endCursor}=uiStore;
 
       if (!primaryShopId) {
         return <Component {...this.props} />;
       }
+if(endCursor){
+  const variables = {
+    shopId: primaryShopId,
+    ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
+    tagIds: tagId ||endCursor,
+    sortBy,
+    sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
+    sortOrder,
+    searchQuery: uiStore?.searchItems,
+    simpleFilters: uiStore?.filters,
+  };
+    return (
+      <Query errorPolicy="all" query={catalogItemsQuery} variables={variables}>
+        {({ data, fetchMore, loading }) => {
+          const { catalogItems } = data || {};
+          return (
+            <Component
+              {...this.props}
+              catalogItemsPageInfo={pagination({
+                fetchMore,
+                routingStore,
+                data,
+                queryName: "catalogItems",
+                limit: uiStore.pageSize,
+              })}
+              catalogItems={(catalogItems && catalogItems.edges) || []}
+              isLoadingCatalogItems={loading}
+            />
+          );
+        }}
+      </Query>
+    );
+}else{
+   const variables = {
+     shopId: primaryShopId,
+     ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
+     tagIds: tagId,
+     sortBy,
+     sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
+     sortOrder,
+     searchQuery: uiStore?.searchItems,
+     simpleFilters: uiStore?.filters,
+   }; 
+     return (
+       <Query errorPolicy="all" query={catalogItemsQuery} variables={variables}>
+         {({ data, fetchMore, loading }) => {
+           const { catalogItems } = data || {};
+           return (
+             <Component
+               {...this.props}
+               catalogItemsPageInfo={pagination({
+                 fetchMore,
+                 routingStore,
+                 data,
+                 queryName: "catalogItems",
+                 limit: uiStore.pageSize,
+               })}
+               catalogItems={(catalogItems && catalogItems.edges) || []}
+               isLoadingCatalogItems={loading}
+             />
+           );
+         }}
+       </Query>
+     );
+}
+    
 
-      const variables = {
-        shopId: primaryShopId,
-        ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
-        tagIds: tagId,
-        sortBy,
-        sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
-        sortOrder,
-        searchQuery: uiStore?.searchItems,
-      };
-
-      return (
-        <Query errorPolicy="all" query={catalogItemsQuery} variables={variables}>
-          {({ data, fetchMore, loading }) => {
-            const { catalogItems } = data || {};
-            return (
-              <Component
-                {...this.props}
-                catalogItemsPageInfo={pagination({
-                  fetchMore,
-                  routingStore,
-                  data,
-                  queryName: "catalogItems",
-                  limit: uiStore.pageSize,
-                })}
-                catalogItems={(catalogItems && catalogItems.edges) || []}
-                isLoadingCatalogItems={loading}
-              />
-            );
-          }}
-        </Query>
-      );
+    
     }
   }
 

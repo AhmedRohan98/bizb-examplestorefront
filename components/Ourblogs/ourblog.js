@@ -112,7 +112,7 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.wardrobe}>
-            <img style={{ overflow: "hidden" }} src="/blogsImages/3.png" />
+            <img style={{ overflow: "hidden" }} src="/blogsImages/sherishblogs.webp" />
             <Typography variant="h4" className={classes.blogtext}>
               Circular Economy
             </Typography>
@@ -130,7 +130,7 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.trend}>
-            <img style={{ overflow: "hidden" }} src="/blogsImages/1.jpg" />
+            <img style={{ overflow: "hidden" }} src="/blogsImages/team.webp" />
             <Typography variant="h4" className={classes.blogtext}>
               Making Sustainability Stylish
             </Typography>

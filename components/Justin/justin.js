@@ -164,9 +164,9 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
+// 
 
   // console.log(cart, "cartx");
-  const { items } = props?.cart;
 
   useEffect(() => {
     uiStore?.setPageSize(15);
@@ -189,7 +189,7 @@ const Justin = (props) => {
   // }, [cart, cart.items, catalogdata]);
   // console.log(catalogdata,"data")
   useEffect(() => {
-    const updatedItems = items?.map((item) => {
+    const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = catalogdata?.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
       });
@@ -201,7 +201,7 @@ const Justin = (props) => {
     });
     // console.log(updatedItems, "all");
     // do something with updatedItems
-  }, [items, catalogdata]);
+  }, [props?.cart?.items, catalogdata]);
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
 
@@ -249,11 +249,12 @@ const Justin = (props) => {
     const selectedVariant = variantById(product.variants, variant._id);
 
     // If variant is not already in the cart, add the new item
-
+// parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
+const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
     await addItemsToCart([
       {
         price: {
-          amount: product.variants[0]?.pricing[0]?.minPrice,
+          amount:price,
           currencyCode: "USD",
         },
         metafields: [
@@ -278,7 +279,7 @@ const Justin = (props) => {
   }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
-    toast.success(" added to cart successfully!", {});
+    toast.success(" added to cart successfully!");
     setIsLoading((prevState) => ({
     ...prevState,
     [product.productId]: false,
@@ -312,7 +313,7 @@ const Justin = (props) => {
         </Typography>
         <div className={classes.header}>
           <h1 className={classes.typography}></h1>
-          <a href="http://localhost:4000/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+          <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
             <Typography gutterBottom variant="body1" className={classes.explore}>
               Explore More
             </Typography>
@@ -333,6 +334,7 @@ const Justin = (props) => {
 const str = item.node.product.title;
 const words = str.match(/[a-zA-Z0-9]+/g);
 const firstThreeWords = words.slice(0, 3).join(" ");
+
             return (
               <>
                 <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>

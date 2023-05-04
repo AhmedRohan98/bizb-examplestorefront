@@ -11,11 +11,11 @@ import Box from "@material-ui/core/Box";
 const Storyslider = ({ itemData ,cart,sellerss}) => {
  
  
-   const {item}=cart
+ 
    
    const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
-    const updatedItems = item?.map((item) => {
+    const updatedItems = cart?.item?.map((item) => {
       const isItemInCart = sellerss?.some((product) => {
         return item.productConfiguration?.productId === product?.node.product?.productId;
       });
@@ -26,7 +26,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     });
     console.log(updatedItems, "all");
     // do something with updatedItems
-  }, [item, sellerss]);
+  }, [cart?.item, sellerss]);
   const useStyles = makeStyles((theme) => ({
   
    

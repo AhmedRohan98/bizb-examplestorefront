@@ -62,7 +62,7 @@ const BizbCalloborators = () => {
     <Box display={{ xs: "none", lg: "block", xl: "none" }}>
       <Grid container xs={12}>
         <div className={classes.collobarotors}>
-          <img src="/BizbCollaborator/saheefa.jpg" className={classes.image} />
+          <img src="/BizbCollaborator/sheefa.webp" className={classes.image} />
 
           <div className={classes.cart}>
             <div className={classes.buttonshop}>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import inject from "hocs/inject";
 import Grid from "@material-ui/core/Grid";
-import { Button }from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CartEmptyMessage from "@reactioncommerce/components/CartEmptyMessage/v1";
@@ -15,10 +15,12 @@ import withCatalogItems from "../../containers/catalog/withCatalogItems";
 import Link from "next/link";
 import Layout from "components/Layout";
 import Router from "translations/i18nRouter";
+import { withRouter } from "next/router";
 import PageLoading from "components/PageLoading";
 import { withApollo } from "lib/apollo/withApollo";
 import { ToastContainer, toast } from "react-toastify";
 import { CircularProgress } from "@material-ui/core";
+import variantById from "lib/utils/variantById";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 // const useStyles = makeStyles((theme) => ({
@@ -591,14 +593,112 @@ class CartPage extends Component {
       description: PropTypes.string,
     }),
   };
+constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: {},
+    };
+  }
+
+  componentDidMount() {
+    const { cart, classes, shop, catalogItems, uiStore } = this.props;
+  }
+  myfunction() {
+    const { cart, classes, shop, catalogItems, uiStore } = this.props;
+    const tagIds =
+      cart?.items &&
+      cart?.items[0] &&
+      cart?.items[0].productTags.nodes[0]._id &&
+      cart?.items[0]?.productTags.nodes[0]._id;
+    uiStore?.setEndCursor(tagIds);
+    console.log("Testing my function...", uiStore?.endCursor);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { cart, classes, shop, catalogItems, uiStore } = this.props;
+    console.log("props useeffect", this.props);
+    // console.log("catalogItems", cart.items);
+    const tagIds =
+      cart?.items &&
+      cart?.items[0] &&
+      cart?.items[0].productTags.nodes[0]._id &&
+      cart?.items[0]?.productTags.nodes[0]._id;
+    // console.log(tagIds, "cat");
+    console.log("endcursor.. didmount", catalogItems);
+    console.log("tag ids on component did update...", tagIds);
+    this.myfunction();
+    //  uiStore?.setEndCursor(tagIds);
+    console.log("endcursorx", uiStore?.endCursor);
+
+    if (prevProps.cart !== this.props.cart) {
+      // Only re-render if someProp has changed
+      this.setState({});
+    }
+  }
 
   handleClick = () => Router.push("/");
+  
 
- 
- 
 
+    // Your async logic here
+ 
+  clickHandler = (item) => {
+    this.props.router.push("/en/product/" + item);
+  };
+  handleAddToCartClick = async ( product, variant) => {
+    const { addItemsToCart } = this.props;
+console.log("called",product)
+    // Disable button after it has been clicked
+
+    // console.log(pdpSelectedVariantId, "star");
+
+    // Get selected variant or variant optiono
+ const selectedVariant = variantById(product.variants, variant._id);
+
+    // If variant is not already in the cart, add the new item
+    const price = parseFloat(product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
+    await addItemsToCart([
+      {
+        price: {
+          amount: price,
+          currencyCode: "USD",
+        },
+        metafields: [
+          {
+            key: "media",
+            value: product.media[0]?.URLs?.large,
+          },
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity :1,
+      },
+    ]);
+  };
+
+  handleOnClick = async (product, variant) => {
+    console.log("called");
+    this.setState((prevState) => ({
+      isLoading: {
+        ...prevState.isLoading,
+        [product.productId]: true,
+      },
+    }));
+
+    await this.handleAddToCartClick(product, variant);
+    toast.success(" added to cart successfully!");
+    this.setState((prevState) => ({
+      isLoading: {
+        ...prevState.isLoading,
+        [product.productId]: false,
+      },
+    }));
+    // Scroll to the top
+  };
   renderCartItems() {
-    const { cart, classes, hasMoreCartItems, loadMoreCartItems ,  catalogItems} = this.props;
+    const { cart, classes, hasMoreCartItems, loadMoreCartItems, catalogItems } = this.props;
 
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
@@ -630,19 +730,7 @@ class CartPage extends Component {
 
   renderCartSummary() {
     const { cart, classes, catalogItems } = this.props;
-    const { items } = cart;
 
-const tagIds = items && items[0] && items[0].productConfiguration && items[0].productConfiguration.productId;
-
-const filteredProducts = catalogItems?.filter((product) => {
-  const productTags = product?.node?.product?.productId;
-  if (!Array.isArray(productTags)) {
-    return false;
-  }
-
-  return productTags?.some((tag) => tag === tagIds);
-});
-  console.log(filteredProducts,"cat")
     if (cart && cart.checkout && cart.checkout.summary && Array.isArray(cart.items) && cart.items.length) {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
 
@@ -704,11 +792,27 @@ const filteredProducts = catalogItems?.filter((product) => {
   }
 
   render() {
-    const { cart, classes, shop ,catalogItems} = this.props;
+    const { cart, classes, shop, catalogItems } = this.props;
     // when a user has no item in cart in a new session, this.props.cart is null
     // when the app is still loading, this.props.cart is undefined
+    const tagIds =
+      cart?.items &&
+      cart?.items[0] &&
+      cart?.items[0].productTags.nodes[0]._id &&
+      cart?.items[0]?.productTags.nodes[0]._id;
+    console.log(tagIds, "cat");
+    const filteredProducts = catalogItems?.filter((product) => {
+      const productTags = product?.node?.product?.tagIds;
+      if (!Array.isArray(productTags)) {
+        return false;
+      }
+
+      return productTags?.some((tag) => tag === tagIds);
+    });
+    console.log("endcursor.. render", tagIds);
+    console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
-console.log(catalogItems,"cat")
+const { isLoading } = this.state;
     return (
       <>
         <Layout shop={shop}>
@@ -727,11 +831,11 @@ console.log(catalogItems,"cat")
               <>
                 <Typography variant="h3" className={classes.related}>
                   You <span className={classes.spanofnextword}>may</span>
-                  Also <span className={classes.spanofnextword}>Like"</span>
+                  Also <span className={classes.spanofnextword}>Like</span>
                 </Typography>
                 <div className={classes.root}>
                   <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-                    {catalogItems?.slice(0, 5)?.map((item, key) => {
+                    {filteredProducts?.slice(0, 5)?.map((item, key) => {
                       const cartitem = cart?.items;
                       const isDisabled = cartitem?.some((data) => {
                         return data.productConfiguration.productId === item?.node?.product?.productId;
@@ -753,13 +857,15 @@ console.log(catalogItems,"cat")
                               className={classes.image}
                               key={item?.node?.product?.id}
                               alt={"hhhh"}
-                              onClick={() => clickHandler(item.node.product.slug)}
+                              onClick={() => this.clickHandler(item.node.product.slug)}
                             />
 
                             <div className={classes.cartbackground}>
                               <Button
                                 className={classes.cart}
-                                onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                onClick={() =>
+                                  this.handleOnClick(item?.node?.product, item?.node?.product?.variants[0])
+                                }
                                 disabled={isDisabled}
                               >
                                 <ToastContainer
@@ -790,7 +896,10 @@ console.log(catalogItems,"cat")
                                 </Typography>
                               </Button>
                             </div>
-                            <Box className={classes.maintitle}>
+                            <Box
+                              className={classes.maintitle}
+                              onClick={() => this.clickHandler(item.node.product.slug)}
+                            >
                               <Typography
                                 style={{ fontWeight: "700", fontSize: "24px" }}
                                 gutterBottom
@@ -861,9 +970,9 @@ console.log(catalogItems,"cat")
 export async function getServerSideProps({ params: { lang } }) {
   return {
     props: {
-      ...await fetchPrimaryShop(lang),
-      ...await fetchTranslations(lang, ["common"])
-    }
+      ...(await fetchPrimaryShop(lang)),
+      ...(await fetchTranslations(lang, ["common"])),
+    },
   };
 }
 
