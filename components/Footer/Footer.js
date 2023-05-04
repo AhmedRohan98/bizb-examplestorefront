@@ -67,8 +67,8 @@ const Footer = () =>{
             </a>
           </div>
         </Grid>
-        <Grid sm={0} md={0}lg={2}></Grid>
-        <Grid item xs={12} md={5} lg={3}>
+        <Grid sm={0} md={0}lg={1}></Grid>
+        <Grid item xs={12} md={5} lg={4}>
           <div className={classes.footerthirdsec}>
             <div style={{ marginTop: "80px" }}></div>
             <Typography variant="typography" style={{ fontWeight: 500 }}>
