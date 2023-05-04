@@ -204,7 +204,7 @@ class NavigationDesktop extends Component {
 
                   <div className={classes.modalitemstitle}>
                     {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
-                      <a href={itemtitle._id}>
+                      <a href={`/en/categories/${itemtitle._id}`}>
                         <Typography variant="h4" className={classes.catgorytitle}>
                           {itemtitle.displayTitle}
                         </Typography>

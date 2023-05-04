@@ -13,9 +13,13 @@ const date = new Date();
 
 
 const useStyles = makeStyles((theme) => ({
- footerthirdsec:{
-  textAlign:"center"
- }
+  footerthirdsec:{
+   display :"flex",
+
+   justifyContent:"center",
+   flexDirection:"column",
+   width:"100%"
+  }
 }));
 
 
@@ -63,7 +67,8 @@ const Footer = () =>{
             </a>
           </div>
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid sm={0} md={0}lg={2}></Grid>
+        <Grid item xs={12} md={5} lg={3}>
           <div className={classes.footerthirdsec}>
             <div style={{ marginTop: "80px" }}></div>
             <Typography variant="typography" style={{ fontWeight: 500 }}>
@@ -80,18 +85,15 @@ const Footer = () =>{
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px",color:"white" }}> +92 312 5253680</span>
+                <span style={{ marginLeft: "10px", color: "white" }}> +92 312 5253680</span>
               </a>
             </div>
             <div
               style={{
                 marginTop: "50px",
-                textAlign: "center",
-                marginLeft: "10vh",
+
                 fontWeight: "500",
                 fontSize: "18px",
-
-                textAlign: "center",
               }}
             >
               DOWNLOAD OUR APP
