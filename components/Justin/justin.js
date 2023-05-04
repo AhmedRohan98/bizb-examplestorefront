@@ -293,6 +293,25 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
   return (
     <div className={classes.main}>
       <div className={classes.headermain}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeButton={<CustomCloseButton />}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          background="green"
+          toastStyle={{
+            backgroundColor: "#FDC114",
+            color: "black",
+            fontSize: "16px",
+            fontFamily: "lato",
+          }}
+        />
         {/* <button onClick={notify}>Notify!</button>
         <ToastContainer
           position="bottom-left"
@@ -331,9 +350,9 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
             const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
             const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-const str = item.node.product.title;
-const words = str.match(/[a-zA-Z0-9]+/g);
-const firstThreeWords = words.slice(0, 3).join(" ");
+            const str = item.node.product.title;
+            const words = str.match(/[a-zA-Z0-9]+/g);
+            const firstThreeWords = words.slice(0, 3).join(" ");
 
             return (
               <>
@@ -362,25 +381,6 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                         onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                         disabled={isDisabled}
                       >
-                        <ToastContainer
-                          position="top-right"
-                          autoClose={5000}
-                          hideProgressBar={false}
-                          newestOnTop={false}
-                          closeButton={<CustomCloseButton />}
-                          rtl={false}
-                          pauseOnFocusLoss
-                          draggable
-                          pauseOnHover
-                          theme="colored"
-                          background="green"
-                          toastStyle={{
-                            backgroundColor: "#FDC114",
-                            color: "black",
-                            fontSize: "16px",
-                            fontFamily: "lato",
-                          }}
-                        />{" "}
                         <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                         <Typography
                           style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
