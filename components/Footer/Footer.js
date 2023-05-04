@@ -70,10 +70,12 @@ const Footer = () =>{
               FEEL FREE TO CONTACT US, ANYTIME, ANYWHERE
             </Typography>
             <div style={{ marginTop: "20px" }}>
-              <span>
-                <img src="/images/emailIcon.svg" />
-              </span>
-              <span style={{ marginLeft: "10px" }}> Hello@bizb.store </span>
+              <a href="mailto:Hello@bizb.store" target="_blank">
+                <span>
+                  <img src="/images/emailIcon.svg" />
+                </span>
+                <span style={{ marginLeft: "10px", color: "white" }}> Hello@bizb.store </span>
+              </a>
               <span style={{ marginLeft: "20px" }}>
                 <img src="/images/phoneIcon.svg" />
               </span>
