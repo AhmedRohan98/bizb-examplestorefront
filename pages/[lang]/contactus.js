@@ -339,7 +339,7 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetFo
           message: values.orderNotes.toString(),
         },
       });
-      console.log(data); // do something with the response data
+      // do something with the response data
       resetForm();
       toast.success("Email sent Successfully"); // reset the form after submitting
     } catch (error) {
