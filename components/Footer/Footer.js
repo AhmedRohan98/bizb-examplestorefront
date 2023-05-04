@@ -86,16 +86,13 @@ const Footer = () =>{
                 marginLeft: "10vh",
                 fontWeight: "500",
                 fontSize: "18px",
-               
+
                 textAlign: "center",
               }}
             >
               DOWNLOAD OUR APP
               <div style={{ marginTop: "25px" }}>
-                <a
-                  target="_blank"
-                  href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.160110778.68931320.1680106906-903234502.1680106905&_gac=1.22526281.1680107274.Cj0KCQjww4-hBhCtARIsAC9gR3YB_dxCJOL67e-AEyIUm1512spa5Mb19b93QqlTa7QEaeGeSNwY5IEaAi41EALw_wcB&pli=1"
-                >
+                <a target="_blank" href="https://apps.apple.com/pk/app/bizb/id1571110423">
                   <span>
                     <img src="/images/appStoreIcon.svg" />
                   </span>
