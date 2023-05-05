@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-evenly",
     alignItems: "center",
     borderColor: "none",
-    zIndex: 1200,
+    zIndex: 1,
     transition: "all 0.2s linear",
     "&:hover": {
       transform: "scale(1.08)",
@@ -292,26 +292,26 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
   const classes = useStyles();
   return (
     <div className={classes.main}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeButton={<CustomCloseButton />}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        background="green"
+        toastStyle={{
+          backgroundColor: "#FDC114",
+          color: "black",
+          fontSize: "16px",
+          fontFamily: "lato",
+        }}
+      />
       <div className={classes.headermain}>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeButton={<CustomCloseButton />}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          background="green"
-          toastStyle={{
-            backgroundColor: "#FDC114",
-            color: "black",
-            fontSize: "16px",
-            fontFamily: "lato",
-          }}
-        />
         {/* <button onClick={notify}>Notify!</button>
         <ToastContainer
           position="bottom-left"
