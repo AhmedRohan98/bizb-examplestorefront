@@ -179,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       background: theme.palette.reaction.black80,
       borderRadius: "90px",
-      zIndex: 9999,
+      zIndex: 1,
       bottom: "10px",
       position: "fixed",
     },
