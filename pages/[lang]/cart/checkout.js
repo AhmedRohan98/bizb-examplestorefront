@@ -157,32 +157,6 @@ const Checkout = ({ router }) => {
     }
   }),
     [stripe]; // eslint-disable-line no-sequences
-
-  // eslint-disable-next-line react/no-multi-comp
- 
-
-  if (isLoadingCart || isLoadingAvailablePaymentMethods) {
-    return (
-      <Layout shop={shop}>
-        <PageLoading delay={0} />
-      </Layout>
-    );
-  }
-
-  return (
-    <Layout shop={shop}>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={shop && shop.description} />
-      </Head>
-      {renderCheckoutContent()}
-    </Layout>
-  );
-};
-
-Checkout.propTypes = {
-  router: PropTypes.object,
-};
  const renderCheckoutContent = () => {
    // sanity check that "tries" to render the correct /cart view if SSR doesn't provide the `cart`
 
@@ -278,6 +252,32 @@ Checkout.propTypes = {
    // Render nothing by default
    return null;
  };
+  // eslint-disable-next-line react/no-multi-comp
+ 
+
+  if (isLoadingCart || isLoadingAvailablePaymentMethods) {
+    return (
+      <Layout shop={shop}>
+        <PageLoading delay={0} />
+      </Layout>
+    );
+  }
+
+  return (
+    <Layout shop={shop}>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={shop && shop.description} />
+      </Head>
+      {renderCheckoutContent()}
+    </Layout>
+  );
+};
+
+Checkout.propTypes = {
+  router: PropTypes.object,
+};
+
 /**
  *  Static props for the cart
  *

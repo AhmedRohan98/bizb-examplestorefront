@@ -107,7 +107,7 @@
 // export default withApollo()(withOrder(withStyles(styles, { withTheme: true })(CheckoutComplete)));
 
 
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment ,useEffect,useState} from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { makeStyles } from "@material-ui/core/styles";
@@ -240,10 +240,27 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.selected,
   },
 }));
-
-const CheckoutComplete =() =>{
  
+const CheckoutComplete =() =>{
+  const [reviews, setReviews] = useState([]);
+  async function getFacebookReviews() {
+    const pageId = "219626352248309";
+    const accessToken =
+      "EAAKF4rwN5IIBAG2k14nBXC9Dr1ytPTeabUZAZBLP2246trZAapLPbeTksny2FBPETY5xJDLdJiKmd0ZB6P1FNTjQ7JrvOqs2NZCfVMgzVGhI2MOvZBp5dXXbiIhYnvfRLj6cTuWaXwCJ83GRsAAD7eZAT8GSlyRxP4NM4WihpDNJse0ZA45FkzUIuFYEX5EaINr4XzIWDItJRbMwq5F2R4lTZCwwD7aMJlRbyibyPrZBSsMSsWEcz0WF8ejMYfnDhZAod0ZD";
+    const response = await fetch(`https://graph.facebook.com/${pageId}/ratings?access_token=${accessToken}`);
+    const data = await response.json();
+    return data;
+  }
 
+  
+  useEffect(() => {
+    async function fetchReviews() {
+      const data = await getFacebookReviews();
+      setReviews(data.data);
+    }
+    fetchReviews();
+  }, []);
+  console.log("reviews",reviews)
   const classes = useStyles();
 
     // if (!order) {

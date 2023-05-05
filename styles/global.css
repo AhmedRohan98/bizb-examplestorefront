@@ -273,9 +273,4 @@ input:-internal-autofill-selected {
   width: 1200px;
 
 }
-  .portal {
-    position: absolute;
-    top: 40px;
-    left: -30px;
-  }
 
