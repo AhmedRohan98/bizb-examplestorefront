@@ -93,7 +93,18 @@ const OurBlogs = () => {
       <Grid container spacing={0} className={classes.gridroot}>
         <Grid item>
           <Box className={classes.look}>
-            <img style={{ overflow: "hidden" }} src="/blogsImages/2.webp" />
+            <img
+              style={{
+                overflow: "hidden",
+                transition: "all .5s cubic-bezier(0,0,.44,1.18)",
+                height: "100%",
+                maxWidth: "100%",
+                border: "none",
+                borderRadius: 0,
+                boxShadow: "none",
+              }}
+              src="/blogsImages/2.webp"
+            />
             <Typography variant="h4" className={classes.blogtext}>
               Get the perfect Look
             </Typography>
@@ -112,7 +123,18 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.wardrobe}>
-            <img style={{ overflow: "hidden" }} src="/blogsImages/sherishblogs.webp" />
+            <img
+              style={{
+                overflow: "hidden",
+                transition: "all .5s cubic-bezier(0,0,.44,1.18)",
+                height: "100%",
+                maxWidth: "100%",
+                border: "none",
+                borderRadius: 0,
+                boxShadow: "none",
+              }}
+              src="/blogsImages/sherishblogs.webp"
+            />
             <Typography variant="h4" className={classes.blogtext}>
               Circular Economy
             </Typography>
@@ -130,7 +152,18 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.trend}>
-            <img style={{ overflow: "hidden" }} src="/blogsImages/team.webp" />
+            <img
+              style={{
+                overflow: "hidden",
+                transition: "all .5s cubic-bezier(0,0,.44,1.18)",
+                height: "100%",
+                maxWidth: "100%",
+                border: "none",
+                borderRadius: 0,
+                boxShadow: "none",
+              }}
+              src="/blogsImages/team.webp"
+            />
             <Typography variant="h4" className={classes.blogtext}>
               Making Sustainability Stylish
             </Typography>
