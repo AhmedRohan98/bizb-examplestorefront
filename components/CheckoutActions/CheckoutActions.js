@@ -727,7 +727,7 @@ promise
               ) : null}
             </Grid>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3} sm={12} md={6}>
             <Grid container xs={12} className={classes.summary}>
               <>
                 <Typography variant="h3" className={classes.mainheading}>

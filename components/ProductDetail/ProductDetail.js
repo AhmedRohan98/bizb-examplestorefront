@@ -301,6 +301,7 @@ const styles = (theme) => ({
   carttext: {
     justifySelf: "end",
     width: "533px",
+    zIndex:1
   },
   sliderimage2: {
     borderRadius: "18px",
@@ -729,7 +730,10 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
           </Grid>
           <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
             <div className="perimeter">
-              <div className="image">
+              <div
+                className="swipersss"
+             
+              >
                 <Swiper
                   thumbs={{ swiper: imagesNavSlider }}
                   direction="horizontal"
@@ -738,13 +742,6 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                   ref={sliderRef}
                   pagination={{
                     clickable: true,
-                  }}
-                  {...{
-                    rimProps: {
-                      isHintEnabled: true,
-                      shouldHideHintAfterFirstActivation: false,
-                      enlargedImagePosition: "over",
-                    },
                   }}
                   mousewheel={true}
                   navigation={{
@@ -760,7 +757,6 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                       direction: "horizontal",
                     },
                   }}
-                  className="swipersss"
                   modules={[Navigation, Thumbs, Mousewheel, Pagination]}
                   onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
                 >
@@ -781,19 +777,24 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                                 width: 1400,
                                 height: 1800,
                                 enlargedImageClassName: "enlarged",
+                                enlargedImagePortalId: "portal3",
+                                className: "portal3",
                               },
 
                               enlargedImageContainerDimensions: {
                                 width: "200%",
                                 height: "150%",
                                 margin: "100px",
-                                enlargedImagePortalId: "portal",
+                                enlargedImagePortalId: "portal3",
+                                className: "portal3",
                               },
                               enlargedImageContainerStyle: {
                                 marginLeft: "100px",
                                 width: "200%",
                                 height: "100px",
                                 background: "green",
+                                enlargedImagePortalId: "portal3",
+                                className: "portal3",
                               },
 
                               //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
@@ -839,7 +840,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             </div>
           </Grid>
 
-          <Grid style={{ display: "grid" }} item xs={11} md={10} sm={5} lg={4}>
+          <Grid style={{ display: "grid", position: "relative" }} item xs={11} md={10} sm={5} lg={4}>
             <div className={classes.carttext}>
               <Typography style={{ fontWeight: "700" }} variant="subtitle1">
                 {product?.title}
