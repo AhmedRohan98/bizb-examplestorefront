@@ -329,7 +329,7 @@ const Story = (props) => {
   ];
 
   function Filter({ name, onClick, active }) {
-    console.log(active, "name");
+    // console.log(active, "name");
     return (
       <Typography
         onClick={onClick}

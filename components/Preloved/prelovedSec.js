@@ -179,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       background: theme.palette.reaction.black80,
       borderRadius: "90px",
-      zIndex: 9999,
+      zIndex: 1,
       bottom: "10px",
       position: "fixed",
     },
@@ -203,7 +203,7 @@ const useStyles = makeStyles((theme) => ({
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  console.log("all props....", props.nodes);
+  // console.log("all props....", props.nodes);
 
   var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;
@@ -355,31 +355,7 @@ const Preloved = (props) => {
             Now you can revamp your daily wear wardrobe every month while saving more than 50% from your monthly budget!
           </Typography>
         </Box>
-        <div className={classes.mobileview}>
-          <div className={classes.mobileviewfixed}>
-            <img src="/app-section/home.svg" />
-            <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
-              {" "}
-              Home{" "}
-            </Typography>
-          </div>
-          <div className={classes.mobileviewfixed}>
-            {" "}
-            <img src="/app-section/sell-icn.svg" />
-            <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
-              {" "}
-              Sell
-            </Typography>
-          </div>
-          <div className={classes.mobileviewfixed}>
-            {" "}
-            <img src="/app-section/explore.svg" />
-            <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
-              {" "}
-              Explore
-            </Typography>
-          </div>
-        </div>
+      
       </div>
 
       <Container className={classes.mobileicon} display={{ lg: "block", xl: "none", sm: "none" }}>

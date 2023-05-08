@@ -50,7 +50,7 @@ const styles = (theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    height: "100vh",
+    height: "100%",
     width: "468px",
     position: "absolute",
     top: "0px",

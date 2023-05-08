@@ -7,6 +7,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, withStyles } from "@material-ui/core/styles";
+import Mobileheader from "./mobileheader"
 import { NavigationDesktop } from "components/NavigationDesktop";
 import {
   NavigationMobile,
@@ -92,6 +93,7 @@ const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
+        <Mobileheader/>
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <div className={classes.dark}>
           <Hidden mdUp>

@@ -35,7 +35,8 @@ const BizbCalloborators = () => {
       fontWeight: 900,
       fontStyle: "Black",
       lineHeight: "26px",
-
+        background:"none" ,
+        border:"none",
       fontFamily: "Ostrich Sans Black",
     },
     image: {
@@ -64,11 +65,15 @@ const BizbCalloborators = () => {
         <div className={classes.collobarotors}>
           <img src="/BizbCollaborator/sheefa.webp" className={classes.image} />
 
-          <div className={classes.cart}>
-            <div className={classes.buttonshop}>
-              <h4 className={classes.buttonshopt} variant="h4">SHOP NOW</h4>
+          <a href="/en/categories/cmVhY3Rpb24vdGFnOnR1VExZUzQ5aEhUQmtoZldF">
+            <div className={classes.cart}>
+              <div className={classes.buttonshop}>
+                <button className={classes.buttonshopt} variant="h4">
+                  SHOP NOW
+                </button>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </Grid>
     </Box>

@@ -730,10 +730,11 @@ function Categories(props) {
 
     const selectedVariant = variantById(product.variants, variant._id);
     if (selectedVariant) {
+      const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
       await addItemsToCart([
         {
           price: {
-            amount: product.variants[0]?.pricing[0]?.minPrice,
+            amount: price,
             currencyCode: "USD",
           },
           metafields: [
