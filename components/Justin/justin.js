@@ -158,7 +158,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   // const UIContextJustInPage = useContext(UIContext);
+  
   const catalogdata = props?.catalogItems;
+
+const [soldOutProducts, setSoldOutProducts] = useState([]);
   const { uiStore } = props;
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
@@ -193,12 +196,16 @@ const Justin = (props) => {
       const isItemInCart = catalogdata?.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
       });
+
       // setpageSize(20);
       return {
         ...item,
         disabled: item?.inCart || isItemInCart,
       };
     });
+    const soldOutProducts = catalogdata?.filter((product) => product?.node?.product?.isSoldOut);
+    setSoldOutProducts(soldOutProducts);
+    console.log(soldOutProducts, "soldout");
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [props?.cart?.items, catalogdata]);
@@ -345,7 +352,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             const cartitem = props?.cart?.items;
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
-            });
+            }); 
             // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
             const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
             const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
@@ -379,7 +386,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                       <Button
                         className={classes.cart}
                         onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled}
+                        disabled={isDisabled || item?.node?.product?.isSoldOut}
                       >
                         <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                         <Typography
@@ -387,7 +394,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                           variant="h5"
                           component="h2"
                         >
-                          {isDisabled ? "Added" : "+ Cart"}
+                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                         </Typography>
                       </Button>
                     )}
