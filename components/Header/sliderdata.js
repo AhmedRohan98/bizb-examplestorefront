@@ -33,7 +33,7 @@ const MainSlider = (props) => {
     // } ,
 
     image: {
-      height: "95vh",
+      height: "100vh",
       width: "100%",
       objectPosition: "top",
       objectFit: "cover",
