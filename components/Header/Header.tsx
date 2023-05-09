@@ -93,7 +93,7 @@ const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
   return (
     <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Mobileheader/>
+        <Mobileheader />
         {/* @ts-ignore TODO: Refactor link to address type error */}
         <div className={classes.dark}>
           <Hidden mdUp>
@@ -142,7 +142,7 @@ const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
                   width: "95px",
                   cursor: "pointer",
                 }}
-                src="/images/logoLight.svg"
+                src="/images/logolight.webp"
                 className="headerlogo"
               />
             </Link>
