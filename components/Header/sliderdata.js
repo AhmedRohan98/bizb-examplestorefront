@@ -46,9 +46,14 @@ const MainSlider = (props) => {
     controllera: {
       position: "absolute",
       display: "flex",
+      zIndex: 9999,
       flexDirection: "row",
-      gap: "4vh",
-      right: "5vh",
+
+      gap: "auto",
+      justifyContent: "space-between",
+      width: "100%",
+
+      bottom: "50%",
     },
     controllert: {
       position: "absolute",
@@ -81,11 +86,16 @@ const MainSlider = (props) => {
       cursor: "pointer",
       height: "auto",
       color: "white",
+      position: "fixed",
+      right: "2px",
     },
     iconback: {
       cursor: "pointer",
       height: "auto",
       color: "white",
+      zIndex: 9999,
+      position: "fixed",
+      left: "2px",
     },
     arrowc: {
       height: "auto",
@@ -93,8 +103,12 @@ const MainSlider = (props) => {
     },
     sliderr: {
       display: "none",
+      position: "relative",
+      width: "100%",
       [theme.breakpoints.up(900)]: {
         display: "block",
+        position: "relative",
+        width: "100%",
       },
     },
     imagedesktop: {
@@ -149,7 +163,7 @@ const MainSlider = (props) => {
           <img src={item.image} className={classes.image} />
 
           <div className={classes.controller}>
-            <div className={classes.topheaderfor}></div>
+         
             <div className={classes.controllert}>
               <Link to="target-element" smooth={true} duration={2000}>
                 {" "}
@@ -161,22 +175,7 @@ const MainSlider = (props) => {
                 </div>
               </Link>
             </div>
-            <div className={classes.controllera}>
-              {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
-              <div style={{ display: "flex" }}>
-                <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
-                <h1 style={{ marginRight: "5px", marginLeft: "5px" }} className={classes.arrowc}>
-                  |
-                </h1>
-                <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
-              </div>
-
-              {activeIndex < ITEMS.length - 1 ? (
-                <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
-              ) : (
-                ""
-              )}
-            </div>
+           
           </div>
         </SwiperSlide>
       </>
@@ -207,6 +206,15 @@ const MainSlider = (props) => {
       <div className={classes.main}>
         <div className={classes.root}>
           <div className={classes.sliderr}>
+             <div className={classes.controllera}>
+              {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
+            
+              {activeIndex < ITEMS.length - 1 ? (
+                <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
+              ) : (
+                ""
+              )}
+            </div>
             <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)} autoplay>
               {ITEMS.map((item) => (
                 <SwiperSlide>
