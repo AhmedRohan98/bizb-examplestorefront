@@ -71,7 +71,10 @@ const useStyles = makeStyles((theme) => ({
     height: "35px",
     width: "200px",
     bottom: "50%",
-
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
     left: "20px",
     position: "absolute",
   },
@@ -81,7 +84,10 @@ const useStyles = makeStyles((theme) => ({
     bottom: "50%",
     right: "2%",
     position: "absolute",
-
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
     [theme.breakpoints.down(600)]: {
       top: "10%",
       right: "25%",
