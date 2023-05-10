@@ -608,8 +608,8 @@ constructor(props) {
     const tagIds =
       cart?.items &&
       cart?.items[0] &&
-      cart?.items[0].productTags.nodes[0]._id &&
-      cart?.items[0]?.productTags.nodes[0]._id;
+      cart?.items[0]?.productTags?.nodes[0]?._id &&
+      cart?.items[0]?.productTags?.nodes[0]?._id;
     uiStore?.setEndCursor(tagIds);
     console.log("Testing my function...", uiStore?.endCursor);
   }
@@ -621,8 +621,8 @@ constructor(props) {
     const tagIds =
       cart?.items &&
       cart?.items[0] &&
-      cart?.items[0].productTags.nodes[0]._id &&
-      cart?.items[0]?.productTags.nodes[0]._id;
+      cart?.items[0]?.productTags?.nodes[0]?._id &&
+      cart?.items[0]?.productTags?.nodes[0]?._id;
     // console.log(tagIds, "cat");
     console.log("endcursor.. didmount", catalogItems);
     console.log("tag ids on component did update...", tagIds);
@@ -798,9 +798,9 @@ console.log("called",product)
     const tagIds =
       cart?.items &&
       cart?.items[0] &&
-      cart?.items[0].productTags.nodes[0]._id &&
-      cart?.items[0]?.productTags.nodes[0]._id;
-    console.log(tagIds, "cat");
+      cart?.items[0]?.productTags?.nodes[0]?._id &&
+      cart?.items[0]?.productTags?.nodes[0]?._id;
+    // console.log(tagIds, "cat");
     const filteredProducts = catalogItems?.filter((product) => {
       const productTags = product?.node?.product?.tagIds;
       if (!Array.isArray(productTags)) {
