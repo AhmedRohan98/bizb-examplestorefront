@@ -187,11 +187,7 @@ const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
             style={{ marginRight: "25px", marginLeft: "25px" }}
           >
             {/* @ts-ignore TODO: Refactor link to address type error */}
-            {headerType ? (
-              <img src="/images/searchIconLight.svg" className="headerlogo" />
-            ) : (
-              <img src="/images/searchIconDark.svg" className="headerlogo" />
-            )}
+          
           </span>
         </Hidden>
         {/* @ts-ignore TODO: Refactor link to address type error */}

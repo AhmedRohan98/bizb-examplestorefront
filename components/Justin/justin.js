@@ -158,9 +158,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Justin = (props) => {
   // const UIContextJustInPage = useContext(UIContext);
-  
-  const catalogdata = props?.catalogItems;
 
+  const catalogdata = props?.catalogItems;
+  console.log(catalogdata, "cat");
 const [soldOutProducts, setSoldOutProducts] = useState([]);
   const { uiStore } = props;
   const [found, setFound] = useState(false);
@@ -405,7 +405,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                   >
                     <Box className={classes.maintitle}>
                       <Typography
-                        style={{ fontWeight: "700", fontSize: "24px" }}
+                        style={{ fontWeight: "700", fontSize: "24px" ,marginTop:"6px"}}
                         gutterBottom
                         variant="h4"
                         component="h2"
