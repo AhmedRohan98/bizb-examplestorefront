@@ -20,13 +20,9 @@ export const UIProvider = ({ children }) => {
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
   const [filters, setFilters] = useState([]);
-const priceRange = [
-  { name: "minPrice", value: 0 },
-  { name: "maxPrice", value: 10000 },
-];
 const [filterPrice, setFilterPrice] = useState([
-  { name: "minPrice", value: priceRange[0].value },
-  { name: "maxPrice", value: priceRange[1].value },
+  { name: "minPrice", value: 0},
+  { name: "maxPrice", value: 1000 },
 ]);
   const [entryModal, setEntryModal] = useState(null);
 

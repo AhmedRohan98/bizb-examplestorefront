@@ -678,7 +678,7 @@ function Categories(props) {
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const shop = useShop();
   const [open, setOpen] = useState(false);
-  const [price, setPrice] = useState([0, 5000]);
+  const [price, setPrice] = useState([0, 10000]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
