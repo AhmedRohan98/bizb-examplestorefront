@@ -659,11 +659,11 @@ function Categories(props) {
   const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
     setPrice(newValue);
     const { value } = event.target;
-    const updatedFilters = uiStore.filters
+    const updatedFilters = uiStore.filterPrice
       .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
-      .concat({ name: minFilterName, value: newValue[0].toString() })
-      .concat({ name: maxFilterName, value: newValue[1].toString() });
-    uiStore.setFilters(updatedFilters);
+      .concat({ name: minFilterName, value: newValue[0] })
+      .concat({ name: maxFilterName, value: newValue[1] });
+    uiStore.setFilterPrice(updatedFilters);
   };
   const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
@@ -1175,7 +1175,7 @@ function Categories(props) {
                           aria-labelledby="range-slider"
                           min={0}
                           max={5000}
-                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minprice", "maxprice")}
+                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
                           className={classes.slider}
                           valueLabelDisplay="auto"
                         />
