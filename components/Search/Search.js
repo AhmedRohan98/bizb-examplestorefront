@@ -157,11 +157,17 @@ const handleSearchSubmit = (event) => {
     console.log(trimmedValue, "query2");
   }
 };
-  const handleSearchChange = (event) => {
-    const searchQuery = event.target.value.trim().toLowerCase();
-    setSearchLocal(searchQuery);
-    handleSearchSubmit(event);
-  };
+ const handleSearchChange = (event) => {
+  const searchQuery = event.target.value.toLowerCase();
+  setSearchLocal(searchQuery);
+};
+
+
+
+
+
+
+
   const classes = useStyles();
   // IF ITS NOT WORKIS THEN I HAVE TO ADD '\"'+searchTitle+'\"';
   // console.log(searchLocal, "query");
@@ -190,8 +196,11 @@ const handleSearchSubmit = (event) => {
                 className={classes.inputRoot}
               >
                 <TextField
-                  variant="outlined"
+              
                   type="text"
+                  id="outlined-basic"
+                 
+                  variant="outlined"
                   value={searchLocal}
                   className={classes.input}
                   onInput={handleSearchChange}
