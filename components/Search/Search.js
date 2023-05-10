@@ -149,11 +149,14 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
     return title.includes(searchLocal) || title.indexOf(searchLocal) !== -1;
   });
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    uiStore?.setSearchItems(searchLocal);
-    console.log(searchLocal, "query2");
-  };
+const handleSearchSubmit = (event) => {
+  event.preventDefault(); // prevent default submit action
+  const trimmedValue = searchLocal?.trim(); // remove leading/trailing spaces
+  if (trimmedValue) {
+    uiStore?.setSearchItems(trimmedValue);
+    console.log(trimmedValue, "query2");
+  }
+};
   const handleSearchChange = (event) => {
     const searchQuery = event.target.value.trim().toLowerCase();
     setSearchLocal(searchQuery);
@@ -191,8 +194,9 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                   type="text"
                   value={searchLocal}
                   className={classes.input}
-                  onChange={handleSearchChange}
+                  onInput={handleSearchChange}
                   onKeyUp={handleSearchSubmit}
+                  placeholder="what are you looking for" // add placeholder text
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
