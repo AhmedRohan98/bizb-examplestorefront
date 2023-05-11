@@ -148,25 +148,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CheckoutComplete(props) {
- const [reviews, setReviews] = useState([]);
-//  async function getFacebookReviews() {
-//    const pageId = "219626352248309";
-//    const accessToken =
-//      "EAAKF4rwN5IIBAG2k14nBXC9Dr1ytPTeabUZAZBLP2246trZAapLPbeTksny2FBPETY5xJDLdJiKmd0ZB6P1FNTjQ7JrvOqs2NZCfVMgzVGhI2MOvZBp5dXXbiIhYnvfRLj6cTuWaXwCJ83GRsAAD7eZAT8GSlyRxP4NM4WihpDNJse0ZA45FkzUIuFYEX5EaINr4XzIWDItJRbMwq5F2R4lTZCwwD7aMJlRbyibyPrZBSsMSsWEcz0WF8ejMYfnDhZAod0ZD";
-//    const response = await fetch(`https://graph.facebook.com/${pageId}/ratings?access_token=${accessToken}`);
-//    const data = await response.json();
-//    return data;
-//  }
+  const [reviews, setReviews] = useState([]);
+  //  async function getFacebookReviews() {
+  //    const pageId = "219626352248309";
+  //    const accessToken =
+  //      "EAAKF4rwN5IIBAG2k14nBXC9Dr1ytPTeabUZAZBLP2246trZAapLPbeTksny2FBPETY5xJDLdJiKmd0ZB6P1FNTjQ7JrvOqs2NZCfVMgzVGhI2MOvZBp5dXXbiIhYnvfRLj6cTuWaXwCJ83GRsAAD7eZAT8GSlyRxP4NM4WihpDNJse0ZA45FkzUIuFYEX5EaINr4XzIWDItJRbMwq5F2R4lTZCwwD7aMJlRbyibyPrZBSsMSsWEcz0WF8ejMYfnDhZAod0ZD";
+  //    const response = await fetch(`https://graph.facebook.com/${pageId}/ratings?access_token=${accessToken}`);
+  //    const data = await response.json();
+  //    return data;
+  //  }
 
-//  useEffect(() => {
-//    async function fetchReviews() {
-//      const data = await getFacebookReviews();
-//      setReviews(data.data);
-//    }
-//    fetchReviews();
-//  }, []);
-//  console.log("reviews", reviews);
- const classes = useStyles();
+  //  useEffect(() => {
+  //    async function fetchReviews() {
+  //      const data = await getFacebookReviews();
+  //      setReviews(data.data);
+  //    }
+  //    fetchReviews();
+  //  }, []);
+  //  console.log("reviews", reviews);
+  const classes = useStyles();
 
   const { isLoadingOrder, order, shop } = props;
 
@@ -204,10 +204,10 @@ function CheckoutComplete(props) {
         <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
         <Grid item xs={12} md={6}>
           <Grid item className={classes.orderThankYou2} xs={12} md={12}>
-            <Typography variant="body1">
+            <Typography variant="h4">
               {"Your order ID is:"} <strong>{order.referenceId}</strong>
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="h4">
               {"We've sent a confirmation email to:"} <strong>{order.email}</strong>
             </Typography>
           </Grid>
@@ -309,4 +309,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default withApollo()(withOrder((CheckoutComplete)));
+export default withApollo()(withOrder(CheckoutComplete));

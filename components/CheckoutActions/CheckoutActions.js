@@ -399,18 +399,20 @@ const CheckoutActions = (prop) => {
       });
 
      
-      //   cartStore.clearAnonymousCartCredentials();
-      // clearAuthenticatedUsersCart();
-
-      // // Also destroy the collected and cached payment input
-      // cartStore.resetCheckoutPayments();
 
       const {
         placeOrder: { orders, token },
       } = data;
-console.log("data", data);
+ toast.success("Order placed successfully!");
+
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
+  
+ cartStore.clearAnonymousCartCredentials();
+ clearAuthenticatedUsersCart();
+
+ // Also destroy the collected and cached payment input
+ cartStore.resetCheckoutPayments();
 
     } catch (error) {
       console.log(error);
