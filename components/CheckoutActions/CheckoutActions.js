@@ -413,9 +413,12 @@ const promise = new Promise((resolve) => {
 
 promise
   .then(() => {
-    Router.push("/checkout/order").catch((error) => {
-      console.log(error);
-    });
+     const {
+       placeOrder: { orders, token },
+     } = data;
+
+     // Send user to order confirmation page
+     Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
   })
   .catch((error) => {
     console.log(error);
