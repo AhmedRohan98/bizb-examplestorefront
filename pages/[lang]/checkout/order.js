@@ -149,23 +149,23 @@ const useStyles = makeStyles((theme) => ({
 
 function CheckoutComplete(props) {
  const [reviews, setReviews] = useState([]);
- async function getFacebookReviews() {
-   const pageId = "219626352248309";
-   const accessToken =
-     "EAAKF4rwN5IIBAG2k14nBXC9Dr1ytPTeabUZAZBLP2246trZAapLPbeTksny2FBPETY5xJDLdJiKmd0ZB6P1FNTjQ7JrvOqs2NZCfVMgzVGhI2MOvZBp5dXXbiIhYnvfRLj6cTuWaXwCJ83GRsAAD7eZAT8GSlyRxP4NM4WihpDNJse0ZA45FkzUIuFYEX5EaINr4XzIWDItJRbMwq5F2R4lTZCwwD7aMJlRbyibyPrZBSsMSsWEcz0WF8ejMYfnDhZAod0ZD";
-   const response = await fetch(`https://graph.facebook.com/${pageId}/ratings?access_token=${accessToken}`);
-   const data = await response.json();
-   return data;
- }
+//  async function getFacebookReviews() {
+//    const pageId = "219626352248309";
+//    const accessToken =
+//      "EAAKF4rwN5IIBAG2k14nBXC9Dr1ytPTeabUZAZBLP2246trZAapLPbeTksny2FBPETY5xJDLdJiKmd0ZB6P1FNTjQ7JrvOqs2NZCfVMgzVGhI2MOvZBp5dXXbiIhYnvfRLj6cTuWaXwCJ83GRsAAD7eZAT8GSlyRxP4NM4WihpDNJse0ZA45FkzUIuFYEX5EaINr4XzIWDItJRbMwq5F2R4lTZCwwD7aMJlRbyibyPrZBSsMSsWEcz0WF8ejMYfnDhZAod0ZD";
+//    const response = await fetch(`https://graph.facebook.com/${pageId}/ratings?access_token=${accessToken}`);
+//    const data = await response.json();
+//    return data;
+//  }
 
- useEffect(() => {
-   async function fetchReviews() {
-     const data = await getFacebookReviews();
-     setReviews(data.data);
-   }
-   fetchReviews();
- }, []);
- console.log("reviews", reviews);
+//  useEffect(() => {
+//    async function fetchReviews() {
+//      const data = await getFacebookReviews();
+//      setReviews(data.data);
+//    }
+//    fetchReviews();
+//  }, []);
+//  console.log("reviews", reviews);
  const classes = useStyles();
 
   const { isLoadingOrder, order, shop } = props;
