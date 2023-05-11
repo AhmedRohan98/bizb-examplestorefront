@@ -42,7 +42,7 @@ const Caloborators = () => {
     iconforwad: {
       cursor: "pointer",
       position: "absolute",
-      bottom: "90px",
+      bottom: "41%",
       right: "20px",
       background: "#333333",
       color: "FDC114",
@@ -57,6 +57,7 @@ const Caloborators = () => {
       borderRadius: "4px",
       color: "FDC114",
       background: "#333333",
+      bottom: "41%",
       cursor: "pointer",
       zIndex: 1251,
     },
@@ -78,6 +79,7 @@ const Caloborators = () => {
     },
     main: {
       width: "100%",
+      position: "relative",
     },
     mainheading: {
       paddingTop: "30px",
@@ -163,23 +165,23 @@ const lastIndex = sellers?.length - 1;
           }}
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
-          <div className={classes.controller}>
-            { lastIndex  && (
-              <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
-            )}
-
-            {activeIndex - 0 ? (
-              <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
-            ) : (
-              ""
-            )}
-          </div>
           {sellers?.map((item) => (
             <SwiperSlide key={item.id} className={classes.swiperslide}>
               <Item item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
+      </div>
+      <div className={classes.controller}>
+        {lastIndex && (
+          <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
+        )}
+
+        {activeIndex - 0 ? (
+          <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

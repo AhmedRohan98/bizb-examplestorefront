@@ -608,8 +608,8 @@ constructor(props) {
     const tagIds =
       cart?.items &&
       cart?.items[0] &&
-      cart?.items[0].productTags.nodes[0]._id &&
-      cart?.items[0]?.productTags.nodes[0]._id;
+      cart?.items[0]?.productTags?.nodes[0]?._id &&
+      cart?.items[0]?.productTags?.nodes[0]?._id;
     uiStore?.setEndCursor(tagIds);
     console.log("Testing my function...", uiStore?.endCursor);
   }
@@ -621,8 +621,8 @@ constructor(props) {
     const tagIds =
       cart?.items &&
       cart?.items[0] &&
-      cart?.items[0].productTags.nodes[0]._id &&
-      cart?.items[0]?.productTags.nodes[0]._id;
+      cart?.items[0]?.productTags?.nodes[0]?._id &&
+      cart?.items[0]?.productTags?.nodes[0]?._id;
     // console.log(tagIds, "cat");
     console.log("endcursor.. didmount", catalogItems);
     console.log("tag ids on component did update...", tagIds);
@@ -798,9 +798,9 @@ console.log("called",product)
     const tagIds =
       cart?.items &&
       cart?.items[0] &&
-      cart?.items[0].productTags.nodes[0]._id &&
-      cart?.items[0]?.productTags.nodes[0]._id;
-    console.log(tagIds, "cat");
+      cart?.items[0]?.productTags?.nodes[0]?._id &&
+      cart?.items[0]?.productTags?.nodes[0]?._id;
+    // console.log(tagIds, "cat");
     const filteredProducts = catalogItems?.filter((product) => {
       const productTags = product?.node?.product?.tagIds;
       if (!Array.isArray(productTags)) {
@@ -845,6 +845,9 @@ const { isLoading } = this.state;
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                       const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                          const str = item.node.product.title;
+                          const words = str.match(/[a-zA-Z0-9]+/g);
+                          const firstThreeWords = words.slice(0, 3).join(" ");
                       return (
                         <>
                           <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
@@ -907,7 +910,7 @@ const { isLoading } = this.state;
                                 component="h2"
                                 className={classes.carttitle}
                               >
-                                {item.node.product.title}
+                                {firstThreeWords}
                               </Typography>
                               <div className={classes.size}>
                                 <Typography

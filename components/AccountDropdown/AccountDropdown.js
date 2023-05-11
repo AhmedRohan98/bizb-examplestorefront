@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": { background: theme.palette.secondary.selected },
   },
   popover: {
+    marginTop:"70px",
     "& .MuiPopover-paper": {
       borderBottomLeftRadius: "20px",
       borderBottomRightRadius: "20px",
@@ -92,7 +93,13 @@ const AccountDropdown = ({ headerType }) => {
           <ViewerInfo viewer={viewer} headerType={headerType} />
         </ButtonBase>
       ) : (
-        <IconButton color="inherit" onClick={toggleOpen}>
+        <IconButton
+          color="inherit"
+          onClick={toggleOpen}
+          style={{
+            background: anchorElement ? "#fdc114" : "",
+          }}
+        >
           <span>
             {headerType ? (
               <img src="/images/accountIconLight.svg" className="headerlogo" />
@@ -106,9 +113,14 @@ const AccountDropdown = ({ headerType }) => {
       <Popover
         className={classes.popover}
         anchorEl={anchorElement}
+        transformOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
+          marginTop: "100px",
         }}
         elevation={0}
         open={Boolean(anchorElement)}

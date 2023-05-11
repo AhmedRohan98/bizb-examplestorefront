@@ -78,6 +78,16 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.default,
     paddingLeft: theme.spacing(6.75),
   },
+  grid3: {
+    
+    display: "flex",
+    flexDirection: "column",
+ justifyContent:"center",
+ height:'100%',
+
+
+ 
+  },
   icon: {
     marginTop: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -157,7 +167,7 @@ const EntryModal = ({ onClose, resetToken }) => {
                   <img src="/images/logoDark.svg" alt="Login-SignUP" className={classes.image2} />
                   <CloseIcon onClick={closeModal} className={classes.icon} />
                 </div>
-                {getModalComponent()}
+                <div className={classes.grid3}>{getModalComponent()}</div>
               </Grid>
             </Grid>
           </div>

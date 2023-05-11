@@ -10,6 +10,7 @@ query catalogItemsQuery(
   $sortOrder: SortOrder
   $searchQuery: String
   $simpleFilters: [simpleCatalogFilter]
+  $priceRange: [priceRangeValue]
 ) {
   catalogItems(
     shopIds: [$shopId]
@@ -23,6 +24,8 @@ query catalogItemsQuery(
     sortOrder: $sortOrder
     searchQuery: $searchQuery
     simpleFilters: $simpleFilters
+    priceRange:$priceRange
+    
   ) {
     totalCount
     pageInfo {

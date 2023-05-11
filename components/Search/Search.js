@@ -149,16 +149,25 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
     return title.includes(searchLocal) || title.indexOf(searchLocal) !== -1;
   });
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    uiStore?.setSearchItems(searchLocal);
-    console.log(searchLocal, "query2");
-  };
-  const handleSearchChange = (event) => {
-    const searchQuery = event.target.value.trim().toLowerCase();
-    setSearchLocal(searchQuery);
-    handleSearchSubmit(event);
-  };
+const handleSearchSubmit = (event) => {
+  event.preventDefault(); // prevent default submit action
+  const trimmedValue = searchLocal?.trim(); // remove leading/trailing spaces
+  if (trimmedValue) {
+    uiStore?.setSearchItems(trimmedValue);
+    console.log(trimmedValue, "query2");
+  }
+};
+ const handleSearchChange = (event) => {
+  const searchQuery = event.target.value.toLowerCase();
+  setSearchLocal(searchQuery);
+};
+
+
+
+
+
+
+
   const classes = useStyles();
   // IF ITS NOT WORKIS THEN I HAVE TO ADD '\"'+searchTitle+'\"';
   // console.log(searchLocal, "query");
@@ -187,12 +196,16 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                 className={classes.inputRoot}
               >
                 <TextField
-                  variant="outlined"
+              
                   type="text"
+                  id="outlined-basic"
+                 
+                  variant="outlined"
                   value={searchLocal}
                   className={classes.input}
-                  onChange={handleSearchChange}
+                  onInput={handleSearchChange}
                   onKeyUp={handleSearchSubmit}
+                  placeholder="what are you looking for" // add placeholder text
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">

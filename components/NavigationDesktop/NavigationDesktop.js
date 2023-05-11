@@ -174,6 +174,7 @@ class NavigationDesktop extends Component {
                 fontSize: "18px",
                 fontFamily: '"Ostrich Sans Black"',
                 fontWeight: 900,
+                color: this.state.anchorEl ? "#fdc114" : "",
               }}
               onClick={this.handlePopOverClick}
             >

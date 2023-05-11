@@ -131,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
  * @returns {Object} jsx
  */
 export default function SignUp(props) {
-  const [checkedEmail, setCheckedEmail] = React.useState(true);
+  const [checkedEmail, setCheckedEmail] = React.useState(false);
 
   const { closeModal, openModal } = props;
   const classes = useStyles();
@@ -256,7 +256,7 @@ export default function SignUp(props) {
                 placeholder="Enter Your Phone Number"
                 InputProps={{ disableUnderline: true }}
                 className={classes.input}
-                type="number"
+                type="tel"
                 autoComplete="off"
                 name="phonenumber"
                 id="phonenumber"
