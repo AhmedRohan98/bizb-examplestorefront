@@ -336,7 +336,7 @@ const CheckoutActions = (prop) => {
       //     },
       //   },
       // });
-      const data = await placeOrder({
+      const {data} = await placeOrder({
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -399,36 +399,20 @@ const CheckoutActions = (prop) => {
       });
 
      
+      //   cartStore.clearAnonymousCartCredentials();
+      // clearAuthenticatedUsersCart();
 
       // // Also destroy the collected and cached payment input
       // cartStore.resetCheckoutPayments();
-const promise = new Promise((resolve) => {
-  toast.success("Order placed successfully!", {
-    duration: 5000,
-    onClose: () => {
-      resolve();
-    },
-  });
-});
 
-promise
-  .then(() => {
-     const {
-       placeOrder: { orders, token },
-     } = data;
+      const { placeOrder: { orders, token } } = data;
+console.log("data",data)
+      // Send user to order confirmation page
+      Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
 
-     // Send user to order confirmation page
-     Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-      // Send user to order confirmation pageQ
     } catch (error) {
       console.log(error);
     }
-     cartStore.clearAnonymousCartCredentials();
-     clearAuthenticatedUsersCart();
   };
   const initialValues = {
     email: "",
@@ -461,24 +445,9 @@ promise
     onSubmit: async (values, action) => {
       await handlepay(values, action);
       action.resetForm();
-  const promise = new Promise((resolve) => {
-    toast.success("Order placed successfully!", {
-      duration: 5000,
-      onClose: () => {
-        resolve();
-      },
-    });
-  });
 
-  promise
-    .then(() => {
-      Router.push("/checkout/order").catch((error) => {
-        console.log(error);
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+
+  
     },
   });
   const customStyles = {
