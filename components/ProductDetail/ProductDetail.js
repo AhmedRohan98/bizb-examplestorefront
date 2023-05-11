@@ -19,7 +19,6 @@ import { useRef, useCallback, useState } from "react";
 
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
-import MagnifyImage from "./imageMagnify";
 import { ToastContainer, toast } from "react-toastify";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
@@ -412,7 +411,7 @@ const slide = [
 const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
   const { product, catalogItems, cart } = props;
-  
+
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
   // console.log("dddd",props)
   const { uiStore } = props;
@@ -517,7 +516,7 @@ const ProductDetail = ({ ...props }) => {
     const selectedVariant = variantById(product.variants, variant._id);
 
     // If variant is not already in the cart, add the new item
-const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
+    const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
     await addItemsToCart([
       {
         price: {
@@ -678,13 +677,6 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
       return `https://res.cloudinary.com/olanetsoft/image/upload/w_${i},c_scale/cat.jpg`;
     });
   };
-   const rimProps = {
-     enlargedImagePortalId: "portal",
-     enlargedImageContainerDimensions: {
-       width: "200%",
-       height: "100%",
-     },
-   };
   return (
     <>
       <Box className={classes.slider}>
@@ -736,33 +728,175 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
               </Swiper>
             </div>
           </Grid>
-          <div className="fluid react-slick">
-            <div className="fluid__image-container">
-              <MagnifyImage rimProps={rimProps} product={product} />
+          <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
+            <div className="perimeter">
+              <div className="swipersss">
+                <Swiper
+                  thumbs={{ swiper: imagesNavSlider }}
+                  direction="horizontal"
+                  slidesPerView={1}
+                  spaceBetween={32}
+                  ref={sliderRef}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  mousewheel={true}
+                  navigation={{
+                    nextEl: ".slider__next",
+                    prevEl: ".slider__prev",
+                  }}
+                  breakpoints={{
+                    0: {
+                      direction: "horizontal",
+                      thumbs: "false",
+                    },
+                    768: {
+                      direction: "horizontal",
+                    },
+                  }}
+                  modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+                  onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+                >
+                  {product?.variants[0].media.map((slide, index) => {
+                    return (
+                      <SwiperSlide>
+                        <div className={classes.controller}>
+                          <ReactImageMagnify
+                            {...{
+                              smallImage: {
+                                alt: "Small image",
+                                src: slide.URLs.large,
+                                width: 400,
+                                height: 600,
+                              },
+                              largeImage: {
+                                src: slide.URLs.large,
+                                width: 1400,
+                                height: 1800,
+                                enlargedImageClassName: "enlarged",
+                                enlargedImagePortalId: "portal3",
+                                className: "portal3",
+                              },
+
+                              enlargedImageContainerDimensions: {
+                                width: "200%",
+                                height: "150%",
+                                margin: "100px",
+                                enlargedImagePortalId: "portal3",
+                                className: "portal3",
+                              },
+                              enlargedImageContainerStyle: {
+                                marginLeft: "100px",
+                                width: "200%",
+                                height: "100px",
+                                background: "green",
+                                enlargedImagePortalId: "portal3",
+                                className: "portal3",
+                              },
+
+                              //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
+                            }}
+                          ></ReactImageMagnify>
+                          {/* <ReactImageMagnify
+                        {...{
+                          smallImage: {
+                            alt: "Wristwatch by Ted Baker London",
+                            isFluidWidth: true,
+                            src:"/justin/justin4.svg" ,
+                          },
+                          largeImage: {
+                           src:"/justin/justin4.svg"  ,
+                            width: 1200,
+                            height: 1800,
+                          },
+                        }}
+                      /> */}
+                          {activeIndex < product?.variants[0].media.length - 1 && (
+                            <ArrowForwardIos
+                              className={classes.iconforwad}
+                              style={{ fill: "#FDC114" }}
+                              onClick={handleNext}
+                            />
+                          )}
+
+                          {activeIndex - 0 ? (
+                            <ArrowBackIos
+                              className={classes.iconback}
+                              style={{ fill: "#FDC114" }}
+                              onClick={handlePrev}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
             </div>
-            <div className="fluid__instructions" style={{ position: "relative" }}>
-              <div id="portal" className="portal" />
-              <h3>External Enlarged Image Example</h3>
-              <p>Render enlarged image into an HTML element of your choosing.</p>
-              <p>
-                Ignored for touch input by default but will be honored if isEnlargedImagePortalEnabledForTouch is
-                implemented.
-              </p>
-              <p>
-                Use cases include a scenario where an ancestor element of react-image-magnify implements overflow
-                hidden.
-              </p>
-              <p>Requires React v16.</p>
-              <p>
-                Please see
-                <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/components/ExternalEnlargedImage.js">
-                  example source code
-                </a>
-                for details.
-              </p>
+          </Grid>
+
+          <Grid style={{ display: "grid", position: "relative" }} item xs={11} md={10} sm={5} lg={4}>
+            <div className={classes.carttext}>
+              <Typography style={{ fontWeight: "700" }} variant="subtitle1">
+                {product?.title}
+              </Typography>
+              <div className={classes.size2}>
+                {" "}
+                <div className={classes.size}>
+                  {" "}
+                  <strike>
+                    {" "}
+                    <Typography
+                      style={{ fontWeight: "500", padding: "4px" }}
+                      gutterBottom
+                      variant="h4"
+                      className={classes.price2}
+                    >
+                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                        ?.replace(/\.00$/, "")
+                        ?.replace(/\$/g, "RS ")}
+                    </Typography>
+                  </strike>
+                  <Typography
+                    style={{ fontWeight: "700", padding: "4px" }}
+                    gutterBottom
+                    variant="h4"
+                    className={classes.price}
+                  >
+                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+                  </Typography>
+                </div>
+                <Typography gutterBottom variant="h4" className={classes.offer}>
+                  50 % off
+                </Typography>
+              </div>
+              <div className={classes.sizeimage}>
+                <img src="/cart/available.svg" alt="available" />
+                <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                  {size}
+                </Typography>
+              </div>
+              <div>
+                <Button className={classes.cart2} fullWidth onClick={handleOnClickforsingle} disabled={isDisabled}>
+                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                  <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
+                    {isDisabled ? "Added" : "+ Cart"}
+                  </Typography>
+                </Button>
+              </div>
+              <TabContext value={value}>
+                <TabList onChange={handleChange} className={classes.tabs}>
+                  <Tab label="Description" value="1" />
+                </TabList>
+
+                <TabPanel value="1" className={classes.sizechart}>
+                  {product?.description}
+                </TabPanel>
+              </TabContext>
             </div>
-            <div style={{ height: "1000px" }} />
-          </div>
+          </Grid>
           <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
         </Grid>
       </Box>
@@ -810,7 +944,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             />
           </Grid>
         </Grid>
-      </Fragment> */}
+ </Fragment> */}
       <Typography variant="h3" className={classes.related}>
         <div className="text"></div>
         Related <span className={classes.spanofnextword}>Products</span>
@@ -954,3 +1088,4 @@ ProductDetail.propTypes = {
 export default withWidth({ initialWidth: "md" })(
   withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)),
 );
+
