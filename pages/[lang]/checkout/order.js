@@ -1,119 +1,25 @@
-// import React, { Component } from "react";
-// import PropTypes from "prop-types";
-// import Helmet from "react-helmet";
-// import Grid from "@material-ui/core/Grid";
-// import { withStyles } from "@material-ui/core/styles";
-// import Typography from "@material-ui/core/Typography";
-// import PageLoading from "components/PageLoading";
-// import Layout from "components/Layout";
-// import withOrder from "containers/order/withOrder";
-// import OrderCard from "components/OrderCard";
-// import { withApollo } from "lib/apollo/withApollo";
-// import { locales } from "translations/config";
-// import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
-// import fetchTranslations from "staticUtils/translations/fetchTranslations";
-
-// const styles = (theme) => ({
-//   orderThankYou: {
-//     marginBottom: theme.spacing(3)
-//   },
-//   title: {
-//     marginBottom: theme.spacing(3)
-//   }
-// });
-
-// class CheckoutComplete extends Component {
-//   static propTypes = {
-//     classes: PropTypes.object,
-//     isLoadingOrder: PropTypes.bool,
-//     order: PropTypes.shape({
-//       email: PropTypes.string.isRequired,
-//       referenceId: PropTypes.string.isRequired
-//     }),
-//     shop: PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//       description: PropTypes.string
-//     }),
-//     theme: PropTypes.object.isRequired
-//   };
-
-//   render() {
-//     const { classes, isLoadingOrder, order, shop } = this.props;
-
-//     if (isLoadingOrder) {
-//       return (
-//         <Layout shop={shop}>
-//           <PageLoading message="Loading order details..." />
-//         </Layout>
-//       );
-//     }
-
-  
-//     return (
-//       <Layout shop={shop}>
-//         <Helmet>
-//           <title>{shop && shop.name} | Checkout</title>
-//           <meta name="description" content={shop && shop.description} />
-//         </Helmet>
-//         <Grid container>
-//           <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
-//           <Grid item xs={12} md={6}>
-//             <Grid item className={classes.orderThankYou} xs={12} md={12}>
-//               <Typography className={classes.title} variant="h6">Thank you for your order</Typography>
-//               <Typography variant="body1">
-//                 {"Your order ID is:"} <strong>=ff</strong>
-//               </Typography>
-//               <Typography variant="body1">
-//                 {"We've sent a confirmation email to:"} <strong></strong>
-//               </Typography>
-//             </Grid>
-//             <Grid item xs={12} md={12}>
-//               <OrderCard isExpanded={true} order={order} />
-//             </Grid>
-//           </Grid>
-//           <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
-//         </Grid>
-//       </Layout>
-//     );
-//   }
-// }
-
-// /**
-//  *  Static props for an order
-//  *
-//  * @returns {Object} the props
-//  */
-// export async function getStaticProps({ params: { lang } }) {
-//   return {
-//     props: {
-//       ...await fetchPrimaryShop(lang),
-//       ...await fetchTranslations(lang, ["common"])
-//     }
-//   };
-// }
-
-// /**
-//  *  Static paths for an order
-//  *
-//  * @returns {Object} the props
-//  */
-// export async function getStaticPaths() {
-//   return {
-//     paths: locales.map((locale) => ({ params: { lang: locale } })),
-//     fallback: true
-//   };
-// }
-
-// export default withApollo()(withOrder(withStyles(styles, { withTheme: true })(CheckoutComplete)));
-
-
-import React, { Component, Fragment ,useEffect,useState} from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
+import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid,Button, Box,  Typography} from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
+import Typography from "@material-ui/core/Typography";
+import PageLoading from "components/PageLoading";
+import Layout from "components/Layout";
+import withOrder from "containers/order/withOrder";
+import OrderCard from "components/OrderCard";
+import { withApollo } from "lib/apollo/withApollo";
+import React, { Component, Fragment, useEffect, useState } from "react";
+import { locales } from "translations/config";
+import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
+import fetchTranslations from "staticUtils/translations/fetchTranslations";
+
 const useStyles = makeStyles((theme) => ({
+  orderThankYou2: {
+    marginBottom: theme.spacing(3),
+  },
+  title: {
+    marginBottom: theme.spacing(3),
+  },
   orderThankYou: {
     display: "flex",
     marginTop: theme.spacing(25),
@@ -240,102 +146,167 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.selected,
   },
 }));
- 
-const CheckoutComplete =() =>{
-  const [reviews, setReviews] = useState([]);
-  async function getFacebookReviews() {
-    const pageId = "219626352248309";
-    const accessToken =
-      "EAAKF4rwN5IIBAG2k14nBXC9Dr1ytPTeabUZAZBLP2246trZAapLPbeTksny2FBPETY5xJDLdJiKmd0ZB6P1FNTjQ7JrvOqs2NZCfVMgzVGhI2MOvZBp5dXXbiIhYnvfRLj6cTuWaXwCJ83GRsAAD7eZAT8GSlyRxP4NM4WihpDNJse0ZA45FkzUIuFYEX5EaINr4XzIWDItJRbMwq5F2R4lTZCwwD7aMJlRbyibyPrZBSsMSsWEcz0WF8ejMYfnDhZAod0ZD";
-    const response = await fetch(`https://graph.facebook.com/${pageId}/ratings?access_token=${accessToken}`);
-    const data = await response.json();
-    return data;
+
+function CheckoutComplete(props) {
+ const [reviews, setReviews] = useState([]);
+ async function getFacebookReviews() {
+   const pageId = "219626352248309";
+   const accessToken =
+     "EAAKF4rwN5IIBAG2k14nBXC9Dr1ytPTeabUZAZBLP2246trZAapLPbeTksny2FBPETY5xJDLdJiKmd0ZB6P1FNTjQ7JrvOqs2NZCfVMgzVGhI2MOvZBp5dXXbiIhYnvfRLj6cTuWaXwCJ83GRsAAD7eZAT8GSlyRxP4NM4WihpDNJse0ZA45FkzUIuFYEX5EaINr4XzIWDItJRbMwq5F2R4lTZCwwD7aMJlRbyibyPrZBSsMSsWEcz0WF8ejMYfnDhZAod0ZD";
+   const response = await fetch(`https://graph.facebook.com/${pageId}/ratings?access_token=${accessToken}`);
+   const data = await response.json();
+   return data;
+ }
+
+ useEffect(() => {
+   async function fetchReviews() {
+     const data = await getFacebookReviews();
+     setReviews(data.data);
+   }
+   fetchReviews();
+ }, []);
+ console.log("reviews", reviews);
+ const classes = useStyles();
+
+  const { isLoadingOrder, order, shop } = props;
+
+  if (isLoadingOrder) {
+    return (
+      <Layout shop={shop}>
+        <PageLoading message="Loading order details..." />
+      </Layout>
+    );
   }
 
-  
-  useEffect(() => {
-    async function fetchReviews() {
-      const data = await getFacebookReviews();
-      setReviews(data.data);
-    }
-    fetchReviews();
-  }, []);
-  console.log("reviews",reviews)
-  const classes = useStyles();
-
-    // if (!order) {
-    //   return (
-    //     <Layout shop={shop}>
-    //       <div className={classes.checkoutContentContainer}>
-    //         <div className={classes.orderDetails}>
-    //           <section className={classes.section}>
-    //             <Typography className={classes.title} variant="h6">Order not found</Typography>
-    //           </section>
-    //         </div>
-    //       </div>
-    //     </Layout>
-    //   );
-    // }
-
+  if (!order) {
     return (
-  
-  <>
-      {typeof window !== "undefined" && ( <>
-    <div className={classes.orderThankYou}>
-      <img src="/cart/thankyou.svg"  className={classes.img} alt="thanyou"></img>
-      <Typography  variant="h3" >Your order is confirmed</Typography>
-      <div className={classes.mainheading}>
-        <Typography variant="h4" className={classes.orderThankYoupara}> Thank You for making fashion sustainable with us.</Typography>
-      </div>
-      <div className={classes.orderThankYouconnect}>
-         <Typography className={classes.connect}>
-         Connect With Our Community
-         </Typography>
-      </div>
-<div className={classes.socialmedia}>
-<img src="/cart/facebook.svg"  className={classes.imges} alt="thanyou"></img>
-<img src="/cart/insta.svg"  className={classes.imges} alt="thanyou"></img>
-<img src="/cart/twitter.svg"  className={classes.imges} alt="thanyou"></img>
-</div>
-<Typography className={classes.connect}>
-       Facebook Reviews
-         </Typography>
+      <Layout shop={shop}>
+        <div className={classes.checkoutContentContainer}>
+          <div className={classes.orderDetails}>
+            <section className={classes.section}>
+              <Typography className={classes.title} variant="h6">
+                Order not found
+              </Typography>
+            </section>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
-         <Box className={classes.look}>
+  return (
+    <Layout shop={shop}>
+      <Helmet>
+        <title>{shop && shop.name} | Checkout</title>
+        <meta name="description" content={shop && shop.description} />
+      </Helmet>
+      <Grid container>
+        <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
+        <Grid item xs={12} md={6}>
+          <Grid item className={classes.orderThankYou2} xs={12} md={12}>
+            <Typography variant="body1">
+              {"Your order ID is:"} <strong>{order.referenceId}</strong>
+            </Typography>
+            <Typography variant="body1">
+              {"We've sent a confirmation email to:"} <strong>{order.email}</strong>
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <OrderCard isExpanded={true} order={order} />
+          </Grid>
+        </Grid>
+        <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
+      </Grid>
+      <div className={classes.orderThankYou}>
+        <img src="/cart/thankyou.svg" className={classes.img} alt="thanyou"></img>
+        <Typography variant="h3">Your order is confirmed</Typography>
+        <div className={classes.mainheading}>
+          <Typography variant="h4" className={classes.orderThankYoupara}>
+            {" "}
+            Thank You for making fashion sustainable with us.
+          </Typography>
+        </div>
+        <div className={classes.orderThankYouconnect}>
+          <Typography className={classes.connect}>Connect With Our Community</Typography>
+        </div>
+        <div className={classes.socialmedia}>
+          <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
+          <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
+          <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
+        </div>
+        <Typography className={classes.connect}>Facebook Reviews</Typography>
+
+        <Box className={classes.look}>
           <div className={classes.reviews}>
             <div>
-              <img src="/cart/avatar.svg"  className={classes.cardimage}/>
+              <img src="/cart/avatar.svg" className={classes.cardimage} />
             </div>
             <div>
-            <Typography variant="h4" className={classes.facebookreview}>Kurt Lawson</Typography>
-            <div className={classes.ratingtime}>
-            <Rating name="size-large" defaultValue={5} size="large" />
-           
-            <Typography variant="h5" className={classes.ratingday} >2 days ago</Typography>
-            </div>
-            <Typography variant="h6" className={classes.blogtext} >Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But even the queen needs some… <span className={classes.blogtextr}>Read More</span></Typography>
+              <Typography variant="h4" className={classes.facebookreview}>
+                Kurt Lawson
+              </Typography>
+              <div className={classes.ratingtime}>
+                <Rating name="size-large" defaultValue={5} size="large" />
+
+                <Typography variant="h5" className={classes.ratingday}>
+                  2 days ago
+                </Typography>
+              </div>
+              <Typography variant="h6" className={classes.blogtext}>
+                Constantly hustling day in day out and still putting a smile on your face is what makes you a Queen. But
+                even the queen needs some… <span className={classes.blogtextr}>Read More</span>
+              </Typography>
             </div>
           </div>
-  
-
-  
-
-  
-          </Box>
-          <Typography className={classes.connect}>
-          Make Your Wardrobe Smart Using Our App
-         </Typography>
-         <img src="/cart/mobile.svg"  className={classes.imagemobile} alt="thanyou"></img>
-         <Button className={classes.register} InputProps={{ disableUnderline: true }} variant="h6"    role="button"
-        type="submit"
-     href="/"
-       >Back To Home</Button>
+        </Box>
+        <Typography className={classes.connect}>Make Your Wardrobe Smart Using Our App</Typography>
+        <img src="/cart/mobile.svg" className={classes.imagemobile} alt="thanyou"></img>
+        <Button
+          className={classes.register}
+          InputProps={{ disableUnderline: true }}
+          variant="h6"
+          role="button"
+          type="submit"
+          href="/"
+        >
+          Back To Home
+        </Button>
       </div>
-      </> )}
-    </>
-
-    )
-      
+    </Layout>
+  );
 }
 
-export default CheckoutComplete
+CheckoutComplete.propTypes = {
+  isLoadingOrder: PropTypes.bool,
+  order: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    referenceId: PropTypes.string.isRequired,
+  }),
+  shop: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }),
+  theme: PropTypes.object.isRequired,
+};
+export async function getStaticProps({ params: { lang } }) {
+  return {
+    props: {
+      ...(await fetchPrimaryShop(lang)),
+      ...(await fetchTranslations(lang, ["common"])),
+    },
+  };
+}
+
+/**
+ *  Static paths for an order
+ *
+ * @returns {Object} the props
+ */
+export async function getStaticPaths() {
+  return {
+    paths: locales.map((locale) => ({ params: { lang: locale } })),
+    fallback: true,
+  };
+}
+
+export default withApollo()(withOrder((CheckoutComplete)));
