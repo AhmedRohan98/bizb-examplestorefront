@@ -20,6 +20,10 @@ export const UIProvider = ({ children }) => {
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
   const [filters, setFilters] = useState([]);
+const [filterPrice, setFilterPrice] = useState([
+  { name: "minPrice", value: 0},
+  { name: "maxPrice", value: 1000 },
+]);
   const [entryModal, setEntryModal] = useState(null);
 
   const setPDPSelectedVariantId = (variantId, optionId) => {
@@ -100,6 +104,8 @@ export const UIProvider = ({ children }) => {
         setSearchItems,
         sortByCurrencyCode,
         filters,
+        filterPrice,
+        setFilterPrice,
         setFilters,
         entryModal,
         setLocales,

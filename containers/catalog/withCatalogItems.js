@@ -35,12 +35,13 @@ if(endCursor){
   const variables = {
     shopId: primaryShopId,
     ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
-    tagIds: tagId ||endCursor,
+    tagIds: tagId || endCursor,
     sortBy,
     sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
     sortOrder,
     searchQuery: uiStore?.searchItems,
     simpleFilters: uiStore?.filters,
+    priceRange: uiStore?.filterPrice,
   };
     return (
       <Query errorPolicy="all" query={catalogItemsQuery} variables={variables}>
@@ -73,6 +74,7 @@ if(endCursor){
      sortOrder,
      searchQuery: uiStore?.searchItems,
      simpleFilters: uiStore?.filters,
+     priceRange: uiStore?.filterPrice,
    }; 
      return (
        <Query errorPolicy="all" query={catalogItemsQuery} variables={variables}>

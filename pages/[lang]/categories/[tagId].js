@@ -659,11 +659,11 @@ function Categories(props) {
   const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
     setPrice(newValue);
     const { value } = event.target;
-    const updatedFilters = uiStore.filters
+    const updatedFilters = uiStore.filterPrice
       .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
-      .concat({ name: minFilterName, value: newValue[0].toString() })
-      .concat({ name: maxFilterName, value: newValue[1].toString() });
-    uiStore.setFilters(updatedFilters);
+      .concat({ name: minFilterName, value: newValue[0] })
+      .concat({ name: maxFilterName, value: newValue[1] });
+    uiStore.setFilterPrice(updatedFilters);
   };
   const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
@@ -678,7 +678,7 @@ function Categories(props) {
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const shop = useShop();
   const [open, setOpen] = useState(false);
-  const [price, setPrice] = useState([0, 5000]);
+  const [price, setPrice] = useState([0, 10000]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
@@ -1174,8 +1174,8 @@ function Categories(props) {
                           value={price}
                           aria-labelledby="range-slider"
                           min={0}
-                          max={5000}
-                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minprice", "maxprice")}
+                          max={10000}
+                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
                           className={classes.slider}
                           valueLabelDisplay="auto"
                         />

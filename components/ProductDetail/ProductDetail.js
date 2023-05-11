@@ -411,7 +411,7 @@ const slide = [
 const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
   const { product, catalogItems, cart } = props;
-  
+
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
   // console.log("dddd",props)
   const { uiStore } = props;
@@ -516,7 +516,7 @@ const ProductDetail = ({ ...props }) => {
     const selectedVariant = variantById(product.variants, variant._id);
 
     // If variant is not already in the cart, add the new item
-const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
+    const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
     await addItemsToCart([
       {
         price: {
@@ -730,10 +730,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
           </Grid>
           <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
             <div className="perimeter">
-              <div
-                className="swipersss"
-             
-              >
+              <div className="swipersss">
                 <Swiper
                   thumbs={{ swiper: imagesNavSlider }}
                   direction="horizontal"
@@ -947,7 +944,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             />
           </Grid>
         </Grid>
-      </Fragment> */}
+ </Fragment> */}
       <Typography variant="h3" className={classes.related}>
         <div className="text"></div>
         Related <span className={classes.spanofnextword}>Products</span>
@@ -1091,3 +1088,4 @@ ProductDetail.propTypes = {
 export default withWidth({ initialWidth: "md" })(
   withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)),
 );
+
