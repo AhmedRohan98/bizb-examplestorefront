@@ -205,7 +205,7 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
     });
     const soldOutProducts = catalogdata?.filter((product) => product?.node?.product?.isSoldOut);
     setSoldOutProducts(soldOutProducts);
-    console.log(soldOutProducts, "soldout");
+    
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [props?.cart?.items, catalogdata]);

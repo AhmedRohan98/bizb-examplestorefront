@@ -405,8 +405,10 @@ const CheckoutActions = (prop) => {
       // // Also destroy the collected and cached payment input
       // cartStore.resetCheckoutPayments();
 
-      const { placeOrder: { orders, token } } = data;
-console.log("data",data)
+      const {
+        placeOrder: { orders, token },
+      } = data;
+console.log("data", data);
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
 
