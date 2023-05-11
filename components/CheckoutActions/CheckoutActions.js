@@ -444,7 +444,7 @@ promise
       .required("Please enter a valid mobile number")
       .matches(/^[0-9]+$/, "Please enter a valid mobile number"),
 
-    city: Yup.string().required("Please select a city"),
+    city: Yup.string().min(5).required("Please Enter Your City"),
     CompleteAddress: Yup.string().min(5).required("Please enter your address"),
     orderNotes: Yup.string().min(5).required("Please enter any additional details "),
   });
@@ -678,19 +678,23 @@ promise
                   <span className={classes.labelSpan}>
                     City <span style={{ color: "#FD1010" }}>*</span>
                   </span>
-                  <div className={classes.selectDesktop}>
-                    <Select
-                      value={options.find((option) => option.value === values.city)}
-                      onChange={(option) => setFieldValue("city", option.value)}
-                      placeholder="Select your city"
-                      components={{ DropdownIndicator }}
-                      styles={customStyles}
-                      options={options}
-                      className={classes.reactselect}
-                    />
-                  </div>
+                  <TextField
+                    placeholder="Please Enter Your City Name"
+                    InputProps={{ disableUnderline: true }}
+                    autoComplete="off"
+                    type="text"
+                    name="city"
+                    id="city"
+                    value={values.city}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={classes.input}
+                    inputProps={{ style: { color: "black" } }}
+                  />
                 </label>
-                {touched.city && errors.city ? <p className={classes.formerror}>{errors.city}</p> : null}
+                {errors.city && touched.city ? (
+                  <p className={classes.formerror}>{errors.city}</p>
+                ) : null}
               </Grid>
             </Grid>
             <div className={classes.checkboxdiv}>

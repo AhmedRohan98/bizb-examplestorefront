@@ -276,10 +276,6 @@ input:-internal-autofill-selected {
   max-width: 1200px;
   position: relative;
 }
-.swiper-slide .swiper-slide-active > div > div > div {
-  z-index: 1000 !important;
-}
-#__next > div > main > article > div.MuiBox-root.MuiBox-root-134.withInjectedStores\(ProductDetail\)-slider-90 > div > div.MuiGrid-root.undefined.swiper_slider.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-7.MuiGrid-grid-md-10.MuiGrid-grid-lg-3 > div > div > div > div.swiper-wrapper > div.swiper-slide.swiper-slide-active > div > div > div:nth-child(3)
 
 .fluid {
   max-width: 1200px;
