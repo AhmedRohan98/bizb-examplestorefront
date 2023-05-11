@@ -446,7 +446,7 @@ promise
 
     city: Yup.string().min(5).required("Please Enter Your City"),
     CompleteAddress: Yup.string().min(5).required("Please enter your address"),
-    orderNotes: Yup.string().min(5).required("Please enter any additional details "),
+    orderNotes: Yup.string(),
   });
   
   const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
