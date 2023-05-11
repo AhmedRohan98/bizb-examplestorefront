@@ -1174,7 +1174,7 @@ function Categories(props) {
                           value={price}
                           aria-labelledby="range-slider"
                           min={0}
-                          max={5000}
+                          max={10000}
                           onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
                           className={classes.slider}
                           valueLabelDisplay="auto"
