@@ -276,7 +276,29 @@ input:-internal-autofill-selected {
   max-width: 1200px;
   position: relative;
 }
+#airpods-icon {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transform: translateX(100%) scale(0);
+  transition: transform 0.5s ease-in-out;
+}
 
+#airpods-icon.animate {
+  transform: translateX(-50%) scale(1);
+}
+
+@keyframes airpods-animation {
+  0% {
+    transform: translateX(100%) scale(0);
+  }
+  50% {
+    transform: translateX(50%) scale(1.2);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
 .fluid {
   max-width: 1200px;
   margin: 0 auto;

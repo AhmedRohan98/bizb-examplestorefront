@@ -426,7 +426,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                           gutterBottom
                           variant="h4"
                         >
-                          {size}
+                          {size == 0 ? "Extra Large" : "Small" || size == 1 ? "Large"  : "Small"|| size == 2 ? "Medium"  : "Small" || size == 3 ? "Small"  : "Small"}
                         </Typography>
                       </div>
                       <div className={classes.pricing}>
