@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from "context/AuthContext";
 import Grid from "@material-ui/core/Grid";
 
 import Typography from "@material-ui/core/Typography";
 const Appsec = () => {
-  const [animate, setAnimate] = useState(false);
   const useStyles = makeStyles((theme) => ({
     root: {
       height: "auto",
@@ -47,22 +46,34 @@ const Appsec = () => {
         width: "95vw",
       },
     },
-    title2: {
-      width: "407px",
-      height: "86px",
-      display: "block",
+    maindivqrcodeappsex: {
       display: "flex",
-      alignItems: "flex-start",
-      justifyContent: "flex-start",
 
-      textAlign: "start",
-      [theme.breakpoints.down(700)]: {
-        display: "none",
+      justifyContent: "space-between",
+    },
+    maindivapp: {
+      display: "flex",
+
+      flexDirection: "column",
+    },
+    maindivqrcode: {
+      display: "flex",
+marginLeft:theme.spacing(3)
+    },
+    imagetext: {
+      height: "auto",
+      width: "auto",
+      marginTop: theme.spacing(2),
+
+      [theme.breakpoints.up(700)]: {
+        width: "auto",
+        height: "auto",
+        marginTop: theme.spacing(4),
       },
     },
     image: {
-      height: "auto",
-      width: "100%",
+      height: "52px",
+      width: "170px",
       marginTop: theme.spacing(2),
 
       [theme.breakpoints.up(700)]: {
@@ -72,7 +83,7 @@ const Appsec = () => {
       },
     },
     imae: {
-      height: "auto",
+      height: "746px",
       marginTop: theme.spacing(4),
       width: "100%",
     },
@@ -81,14 +92,8 @@ const Appsec = () => {
       width: "320px",
     },
   }));
-const handleAirPodsClick = () => {
-  setAnimate(true);
-  setTimeout(() => {
-    setAnimate(false);
-  }, 500);
-};
-  const classes = useStyles();
 
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       <img src="/app-section/appsec1.svg" alt="Using our app" className={classes.img} />
@@ -107,19 +112,24 @@ const handleAirPodsClick = () => {
         alignItems="center"
       >
         <Grid item className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
-          <div className={classes.title2}>
-            <Typography variant="h3">Revamp Your Wardrobe Using Our App</Typography>
+          <img src="/app-section/text.webp" className={classes.imagetext} />
+          <img src="/app-section/Line-1.webp" className={classes.imagetext} />
+          <div className={classes.maindivqrcodeappsex}>
+            <div className={classes.maindivapp}>
+              <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
+                <img src="/app-section/googleplay.webp" className={classes.image} />
+              </a>
+              <a href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
+                <img src="/app-section/appleplay.webp" className={classes.image} />
+              </a>
+            </div>
+            <div className={classes.maindivqrcode}>
+              <img src="/app-section/qrcode.webp" className={classes.image} />
+            </div>
           </div>
-          <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
-            <img src="/app-section/appsec2.svg" className={classes.image} />
-          </a>
-          <a href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
-            <img src="/app-section/appsec3.svg" className={classes.image} />
-          </a>
         </Grid>
         <Grid item lg={6} sm={6} md={6} xs={6} className={classes.grid1}>
-          <button onClick={handleAirPodsClick}>Open AirPods</button>
-          <img src="/app-section/appsec.webp" alt="AirPods" id="airpods-icon" className={animate ? "animate" : ""} />
+          <img src="/app-section/appsec.webp" className={classes.imae} />
         </Grid>
       </Grid>
     </div>
