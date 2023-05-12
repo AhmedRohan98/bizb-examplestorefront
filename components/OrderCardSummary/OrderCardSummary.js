@@ -39,11 +39,16 @@ class OrderCardSummary extends Component {
       return (
         <CartSummary
           isDense
-          displayShipping={fulfillmentTotal && fulfillmentTotal.displayAmount}
-          displaySubtotal={itemTotal && itemTotal.displayAmount}
-          displaySurcharge={surchargeTotal && surchargeTotal.displayAmount}
-          displayTax={taxTotal && taxTotal.displayAmount}
-          displayTotal={total && total.displayAmount}
+          displayShipping={fulfillmentTotal && fulfillmentTotal.displayAmount ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+          displaySubtotal={itemTotal && itemTotal.displayAmount ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+          displaySurcharge={surchargeTotal && surchargeTotal.displayAmount ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+          displayTax={taxTotal && taxTotal.displayAmount ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+          displayTotal={total && total.displayAmount ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
         />
       );
     }
