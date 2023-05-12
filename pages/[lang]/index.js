@@ -61,7 +61,7 @@ class ProductGridPage extends Component {
       shop,
       uiStore,
       feed,
-      tags,
+      tags
     } = this.props;
     const pageSize = query && inPageSizes(query.limit) ? parseInt(query.limit, 0) : uiStore.pageSize;
     const sortBy = query && query.sortby ? query.sortby : uiStore.sortBy;
@@ -117,11 +117,10 @@ class ProductGridPage extends Component {
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
   // console.log(primaryShop,"prim")
-  const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
-  const data = await fetch(url);
+  
   // console.log("data is ", data);
 
-  const feed = await data.json();
+ 
   // console.log("new feed", feed);
 
   if (!primaryShop?.shop) {
@@ -138,7 +137,7 @@ export async function getStaticProps({ params: { lang } }) {
     props: {
       ...primaryShop,
       ...(await fetchTags(primaryShop?.shop?._id)),
-      feed,
+      
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes

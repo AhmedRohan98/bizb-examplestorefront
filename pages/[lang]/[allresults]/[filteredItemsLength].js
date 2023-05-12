@@ -350,7 +350,7 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                           component="h2"
                           className={classes.carttitle}
                         >
-                       {firstThreeWords}
+                          {firstThreeWords}
                         </Typography>
                         <div className={classes.size}>
                           <Typography
@@ -365,7 +365,15 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                             gutterBottom
                             variant="h4"
                           >
-                            {size}
+                            {size == 0
+                              ? "Extra Large"
+                              : "Small" || size == 1
+                              ? "Large"
+                              : "Small" || size == 2
+                              ? "Medium"
+                              : "Small" || size == 3
+                              ? "Small"
+                              : "Small"}
                           </Typography>
                         </div>
                         <div className={classes.pricing}>

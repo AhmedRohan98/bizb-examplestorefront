@@ -1369,7 +1369,15 @@ function Categories(props) {
                               gutterBottom
                               variant="h4"
                             >
-                              {size}
+                              {size == 0
+                                ? "Extra Large"
+                                : "Small" || size == 1
+                                ? "Large"
+                                : "Small" || size == 2
+                                ? "Medium"
+                                : "Small" || size == 3
+                                ? "Small"
+                                : "Small"}
                             </Typography>
                           </div>
                           <div className={classes.pricing}>
@@ -1488,7 +1496,15 @@ function Categories(props) {
                               gutterBottom
                               variant="h4"
                             >
-                              {size}
+                              {size == 0
+                                ? "Extra Large"
+                                : "Small" || size == 1
+                                ? "Large"
+                                : "Small" || size == 2
+                                ? "Medium"
+                                : "Small" || size == 3
+                                ? "Small"
+                                : "Small"}
                             </Typography>
                           </div>
                           <div className={classes.pricing}>

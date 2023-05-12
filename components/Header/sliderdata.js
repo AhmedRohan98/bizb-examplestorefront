@@ -233,7 +233,7 @@ const MainSlider = (props) => {
 
       <Caloborators />
       <OurBlogs />
-      <Instagram {...props} />
+      {/* <Instagram {...props} /> */}
     </>
   );
 };

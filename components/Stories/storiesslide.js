@@ -391,7 +391,15 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                         gutterBottom
                         variant="h4"
                       >
-                        {size}
+                        {size == 0
+                          ? "Extra Large"
+                          : "Small" || size == 1
+                          ? "Large"
+                          : "Small" || size == 2
+                          ? "Medium"
+                          : "Small" || size == 3
+                          ? "Small"
+                          : "Small"}
                       </Typography>
                     </div>
                     <div className={classes.size}>
@@ -414,11 +422,11 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
           }) : ""}
         </div>
       </Swiper>
-      {activeIndex <sellerss?.length + 1 ? (
+      {/* {activeIndex <sellerss?.length + 1 ? (
         <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 };
