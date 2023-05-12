@@ -195,7 +195,6 @@ fragment OrderCommon on Order {
   updatedAt
 }
 
-
 # Fragment for order query
 fragment OrderQueryFragment on Order {
   ...OrderCommon

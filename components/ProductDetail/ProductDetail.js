@@ -761,42 +761,7 @@ const ProductDetail = ({ ...props }) => {
                     return (
                       <SwiperSlide>
                         <div className={classes.controller}>
-                          <ReactImageMagnify
-                            {...{
-                              smallImage: {
-                                alt: "Small image",
-                                src: slide.URLs.large,
-                                width: 400,
-                                height: 600,
-                              },
-                              largeImage: {
-                                src: slide.URLs.large,
-                                width: 1400,
-                                height: 1800,
-                                enlargedImageClassName: "enlarged",
-                                enlargedImagePortalId: "portal3",
-                                className: "portal3",
-                              },
-
-                              enlargedImageContainerDimensions: {
-                                width: "200%",
-                                height: "150%",
-                                margin: "100px",
-                                enlargedImagePortalId: "portal3",
-                                className: "portal3",
-                              },
-                              enlargedImageContainerStyle: {
-                                marginLeft: "100px",
-                                width: "200%",
-                                height: "100px",
-                                background: "green",
-                                enlargedImagePortalId: "portal3",
-                                className: "portal3",
-                              },
-
-                              //  {/*<img className="img-fluid" src={item.url} alt="Product Thumbnail" />*/}
-                            }}
-                          ></ReactImageMagnify>
+                          <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
                           {/* <ReactImageMagnify
                         {...{
                           smallImage: {

@@ -367,7 +367,7 @@ const styles = (theme) => ({
   },
   image: {
     width: "312px",
-    maxHeight: "450px",
+    maxHeight: "400px",
     objectFit: "cover",
     borderRadius: "10px",
     cursor: "pointer",

@@ -5,7 +5,7 @@ export const placeOrderQuery = gql`
       token
       orders {
         _id
-        status
+        referenceId
       }
     }
   }
