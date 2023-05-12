@@ -684,7 +684,7 @@ const CheckoutActions = (prop) => {
             <Grid item xs={12}>
               <label className={classes.label} variant="h4" htmlFor="orderNotes">
                 <span className={classes.labelSpan}>
-                  Order Notes<span style={{ color: "#FD1010" }}>*</span>
+                  Order Notes
                 </span>
                 <TextField
                   placeholder="Enter additional notes here."
