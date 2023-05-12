@@ -665,6 +665,7 @@ const ProductDetail = ({ ...props }) => {
   const optionTitle = product?.variants[0]?.optionTitle;
   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+  // console.log(optionTitle, "fil");
   const isDisabled = cart?.items?.some((data) => {
     return data.productConfiguration.productId === product?.productId;
   });
@@ -921,6 +922,7 @@ const ProductDetail = ({ ...props }) => {
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });
+            
             // console.log(cart?.items, "item");
             // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
             const optionTitle = item?.node?.product?.variants[0]?.optionTitle;

@@ -33,7 +33,7 @@ const MainSlider = (props) => {
     // } ,
 
     image: {
-      height: "100vh",
+      height: "95vh",
       width: "100%",
       objectPosition: "top",
       objectFit: "cover",
@@ -46,24 +46,17 @@ const MainSlider = (props) => {
     controllera: {
       position: "absolute",
       display: "flex",
-      zIndex: 9999,
       flexDirection: "row",
-
-      gap: "auto",
-      justifyContent: "space-between",
-      width: "100%",
-
-      bottom: "50%",
+      gap: "4vh",
+      right: "5vh",
     },
     controllert: {
       position: "absolute",
       display: "flex",
       flexDirection: "row",
-    zIndex:9999,
-      left: "45%",
-      right:"55%",
-      width:"300px",
-      bottom: "10px",
+      gap: "5px",
+      left: "5vh",
+      bottom: "20px",
     },
 
     title: {
@@ -88,16 +81,11 @@ const MainSlider = (props) => {
       cursor: "pointer",
       height: "auto",
       color: "white",
-      position: "absolute",
-      right: "2px",
     },
     iconback: {
       cursor: "pointer",
       height: "auto",
       color: "white",
-      zIndex: 9999,
-      position: "absolute",
-      left: "2px",
     },
     arrowc: {
       height: "auto",
@@ -105,12 +93,8 @@ const MainSlider = (props) => {
     },
     sliderr: {
       display: "none",
-      position: "relative",
-      width: "100%",
       [theme.breakpoints.up(900)]: {
         display: "block",
-        position: "relative",
-        width: "100%",
       },
     },
     imagedesktop: {
@@ -164,7 +148,36 @@ const MainSlider = (props) => {
         <SwiperSlide>
           <img src={item.image} className={classes.image} />
 
-         
+          <div className={classes.controller}>
+            <div className={classes.topheaderfor}></div>
+            <div className={classes.controllert}>
+              <Link to="target-element" smooth={true} duration={2000}>
+                {" "}
+                <div style={{ display: "flex", cursor: "pointer" }}>
+                  <img style={{ marginRight: "12px" }} src="/icons/home.webp" className={classes.ie} />
+                  <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
+                    Scroll to discover more
+                  </Typography>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.controllera}>
+              {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
+              <div style={{ display: "flex" }}>
+                <h1 className={classes.arrowc}>{`0${activeIndex + 1}`}</h1>
+                <h1 style={{ marginRight: "5px", marginLeft: "5px" }} className={classes.arrowc}>
+                  |
+                </h1>
+                <h1 className={classes.arrowc}>{`0${ITEMS.length}`}</h1>
+              </div>
+
+              {activeIndex < ITEMS.length - 1 ? (
+                <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
         </SwiperSlide>
       </>
     );
@@ -194,28 +207,6 @@ const MainSlider = (props) => {
       <div className={classes.main}>
         <div className={classes.root}>
           <div className={classes.sliderr}>
-            <div className={classes.controllera}>
-              {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
-
-              {activeIndex < ITEMS.length - 1 ? (
-                <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={classes.controller}>
-              <div className={classes.controllert}>
-                <Link to="target-element" smooth={true} duration={2000}>
-                  {" "}
-                  <div style={{ display: "flex", cursor: "pointer" }}>
-                    <img style={{ marginRight: "12px" }} src="/icons/home.webp" className={classes.ie} />
-                    <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
-                      Scroll to discover more
-                    </Typography>
-                  </div>
-                </Link>
-              </div>
-            </div>
             <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)} autoplay>
               {ITEMS.map((item) => (
                 <SwiperSlide>
@@ -242,7 +233,7 @@ const MainSlider = (props) => {
 
       <Caloborators />
       <OurBlogs />
-   
+      <Instagram {...props} />
     </>
   );
 };

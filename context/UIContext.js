@@ -22,7 +22,7 @@ export const UIProvider = ({ children }) => {
   const [filters, setFilters] = useState([]);
 const [filterPrice, setFilterPrice] = useState([
   { name: "minPrice", value: 0},
-  { name: "maxPrice", value: 1000 },
+  { name: "maxPrice", value: 10000 },
 ]);
   const [entryModal, setEntryModal] = useState(null);
 
