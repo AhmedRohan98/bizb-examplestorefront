@@ -447,7 +447,7 @@ const Story = (props) => {
             ) : (
               ""
             )}
-            {activeIndex - 0 ? (
+            {activeIndex &&sellers.length - 0 ? (
               <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
             ) : (
               ""
