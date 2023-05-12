@@ -841,7 +841,15 @@ const ProductDetail = ({ ...props }) => {
               <div className={classes.sizeimage}>
                 <img src="/cart/available.svg" alt="available" />
                 <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                  {size}
+                  {size == 0
+                    ? "Extra Large"
+                    : "Small" || size == 1
+                    ? "Large"
+                    : "Small" || size == 2
+                    ? "Medium"
+                    : "Small" || size == 3
+                    ? "Small"
+                    : "Small"}
                 </Typography>
               </div>
               <div>
@@ -922,7 +930,7 @@ const ProductDetail = ({ ...props }) => {
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
             });
-            
+
             // console.log(cart?.items, "item");
             // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
             const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
@@ -1005,7 +1013,15 @@ const ProductDetail = ({ ...props }) => {
                         gutterBottom
                         variant="h4"
                       >
-                        {size}
+                        {size == 0
+                          ? "Extra Large"
+                          : "Small" || size == 1
+                          ? "Large"
+                          : "Small" || size == 2
+                          ? "Medium"
+                          : "Small" || size == 3
+                          ? "Small"
+                          : "Small"}
                       </Typography>
                     </div>
                     <div className={classes.pricing}>
