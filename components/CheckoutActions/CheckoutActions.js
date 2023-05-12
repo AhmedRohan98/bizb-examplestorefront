@@ -336,7 +336,7 @@ const CheckoutActions = (prop) => {
       //     },
       //   },
       // });
-      const data = await placeOrder({
+      const {data} = await placeOrder({
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -400,32 +400,23 @@ const CheckoutActions = (prop) => {
 
      
 
-      // // Also destroy the collected and cached payment input
-      // cartStore.resetCheckoutPayments();
-const promise = new Promise((resolve) => {
-  toast.success("Order placed successfully!", {
-    duration: 5000,
-    onClose: () => {
-      resolve();
-    },
-  });
-});
+      const {
+        placeOrder: { orders, token },
+      } = data;
+ toast.success("Order placed successfully!");
 
-promise
-  .then(() => {
-    Router.push("/checkout/order").catch((error) => {
-      console.log(error);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-      // Send user to order confirmation pageQ
+      // Send user to order confirmation page
+      Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
+  
+ cartStore.clearAnonymousCartCredentials();
+ clearAuthenticatedUsersCart();
+
+ // Also destroy the collected and cached payment input
+ cartStore.resetCheckoutPayments();
+
     } catch (error) {
       console.log(error);
     }
-     cartStore.clearAnonymousCartCredentials();
-     clearAuthenticatedUsersCart();
   };
   const initialValues = {
     email: "",
@@ -444,9 +435,9 @@ promise
       .required("Please enter a valid mobile number")
       .matches(/^[0-9]+$/, "Please enter a valid mobile number"),
 
-    city: Yup.string().required("Please select a city"),
+    city: Yup.string().min(5).required("Please Enter Your City"),
     CompleteAddress: Yup.string().min(5).required("Please enter your address"),
-    orderNotes: Yup.string().min(5).required("Please enter any additional details "),
+    orderNotes: Yup.string(),
   });
   
   const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
@@ -458,24 +449,9 @@ promise
     onSubmit: async (values, action) => {
       await handlepay(values, action);
       action.resetForm();
-  const promise = new Promise((resolve) => {
-    toast.success("Order placed successfully!", {
-      duration: 5000,
-      onClose: () => {
-        resolve();
-      },
-    });
-  });
 
-  promise
-    .then(() => {
-      Router.push("/checkout/order").catch((error) => {
-        console.log(error);
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+
+  
     },
   });
   const customStyles = {
@@ -678,19 +654,23 @@ promise
                   <span className={classes.labelSpan}>
                     City <span style={{ color: "#FD1010" }}>*</span>
                   </span>
-                  <div className={classes.selectDesktop}>
-                    <Select
-                      value={options.find((option) => option.value === values.city)}
-                      onChange={(option) => setFieldValue("city", option.value)}
-                      placeholder="Select your city"
-                      components={{ DropdownIndicator }}
-                      styles={customStyles}
-                      options={options}
-                      className={classes.reactselect}
-                    />
-                  </div>
+                  <TextField
+                    placeholder="Please Enter Your City Name"
+                    InputProps={{ disableUnderline: true }}
+                    autoComplete="off"
+                    type="text"
+                    name="city"
+                    id="city"
+                    value={values.city}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={classes.input}
+                    inputProps={{ style: { color: "black" } }}
+                  />
                 </label>
-                {touched.city && errors.city ? <p className={classes.formerror}>{errors.city}</p> : null}
+                {errors.city && touched.city ? (
+                  <p className={classes.formerror}>{errors.city}</p>
+                ) : null}
               </Grid>
             </Grid>
             <div className={classes.checkboxdiv}>

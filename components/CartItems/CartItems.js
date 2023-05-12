@@ -231,7 +231,7 @@ class CartItems extends Component {
       hasMoreCartItems,
       onLoadMoreCartItems
     } = this.props;
-
+console.log(items,"item")
     return (
       <Fragment>
         {/* <CartItemsList
@@ -279,11 +279,15 @@ class CartItems extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((item) => (
+              {items?.map((item) => (
                 <TableRow key={item.title}>
                   <TableCell>
                     <div className={classes.cartitemtext}>
-                      <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage}></img>
+                      <img
+                        src={item?.metafields && item.metafields[0]?.URLs?.large}
+                        alt={item.title}
+                        className={classes.cartimage}
+                      ></img>
 
                       <div className={classes.carttitle}>
                         <Typography variant="h4">{item.title}</Typography>
@@ -313,7 +317,6 @@ class CartItems extends Component {
             </TableBody>
           </Table>
         </TableContainer>
-       
       </Fragment>
     );
   }

@@ -291,7 +291,7 @@ const MiniCart = ({ ...props }) => {
                         <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
                       </div>
                       <div className={classes.cartitems}>
-                        {cart.items.map((item) => {
+                        {cart?.items?.map((item) => {
                           return (
                             <div className={classes.cartitem}>
                               <div className={classes.cartitemimage}>
