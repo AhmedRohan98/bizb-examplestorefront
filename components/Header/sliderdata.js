@@ -223,7 +223,7 @@ const MainSlider = (props) => {
 
       <Preloved {...props} />
 
-      {/* <Justin {...props} /> */}
+      <Justin {...props} />
 
       {/* <Story {...props} /> */}
 

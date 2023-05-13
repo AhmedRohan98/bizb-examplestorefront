@@ -440,6 +440,7 @@ const ProductDetail = ({ ...props }) => {
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -462,6 +463,9 @@ const ProductDetail = ({ ...props }) => {
   useEffect(() => {
     selectVariant(product?.variants[0]);
     uiStore.setEndCursor(tagIds);
+       const soldOutProducts = filteredProducts?.filter((product) => product?.node?.product?.isSoldOut);
+       setSoldOutProducts(soldOutProducts);
+    
   }, []);
 
   function selectVariant(variant, optionId) {
@@ -853,10 +857,15 @@ const ProductDetail = ({ ...props }) => {
                 </Typography>
               </div>
               <div>
-                <Button className={classes.cart2} fullWidth onClick={handleOnClickforsingle} disabled={isDisabled}>
+                <Button
+                  className={classes.cart2}
+                  fullWidth
+                  onClick={handleOnClickforsingle}
+                  disabled={isDisabled || product?.isSoldOut}
+                >
                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                   <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
-                    {isDisabled ? "Added" : "+ Cart"}
+                    {isDisabled ? "Added" :product?.isSoldOut ? "Sold" : "+ Cart"}
                   </Typography>
                 </Button>
               </div>
@@ -958,7 +967,7 @@ const ProductDetail = ({ ...props }) => {
                       <Button
                         className={classes.cart}
                         onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled}
+                        disabled={isDisabled || item?.node?.product?.isSoldOut}
                       >
                         <ToastContainer
                           position="top-right"
@@ -985,7 +994,7 @@ const ProductDetail = ({ ...props }) => {
                           variant="h5"
                           component="h2"
                         >
-                          {isDisabled ? "Added" : "+ Cart"}
+                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                         </Typography>
                       </Button>
                     )}

@@ -162,6 +162,7 @@ function AllResults(props) {
   console.log(props.cart, "new");
   const { allItems, totalLength, uiStore, catalogItems,cart } = props;
   const {items}=cart
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
    const [isLoading, setIsLoading] = useState({});
   const { setPageSize, setSearchItems } = uiStore;
     const [addToCartQuantity, setAddToCartQuantity] = useState(1);
@@ -180,8 +181,9 @@ function AllResults(props) {
           disabled: item?.inCart || isItemInCart,
         };
       });
-      // console.log(updatedItems, "all");
-      // do something with updatedItems
+    const soldOutProducts = catalogItems?.filter((product) => product?.node?.product?.isSoldOut);
+    setSoldOutProducts(soldOutProducts);
+    
     }, [items, catalogItems]);
   useEffect(() => {
     setPageSize(totalLength);
@@ -310,7 +312,7 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                           <Button
                             className={classes.cart}
                             onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                            disabled={isDisabled}
+                            disabled={isDisabled || item?.node?.product?.isSoldOut}
                           >
                             <ToastContainer
                               position="top-right"
@@ -337,7 +339,7 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                               variant="h5"
                               component="h2"
                             >
-                              {isDisabled ? "Added" : "+ Cart"}
+                              {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                             </Typography>
                           </Button>
                         )}

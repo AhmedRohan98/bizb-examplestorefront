@@ -640,7 +640,7 @@ function Categories(props) {
   const { category, uiStore, routingStore, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy, cart, tags } =
     props;
   const [isLoading, setIsLoading] = useState({});
-
+const [soldOutProducts, setSoldOutProducts] = useState([]);
   console.log("items", tags);
   const router = useRouter();
   const { tagId } = router.query;
@@ -1102,6 +1102,8 @@ function Categories(props) {
     });
     // console.log(updatedItems, "all");
     // do something with updatedItems
+      const soldOutProducts = catalogItems?.filter((product) => product?.node?.product?.isSoldOut);
+      setSoldOutProducts(soldOutProducts);
   }, [cart?.items]);
   // console.log(category, "dis");
   return (
@@ -1314,7 +1316,7 @@ function Categories(props) {
                             <Button
                               className={classes.cart}
                               onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                              disabled={isDisabled}
+                              disabled={isDisabled || item?.node?.product?.isSoldOut}
                             >
                               <ToastContainer
                                 position="top-right"
@@ -1341,7 +1343,7 @@ function Categories(props) {
                                 variant="h5"
                                 component="h2"
                               >
-                                {isDisabled ? "Added" : "+ Cart"}
+                                {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>
                             </Button>
                           )}
@@ -1441,7 +1443,7 @@ function Categories(props) {
                             <Button
                               className={classes.cart}
                               onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                              disabled={isDisabled}
+                              disabled={isDisabled || item?.node?.product?.isSoldOut}
                             >
                               <ToastContainer
                                 position="top-right"
@@ -1468,7 +1470,7 @@ function Categories(props) {
                                 variant="h5"
                                 component="h2"
                               >
-                                {isDisabled ? "Added" : "+ Cart"}
+                                {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>
                             </Button>
                           )}
