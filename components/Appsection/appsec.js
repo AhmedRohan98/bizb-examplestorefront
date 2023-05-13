@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from "context/AuthContext";
 import Grid from "@material-ui/core/Grid";
-
+import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 const Appsec = () => {
   const useStyles = makeStyles((theme) => ({
@@ -48,8 +48,12 @@ const Appsec = () => {
     },
     maindivqrcodeappsex: {
       display: "flex",
-
+      width: "100%",
+      paddingRight: theme.spacing(25),
+      paddingTop: theme.spacing(5),
+      paddingLeft: theme.spacing(25),
       justifyContent: "space-between",
+      alignItems: "center",
     },
     maindivapp: {
       display: "flex",
@@ -58,7 +62,11 @@ const Appsec = () => {
     },
     maindivqrcode: {
       display: "flex",
-marginLeft:theme.spacing(3)
+    },
+    imageqrcode: {
+      marginTop: theme.spacing(4),
+      height: "140px",
+      width: "126px",
     },
     imagetext: {
       height: "auto",
@@ -77,19 +85,18 @@ marginLeft:theme.spacing(3)
       marginTop: theme.spacing(2),
 
       [theme.breakpoints.up(700)]: {
-        width: "300px",
-        height: "auto",
         marginTop: theme.spacing(4),
+        marginBottom :theme.spacing(2)
       },
     },
     imae: {
       height: "746px",
-      marginTop: theme.spacing(4),
-      width: "100%",
-    },
-    [theme.breakpoints.up(700)]: {
-      height: "440px",
-      width: "320px",
+      marginTop: theme.spacing(6),
+      width: "682px",
+      [theme.breakpoints.down(700)]: {
+        height: "400px",
+        width: "320px",
+      },
     },
   }));
 
@@ -97,9 +104,7 @@ marginLeft:theme.spacing(3)
   return (
     <div className={classes.root}>
       <img src="/app-section/appsec1.svg" alt="Using our app" className={classes.img} />
-      <div className={classes.title}>
-        <Typography variant="h3">Revamp Your Wardrobe Using Our App</Typography>
-      </div>
+     
 
       <Grid
         container
@@ -111,24 +116,29 @@ marginLeft:theme.spacing(3)
         justify="center"
         alignItems="center"
       >
-        <Grid item className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
-          <img src="/app-section/text.webp" className={classes.imagetext} />
-          <img src="/app-section/Line-1.webp" className={classes.imagetext} />
-          <div className={classes.maindivqrcodeappsex}>
-            <div className={classes.maindivapp}>
-              <a href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1" target="_blank">
-                <img src="/app-section/googleplay.webp" className={classes.image} />
-              </a>
-              <a href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
-                <img src="/app-section/appleplay.webp" className={classes.image} />
-              </a>
+        <Hidden smDown>
+          <Grid item className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
+            <img src="/app-section/text.webp" className={classes.imagetext} />
+            <img src="/app-section/Line-1.webp" className={classes.imagetext} />
+            <div className={classes.maindivqrcodeappsex}>
+              <div className={classes.maindivapp}>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1"
+                  target="_blank"
+                >
+                  <img src="/app-section/googleplay.webp" className={classes.image} />
+                </a>
+                <a href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
+                  <img src="/app-section/appleplay.webp" className={classes.image} />
+                </a>
+              </div>
+              <div className={classes.maindivqrcode}>
+                <img src="/app-section/qrcode.webp" className={classes.imageqrcode} />
+              </div>
             </div>
-            <div className={classes.maindivqrcode}>
-              <img src="/app-section/qrcode.webp" className={classes.image} />
-            </div>
-          </div>
-        </Grid>
-        <Grid item lg={6} sm={6} md={6} xs={6} className={classes.grid1}>
+          </Grid>
+        </Hidden>
+        <Grid item lg={6} sm={6} md={12} xs={12} className={classes.grid1}>
           <img src="/app-section/appsec.webp" className={classes.imae} />
         </Grid>
       </Grid>
