@@ -186,8 +186,8 @@ function AllResults(props) {
     
     }, [items, catalogItems]);
   useEffect(() => {
-    setPageSize(totalLength);
-    setSearchItems(allItems);
+    setPageSize(allItems);
+    setSearchItems(totalLength);
   }, [allItems, totalLength]);
   const shop = useShop();
     const CustomCloseButton = () => (
