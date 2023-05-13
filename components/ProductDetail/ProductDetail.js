@@ -19,6 +19,7 @@ import { useRef, useCallback, useState } from "react";
 
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
+import MagnifyImage from "./imageMagnify";
 import { ToastContainer, toast } from "react-toastify";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
@@ -67,6 +68,7 @@ const styles = (theme) => ({
   },
   controller: {
     // width: "90vh",
+    height:"90vh",
     position: "relative",
     display: "inline-grid",
     flexDirection: "row",
@@ -301,7 +303,7 @@ const styles = (theme) => ({
   carttext: {
     justifySelf: "end",
     width: "533px",
-    zIndex:1
+    zIndex: 1,
   },
   sliderimage2: {
     borderRadius: "18px",
@@ -440,7 +442,6 @@ const ProductDetail = ({ ...props }) => {
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
-  const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -463,9 +464,6 @@ const ProductDetail = ({ ...props }) => {
   useEffect(() => {
     selectVariant(product?.variants[0]);
     uiStore.setEndCursor(tagIds);
-       const soldOutProducts = filteredProducts?.filter((product) => product?.node?.product?.isSoldOut);
-       setSoldOutProducts(soldOutProducts);
-    
   }, []);
 
   function selectVariant(variant, optionId) {
@@ -669,7 +667,6 @@ const ProductDetail = ({ ...props }) => {
   const optionTitle = product?.variants[0]?.optionTitle;
   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-  // console.log(optionTitle, "fil");
   const isDisabled = cart?.items?.some((data) => {
     return data.productConfiguration.productId === product?.productId;
   });
@@ -681,6 +678,13 @@ const ProductDetail = ({ ...props }) => {
     sizes.forEach((i) => {
       return `https://res.cloudinary.com/olanetsoft/image/upload/w_${i},c_scale/cat.jpg`;
     });
+  };
+  const rimProps = {
+    enlargedImagePortalId: "portal",
+    enlargedImageContainerDimensions: {
+      width: "200%",
+      height: "100%",
+    },
   };
   return (
     <>
@@ -733,9 +737,9 @@ const ProductDetail = ({ ...props }) => {
               </Swiper>
             </div>
           </Grid>
-          <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
-            <div className="perimeter">
-              <div className="swipersss">
+          <Grid item xs={0} md={12} sm={0} lg={10}>
+            <div className="fluid react-slick">
+              <div className="fluid__image-container">
                 <Swiper
                   thumbs={{ swiper: imagesNavSlider }}
                   direction="horizontal"
@@ -766,293 +770,113 @@ const ProductDetail = ({ ...props }) => {
                     return (
                       <SwiperSlide>
                         <div className={classes.controller}>
-                          <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
-                          {/* <ReactImageMagnify
-                        {...{
-                          smallImage: {
-                            alt: "Wristwatch by Ted Baker London",
-                            isFluidWidth: true,
-                            src:"/justin/justin4.svg" ,
-                          },
-                          largeImage: {
-                           src:"/justin/justin4.svg"  ,
-                            width: 1200,
-                            height: 1800,
-                          },
-                        }}
-                      /> */}
-                          {activeIndex < product?.variants[0].media.length - 1 && (
-                            <ArrowForwardIos
-                              className={classes.iconforwad}
-                              style={{ fill: "#FDC114" }}
-                              onClick={handleNext}
-                            />
-                          )}
-
-                          {activeIndex - 0 ? (
-                            <ArrowBackIos
-                              className={classes.iconback}
-                              style={{ fill: "#FDC114" }}
-                              onClick={handlePrev}
-                            />
-                          ) : (
-                            ""
-                          )}
+                          <ReactImageMagnify
+                            {...{
+                              smallImage: {
+                                alt: "Wristwatch by Versace",
+                                isFluidWidth: true,
+                                src: slide.URLs.large,
+                              },
+                              largeImage: {
+                                src: slide.URLs.large,
+                                width: 1426,
+                                height: 2000,
+                              },
+                              lensStyle: {
+                                backgroundColor: "rgba(0,0,0,.6)",
+                              },
+                            }}
+                            enlargedImagePortalId="portal"
+                            enlargedImageContainerDimensions={{
+                              width: "200%",
+                              height: "100%",
+                            }}
+                          />
                         </div>
                       </SwiperSlide>
                     );
                   })}
                 </Swiper>
               </div>
-            </div>
-          </Grid>
-
-          <Grid style={{ display: "grid", position: "relative" }} item xs={11} md={10} sm={5} lg={4}>
-            <div className={classes.carttext}>
-              <Typography style={{ fontWeight: "700" }} variant="subtitle1">
-                {product?.title}
-              </Typography>
-              <div className={classes.size2}>
-                {" "}
-                <div className={classes.size}>
-                  {" "}
-                  <strike>
+              <div className="fluid__instructions" style={{ position: "relative" }}>
+                <div id="portal" className="portal" />
+                <div className={classes.carttext}>
+                  <Typography style={{ fontWeight: "700" }} variant="subtitle1">
+                    {product?.title}
+                  </Typography>
+                  <div className={classes.size2}>
                     {" "}
-                    <Typography
-                      style={{ fontWeight: "500", padding: "4px" }}
-                      gutterBottom
-                      variant="h4"
-                      className={classes.price2}
-                    >
-                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                        ?.replace(/\.00$/, "")
-                        ?.replace(/\$/g, "RS ")}
+                    <div className={classes.size}>
+                      {" "}
+                      <strike>
+                        {" "}
+                        <Typography
+                          style={{ fontWeight: "500", padding: "4px" }}
+                          gutterBottom
+                          variant="h4"
+                          className={classes.price2}
+                        >
+                          {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                            ?.replace(/\.00$/, "")
+                            ?.replace(/\$/g, "RS ")}
+                        </Typography>
+                      </strike>
+                      <Typography
+                        style={{ fontWeight: "700", padding: "4px" }}
+                        gutterBottom
+                        variant="h4"
+                        className={classes.price}
+                      >
+                        {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+                      </Typography>
+                    </div>
+                    <Typography gutterBottom variant="h4" className={classes.offer}>
+                      50 % off
                     </Typography>
-                  </strike>
-                  <Typography
-                    style={{ fontWeight: "700", padding: "4px" }}
-                    gutterBottom
-                    variant="h4"
-                    className={classes.price}
-                  >
-                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
-                  </Typography>
-                </div>
-                <Typography gutterBottom variant="h4" className={classes.offer}>
-                  50 % off
-                </Typography>
-              </div>
-              <div className={classes.sizeimage}>
-                <img src="/cart/available.svg" alt="available" />
-                <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                  {size == 0
-                    ? "Extra Large"
-                    : "Small" || size == 1
-                    ? "Large"
-                    : "Small" || size == 2
-                    ? "Medium"
-                    : "Small" || size == 3
-                    ? "Small"
-                    : "Small"}
-                </Typography>
-              </div>
-              <div>
-                <Button
-                  className={classes.cart2}
-                  fullWidth
-                  onClick={handleOnClickforsingle}
-                  disabled={isDisabled || product?.isSoldOut}
-                >
-                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                  <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
-                    {isDisabled ? "Added" :product?.isSoldOut ? "Sold" : "+ Cart"}
-                  </Typography>
-                </Button>
-              </div>
-              <TabContext value={value}>
-                <TabList onChange={handleChange} className={classes.tabs}>
-                  <Tab label="Description" value="1" />
-                </TabList>
+                  </div>
+                  <div className={classes.sizeimage}>
+                    <img src="/cart/available.svg" alt="available" />
+                    <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                      {size == 0
+                        ? "Extra Large"
+                        : "Small" || size == 1
+                        ? "Large"
+                        : "Small" || size == 2
+                        ? "Medium"
+                        : "Small" || size == 3
+                        ? "Small"
+                        : "Small"}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Button
+                      className={classes.cart2}
+                      fullWidth
+                      onClick={handleOnClickforsingle}
+                      disabled={isDisabled || product?.isSoldOut}
+                    >
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
+                        {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : "+ Cart"}
+                      </Typography>
+                    </Button>
+                  </div>
+                  <TabContext value={value}>
+                    <TabList onChange={handleChange} className={classes.tabs}>
+                      <Tab label="Description" value="1" />
+                    </TabList>
 
-                <TabPanel value="1" className={classes.sizechart}>
-                  {product?.description}
-                </TabPanel>
-              </TabContext>
+                    <TabPanel value="1" className={classes.sizechart}>
+                      {product?.description}
+                    </TabPanel>
+                  </TabContext>
+                </div>
+              </div>
             </div>
           </Grid>
           <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
         </Grid>
       </Box>
-
-      {/* <Fragment>
-        <Grid container spacing={5}>
-          <Grid item className={classes.breadcrumbGrid} xs={12}>
-            <Breadcrumbs isPDP tagId={routingStore.tagId} product={product} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <div className={classes.section}>
-              <MediaGallery mediaItems={pdpMediaItems} />
-            </div>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
-            <div className={classes.info}>
-              <ProductDetailVendor>{product.vendor}</ProductDetailVendor>
-            </div>
-            <div className={classes.info}>
-              <ProductDetailPrice
-                className={classes.bottomMargin}
-                compareAtPrice={compareAtDisplayPrice}
-                price={productPrice.displayPrice}
-              />
-            </div>
-            <div className={classes.info}>
-              <ProductDetailDescription>{product.description}</ProductDetailDescription>
-            </div>
-            <VariantList
-              onSelectOption={handleSelectOption}
-              onSelectVariant={handleSelectVariant}
-              product={product}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              currencyCode={currencyCode}
-              variants={product.variants}
-            />
-            <ProductDetailAddToCart
-              onClick={handleAddToCartClick}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              variants={product.variants}
-            />
-          </Grid>
-        </Grid>
- </Fragment> */}
-      <Typography variant="h3" className={classes.related}>
-        <div className="text"></div>
-        Related <span className={classes.spanofnextword}>Products</span>
-      </Typography>
-      <div className={classes.root}>
-        <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-          {filteredProducts?.slice(0, 5)?.map((item, key) => {
-            const cartitem = cart?.items;
-            const isDisabled = cartitem?.some((data) => {
-              return data.productConfiguration.productId === item?.node?.product?.productId;
-            });
-
-            // console.log(cart?.items, "item");
-            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-            return (
-              <>
-                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                  <img
-                    src={
-                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.media[0]?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                    onClick={() => clickHandler(item.node.product.slug)}
-                  />
-
-                  <div className={classes.cartbackground}>
-                    {isLoading[item?.node?.product?.productId] ? (
-                      <CircularProgress />
-                    ) : (
-                      <Button
-                        className={classes.cart}
-                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled || item?.node?.product?.isSoldOut}
-                      >
-                        <ToastContainer
-                          position="top-right"
-                          autoClose={5000}
-                          hideProgressBar={false}
-                          newestOnTop={false}
-                          closeButton={<CustomCloseButton />}
-                          rtl={false}
-                          pauseOnFocusLoss
-                          draggable
-                          pauseOnHover
-                          theme="colored"
-                          background="green"
-                          toastStyle={{
-                            backgroundColor: "#FDC114",
-                            color: "black",
-                            fontSize: "16px",
-                            fontFamily: "lato",
-                          }}
-                        />{" "}
-                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography
-                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                          variant="h5"
-                          component="h2"
-                        >
-                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        </Typography>
-                      </Button>
-                    )}
-                  </div>
-                  <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
-                    <Typography
-                      style={{ fontWeight: "700", fontSize: "24px" }}
-                      gutterBottom
-                      variant="h4"
-                      component="h2"
-                      className={classes.carttitle}
-                    >
-                      {item.node.product.title}
-                    </Typography>
-                    <div className={classes.size}>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                        gutterBottom
-                        variant="h4"
-                      >
-                        Size :
-                      </Typography>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                        gutterBottom
-                        variant="h4"
-                      >
-                        {size == 0
-                          ? "Extra Large"
-                          : "Small" || size == 1
-                          ? "Large"
-                          : "Small" || size == 2
-                          ? "Medium"
-                          : "Small" || size == 3
-                          ? "Small"
-                          : "Small"}
-                      </Typography>
-                    </div>
-                    <div className={classes.pricing}>
-                      {" "}
-                      <strike>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </strike>
-                      <Typography gutterBottom variant="h5" className={classes.price}>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </Typography>
-                    </div>
-                  </Box>
-                </Grid>
-              </>
-            );
-          })}
-        </Grid>
-      </div>
     </>
   );
 };
@@ -1080,4 +904,3 @@ ProductDetail.propTypes = {
 export default withWidth({ initialWidth: "md" })(
   withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)),
 );
-
