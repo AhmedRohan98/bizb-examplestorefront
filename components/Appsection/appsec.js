@@ -64,8 +64,8 @@ const Appsec = () => {
       display: "flex",
     },
     imageqrcode: {
-      marginTop: theme.spacing(4),
-      height: "140px",
+      marginTop: theme.spacing(1),
+      height: "150px",
       width: "126px",
     },
     imagetext: {
