@@ -311,8 +311,9 @@ input:-internal-autofill-selected {
 
 .portal {
   position: absolute;
-  top: 40px;
-  left: -30px;
+  top: 0px;
+  left: -100px;
+
   z-index: 3;
 }
 .fluid__instructions {
@@ -375,7 +376,8 @@ a:hover {
 
 @media (min-width: 480px) {
   .react-slick .fluid__image-container {
-    margin: 40px;
+    margin: 0px;
+  
   }
 
   .react-slick .fluid__instructions {
@@ -445,11 +447,15 @@ a:hover {
 @media (min-width: 480px) {
   .fluid {
     flex-direction: row;
+    justify-content: space-between;
   }
 
   .fluid__image-container{
     flex: 0 0 30%;
-    margin: 20px 0 20px 20px;
+    position: relative;
+    position: relative;
+  height: 600px;
+  width: 600px;
   }
 
   .fluid__instructions {
@@ -464,7 +470,7 @@ a:hover {
 
   .portal {
     position: absolute;
-    top: 40px;
+    top: 0px;
     left: -30px;
   }
 }
@@ -485,7 +491,7 @@ a:hover {
 
 @media (min-width: 480px) {
   .react-slick .fluid__image-container{
-    margin: 40px;
+    margin: 0px;
   }
 
   .react-slick .fluid__instructions {
@@ -499,4 +505,19 @@ a:hover {
 .popover-active {
   background-color: blue;
   color: white;
+}
+.images {
+  border-radius: 18px;
+  position: relative;
+  margin: 0 auto;
+  min-height: 600px;
+  align-items: center;
+  justify-content: center;
+  max-height: 600px;
+  max-width: 600px;
+  object-fit: contain;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    color: rgb(253, 193, 20);
 }

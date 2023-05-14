@@ -68,7 +68,7 @@ const styles = (theme) => ({
   },
   controller: {
     // width: "90vh",
-    height:"90vh",
+ 
     position: "relative",
     display: "inline-grid",
     flexDirection: "row",
@@ -82,7 +82,7 @@ const styles = (theme) => ({
     background: "#333333",
     color: "FDC114",
     borderRadius: "4px",
-    zIndex: 1251,
+    zIndex: 10,
   },
   iconback: {
     position: "absolute",
@@ -439,6 +439,7 @@ const ProductDetail = ({ ...props }) => {
     sliderRef.current.swiper.slideNext();
   }, []);
   const [isLoading, setIsLoading] = useState({});
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -458,6 +459,8 @@ const ProductDetail = ({ ...props }) => {
         disabled: item.inCart || isItemInCart,
       };
     });
+      const soldOutProducts = filteredProducts?.filter((product) => product?.node?.product?.isSoldOut);
+      setSoldOutProducts(soldOutProducts);
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [cart?.items, product]);
@@ -670,15 +673,7 @@ const ProductDetail = ({ ...props }) => {
   const isDisabled = cart?.items?.some((data) => {
     return data.productConfiguration.productId === product?.productId;
   });
-  const imageBaseUrl = "https://res.cloudinary.com/olanetsoft/image/upload/cat.jpg";
 
-  const sizes = ["355", "481", "600", "600", "600", "600", "600", "600", "600", "600", "600"];
-
-  const srcSet = () => {
-    sizes.forEach((i) => {
-      return `https://res.cloudinary.com/olanetsoft/image/upload/w_${i},c_scale/cat.jpg`;
-    });
-  };
   const rimProps = {
     enlargedImagePortalId: "portal",
     enlargedImageContainerDimensions: {
@@ -739,47 +734,48 @@ const ProductDetail = ({ ...props }) => {
           </Grid>
           <Grid item xs={0} md={12} sm={0} lg={10}>
             <div className="fluid react-slick">
-              <div className="fluid__image-container">
-                <Swiper
-                  thumbs={{ swiper: imagesNavSlider }}
-                  direction="horizontal"
-                  slidesPerView={1}
-                  spaceBetween={32}
-                  ref={sliderRef}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  mousewheel={true}
-                  navigation={{
-                    nextEl: ".slider__next",
-                    prevEl: ".slider__prev",
-                  }}
-                  breakpoints={{
-                    0: {
-                      direction: "horizontal",
-                      thumbs: "false",
-                    },
-                    768: {
-                      direction: "horizontal",
-                    },
-                  }}
-                  modules={[Navigation, Thumbs, Mousewheel, Pagination]}
-                  onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
-                >
+              <Swiper
+                thumbs={{ swiper: imagesNavSlider }}
+                direction="horizontal"
+                slidesPerView={1}
+                spaceBetween={32}
+                ref={sliderRef}
+                pagination={{
+                  clickable: true,
+                }}
+                mousewheel={true}
+                navigation={true}
+                breakpoints={{
+                  0: {
+                    direction: "horizontal",
+                    thumbs: "false",
+                  },
+                  768: {
+                    direction: "horizontal",
+                  },
+                }}
+                modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+                onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+              >
+                <div className="fluid__image-container">
                   {product?.variants[0].media.map((slide, index) => {
                     return (
-                      <SwiperSlide>
-                        <div className={classes.controller}>
+                      <SwiperSlide className={classes.sliderimage2}>
+                        <div>
                           <ReactImageMagnify
                             {...{
                               smallImage: {
                                 alt: "Wristwatch by Versace",
                                 isFluidWidth: true,
+                                width: 600,
+                                className: "images",
+                                height: 400,
                                 src: slide.URLs.large,
                               },
                               largeImage: {
                                 src: slide.URLs.large,
                                 width: 1426,
+                                marginLeft: "100px",
                                 height: 2000,
                               },
                               lensStyle: {
@@ -788,7 +784,8 @@ const ProductDetail = ({ ...props }) => {
                             }}
                             enlargedImagePortalId="portal"
                             enlargedImageContainerDimensions={{
-                              width: "200%",
+                              width: "150%",
+                              marginLeft: "100px",
                               height: "100%",
                             }}
                           />
@@ -796,8 +793,8 @@ const ProductDetail = ({ ...props }) => {
                       </SwiperSlide>
                     );
                   })}
-                </Swiper>
-              </div>
+                </div>
+              </Swiper>
               <div className="fluid__instructions" style={{ position: "relative" }}>
                 <div id="portal" className="portal" />
                 <div className={classes.carttext}>
@@ -874,9 +871,180 @@ const ProductDetail = ({ ...props }) => {
               </div>
             </div>
           </Grid>
+         
           <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
         </Grid>
       </Box>
+
+      {/* <Fragment>
+        <Grid container spacing={5}>
+          <Grid item className={classes.breadcrumbGrid} xs={12}>
+            <Breadcrumbs isPDP tagId={routingStore.tagId} product={product} />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div className={classes.section}>
+              <MediaGallery mediaItems={pdpMediaItems} />
+            </div>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
+            <div className={classes.info}>
+              <ProductDetailVendor>{product.vendor}</ProductDetailVendor>
+            </div>
+            <div className={classes.info}>
+              <ProductDetailPrice
+                className={classes.bottomMargin}
+                compareAtPrice={compareAtDisplayPrice}
+                price={productPrice.displayPrice}
+              />
+            </div>
+            <div className={classes.info}>
+              <ProductDetailDescription>{product.description}</ProductDetailDescription>
+            </div>
+            <VariantList
+              onSelectOption={handleSelectOption}
+              onSelectVariant={handleSelectVariant}
+              product={product}
+              selectedOptionId={pdpSelectedOptionId}
+              selectedVariantId={pdpSelectedVariantId}
+              currencyCode={currencyCode}
+              variants={product.variants}
+            />
+            <ProductDetailAddToCart
+              onClick={handleAddToCartClick}
+              selectedOptionId={pdpSelectedOptionId}
+              selectedVariantId={pdpSelectedVariantId}
+              variants={product.variants}
+            />
+          </Grid>
+        </Grid>
+ </Fragment> */}
+      <Typography variant="h3" className={classes.related}>
+        <div className="text"></div>
+        Related <span className={classes.spanofnextword}>Products</span>
+      </Typography>
+      <div className={classes.root}>
+        <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
+          {filteredProducts?.slice(0, 5)?.map((item, key) => {
+            const cartitem = cart?.items;
+            const isDisabled = cartitem?.some((data) => {
+              return data.productConfiguration.productId === item?.node?.product?.productId;
+            });
+
+            // console.log(cart?.items, "item");
+            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+            return (
+              <>
+                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                  <img
+                    src={
+                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                        ? "/justin/justin4.svg"
+                        : item?.node?.product?.media[0]?.URLs?.large
+                    }
+                    className={classes.image}
+                    key={item?.node?.product?.id}
+                    alt={"hhhh"}
+                    onClick={() => clickHandler(item.node.product.slug)}
+                  />
+
+                  <div className={classes.cartbackground}>
+                    {isLoading[item?.node?.product?.productId] ? (
+                      <CircularProgress />
+                    ) : (
+                      <Button
+                        className={classes.cart}
+                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                        disabled={isDisabled || item?.node?.product?.isSoldOut}
+                      >
+                        <ToastContainer
+                          position="top-right"
+                          autoClose={5000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeButton={<CustomCloseButton />}
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                          theme="colored"
+                          background="green"
+                          toastStyle={{
+                            backgroundColor: "#FDC114",
+                            color: "black",
+                            fontSize: "16px",
+                            fontFamily: "lato",
+                          }}
+                        />{" "}
+                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                        <Typography
+                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                          variant="h5"
+                          component="h2"
+                        >
+                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                        </Typography>
+                      </Button>
+                    )}
+                  </div>
+                  <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
+                    <Typography
+                      style={{ fontWeight: "700", fontSize: "24px" }}
+                      gutterBottom
+                      variant="h4"
+                      component="h2"
+                      className={classes.carttitle}
+                    >
+                      {item.node.product.title}
+                    </Typography>
+                    <div className={classes.size}>
+                      <Typography
+                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                        gutterBottom
+                        variant="h4"
+                      >
+                        Size :
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                        gutterBottom
+                        variant="h4"
+                      >
+                        {size == 0
+                          ? "Extra Large"
+                          : "Small" || size == 1
+                          ? "Large"
+                          : "Small" || size == 2
+                          ? "Medium"
+                          : "Small" || size == 3
+                          ? "Small"
+                          : "Small"}
+                      </Typography>
+                    </div>
+                    <div className={classes.pricing}>
+                      {" "}
+                      <strike>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "RS ")}
+                      </strike>
+                      <Typography gutterBottom variant="h5" className={classes.price}>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "RS ")}
+                      </Typography>
+                    </div>
+                  </Box>
+                </Grid>
+              </>
+            );
+          })}
+        </Grid>
+      </div>
     </>
   );
 };
@@ -904,3 +1072,5 @@ ProductDetail.propTypes = {
 export default withWidth({ initialWidth: "md" })(
   withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)),
 );
+
+
