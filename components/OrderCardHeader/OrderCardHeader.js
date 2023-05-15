@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ChevronDownIcon from "mdi-material-ui/ChevronDown";
 import ChevronUpIcon from "mdi-material-ui/ChevronUp";
-import Address from "@reactioncommerce/components/Address/v1";
+import Address from "../../reaction-plugins/reaction-component-library/package/src/components/Address/v1";
 import OrderCardStatusBadge from "components/OrderCardStatusBadge";
 
 const styles = (theme) => ({

@@ -160,6 +160,7 @@ const Justin = (props) => {
   // const UIContextJustInPage = useContext(UIContext);
 
   const catalogdata = props?.catalogItems;
+  console.log(catalogdata,"cat")
 const [soldOutProducts, setSoldOutProducts] = useState([]);
 
   const { uiStore } = props;
