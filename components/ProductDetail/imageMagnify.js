@@ -56,7 +56,7 @@ const MagnifyImage = ({ product, ...rimProps }) => {
                 enlargedImagePortalId="portal"
                 enlargedImageContainerDimensions={{
                   width: "200%",
-                  height: "100%",
+                  height: "150%",
                 }}
               />
               {/* <ReactImageMagnify
