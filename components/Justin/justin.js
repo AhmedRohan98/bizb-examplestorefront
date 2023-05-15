@@ -406,7 +406,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                   >
                     <Box className={classes.maintitle}>
                       <Typography
-                        style={{ fontWeight: "700", fontSize: "24px" ,marginTop:"6px"}}
+                        style={{ fontWeight: "700", fontSize: "24px", marginTop: "6px" }}
                         gutterBottom
                         variant="h4"
                         component="h2"
@@ -427,7 +427,31 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                           gutterBottom
                           variant="h4"
                         >
-                          {size == 0 ? "Extra Large" : "Small" || size == 1 ? "Large"  : "Small"|| size == 2 ? "Medium"  : "Small" || size == 3 ? "Small"  : "Small"}
+                          {size == 0
+                            ? "Extra Large"
+                            : "Small" || size == 1
+                            ? "Large"
+                            : "Small" || size == 2
+                            ? "Medium"
+                            : "Small" || size == 3
+                            ? "Small"
+                            : "Small"}
+                        </Typography>
+                      </div>
+                      <div className={classes.size}>
+                        <Typography
+                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                          gutterBottom
+                          variant="h4"
+                        >
+                          StoreName :
+                        </Typography>
+                        <Typography
+                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                          gutterBottom
+                          variant="h4"
+                        >
+                          {item?.node?.product?.variants[0]?.uploadedBy.storeName}
                         </Typography>
                       </div>
                       <div className={classes.pricing}>

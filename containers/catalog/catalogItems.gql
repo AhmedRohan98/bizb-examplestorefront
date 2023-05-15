@@ -24,8 +24,7 @@ query catalogItemsQuery(
     sortOrder: $sortOrder
     searchQuery: $searchQuery
     simpleFilters: $simpleFilters
-    priceRange:$priceRange
-    
+    priceRange: $priceRange
   ) {
     totalCount
     pageInfo {
@@ -55,6 +54,11 @@ query catalogItemsQuery(
             productId
 
             variants {
+              uploadedBy {
+                userId
+                name
+                storeName
+              }
               pricing {
                 compareAtPrice {
                   displayAmount
