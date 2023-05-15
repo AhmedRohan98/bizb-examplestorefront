@@ -19,6 +19,7 @@ import { useRef, useCallback, useState } from "react";
 
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
+import MagnifyImage from "./imageMagnify";
 import { ToastContainer, toast } from "react-toastify";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
@@ -67,6 +68,7 @@ const styles = (theme) => ({
   },
   controller: {
     // width: "90vh",
+ 
     position: "relative",
     display: "inline-grid",
     flexDirection: "row",
@@ -80,7 +82,7 @@ const styles = (theme) => ({
     background: "#333333",
     color: "FDC114",
     borderRadius: "4px",
-    zIndex: 1251,
+    zIndex: 10,
   },
   iconback: {
     position: "absolute",
@@ -301,7 +303,7 @@ const styles = (theme) => ({
   carttext: {
     justifySelf: "end",
     width: "533px",
-    zIndex:1
+    zIndex: 1,
   },
   sliderimage2: {
     borderRadius: "18px",
@@ -437,6 +439,7 @@ const ProductDetail = ({ ...props }) => {
     sliderRef.current.swiper.slideNext();
   }, []);
   const [isLoading, setIsLoading] = useState({});
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
   const [value, setValue] = React.useState("1");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -456,6 +459,8 @@ const ProductDetail = ({ ...props }) => {
         disabled: item.inCart || isItemInCart,
       };
     });
+      const soldOutProducts = filteredProducts?.filter((product) => product?.node?.product?.isSoldOut);
+      setSoldOutProducts(soldOutProducts);
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [cart?.items, product]);
@@ -665,18 +670,16 @@ const ProductDetail = ({ ...props }) => {
   const optionTitle = product?.variants[0]?.optionTitle;
   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-  // console.log(optionTitle, "fil");
   const isDisabled = cart?.items?.some((data) => {
     return data.productConfiguration.productId === product?.productId;
   });
-  const imageBaseUrl = "https://res.cloudinary.com/olanetsoft/image/upload/cat.jpg";
 
-  const sizes = ["355", "481", "600", "600", "600", "600", "600", "600", "600", "600", "600"];
-
-  const srcSet = () => {
-    sizes.forEach((i) => {
-      return `https://res.cloudinary.com/olanetsoft/image/upload/w_${i},c_scale/cat.jpg`;
-    });
+  const rimProps = {
+    enlargedImagePortalId: "portal",
+    enlargedImageContainerDimensions: {
+      width: "200%",
+      height: "100%",
+    },
   };
   return (
     <>
@@ -729,148 +732,146 @@ const ProductDetail = ({ ...props }) => {
               </Swiper>
             </div>
           </Grid>
-          <Grid item xs={12} md={10} sm={7} lg={3} className={`${classes.sliderimages} swiper_slider`}>
-            <div className="perimeter">
-              <div className="swipersss">
-                <Swiper
-                  thumbs={{ swiper: imagesNavSlider }}
-                  direction="horizontal"
-                  slidesPerView={1}
-                  spaceBetween={32}
-                  ref={sliderRef}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  mousewheel={true}
-                  navigation={{
-                    nextEl: ".slider__next",
-                    prevEl: ".slider__prev",
-                  }}
-                  breakpoints={{
-                    0: {
-                      direction: "horizontal",
-                      thumbs: "false",
-                    },
-                    768: {
-                      direction: "horizontal",
-                    },
-                  }}
-                  modules={[Navigation, Thumbs, Mousewheel, Pagination]}
-                  onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
-                >
+          <Grid item xs={0} md={12} sm={0} lg={10}>
+            <div className="fluid react-slick">
+              <Swiper
+                thumbs={{ swiper: imagesNavSlider }}
+                direction="horizontal"
+                slidesPerView={1}
+                spaceBetween={32}
+                ref={sliderRef}
+                pagination={{
+                  clickable: true,
+                }}
+                mousewheel={true}
+                navigation={true}
+                breakpoints={{
+                  0: {
+                    direction: "horizontal",
+                    thumbs: "false",
+                  },
+                  768: {
+                    direction: "horizontal",
+                  },
+                }}
+                modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+                onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+              >
+                <div className="fluid__image-container">
                   {product?.variants[0].media.map((slide, index) => {
                     return (
-                      <SwiperSlide>
-                        <div className={classes.controller}>
-                          <img src={slide.URLs.large} alt="" className={classes.sliderimage2} />
-                          {/* <ReactImageMagnify
-                        {...{
-                          smallImage: {
-                            alt: "Wristwatch by Ted Baker London",
-                            isFluidWidth: true,
-                            src:"/justin/justin4.svg" ,
-                          },
-                          largeImage: {
-                           src:"/justin/justin4.svg"  ,
-                            width: 1200,
-                            height: 1800,
-                          },
-                        }}
-                      /> */}
-                          {activeIndex < product?.variants[0].media.length - 1 && (
-                            <ArrowForwardIos
-                              className={classes.iconforwad}
-                              style={{ fill: "#FDC114" }}
-                              onClick={handleNext}
-                            />
-                          )}
-
-                          {activeIndex - 0 ? (
-                            <ArrowBackIos
-                              className={classes.iconback}
-                              style={{ fill: "#FDC114" }}
-                              onClick={handlePrev}
-                            />
-                          ) : (
-                            ""
-                          )}
+                      <SwiperSlide className={classes.sliderimage2}>
+                        <div>
+                          <ReactImageMagnify
+                            {...{
+                              smallImage: {
+                                alt: "Wristwatch by Versace",
+                                isFluidWidth: true,
+                                width: 600,
+                                className: "images",
+                                height: 400,
+                                src: slide.URLs.large,
+                              },
+                              largeImage: {
+                                src: slide.URLs.large,
+                                width: 1426,
+                                marginLeft: "100px",
+                                height: 2000,
+                              },
+                              lensStyle: {
+                                backgroundColor: "rgba(0,0,0,.6)",
+                              },
+                            }}
+                            enlargedImagePortalId="portal"
+                            enlargedImageContainerDimensions={{
+                              width: "150%",
+                              marginLeft: "100px",
+                              height: "100%",
+                            }}
+                          />
                         </div>
                       </SwiperSlide>
                     );
                   })}
-                </Swiper>
-              </div>
-            </div>
-          </Grid>
-
-          <Grid style={{ display: "grid", position: "relative" }} item xs={11} md={10} sm={5} lg={4}>
-            <div className={classes.carttext}>
-              <Typography style={{ fontWeight: "700" }} variant="subtitle1">
-                {product?.title}
-              </Typography>
-              <div className={classes.size2}>
-                {" "}
-                <div className={classes.size}>
-                  {" "}
-                  <strike>
-                    {" "}
-                    <Typography
-                      style={{ fontWeight: "500", padding: "4px" }}
-                      gutterBottom
-                      variant="h4"
-                      className={classes.price2}
-                    >
-                      {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                        ?.replace(/\.00$/, "")
-                        ?.replace(/\$/g, "RS ")}
-                    </Typography>
-                  </strike>
-                  <Typography
-                    style={{ fontWeight: "700", padding: "4px" }}
-                    gutterBottom
-                    variant="h4"
-                    className={classes.price}
-                  >
-                    {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
-                  </Typography>
                 </div>
-                <Typography gutterBottom variant="h4" className={classes.offer}>
-                  50 % off
-                </Typography>
-              </div>
-              <div className={classes.sizeimage}>
-                <img src="/cart/available.svg" alt="available" />
-                <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                  {size == 0
-                    ? "Extra Large"
-                    : "Small" || size == 1
-                    ? "Large"
-                    : "Small" || size == 2
-                    ? "Medium"
-                    : "Small" || size == 3
-                    ? "Small"
-                    : "Small"}
-                </Typography>
-              </div>
-              <div>
-                <Button className={classes.cart2} fullWidth onClick={handleOnClickforsingle} disabled={isDisabled}>
-                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                  <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
-                    {isDisabled ? "Added" : "+ Cart"}
+              </Swiper>
+              <div className="fluid__instructions" style={{ position: "relative" }}>
+                <div id="portal" className="portal" />
+                <div className={classes.carttext}>
+                  <Typography style={{ fontWeight: "700" }} variant="subtitle1">
+                    {product?.title}
                   </Typography>
-                </Button>
-              </div>
-              <TabContext value={value}>
-                <TabList onChange={handleChange} className={classes.tabs}>
-                  <Tab label="Description" value="1" />
-                </TabList>
+                  <div className={classes.size2}>
+                    {" "}
+                    <div className={classes.size}>
+                      {" "}
+                      <strike>
+                        {" "}
+                        <Typography
+                          style={{ fontWeight: "500", padding: "4px" }}
+                          gutterBottom
+                          variant="h4"
+                          className={classes.price2}
+                        >
+                          {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                            ?.replace(/\.00$/, "")
+                            ?.replace(/\$/g, "RS ")}
+                        </Typography>
+                      </strike>
+                      <Typography
+                        style={{ fontWeight: "700", padding: "4px" }}
+                        gutterBottom
+                        variant="h4"
+                        className={classes.price}
+                      >
+                        {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+                      </Typography>
+                    </div>
+                    <Typography gutterBottom variant="h4" className={classes.offer}>
+                      50 % off
+                    </Typography>
+                  </div>
+                  <div className={classes.sizeimage}>
+                    <img src="/cart/available.svg" alt="available" />
+                    <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                      {size == 0
+                        ? "Extra Large"
+                        : "Small" || size == 1
+                        ? "Large"
+                        : "Small" || size == 2
+                        ? "Medium"
+                        : "Small" || size == 3
+                        ? "Small"
+                        : "Small"}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Button
+                      className={classes.cart2}
+                      fullWidth
+                      onClick={handleOnClickforsingle}
+                      disabled={isDisabled || product?.isSoldOut}
+                    >
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                      <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
+                        {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : "+ Cart"}
+                      </Typography>
+                    </Button>
+                  </div>
+                  <TabContext value={value}>
+                    <TabList onChange={handleChange} className={classes.tabs}>
+                      <Tab label="Description" value="1" />
+                    </TabList>
 
-                <TabPanel value="1" className={classes.sizechart}>
-                  {product?.description}
-                </TabPanel>
-              </TabContext>
+                    <TabPanel value="1" className={classes.sizechart}>
+                      {product?.description}
+                    </TabPanel>
+                  </TabContext>
+                </div>
+              </div>
             </div>
           </Grid>
+         
           <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
         </Grid>
       </Box>
@@ -958,7 +959,7 @@ const ProductDetail = ({ ...props }) => {
                       <Button
                         className={classes.cart}
                         onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled}
+                        disabled={isDisabled || item?.node?.product?.isSoldOut}
                       >
                         <ToastContainer
                           position="top-right"
@@ -985,7 +986,7 @@ const ProductDetail = ({ ...props }) => {
                           variant="h5"
                           component="h2"
                         >
-                          {isDisabled ? "Added" : "+ Cart"}
+                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                         </Typography>
                       </Button>
                     )}
@@ -1071,4 +1072,5 @@ ProductDetail.propTypes = {
 export default withWidth({ initialWidth: "md" })(
   withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)),
 );
+
 
