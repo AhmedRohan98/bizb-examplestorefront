@@ -523,23 +523,6 @@ function SellerPublicProfile(props) {
                               : "Small"}
                           </Typography>
                         </div>
-                        <div className={classes.size}>
-                          <Typography
-                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                            gutterBottom
-                            variant="h4"
-                          >
-                            StoreName :
-                          </Typography>
-
-                          <Typography
-                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                            gutterBottom
-                            variant="h4"
-                          >
-                            {item?.node?.product?.variants[0]?.uploadedBy.storeName}
-                          </Typography>
-                        </div>
                         <div className={classes.pricing}>
                           {" "}
                           <strike>

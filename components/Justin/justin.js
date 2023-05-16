@@ -369,16 +369,18 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                     href={item.node.product.slug && "en/product/[...slugOrId]"}
                     as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                   >
-                    <img
-                      src={
-                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                          ? "/justin/justin4.svg"
-                          : item?.node?.product?.media[0]?.URLs?.large
-                      }
-                      className={classes.image}
-                      key={item?.node?.product?.id}
-                      alt={"hhhh"}
-                    />
+                    <a target="_blank">
+                      <img
+                        src={
+                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.media[0]?.URLs?.large
+                        }
+                        className={classes.image}
+                        key={item?.node?.product?.id}
+                        alt={"hhhh"}
+                      />
+                    </a>
                   </Link>
                   <div className={classes.cartbackground}>
                     {isLoading[item?.node?.product?.productId] ? (
