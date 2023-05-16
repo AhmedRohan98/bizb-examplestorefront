@@ -848,11 +848,16 @@ const ProductDetail = ({ ...props }) => {
                   </div>
                   <div className={classes.sizeimage}>
                     <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                     Sold By :
+                      Sold By :
                     </Typography>
-                    <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                      {product?.variants[0]?.uploadedBy.storeName}
-                    </Typography>
+                    <Link
+                      href={"/en/profile/[slugOrId]"}
+                      as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}
+                    >
+                      <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                        {product?.variants[0]?.uploadedBy.storeName}
+                      </Typography>
+                    </Link>
                   </div>
 
                   <div>
