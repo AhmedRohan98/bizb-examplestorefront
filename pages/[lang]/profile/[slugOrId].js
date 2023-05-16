@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../../components/Layout";
-import { withApollo } from "lib/apollo/withApollo";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import withCart from "containers/cart/withCart";
+import PageStepper from "../../../components/PageStepper/PageStepper";
+import { withApollo } from "lib/apollo/withApollo";
+import useShop from "hooks/shop/useShop";
 import SellersCatalogItems from "containers/catalog/withSellerCatalogItem";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
+import variantById from "../../../lib/utils/variantById";
 import { makeStyles } from "@material-ui/core/styles";
 import inject from "../../../hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
+import { CircularProgress, Hidden } from "@material-ui/core";
 function SellerPublicProfile(props) {
+  console.log("propssssssssssssssssssssss", props);
+  const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
-  const { uiStore } = props;
+
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
- 
+
   const useStyles = makeStyles((theme) => ({
     main: {
       width: "100%",
@@ -160,22 +166,236 @@ function SellerPublicProfile(props) {
       marginBottom: theme.spacing(2),
     },
   }));
-  console.log(props,"propertiese")
-const router = useRouter();
- const { slugOrId } = router.query;
- useEffect(() => {
-  //  uiStore?.setPageSize(15);
-   console.log(slugOrId, "slug");
-   uiStore?.setsellerId(slugOrId);
- }, [slugOrId]);
-   const classes = useStyles(); 
-     const CustomCloseButton = () => (
-       <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
-     );
+  console.log(props.totalcount, "propertiese");
+  const router = useRouter();
+   const shop = useShop();
+  const { slugOrId } = router.query;
+  useEffect(() => {
+    //  uiStore?.setPageSize(15);
+    console.log(slugOrId, "slug");
+    uiStore?.setsellerId(slugOrId);
+  }, [slugOrId]);
+  useEffect(() => {
+    const updatedItems = props?.cart?.items?.map((item) => {
+      const isItemInCart = props?.catalogItems.some((product) => {
+        return item?.productConfiguration?.productId === product?.node.product?.productId;
+      });
 
+      // setpageSize(20);
+      return {
+        ...item,
+        disabled: item?.inCart || isItemInCart,
+      };
+    });
+    const soldOutProducts = props?.catalogItems?.filter((product) => product?.node?.product?.isSoldOut);
+    setSoldOutProducts(soldOutProducts);
+
+    // console.log(updatedItems, "all");
+    // do something with updatedItems
+  }, [props?.cart?.items, props?.catalogItems]);
+  function selectVariant(variant, optionId) {
+    const { product, uiStore, cart } = props;
+
+    function determineProductPrice() {
+      const { currencyCode, product } = props;
+      const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
+      const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
+      let productPrice = {};
+
+      if (pdpSelectedOptionId && selectedVariant) {
+        const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
+        productPrice = priceByCurrencyCode(currencyCode, selectedOption.pricing);
+      } else if (!pdpSelectedOptionId && selectedVariant) {
+        productPrice = priceByCurrencyCode(currencyCode, selectedVariant.pricing);
+      }
+
+      return productPrice;
+    }
+
+    // Select the variant, and if it has options, the first option
+    const variantId = variant._id;
+    let selectOptionId = optionId;
+    if (!selectOptionId && variant.options && variant.options.length) {
+      selectOptionId = variant.options[0]._id;
+    }
+
+    uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
+
+    Router.replace("/product/[...slugOrId]", `/product/${product.slug}/${selectOptionId || variantId}`);
+  }
+
+  const handleAddToCartClick = async (quantity, product, variant) => {
+    const {
+      addItemsToCart,
+      currencyCode,
+      cart,
+      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+    } = props;
+
+    // Disable button after it has been clicked
+
+    // console.log(pdpSelectedVariantId, "star");
+
+    // Get selected variant or variant optiono
+    const selectedVariant = variantById(product.variants, variant._id);
+
+    // If variant is not already in the cart, add the new item
+    // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
+    const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
+    await addItemsToCart([
+      {
+        price: {
+          amount: price,
+          currencyCode: "USD",
+        },
+        metafields: [
+          {
+            key: "media",
+            value: product.media[0]?.URLs?.large,
+          },
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity,
+      },
+    ]);
+  };
+
+  const handleOnClick = async (product, variant) => {
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: true,
+    }));
+
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+    toast.success(" added to cart successfully!");
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: false,
+    }));
+    // Scroll to the top
+  };
+  const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
+  const classes = useStyles();
+ const profile = props.catalogItems[0]?.node?.product?.variants[0]?.uploadedBy;  
+ console.log(profile,"profile")                   
   return (
-    <Layout>
+    <Layout shop={shop}>
       <div className={classes.main}>
+        <div className="sellerProfile">
+          <Typography className="SELLERpROFILE__mainHeading" variant="h5">
+            Profile
+          </Typography>
+          <Grid container className="publicProfile__profileInfoWrapper">
+            <Grid xs={12} item className="publicProfile__profileInfoSection">
+              <div
+                className="sellerProfile__img"
+                style={{
+                  backgroundImage: profile
+                    ? profile.image
+                      ? "URL(" + profile.profilePhoto + ")"
+                      : "URL(" + "/images/sellerProfile.jpg" + ")"
+                    : "URL(" + "/images/sellerProfile.jpg" + ")",
+                }}
+              >
+                {/* <div className="sellerProfile__badge"> 
+                          <img src={profile ? profile.profilePhoto?profile.profilePhoto:"/icons/medal.svg":"/icons/medal.svg"} />
+                        </div> */}
+              </div>
+              <div className="publicProfile__infoContainer">
+                <div className="sellerProfile__infoRow publicProfile__infoRow">
+                  <Typography className="publicProfile__name" variant="h5">
+                    <span>{profile && profile?.name ? profile?.name : profile?.name}</span>
+                    {profile && profile && <img src="/icons/tickIcon.png" />}
+                  </Typography>
+                </div>
+                <Hidden xsDown>
+                  <>
+                    {profile && profile?.name && (
+                      <Typography className="sellerProfile__status" variant="h5">
+                        {profile.uname}
+                      </Typography>
+                    )}
+                  </>
+                </Hidden>
+                <Hidden xsDown>
+                  <Grid container>
+                    <Grid item xs={12} md={8} lg={6} xl={4}>
+                      <div className="publicProfile__infoMeta">
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            {props.totalcount}
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                            Products
+                          </Typography>
+                        </div>
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            o
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                            Followers
+                          </Typography>
+                        </div>
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            0
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                            Following
+                          </Typography>
+                        </div>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Hidden>
+              </div>
+            </Grid>
+            <Grid xs={12}>
+              <Hidden smUp>
+                <Grid container>
+                  <Grid item xs={12} md={8} lg={6} xl={4}>
+                    <div className="publicProfile__infoMeta">
+                      <div className="sellerProfile__infoMetaRow">
+                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                          {props.totalcount}
+                        </Typography>
+                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                          {" "}
+                          Products
+                        </Typography>
+                      </div>
+                      <div className="sellerProfile__infoMetaRow">
+                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                          0
+                        </Typography>
+                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                          {" "}
+                          Followers
+                        </Typography>
+                      </div>
+                      <div className="sellerProfile__infoMetaRow">
+                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                          0
+                        </Typography>
+                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                          {" "}
+                          Following
+                        </Typography>
+                      </div>
+                    </div>
+                  </Grid>
+                </Grid>
+              </Hidden>
+            </Grid>
+          </Grid>
+        </div>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -211,7 +431,6 @@ const router = useRouter();
           background="green"
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
-          
         </div>
         <div className={classes.root}>
           <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
@@ -312,18 +531,14 @@ const router = useRouter();
                           >
                             StoreName :
                           </Typography>
-                          <Link
-                            href={"/en/profile/[slugOrId]"}
-                            as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy.userId}`}
+
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                            gutterBottom
+                            variant="h4"
                           >
-                            <Typography
-                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                              gutterBottom
-                              variant="h4"
-                            >
-                              {item?.node?.product?.variants[0]?.uploadedBy.storeName}
-                            </Typography>
-                          </Link>
+                            {item?.node?.product?.variants[0]?.uploadedBy.storeName}
+                          </Typography>
                         </div>
                         <div className={classes.pricing}>
                           {" "}
@@ -346,11 +561,12 @@ const router = useRouter();
             })}
           </Grid>
         </div>
+
+        <div className={classes.loadmore}>
+          {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
+        </div>
       </div>
     </Layout>
   );
 }
-
-
-
 export default withApollo()(withCart(SellersCatalogItems(inject("routingStore", "uiStore")(SellerPublicProfile))));

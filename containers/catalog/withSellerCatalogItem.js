@@ -38,10 +38,22 @@ export default function SellersCatalogItems(Component) {
 
       return (
         <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
-          {({ data }) => {
+          {({ data, fetchMore, loading }) => {
             const { sellerCatalogItems } = data || {};
-           
-            return <Component catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []} />;
+            return (
+              <Component
+                {...this.props}
+                catalogItemsPageInfo={pagination({
+                  fetchMore,
+                  routingStore,
+                  data,
+                  queryName: "catalogItems",
+                  limit: uiStore.pageSize,
+                })}
+                catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
+                totalcount={(sellerCatalogItems && sellerCatalogItems.totalCount) || []}
+              />
+            );
           }}
         </Query>
       );
