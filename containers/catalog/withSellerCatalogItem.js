@@ -22,10 +22,11 @@ export default function SellersCatalogItems(Component) {
     render() {
       const { primaryShopId, routingStore, uiStore, tag } = this.props;
       const sellerIds = uiStore?.sellerId;
-      console.log(sellerIds, "new");
+      console.log(routingStore, "new");
 
       const variables = {
         sellerIds: sellerIds,
+        ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
         //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
         //   tagIds: tagId,
         //   sortBy,
