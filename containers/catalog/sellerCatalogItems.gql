@@ -1,12 +1,9 @@
-query sellercatalogItemsQuery(
-
-  $sellerIds: [ID])
-(  sellerCatalogItems($sellerIds: [$ID]) {
+query sellercatalogItemsQuery($sellerIds: [ID]!) {
+  sellerCatalogItems(sellerIds: $sellerIds) {
     totalCount
     pageInfo {
       endCursor
       startCursor
-
       hasNextPage
       hasPreviousPage
       __typename
@@ -29,28 +26,25 @@ query sellercatalogItemsQuery(
             }
             productId
             variants {
-              pricing {
-                compareAtPrice {
-                  displayAmount
-                  __typename
-                }
-                currency {
-                  code
-                  __typename
-                }
-                displayPrice
-                minPrice
-                maxPrice
-                __typename
+              uploadedBy {
+                userId
+                name
+                storeName
               }
               _id
               variantId
+
+              media {
+                URLs {
+                  small
+                  large
+                  medium
+                }
+              }
               optionTitle
               options {
                 _id
-                __typename
               }
-              __typename
             }
             isLowQuantity
             isSoldOut
@@ -98,5 +92,5 @@ query sellercatalogItemsQuery(
       __typename
     }
     __typename
-  })
-
+  }
+}

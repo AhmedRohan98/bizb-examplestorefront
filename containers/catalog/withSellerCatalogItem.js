@@ -4,7 +4,7 @@ import inject from "hocs/inject";
 import { Query } from "@apollo/react-components";
 import hoistNonReactStatic from "hoist-non-react-statics";
 import { pagination, paginationVariablesFromUrlParams } from "lib/utils/pagination";
-import sellercatalogItemsQuery from "./catalogItems.gql";
+import sellercatalogItemsQuery from "./sellerCatalogItems.gql";
 
 /**
  * withCatalogItems higher order query component for fetching primaryShopId and catalog data
@@ -14,43 +14,38 @@ import sellercatalogItemsQuery from "./catalogItems.gql";
  */
 export default function SellersCatalogItems(Component) {
  
-  class CatalogItems extends React.Component {
-    
+  class SellersCatalogItems  extends React.Component {
     static propTypes = {
-      sellerIds: PropTypes.string,
-     
-     
+      sellerIds: PropTypes.array,
     };
 
     render() {
-         const { primaryShopId, routingStore, uiStore, tag } = this.props;
-     console.log("calledssssssssssssssssssss");
-     
-     
-    
-        const variables = {
-          sellerIds: ["64131387e7794d243b804f3e"],
-          //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
-          //   tagIds: tagId,
-          //   sortBy,
-          //   sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
-          //   sortOrder,
-          //   searchQuery: uiStore?.searchItems,
-          //   simpleFilters: uiStore?.filters,
-          //   priceRange: uiStore?.filterPrice,
-        };
-       console.log(sellercatalogItemsQuery,"proppppp")
-        return (
-          <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
-            {({ data }) => {
-              const { sellerCatalogItems } = data || {};
-              console.log(sellerCatalogItems, "ccaerere");
-              return <Component catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []} />;
-            }}
-          </Query>
-        );
-      }
+      const { primaryShopId, routingStore, uiStore, tag } = this.props;
+      console.log("calledssssssssssssssssssss");
+
+      const variables = {
+        sellerIds: ["64131387e7794d243b804f3e"],
+        //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
+        //   tagIds: tagId,
+        //   sortBy,
+        //   sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
+        //   sortOrder,
+        //   searchQuery: uiStore?.searchItems,
+        //   simpleFilters: uiStore?.filters,
+        //   priceRange: uiStore?.filterPrice,
+      };
+
+      return (
+        <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
+          {({ data }) => {
+            const { sellerCatalogItems } = data || {};
+            console.log(data, "ccaerere");
+            return <Component catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []} />;
+          }}
+        </Query>
+      );
     }
+  }
   
 
   hoistNonReactStatic(SellersCatalogItems, Component);
