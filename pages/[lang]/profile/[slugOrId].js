@@ -1,68 +1,356 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../../components/Layout";
 import { withApollo } from "lib/apollo/withApollo";
-import { Grid, Typography } from "@material-ui/core";
-import inject from "hocs/inject";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Link from "next/link";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import withCart from "containers/cart/withCart";
 import SellersCatalogItems from "containers/catalog/withSellerCatalogItem";
-import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
-
-import fetchTranslations from "staticUtils/translations/fetchTranslations";
-import { locales } from "translations/config";
-import useGetAllSeller from "../../../staticUtils/sellers/fetchSellers.js";
-
+import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import { makeStyles } from "@material-ui/core/styles";
+import inject from "../../../hocs/inject";
+import CloseIcon from "@material-ui/icons/Close";
 function SellerPublicProfile(props) {
-  console.log(props.catalogItems, "propsccccccccccccccccccccccccc");
-  return <Layout>heeeeeeeeeeeeeeee</Layout>;
-}
-export async function getStaticProps({ params: { slugOrId, lang } }) {
-  console.log("slug or id in");
-  const primaryShop = await fetchPrimaryShop(lang);
-  const translations = await fetchTranslations(lang, ["common"]);
-  // const profile = await fetchProfileInfo(slugOrId && slugOrId[0]);
-
-  if (!primaryShop?.shop) {
-    return {
-      props: {
-        shop: null,
-        ...translations,
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState({});
+  const { uiStore } = props;
+  const [found, setFound] = useState(false);
+  const [disabledButtons, setDisabledButtons] = useState({});
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+ 
+  const useStyles = makeStyles((theme) => ({
+    main: {
+      width: "100%",
+      padding: "75px",
+      [theme.breakpoints.down("xs")]: {
+        padding: "0",
       },
-      // eslint-disable-next-line camelcase
-      unstable_revalidate: 1, // Revalidate immediately
-    };
-  }
-
-  return {
-    props: {
-      ...primaryShop,
-      ...translations,
-      userName: slugOrId && slugOrId[0],
     },
-    // eslint-disable-next-line camelcase
-    unstable_revalidate: 120, // Revalidate each two minutes
-  };
-}
+    cardaction: {
+      height: 312,
+      width: 312,
+    },
+    root: {
+      display: "flex",
+      width: "100%",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    gridroot: {
+      width: "100%",
+      display: "flex",
+      alignItems: "baseline",
+      position: "relative",
+      justifyContent: "space-between",
+    },
+    typography: {
+      background: "#333333",
+      opacity: "15%",
+      height: "8px",
+      width: "180px",
+    },
+    text: {
+      position: "absolute",
+      bottom: 60,
+    },
+    header: {
+      height: "50px",
+      position: "relative",
+    },
+    headermain: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    image: {
+      width: "312px",
+      maxHeight: "400px",
+      objectFit: "cover",
+      borderRadius: "10px",
+      cursor: "pointer",
+    },
+    size: {
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: theme.spacing(1),
+    },
+    cartimage: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-start",
+    },
+    carttitle: {
+      display: "flex",
+      marginLeft: theme.spacing(1),
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+    },
+    price: {
+      marginLeft: "20px",
+      fontWeight: "700",
+      fontSize: "20px",
+    },
+    rootimg: {
+      position: "relative",
+      display: "inline-grid",
+      width: "312px",
 
-/**
- *  Static paths for the main layout
- *
- * @returns {Object} the paths
- */
-export async function getStaticPaths() {
-  const sellers = await useGetAllSeller();
-  let paths = [];
-
-  if (sellers && sellers.length > 0) {
-    paths = sellers.map((seller) => ({
-      params: {
-        lang: "en",
-        slugOrId: seller?._id,
+      maxWidth: "312px",
+      marginLeft: "10px",
+      marginRight: "10px",
+    },
+    cartbackground: {
+      background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+      borderRadius: "0px 0px 16px 16px",
+      alignItems: "center",
+      justifyContent: "initial",
+      height: "75px",
+      width: "100%",
+      bottom: "20%",
+      display: "inline-grid",
+      width: "100%",
+      marginTop: " -75px",
+      padding: "13px 20px",
+    },
+    cart: {
+      height: "35px",
+      width: "84px",
+      borderRadius: "40px",
+      background: "#FDC114",
+      cursor: "pointer",
+      display: "flex",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+      borderColor: "none",
+      zIndex: 1,
+      transition: "all 0.2s linear",
+      "&:hover": {
+        transform: "scale(1.08)",
+        transition: "left 0.2s linear",
+        background: "#FDC114",
       },
-    }));
-  }
-console.log(paths,"paths")
-  return {
-    paths,
-    fallback: false,
-  };
+    },
+    explore: {
+      position: "absolute",
+      top: "6px",
+      right: "10px",
+      color: "#FDC114",
+      zIndex: 900,
+    },
+    maintitle: {
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+      width: "312px",
+      flexDirection: "column",
+    },
+    spanofnextword: {
+      color: "#FDC114",
+    },
+    toast: {
+      background: "yellow",
+      color: "black",
+    },
+    pricing: {
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: theme.spacing(1),
+      marginBottom: theme.spacing(2),
+    },
+  }));
+  console.log(props,"propertiese")
+const router = useRouter();
+ const { slugOrId } = router.query;
+ useEffect(() => {
+  //  uiStore?.setPageSize(15);
+   console.log(slugOrId, "slug");
+   uiStore?.setsellerId(slugOrId);
+ }, [slugOrId]);
+   const classes = useStyles(); 
+     const CustomCloseButton = () => (
+       <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
+     );
+
+  return (
+    <Layout>
+      <div className={classes.main}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeButton={<CustomCloseButton />}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          background="green"
+          toastStyle={{
+            backgroundColor: "#FDC114",
+            color: "black",
+            fontSize: "16px",
+            fontFamily: "lato",
+          }}
+        />
+        <div className={classes.headermain}>
+          {/* <button onClick={notify}>Notify!</button>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeButton={<CustomCloseButton />}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          background="green"
+          toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
+        /> */}
+          
+        </div>
+        <div className={classes.root}>
+          <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
+            {props?.catalogItems?.map((item, key) => {
+              const cartitem = props?.cart?.items;
+              const isDisabled = cartitem?.some((data) => {
+                return data.productConfiguration.productId === item?.node?.product?.productId;
+              });
+              // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+              const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+              const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+              const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+              const str = item.node.product.title;
+              const words = str.match(/[a-zA-Z0-9]+/g);
+              const firstThreeWords = words.slice(0, 3).join(" ");
+              // console.log(optionTitle, "fil");
+              return (
+                <>
+                  <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                    <Link
+                      href={item.node.product.slug && "en/product/[...slugOrId]"}
+                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                    >
+                      <img
+                        src={
+                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.media[0]?.URLs?.large
+                        }
+                        className={classes.image}
+                        key={item?.node?.product?.id}
+                        alt={"hhhh"}
+                      />
+                    </Link>
+                    <div className={classes.cartbackground}>
+                      {isLoading[item?.node?.product?.productId] ? (
+                        <CircularProgress />
+                      ) : (
+                        <Button
+                          className={classes.cart}
+                          onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                          disabled={isDisabled || item?.node?.product?.isSoldOut}
+                        >
+                          <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                          <Typography
+                            style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                            variant="h5"
+                            component="h2"
+                          >
+                            {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                          </Typography>
+                        </Button>
+                      )}
+                    </div>
+                    <Link
+                      href={item.node.product.slug && "en/product/[...slugOrId]"}
+                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                    >
+                      <Box className={classes.maintitle}>
+                        <Typography
+                          style={{ fontWeight: "700", fontSize: "24px", marginTop: "6px" }}
+                          gutterBottom
+                          variant="h4"
+                          component="h2"
+                          className={classes.carttitle}
+                        >
+                          {firstThreeWords}
+                        </Typography>
+                        <div className={classes.size}>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                            gutterBottom
+                            variant="h4"
+                          >
+                            Size :
+                          </Typography>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                            gutterBottom
+                            variant="h4"
+                          >
+                            {size == 0
+                              ? "Extra Large"
+                              : "Small" || size == 1
+                              ? "Large"
+                              : "Small" || size == 2
+                              ? "Medium"
+                              : "Small" || size == 3
+                              ? "Small"
+                              : "Small"}
+                          </Typography>
+                        </div>
+                        <div className={classes.size}>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                            gutterBottom
+                            variant="h4"
+                          >
+                            StoreName :
+                          </Typography>
+                          <Link
+                            href={"/en/profile/[slugOrId]"}
+                            as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy.userId}`}
+                          >
+                            <Typography
+                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                              gutterBottom
+                              variant="h4"
+                            >
+                              {item?.node?.product?.variants[0]?.uploadedBy.storeName}
+                            </Typography>
+                          </Link>
+                        </div>
+                        <div className={classes.pricing}>
+                          {" "}
+                          <strike>
+                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "RS ")}
+                          </strike>
+                          <Typography gutterBottom variant="h5" className={classes.price}>
+                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "RS ")}
+                          </Typography>
+                        </div>
+                      </Box>
+                    </Link>
+                  </Grid>
+                </>
+              );
+            })}
+          </Grid>
+        </div>
+      </div>
+    </Layout>
+  );
 }
-export default withApollo()(SellersCatalogItems((SellerPublicProfile)));
+
+
+
+export default withApollo()(withCart(SellersCatalogItems(inject("routingStore", "uiStore")(SellerPublicProfile))));

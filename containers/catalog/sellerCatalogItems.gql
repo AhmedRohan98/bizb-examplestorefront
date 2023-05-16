@@ -25,26 +25,34 @@ query sellercatalogItemsQuery($sellerIds: [ID]!) {
               }
             }
             productId
+
             variants {
               uploadedBy {
                 userId
                 name
                 storeName
               }
+              pricing {
+                compareAtPrice {
+                  displayAmount
+                  __typename
+                }
+
+                currency {
+                  code
+                  __typename
+                }
+                displayPrice
+                __typename
+              }
               _id
               variantId
-
-              media {
-                URLs {
-                  small
-                  large
-                  medium
-                }
-              }
               optionTitle
               options {
                 _id
+                __typename
               }
+              __typename
             }
             isLowQuantity
             isSoldOut

@@ -21,10 +21,11 @@ export default function SellersCatalogItems(Component) {
 
     render() {
       const { primaryShopId, routingStore, uiStore, tag } = this.props;
-      console.log("calledssssssssssssssssssss");
+      const sellerIds = uiStore?.sellerId;
+      console.log(sellerIds, "new");
 
       const variables = {
-        sellerIds: ["64131387e7794d243b804f3e"],
+        sellerIds: sellerIds,
         //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
         //   tagIds: tagId,
         //   sortBy,
@@ -39,7 +40,7 @@ export default function SellersCatalogItems(Component) {
         <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
           {({ data }) => {
             const { sellerCatalogItems } = data || {};
-            console.log(data, "ccaerere");
+           
             return <Component catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []} />;
           }}
         </Query>
