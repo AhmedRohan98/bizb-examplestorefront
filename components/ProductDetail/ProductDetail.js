@@ -412,8 +412,9 @@ const slide = [
 
 const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
+ 
   const { product, catalogItems, cart } = props;
-
+ console.log(product, "product");
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
   // console.log("dddd",props)
   const { uiStore } = props;
@@ -845,6 +846,15 @@ const ProductDetail = ({ ...props }) => {
                         : "Small"}
                     </Typography>
                   </div>
+                  <div className={classes.sizeimage}>
+                    <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                     Sold By :
+                    </Typography>
+                    <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                      {product?.variants[0]?.uploadedBy.storeName}
+                    </Typography>
+                  </div>
+
                   <div>
                     <Button
                       className={classes.cart2}
@@ -871,7 +881,7 @@ const ProductDetail = ({ ...props }) => {
               </div>
             </div>
           </Grid>
-         
+
           <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
         </Grid>
       </Box>
