@@ -155,7 +155,7 @@ export default function Login(props) {
    
    email: Yup.string().email().required("Please enter your email"),
 
-   password: Yup.string().min(5).max(8).required("Please enter your password"),
+   password: Yup.string().min(5).max(35).required("Please enter your password"),
  
  });
  const registerUser = async (values, action) => {
