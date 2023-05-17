@@ -231,7 +231,7 @@ class CartItems extends Component {
       hasMoreCartItems,
       onLoadMoreCartItems
     } = this.props;
-console.log(items,"item")
+
     return (
       <Fragment>
         {/* <CartItemsList
@@ -284,7 +284,7 @@ console.log(items,"item")
                   <TableCell>
                     <div className={classes.cartitemtext}>
                       <img
-                        src={item?.metafields && item.metafields[0]?.URLs?.large}
+                        src={item?.metafields && item.metafields[0]?.value}
                         alt={item.title}
                         className={classes.cartimage}
                       ></img>

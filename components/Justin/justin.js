@@ -271,6 +271,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             value: product.media[0]?.URLs?.large,
           },
         ],
+    
         productConfiguration: {
           productId: product.productId,
           productVariantId: selectedVariant.variantId,
