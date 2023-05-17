@@ -1,5 +1,17 @@
-query sellercatalogItemsQuery($sellerIds: [ID]!) {
-  sellerCatalogItems(sellerIds: $sellerIds) {
+query sellercatalogItemsQuery(
+  $sellerIds: [ID]!
+  $first: ConnectionLimitInt
+  $last: ConnectionLimitInt
+  $before: ConnectionCursor
+  $after: ConnectionCursor
+) {
+  sellerCatalogItems(
+    sellerIds: $sellerIds
+    first: $first
+    last: $last
+    before: $before
+    after: $after
+  ) {
     totalCount
     pageInfo {
       endCursor
