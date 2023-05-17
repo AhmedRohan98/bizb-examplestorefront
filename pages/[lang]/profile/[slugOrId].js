@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import inject from "../../../hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
+import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 function SellerPublicProfile(props) {
   console.log("propssssssssssssssssssssss", props);
   const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo } = props;
@@ -280,7 +281,7 @@ function SellerPublicProfile(props) {
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
   const classes = useStyles();
  const profile = props.catalogItems[0]?.node?.product?.variants[0]?.uploadedBy;  
- console.log(profile,"profile")                   
+                  
   return (
     <Layout shop={shop}>
       <div className={classes.main}>
@@ -551,5 +552,14 @@ function SellerPublicProfile(props) {
       </div>
     </Layout>
   );
+}
+export async function getServerSideProps({ params, query }) {
+  console.log("obj is ", params, query);
+  const { lang, allresults, filteredItemsLength } = params;
+  return {
+    props: {
+      ...(await fetchPrimaryShop(lang)),
+    },
+  };
 }
 export default withApollo()(withCart(SellersCatalogItems(inject("routingStore", "uiStore")(SellerPublicProfile))));
