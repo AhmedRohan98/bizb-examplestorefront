@@ -231,7 +231,7 @@ class CartItems extends Component {
       hasMoreCartItems,
       onLoadMoreCartItems
     } = this.props;
-console.log(items,"item")
+
     return (
       <Fragment>
         {/* <CartItemsList
@@ -284,7 +284,7 @@ console.log(items,"item")
                   <TableCell>
                     <div className={classes.cartitemtext}>
                       <img
-                        src={item?.metafields && item.metafields[0]?.URLs?.large}
+                        src={item?.metafields && item.metafields[0]?.value}
                         alt={item.title}
                         className={classes.cartimage}
                       ></img>
@@ -292,7 +292,7 @@ console.log(items,"item")
                       <div className={classes.carttitle}>
                         <Typography variant="h4">{item.title}</Typography>
                         <Typography variant="h4" className={classes.cartpric}>
-                          Store:{item?.productVendor}
+                          Sold By:{item?.productVendor}
                         </Typography>{" "}
                       </div>
                     </div>

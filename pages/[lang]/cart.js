@@ -593,7 +593,7 @@ class CartPage extends Component {
       description: PropTypes.string,
     }),
   };
-constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       isLoading: {},
@@ -637,23 +637,25 @@ constructor(props) {
   }
 
   handleClick = () => Router.push("/");
-  
 
+  // Your async logic here
 
-    // Your async logic here
- 
   clickHandler = (item) => {
-    this.props.router.push("/en/product/" + item);
-  };
-  handleAddToCartClick = async ( product, variant) => {
+   const productSlug = item;
+
+   const url = `/en/product/${productSlug}`;
+   const newWindow = window.open(url, "_blank");
+   newWindow.opener.focus();
+ };
+  handleAddToCartClick = async (product, variant) => {
     const { addItemsToCart } = this.props;
-console.log("called",product)
+    console.log("called", product);
     // Disable button after it has been clicked
 
     // console.log(pdpSelectedVariantId, "star");
 
     // Get selected variant or variant optiono
- const selectedVariant = variantById(product.variants, variant._id);
+    const selectedVariant = variantById(product.variants, variant._id);
 
     // If variant is not already in the cart, add the new item
     const price = parseFloat(product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
@@ -673,7 +675,7 @@ console.log("called",product)
           productId: product.productId,
           productVariantId: selectedVariant.variantId,
         },
-        quantity :1,
+        quantity: 1,
       },
     ]);
   };
@@ -812,7 +814,7 @@ console.log("called",product)
     console.log("endcursor.. render", tagIds);
     console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
-const { isLoading } = this.state;
+    const { isLoading } = this.state;
     return (
       <>
         <Layout shop={shop}>
@@ -845,9 +847,9 @@ const { isLoading } = this.state;
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                       const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-                          const str = item.node.product.title;
-                          const words = str.match(/[a-zA-Z0-9]+/g);
-                          const firstThreeWords = words.slice(0, 3).join(" ");
+                      const str = item.node.product.title;
+                      const words = str.match(/[a-zA-Z0-9]+/g);
+                      const firstThreeWords = words.slice(0, 3).join(" ");
                       return (
                         <>
                           <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
