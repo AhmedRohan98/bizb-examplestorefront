@@ -283,11 +283,11 @@ class CartItems extends Component {
                 <TableRow key={item.title}>
                   <TableCell>
                     <div className={classes.cartitemtext}>
-                      <img
+                      {/* <img
                         src={item?.metafields && item.metafields[0]?.value}
                         alt={item.title}
                         className={classes.cartimage}
-                      ></img>
+                      ></img> */}
 
                       <div className={classes.carttitle}>
                         <Typography variant="h4">{item.title}</Typography>
