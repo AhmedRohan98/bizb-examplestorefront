@@ -292,7 +292,7 @@ console.log(items,"item")
                       <div className={classes.carttitle}>
                         <Typography variant="h4">{item.title}</Typography>
                         <Typography variant="h4" className={classes.cartpric}>
-                          Store:{item?.productVendor}
+                          Sold By:{item?.productVendor}
                         </Typography>{" "}
                       </div>
                     </div>
