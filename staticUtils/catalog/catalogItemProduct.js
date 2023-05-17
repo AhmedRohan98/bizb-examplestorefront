@@ -70,6 +70,12 @@ query catalogItemProductQuery($slugOrId: String!) {
           title
           optionTitle
           index
+           uploadedBy {
+                userId
+                name
+                image
+                storeName
+              }
           pricing {
             compareAtPrice {
               displayAmount

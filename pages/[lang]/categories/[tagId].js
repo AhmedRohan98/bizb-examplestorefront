@@ -641,7 +641,7 @@ function Categories(props) {
     props;
   const [isLoading, setIsLoading] = useState({});
 const [soldOutProducts, setSoldOutProducts] = useState([]);
-  console.log("items", tags);
+
   const router = useRouter();
   const { tagId } = router.query;
   const setSortBy = (sortBy) => {
@@ -1085,10 +1085,14 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
       </components.DropdownIndicator>
     );
   };
+ const clickHandler = (item) => {
+   const productSlug = item;
 
-  const clickHandler = (item) => {
-    router.push("/en/product/" + item);
-  };
+   const url = `/en/product/${productSlug}`;
+   const newWindow = window.open(url, "_blank");
+   newWindow.opener.focus();
+ };
+ 
   useEffect(() => {
     const updatedItems = cart?.items?.map((item) => {
       const isItemInCart = catalogItems?.some((product) => {

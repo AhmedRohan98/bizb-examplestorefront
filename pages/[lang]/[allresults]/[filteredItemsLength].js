@@ -246,9 +246,13 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
    // Scroll to the top
  };
    const router = useRouter();
-  const clickHandler = (item) => {
-    router.push("/en/product/" + item);
-  };
+ const clickHandler = (item) => {
+   const productSlug = item;
+
+   const url = `/en/product/${productSlug}`;
+   const newWindow = window.open(url, "_blank");
+   newWindow.opener.focus();
+ };
   const classes = useStyles();
   return (
     <Layout shop={shop}>

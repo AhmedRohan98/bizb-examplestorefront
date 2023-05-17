@@ -21,7 +21,7 @@ const AddressPropertyError = styled.span`
   padding-top: ${applyTheme("Address.addressPropertyErrorPaddingTop")};
 `;
 
-const ADDRESS_ORDER = ["fullName", "address1", "address2", "city", "region", "postal", "country"];
+const ADDRESS_ORDER = ["fullName","phone",  "address1", "address2", "city", "region", "postal", "country"];
 
 class Address extends Component {
   static propTypes = {
@@ -97,6 +97,7 @@ class Address extends Component {
 
   render() {
     const { address, addressOrder, className, isFlat } = this.props;
+    console.log(address,"sssss")
     return (
       <AddressElement className={className}>
         {isFlat ? addressToString(address) : addressOrder.map(this.renderAddressProperty)}

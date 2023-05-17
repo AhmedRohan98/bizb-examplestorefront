@@ -160,6 +160,7 @@ const Justin = (props) => {
   // const UIContextJustInPage = useContext(UIContext);
 
   const catalogdata = props?.catalogItems;
+  console.log(catalogdata,"cat")
 const [soldOutProducts, setSoldOutProducts] = useState([]);
 
   const { uiStore } = props;
@@ -270,6 +271,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             value: product.media[0]?.URLs?.large,
           },
         ],
+    
         productConfiguration: {
           productId: product.productId,
           productVariantId: selectedVariant.variantId,
@@ -368,16 +370,18 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                     href={item.node.product.slug && "en/product/[...slugOrId]"}
                     as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                   >
-                    <img
-                      src={
-                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                          ? "/justin/justin4.svg"
-                          : item?.node?.product?.media[0]?.URLs?.large
-                      }
-                      className={classes.image}
-                      key={item?.node?.product?.id}
-                      alt={"hhhh"}
-                    />
+                    <a target="_blank">
+                      <img
+                        src={
+                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.media[0]?.URLs?.large
+                        }
+                        className={classes.image}
+                        key={item?.node?.product?.id}
+                        alt={"hhhh"}
+                      />
+                    </a>
                   </Link>
                   <div className={classes.cartbackground}>
                     {isLoading[item?.node?.product?.productId] ? (
@@ -405,7 +409,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                   >
                     <Box className={classes.maintitle}>
                       <Typography
-                        style={{ fontWeight: "700", fontSize: "24px" ,marginTop:"6px"}}
+                        style={{ fontWeight: "700", fontSize: "24px", marginTop: "6px" }}
                         gutterBottom
                         variant="h4"
                         component="h2"
@@ -426,9 +430,18 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                           gutterBottom
                           variant="h4"
                         >
-                          {size == 0 ? "Extra Large" : "Small" || size == 1 ? "Large"  : "Small"|| size == 2 ? "Medium"  : "Small" || size == 3 ? "Small"  : "Small"}
+                          {size == 0
+                            ? "Extra Large"
+                            : "Small" || size == 1
+                            ? "Large"
+                            : "Small" || size == 2
+                            ? "Medium"
+                            : "Small" || size == 3
+                            ? "Small"
+                            : "Small"}
                         </Typography>
                       </div>
+                     
                       <div className={classes.pricing}>
                         {" "}
                         <strike>
