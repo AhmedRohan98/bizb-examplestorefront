@@ -854,7 +854,7 @@ const ProductDetail = ({ ...props }) => {
                       href={"/en/profile/[slugOrId]"}
                       as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}
                     >
-                      <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                      <Typography style={{ fontWeight: "700" ,cursor:"pointer"}} variant="h4" className={classes.offr}>
                         {product?.variants[0]?.uploadedBy.storeName}
                       </Typography>
                     </Link>

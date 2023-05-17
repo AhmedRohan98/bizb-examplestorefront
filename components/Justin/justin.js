@@ -441,27 +441,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             : "Small"}
                         </Typography>
                       </div>
-                      <div className={classes.size}>
-                        <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                          gutterBottom
-                          variant="h4"
-                        >
-                          StoreName :
-                        </Typography>
-                        <Link
-                          href={"/en/profile/[slugOrId]"}
-                          as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy.userId}`}
-                        >
-                          <Typography
-                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                            gutterBottom
-                            variant="h4"
-                          >
-                            {item?.node?.product?.variants[0]?.uploadedBy.storeName}
-                          </Typography>
-                        </Link>
-                      </div>
+                     
                       <div className={classes.pricing}>
                         {" "}
                         <strike>
