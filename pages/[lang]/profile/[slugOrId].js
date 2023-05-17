@@ -281,7 +281,13 @@ function SellerPublicProfile(props) {
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
   const classes = useStyles();
  const profile = props.catalogItems[0]?.node?.product?.variants[0]?.uploadedBy;  
-                  
+   const clickHandler = (item) => {
+     const productSlug = item;
+
+     const url = `/en/product/${productSlug}`;
+     const newWindow = window.open(url, "_blank");
+     newWindow.opener.focus();
+   };                
   return (
     <Layout shop={shop}>
       <div className={classes.main}>
@@ -436,10 +442,11 @@ function SellerPublicProfile(props) {
         <div className={classes.root}>
           <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
             {props?.catalogItems?.map((item, key) => {
-              const cartitem = props?.cart?.items;
+              const cartitem = cart?.items;
               const isDisabled = cartitem?.some((data) => {
                 return data.productConfiguration.productId === item?.node?.product?.productId;
               });
+              // console.log(cart?.items, "item");
               // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
               const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
@@ -447,25 +454,21 @@ function SellerPublicProfile(props) {
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
               const firstThreeWords = words.slice(0, 3).join(" ");
-              // console.log(optionTitle, "fil");
               return (
                 <>
                   <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                    <Link
-                      href={item.node.product.slug && "en/product/[...slugOrId]"}
-                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                    >
-                      <img
-                        src={
-                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
-                            : item?.node?.product?.media[0]?.URLs?.large
-                        }
-                        className={classes.image}
-                        key={item?.node?.product?.id}
-                        alt={"hhhh"}
-                      />
-                    </Link>
+                    <img
+                      src={
+                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                          ? "/justin/justin4.svg"
+                          : item?.node?.product?.media[0]?.URLs?.large
+                      }
+                      className={classes.image}
+                      key={item?.node?.product?.id}
+                      alt={"hhhh"}
+                      onClick={() => clickHandler(item.node.product.slug)}
+                    />
+
                     <div className={classes.cartbackground}>
                       {isLoading[item?.node?.product?.productId] ? (
                         <CircularProgress />
@@ -475,6 +478,25 @@ function SellerPublicProfile(props) {
                           onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                           disabled={isDisabled || item?.node?.product?.isSoldOut}
                         >
+                          <ToastContainer
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeButton={<CustomCloseButton />}
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="colored"
+                            background="green"
+                            toastStyle={{
+                              backgroundColor: "#FDC114",
+                              color: "black",
+                              fontSize: "16px",
+                              fontFamily: "lato",
+                            }}
+                          />{" "}
                           <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                           <Typography
                             style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
@@ -486,59 +508,54 @@ function SellerPublicProfile(props) {
                         </Button>
                       )}
                     </div>
-                    <Link
-                      href={item.node.product.slug && "en/product/[...slugOrId]"}
-                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                    >
-                      <Box className={classes.maintitle}>
+                    <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
+                      <Typography
+                        style={{ fontWeight: "700", fontSize: "24px" }}
+                        gutterBottom
+                        variant="h4"
+                        component="h2"
+                        className={classes.carttitle}
+                      >
+                        {firstThreeWords}
+                      </Typography>
+                      <div className={classes.size}>
                         <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", marginTop: "6px" }}
+                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
                           gutterBottom
                           variant="h4"
-                          component="h2"
-                          className={classes.carttitle}
                         >
-                          {firstThreeWords}
+                          Size :
                         </Typography>
-                        <div className={classes.size}>
-                          <Typography
-                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                            gutterBottom
-                            variant="h4"
-                          >
-                            Size :
-                          </Typography>
-                          <Typography
-                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                            gutterBottom
-                            variant="h4"
-                          >
-                            {size == 0
-                              ? "Extra Large"
-                              : "Small" || size == 1
-                              ? "Large"
-                              : "Small" || size == 2
-                              ? "Medium"
-                              : "Small" || size == 3
-                              ? "Small"
-                              : "Small"}
-                          </Typography>
-                        </div>
-                        <div className={classes.pricing}>
-                          {" "}
-                          <strike>
-                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "RS ")}
-                          </strike>
-                          <Typography gutterBottom variant="h5" className={classes.price}>
-                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "RS ")}
-                          </Typography>
-                        </div>
-                      </Box>
-                    </Link>
+                        <Typography
+                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                          gutterBottom
+                          variant="h4"
+                        >
+                          {size == 0
+                            ? "Extra Large"
+                            : "Small" || size == 1
+                            ? "Large"
+                            : "Small" || size == 2
+                            ? "Medium"
+                            : "Small" || size == 3
+                            ? "Small"
+                            : "Small"}
+                        </Typography>
+                      </div>
+                      <div className={classes.pricing}>
+                        {" "}
+                        <strike>
+                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                            ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+                        </strike>
+                        <Typography gutterBottom variant="h5" className={classes.price}>
+                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                            ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+                        </Typography>
+                      </div>
+                    </Box>
                   </Grid>
                 </>
               );
