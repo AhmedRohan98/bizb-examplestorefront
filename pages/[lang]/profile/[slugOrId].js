@@ -20,7 +20,7 @@ import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 function SellerPublicProfile(props) {
   console.log("propssssssssssssssssssssss", props);
-  const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo } = props;
+  const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
@@ -172,8 +172,8 @@ function SellerPublicProfile(props) {
    const shop = useShop();
   const { slugOrId } = router.query;
   useEffect(() => {
-    //  uiStore?.setPageSize(15);
-    console.log(slugOrId, "slug");
+     uiStore?.setPageSize(15);
+ 
     uiStore?.setsellerId(slugOrId);
   }, [slugOrId]);
   useEffect(() => {
@@ -564,7 +564,7 @@ function SellerPublicProfile(props) {
         </div>
 
         <div className={classes.loadmore}>
-          {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
+          {sellerCatalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
     </Layout>

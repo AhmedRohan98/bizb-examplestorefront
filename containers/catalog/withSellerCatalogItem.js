@@ -20,13 +20,14 @@ export default function SellersCatalogItems(Component) {
       uiStore: PropTypes.object.isRequired,
     };
 
+
     render() {
       const { primaryShopId, routingStore, uiStore, tag } = this.props;
       const sellerIds = uiStore?.sellerId;
-
+console.log("page",uiStore.pageSize);
       const variables = {
         sellerIds: sellerIds,
-        ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore?.pageSize }),
+        ...paginationVariablesFromUrlParams( { defaultPageLimit: uiStore?.pageSize }),
         //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
         //   tagIds: tagId,
         //   sortBy,
@@ -48,7 +49,7 @@ export default function SellersCatalogItems(Component) {
                   fetchMore,
                   routingStore,
                   data,
-                  queryName: "sellercatalogItemsQuery",
+                  queryName: "sellerCatalogItems",
                   limit: uiStore?.pageSize,
                 })}
                 catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
