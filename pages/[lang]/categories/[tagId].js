@@ -641,7 +641,7 @@ function Categories(props) {
     props;
   const [isLoading, setIsLoading] = useState({});
 const [soldOutProducts, setSoldOutProducts] = useState([]);
-  console.log("items", tags);
+  // console.log("items", tags);
   const router = useRouter();
   const { tagId } = router.query;
   const setSortBy = (sortBy) => {
