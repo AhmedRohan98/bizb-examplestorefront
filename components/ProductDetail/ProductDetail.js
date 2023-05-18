@@ -785,9 +785,8 @@ const ProductDetail = ({ ...props }) => {
                             }}
                             enlargedImagePortalId="portal"
                             enlargedImageContainerDimensions={{
-                              width: "150%",
-                              marginLeft: "100px",
-                              height: "100%",
+                              width: "200%",
+                              height: "150%",
                             }}
                           />
                         </div>

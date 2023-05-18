@@ -292,7 +292,7 @@ function SellerPublicProfile(props) {
     <Layout shop={shop}>
       <div className={classes.main}>
         <div className="sellerProfile">
-          <Typography className="SELLERpROFILE__mainHeading" variant="h5">
+          <Typography  variant="h2">
             Profile
           </Typography>
           <Grid container className="publicProfile__profileInfoWrapper">
@@ -313,7 +313,7 @@ function SellerPublicProfile(props) {
               </div>
               <div className="publicProfile__infoContainer">
                 <div className="sellerProfile__infoRow publicProfile__infoRow">
-                  <Typography className="publicProfile__name" variant="h5">
+                  <Typography className="publicProfile__name" variant="h1">
                     <span>{profile && profile?.name ? profile?.name : profile?.name}</span>
                     {profile && profile && <img src="/icons/tickIcon.png" />}
                   </Typography>
@@ -340,7 +340,7 @@ function SellerPublicProfile(props) {
                             Products
                           </Typography>
                         </div>
-                        <div className="sellerProfile__infoMetaRow">
+                        {/* <div className="sellerProfile__infoMetaRow">
                           <Typography className="sellerProfile__infoMetaContent" variant="h5">
                             o
                           </Typography>
@@ -357,7 +357,7 @@ function SellerPublicProfile(props) {
                             {" "}
                             Following
                           </Typography>
-                        </div>
+                        </div> */}
                       </div>
                     </Grid>
                   </Grid>
@@ -378,7 +378,7 @@ function SellerPublicProfile(props) {
                           Products
                         </Typography>
                       </div>
-                      <div className="sellerProfile__infoMetaRow">
+                      {/* <div className="sellerProfile__infoMetaRow">
                         <Typography className="sellerProfile__infoMetaContent" variant="h5">
                           0
                         </Typography>
@@ -395,7 +395,7 @@ function SellerPublicProfile(props) {
                           {" "}
                           Following
                         </Typography>
-                      </div>
+                      </div> */}
                     </div>
                   </Grid>
                 </Grid>
