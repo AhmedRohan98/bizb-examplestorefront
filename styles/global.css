@@ -314,7 +314,7 @@ input:-internal-autofill-selected {
   position: absolute;
   top: 0px;
   left: -100px;
- height: 500px;
+ height: 400px;
   z-index: 3;
 }
 .fluid__instructions {
