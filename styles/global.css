@@ -189,6 +189,7 @@ input:-internal-autofill-selected {
   height: auto !important;
   transition: "5px";
   padding: 2px 3px;
+  color: white;
   width: 260px;
 }
 .hoverable {
