@@ -68,7 +68,7 @@ const styles = (theme) => ({
   },
   controller: {
     // width: "90vh",
- 
+
     position: "relative",
     display: "inline-grid",
     flexDirection: "row",
@@ -412,9 +412,9 @@ const slide = [
 
 const ProductDetail = ({ ...props }) => {
   // console.log(props, "new");
- 
+
   const { product, catalogItems, cart } = props;
- console.log(product, "product");
+  console.log(product, "product");
   const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
   // console.log("dddd",props)
   const { uiStore } = props;
@@ -460,8 +460,8 @@ const ProductDetail = ({ ...props }) => {
         disabled: item.inCart || isItemInCart,
       };
     });
-      const soldOutProducts = filteredProducts?.filter((product) => product?.node?.product?.isSoldOut);
-      setSoldOutProducts(soldOutProducts);
+    const soldOutProducts = filteredProducts?.filter((product) => product?.node?.product?.isSoldOut);
+    setSoldOutProducts(soldOutProducts);
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [cart?.items, product]);
@@ -785,8 +785,9 @@ const ProductDetail = ({ ...props }) => {
                             }}
                             enlargedImagePortalId="portal"
                             enlargedImageContainerDimensions={{
-                              width: "200%",
-                              height: "150%",
+                              width: "150%",
+                              marginLeft: "100px",
+                              height: "100%",
                             }}
                           />
                         </div>
@@ -849,11 +850,12 @@ const ProductDetail = ({ ...props }) => {
                     <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
                       Sold By :
                     </Typography>
-                    <Link
-                      href={"/en/profile/[slugOrId]"}
-                      as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}
-                    >
-                      <Typography style={{ fontWeight: "700" ,cursor:"pointer"}} variant="h4" className={classes.offr}>
+                    <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}>
+                      <Typography
+                        style={{ fontWeight: "700", cursor: "pointer" }}
+                        variant="h4"
+                        className={classes.offr}
+                      >
                         {product?.variants[0]?.uploadedBy.storeName}
                       </Typography>
                     </Link>
@@ -1086,5 +1088,3 @@ ProductDetail.propTypes = {
 export default withWidth({ initialWidth: "md" })(
   withStyles(styles, { withTheme: true })(inject("routingStore", "uiStore")(ProductDetail)),
 );
-
-
