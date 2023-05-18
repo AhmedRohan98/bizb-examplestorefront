@@ -353,6 +353,25 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetFo
     <>
       {typeof window !== "undefined" && (
         <Layout headerType={false}>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeButton={<CustomCloseButton />}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            background="green"
+            toastStyle={{
+              backgroundColor: "#FDC114",
+              color: "black",
+              fontSize: "16px",
+              fontFamily: "lato",
+            }}
+          />{" "}
           <div className={classes.orderThankYou}>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <Grid container xs={12}>
@@ -467,25 +486,6 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetFo
                       </Button>
                     </div>
                   </form>
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeButton={<CustomCloseButton />}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                    background="green"
-                    toastStyle={{
-                      backgroundColor: "#FDC114",
-                      color: "black",
-                      fontSize: "16px",
-                      fontFamily: "lato",
-                    }}
-                  />{" "}
                 </Grid>
               </Grid>
             </div>

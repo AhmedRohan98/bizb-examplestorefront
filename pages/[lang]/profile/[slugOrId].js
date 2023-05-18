@@ -290,11 +290,28 @@ function SellerPublicProfile(props) {
    };                
   return (
     <Layout shop={shop}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeButton={<CustomCloseButton />}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        background="green"
+        toastStyle={{
+          backgroundColor: "#FDC114",
+          color: "black",
+          fontSize: "16px",
+          fontFamily: "lato",
+        }}
+      />
       <div className={classes.main}>
         <div className="sellerProfile">
-          <Typography  variant="h2">
-            Profile
-          </Typography>
+          <Typography variant="h2">Profile</Typography>
           <Grid container className="publicProfile__profileInfoWrapper">
             <Grid xs={12} item className="publicProfile__profileInfoSection">
               <div
@@ -403,25 +420,7 @@ function SellerPublicProfile(props) {
             </Grid>
           </Grid>
         </div>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeButton={<CustomCloseButton />}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          background="green"
-          toastStyle={{
-            backgroundColor: "#FDC114",
-            color: "black",
-            fontSize: "16px",
-            fontFamily: "lato",
-          }}
-        />
+
         <div className={classes.headermain}>
           {/* <button onClick={notify}>Notify!</button>
         <ToastContainer

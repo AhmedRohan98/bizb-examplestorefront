@@ -685,6 +685,25 @@ const ProductDetail = ({ ...props }) => {
   return (
     <>
       <Box className={classes.slider}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeButton={<CustomCloseButton />}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          background="green"
+          toastStyle={{
+            backgroundColor: "#FDC114",
+            color: "black",
+            fontSize: "16px",
+            fontFamily: "lato",
+          }}
+        />{" "}
         <Grid
           container
           spacing={0}
@@ -977,25 +996,6 @@ const ProductDetail = ({ ...props }) => {
                         onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                         disabled={isDisabled || item?.node?.product?.isSoldOut}
                       >
-                        <ToastContainer
-                          position="top-right"
-                          autoClose={5000}
-                          hideProgressBar={false}
-                          newestOnTop={false}
-                          closeButton={<CustomCloseButton />}
-                          rtl={false}
-                          pauseOnFocusLoss
-                          draggable
-                          pauseOnHover
-                          theme="colored"
-                          background="green"
-                          toastStyle={{
-                            backgroundColor: "#FDC114",
-                            color: "black",
-                            fontSize: "16px",
-                            fontFamily: "lato",
-                          }}
-                        />{" "}
                         <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                         <Typography
                           style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
