@@ -36,6 +36,9 @@ function SellerPublicProfile(props) {
         padding: "0",
       },
     },
+    profilebaner: {
+      width: "100%",
+    },
     cardaction: {
       height: 312,
       width: 312,
@@ -310,6 +313,7 @@ function SellerPublicProfile(props) {
         }}
       />
       <div className={classes.main}>
+        <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
         <div className="sellerProfile">
           <Typography variant="h2">Profile</Typography>
           <Grid container className="publicProfile__profileInfoWrapper">
