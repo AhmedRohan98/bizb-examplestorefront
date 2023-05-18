@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "baseline",
     position: "relative",
-    justifyContent: "space-between",
+    
+    justifyContent: "space-evenly",
   },
   typography: {
     background: "#333333",
