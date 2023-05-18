@@ -180,7 +180,12 @@ export default function SignUp(props) {
   const registerUser2 = async (values, action) => {
     try {
       // Creating user will login also
-      await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
+      await passwordClient.createUser({
+        email: values.email,
+        password: (values.password),
+        firstName: values.FullName,
+        phoneNumber:values.phonenumber
+      });
       action.resetForm(); // to get rid of all the values after submitting the form
       closeModal();
       await refetch();
