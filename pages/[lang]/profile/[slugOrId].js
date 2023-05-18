@@ -32,6 +32,7 @@ function SellerPublicProfile(props) {
     main: {
       width: "100%",
       padding: "75px",
+      
       [theme.breakpoints.down("xs")]: {
         padding: "0",
       },

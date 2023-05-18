@@ -314,7 +314,7 @@ input:-internal-autofill-selected {
   position: absolute;
   top: 0px;
   left: -100px;
-
+ height: 500px;
   z-index: 3;
 }
 .fluid__instructions {
@@ -661,6 +661,9 @@ color: #000000 !important;
 }
 .sellerProfile .makeStyles-root-47{
     width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .publicProfile__name{

@@ -791,12 +791,15 @@ const ProductDetail = ({ ...props }) => {
                                 className: "images",
                                 height: 400,
                                 src: slide.URLs.large,
+
+                                sizes: "(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px",
                               },
                               largeImage: {
                                 src: slide.URLs.large,
+                                isFluidWidth: true,
                                 width: 1426,
                                 marginLeft: "100px",
-                                height: 2000,
+                                height: 1600,
                               },
                               lensStyle: {
                                 backgroundColor: "rgba(0,0,0,.6)",
@@ -866,7 +869,7 @@ const ProductDetail = ({ ...props }) => {
                     </Typography>
                   </div>
                   <div className={classes.sizeimage}>
-                    <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                    <Typography style={{ fontWeight: "500" }} variant="h4" className={classes.offr}>
                       Sold By :
                     </Typography>
                     <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}>
