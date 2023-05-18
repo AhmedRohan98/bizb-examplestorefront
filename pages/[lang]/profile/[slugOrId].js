@@ -297,7 +297,7 @@ function SellerPublicProfile(props) {
       // Simulate an asynchronous data loading process
       setTimeout(() => {
         setIsLoading(false);
-      }, 3000); // Adjust the delay as needed
+      }, 2000); // Adjust the delay as needed
     }, []);              
   return (
     <Layout shop={shop}>
