@@ -124,12 +124,12 @@ const styles = (theme) => ({
     borderTop: "1px solid #E5E5E5",
     position: "fixed",
     width: "390px",
-    padding: theme.spacing(2),
+    
     bottom: "10px",
   },
   total1: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   cart1: {
     height: "48px",
