@@ -134,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
   checkboxdiv: {
     display: "flex",
     flexDirection: "row",
-    width: "430px",
+    width: "380px",
     borderBottom: `solid 1px  #00000030 `,
   },
   register2: {
@@ -257,7 +257,7 @@ const CheckoutActions = (prop) => {
   const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
   const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
   // console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
-  const [checkedEmail, setCheckedEmail] = React.useState(true);
+  const [checkedEmail, setCheckedEmail] = React.useState(false);
   const [placeOrder] = useMutation(placeOrderQuery);
 
   const classes = useStyles();

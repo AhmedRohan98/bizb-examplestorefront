@@ -169,14 +169,12 @@ const styles = (theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-   
   },
   cartitemsheaderinner: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
-
 });
 
 class CartItems extends Component {
@@ -185,52 +183,47 @@ class CartItems extends Component {
     hasMoreCartItems: PropTypes.bool,
     isMiniCart: PropTypes.bool,
     isReadOnly: PropTypes.bool,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      _id: PropTypes.string,
-      attributes: PropTypes.arrayOf(PropTypes.object),
-      currencyQuantity: PropTypes.number,
-      imageUrl: PropTypes.string,
-      isLowInventoryQuantity: PropTypes.bool,
-      price: PropTypes.shape({
-        displayPrice: PropTypes.string,
-        compareAtPrice: PropTypes.string
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string,
+        attributes: PropTypes.arrayOf(PropTypes.object),
+        currencyQuantity: PropTypes.number,
+        imageUrl: PropTypes.string,
+        isLowInventoryQuantity: PropTypes.bool,
+        price: PropTypes.shape({
+          displayPrice: PropTypes.string,
+          compareAtPrice: PropTypes.string,
+        }),
+        productSlug: PropTypes.string,
+        title: PropTypes.string,
+        quantity: PropTypes.number,
       }),
-      productSlug: PropTypes.string,
-      title: PropTypes.string,
-      quantity: PropTypes.number
-    })).isRequired,
+    ).isRequired,
     onChangeCartItemQuantity: PropTypes.func.isRequired,
     onLoadMoreCartItems: PropTypes.func,
     onRemoveItemFromCart: PropTypes.func.isRequired,
-    productURLPath: PropTypes.string
-  }
+    productURLPath: PropTypes.string,
+  };
 
   static defaultProps = {
-    onChangeCartItemQuantity() { },
-    onRemoveItemFromCart() { }
+    onChangeCartItemQuantity() {},
+    onRemoveItemFromCart() {},
   };
 
   handleItemQuantityChange = (quantity, _id) => {
     const { onChangeCartItemQuantity } = this.props;
 
     onChangeCartItemQuantity(quantity, _id);
-  }
+  };
 
   handleRemoveItem = (_id) => {
     const { onRemoveItemFromCart } = this.props;
 
     onRemoveItemFromCart(_id);
-  }
+  };
 
   render() {
-    const {
-      classes,
-      items,
-      isMiniCart,
-      isReadOnly,
-      hasMoreCartItems,
-      onLoadMoreCartItems
-    } = this.props;
+    const { classes, items, isMiniCart, isReadOnly, hasMoreCartItems, onLoadMoreCartItems } = this.props;
 
     return (
       <Fragment>
@@ -279,20 +272,16 @@ class CartItems extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items?.map((item) => (
+              {items.map((item) => (
                 <TableRow key={item.title}>
                   <TableCell>
                     <div className={classes.cartitemtext}>
-                      {/* <img
-                        src={item?.metafields && item.metafields[0]?.value}
-                        alt={item.title}
-                        className={classes.cartimage}
-                      ></img> */}
-
+                      {item?.metafields ? <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage}></img>:""}{" "}
+                     
                       <div className={classes.carttitle}>
                         <Typography variant="h4">{item.title}</Typography>
                         <Typography variant="h4" className={classes.cartpric}>
-                          Sold By:{item?.productVendor}
+                          Store:{item?.productVendor}
                         </Typography>{" "}
                       </div>
                     </div>

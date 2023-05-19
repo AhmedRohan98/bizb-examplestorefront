@@ -684,26 +684,26 @@ const ProductDetail = ({ ...props }) => {
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeButton={<CustomCloseButton />}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        background="green"
+        toastStyle={{
+          backgroundColor: "#FDC114",
+          color: "black",
+          fontSize: "16px",
+          fontFamily: "lato",
+        }}
+      />{" "}
       <Box className={classes.slider}>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeButton={<CustomCloseButton />}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          background="green"
-          toastStyle={{
-            backgroundColor: "#FDC114",
-            color: "black",
-            fontSize: "16px",
-            fontFamily: "lato",
-          }}
-        />{" "}
         <Grid
           container
           spacing={0}
@@ -913,7 +913,6 @@ const ProductDetail = ({ ...props }) => {
           <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
         </Grid>
       </Box>
-
       {/* <Fragment>
         <Grid container spacing={5}>
           <Grid item className={classes.breadcrumbGrid} xs={12}>
