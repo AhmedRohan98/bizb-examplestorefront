@@ -124,7 +124,7 @@ const styles = (theme) => ({
     borderTop: "1px solid #E5E5E5",
     position: "fixed",
     width: "390px",
-    
+
     bottom: "10px",
   },
   total1: {
@@ -135,11 +135,12 @@ const styles = (theme) => ({
     height: "48px",
     width: "140px",
     borderRadius: "40px",
-    background: theme.palette.reaction.black,
+    background: "#333333",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: "10px",
+
     "&:hover": {
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
@@ -209,7 +210,7 @@ const styles = (theme) => ({
     marginLeft: "40px",
     position: "absolute",
     color: "black",
-    fontSize:"25px",
+    fontSize: "25px",
     fontWeight: "400",
     fontFamily: "Lato",
   },
@@ -218,13 +219,12 @@ const styles = (theme) => ({
     marginLeft: "40px",
     position: "absolute",
     color: "white",
-     fontSize:"25px",
+    fontSize: "25px",
     fontWeight: "400",
     fontFamily: "Lato",
   },
   lastDiv: {
-   
-    border:"none"
+    border: "none",
   },
 });
 
