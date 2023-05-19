@@ -818,6 +818,24 @@ class CartPage extends Component {
     return (
       <>
         <Layout shop={shop}>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            background="green"
+            toastStyle={{
+              backgroundColor: "#FDC114",
+              color: "black",
+              fontSize: "16px",
+              fontFamily: "lato",
+            }}
+          />{" "}
           <div className={classes.topimage}>
             <img src="/cart/viewcart.svg" alt="view cart" className={classes.image} />
             <div className={classes.topheading}>
@@ -873,24 +891,6 @@ class CartPage extends Component {
                                 }
                                 disabled={isDisabled}
                               >
-                                <ToastContainer
-                                  position="top-right"
-                                  autoClose={5000}
-                                  hideProgressBar={false}
-                                  newestOnTop={false}
-                                  rtl={false}
-                                  pauseOnFocusLoss
-                                  draggable
-                                  pauseOnHover
-                                  theme="colored"
-                                  background="green"
-                                  toastStyle={{
-                                    backgroundColor: "#FDC114",
-                                    color: "black",
-                                    fontSize: "16px",
-                                    fontFamily: "lato",
-                                  }}
-                                />{" "}
                                 <img component="img" src="/icons/cart.svg" className={classes.cartimage2} />
                                 <Typography
                                   style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}

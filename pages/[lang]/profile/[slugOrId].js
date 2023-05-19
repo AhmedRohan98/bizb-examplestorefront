@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../../components/Layout";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import PageLoading from "../../../components/PageLoading/PageLoading";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -32,9 +33,13 @@ function SellerPublicProfile(props) {
     main: {
       width: "100%",
       padding: "75px",
+      
       [theme.breakpoints.down("xs")]: {
         padding: "0",
       },
+    },
+    profilebaner: {
+      width: "100%",
     },
     cardaction: {
       height: 312,
@@ -287,60 +292,87 @@ function SellerPublicProfile(props) {
      const url = `/en/product/${productSlug}`;
      const newWindow = window.open(url, "_blank");
      newWindow.opener.focus();
-   };                
+    };  
+    useEffect(() => {
+      // Simulate an asynchronous data loading process
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000); // Adjust the delay as needed
+    }, []);              
   return (
     <Layout shop={shop}>
-      <div className={classes.main}>
-        <div className="sellerProfile">
-          <Typography className="SELLERpROFILE__mainHeading" variant="h5">
-            Profile
-          </Typography>
-          <Grid container className="publicProfile__profileInfoWrapper">
-            <Grid xs={12} item className="publicProfile__profileInfoSection">
-              <div
-                className="sellerProfile__img"
-                style={{
-                  backgroundImage: profile
-                    ? profile.image
-                      ? "URL(" + profile.profilePhoto + ")"
-                      : "URL(" + "/images/sellerProfile.jpg" + ")"
-                    : "URL(" + "/images/sellerProfile.jpg" + ")",
-                }}
-              >
-                {/* <div className="sellerProfile__badge"> 
+      {isLoading ? (
+        <PageLoading />
+      ) : (
+        <div className={classes.main}>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeButton={<CustomCloseButton />}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            background="green"
+            toastStyle={{
+              backgroundColor: "#FDC114",
+              color: "black",
+              fontSize: "16px",
+              fontFamily: "lato",
+            }}
+          />
+          <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+          <div className="sellerProfile">
+            <Typography variant="h2">Profile</Typography>
+            <Grid container className="publicProfile__profileInfoWrapper">
+              <Grid xs={12} item className="publicProfile__profileInfoSection">
+                <div
+                  className="sellerProfile__img"
+                  style={{
+                    backgroundImage: profile
+                      ? profile.image
+                        ? "URL(" + profile.profilePhoto + ")"
+                        : "URL(" + "/images/sellerProfile.jpg" + ")"
+                      : "URL(" + "/images/sellerProfile.jpg" + ")",
+                  }}
+                >
+                  {/* <div className="sellerProfile__badge"> 
                           <img src={profile ? profile.profilePhoto?profile.profilePhoto:"/icons/medal.svg":"/icons/medal.svg"} />
                         </div> */}
-              </div>
-              <div className="publicProfile__infoContainer">
-                <div className="sellerProfile__infoRow publicProfile__infoRow">
-                  <Typography className="publicProfile__name" variant="h5">
-                    <span>{profile && profile?.name ? profile?.name : profile?.name}</span>
-                    {profile && profile && <img src="/icons/tickIcon.png" />}
-                  </Typography>
                 </div>
-                <Hidden xsDown>
-                  <>
-                    {profile && profile?.name && (
-                      <Typography className="sellerProfile__status" variant="h5">
-                        {profile.uname}
-                      </Typography>
-                    )}
-                  </>
-                </Hidden>
-                <Hidden xsDown>
-                  <Grid container>
-                    <Grid item xs={12} md={8} lg={6} xl={4}>
-                      <div className="publicProfile__infoMeta">
-                        <div className="sellerProfile__infoMetaRow">
-                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                            {props.totalcount}
-                          </Typography>
-                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                            {" "}
-                            Products
-                          </Typography>
-                        </div>
-                        <div className="sellerProfile__infoMetaRow">
+                <div className="publicProfile__infoContainer">
+                  <div className="sellerProfile__infoRow publicProfile__infoRow">
+                    <Typography className="publicProfile__name" variant="h1">
+                      <span>{profile && profile?.name ? profile?.name : profile?.name}</span>
+                      {profile && profile && <img src="/icons/tickIcon.png" />}
+                    </Typography>
+                  </div>
+                  <Hidden xsDown>
+                    <>
+                      {profile && profile?.name && (
+                        <Typography className="sellerProfile__status" variant="h5">
+                          {profile.uname}
+                        </Typography>
+                      )}
+                    </>
+                  </Hidden>
+                  <Hidden xsDown>
+                    <Grid container>
+                      <Grid item xs={12} md={8} lg={6} xl={4}>
+                        <div className="publicProfile__infoMeta">
+                          <div className="sellerProfile__infoMetaRow">
+                            <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                              {props.totalcount}
+                            </Typography>
+                            <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                              {" "}
+                              Products
+                            </Typography>
+                          </div>
+                          {/* <div className="sellerProfile__infoMetaRow">
                           <Typography className="sellerProfile__infoMetaContent" variant="h5">
                             o
                           </Typography>
@@ -357,28 +389,28 @@ function SellerPublicProfile(props) {
                             {" "}
                             Following
                           </Typography>
+                        </div> */}
                         </div>
-                      </div>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Hidden>
-              </div>
-            </Grid>
-            <Grid xs={12}>
-              <Hidden smUp>
-                <Grid container>
-                  <Grid item xs={12} md={8} lg={6} xl={4}>
-                    <div className="publicProfile__infoMeta">
-                      <div className="sellerProfile__infoMetaRow">
-                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                          {props.totalcount}
-                        </Typography>
-                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                          {" "}
-                          Products
-                        </Typography>
-                      </div>
-                      <div className="sellerProfile__infoMetaRow">
+                  </Hidden>
+                </div>
+              </Grid>
+              <Grid xs={12}>
+                <Hidden smUp>
+                  <Grid container>
+                    <Grid item xs={12} md={8} lg={6} xl={4}>
+                      <div className="publicProfile__infoMeta">
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            {props.totalcount}
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                            Products
+                          </Typography>
+                        </div>
+                        {/* <div className="sellerProfile__infoMetaRow">
                         <Typography className="sellerProfile__infoMetaContent" variant="h5">
                           0
                         </Typography>
@@ -395,35 +427,17 @@ function SellerPublicProfile(props) {
                           {" "}
                           Following
                         </Typography>
+                      </div> */}
                       </div>
-                    </div>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Hidden>
+                </Hidden>
+              </Grid>
             </Grid>
-          </Grid>
-        </div>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeButton={<CustomCloseButton />}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          background="green"
-          toastStyle={{
-            backgroundColor: "#FDC114",
-            color: "black",
-            fontSize: "16px",
-            fontFamily: "lato",
-          }}
-        />
-        <div className={classes.headermain}>
-          {/* <button onClick={notify}>Notify!</button>
+          </div>
+
+          <div className={classes.headermain}>
+            {/* <button onClick={notify}>Notify!</button>
         <ToastContainer
           position="bottom-left"
           autoClose={5000}
@@ -438,135 +452,138 @@ function SellerPublicProfile(props) {
           background="green"
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
-        </div>
-        <div className={classes.root}>
-          <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
-            {props?.catalogItems?.map((item, key) => {
-              const cartitem = cart?.items;
-              const isDisabled = cartitem?.some((data) => {
-                return data.productConfiguration.productId === item?.node?.product?.productId;
-              });
-              // console.log(cart?.items, "item");
-              // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-              const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-              const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-              const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-              const str = item.node.product.title;
-              const words = str.match(/[a-zA-Z0-9]+/g);
-              const firstThreeWords = words.slice(0, 3).join(" ");
-              return (
-                <>
-                  <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                    <img
-                      src={
-                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                          ? "/justin/justin4.svg"
-                          : item?.node?.product?.media[0]?.URLs?.large
-                      }
-                      className={classes.image}
-                      key={item?.node?.product?.id}
-                      alt={"hhhh"}
-                      onClick={() => clickHandler(item.node.product.slug)}
-                    />
+          </div>
+          <div className={classes.root}>
+            <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
+              {props?.catalogItems?.map((item, key) => {
+                const cartitem = cart?.items;
+                const isDisabled = cartitem?.some((data) => {
+                  return data.productConfiguration.productId === item?.node?.product?.productId;
+                });
+                // console.log(cart?.items, "item");
+                // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                const str = item.node.product.title;
+                const words = str.match(/[a-zA-Z0-9]+/g);
+                const firstThreeWords = words.slice(0, 3).join(" ");
+                return (
+                  <>
+                    <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                      <img
+                        src={
+                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.media[0]?.URLs?.large
+                        }
+                        className={classes.image}
+                        key={item?.node?.product?.id}
+                        alt={"hhhh"}
+                        onClick={() => clickHandler(item.node.product.slug)}
+                      />
 
-                    <div className={classes.cartbackground}>
-                      {isLoading[item?.node?.product?.productId] ? (
-                        <CircularProgress />
-                      ) : (
-                        <Button
-                          className={classes.cart}
-                          onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                          disabled={isDisabled || item?.node?.product?.isSoldOut}
-                        >
-                          <ToastContainer
-                            position="top-right"
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop={false}
-                            closeButton={<CustomCloseButton />}
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                            theme="colored"
-                            background="green"
-                            toastStyle={{
-                              backgroundColor: "#FDC114",
-                              color: "black",
-                              fontSize: "16px",
-                              fontFamily: "lato",
-                            }}
-                          />{" "}
-                          <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                          <Typography
-                            style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                            variant="h5"
-                            component="h2"
+                      <div className={classes.cartbackground}>
+                        {isLoading[item?.node?.product?.productId] ? (
+                          <CircularProgress />
+                        ) : (
+                          <Button
+                            className={classes.cart}
+                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                            disabled={isDisabled || item?.node?.product?.isSoldOut}
                           >
-                            {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                            <ToastContainer
+                              position="top-right"
+                              autoClose={5000}
+                              hideProgressBar={false}
+                              newestOnTop={false}
+                              closeButton={<CustomCloseButton />}
+                              rtl={false}
+                              pauseOnFocusLoss
+                              draggable
+                              pauseOnHover
+                              theme="colored"
+                              background="green"
+                              toastStyle={{
+                                backgroundColor: "#FDC114",
+                                color: "black",
+                                fontSize: "16px",
+                                fontFamily: "lato",
+                              }}
+                            />{" "}
+                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                            <Typography
+                              style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                              variant="h5"
+                              component="h2"
+                            >
+                              {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                            </Typography>
+                          </Button>
+                        )}
+                      </div>
+                      <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
+                        <Typography
+                          style={{ fontWeight: "700", fontSize: "24px" }}
+                          gutterBottom
+                          variant="h4"
+                          component="h2"
+                          className={classes.carttitle}
+                        >
+                          {firstThreeWords}
+                        </Typography>
+                        <div className={classes.size}>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
+                            gutterBottom
+                            variant="h4"
+                          >
+                            Size :
                           </Typography>
-                        </Button>
-                      )}
-                    </div>
-                    <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px" }}
-                        gutterBottom
-                        variant="h4"
-                        component="h2"
-                        className={classes.carttitle}
-                      >
-                        {firstThreeWords}
-                      </Typography>
-                      <div className={classes.size}>
-                        <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                          gutterBottom
-                          variant="h4"
-                        >
-                          Size :
-                        </Typography>
-                        <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                          gutterBottom
-                          variant="h4"
-                        >
-                          {size == 0
-                            ? "Extra Large"
-                            : "Small" || size == 1
-                            ? "Large"
-                            : "Small" || size == 2
-                            ? "Medium"
-                            : "Small" || size == 3
-                            ? "Small"
-                            : "Small"}
-                        </Typography>
-                      </div>
-                      <div className={classes.pricing}>
-                        {" "}
-                        <strike>
-                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-                        </strike>
-                        <Typography gutterBottom variant="h5" className={classes.price}>
-                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-                        </Typography>
-                      </div>
-                    </Box>
-                  </Grid>
-                </>
-              );
-            })}
-          </Grid>
-        </div>
+                          <Typography
+                            style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
+                            gutterBottom
+                            variant="h4"
+                          >
+                            {size == 0
+                              ? "Extra Large"
+                              : "Small" || size == 1
+                              ? "Large"
+                              : "Small" || size == 2
+                              ? "Medium"
+                              : "Small" || size == 3
+                              ? "Small"
+                              : "Small"}
+                          </Typography>
+                        </div>
+                        <div className={classes.pricing}>
+                          {" "}
+                          <strike>
+                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "RS ")}
+                          </strike>
+                          <Typography gutterBottom variant="h5" className={classes.price}>
+                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "RS ")}
+                          </Typography>
+                        </div>
+                      </Box>
+                    </Grid>
+                  </>
+                );
+              })}
+            </Grid>
+          </div>
 
-        <div className={classes.loadmore}>
-          {sellerCatalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>}
+          <div className={classes.loadmore}>
+            {sellerCatalogItemsPageInfo?.hasNextPage && (
+              <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </Layout>
   );
 }

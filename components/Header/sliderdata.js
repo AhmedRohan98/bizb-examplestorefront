@@ -41,7 +41,8 @@ const MainSlider = (props) => {
     controller: {
       display: "flex",
       flexDirection: "row",
-      alignItems: "flex-end",
+      alignItems: "center",
+      justifyContent:"center"
     },
     controllera: {
       position: "absolute",
@@ -60,8 +61,7 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       zIndex: 9999,
-      left: "50%",
-      right: "50%",
+       
       width: "300px",
       bottom: "10px",
     },

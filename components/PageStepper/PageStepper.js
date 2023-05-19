@@ -47,10 +47,20 @@ class PageStepper extends Component {
 
   handleNextClick = () => {
     const { pageInfo } = this.props;
+if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+  const windowHeight = window.innerHeight;
+  const documentHeight = Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight,
+    document.body.clientHeight,
+    document.documentElement.clientHeight,
+  );
+  const scrollToPosition = (documentHeight - windowHeight) / 2;
 
-    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+}
 
     pageInfo.loadNextPage();
   };
@@ -58,9 +68,20 @@ class PageStepper extends Component {
   handlePreviousClick = () => {
     const { pageInfo } = this.props;
 
-    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+ if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+   const windowHeight = window.innerHeight;
+   const documentHeight = Math.max(
+     document.body.scrollHeight,
+     document.documentElement.scrollHeight,
+     document.body.offsetHeight,
+     document.documentElement.offsetHeight,
+     document.body.clientHeight,
+     document.documentElement.clientHeight,
+   );
+   const scrollToPosition = (documentHeight - windowHeight) / 2;
+
+   window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+ }
 
     pageInfo.loadPreviousPage();
   };
