@@ -432,7 +432,7 @@ console.log(cart)
 
     FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
     phonenumber: Yup.string()
-      .matches(/^[0-9]{11}$/, "Please Enter 11 digits phone Number")
+      .matches(/^[0-9]{10}$/, "Please Enter 10 digits phone Number")
       .required("Phone number is required"),
 
     city: Yup.string().min(5).required("Please Enter Your City"),

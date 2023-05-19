@@ -171,7 +171,7 @@ export default function SignUp(props) {
     FullName: Yup.string().min(3).max(25).required("Please enter your name"),
     email: Yup.string().email().required("Please enter your email"),
     phonenumber: Yup.string()
-      .matches(/^[0-9]{11}$/, "Please Enter 11 digits phone Number")
+      .matches(/^[0-9]{10}$/, "Please Enter 10 digits phone Number")
       .required("Phone number is required"),
     password: Yup.string().min(6).required("Please enter your password"),
     confirm_password: Yup.string()
