@@ -139,6 +139,18 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "18px",
     cursor: "pointer",
   },
+  filteritemsfromsearch: {
+    backgroundColor: "white",
+    marginRight: "47px",
+    marginLeft: "47px",
+    borderRadius: "18px",
+    overflowY: "auto",
+    [theme.breakpoints.down(1600)]: {
+      overflowY: "auto",
+      minHeight: "600px",
+      maxHeight: "600px",
+    },
+  },
 }));
 const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
   const [searchLocal, setSearchLocal] = useState();
@@ -196,10 +208,8 @@ const handleSearchSubmit = (event) => {
                 className={classes.inputRoot}
               >
                 <TextField
-              
                   type="text"
                   id="outlined-basic"
-                 
                   variant="outlined"
                   value={searchLocal}
                   className={classes.input}
@@ -233,12 +243,7 @@ const handleSearchSubmit = (event) => {
           </form>
           {filteredItems?.length > 0 ? (
             <div
-              style={{
-                backgroundColor: "white",
-                marginRight: "47px",
-                marginLeft: "47px",
-                borderRadius: "18px",
-              }}
+             className={classes.filteritemsfromsearch}
             >
               <div style={{ display: "flex" }}>
                 <div style={{ marginTop: "20px" }}>
@@ -274,22 +279,6 @@ const handleSearchSubmit = (event) => {
                         </div>
                       );
                     })}
-                    {/* return{" "}
-                    <div className={classes.cartitem}>
-                      <img src="/cart/cart1.svg" alt={item.title} className={classes.cartimage}></img>
-                      <div className={classes.cartitemtext}>
-                        {" "}
-                        <Typography variant="h4">{item.title}</Typography>
-                        <Typography variant="h4" className={classes.cartpric}>
-                          Store:mariamz
-                        </Typography>{" "}
-                        <Typography variant="h4" className={classes.cartprice}>
-                          RS: {item?.price?.amount}
-                        </Typography>
-                      </div>
-
-                      <img src="/cart/icon.svg" alt={item.title} onClick={() => handleRemoveItem(item._id)} />
-                    </div> */}
                   </ul>
                 </div>
               </div>

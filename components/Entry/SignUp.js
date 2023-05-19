@@ -172,7 +172,7 @@ export default function SignUp(props) {
     email: Yup.string().email().required("Please enter your email"),
     phonenumber: Yup.string()
       .matches(/^[0-9]{10}$/, "Please Enter 10 digits phone Number")
-      .required("Phone number is required"),
+      .required("Please Enter your mobile number  without 0"),
     password: Yup.string().min(6).required("Please enter your password"),
     confirm_password: Yup.string()
       .required()
