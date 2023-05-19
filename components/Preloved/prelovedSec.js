@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
     height: "35px",
     width: "250px",
     bottom: "50%",
+    top:"50%",
     right: "2%",
     position: "absolute",
     display: "flex",
@@ -91,8 +92,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     flexDirection: "column",
     [theme.breakpoints.down(600)]: {
-      top: "10%",
-      right: "25%",
+      top: "50%",
+      right: "2%",
     },
   },
   imagec: {
