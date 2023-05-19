@@ -228,19 +228,27 @@ class NavigationDesktop extends Component {
             >
               Byol
             </span>
-            <span
-              className="hoverable"
+            <a
               style={{
-                marginRight: "40px",
-                padding: "9px 11px",
-                marginLeft: "30px",
-                fontSize: "18px",
-                fontFamily: '"Ostrich Sans Black"',
-                fontWeight: 900,
+                color: "inherit",
               }}
+              target="_blank"
+              href="https://bizb.store/how-to-sell/"
             >
-              Sell
-            </span>
+              <span
+                className="hoverable"
+                style={{
+                  marginRight: "40px",
+                  padding: "9px 11px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black"',
+                  fontWeight: 900,
+                }}
+              >
+                Sell
+              </span>
+            </a>
           </div>
         </nav>
       </>
