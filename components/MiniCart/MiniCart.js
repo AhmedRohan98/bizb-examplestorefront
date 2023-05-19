@@ -96,8 +96,8 @@ const styles = (theme) => ({
     borderBottom: "1px solid #e5e5e5",
   },
   cartitemimage: {
-    width: "173px",
-    height: "194px",
+    width: "120px",
+    height: "100px",
     marginBottom: theme.spacing(2),
   },
   cartimage: {

@@ -701,7 +701,8 @@ const ProductDetail = ({ ...props }) => {
             backgroundColor: "#FDC114",
             color: "black",
             fontSize: "16px",
-            fontFamily: "lato",
+            fontFamily: "Lato",
+            textTransform: "capitalize",
           }}
         />{" "}
         <Grid

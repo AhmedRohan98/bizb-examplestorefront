@@ -1114,6 +1114,26 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
     <Layout shop={shop} tagId={tagId}>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeButton={<CustomCloseButton />}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            background="green"
+            toastStyle={{
+              backgroundColor: "#FDC114",
+              color: "black",
+              fontSize: "16px",
+              fontFamily: "Lato",
+              textTransform: "capitalize",
+            }}
+          />
           <Box className={classes.topheader}>
             {["left"].map((anchor) => (
               <React.Fragment key={anchor}>
@@ -1301,25 +1321,6 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
                   return (
                     <>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                        <ToastContainer
-                          position="top-right"
-                          autoClose={5000}
-                          hideProgressBar={false}
-                          newestOnTop={false}
-                          closeButton={<CustomCloseButton />}
-                          rtl={false}
-                          pauseOnFocusLoss
-                          draggable
-                          pauseOnHover
-                          theme="colored"
-                          background="green"
-                          toastStyle={{
-                            backgroundColor: "#FDC114",
-                            color: "black",
-                            fontSize: "16px",
-                            fontFamily: "lato",
-                          }}
-                        />{" "}
                         <img
                           src={
                             !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
@@ -1407,7 +1408,6 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
             </Grid>
           </Grid>
           {/* Products Below Image   */}
-
           <div className={classes.main}>
             <div className={classes.headermain}>
               <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
@@ -1448,25 +1448,6 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
                               onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                               disabled={isDisabled || item?.node?.product?.isSoldOut}
                             >
-                              <ToastContainer
-                                position="top-right"
-                                autoClose={5000}
-                                hideProgressBar={false}
-                                newestOnTop={false}
-                                closeButton={<CustomCloseButton />}
-                                rtl={false}
-                                pauseOnFocusLoss
-                                draggable
-                                pauseOnHover
-                                theme="colored"
-                                background="green"
-                                toastStyle={{
-                                  backgroundColor: "#FDC114",
-                                  color: "black",
-                                  fontSize: "16px",
-                                  fontFamily: "lato",
-                                }}
-                              />{" "}
                               <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                               <Typography
                                 style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
@@ -1540,7 +1521,6 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
               </Masonry>
             </ResponsiveMasonry>
           </div> */}
-
           <div className={classes.loadmore}>
             {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
           </div>

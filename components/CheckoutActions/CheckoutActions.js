@@ -550,7 +550,7 @@ console.log(cart)
     <>
       <form onSubmit={handleSubmit}>
         <Grid container xs={12}>
-          <Grid item xs={9}>
+          <Grid item xs={9} lg={9}>
             <Typography variant="h3" className={classes.mainheading}>
               Shipping Details
             </Typography>
@@ -668,9 +668,7 @@ console.log(cart)
                     inputProps={{ style: { color: "black" } }}
                   />
                 </label>
-                {errors.city && touched.city ? (
-                  <p className={classes.formerror}>{errors.city}</p>
-                ) : null}
+                {errors.city && touched.city ? <p className={classes.formerror}>{errors.city}</p> : null}
               </Grid>
             </Grid>
             <div className={classes.checkboxdiv}>
@@ -683,9 +681,7 @@ console.log(cart)
             </div>
             <Grid item xs={12}>
               <label className={classes.label} variant="h4" htmlFor="orderNotes">
-                <span className={classes.labelSpan}>
-                  Order Notes
-                </span>
+                <span className={classes.labelSpan}>Order Notes</span>
                 <TextField
                   placeholder="Enter additional notes here."
                   InputProps={{ disableUnderline: true }}
@@ -778,7 +774,8 @@ console.log(cart)
                       backgroundColor: "#FDC114",
                       color: "black",
                       fontSize: "16px",
-                      fontFamily: "lato",
+                      fontFamily: "Lato",
+                      textTransform: "capitalize",
                     }}
                   />
                 </div>
