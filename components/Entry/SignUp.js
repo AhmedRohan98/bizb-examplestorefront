@@ -8,6 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import PropTypes from "prop-types";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 const useStyles = makeStyles((theme) => ({
@@ -170,7 +171,7 @@ export default function SignUp(props) {
     FullName: Yup.string().min(3).max(25).required("Please enter your name"),
     email: Yup.string().email().required("Please enter your email"),
     phonenumber: Yup.string()
-      .matches(/^[0-9]+$/, "Please enter a valid mobile number")
+      .matches(/^[0-9]{11}$/, "Please Enter 11 digits phone Number")
       .required("Phone number is required"),
     password: Yup.string().min(6).required("Please enter your password"),
     confirm_password: Yup.string()
@@ -258,16 +259,23 @@ export default function SignUp(props) {
                 Phone Number <span style={{ color: "#FD1010" }}>*</span>
               </span>
               <TextField
-                placeholder="Enter Your Phone Number"
-                InputProps={{ disableUnderline: true }}
-                className={classes.input}
+                placeholder="Enter your name"
                 type="tel"
-                autoComplete="off"
+                InputProps={{
+                  style: { color: "black" },
+                  disableUnderline: true,
+                  startAdornment: (
+                    <InputAdornment position="start" className={classes.phone}>
+                      +92
+                    </InputAdornment>
+                  ),
+                }}
                 name="phonenumber"
                 id="phonenumber"
                 value={values.phonenumber}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className={classes.input}
               />
             </label>
             {touched.phonenumber && errors.phonenumber ? (
@@ -336,7 +344,6 @@ export default function SignUp(props) {
             type="submit"
             role="button"
           >
-    
             Register
           </Button>
         </div>
