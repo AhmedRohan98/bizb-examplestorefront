@@ -1119,7 +1119,9 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
-            closeButton={<CustomCloseButton />}
+            closeButton={
+              <CustomCloseButton style={{ display: "flex", justifyContent: "center", alignItems: "center" }} />
+            }
             rtl={false}
             pauseOnFocusLoss
             draggable
@@ -1134,6 +1136,7 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
               textTransform: "capitalize",
             }}
           />
+        
           <Box className={classes.topheader}>
             {["left"].map((anchor) => (
               <React.Fragment key={anchor}>

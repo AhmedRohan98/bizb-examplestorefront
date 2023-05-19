@@ -96,15 +96,15 @@ const styles = (theme) => ({
     borderBottom: "1px solid #e5e5e5",
   },
   cartitemimage: {
-    width: "120px",
-    height: "100px",
+    width: "140px",
+    height: "120px",
     marginBottom: theme.spacing(2),
   },
   cartimage: {
     width: "100%",
     height: "100%",
     borderRadius: "10px",
-    objectFit: "cover",
+    objectFit: "fill",
   },
   cartitemtext: {
     display: "flex",
