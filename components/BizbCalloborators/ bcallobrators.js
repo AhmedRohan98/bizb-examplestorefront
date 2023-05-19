@@ -17,7 +17,7 @@ const BizbCalloborators = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-   
+
       borderRadius: "40px",
       width: "120px",
       height: "48px",
@@ -35,9 +35,8 @@ const BizbCalloborators = () => {
       fontWeight: 900,
       fontStyle: "Black",
       lineHeight: "26px",
-        background:"none" ,
-        border:"none",
-      fontFamily: "Ostrich Sans Black",
+      background: "none",
+      border: "none",
     },
     image: {
       position: "relative",
@@ -54,13 +53,18 @@ const BizbCalloborators = () => {
       right: "2%",
       bottom: "8%",
       cursor: "pointer",
+      display: "block",
+      fontFamily: "Ostrich Sans Black",
+      [theme.breakpoints.down(1100)]: {
+        display: "none",
+      },
     },
   }));
   
   
   const classes = useStyles();
   return (
-    <Box display={{ xs: "none", lg: "block", xl: "none" }}>
+    <Box display={{ xs: "block", lg: "block", xl: "block" }}>
       <Grid container xs={12}>
         <div className={classes.collobarotors}>
           <img src="/BizbCollaborator/sheefa.webp" className={classes.image} />
