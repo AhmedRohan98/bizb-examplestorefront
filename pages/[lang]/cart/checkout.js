@@ -29,7 +29,7 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
 const useStyles = makeStyles((theme) => ({
   checkoutActions: {
     width: "100%",
-    maxWidth: "1440px",
+    maxWidth: "1920px",
     alignSelf: "center",
     [theme.breakpoints.up("md")]: {
       paddingRight: "2rem",
@@ -76,16 +76,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
   },
-  main: {
-    flex: "1 1 auto",
-    maxWidth: theme.layout.mainLoginMaxWidth,
-    minHeight: "calc(100vh - 135px)",
-    margin: "0 auto",
-    padding: `${theme.spacing(3)}px ${theme.spacing(3)}px 0`,
-    [theme.breakpoints.up("md")]: {
-      padding: `${theme.spacing(10)}px ${theme.spacing(3)}px 0`,
-    },
-  },
+
   continue: {
     width: "250px",
     height: "48px",

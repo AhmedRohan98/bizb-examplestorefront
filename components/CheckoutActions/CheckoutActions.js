@@ -157,6 +157,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainheading: {
     textTransform: "uppercase",
+    width:"300px"
   },
 
   phone: {
@@ -165,6 +166,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainheading: {
     textTransform: "uppercase",
+    width:"300px"
   },
   ellipse: {
     height: "18px",
@@ -173,6 +175,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cartpayment: {
     display: "flex",
+    width:"300px",
     flexDirection: "row",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
@@ -220,7 +223,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "34px",
   },
   orderbutn: {
-    width: "100%",
+    width: "320px",
     display: "flex",
    marginLeft:"75px"
   },
@@ -546,7 +549,7 @@ console.log(cart)
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Grid container xs={12} justifyContent="center">
+        <Grid container xs={12} justifyContent="center" >
           <Grid item xs={6} lg={6} justifyContent="center">
             <Typography variant="h3" className={classes.mainheading}>
               Shipping Details
