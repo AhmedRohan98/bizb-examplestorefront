@@ -231,6 +231,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
+  labelSpan:{
+width:"300px",
+  },
   register: {
     width: "261px",
     height: "48px",
