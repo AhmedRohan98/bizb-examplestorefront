@@ -69,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
   inputitem: {
     width: "440px",
   },
+  inputitem2: {
+    width: "440px",
+  },
   inputorder: {
     width: "430px",
     height: "218px",
@@ -170,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainheading: {
     textTransform: "uppercase",
-    alignItems:"center",
+    alignItems: "center",
     width: "100%",
   },
   ellipse: {
@@ -691,7 +694,7 @@ console.log(cart)
                   {errors.city && touched.city ? <p className={classes.formerror}>{errors.city}</p> : null}
                 </Grid>
               </Grid>
-              <div className={classes.inputitem}>
+              <div className={classes.inputitem2}>
                 <div className={classes.checkboxdiv}>
                   <FormControlLabel
                     control={
