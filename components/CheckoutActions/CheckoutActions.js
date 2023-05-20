@@ -66,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
       padding: "opx",
     },
   },
-  inputitem:{
-    width:"440px"
+  inputitem: {
+    width: "440px",
   },
   inputorder: {
     width: "430px",
@@ -158,10 +158,10 @@ const useStyles = makeStyles((theme) => ({
   switchaccout: {
     color: "#FDC114",
   },
-  mainheading: {
-    textTransform: "uppercase",
-    textAlign:"start",
-    width: "390px",
+  mainheadingp: {
+    textTransform: "lowercase",
+    alignItems: "center",
+    width: "380px",
   },
 
   phone: {
@@ -170,7 +170,8 @@ const useStyles = makeStyles((theme) => ({
   },
   mainheading: {
     textTransform: "uppercase",
-    width: "390px",
+    alignItems:"center",
+    width: "100%",
   },
   ellipse: {
     height: "18px",
@@ -179,7 +180,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cartpayment: {
     display: "flex",
-    width: "390px",
+    width: "380px",
     flexDirection: "row",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
@@ -234,7 +235,12 @@ const useStyles = makeStyles((theme) => ({
   summary: {
     display: "flex",
     flexDirection: "column",
-    alignItems:"center"
+    alignItems: "center",
+  },
+  saveinfoordernotes: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   labelSpan: {
     width: "300px",
@@ -255,11 +261,11 @@ const useStyles = makeStyles((theme) => ({
       background: "#FDC114",
     },
   },
-  Gridmain:{
-    display:"flex",
-  
-    justifyContent:"center"
-  }
+  Gridmain: {
+    display: "flex",
+
+    justifyContent: "center",
+  },
 }));
 
 const CheckoutActions = (prop) => {
@@ -564,162 +570,169 @@ console.log(cart)
       <form onSubmit={handleSubmit}>
         <Grid container xs={12} justifyContent="center" className={classes.Gridmain}>
           <Grid item xs={6} lg={6} justifyContent="center">
-            <Typography variant="h3" className={classes.mainheading}>
-              Shipping Details
-            </Typography>
-
-            <Grid container xs={12} className={classes.root}>
-              <Grid xs={12} item className={classes.inputitem}>
-                <label className={classes.label} htmlFor="FullName">
-                  <span className={classes.labelSpan} htmlFor="FullName">
-                    Full Name <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter Your User Name"
-                    InputProps={{ disableUnderline: true }}
-                    className={classes.input}
-                    type="text"
-                    autoComplete="off"
-                    name="FullName"
-                    id="FullName"
-                    value={values.FullName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </label>
-                {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
-              </Grid>
-              <Grid xs={12} item className={classes.inputitem}>
-                <label className={classes.label} htmlFor="phonenumber">
-                  <span className={classes.labelSpan} htmlFor="phonenumber">
-                    Phone Number <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter your name"
-                    type="tel"
-                    InputProps={{
-                      style: { color: "black" },
-                      disableUnderline: true,
-                      startAdornment: (
-                        <InputAdornment position="start" className={classes.phone}>
-                          +92
-                        </InputAdornment>
-                      ),
-                    }}
-                    name="phonenumber"
-                    id="phonenumber"
-                    value={values.phonenumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={classes.input}
-                  />
-                </label>
-                {touched.phonenumber && errors.phonenumber ? (
-                  <p className={classes.formerror}>{errors.phonenumber}</p>
-                ) : null}
-              </Grid>
-              <Grid xs={12} item className={classes.inputitem}>
-                <label className={classes.label} variant="h6" htmlFor="email">
-                  <span className={classes.labelSpan}>
-                    Email <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter Your Email Address"
-                    InputProps={{ disableUnderline: true }}
-                    className={classes.input}
-                    type="email"
-                    autoComplete="off"
-                    name="email"
-                    id="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </label>
-                {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
-              </Grid>
-              <Grid item xs={12} className={classes.inputitem}>
-                <label className={classes.label} variant="h6" htmlFor="CompleteAddress">
-                  <span className={classes.labelSpan}>
-                    Complete Address <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter your complete address"
-                    InputProps={{ disableUnderline: true }}
-                    autoComplete="off"
-                    type="text"
-                    name="CompleteAddress"
-                    id="CompleteAddress"
-                    value={values.CompleteAddress}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={classes.input}
-                    inputProps={{ style: { color: "black" } }}
-                  />
-                </label>
-                {errors.CompleteAddress && touched.CompleteAddress ? (
-                  <p className={classes.formerror}>{errors.CompleteAddress}</p>
-                ) : null}
-              </Grid>
-
-              <Grid item xs={12} className={classes.inputitem}>
-                <label className={classes.label} variant="h4">
-                  <span className={classes.labelSpan}>
-                    City <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Please Enter Your City Name"
-                    InputProps={{ disableUnderline: true }}
-                    autoComplete="off"
-                    type="text"
-                    name="city"
-                    id="city"
-                    value={values.city}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={classes.input}
-                    inputProps={{ style: { color: "black" } }}
-                  />
-                </label>
-                {errors.city && touched.city ? <p className={classes.formerror}>{errors.city}</p> : null}
-              </Grid>
-            </Grid>
-            <div className={classes.checkboxdiv}>
-              <FormControlLabel
-                control={<Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />}
-              />
-              <Typography variant="body2" className={classes.terms}>
-                Save this Information for next time
+            <div className={classes.summary}>
+              <Typography variant="h3" className={classes.mainheading}>
+                Shipping Details
               </Typography>
+
+              <Grid container xs={12} className={classes.root}>
+                <Grid xs={12} item className={classes.inputitem}>
+                  <label className={classes.label} htmlFor="FullName">
+                    <span className={classes.labelSpan} htmlFor="FullName">
+                      Full Name <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter Your User Name"
+                      InputProps={{ disableUnderline: true }}
+                      className={classes.input}
+                      type="text"
+                      autoComplete="off"
+                      name="FullName"
+                      id="FullName"
+                      value={values.FullName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </label>
+                  {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
+                </Grid>
+                <Grid xs={12} item className={classes.inputitem}>
+                  <label className={classes.label} htmlFor="phonenumber">
+                    <span className={classes.labelSpan} htmlFor="phonenumber">
+                      Phone Number <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter your name"
+                      type="tel"
+                      InputProps={{
+                        style: { color: "black" },
+                        disableUnderline: true,
+                        startAdornment: (
+                          <InputAdornment position="start" className={classes.phone}>
+                            +92
+                          </InputAdornment>
+                        ),
+                      }}
+                      name="phonenumber"
+                      id="phonenumber"
+                      value={values.phonenumber}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={classes.input}
+                    />
+                  </label>
+                  {touched.phonenumber && errors.phonenumber ? (
+                    <p className={classes.formerror}>{errors.phonenumber}</p>
+                  ) : null}
+                </Grid>
+                <Grid xs={12} item className={classes.inputitem}>
+                  <label className={classes.label} variant="h6" htmlFor="email">
+                    <span className={classes.labelSpan}>
+                      Email <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter Your Email Address"
+                      InputProps={{ disableUnderline: true }}
+                      className={classes.input}
+                      type="email"
+                      autoComplete="off"
+                      name="email"
+                      id="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </label>
+                  {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
+                </Grid>
+                <Grid item xs={12} className={classes.inputitem}>
+                  <label className={classes.label} variant="h6" htmlFor="CompleteAddress">
+                    <span className={classes.labelSpan}>
+                      Complete Address <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter your complete address"
+                      InputProps={{ disableUnderline: true }}
+                      autoComplete="off"
+                      type="text"
+                      name="CompleteAddress"
+                      id="CompleteAddress"
+                      value={values.CompleteAddress}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={classes.input}
+                      inputProps={{ style: { color: "black" } }}
+                    />
+                  </label>
+                  {errors.CompleteAddress && touched.CompleteAddress ? (
+                    <p className={classes.formerror}>{errors.CompleteAddress}</p>
+                  ) : null}
+                </Grid>
+
+                <Grid item xs={12} className={classes.inputitem}>
+                  <label className={classes.label} variant="h4">
+                    <span className={classes.labelSpan}>
+                      City <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Please Enter Your City Name"
+                      InputProps={{ disableUnderline: true }}
+                      autoComplete="off"
+                      type="text"
+                      name="city"
+                      id="city"
+                      value={values.city}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={classes.input}
+                      inputProps={{ style: { color: "black" } }}
+                    />
+                  </label>
+                  {errors.city && touched.city ? <p className={classes.formerror}>{errors.city}</p> : null}
+                </Grid>
+              </Grid>
+              <div className={classes.inputitem}>
+                <div className={classes.checkboxdiv}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />
+                    }
+                  />
+
+                  <Typography variant="body2" className={classes.terms}>
+                    Save this Information for next time
+                  </Typography>
+                </div>
+                <Grid item xs={12} className={classes.inputitem}>
+                  <label className={classes.label} variant="h4" htmlFor="orderNotes">
+                    <span className={classes.labelSpan}>Order Notes</span>
+                    <TextField
+                      placeholder="Enter additional notes here."
+                      InputProps={{ disableUnderline: true }}
+                      className={classes.inputorder}
+                      inputProps={{ style: { color: "black" } }}
+                      autoComplete="off"
+                      type="text"
+                      name="orderNotes"
+                      id="orderNotes"
+                      value={values.orderNotes}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      multiline={true}
+                      maxRows={4}
+                    />
+                  </label>
+                  {errors.orderNotes && touched.orderNotes ? (
+                    <p className={classes.formerror}>{errors.orderNotes}</p>
+                  ) : null}
+                </Grid>
+              </div>
             </div>
-            <Grid item xs={12} className={classes.inputitem}>
-              <label className={classes.label} variant="h4" htmlFor="orderNotes">
-                <span className={classes.labelSpan}>Order Notes</span>
-                <TextField
-                  placeholder="Enter additional notes here."
-                  InputProps={{ disableUnderline: true }}
-                  className={classes.inputorder}
-                  inputProps={{ style: { color: "black" } }}
-                  autoComplete="off"
-                  type="text"
-                  name="orderNotes"
-                  id="orderNotes"
-                  value={values.orderNotes}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  multiline={true}
-                  maxRows={4}
-                />
-              </label>
-              {errors.orderNotes && touched.orderNotes ? (
-                <p className={classes.formerror}>{errors.orderNotes}</p>
-              ) : null}
-            </Grid>
           </Grid>
           <Grid item xs={12} lg={6} sm={12} md={6} justifyContent="center">
             <Grid container xs={12} className={classes.summary} justifyContent="center">
               <>
-                <Typography variant="h3" className={classes.mainheading}>
+                <Typography variant="h3" className={classes.mainheadingp}>
                   PAYMENT
                 </Typography>
                 <div className={classes.cartpayment}>
