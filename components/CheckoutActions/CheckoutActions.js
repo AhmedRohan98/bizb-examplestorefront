@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   terms: {
-    lineHeight: "50px",
+    lineHeight: "100px",
   },
 
   checkbox: {
@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
   checkboxdiv: {
     display: "flex",
     flexDirection: "row",
-    width: "270px",
+    width: "380px",
     borderBottom: `solid 1px  #00000030 `,
   },
   register2: {
