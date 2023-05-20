@@ -66,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
       padding: "opx",
     },
   },
+  inputitem:{
+    width:"440px"
+  },
   inputorder: {
     width: "430px",
     height: "218px",
@@ -94,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "40px",
     border: "none",
     display: "flex",
-   
+
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -157,7 +160,8 @@ const useStyles = makeStyles((theme) => ({
   },
   mainheading: {
     textTransform: "uppercase",
-    width:"300px"
+    textAlign:"start",
+    width: "390px",
   },
 
   phone: {
@@ -166,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainheading: {
     textTransform: "uppercase",
-    width:"300px"
+    width: "390px",
   },
   ellipse: {
     height: "18px",
@@ -175,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cartpayment: {
     display: "flex",
-    width:"300px",
+    width: "390px",
     flexDirection: "row",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
@@ -225,14 +229,15 @@ const useStyles = makeStyles((theme) => ({
   orderbutn: {
     width: "320px",
     display: "flex",
-   marginLeft:"75px"
+    marginLeft: "75px",
   },
   summary: {
     display: "flex",
     flexDirection: "column",
+    alignItems:"center"
   },
-  labelSpan:{
-width:"300px",
+  labelSpan: {
+    width: "300px",
   },
   register: {
     width: "261px",
@@ -242,7 +247,7 @@ width:"300px",
 
     display: "flex",
     marginTop: theme.spacing(4),
-  
+
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -250,6 +255,11 @@ width:"300px",
       background: "#FDC114",
     },
   },
+  Gridmain:{
+    display:"flex",
+  
+    justifyContent:"center"
+  }
 }));
 
 const CheckoutActions = (prop) => {
@@ -552,14 +562,14 @@ console.log(cart)
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Grid container xs={12} justifyContent="center" >
+        <Grid container xs={12} justifyContent="center" className={classes.Gridmain}>
           <Grid item xs={6} lg={6} justifyContent="center">
             <Typography variant="h3" className={classes.mainheading}>
               Shipping Details
             </Typography>
 
             <Grid container xs={12} className={classes.root}>
-              <Grid xs={12} item>
+              <Grid xs={12} item className={classes.inputitem}>
                 <label className={classes.label} htmlFor="FullName">
                   <span className={classes.labelSpan} htmlFor="FullName">
                     Full Name <span style={{ color: "#FD1010" }}>*</span>
@@ -579,7 +589,7 @@ console.log(cart)
                 </label>
                 {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
               </Grid>
-              <Grid xs={12} item>
+              <Grid xs={12} item className={classes.inputitem}>
                 <label className={classes.label} htmlFor="phonenumber">
                   <span className={classes.labelSpan} htmlFor="phonenumber">
                     Phone Number <span style={{ color: "#FD1010" }}>*</span>
@@ -608,7 +618,7 @@ console.log(cart)
                   <p className={classes.formerror}>{errors.phonenumber}</p>
                 ) : null}
               </Grid>
-              <Grid xs={12} item>
+              <Grid xs={12} item className={classes.inputitem}>
                 <label className={classes.label} variant="h6" htmlFor="email">
                   <span className={classes.labelSpan}>
                     Email <span style={{ color: "#FD1010" }}>*</span>
@@ -628,7 +638,7 @@ console.log(cart)
                 </label>
                 {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className={classes.inputitem}>
                 <label className={classes.label} variant="h6" htmlFor="CompleteAddress">
                   <span className={classes.labelSpan}>
                     Complete Address <span style={{ color: "#FD1010" }}>*</span>
@@ -652,7 +662,7 @@ console.log(cart)
                 ) : null}
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} className={classes.inputitem}>
                 <label className={classes.label} variant="h4">
                   <span className={classes.labelSpan}>
                     City <span style={{ color: "#FD1010" }}>*</span>
@@ -682,7 +692,7 @@ console.log(cart)
                 Save this Information for next time
               </Typography>
             </div>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.inputitem}>
               <label className={classes.label} variant="h4" htmlFor="orderNotes">
                 <span className={classes.labelSpan}>Order Notes</span>
                 <TextField

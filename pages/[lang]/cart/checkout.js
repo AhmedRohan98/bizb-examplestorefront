@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   checkoutActions: {
     width: "100%",
     maxWidth: "1920px",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
     alignSelf: "center",
     [theme.breakpoints.up("md")]: {
       paddingRight: "2rem",
