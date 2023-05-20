@@ -94,8 +94,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "40px",
     border: "none",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+   
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -223,8 +222,7 @@ const useStyles = makeStyles((theme) => ({
   orderbutn: {
     width: "100%",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+   marginLeft:"75px"
   },
   summary: {
     display: "flex",
@@ -238,8 +236,7 @@ const useStyles = makeStyles((theme) => ({
 
     display: "flex",
     marginTop: theme.spacing(4),
-    justifyContent: "center",
-    alignItems: "center",
+  
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -550,7 +547,7 @@ console.log(cart)
     <>
       <form onSubmit={handleSubmit}>
         <Grid container xs={12}>
-          <Grid item xs={9} lg={9}>
+          <Grid item xs={6} lg={6}>
             <Typography variant="h3" className={classes.mainheading}>
               Shipping Details
             </Typography>
@@ -703,7 +700,7 @@ console.log(cart)
               ) : null}
             </Grid>
           </Grid>
-          <Grid item xs={12} lg={3} sm={12} md={6}>
+          <Grid item xs={12} lg={6} sm={12} md={6}>
             <Grid container xs={12} className={classes.summary}>
               <>
                 <Typography variant="h3" className={classes.mainheading}>
