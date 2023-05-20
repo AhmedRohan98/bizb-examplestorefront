@@ -48,10 +48,10 @@ const Appsec = () => {
     },
     maindivqrcodeappsex: {
       display: "flex",
-      width: "100%",
-      paddingRight: theme.spacing(25),
+      width: "60vh",
+
       paddingTop: theme.spacing(5),
-      paddingLeft: "4vh",
+      height:"400px",
       justifyContent: "space-between",
       alignItems: "center",
     },
