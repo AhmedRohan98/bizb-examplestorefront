@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   terms: {
-    lineHeight: "100px",
+    lineHeight: "50px",
   },
 
   checkbox: {
@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
   checkboxdiv: {
     display: "flex",
     flexDirection: "row",
-    width: "380px",
+    width: "270px",
     borderBottom: `solid 1px  #00000030 `,
   },
   register2: {
@@ -546,8 +546,8 @@ console.log(cart)
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Grid container xs={12}>
-          <Grid item xs={6} lg={6}>
+        <Grid container xs={12} justifyContent="center">
+          <Grid item xs={6} lg={6} justifyContent="center">
             <Typography variant="h3" className={classes.mainheading}>
               Shipping Details
             </Typography>
@@ -700,8 +700,8 @@ console.log(cart)
               ) : null}
             </Grid>
           </Grid>
-          <Grid item xs={12} lg={6} sm={12} md={6}>
-            <Grid container xs={12} className={classes.summary}>
+          <Grid item xs={12} lg={6} sm={12} md={6} justifyContent="center">
+            <Grid container xs={12} className={classes.summary} justifyContent="center">
               <>
                 <Typography variant="h3" className={classes.mainheading}>
                   PAYMENT
