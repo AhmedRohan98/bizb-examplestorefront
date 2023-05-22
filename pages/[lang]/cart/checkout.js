@@ -29,7 +29,7 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
 const useStyles = makeStyles((theme) => ({
   checkoutActions: {
     width: "100%",
-    maxWidth: "1920px",
+    maxWidth: "1440px",
     display:"flex",
     justifyContent:"center",
     alignItems:"center",
@@ -209,22 +209,21 @@ const Checkout = ({ router }) => {
 
      return (
        // <StripeProvider stripe={stripe}>
-       <div className={classes.checkoutContentContainer}>
+       <div className={classes.checkoutContentContainedr}>
+         <CheckoutActions
+           cart={cart}
+           cartStore={cartStore}
+           checkoutMutations={checkoutMutations}
+           clearAuthenticatedUsersCart={clearAuthenticatedUsersCart}
+           orderEmailAddress={orderEmailAddress}
+           paymentMethods={paymentMethods}
+         />
+         <div className={classes.flexContainer}>
+           <div className={classes.checkoutActions}></div>
+         </div>
          <div className={classes.checkoutContent}>
            <Grid container spacing={3}>
-             <div className={classes.flexContainer}>
-               <div className={classes.checkoutActions}>
-                 <CheckoutActions
-                   cart={cart}
-                   cartStore={cartStore}
-                   checkoutMutations={checkoutMutations}
-                   clearAuthenticatedUsersCart={clearAuthenticatedUsersCart}
-                   orderEmailAddress={orderEmailAddress}
-                   paymentMethods={paymentMethods}
-                 />
-               </div>
-             </div>
-
+             <Grid item xs={12}></Grid>
              <div className={classes.flexContainer}>
                <div className={classes.cartSummary}>
                  <CheckoutSummary

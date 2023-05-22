@@ -240,6 +240,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  shippingdetails: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "430px",
+  },
+  gridshipp: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+  },
   saveinfoordernotes: {
     display: "flex",
     flexDirection: "column",
@@ -296,7 +308,7 @@ const CheckoutActions = (prop) => {
     productConfiguration: item.productConfiguration,
     quantity: item.quantity,
   }));
-console.log(cart)
+  console.log(cart);
   const handlepay = async (values, action) => {
     try {
       // const { data } = apolloClient.mutate({
@@ -358,7 +370,7 @@ console.log(cart)
       //     },
       //   },
       // });
-      const {data} = await placeOrder({
+      const { data } = await placeOrder({
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -414,28 +426,25 @@ console.log(cart)
               method: "iou_example",
             },
           ],
-          
+
           total: cart.checkout.summary.itemTotal.amount + 10,
           totalItemQuantity: 1,
         },
       });
 
-     
-
       const {
         placeOrder: { orders, token },
       } = data;
- toast.success("Order placed successfully!");
+      toast.success("Order placed successfully!");
 
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
-  
- cartStore.clearAnonymousCartCredentials();
- clearAuthenticatedUsersCart();
 
- // Also destroy the collected and cached payment input
- cartStore.resetCheckoutPayments();
+      cartStore.clearAnonymousCartCredentials();
+      clearAuthenticatedUsersCart();
 
+      // Also destroy the collected and cached payment input
+      cartStore.resetCheckoutPayments();
     } catch (error) {
       console.log(error);
     }
@@ -461,7 +470,7 @@ console.log(cart)
     CompleteAddress: Yup.string().min(5).required("Please enter your address"),
     orderNotes: Yup.string(),
   });
-  
+
   const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
     initialValues,
     validationSchema: addressSchema,
@@ -471,9 +480,6 @@ console.log(cart)
     onSubmit: async (values, action) => {
       await handlepay(values, action);
       action.resetForm();
-
-
-  
     },
   });
   const customStyles = {
@@ -572,14 +578,14 @@ console.log(cart)
     <>
       <form onSubmit={handleSubmit}>
         <Grid container xs={12} justifyContent="center" className={classes.Gridmain}>
-          <Grid item xs={6} lg={6} justifyContent="center">
-            <div className={classes.summary}>
+          <Grid item xs={12} sm={12} md={12} lg={6} className={classes.gridshipp}>
+            <div className={classes.shippingdetails}>
               <Typography variant="h3" className={classes.mainheading}>
                 Shipping Details
               </Typography>
 
-              <Grid container xs={12} className={classes.root}>
-                <Grid xs={12} item className={classes.inputitem}>
+              <Grid xs={12} className={classes.root}>
+                <Grid item className={classes.inputitem}>
                   <label className={classes.label} htmlFor="FullName">
                     <span className={classes.labelSpan} htmlFor="FullName">
                       Full Name <span style={{ color: "#FD1010" }}>*</span>
@@ -732,84 +738,82 @@ console.log(cart)
               </div>
             </div>
           </Grid>
-          <Grid item xs={12} lg={6} sm={12} md={6} justifyContent="center">
-            <Grid container xs={12} className={classes.summary} justifyContent="center">
-              <>
-                <Typography variant="h3" className={classes.mainheadingp}>
-                  PAYMENT
+          <Grid item xs={12} sm={12} md={12} lg={6} justifyContent="center">
+            <div className={classes.summary}>
+              <Typography variant="h3" className={classes.mainheadingp}>
+                PAYMENT
+              </Typography>
+              <div className={classes.cartpayment}>
+                <img src="/cart/ellipse.svg" />
+                <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
+                  Cash On Delivery
                 </Typography>
-                <div className={classes.cartpayment}>
-                  <img src="/cart/ellipse.svg" />
-                  <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
-                    Cash On Delivery
-                  </Typography>
-                </div>
-                <div className={classes.cartcard}>
-                  <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
-                    Cart Totals
-                  </Typography>
-                  <div className={classes.empty}></div>
-                  <div className={classes.shipping}>
-                    <div className={classes.subtotal}>
-                      <Typography gutterBottom variant="h4">
-                        Subtotal
-                      </Typography>
-                      <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                        {cart.checkout.summary.itemTotal.amount}
-                      </Typography>
-                    </div>
-                    <div className={classes.subtotal}>
-                      <Typography gutterBottom variant="h4">
-                        Shipping Cost
-                      </Typography>
-                      <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                        {10}
-                      </Typography>
-                    </div>
-                  </div>
-                  <div className={classes.empty}></div>
+              </div>
+              <div className={classes.cartcard}>
+                <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
+                  Cart Totals
+                </Typography>
+                <div className={classes.empty}></div>
+                <div className={classes.shipping}>
                   <div className={classes.subtotal}>
                     <Typography gutterBottom variant="h4">
-                      Total
+                      Subtotal
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {cart.checkout.summary.itemTotal.amount + 10}
+                      {cart.checkout.summary.itemTotal.amount}
+                    </Typography>
+                  </div>
+                  <div className={classes.subtotal}>
+                    <Typography gutterBottom variant="h4">
+                      Shipping Cost
+                    </Typography>
+                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                      {10}
                     </Typography>
                   </div>
                 </div>
-                <div className={classes.orderbutn}>
-                  <Button
-                    className={classes.register}
-                    InputProps={{ disableUnderline: true }}
-                    variant="h6"
-                    type="submit"
-                    role="button"
-                  >
-                    Place Order
-                  </Button>
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeButton={<CustomCloseButton />}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                    background="green"
-                    toastStyle={{
-                      backgroundColor: "#FDC114",
-                      color: "black",
-                      fontSize: "16px",
-                      fontFamily: "Lato",
-                      textTransform: "capitalize",
-                    }}
-                  />
+                <div className={classes.empty}></div>
+                <div className={classes.subtotal}>
+                  <Typography gutterBottom variant="h4">
+                    Total
+                  </Typography>
+                  <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                    {cart.checkout.summary.itemTotal.amount + 10}
+                  </Typography>
                 </div>
-              </>
-            </Grid>
+              </div>
+              <div className={classes.orderbutn}>
+                <Button
+                  className={classes.register}
+                  InputProps={{ disableUnderline: true }}
+                  variant="h6"
+                  type="submit"
+                  role="button"
+                >
+                  Place Order
+                </Button>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeButton={<CustomCloseButton />}
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                  background="green"
+                  toastStyle={{
+                    backgroundColor: "#FDC114",
+                    color: "black",
+                    fontSize: "16px",
+                    fontFamily: "Lato",
+                    textTransform: "capitalize",
+                  }}
+                />
+              </div>
+            </div>
           </Grid>
         </Grid>
       </form>
