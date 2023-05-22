@@ -309,7 +309,15 @@ input:-internal-autofill-selected {
   line-height: 1.3;
   font-size: 16px;
 }
+.small-image {
+  max-width: 200px;
+  max-height: 200px;
+}
 
+.large-image {
+  max-width: 400px;
+  max-height: 400px;
+}
 .portal {
   position: absolute;
   top: 0px;

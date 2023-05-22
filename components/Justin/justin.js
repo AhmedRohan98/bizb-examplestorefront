@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "baseline",
     position: "relative",
-    
+
     justifyContent: "space-evenly",
   },
   typography: {
@@ -61,7 +61,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   image: {
-    width: "312px",
+    width: "22px",
+    maxHeight: "400px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    cursor: "pointer",
+  },
+  image2: {
+    width: "412px",
     maxHeight: "400px",
     objectFit: "cover",
     borderRadius: "10px",
@@ -88,15 +95,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "700",
     fontSize: "20px",
   },
-  rootimg: {
-    position: "relative",
-    display: "inline-grid",
-    width: "312px",
-
-    maxWidth: "312px",
-    marginLeft: "10px",
-    marginRight: "10px",
-  },
+ 
   cartbackground: {
     background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
     borderRadius: "0px 0px 16px 16px",
@@ -352,7 +351,9 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
       </div>
       <div className={classes.root}>
         <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
-          {catalogdata?.map((item, key) => {
+          {catalogdata?.map((item, index) => {
+          
+          console.log(index, "nodde");
             const cartitem = props?.cart?.items;
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
@@ -364,6 +365,8 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             const str = item.node.product.title;
             const words = str.match(/[a-zA-Z0-9]+/g);
             const firstThreeWords = words.slice(0, 3).join(" ");
+             
+
             // console.log(optionTitle, "fil");
             return (
               <>
@@ -379,7 +382,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             ? "/justin/justin4.svg"
                             : item?.node?.product?.media[0]?.URLs?.large
                         }
-                        className={classes.image}
+                       className={index % 2 === 0 ? classes.image : classes.image2}
                         key={item?.node?.product?.id}
                         alt={"hhhh"}
                       />
@@ -443,7 +446,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             : "Small"}
                         </Typography>
                       </div>
-
+                      <h2 className={classes.pricing}>{index.node}</h2>
                       <div className={classes.pricing}>
                         {" "}
                         <strike>
@@ -452,9 +455,9 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             .replace(/\$/g, "RS ")}
                         </strike>
                         <Typography gutterBottom variant="h5" className={classes.price}>
-                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                          { index % 2 === 1 ?item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
                             ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
+                            .replace(/\$/g, "RS "):""}
                         </Typography>
                       </div>
                     </Box>
