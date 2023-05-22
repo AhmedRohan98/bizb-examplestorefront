@@ -33,14 +33,13 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
+    flexDirection:"row"
   },
   gridroot: {
     width: "100%",
     display: "flex",
-    alignItems: "baseline",
-    position: "relative",
-
-    justifyContent: "space-evenly",
+    
+    justifyContent: "flex-start",
   },
   typography: {
     background: "#333333",
@@ -61,15 +60,31 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   image: {
-    width: "22px",
-    maxHeight: "400px",
+    width: "315px",
+    height: "387px",
+    borderRadius: "5px 5px 0px 0px",
+    objectFit: "cover",
+
+    cursor: "pointer",
+  },
+  image4: {
+    width: "315px",
+    height: "387px",
+    borderRadius: "5px 5px 0px 0px",
+    objectFit: "cover",
+
+    cursor: "pointer",
+  },
+  image2: {
+    width: "315px",
+    height: "231px",
     objectFit: "cover",
     borderRadius: "10px",
     cursor: "pointer",
   },
-  image2: {
-    width: "412px",
-    maxHeight: "400px",
+  image3: {
+    width: "315px",
+    height: "231px",
     objectFit: "cover",
     borderRadius: "10px",
     cursor: "pointer",
@@ -95,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "700",
     fontSize: "20px",
   },
- 
+
   cartbackground: {
     background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
     borderRadius: "0px 0px 16px 16px",
@@ -153,6 +168,44 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(2),
+  },
+  boxcontairproduct: {
+    height: "501px",
+    width: "315px",
+    borderRadius: "5px",
+    marginBottom: "20px",
+    border: "0.5px solid #9C9C9C",
+
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "10px",
+  },
+  boxcontairproduct4: {
+    height: "501px",
+    width: "315px",
+    borderRadius: "5px",
+    marginBottom: "20px",
+    border: "0.5px solid #9C9C9C",
+
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "10px",
+  },
+  boxcontairproduct3: {
+    height: "333px",
+    width: "315px",
+    borderRadius: "5px",
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "10px",
+    marginBottom: "20px",
+    border: "0.5px solid #9C9C9C",
+  },
+  boxcontairproduct2: {
+    height: "333px",
+    width: "315px",
+    borderRadius: "5px",
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "10px",
+    marginBottom: "20px",
+    border: "0.5px solid #9C9C9C",
   },
 }));
 
@@ -371,97 +424,44 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             return (
               <>
                 <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                  <Link
-                    href={item.node.product.slug && "en/product/[...slugOrId]"}
-                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                  <div
+                    className={
+                      index % 8 < 4
+                        ? index % 2 === 0
+                          ? classes.boxcontairproduct
+                          : classes.boxcontairproduct2
+                        : index % 2 === 0
+                        ? classes.boxcontairproduct3
+                        : classes.boxcontairproduct4
+                    }
                   >
-                    <a target="_blank">
-                      <img
-                        src={
-                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
-                            : item?.node?.product?.media[0]?.URLs?.large
-                        }
-                       className={index % 2 === 0 ? classes.image : classes.image2}
-                        key={item?.node?.product?.id}
-                        alt={"hhhh"}
-                      />
-                    </a>
-                  </Link>
-                  <div className={classes.cartbackground}>
-                    {isLoading[item?.node?.product?.productId] ? (
-                      <CircularProgress />
-                    ) : (
-                      <Button
-                        className={classes.cart}
-                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled || item?.node?.product?.isSoldOut}
-                      >
-                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography
-                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                          variant="h5"
-                          component="h2"
-                        >
-                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        </Typography>
-                      </Button>
-                    )}
+                    <Link
+                      href={item.node.product.slug && "en/product/[...slugOrId]"}
+                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                    >
+                      <a target="_blank">
+                        <img
+                          src={
+                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              ? "/justin/justin4.svg"
+                              : item?.node?.product?.media[0]?.URLs?.large
+                          }
+                          className={
+                            index % 8 < 4
+                              ? index % 2 === 0
+                                ? classes.image
+                                : classes.image2
+                              : index % 2 === 0
+                              ? classes.image3
+                              : classes.image4
+                          }
+                          key={item?.node?.product?.id}
+                          alt={"hhhh"}
+                        />
+                      </a>
+                    </Link>
+                   
                   </div>
-                  <Link
-                    href={item.node.product.slug && "en/product/[...slugOrId]"}
-                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                  >
-                    <Box className={classes.maintitle}>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", marginTop: "6px" }}
-                        gutterBottom
-                        variant="h4"
-                        component="h2"
-                        className={classes.carttitle}
-                      >
-                        {firstThreeWords}
-                      </Typography>
-                      <div className={classes.size}>
-                        <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                          gutterBottom
-                          variant="h4"
-                        >
-                          Size :
-                        </Typography>
-                        <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                          gutterBottom
-                          variant="h4"
-                        >
-                          {size == 0
-                            ? "Extra Large"
-                            : "Small" || size == 1
-                            ? "Large"
-                            : "Small" || size == 2
-                            ? "Medium"
-                            : "Small" || size == 3
-                            ? "Small"
-                            : "Small"}
-                        </Typography>
-                      </div>
-                      <h2 className={classes.pricing}>{index.node}</h2>
-                      <div className={classes.pricing}>
-                        {" "}
-                        <strike>
-                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-                        </strike>
-                        <Typography gutterBottom variant="h5" className={classes.price}>
-                          { index % 2 === 1 ?item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS "):""}
-                        </Typography>
-                      </div>
-                    </Box>
-                  </Link>
                 </Grid>
               </>
             );
