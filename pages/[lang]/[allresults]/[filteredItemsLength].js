@@ -313,7 +313,8 @@ const firstThreeWords = words.slice(0, 3).join(" ");
                           backgroundColor: "#FDC114",
                           color: "black",
                           fontSize: "16px",
-                          fontFamily: "lato",
+                          fontFamily: "Lato",
+                          textTransform: "capitalize",
                         }}
                       />{" "}
                       <img

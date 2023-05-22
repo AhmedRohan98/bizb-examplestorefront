@@ -321,7 +321,8 @@ function SellerPublicProfile(props) {
               backgroundColor: "#FDC114",
               color: "black",
               fontSize: "16px",
-              fontFamily: "lato",
+              fontFamily: "Lato",
+              textTransform: "capitalize",
             }}
           />
           <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
@@ -508,7 +509,8 @@ function SellerPublicProfile(props) {
                                 backgroundColor: "#FDC114",
                                 color: "black",
                                 fontSize: "16px",
-                                fontFamily: "lato",
+                                fontFamily: "Lato",
+                                textTransform: "capitalize",
                               }}
                             />{" "}
                             <img component="img" src="/icons/cart.svg" className={classes.cartimage} />

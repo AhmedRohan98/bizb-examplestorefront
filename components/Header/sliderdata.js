@@ -42,7 +42,7 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
-      justifyContent:"center"
+      justifyContent: "center",
     },
     controllera: {
       position: "absolute",
@@ -61,7 +61,7 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       zIndex: 9999,
-       
+
       width: "300px",
       bottom: "10px",
     },
@@ -79,6 +79,7 @@ const MainSlider = (props) => {
     text: {
       fontSize: "18px",
       color: "white",
+    
       Fontfamily: "Circular Std",
     },
     dark: {

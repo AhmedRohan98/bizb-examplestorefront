@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 1,
     flexDirection: "column",
     left: "20px",
     position: "absolute",
@@ -82,15 +83,17 @@ const useStyles = makeStyles((theme) => ({
     height: "35px",
     width: "250px",
     bottom: "50%",
+    top: "50%",
     right: "2%",
     position: "absolute",
     display: "flex",
+    zIndex: 1,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
     [theme.breakpoints.down(600)]: {
-      top: "10%",
-      right: "25%",
+      top: "50%",
+      right: "2%",
     },
   },
   imagec: {
@@ -107,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: theme.palette.primary.contrastText,
+    textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
     textTransform: "uppercase",
     "&:hover": {
       color: "black",

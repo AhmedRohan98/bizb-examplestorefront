@@ -369,7 +369,8 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetFo
               backgroundColor: "#FDC114",
               color: "black",
               fontSize: "16px",
-              fontFamily: "lato",
+              fontFamily: "Lato",
+              textTransform: "capitalize",
             }}
           />{" "}
           <div className={classes.orderThankYou}>

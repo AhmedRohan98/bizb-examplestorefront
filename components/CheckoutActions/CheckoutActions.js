@@ -66,6 +66,12 @@ const useStyles = makeStyles((theme) => ({
       padding: "opx",
     },
   },
+  inputitem: {
+    width: "440px",
+  },
+  inputitem2: {
+    width: "440px",
+  },
   inputorder: {
     width: "430px",
     height: "218px",
@@ -94,8 +100,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "40px",
     border: "none",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -134,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
   checkboxdiv: {
     display: "flex",
     flexDirection: "row",
-    width: "430px",
+    width: "380px",
     borderBottom: `solid 1px  #00000030 `,
   },
   register2: {
@@ -156,8 +161,10 @@ const useStyles = makeStyles((theme) => ({
   switchaccout: {
     color: "#FDC114",
   },
-  mainheading: {
-    textTransform: "uppercase",
+  mainheadingp: {
+    textTransform: "lowercase",
+    alignItems: "center",
+    width: "380px",
   },
 
   phone: {
@@ -166,6 +173,8 @@ const useStyles = makeStyles((theme) => ({
   },
   mainheading: {
     textTransform: "uppercase",
+    alignItems: "center",
+    width: "100%",
   },
   ellipse: {
     height: "18px",
@@ -174,6 +183,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cartpayment: {
     display: "flex",
+    width: "380px",
     flexDirection: "row",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
@@ -221,14 +231,34 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "34px",
   },
   orderbutn: {
-    width: "100%",
+    width: "320px",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    marginLeft: "75px",
   },
   summary: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
+  },
+  shippingdetails: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "430px",
+  },
+  gridshipp: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+  },
+  saveinfoordernotes: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+  labelSpan: {
+    width: "300px",
   },
   register: {
     width: "261px",
@@ -238,14 +268,18 @@ const useStyles = makeStyles((theme) => ({
 
     display: "flex",
     marginTop: theme.spacing(4),
-    justifyContent: "center",
-    alignItems: "center",
+
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
       background: "#FDC114",
     },
+  },
+  Gridmain: {
+    display: "flex",
+
+    justifyContent: "center",
   },
 }));
 
@@ -257,7 +291,7 @@ const CheckoutActions = (prop) => {
   const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
   const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
   // console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
-  const [checkedEmail, setCheckedEmail] = React.useState(true);
+  const [checkedEmail, setCheckedEmail] = React.useState(false);
   const [placeOrder] = useMutation(placeOrderQuery);
 
   const classes = useStyles();
@@ -274,7 +308,7 @@ const CheckoutActions = (prop) => {
     productConfiguration: item.productConfiguration,
     quantity: item.quantity,
   }));
-console.log(cart)
+  console.log(cart);
   const handlepay = async (values, action) => {
     try {
       // const { data } = apolloClient.mutate({
@@ -336,7 +370,7 @@ console.log(cart)
       //     },
       //   },
       // });
-      const {data} = await placeOrder({
+      const { data } = await placeOrder({
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -392,28 +426,25 @@ console.log(cart)
               method: "iou_example",
             },
           ],
-          
+
           total: cart.checkout.summary.itemTotal.amount + 10,
           totalItemQuantity: 1,
         },
       });
 
-     
-
       const {
         placeOrder: { orders, token },
       } = data;
- toast.success("Order placed successfully!");
+      toast.success("Order placed successfully!");
 
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
-  
- cartStore.clearAnonymousCartCredentials();
- clearAuthenticatedUsersCart();
 
- // Also destroy the collected and cached payment input
- cartStore.resetCheckoutPayments();
+      cartStore.clearAnonymousCartCredentials();
+      clearAuthenticatedUsersCart();
 
+      // Also destroy the collected and cached payment input
+      cartStore.resetCheckoutPayments();
     } catch (error) {
       console.log(error);
     }
@@ -432,14 +463,14 @@ console.log(cart)
 
     FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
     phonenumber: Yup.string()
-      .required("Please enter a valid mobile number")
-      .matches(/^[0-9]+$/, "Please enter a valid mobile number"),
+      .matches(/^[0-9]{10}$/, "Please Enter 10 digits phone Number")
+      .required("Phone number is required"),
 
     city: Yup.string().min(5).required("Please Enter Your City"),
     CompleteAddress: Yup.string().min(5).required("Please enter your address"),
     orderNotes: Yup.string(),
   });
-  
+
   const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
     initialValues,
     validationSchema: addressSchema,
@@ -449,9 +480,6 @@ console.log(cart)
     onSubmit: async (values, action) => {
       await handlepay(values, action);
       action.resetForm();
-
-
-  
     },
   });
   const customStyles = {
@@ -549,241 +577,243 @@ console.log(cart)
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Grid container xs={12}>
-          <Grid item xs={9}>
-            <Typography variant="h3" className={classes.mainheading}>
-              Shipping Details
-            </Typography>
-
-            <Grid container xs={12} className={classes.root}>
-              <Grid xs={12} item>
-                <label className={classes.label} htmlFor="FullName">
-                  <span className={classes.labelSpan} htmlFor="FullName">
-                    Full Name <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter Your User Name"
-                    InputProps={{ disableUnderline: true }}
-                    className={classes.input}
-                    type="text"
-                    autoComplete="off"
-                    name="FullName"
-                    id="FullName"
-                    value={values.FullName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </label>
-                {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
-              </Grid>
-              <Grid xs={12} item>
-                <label className={classes.label} htmlFor="phonenumber">
-                  <span className={classes.labelSpan} htmlFor="phonenumber">
-                    Phone Number <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter your name"
-                    type="tel"
-                    InputProps={{
-                      style: { color: "black" },
-                      disableUnderline: true,
-                      startAdornment: (
-                        <InputAdornment position="start" className={classes.phone}>
-                          +92
-                        </InputAdornment>
-                      ),
-                    }}
-                    name="phonenumber"
-                    id="phonenumber"
-                    value={values.phonenumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={classes.input}
-                  />
-                </label>
-                {touched.phonenumber && errors.phonenumber ? (
-                  <p className={classes.formerror}>{errors.phonenumber}</p>
-                ) : null}
-              </Grid>
-              <Grid xs={12} item>
-                <label className={classes.label} variant="h6" htmlFor="email">
-                  <span className={classes.labelSpan}>
-                    Email <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter Your Email Address"
-                    InputProps={{ disableUnderline: true }}
-                    className={classes.input}
-                    type="email"
-                    autoComplete="off"
-                    name="email"
-                    id="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </label>
-                {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
-              </Grid>
-              <Grid item xs={12}>
-                <label className={classes.label} variant="h6" htmlFor="CompleteAddress">
-                  <span className={classes.labelSpan}>
-                    Complete Address <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Enter your complete address"
-                    InputProps={{ disableUnderline: true }}
-                    autoComplete="off"
-                    type="text"
-                    name="CompleteAddress"
-                    id="CompleteAddress"
-                    value={values.CompleteAddress}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={classes.input}
-                    inputProps={{ style: { color: "black" } }}
-                  />
-                </label>
-                {errors.CompleteAddress && touched.CompleteAddress ? (
-                  <p className={classes.formerror}>{errors.CompleteAddress}</p>
-                ) : null}
-              </Grid>
-
-              <Grid item xs={12}>
-                <label className={classes.label} variant="h4">
-                  <span className={classes.labelSpan}>
-                    City <span style={{ color: "#FD1010" }}>*</span>
-                  </span>
-                  <TextField
-                    placeholder="Please Enter Your City Name"
-                    InputProps={{ disableUnderline: true }}
-                    autoComplete="off"
-                    type="text"
-                    name="city"
-                    id="city"
-                    value={values.city}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={classes.input}
-                    inputProps={{ style: { color: "black" } }}
-                  />
-                </label>
-                {errors.city && touched.city ? (
-                  <p className={classes.formerror}>{errors.city}</p>
-                ) : null}
-              </Grid>
-            </Grid>
-            <div className={classes.checkboxdiv}>
-              <FormControlLabel
-                control={<Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />}
-              />
-              <Typography variant="body2" className={classes.terms}>
-                Save this Information for next time
+        <Grid container xs={12} justifyContent="center" className={classes.Gridmain}>
+          <Grid item xs={12} sm={12} md={12} lg={6} className={classes.gridshipp}>
+            <div className={classes.shippingdetails}>
+              <Typography variant="h3" className={classes.mainheading}>
+                Shipping Details
               </Typography>
-            </div>
-            <Grid item xs={12}>
-              <label className={classes.label} variant="h4" htmlFor="orderNotes">
-                <span className={classes.labelSpan}>
-                  Order Notes
-                </span>
-                <TextField
-                  placeholder="Enter additional notes here."
-                  InputProps={{ disableUnderline: true }}
-                  className={classes.inputorder}
-                  inputProps={{ style: { color: "black" } }}
-                  autoComplete="off"
-                  type="text"
-                  name="orderNotes"
-                  id="orderNotes"
-                  value={values.orderNotes}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  multiline={true}
-                  maxRows={4}
-                />
-              </label>
-              {errors.orderNotes && touched.orderNotes ? (
-                <p className={classes.formerror}>{errors.orderNotes}</p>
-              ) : null}
-            </Grid>
-          </Grid>
-          <Grid item xs={12} lg={3} sm={12} md={6}>
-            <Grid container xs={12} className={classes.summary}>
-              <>
-                <Typography variant="h3" className={classes.mainheading}>
-                  PAYMENT
-                </Typography>
-                <div className={classes.cartpayment}>
-                  <img src="/cart/ellipse.svg" />
-                  <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
-                    Cash On Delivery
+
+              <Grid xs={12} className={classes.root}>
+                <Grid item className={classes.inputitem}>
+                  <label className={classes.label} htmlFor="FullName">
+                    <span className={classes.labelSpan} htmlFor="FullName">
+                      Full Name <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter Your User Name"
+                      InputProps={{ disableUnderline: true }}
+                      className={classes.input}
+                      type="text"
+                      autoComplete="off"
+                      name="FullName"
+                      id="FullName"
+                      value={values.FullName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </label>
+                  {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
+                </Grid>
+                <Grid xs={12} item className={classes.inputitem}>
+                  <label className={classes.label} htmlFor="phonenumber">
+                    <span className={classes.labelSpan} htmlFor="phonenumber">
+                      Phone Number <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter your name"
+                      type="tel"
+                      InputProps={{
+                        style: { color: "black" },
+                        disableUnderline: true,
+                        startAdornment: (
+                          <InputAdornment position="start" className={classes.phone}>
+                            +92
+                          </InputAdornment>
+                        ),
+                      }}
+                      name="phonenumber"
+                      id="phonenumber"
+                      value={values.phonenumber}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={classes.input}
+                    />
+                  </label>
+                  {touched.phonenumber && errors.phonenumber ? (
+                    <p className={classes.formerror}>{errors.phonenumber}</p>
+                  ) : null}
+                </Grid>
+                <Grid xs={12} item className={classes.inputitem}>
+                  <label className={classes.label} variant="h6" htmlFor="email">
+                    <span className={classes.labelSpan}>
+                      Email <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter Your Email Address"
+                      InputProps={{ disableUnderline: true }}
+                      className={classes.input}
+                      type="email"
+                      autoComplete="off"
+                      name="email"
+                      id="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </label>
+                  {errors.email && touched.email ? <p className={classes.formerror}>{errors.email}</p> : null}
+                </Grid>
+                <Grid item xs={12} className={classes.inputitem}>
+                  <label className={classes.label} variant="h6" htmlFor="CompleteAddress">
+                    <span className={classes.labelSpan}>
+                      Complete Address <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Enter your complete address"
+                      InputProps={{ disableUnderline: true }}
+                      autoComplete="off"
+                      type="text"
+                      name="CompleteAddress"
+                      id="CompleteAddress"
+                      value={values.CompleteAddress}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={classes.input}
+                      inputProps={{ style: { color: "black" } }}
+                    />
+                  </label>
+                  {errors.CompleteAddress && touched.CompleteAddress ? (
+                    <p className={classes.formerror}>{errors.CompleteAddress}</p>
+                  ) : null}
+                </Grid>
+
+                <Grid item xs={12} className={classes.inputitem}>
+                  <label className={classes.label} variant="h4">
+                    <span className={classes.labelSpan}>
+                      City <span style={{ color: "#FD1010" }}>*</span>
+                    </span>
+                    <TextField
+                      placeholder="Please Enter Your City Name"
+                      InputProps={{ disableUnderline: true }}
+                      autoComplete="off"
+                      type="text"
+                      name="city"
+                      id="city"
+                      value={values.city}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={classes.input}
+                      inputProps={{ style: { color: "black" } }}
+                    />
+                  </label>
+                  {errors.city && touched.city ? <p className={classes.formerror}>{errors.city}</p> : null}
+                </Grid>
+              </Grid>
+              <div className={classes.inputitem2}>
+                <div className={classes.checkboxdiv}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />
+                    }
+                  />
+
+                  <Typography variant="body2" className={classes.terms}>
+                    Save this Information for next time
                   </Typography>
                 </div>
-                <div className={classes.cartcard}>
-                  <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
-                    Cart Totals
-                  </Typography>
-                  <div className={classes.empty}></div>
-                  <div className={classes.shipping}>
-                    <div className={classes.subtotal}>
-                      <Typography gutterBottom variant="h4">
-                        Subtotal
-                      </Typography>
-                      <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                        {cart.checkout.summary.itemTotal.amount}
-                      </Typography>
-                    </div>
-                    <div className={classes.subtotal}>
-                      <Typography gutterBottom variant="h4">
-                        Shipping Cost
-                      </Typography>
-                      <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                        {10}
-                      </Typography>
-                    </div>
-                  </div>
-                  <div className={classes.empty}></div>
+                <Grid item xs={12} className={classes.inputitem}>
+                  <label className={classes.label} variant="h4" htmlFor="orderNotes">
+                    <span className={classes.labelSpan}>Order Notes</span>
+                    <TextField
+                      placeholder="Enter additional notes here."
+                      InputProps={{ disableUnderline: true }}
+                      className={classes.inputorder}
+                      inputProps={{ style: { color: "black" } }}
+                      autoComplete="off"
+                      type="text"
+                      name="orderNotes"
+                      id="orderNotes"
+                      value={values.orderNotes}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      multiline={true}
+                      maxRows={4}
+                    />
+                  </label>
+                  {errors.orderNotes && touched.orderNotes ? (
+                    <p className={classes.formerror}>{errors.orderNotes}</p>
+                  ) : null}
+                </Grid>
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={6} justifyContent="center">
+            <div className={classes.summary}>
+              <Typography variant="h3" className={classes.mainheadingp}>
+                PAYMENT
+              </Typography>
+              <div className={classes.cartpayment}>
+                <img src="/cart/ellipse.svg" />
+                <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
+                  Cash On Delivery
+                </Typography>
+              </div>
+              <div className={classes.cartcard}>
+                <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
+                  Cart Totals
+                </Typography>
+                <div className={classes.empty}></div>
+                <div className={classes.shipping}>
                   <div className={classes.subtotal}>
                     <Typography gutterBottom variant="h4">
-                      Total
+                      Subtotal
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {cart.checkout.summary.itemTotal.amount + 10}
+                      {cart.checkout.summary.itemTotal.amount}
+                    </Typography>
+                  </div>
+                  <div className={classes.subtotal}>
+                    <Typography gutterBottom variant="h4">
+                      Shipping Cost
+                    </Typography>
+                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                      {10}
                     </Typography>
                   </div>
                 </div>
-                <div className={classes.orderbutn}>
-                  <Button
-                    className={classes.register}
-                    InputProps={{ disableUnderline: true }}
-                    variant="h6"
-                    type="submit"
-                    role="button"
-                  >
-                    Place Order
-                  </Button>
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeButton={<CustomCloseButton />}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                    background="green"
-                    toastStyle={{
-                      backgroundColor: "#FDC114",
-                      color: "black",
-                      fontSize: "16px",
-                      fontFamily: "lato",
-                    }}
-                  />
+                <div className={classes.empty}></div>
+                <div className={classes.subtotal}>
+                  <Typography gutterBottom variant="h4">
+                    Total
+                  </Typography>
+                  <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                    {cart.checkout.summary.itemTotal.amount + 10}
+                  </Typography>
                 </div>
-              </>
-            </Grid>
+              </div>
+              <div className={classes.orderbutn}>
+                <Button
+                  className={classes.register}
+                  InputProps={{ disableUnderline: true }}
+                  variant="h6"
+                  type="submit"
+                  role="button"
+                >
+                  Place Order
+                </Button>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeButton={<CustomCloseButton />}
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                  background="green"
+                  toastStyle={{
+                    backgroundColor: "#FDC114",
+                    color: "black",
+                    fontSize: "16px",
+                    fontFamily: "Lato",
+                    textTransform: "capitalize",
+                  }}
+                />
+              </div>
+            </div>
           </Grid>
         </Grid>
       </form>
