@@ -87,7 +87,7 @@ const [filterPrice, setFilterPrice] = useState([
   };
 
   useEffect(() => {
-    console.log("updating end cursor...", endCursor);
+    // console.log("updating end cursor...", endCursor);
   }, [endCursor]);
   return (
     <UIContext.Provider

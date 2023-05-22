@@ -249,7 +249,7 @@ const handleSearchSubmit = (event) => {
                 <div style={{ marginTop: "20px" }}>
                   <ul>
                     {filteredItems?.slice(0, 3)?.map((product) => {
-                      console.log(filteredItems, "fil");
+                      // console.log(filteredItems, "fil");
                       return (
                         <div key={product.node.product.id} className={classes.cartitem}>
                           <img

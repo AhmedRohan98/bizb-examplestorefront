@@ -216,10 +216,11 @@ class CartItems extends Component {
     onChangeCartItemQuantity(quantity, _id);
   };
 
-  handleRemoveItem = (_id) => {
+  handleRemoveItem = async(_id) => {
     const { onRemoveItemFromCart } = this.props;
-
-    onRemoveItemFromCart(_id);
+console.log("id",_id)
+  await  onRemoveItemFromCart(_id);
+    console.log("item clicked", onRemoveItemFromCart);
   };
 
   render() {
@@ -276,14 +277,23 @@ class CartItems extends Component {
                 <TableRow key={item.title}>
                   <TableCell>
                     <div className={classes.cartitemtext}>
-                      {item?.metafields ? <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage}></img>:""}{" "}
-                     
+                      {item?.metafields ? (
+                        <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage}></img>
+                      ) : (
+                        ""
+                      )}{" "}
                       <div className={classes.carttitle}>
                         <Typography variant="h4">{item.title}</Typography>
                         <Typography variant="h4" className={classes.cartpric}>
                           Store:{item?.productVendor}
                         </Typography>{" "}
                       </div>
+                      <img
+                        style={{ cursor: "pointer" }}
+                        src="/cart/icon.svg"
+                        alt={item.title}
+                        onClick={() => this.handleRemoveItem(item._id)}
+                      />
                     </div>
                   </TableCell>
                   <TableCell align="right">

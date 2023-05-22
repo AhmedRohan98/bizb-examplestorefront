@@ -253,7 +253,7 @@ const MiniCart = ({ ...props }) => {
 
   const handleRemoveItem = async (itemID) => {
     const { onRemoveCartItems } = props;
-    // console.log(itemID, "me");
+    console.log(itemID, "me");
     onRemoveCartItems(itemID);
   };
 
