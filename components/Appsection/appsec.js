@@ -48,10 +48,10 @@ const Appsec = () => {
     },
     maindivqrcodeappsex: {
       display: "flex",
-      width: "100%",
-      paddingRight: theme.spacing(25),
+      width: "60vh",
+
       paddingTop: theme.spacing(5),
-      paddingLeft: theme.spacing(25),
+      height:"400px",
       justifyContent: "space-between",
       alignItems: "center",
     },
@@ -71,13 +71,8 @@ const Appsec = () => {
     imagetext: {
       height: "auto",
       width: "auto",
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(4),
 
-      [theme.breakpoints.up(700)]: {
-        width: "auto",
-        height: "auto",
-        marginTop: theme.spacing(4),
-      },
     },
     image: {
       height: "52px",

@@ -21,7 +21,7 @@ const OurBlogs = () => {
       backgroundColor: theme.palette.reaction.blog1,
       transition: "left 0.8s linear",
       [theme.breakpoints.down(600)]: {
-        width: "100vw",
+        width: "92vw",
         paddingRight: "0",
         paddingLeft: "0",
       },
@@ -38,7 +38,7 @@ const OurBlogs = () => {
       borderRadious: "0px",
       backgroundColor: theme.palette.reaction.blog2,
       [theme.breakpoints.down(600)]: {
-        width: "100vw",
+        width: "92vw",
         paddingRight: "0",
         paddingLeft: "0",
       },
@@ -55,7 +55,7 @@ const OurBlogs = () => {
       borderRadious: "0px",
       backgroundColor: theme.palette.reaction.blog3,
       [theme.breakpoints.down(600)]: {
-        width: "100vw",
+        width: "92vw",
         paddingRight: "0",
         paddingLeft: "0",
       },

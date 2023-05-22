@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   checkoutActions: {
     width: "100%",
     maxWidth: "1440px",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
     alignSelf: "center",
     [theme.breakpoints.up("md")]: {
       paddingRight: "2rem",
@@ -76,16 +79,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
   },
-  main: {
-    flex: "1 1 auto",
-    maxWidth: theme.layout.mainLoginMaxWidth,
-    minHeight: "calc(100vh - 135px)",
-    margin: "0 auto",
-    padding: `${theme.spacing(3)}px ${theme.spacing(3)}px 0`,
-    [theme.breakpoints.up("md")]: {
-      padding: `${theme.spacing(10)}px ${theme.spacing(3)}px 0`,
-    },
-  },
+
   continue: {
     width: "250px",
     height: "48px",
@@ -215,22 +209,21 @@ const Checkout = ({ router }) => {
 
      return (
        // <StripeProvider stripe={stripe}>
-       <div className={classes.checkoutContentContainer}>
+       <div className={classes.checkoutContentContainedr}>
+         <CheckoutActions
+           cart={cart}
+           cartStore={cartStore}
+           checkoutMutations={checkoutMutations}
+           clearAuthenticatedUsersCart={clearAuthenticatedUsersCart}
+           orderEmailAddress={orderEmailAddress}
+           paymentMethods={paymentMethods}
+         />
+         <div className={classes.flexContainer}>
+           <div className={classes.checkoutActions}></div>
+         </div>
          <div className={classes.checkoutContent}>
            <Grid container spacing={3}>
-             <div className={classes.flexContainer}>
-               <div className={classes.checkoutActions}>
-                 <CheckoutActions
-                   cart={cart}
-                   cartStore={cartStore}
-                   checkoutMutations={checkoutMutations}
-                   clearAuthenticatedUsersCart={clearAuthenticatedUsersCart}
-                   orderEmailAddress={orderEmailAddress}
-                   paymentMethods={paymentMethods}
-                 />
-               </div>
-             </div>
-
+             <Grid item xs={12}></Grid>
              <div className={classes.flexContainer}>
                <div className={classes.cartSummary}>
                  <CheckoutSummary

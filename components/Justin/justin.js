@@ -318,7 +318,8 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
           backgroundColor: "#FDC114",
           color: "black",
           fontSize: "16px",
-          fontFamily: "lato",
+          fontFamily: "Lato",
+          textTransform: "capitalize",
         }}
       />
       <div className={classes.headermain}>
@@ -355,7 +356,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             const cartitem = props?.cart?.items;
             const isDisabled = cartitem?.some((data) => {
               return data.productConfiguration.productId === item?.node?.product?.productId;
-            }); 
+            });
             // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
             const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
             const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
@@ -363,7 +364,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             const str = item.node.product.title;
             const words = str.match(/[a-zA-Z0-9]+/g);
             const firstThreeWords = words.slice(0, 3).join(" ");
-// console.log(optionTitle, "fil");
+            // console.log(optionTitle, "fil");
             return (
               <>
                 <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
@@ -442,7 +443,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             : "Small"}
                         </Typography>
                       </div>
-                     
+
                       <div className={classes.pricing}>
                         {" "}
                         <strike>

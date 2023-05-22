@@ -833,7 +833,8 @@ class CartPage extends Component {
               backgroundColor: "#FDC114",
               color: "black",
               fontSize: "16px",
-              fontFamily: "lato",
+              fontFamily: "Lato",
+              textTransform: "capitalize",
             }}
           />{" "}
           <div className={classes.topimage}>
