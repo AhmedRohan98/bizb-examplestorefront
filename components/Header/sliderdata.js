@@ -136,20 +136,21 @@ const MainSlider = (props) => {
       },
       "& .swiper-pagination-bullet": {
         width: "20px",
+        marginTop: "12px",
+        marginBottom: "12px",
         height: "20px",
-         background: "none",
+        background: "none",
         color: "none",
-        border:"1px solid black",
-        marginTop: "12px", // Add spacing at the top
-
-       
+        border: "1px solid black",
+        // Add spacing at the top
       },
       "& .swiper-pagination-bullet-active": {
         width: "20px",
         height: "20px",
-        transition: "width 0.5s",
         marginTop: "12px",
-      
+        marginBottom: "12px",
+        transition: "width 0.5s",
+
         background: "black",
         border: "1px solid transparent",
         opacity: 1,
