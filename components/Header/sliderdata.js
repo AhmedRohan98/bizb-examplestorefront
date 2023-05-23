@@ -50,7 +50,7 @@ const MainSlider = (props) => {
       display: "flex",
       zIndex: 9999,
       flexDirection: "row",
-
+background:"green",
       gap: "auto",
       justifyContent: "space-between",
       width: "100%",
@@ -230,7 +230,11 @@ const MainSlider = (props) => {
                 <Link to="target-element" smooth={true} duration={2000}>
                   {" "}
                   <div style={{ display: "flex", cursor: "pointer" }}>
-                    <img style={{ marginRight: "12px" }} src="/icons/home.webp" className={classes.ie} />
+                    <img
+                      style={{ marginRight: "12px" }}
+                      src="/icons/scrolltodiscovermore.webp"
+                      className={classes.ie}
+                    />
                     <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
                       Scroll to discover more
                     </Typography>

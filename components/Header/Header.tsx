@@ -188,9 +188,9 @@ const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
           >
             {/* @ts-ignore TODO: Refactor link to address type error */}
             {headerType ? (
-              <img src="/images/searchIconLight.svg" className="headerlogo" />
+              <img src="/icons/search.webp" className="headerlogo" />
             ) : (
-              <img src="/images/searchIconDark.svg" className="headerlogo" />
+              <img src="/icons/search.webp" className="headerlogo" />
             )}
           </span>
         </Hidden>
