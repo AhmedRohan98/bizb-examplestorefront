@@ -10,6 +10,7 @@ import { useState, useEffect, useContext } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import PageLoading from "../PageLoading";
 import { JSON } from "global";
 import { CircularProgress } from "@material-ui/core";
@@ -28,19 +29,8 @@ const useStyles = makeStyles((theme) => ({
     height: 312,
     width: 312,
   },
-  root: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection:"row"
-  },
-  gridroot: {
-    width: "100%",
-    display: "flex",
-    
-    justifyContent: "flex-start",
-  },
+
+  gridroot: {},
   typography: {
     background: "#333333",
     opacity: "15%",
@@ -104,11 +94,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     justifyContent: "flex-start",
     alignItems: "flex-start",
-  },
-  price: {
-    marginLeft: "20px",
-    fontWeight: "700",
-    fontSize: "20px",
   },
 
   cartbackground: {
@@ -175,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     marginBottom: "20px",
     border: "0.5px solid #9C9C9C",
-
+    gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "10px",
   },
@@ -185,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     marginBottom: "20px",
     border: "0.5px solid #9C9C9C",
-
+    gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "10px",
   },
@@ -196,12 +181,33 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "10px",
     marginBottom: "20px",
+    gridRowEnd: "span 2",
     border: "0.5px solid #9C9C9C",
+  },
+  price: {
+    marginLeft: "12px",
+  },
+  strikethrough: {
+    fontWeight: "400",
+    fontSize: "12px",
+    fontFamily: "lato",
+    lineHeight: "14px",
+
+    color: `rgba(156, 156, 156, 0.5)`,
+  },
+  strikethrough: {
+    marginTop: "12px",
+    marginLeft: "12px",
+    width:"85px",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
   },
   boxcontairproduct2: {
     height: "333px",
     width: "315px",
     borderRadius: "5px",
+    gridRowEnd: "span 2",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "10px",
     marginBottom: "20px",
@@ -403,69 +409,119 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
         </div>
       </div>
       <div className={classes.root}>
-        <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
-          {catalogdata?.map((item, index) => {
-          
-          console.log(index, "nodde");
-            const cartitem = props?.cart?.items;
-            const isDisabled = cartitem?.some((data) => {
-              return data.productConfiguration.productId === item?.node?.product?.productId;
-            });
-            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-            const str = item.node.product.title;
-            const words = str.match(/[a-zA-Z0-9]+/g);
-            const firstThreeWords = words.slice(0, 3).join(" ");
-             
+        <Grid container className={classes.gridroot}>
+          <Masonry columnsCount={4} gutter="10px">
+            {catalogdata?.map((item, index) => {
+              console.log(index, "nodde");
+              const cartitem = props?.cart?.items;
+              const isDisabled = cartitem?.some((data) => {
+                return data.productConfiguration.productId === item?.node?.product?.productId;
+              });
+              // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+              const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+              const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+              const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+              const str = item.node.product.title;
+              const words = str.match(/[a-zA-Z0-9]+/g);
+              const firstThreeWords = words.slice(0, 3).join(" ");
+const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
 
-            // console.log(optionTitle, "fil");
-            return (
-              <>
-                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                  <div
-                    className={
-                      index % 8 < 4
-                        ? index % 2 === 0
-                          ? classes.boxcontairproduct
-                          : classes.boxcontairproduct2
-                        : index % 2 === 0
-                        ? classes.boxcontairproduct3
-                        : classes.boxcontairproduct4
-                    }
-                  >
-                    <Link
-                      href={item.node.product.slug && "en/product/[...slugOrId]"}
-                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+const compareAtPrice = item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+  /[^0-9.]/g,
+  "",
+);
+
+const parsedDisplayPrice = parseFloat(displayPrice);
+const parsedCompareAtPrice = parseFloat(compareAtPrice);
+
+const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
+
+              // console.log(optionTitle, "fil");
+              return (
+                <>
+                  <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                    <div
+                      className={
+                        index % 8 < 4
+                          ? index % 2 === 0
+                            ? classes.boxcontairproduct
+                            : classes.boxcontairproduct2
+                          : index % 2 === 0
+                          ? classes.boxcontairproduct3
+                          : classes.boxcontairproduct4
+                      }
                     >
-                      <a target="_blank">
-                        <img
-                          src={
-                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? "/justin/justin4.svg"
-                              : item?.node?.product?.media[0]?.URLs?.large
-                          }
-                          className={
-                            index % 8 < 4
-                              ? index % 2 === 0
-                                ? classes.image
-                                : classes.image2
-                              : index % 2 === 0
-                              ? classes.image3
-                              : classes.image4
-                          }
-                          key={item?.node?.product?.id}
-                          alt={"hhhh"}
-                        />
-                      </a>
-                    </Link>
-                   
-                  </div>
-                </Grid>
-              </>
-            );
-          })}
+                      <Link
+                        href={item.node.product.slug && "en/product/[...slugOrId]"}
+                        as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                      >
+                        <a target="_blank">
+                          <img
+                            src={
+                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                ? "/justin/justin4.svg"
+                                : item?.node?.product?.media[0]?.URLs?.large
+                            }
+                            className={
+                              index % 8 < 4
+                                ? index % 2 === 0
+                                  ? classes.image
+                                  : classes.image2
+                                : index % 2 === 0
+                                ? classes.image3
+                                : classes.image4
+                            }
+                            key={item?.node?.product?.id}
+                            alt={"hhhh"}
+                          />
+                        </a>
+                      </Link>
+                      <Typography
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "18px",
+                          fontFamily: "lato",
+                          marginTop: "20px",
+                          left: "12px",
+                        }}
+                        gutterBottom
+                        variant="h4"
+                        component="h2"
+                        className={classes.carttitle}
+                      >
+                        {firstThreeWords}
+                      </Typography>
+                      <Typography
+                        className={classes.price}
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "18px",
+                          fontFamily: "lato",
+
+                          color: "#FDC114",
+                          left: "12px",
+                        }}
+                      >
+                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "RS ")}
+                      </Typography>
+                      <div className={classes.strikethroughoff}>
+                        <strike className={classes.strikethrough}>
+                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                            ?.replace(/\.00$/, "")
+                            .replace(/\$/g, "RS ")}
+                        </strike>
+                        <Typography>
+                          {percentage}
+                        </Typography>
+                      </div>
+                    </div>
+                  </Grid>
+                </>
+              );
+            })}
+          </Masonry>
         </Grid>
       </div>
     </div>
