@@ -44,12 +44,12 @@ const MainSlider = (props) => {
       flexDirection: "row",
       justifyContent: "center",
 
-   background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 31.77%, rgba(0, 0, 0, 0))',
-    mixBlendMode: 'pass-through',
+      background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+      mixBlendMode: "pass-through",
       zIndex: 9999,
-      opacity:1,
+      opacity: 1,
       width: "100%",
-      bottom: "0px",
+      bottom: "5px",
       height: "170px",
     },
 

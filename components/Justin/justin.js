@@ -483,7 +483,6 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                           marginTop: "20px",
                           left: "12px",
                         }}
-                       
                         variant="h4"
                         component="h2"
                         className={classes.carttitle}
@@ -516,14 +515,33 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                             fontWeight: "600",
                             fontSize: "18px",
                             fontFamily: "lato",
-                            
+
                             left: "12px",
                           }}
-                         
                           variant="h4"
                           component="h2"
                           className={classes.carttitle2}
                         >{`${percentage}%`}</Typography>
+                      </div>
+                      <div className={classes.cartbackground}>
+                        {isLoading[item?.node?.product?.productId] ? (
+                          <CircularProgress />
+                        ) : (
+                          <Button
+                            className={classes.cart}
+                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                            disabled={isDisabled || item?.node?.product?.isSoldOut}
+                          >
+                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                            <Typography
+                              style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                              variant="h5"
+                              component="h2"
+                            >
+                              {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                            </Typography>
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </Grid>
