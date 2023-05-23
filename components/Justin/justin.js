@@ -95,7 +95,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },
-
+  carttitle2: {
+    display: "flex",
+    
+  },
   cartbackground: {
     background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
     borderRadius: "0px 0px 16px 16px",
@@ -187,21 +190,17 @@ const useStyles = makeStyles((theme) => ({
   price: {
     marginLeft: "12px",
   },
-  strikethrough: {
-    fontWeight: "400",
-    fontSize: "12px",
-    fontFamily: "lato",
-    lineHeight: "14px",
-
-    color: `rgba(156, 156, 156, 0.5)`,
+  strikethroughoff: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "110px",
+    marginLeft: "12px",
   },
   strikethrough: {
-    marginTop: "12px",
-    marginLeft: "12px",
-    width:"85px",
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center"
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   boxcontairproduct2: {
     height: "333px",
@@ -484,7 +483,7 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                           marginTop: "20px",
                           left: "12px",
                         }}
-                        gutterBottom
+                       
                         variant="h4"
                         component="h2"
                         className={classes.carttitle}
@@ -512,9 +511,19 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                             ?.replace(/\.00$/, "")
                             .replace(/\$/g, "RS ")}
                         </strike>
-                        <Typography>
-                          {percentage}
-                        </Typography>
+                        <Typography
+                          style={{
+                            fontWeight: "600",
+                            fontSize: "18px",
+                            fontFamily: "lato",
+                            
+                            left: "12px",
+                          }}
+                         
+                          variant="h4"
+                          component="h2"
+                          className={classes.carttitle2}
+                        >{`${percentage}%`}</Typography>
                       </div>
                     </div>
                   </Grid>
