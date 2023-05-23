@@ -74,7 +74,7 @@ class ProductGridPage extends Component {
     const addItemsToCart = this.props.addItemsToCart;
 
     return typeof window !== undefined ? (
-      <Layout headerType={true}>
+      <Layout headerType={false}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
         <DynamicSlider

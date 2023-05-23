@@ -22,7 +22,7 @@ const MainSlider = (props) => {
   // console.log(props, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
-      marginTop: "-170px",
+      marginTop: "25px",
     },
 
     root: {
@@ -33,7 +33,7 @@ const MainSlider = (props) => {
     // } ,
 
     image: {
-      height: "100vh",
+      height: "80vh",
       width: "100%",
       objectPosition: "top",
       objectFit: "cover",
@@ -43,6 +43,7 @@ const MainSlider = (props) => {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
+      background:"green"
     },
     controllera: {
       position: "absolute",
