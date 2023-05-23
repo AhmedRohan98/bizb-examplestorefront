@@ -1,4 +1,4 @@
-.swiper-pagination-bullet {
+/* .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background: "#333333";
@@ -14,15 +14,15 @@
   background: #fdc114;
   border: 1px solid transparent;
   opacity: 1;
-}
-.swiper-pagination {
+} */
+/* .swiper-pagination {
   position: absolute;
   text-align: center;
   transition: 0.3s opacity;
   display: block;
   transform: translate3d(0, 0, 0);
   z-index: 10;
-}
+} */
 .swiper-slide-active {
   opacity: 1 !important;
 }
@@ -45,9 +45,9 @@
 a {
   text-decoration: none;
 }
-@media only screen and (min-width: 1100px) {
+/* @media only screen and (min-width: 1100px) {
   /* For mobile phones: */
-  .swiper-pagination {
+  /* .swiper-pagination {
     display: block;
     position: absolute;
     text-align: center;
@@ -55,8 +55,8 @@ a {
     display: none;
     transform: translate3d(0, 0, 0);
     z-index: 10;
-  }
-}
+  } */
+
 span [class^="PrivateValueLabel-circle"] {
   width: 38px !important;
   height: 38px !important;

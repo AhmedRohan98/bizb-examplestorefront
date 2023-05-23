@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Autoplay } from "swiper";
 import { useRef, useCallback, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Preloved from "../Preloved/prelovedSec";
 import Appsec from "../Appsection/appsec";
 import Instagram from "../Instagram/instagram";
+import SwiperCore, {  Pagination, Autoplay ,Navigation} from "swiper";
 import OurBlogs from "../Ourblogs/ourblog";
 import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
@@ -18,7 +18,7 @@ import { Link } from "react-scroll";
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props?.catalogItems;
-  SwiperCore.use([Autoplay]);
+  SwiperCore.use([Autoplay, Pagination, Navigation]);
   // console.log(props, "new products");
   const useStyles = makeStyles((theme) => ({
     main: {
@@ -43,7 +43,7 @@ const MainSlider = (props) => {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
-      background:"green"
+      background: "green",
     },
     controllera: {
       position: "absolute",
@@ -80,7 +80,7 @@ const MainSlider = (props) => {
     text: {
       fontSize: "18px",
       color: "white",
-    
+
       Fontfamily: "Circular Std",
     },
     dark: {
@@ -119,6 +119,40 @@ const MainSlider = (props) => {
       display: "block",
       [theme.breakpoints.up(900)]: {
         display: "none",
+      },
+    },
+    swiperpaggination: {
+      "& .swiper-pagination": {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        display: "flex",
+        flexDirection: "column",
+        marginLeft: "60px",
+        justifyContent: "center",
+        transition: "0.3s opacity",
+        zIndex: 10,
+      },
+      "& .swiper-pagination-bullet": {
+        width: "20px",
+        height: "20px",
+         background: "none",
+        color: "none",
+        border:"1px solid black",
+        marginTop: "12px", // Add spacing at the top
+
+       
+      },
+      "& .swiper-pagination-bullet-active": {
+        width: "20px",
+        height: "20px",
+        transition: "width 0.5s",
+        marginTop: "12px",
+      
+        background: "black",
+        border: "1px solid transparent",
+        opacity: 1,
       },
     },
     mobileima: {
@@ -183,11 +217,7 @@ const MainSlider = (props) => {
   }, []);
 
   const classes = useStyles();
-  const pagination = {
-    renderCustom: (_, current, total) => {
-      return <div>{`0${current + 1}`}</div>;
-    },
-  };
+ 
 
   return (
     <>
@@ -207,7 +237,14 @@ const MainSlider = (props) => {
                 </Link>
               </div>
             </div>
-            <Swiper ref={sliderRef} onRealIndexChange={(element) => setActiveIndex(element.activeIndex)} autoplay>
+            <Swiper
+              onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+              autoplay
+              ref={sliderRef}
+              modules={[Pagination, Autoplay, Navigation]}
+              pagination={true}
+              className={classes.swiperpaggination}
+            >
               {ITEMS.map((item) => (
                 <SwiperSlide>
                   <Item item={item} />
