@@ -194,15 +194,6 @@ const MainSlider = (props) => {
       <div className={classes.main}>
         <div className={classes.root}>
           <div className={classes.sliderr}>
-            <div className={classes.controllera}>
-              {activeIndex - 0 ? <ArrowBackIos className={classes.iconback} onClick={handlePrev} /> : ""}
-
-              {activeIndex < ITEMS.length - 1 ? (
-                <ArrowForwardIos className={classes.iconforwad} onClick={handleNext} />
-              ) : (
-                ""
-              )}
-            </div>
             <div className={classes.controller}>
               <div className={classes.controllert}>
                 <Link to="target-element" smooth={true} duration={2000}>
