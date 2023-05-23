@@ -50,7 +50,7 @@ const MainSlider = (props) => {
       display: "flex",
       zIndex: 9999,
       flexDirection: "row",
-background:"green",
+      background: "green",
       gap: "auto",
       justifyContent: "space-between",
       width: "100%",
@@ -141,7 +141,9 @@ background:"green",
         height: "20px",
         background: "none",
         color: "none",
-        border: "1px solid black",
+        border: "1px solid green",
+
+        opacity: 1,
         // Add spacing at the top
       },
       "& .swiper-pagination-bullet-active": {
@@ -152,7 +154,7 @@ background:"green",
         transition: "width 0.5s",
 
         background: "black",
-        border: "1px solid transparent",
+
         opacity: 1,
       },
     },
