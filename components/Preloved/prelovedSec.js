@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "12px",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "30px",
+    marginTop: "100px",
     [theme.breakpoints.down(600)]: {
       fontSize: "36px",
     },
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   subtitle: {
-    width: "543px",
+    width: "534px",
     height: "87px",
     display: "flex",
     align: "center",
