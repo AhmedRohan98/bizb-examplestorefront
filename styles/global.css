@@ -30,7 +30,7 @@
   opacity: 1 !important;
 }
 .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
-    margin: 12px;
+    margin-top: 12px;
     border: 1px solid black,
    
 }
