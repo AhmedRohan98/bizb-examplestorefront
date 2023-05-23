@@ -61,6 +61,8 @@ const styles = (theme: Theme) =>
       cursor: "pointer",
       zIndex: 1200,
     },
+   
+
     dark: {
       color: "#333333",
       backgroundImage: "none !important",
