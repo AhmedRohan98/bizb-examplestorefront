@@ -39,32 +39,28 @@ const MainSlider = (props) => {
       objectFit: "cover",
     },
     controller: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "green",
-    },
-    controllera: {
       position: "absolute",
       display: "flex",
-      zIndex: 9999,
       flexDirection: "row",
-      background: "green",
-      gap: "auto",
-      justifyContent: "space-between",
-      width: "100%",
+      justifyContent: "center",
 
-      bottom: "50%",
+   background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 31.77%, rgba(0, 0, 0, 0))',
+    mixBlendMode: 'pass-through',
+      zIndex: 9999,
+      opacity:1,
+      width: "100%",
+      bottom: "0px",
+      height: "170px",
     },
+
     controllert: {
       position: "absolute",
       display: "flex",
       flexDirection: "row",
-      zIndex: 9999,
 
+      zIndex: 9998,
       width: "300px",
-      bottom: "10px",
+      bottom: "40px",
     },
 
     title: {
