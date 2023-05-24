@@ -137,7 +137,7 @@ const MainSlider = (props) => {
         height: "20px",
         background: "none",
         color: "none",
-        border: "1px solid green",
+        border: "1px solid black",
 
         opacity: 1,
         // Add spacing at the top

@@ -31,7 +31,7 @@
 }
 .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
     margin-top: 12px;
-    border: 1px solid  black !important;
+    border: "none";
 }
 .jVuAYU {
   border: none !important;

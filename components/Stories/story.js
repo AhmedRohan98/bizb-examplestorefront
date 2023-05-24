@@ -28,6 +28,7 @@ const Story = (props) => {
       display: "flex",
       allignItems: "center",
       justifyContent: "center",
+      objectFit:"contain",
       width: "100px",
       margin: "10px",
       borderRadius: "100%",
@@ -140,6 +141,9 @@ const Story = (props) => {
     root: {
       background: theme.palette.reaction.gradient,
       marginTop: "40px",
+
+      display:"flex",
+      justifyContent:"center",
       width: "90%",
     },
     mainheading: {
@@ -449,39 +453,31 @@ const Story = (props) => {
 
       <div className={classes.mainheadings}>
         <Swiper
+          spaceBetween={10}
           ref={sliderRef}
           className={classes.root}
           breakpoints={{
             1600: {
-              width: 1600,
               slidesPerView: 7,
             },
             1200: {
-              width: 1200,
               slidesPerView: 6,
             },
             1000: {
-              width: 1000,
               slidesPerView: 5,
             },
-
             800: {
-              width: 800,
-              slidesPerView: 5,
-            },
-            600: {
-              width: 800,
               slidesPerView: 4,
             },
-            400: {
-              width: 800,
+            600: {
               slidesPerView: 3,
+            },
+            400: {
+              slidesPerView: 2,
             },
           }}
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
-          {" "}
-          {/* {setIntial(sellers[1]?._id)} */}
           {sellers?.map((item) => (
             <SwiperSlide key={item.id} onClick={() => setSellerToGet(item?._id)} active={item.store === filterproducts}>
               <Item item={item} />
