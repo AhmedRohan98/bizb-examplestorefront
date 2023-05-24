@@ -74,6 +74,7 @@ const Story = (props) => {
     catgorytag: {
       display: "flex",
       flexDirection: "row",
+      justifyContent: "center",
       marginTop: theme.spacing(3),
       [theme.breakpoints.down(700)]: {
         display: "none",
@@ -121,12 +122,32 @@ const Story = (props) => {
       color: "#333333",
     },
     main: {
-      background: "#EAE7FF",
+      backgroundColor: "rgba(156, 156, 156, 0.1)",
+
       width: "100%",
     },
     mainheading: {
-      paddingTop: "30px",
-      paddingLeft: "50px",
+      display: "flex",
+      marginTop: "60px",
+      justifyContent: "center",
+      position: "relative",
+      width: "100%",
+    },
+    spanline: {
+      marginTop: "20px",
+      bottom: 0,
+      left: 0,
+      height: "5px",
+      marginLeft:"10px",
+      width: "50px",
+      backgroundColor: "#FDC114",
+    },
+    mainheadings: {
+      display: "flex",
+      flexDirection: "column",
+      allignItems: "center",
+      justifyContent: "center",
+      width: "100%",
     },
     heading: {
       display: "flex",
@@ -394,10 +415,14 @@ const Story = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.main}>
-      <div className={classes.mainheading}>
-        <Typography variant="h3">STORES</Typography>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+          STORES <span className={classes.spanline}>
+
+          </span>
+        </Typography>
         <div className={classes.catgorytag}>
-          {catagories?.slice(0,6)?.map((filterName) => (
+          {catagories?.slice(0, 6)?.map((filterName) => (
             <Filter
               name={filterName.displayTitle}
               onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}
@@ -405,7 +430,6 @@ const Story = (props) => {
             />
           ))}
         </div>
-       
       </div>
 
       <div className={classes.root}>
@@ -447,7 +471,7 @@ const Story = (props) => {
             ) : (
               ""
             )}
-            {activeIndex &&sellers.length - 0 ? (
+            {activeIndex && sellers.length - 0 ? (
               <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
             ) : (
               ""
