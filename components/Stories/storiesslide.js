@@ -13,7 +13,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
  
   SwiperCore.use([Autoplay, Pagination, Navigation]);
  
-   
+   const [isLoading, setIsLoading] = useState({});
    const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const updatedItems = cart?.item?.map((item) => {
@@ -36,6 +36,122 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
 
       width: "200px",
     },
+    typography: {
+      background: "#333333",
+      opacity: "15%",
+      height: "8px",
+      width: "180px",
+    },
+    text: {
+      position: "absolute",
+      bottom: 60,
+    },
+    header: {
+      height: "50px",
+      position: "relative",
+    },
+    headermain: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+
+    image2: {
+      width: "315px",
+      height: "231px",
+      objectFit: "cover",
+      borderRadius: "10px",
+      cursor: "pointer",
+    },
+  
+    size: {
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: theme.spacing(1),
+    },
+    cartimage: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-start",
+    },
+    carttitle: {
+      display: "flex",
+      marginLeft: theme.spacing(1),
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+    },
+    carttitle2: {
+      display: "flex",
+    },
+    cartcontent: {
+      display: "flex",
+      justifyContent: "space-between",
+      flexDirection: "row",
+    },
+    cartcontenttext: {
+      display: "flex",
+
+      flexDirection: "column",
+    },
+
+   
+    explore: {
+      position: "absolute",
+      top: "6px",
+      right: "10px",
+      color: "#FDC114",
+      zIndex: 900,
+    },
+    maintitle: {
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+      width: "312px",
+      flexDirection: "column",
+    },
+    spanofnextword: {
+      color: "#FDC114",
+    },
+    toast: {
+      background: "yellow",
+      color: "black",
+    },
+    pricing: {
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: theme.spacing(1),
+      marginBottom: theme.spacing(2),
+    },
+    boxcontairproduct: {
+      height: "333px",
+      width: "315px",
+      borderRadius: "5px",
+      marginBottom: "20px",
+      border: "0.5px solid #9C9C9C",
+      gridRowEnd: "span 1",
+      flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+      marginBottom: "10px",
+    },
+   
+  
+    price: {
+      marginLeft: "12px",
+    },
+    strikethroughoff: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "110px",
+      marginLeft: "12px",
+    },
+    cartbackground: {
+      marginRight: "8px",
+    },
+    strikethrough: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+   
     main: {
       margin: "3vh",
     },
@@ -64,6 +180,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     },
     rootimg: {
       position: "relative",
+      marginBottom:"60px"
     },
     cart: {
       height: "35px",
@@ -173,7 +290,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       alignItems: "flex-start",
     },
     swiperpaggination: {
-      marginBottom: "100px",
+      marginBottom: "60px",
       "& .swiper-pagination": {
         position: "absolute",
         bottom: "0px",
@@ -211,28 +328,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       fontWeight: "700",
       fontSize: "20px",
     },
-    rootimg: {
-      position: "relative",
-      display: "inline-grid",
-      width: "312px",
-
-      maxWidth: "312px",
-      marginLeft: "10px",
-      marginRight: "10px",
-    },
-    cartbackground: {
-      background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-      borderRadius: "0px 0px 16px 16px",
-      alignItems: "center",
-      justifyContent: "initial",
-      height: "75px",
-      width: "100%",
-      bottom: "20%",
-      display: "inline-grid",
-      width: "100%",
-      marginTop: " -75px",
-      padding: "13px 20px",
-    },
+  
     cart: {
       height: "35px",
       width: "84px",
@@ -343,92 +439,138 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                     return data.productConfiguration.productId === item?.node?.product?.productId;
                   });
                   // console.log(item?.node?.product?.productId, "ssss", cart?.items[0]?.productConfiguration?.productId);
-                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-                  const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                    const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                    const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                    const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                    const str = item.node.product.title;
+                    const words = str.match(/[a-zA-Z0-9]+/g);
+                    const firstThreeWords = words.slice(0, 3).join(" ");
+                    const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                      /[^0-9.]/g,
+                      "",
+                    );
+
+                    const compareAtPrice =
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        /[^0-9.]/g,
+                        "",
+                      );
+
+                    const parsedDisplayPrice = parseFloat(displayPrice);
+                    const parsedCompareAtPrice = parseFloat(compareAtPrice);
+
+                    const percentage = Math.floor(
+                      ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                    );
+
                   return (
                     <SwiperSlide key={item.id}>
                       <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                        <Link
-                          href={item.node.product.slug && "en/product/[...slugOrId]"}
-                          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                        >
-                          <img
-                            src={
-                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                ? "/justin/justin4.svg"
-                                : item?.node?.product?.media[0]?.URLs?.large
-                            }
-                            className={classes.image}
-                            key={item?.node?.product?.id}
-                            alt={"hhhh"}
-                          />
-                        </Link>
-                        <div className={classes.cartbackground}>
-                          <Button
-                            className={classes.cart}
-                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                            disabled={isDisabled}
+                        <div className={classes.boxcontairproduct}>
+                          <Link
+                            href={item.node.product.slug && "en/product/[...slugOrId]"}
+                            as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                           >
-                            {/* {isLoading && <PageLoading />} */}
-                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                            <Typography
-                              style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                              variant="h5"
-                              component="h2"
-                            >
-                              {isDisabled ? "Added" : "+ Cart"}
-                            </Typography>
-                          </Button>
+                            <a target="_blank">
+                              <img
+                                src={
+                                  !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                    ? "/justin/justin4.svg"
+                                    : item?.node?.product?.media[0]?.URLs?.large
+                                }
+                                key={item?.node?.product?.id}
+                                alt={"hhhh"}
+                                className={classes.image2}
+                              />
+                            </a>
+                          </Link>
+                          <div className={classes.cartcontent}>
+                            <div className={classes.cartcontenttext}>
+                              <Typography
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+                                  marginTop: "20px",
+                                  left: "12px",
+                                }}
+                                variant="h4"
+                                component="h2"
+                                className={classes.carttitle}
+                              >
+                                {firstThreeWords}
+                              </Typography>
+                              <Typography
+                                className={classes.price}
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+
+                                  color: "#FDC114",
+                                  left: "12px",
+                                }}
+                              >
+                                {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                  ?.replace(/\.00$/, "")
+                                  .replace(/\$/g, "RS ")}
+                              </Typography>
+                              <div className={classes.strikethroughoff}>
+                                <strike className={classes.strikethrough}>
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                    ?.replace(/\.00$/, "")
+                                    .replace(/\$/g, "RS ")}
+                                </strike>
+                                <Typography
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "18px",
+                                    fontFamily: "lato",
+
+                                    left: "12px",
+                                  }}
+                                  variant="h4"
+                                  component="h2"
+                                  className={classes.carttitle2}
+                                >{`${percentage}%`}</Typography>
+                              </div>
+                            </div>
+                            <div className={classes.cartbackground}>
+                              <Typography
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+                                  marginTop: "20px",
+                                  left: "12px",
+                                }}
+                                variant="h4"
+                                component="h2"
+                                className={classes.carttitle}
+                              >
+                                Size:
+                              </Typography>
+                              {isLoading[item?.node?.product?.productId] ? (
+                                <CircularProgress />
+                              ) : (
+                                <Button
+                                  className={classes.cart}
+                                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                  disabled={isDisabled || item?.node?.product?.isSoldOut}
+                                >
+                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                  <Typography
+                                    style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                    variant="h5"
+                                    component="h2"
+                                  >
+                                    {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                  </Typography>
+                                </Button>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                        <Box className={classes.maintitle}>
-                          <Typography
-                            style={{ fontWeight: "700", fontSize: "24px" }}
-                            gutterBottom
-                            variant="h4"
-                            component="h2"
-                            className={classes.carttitle}
-                          >
-                            {item.node.product.title}
-                          </Typography>
-                          <div className={classes.size}>
-                            <Typography
-                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                              gutterBottom
-                              variant="h4"
-                            >
-                              Size :
-                            </Typography>
-                            <Typography
-                              style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                              gutterBottom
-                              variant="h4"
-                            >
-                              {size == 0
-                                ? "Extra Large"
-                                : "Small" || size == 1
-                                ? "Large"
-                                : "Small" || size == 2
-                                ? "Medium"
-                                : "Small" || size == 3
-                                ? "Small"
-                                : "Small"}
-                            </Typography>
-                          </div>
-                          <div className={classes.size}>
-                            {" "}
-                            <strike>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                                ?.replace(/\.00$/, "")
-                                .replace(/\$/g, "RS ")}
-                            </strike>
-                            <Typography gutterBottom variant="h5" className={classes.price}>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                                ?.replace(/\.00$/, "")
-                                .replace(/\$/g, "RS ")}
-                            </Typography>
-                          </div>
-                        </Box>
                       </Grid>
                     </SwiperSlide>
                   );
