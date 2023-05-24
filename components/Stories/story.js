@@ -48,9 +48,12 @@ const Story = (props) => {
     },
     iconforwad: {
       position: "absolute",
-      bottom: "130px",
+      bottom: "120px",
       right: "20px",
-      background: "#333333",
+      height: "50px",
+      width: "50px",
+      padding: "18px",
+      background: "#000000",
       color: "FDC114",
       borderRadius: "4px",
       cursor: "pointer",
@@ -58,11 +61,14 @@ const Story = (props) => {
     },
     iconback: {
       position: "absolute",
-      bottom: "130px",
+      bottom: "120px",
+      height: "50px",
+      padding: "18px",
+      width: "50px",
       left: "20px",
-      borderRadius: "4px",
+      borderRadius: "5px",
       color: "FDC114",
-      background: "#333333",
+      background: "#000000",
       cursor: "pointer",
       zIndex: 1251,
     },
@@ -441,7 +447,7 @@ const Story = (props) => {
         </div>
       </div>
 
-      <div className={classes.mainheadings} >
+      <div className={classes.mainheadings}>
         <Swiper
           ref={sliderRef}
           className={classes.root}
@@ -475,18 +481,6 @@ const Story = (props) => {
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
           {" "}
-          <div className={classes.controller}>
-            {activeIndex < ITEMS.length - 1 ? (
-              <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
-            ) : (
-              ""
-            )}
-            {activeIndex && sellers.length - 0 ? (
-              <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
-            ) : (
-              ""
-            )}
-          </div>
           {/* {setIntial(sellers[1]?._id)} */}
           {sellers?.map((item) => (
             <SwiperSlide key={item.id} onClick={() => setSellerToGet(item?._id)} active={item.store === filterproducts}>
@@ -494,8 +488,20 @@ const Story = (props) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <Storyslider sellerss={sellerss} cart={props?.cart} />
+        <div className={classes.controller}>
+          {activeIndex < ITEMS.length - 1 ? (
+            <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
+          ) : (
+            ""
+          )}
+          {activeIndex && sellers.length - 0 ? (
+            <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
+          ) : (
+            ""
+          )}
+        </div>
       </div>
+      <Storyslider sellerss={sellerss} cart={props?.cart} />
     </div>
   );
 };
