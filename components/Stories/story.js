@@ -23,11 +23,6 @@ const Story = (props) => {
   const catgormobile = catagories?.slice(0, 3);
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
-    root: {
-      background: theme.palette.reaction.gradient,
-      position: "relative",
-      margin: "50px",
-    },
     image: {
       height: "100px",
       display: "flex",
@@ -107,32 +102,39 @@ const Story = (props) => {
       cursor: "pointer",
       marginRight: theme.spacing(3),
     },
-     catagoriesactive: {
-    color: '#000000',
-    display: 'inline-block',
-    marginRight: theme.spacing(3),
-    position: 'relative',
-    textDecoration: 'none',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      bottom: '-5px',
-      width: '100%',
-      height: '5px',
-      backgroundColor: '#FDC114',
+    catagoriesactive: {
+      color: "#000000",
+      display: "inline-block",
+      marginRight: theme.spacing(3),
+      position: "relative",
+      textDecoration: "none",
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        bottom: "-5px",
+        width: "100%",
+        height: "5px",
+        backgroundColor: "#FDC114",
+      },
+      "&:hover": {
+        color: "#000000",
+      },
     },
-    '&:hover': {
-      color: '#000000',
-    },
-  },
     dark: {
       color: "#333333",
     },
     main: {
       backgroundColor: "rgba(156, 156, 156, 0.1)",
-
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
       width: "100%",
+    },
+    root: {
+      background: theme.palette.reaction.gradient,
+      marginTop: "40px",
+      width: "90%",
     },
     mainheading: {
       display: "flex",
@@ -153,6 +155,7 @@ const Story = (props) => {
     mainheadings: {
       display: "flex",
       flexDirection: "column",
+      position: "relative",
       allignItems: "center",
       justifyContent: "center",
       width: "100%",
@@ -425,9 +428,7 @@ const Story = (props) => {
     <div className={classes.main}>
       <div className={classes.mainheadings}>
         <Typography variant="h3" className={classes.mainheading}>
-          STORES <span className={classes.spanline}>
-
-          </span>
+          STORES <span className={classes.spanline}></span>
         </Typography>
         <div className={classes.catgorytag}>
           {catagories?.slice(0, 6)?.map((filterName) => (
@@ -440,9 +441,10 @@ const Story = (props) => {
         </div>
       </div>
 
-      <div className={classes.root}>
+      <div className={classes.mainheadings} >
         <Swiper
           ref={sliderRef}
+          className={classes.root}
           breakpoints={{
             1600: {
               width: 1600,
