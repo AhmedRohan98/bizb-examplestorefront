@@ -10,7 +10,7 @@ const OurBlogs = () => {
     },
     look: {
       overflow: "hidden",
-      height: "450px",
+      height: "225px",
       width: "426px",
       marginTop: theme.spacing(2),
       display: "flex",
@@ -28,7 +28,7 @@ const OurBlogs = () => {
     },
     wardrobe: {
       overflow: "hidden",
-      height: "450px",
+      height: "225px",
       width: "426px",
       marginTop: theme.spacing(2),
       display: "flex",
@@ -45,7 +45,7 @@ const OurBlogs = () => {
     },
     trend: {
       overflow: "hidden",
-      height: "450px",
+      height: "225px",
       width: "426px",
       marginTop: theme.spacing(2),
       display: "flex",
@@ -63,6 +63,7 @@ const OurBlogs = () => {
     mainheading: {
       display: "flex",
       marginTop: "60px",
+      marginBottom:"60px",
       justifyContent: "center",
       textTransform: "uppercase",
       position: "relative",
@@ -107,24 +108,12 @@ const OurBlogs = () => {
     <div className={classes.root}>
       <div className={classes.mainheadings}>
         <Typography variant="h3" className={classes.mainheading}>
-          our collaborators <span className={classes.spanline}></span>
+          our blogs <span className={classes.spanline}></span>
         </Typography>
       </div>
-      <Grid container spacing={0} className={classes.gridroot}>
+      <Grid container spacing={4} className={classes.gridroot}>
         <Grid item>
           <Box className={classes.look}>
-            <img
-              style={{
-                overflow: "hidden",
-                transition: "all .5s cubic-bezier(0,0,.44,1.18)",
-                height: "100%",
-                maxWidth: "100%",
-                border: "none",
-                borderRadius: 0,
-                boxShadow: "none",
-              }}
-              src="/blogsImages/2.webp"
-            />
             <Typography variant="h4" className={classes.blogtext}>
               Get the perfect Look
             </Typography>
@@ -143,18 +132,6 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.wardrobe}>
-            <img
-              style={{
-                overflow: "hidden",
-                transition: "all .5s cubic-bezier(0,0,.44,1.18)",
-                height: "100%",
-                maxWidth: "100%",
-                border: "none",
-                borderRadius: 0,
-                boxShadow: "none",
-              }}
-              src="/blogsImages/sherishblogs.webp"
-            />
             <Typography variant="h4" className={classes.blogtext}>
               Circular Economy
             </Typography>
@@ -172,18 +149,6 @@ const OurBlogs = () => {
         </Grid>
         <Grid item>
           <Box className={classes.trend}>
-            <img
-              style={{
-                overflow: "hidden",
-                transition: "all .5s cubic-bezier(0,0,.44,1.18)",
-                height: "100%",
-                maxWidth: "100%",
-                border: "none",
-                borderRadius: 0,
-                boxShadow: "none",
-              }}
-              src="/blogsImages/team.webp"
-            />
             <Typography variant="h4" className={classes.blogtext}>
               Making Sustainability Stylish
             </Typography>
