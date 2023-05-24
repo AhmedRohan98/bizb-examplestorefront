@@ -84,6 +84,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     marginLeft: theme.spacing(1),
   },
+  sizes: {
+  
+    marginLeft: "12px",
+    padding:"3px",
+    border:"1px solid red"
+  },
   cartimage: {
     display: "flex",
     justifyContent: "center",
@@ -539,7 +545,18 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                             component="h2"
                             className={classes.carttitle}
                           >
-                           Size:
+                            Size:{" "}
+                            <span className={classes.sizes}>
+                              {size == 0
+                                ? "XL"
+                                : "S" || size == 1
+                                ? "L"
+                                : "S" || size == 2
+                                ? "M"
+                                : "S" || size == 3
+                                ? "S"
+                                : "S"}
+                            </span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (
                             <CircularProgress />
