@@ -27,7 +27,7 @@ marginBottom:"60px",
       display: "flex",
       justifyContent: "center",
       allignItems:"center",
-      width: "90%",
+      width: "80%",
     },
     image: {
       height: "100px",
@@ -182,7 +182,7 @@ const lastIndex = sellers?.length - 1;
           loop={false}
           breakpoints={{
             1600: {
-              slidesPerView: 10,
+              slidesPerView: 8,
             },
             1200: {
               slidesPerView: 8,
