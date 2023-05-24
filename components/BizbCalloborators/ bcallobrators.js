@@ -40,6 +40,7 @@ const BizbCalloborators = () => {
     },
     image: {
       position: "relative",
+      marginTop:"100px",
       width: "100%",
     },
     collobarotors: {

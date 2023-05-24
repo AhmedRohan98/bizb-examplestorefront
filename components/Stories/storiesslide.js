@@ -153,7 +153,9 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     },
    
     main: {
-      margin: "3vh",
+      width:"100%",
+      display:"flex",
+      justifyContent:"center",
     },
     text: {
       position: "absolute",
@@ -237,8 +239,9 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     },
     root: {
       display: "flex",
-      width: "90%",
-      justifyContent: "space-between",
+      width: "95%",
+      
+     justifyContent:"center",
       alignItems: "center",
     },
     gridroot: {
@@ -404,7 +407,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
           pagination={true}
           breakpoints={{
             1500: {
-              slidesPerView: 4,
+              slidesPerView: 5,
             },
             1200: {
               slidesPerView: 4,
