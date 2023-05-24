@@ -102,17 +102,18 @@ const Story = (props) => {
       flexDirection: "column",
       justifyContent: "center",
       allignItems: "center",
+      textAlign:"center",
       width: "120px",
     },
     catagoriesinactive: {
       color: "#000000",
       cursor: "pointer",
-      marginRight: theme.spacing(3),
+      marginRight: "36px",
     },
     catagoriesactive: {
       color: "#000000",
       display: "inline-block",
-      marginRight: theme.spacing(3),
+      marginRight: "36px",
       position: "relative",
       textDecoration: "none",
       "&::before": {
