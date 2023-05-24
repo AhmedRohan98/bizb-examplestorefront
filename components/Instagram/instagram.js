@@ -34,6 +34,7 @@ const Instagram = (props) => {
         marginBottom: "0",
       },
     },
+
     mainheading: {
       display: "flex",
       marginTop: "60px",
@@ -59,10 +60,6 @@ const Instagram = (props) => {
       justifyContent: "center",
       width: "100%",
     },
-    mainheading: {
-      paddingTop: "30px",
-      paddingLeft: "50px",
-    },
     text: {
       position: "absolute",
       top: "40px",
@@ -81,12 +78,21 @@ const Instagram = (props) => {
         left: "0",
       },
     },
+    main: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      position: "relative",
+      marginBottom: "0px",
+      marginTop: "100px",
+      width: "100%",
+    },
   }));
 
   const lastImageIndex = images?.length - 1;
   const classes = useStyles();
   return (
-    <>
+    <div className={classes.main}>
       <div className={classes.mainheadings}>
         <Typography variant="h3" className={classes.mainheading}>
          instagram <span className={classes.spanline}></span>
@@ -122,7 +128,7 @@ const Instagram = (props) => {
           </Grid>
         </Hidden>
       </div>
-    </>
+    </div>
   );
 };
 
