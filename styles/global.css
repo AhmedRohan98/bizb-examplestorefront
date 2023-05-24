@@ -215,7 +215,7 @@ input:-internal-autofill-selected {
 
 .headerlogo:hover {
   transform: scale(1.3);
-  background-color: #fdc114;
+  
 }
 .Toastify__toast-container--bottom-left .Toastify__toast--default {
   border-bottom: 3px solid red; /* replace "red" with desired color */
