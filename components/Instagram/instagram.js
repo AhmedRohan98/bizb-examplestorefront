@@ -34,7 +34,31 @@ const Instagram = (props) => {
         marginBottom: "0",
       },
     },
-
+    mainheading: {
+      display: "flex",
+      marginTop: "60px",
+      justifyContent: "center",
+      textTransform: "uppercase",
+      position: "relative",
+      width: "100%",
+    },
+    spanline: {
+      marginTop: "20px",
+      bottom: 0,
+      left: 0,
+      height: "5px",
+      marginLeft: "10px",
+      width: "50px",
+      backgroundColor: "#FDC114",
+    },
+    mainheadings: {
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      allignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+    },
     mainheading: {
       paddingTop: "30px",
       paddingLeft: "50px",
@@ -63,8 +87,10 @@ const Instagram = (props) => {
   const classes = useStyles();
   return (
     <>
-      <div className={classes.mainheading}>
-        <Typography variant="h3">Instagram</Typography>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+         instagram <span className={classes.spanline}></span>
+        </Typography>
       </div>
       <div className={classes.root}>
         <Hidden smDown>

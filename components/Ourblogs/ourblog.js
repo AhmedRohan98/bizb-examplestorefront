@@ -61,9 +61,30 @@ const OurBlogs = () => {
       },
     },
     mainheading: {
-      paddingTop: "30px",
+      display: "flex",
+      marginTop: "60px",
+      justifyContent: "center",
+      textTransform: "uppercase",
+      position: "relative",
+      width: "100%",
     },
-
+    spanline: {
+      marginTop: "20px",
+      bottom: 0,
+      left: 0,
+      height: "5px",
+      marginLeft: "10px",
+      width: "50px",
+      backgroundColor: "#FDC114",
+    },
+    mainheadings: {
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      allignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+    },
     blogtext: {
       padding: "20px",
     },
@@ -84,10 +105,9 @@ const OurBlogs = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <div className={classes.mainheading}>
-        <Typography variant="h3">
-          Our
-          <span className={classes.spanofnextword}>Blogs</span>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+          our collaborators <span className={classes.spanline}></span>
         </Typography>
       </div>
       <Grid container spacing={0} className={classes.gridroot}>
