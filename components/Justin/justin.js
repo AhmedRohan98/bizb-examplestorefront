@@ -85,10 +85,17 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
   sizes: {
-  
+    height: "30px",
+    width: "30px",
     marginLeft: "12px",
-    padding:"3px",
-    border:"1px solid red"
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    border: "1px solid #000000",
   },
   cartimage: {
     display: "flex",
@@ -124,6 +131,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
+    marginTop: "10px",
     borderColor: "none",
     zIndex: 1,
     transition: "all 0.2s linear",
@@ -205,6 +213,8 @@ const useStyles = makeStyles((theme) => ({
   },
   strikethrough: {
     display: "flex",
+    fontSize: "12px",
+    color: "#9C9C9C",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -521,7 +531,7 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                             <Typography
                               style={{
                                 fontWeight: "600",
-                                fontSize: "18px",
+                                fontSize: "12px",
                                 fontFamily: "lato",
 
                                 left: "12px",
@@ -529,7 +539,7 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                               variant="h4"
                               component="h2"
                               className={classes.carttitle2}
-                            >{`${percentage}%`}</Typography>
+                            >{`-${percentage}%`}</Typography>
                           </div>
                         </div>
                         <div className={classes.cartbackground}>
@@ -538,7 +548,7 @@ const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / par
                               fontWeight: "600",
                               fontSize: "18px",
                               fontFamily: "lato",
-                              marginTop: "20px",
+                              marginTop: "10px",
                               left: "12px",
                             }}
                             variant="h4"
