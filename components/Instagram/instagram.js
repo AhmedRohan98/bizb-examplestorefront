@@ -16,6 +16,10 @@ const Instagram = (props) => {
       justifyContent: "center",
       flexDirection: "column",
     },
+    maindiv:{
+      maxWidth:"1400px",
+      marginTop:"60px"
+    },
     gridroot: {
       display: "flex",
       alignItems: "center",
@@ -24,8 +28,8 @@ const Instagram = (props) => {
       position: "relative",
     },
     image: {
-      width: "382px",
-      height: "auto",
+      width: "440px",
+      height: "440px",
       marginBottom: "20px",
       [theme.breakpoints.down(600)]: {
         width: "32vw",
@@ -62,10 +66,10 @@ const Instagram = (props) => {
     },
     text: {
       position: "absolute",
-      top: "40px",
-      left: "40px",
-      width: "382px",
-      height: "auto",
+      top: "12px",
+      left: "12px",
+      width: "440px",
+      height: "440px",
       color: "white",
       padding: "1rem",
       backgroundColor: "rgba(0, 0, 0, 0.7)",
@@ -100,7 +104,7 @@ const Instagram = (props) => {
       </div>
       <div className={classes.root}>
         <Hidden smDown>
-          <Grid container xs={12} spacing={10} alignItems="center" justify="center">
+          <Grid container xs={12} spacing={3} alignItems="center" justify="center">
             {images?.map((item, i) => (
               <Grid item className={classes.gridroot}>
                 <a target="_blank" href={item.permalink}>
@@ -114,7 +118,7 @@ const Instagram = (props) => {
           </Grid>
         </Hidden>
         <Hidden mdUp>
-          <Grid container xs={12} alignItems="center" justify="center">
+          <Grid container xs={12} alignItems="center" justify="center" className={classes.maindiv}>
             {images?.map((item, i) => (
               <Grid item className={classes.gridroot}>
                 <a target="_blank" href={item.permalink}>

@@ -27,6 +27,20 @@ const useStyles = makeStyles((theme) => ({
     color: "#FDC114",
     zIndex: 900,
   },
+  strikethroughoff: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "110px",
+    marginLeft: "12px",
+  },
+  strikethrough: {
+    display: "flex",
+    fontSize: "12px",
+    color: "#9C9C9C",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));
 
 
@@ -48,11 +62,28 @@ const Footer = () =>{
         <Grid item xs={12} md={3}>
           <div style={{ fontWeight: "700", fontSize: "26px", textAlign: "center" }}>
             <a href="/">
+              <div className={classes.strikethroughoff}>
+                <strike className={classes.strikethrough}>
+                jjjjjjjjjj
+                </strike>
+                <Typography
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "12px",
+                    fontFamily: "lato",
+
+                    left: "12px",
+                  }}
+                  variant="h4"
+                  component="h2"
+                  className={classes.carttitle2}
+                >jjjjj</Typography>
+              </div>
               <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>Home</div>
             </a>
 
-            <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0" style={{position:"relative"}}>
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white",position:"relative" }}>Explore</div>
+            <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0" style={{ position: "relative" }}>
+              <div style={{ marginTop: "25px", cursor: "pointer", color: "white", position: "relative" }}>Explore</div>
               {/* <img src="/images/footerbackground.webp" className={classes.explore}></img> */}
             </a>
             <a target="_blank" href="https://bizb.store/how-to-sell/">

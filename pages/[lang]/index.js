@@ -119,7 +119,7 @@ export async function getStaticProps({ params: { lang } }) {
   // console.log("data is ", data);
 
   const feed = await data.json();
-  // console.log("new feed", feed);
+  console.log("new feed", feed);
 
   if (!primaryShop?.shop) {
     return {
