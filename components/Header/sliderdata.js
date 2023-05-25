@@ -271,9 +271,10 @@ const MainSlider = (props) => {
 
       <Appsec />
 
-      <Caloborators />
+    
       <OurBlogs />
       <Instagram {...props} /> */}
+      {/* <Caloborators /> */}
     </>
   );
 };
