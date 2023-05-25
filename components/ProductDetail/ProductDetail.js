@@ -778,7 +778,7 @@ const ProductDetail = ({ ...props }) => {
                 onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               >
                 <div className="fluid__image-container">
-                  {product?.variants[0].media.map((slide, index) => {
+                  {product?.variants[0]?.media.map((slide, index) => {
                     return (
                       <SwiperSlide className={classes.sliderimage2}>
                         <div>

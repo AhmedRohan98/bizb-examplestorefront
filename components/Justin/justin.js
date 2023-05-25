@@ -30,7 +30,16 @@ const useStyles = makeStyles((theme) => ({
     width: 312,
   },
 
-  gridroot: {},
+  gridroot: {
+    maxWidth: "1350px",
+  
+  },
+root: {
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    maxWidth: "100%",
+  },
   typography: {
     background: "#333333",
     opacity: "15%",
