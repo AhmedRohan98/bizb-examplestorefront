@@ -67,7 +67,7 @@ const Footer = () =>{
             </a>
           </div>
         </Grid>
-        <Grid sm={0} md={0}lg={1}></Grid>
+        <Grid sm={0} md={0} lg={1}></Grid>
         <Grid item xs={12} md={5} lg={4}>
           <div className={classes.footerthirdsec}>
             <div style={{ marginTop: "80px" }}></div>
@@ -116,13 +116,21 @@ const Footer = () =>{
           </div>
         </Grid>
       </Grid>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <span style={{ paddingBottom: "20px", fontWeight: "500", fontSize: "16px", marginLeft: "91px" }}>
-          Copyright {date.getFullYear()} All rights reserved.
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          borderTop: "1px solid #918d8ce6",
+          padding: "10px",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ fontWeight: "500", fontSize: "16px", marginLeft: "91px" }}>
+          Copyright {date.getFullYear()}. All rights reserved.
         </span>
         <a href="https://www.codistan.org/" target="_blank">
           <span
-            style={{ paddingBottom: "20px", fontWeight: "500", fontSize: "20px", marginRight: "90px", color: "white" }}
+            style={{ paddingBottom: "10px", fontWeight: "500", fontSize: "20px", marginRight: "90px", color: "white" }}
           >
             POWERED BY <span style={{ color: "#FDC114" }}>CODISTAN</span>
           </span>

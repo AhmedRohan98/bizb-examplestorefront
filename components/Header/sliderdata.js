@@ -261,7 +261,7 @@ const MainSlider = (props) => {
         </div>
       </div>
 
-      <Preloved {...props} />
+      {/* <Preloved {...props} />
 
       <Justin {...props} />
 
@@ -273,7 +273,7 @@ const MainSlider = (props) => {
 
       <Caloborators />
       <OurBlogs />
-      <Instagram {...props} />
+      <Instagram {...props} /> */}
     </>
   );
 };
