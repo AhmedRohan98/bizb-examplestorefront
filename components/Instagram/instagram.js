@@ -17,7 +17,7 @@ const Instagram = (props) => {
       flexDirection: "column",
     },
     maindiv:{
-      maxWidth:"1400px",
+      maxWidth:"1300px",
       marginTop:"60px"
     },
     gridroot: {
