@@ -260,10 +260,7 @@ const MainSlider = (props) => {
           </div>
         </div>
       </div>
-      <OurBlogs />
-
-      <Justin {...props} />
-      <Instagram {...props} />
+      {/* g */}
       {/* <Preloved {...props} />
 
       <Justin {...props} />

@@ -32,12 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
   gridroot: {
     maxWidth: "1350px",
-  
   },
-root: {
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
+  root: {
+    display: "flex",
+    alignItems: "start",
+    justifyContent: "center",
     maxWidth: "100%",
   },
   typography: {
@@ -61,31 +60,31 @@ root: {
   image: {
     width: "315px",
     height: "387px",
-    borderRadius: "5px 5px 0px 0px",
-    objectFit: "cover",
+
+    objectFit: "fill",
 
     cursor: "pointer",
   },
   image4: {
     width: "315px",
     height: "387px",
-    borderRadius: "5px 5px 0px 0px",
-    objectFit: "cover",
+
+    objectFit: "fill",
 
     cursor: "pointer",
   },
   image2: {
     width: "315px",
     height: "231px",
-    objectFit: "cover",
-    borderRadius: "10px",
+    objectFit: "fill",
+
     cursor: "pointer",
   },
   image3: {
     width: "315px",
     height: "231px",
-    objectFit: "cover",
-    borderRadius: "10px",
+    objectFit: "fill",
+
     cursor: "pointer",
   },
   size: {
@@ -182,6 +181,7 @@ root: {
     width: "315px",
     borderRadius: "5px",
     marginBottom: "20px",
+    zIndex: 1,
     border: "0.5px solid #9C9C9C",
     gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
@@ -189,11 +189,13 @@ root: {
   },
   boxcontairproduct4: {
     height: "501px",
+    marginBottom: "20px",
     width: "315px",
     borderRadius: "5px",
     marginBottom: "20px",
     border: "0.5px solid #9C9C9C",
     gridRowEnd: "span 1",
+    zIndex: 1,
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "10px",
   },
@@ -205,6 +207,7 @@ root: {
     marginBottom: "10px",
     marginBottom: "20px",
     gridRowEnd: "span 2",
+    zIndex: 1,
     border: "0.5px solid #9C9C9C",
   },
   price: {
@@ -228,6 +231,7 @@ root: {
     alignItems: "center",
   },
   boxcontairproduct2: {
+    zIndex: 1,
     height: "333px",
     width: "315px",
     borderRadius: "5px",
@@ -236,6 +240,32 @@ root: {
     marginBottom: "10px",
     marginBottom: "20px",
     border: "0.5px solid #9C9C9C",
+  },
+  mainheading: {
+    display: "flex",
+    marginTop: "60px",
+    marginBottom: "60px",
+    justifyContent: "center",
+    textTransform: "uppercase",
+    position: "relative",
+    width: "100%",
+  },
+  spanline: {
+    marginTop: "20px",
+    bottom: 0,
+    left: 0,
+    height: "5px",
+    marginLeft: "10px",
+    width: "50px",
+    backgroundColor: "#FDC114",
+  },
+  mainheadings: {
+    display: "flex",
+    flexDirection: "column",
+    position: "relative",
+    allignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
 }));
 
@@ -404,33 +434,10 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
           textTransform: "capitalize",
         }}
       />
-      <div className={classes.headermain}>
-        {/* <button onClick={notify}>Notify!</button>
-        <ToastContainer
-          position="bottom-left"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeButton={<CustomCloseButton />}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          background="green"
-          toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
-        /> */}
-        <Typography variant="h3">
-          JUST <span className={classes.spanofnextword}>IN</span>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+          our blogs <span className={classes.spanline}></span>
         </Typography>
-        <div className={classes.header}>
-          <h1 className={classes.typography}></h1>
-          <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
-            <Typography gutterBottom variant="body1" className={classes.explore}>
-              Explore More
-            </Typography>
-          </a>
-        </div>
       </div>
       <div className={classes.root}>
         <Grid container className={classes.gridroot}>
@@ -448,17 +455,15 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
               const firstThreeWords = words.slice(0, 3).join(" ");
-const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
+              const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
 
-const compareAtPrice = item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-  /[^0-9.]/g,
-  "",
-);
+              const compareAtPrice =
+                item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
 
-const parsedDisplayPrice = parseFloat(displayPrice);
-const parsedCompareAtPrice = parseFloat(compareAtPrice);
+              const parsedDisplayPrice = parseFloat(displayPrice);
+              const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
+              const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
 
               // console.log(optionTitle, "fil");
               return (
