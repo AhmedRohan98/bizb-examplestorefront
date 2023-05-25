@@ -61,7 +61,7 @@ const Footer = () =>{
               <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Contact Us</div>
             </a>
             <a target="_blank" href="https://bizb.store/about-us/">
-              <div style={{ marginTop: "25px", marginBottom: "107px", cursor: "pointer", color: "white" }}>
+              <div style={{ marginTop: "25px", marginBottom: "41px", cursor: "pointer", color: "white" }}>
                 About Us
               </div>
             </a>
