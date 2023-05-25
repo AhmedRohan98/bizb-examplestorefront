@@ -13,13 +13,20 @@ const date = new Date();
 
 
 const useStyles = makeStyles((theme) => ({
-  footerthirdsec:{
-   display :"flex",
+  footerthirdsec: {
+    display: "flex",
 
-   justifyContent:"center",
-   flexDirection:"column",
-   width:"100%"
-  }
+    justifyContent: "center",
+    flexDirection: "column",
+    width: "100%",
+  },
+  explore: {
+    position: "absolute",
+    top: "6px",
+    right: "10px",
+    color: "#FDC114",
+    zIndex: 900,
+  },
 }));
 
 
@@ -41,11 +48,12 @@ const Footer = () =>{
         <Grid item xs={12} md={3}>
           <div style={{ fontWeight: "700", fontSize: "26px", textAlign: "center" }}>
             <a href="/">
-              {" "}
               <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>Home</div>
             </a>
-            <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0">
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Explore</div>
+
+            <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0" style={{position:"relative"}}>
+              <div style={{ marginTop: "25px", cursor: "pointer", color: "white",position:"relative" }}>Explore</div>
+              {/* <img src="/images/footerbackground.webp" className={classes.explore}></img> */}
             </a>
             <a target="_blank" href="https://bizb.store/how-to-sell/">
               <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>How to Sell</div>
@@ -54,16 +62,13 @@ const Footer = () =>{
               target="_blank"
               href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
             >
-              {" "}
               <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}> Our Blogs</div>{" "}
             </a>
             <a href="/en/contactus">
               <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Contact Us</div>
             </a>
             <a target="_blank" href="https://bizb.store/about-us/">
-              <div style={{ marginTop: "25px", marginBottom: "41px", cursor: "pointer", color: "white" }}>
-                About Us
-              </div>
+              <div style={{ marginTop: "25px", marginBottom: "41px", cursor: "pointer", color: "white" }}>About Us</div>
             </a>
           </div>
         </Grid>
