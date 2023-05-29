@@ -611,12 +611,12 @@ class CartPage extends Component {
       cart?.items[0]?.productTags?.nodes[0]?._id &&
       cart?.items[0]?.productTags?.nodes[0]?._id;
     uiStore?.setEndCursor(tagIds);
-    console.log("Testing my function...", uiStore?.endCursor);
+    // console.log("Testing my function...", uiStore?.endCursor);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { cart, classes, shop, catalogItems, uiStore } = this.props;
-    console.log("props useeffect", this.props);
+    // console.log("props useeffect", this.props);
     // console.log("catalogItems", cart.items);
     const tagIds =
       cart?.items &&
@@ -624,11 +624,11 @@ class CartPage extends Component {
       cart?.items[0]?.productTags?.nodes[0]?._id &&
       cart?.items[0]?.productTags?.nodes[0]?._id;
     // console.log(tagIds, "cat");
-    console.log("endcursor.. didmount", catalogItems);
-    console.log("tag ids on component did update...", tagIds);
+    // console.log("endcursor.. didmount", catalogItems);
+    // console.log("tag ids on component did update...", tagIds);
     this.myfunction();
     //  uiStore?.setEndCursor(tagIds);
-    console.log("endcursorx", uiStore?.endCursor);
+    // console.log("endcursorx", uiStore?.endCursor);
 
     if (prevProps.cart !== this.props.cart) {
       // Only re-render if someProp has changed
@@ -811,8 +811,8 @@ class CartPage extends Component {
 
       return productTags?.some((tag) => tag === tagIds);
     });
-    console.log("endcursor.. render", tagIds);
-    console.log(filteredProducts, "cat");
+    // console.log("endcursor.. render", tagIds);
+    // console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
     const { isLoading } = this.state;
     return (

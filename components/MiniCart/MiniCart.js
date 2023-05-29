@@ -253,7 +253,7 @@ const MiniCart = ({ ...props }) => {
 
   const handleRemoveItem = async (itemID) => {
     const { onRemoveCartItems } = props;
-    // console.log(itemID, "me");
+    console.log(itemID, "me");
     onRemoveCartItems(itemID);
   };
 
@@ -415,9 +415,9 @@ const MiniCart = ({ ...props }) => {
               <Badge color="none" border="none" classes={{ badge: classes.badge }}>
                 <span>
                   {headerType ? (
-                    <img src="/images/cartIconLight.svg" className="headerlogo" />
+                    <img src="/icons/shopping-bag.webp" className="headerlogo" />
                   ) : (
-                    <img src="/images/cartIconDark.svg" className="headerlogo" />
+                    <img src="/icons/shopping-bag.webp" className="headerlogo" />
                   )}
                 </span>
               </Badge>
@@ -425,9 +425,9 @@ const MiniCart = ({ ...props }) => {
           ) : (
             <span>
               {headerType ? (
-                <img src="/images/cartIconLight.svg" className="headerlogo" />
+                <img src="/icons/shopping-bag.webp" className="headerlogo" />
               ) : (
-                <img src="/images/cartIconDark.svg" className="headerlogo" />
+                <img src="/icons/shopping-bag.webp" className="headerlogo" />
               )}
             </span>
           )}

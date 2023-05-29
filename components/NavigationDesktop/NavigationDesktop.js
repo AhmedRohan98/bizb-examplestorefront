@@ -158,8 +158,14 @@ class NavigationDesktop extends Component {
                   padding: "9px 11px",
                   marginLeft: "30px",
                   fontSize: "18px",
+                  letterSpacing: "4%",
                   fontFamily: '"Ostrich Sans Black',
                   fontWeight: 900,
+                  textDecoration: "underline",
+                  textDecorationColor: "#FDC114",
+                  textDecorationThickness: "3px", // Adjust the underline thickness
+                  textDecorationLine: "underline", // Add an underline style for compatibility
+                  marginBottom: "-4px",
                 }}
               >
                 Home

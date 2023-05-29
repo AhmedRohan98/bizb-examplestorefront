@@ -10,6 +10,7 @@ import { useState, useEffect, useContext } from "react";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import inject from "hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import PageLoading from "../PageLoading";
 import { JSON } from "global";
 import { CircularProgress } from "@material-ui/core";
@@ -28,19 +29,16 @@ const useStyles = makeStyles((theme) => ({
     height: 312,
     width: 312,
   },
-  root: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+
   gridroot: {
-    width: "100%",
-    display: "flex",
-    alignItems: "baseline",
-    position: "relative",
-    
-    justifyContent: "space-evenly",
+    maxWidth: "1340px",
+  },
+  root: {
+    display: "grid",
+    justifyItems: "center",
+    alignItems: "start",
+    gridRowGap: 0,
+    maxWidth: "100%",
   },
   typography: {
     background: "#333333",
@@ -53,6 +51,10 @@ const useStyles = makeStyles((theme) => ({
     bottom: 60,
   },
   header: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+marginTop:"60px",
     height: "50px",
     position: "relative",
   },
@@ -61,16 +63,52 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   image: {
-    width: "312px",
-    maxHeight: "400px",
-    objectFit: "cover",
-    borderRadius: "10px",
+    width: "315px",
+    height: "387px",
+
+    objectFit: "fill",
+
+    cursor: "pointer",
+  },
+  image4: {
+    width: "315px",
+    height: "387px",
+
+    objectFit: "fill",
+
+    cursor: "pointer",
+  },
+  image2: {
+    width: "315px",
+    height: "231px",
+    objectFit: "fill",
+
+    cursor: "pointer",
+  },
+  image3: {
+    width: "315px",
+    height: "231px",
+    objectFit: "fill",
+
     cursor: "pointer",
   },
   size: {
-    display: "flex",
+    // display: "flex",
     flexDirection: "row",
     marginLeft: theme.spacing(1),
+  },
+  sizes: {
+    height: "30px",
+    width: "30px",
+    marginLeft: "12px",
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    border: "1px solid #000000",
   },
   cartimage: {
     display: "flex",
@@ -83,42 +121,30 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     alignItems: "flex-start",
   },
-  price: {
-    marginLeft: "20px",
-    fontWeight: "700",
-    fontSize: "20px",
+  carttitle2: {
+    display: "flex",
   },
-  rootimg: {
-    position: "relative",
-    display: "inline-grid",
-    width: "312px",
+  cartcontent: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  cartcontenttext: {
+    display: "flex",
 
-    maxWidth: "312px",
-    marginLeft: "10px",
-    marginRight: "10px",
+    flexDirection: "column",
   },
-  cartbackground: {
-    background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-    borderRadius: "0px 0px 16px 16px",
-    alignItems: "center",
-    justifyContent: "initial",
-    height: "75px",
-    width: "100%",
-    bottom: "20%",
-    display: "inline-grid",
-    width: "100%",
-    marginTop: " -75px",
-    padding: "13px 20px",
-  },
+
   cart: {
     height: "35px",
     width: "84px",
-    borderRadius: "40px",
+    borderRadius: "5px",
     background: "#FDC114",
     cursor: "pointer",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
+    marginTop: "10px",
     borderColor: "none",
     zIndex: 1,
     transition: "all 0.2s linear",
@@ -130,8 +156,9 @@ const useStyles = makeStyles((theme) => ({
   },
   explore: {
     position: "absolute",
-    top: "6px",
-    right: "10px",
+    top: "25px",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     color: "#FDC114",
     zIndex: 900,
   },
@@ -155,27 +182,117 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginBottom: theme.spacing(2),
   },
+  boxcontairproduct: {
+    height: "501px",
+    width: "315px",
+    borderRadius: "5px",
+
+    zIndex: 1,
+    border: "0.5px solid #9C9C9C",
+    gridRowEnd: "span 1",
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "20px",
+  },
+  boxcontairproduct4: {
+    height: "501px",
+
+    width: "315px",
+    borderRadius: "5px",
+
+    border: "0.5px solid #9C9C9C",
+    gridRowEnd: "span 1",
+    zIndex: 1,
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "20px",
+  },
+  boxcontairproduct3: {
+    height: "333px",
+    width: "315px",
+    borderRadius: "5px",
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+
+    marginBottom: "20px",
+
+    zIndex: 1,
+    border: "0.5px solid #9C9C9C",
+  },
+  price: {
+    marginLeft: "12px",
+  },
+  strikethroughoff: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "110px",
+    marginLeft: "12px",
+  },
+  cartbackground: {
+    marginRight: "8px",
+  },
+  strikethrough: {
+    display: "flex",
+    fontSize: "12px",
+    color: "#9C9C9C",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  boxcontairproduct2: {
+    zIndex: 1,
+    height: "333px",
+    width: "315px",
+    borderRadius: "5px",
+    gridRowEnd: "span 2",
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "10px",
+    marginBottom: "20px",
+    border: "0.5px solid #9C9C9C",
+  },
+  mainheading: {
+    display: "flex",
+    marginTop: "60px",
+    marginBottom: "60px",
+    justifyContent: "center",
+    textTransform: "uppercase",
+    position: "relative",
+    width: "100%",
+  },
+  spanline: {
+    marginTop: "20px",
+    bottom: 0,
+    left: 0,
+    height: "5px",
+    marginLeft: "10px",
+    width: "50px",
+    backgroundColor: "#FDC114",
+  },
+  mainheadings: {
+    display: "flex",
+    flexDirection: "column",
+    position: "relative",
+    allignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
 }));
 
 const Justin = (props) => {
   // const UIContextJustInPage = useContext(UIContext);
 
   const catalogdata = props?.catalogItems;
-  console.log(catalogdata,"cat")
-const [soldOutProducts, setSoldOutProducts] = useState([]);
+  // console.log(catalogdata,"cat")
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
 
   const { uiStore } = props;
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
-// 
+  //
 
   // console.log(cart, "cartx");
 
   useEffect(() => {
-    uiStore?.setPageSize(15);
-  
+    uiStore?.setPageSize(16);
   }, []);
   // useEffect(() => {
   //   if (cart?.items?.length) {
@@ -207,7 +324,7 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
     });
     const soldOutProducts = catalogdata?.filter((product) => product?.node?.product?.isSoldOut);
     setSoldOutProducts(soldOutProducts);
-    
+
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [props?.cart?.items, catalogdata]);
@@ -258,12 +375,12 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
     const selectedVariant = variantById(product.variants, variant._id);
 
     // If variant is not already in the cart, add the new item
-// parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
-const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
+    // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
+    const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
     await addItemsToCart([
       {
         price: {
-          amount:price,
+          amount: price,
           currencyCode: "USD",
         },
         metafields: [
@@ -272,7 +389,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             value: product.media[0]?.URLs?.large,
           },
         ],
-    
+
         productConfiguration: {
           productId: product.productId,
           productVariantId: selectedVariant.variantId,
@@ -284,16 +401,16 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
 
   const handleOnClick = async (product, variant) => {
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: true,
-  }));
+      ...prevState,
+      [product.productId]: true,
+    }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!");
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: false,
-  }));
+      ...prevState,
+      [product.productId]: false,
+    }));
     // Scroll to the top
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -322,148 +439,190 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
           textTransform: "capitalize",
         }}
       />
-      <div className={classes.headermain}>
-        {/* <button onClick={notify}>Notify!</button>
-        <ToastContainer
-          position="bottom-left"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeButton={<CustomCloseButton />}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          background="green"
-          toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
-        /> */}
-        <Typography variant="h3">
-          JUST <span className={classes.spanofnextword}>IN</span>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+          Just IN <span className={classes.spanline}></span>
         </Typography>
-        <div className={classes.header}>
-          <h1 className={classes.typography}></h1>
-          <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
-            <Typography gutterBottom variant="body1" className={classes.explore}>
-              Explore More
-            </Typography>
-          </a>
-        </div>
       </div>
       <div className={classes.root}>
-        <Grid container className={classes.gridroot} align="center" justify="space-between" alignItems="center">
-          {catalogdata?.map((item, key) => {
-            const cartitem = props?.cart?.items;
-            const isDisabled = cartitem?.some((data) => {
-              return data.productConfiguration.productId === item?.node?.product?.productId;
-            });
-            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-            const str = item.node.product.title;
-            const words = str.match(/[a-zA-Z0-9]+/g);
-            const firstThreeWords = words.slice(0, 3).join(" ");
-            // console.log(optionTitle, "fil");
-            return (
-              <>
-                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                  <Link
-                    href={item.node.product.slug && "en/product/[...slugOrId]"}
-                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                  >
-                    <a target="_blank">
-                      <img
-                        src={
-                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
-                            : item?.node?.product?.media[0]?.URLs?.large
-                        }
-                        className={classes.image}
-                        key={item?.node?.product?.id}
-                        alt={"hhhh"}
-                      />
-                    </a>
-                  </Link>
-                  <div className={classes.cartbackground}>
-                    {isLoading[item?.node?.product?.productId] ? (
-                      <CircularProgress />
-                    ) : (
-                      <Button
-                        className={classes.cart}
-                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled || item?.node?.product?.isSoldOut}
-                      >
-                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography
-                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                          variant="h5"
-                          component="h2"
-                        >
-                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        </Typography>
-                      </Button>
-                    )}
-                  </div>
-                  <Link
-                    href={item.node.product.slug && "en/product/[...slugOrId]"}
-                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                  >
-                    <Box className={classes.maintitle}>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", marginTop: "6px" }}
-                        gutterBottom
-                        variant="h4"
-                        component="h2"
-                        className={classes.carttitle}
-                      >
-                        {firstThreeWords}
-                      </Typography>
-                      <div className={classes.size}>
-                        <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                          gutterBottom
-                          variant="h4"
-                        >
-                          Size :
-                        </Typography>
-                        <Typography
-                          style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                          gutterBottom
-                          variant="h4"
-                        >
-                          {size == 0
-                            ? "Extra Large"
-                            : "Small" || size == 1
-                            ? "Large"
-                            : "Small" || size == 2
-                            ? "Medium"
-                            : "Small" || size == 3
-                            ? "Small"
-                            : "Small"}
-                        </Typography>
-                      </div>
+        <Grid container className={classes.gridroot}>
+          <Masonry columnsCount={4}>
+            {catalogdata?.map((item, index) => {
+              console.log(index, "nodde");
+              const cartitem = props?.cart?.items;
+              const isDisabled = cartitem?.some((data) => {
+                return data.productConfiguration.productId === item?.node?.product?.productId;
+              });
+              // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+              const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+              const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+              const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+              const str = item.node.product.title;
+              const words = str.match(/[a-zA-Z0-9]+/g);
+              const firstThreeWords = words.slice(0, 3).join(" ");
+              const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
 
-                      <div className={classes.pricing}>
-                        {" "}
-                        <strike>
-                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-                        </strike>
-                        <Typography gutterBottom variant="h5" className={classes.price}>
-                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-                        </Typography>
+              const compareAtPrice =
+                item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+
+              const parsedDisplayPrice = parseFloat(displayPrice);
+              const parsedCompareAtPrice = parseFloat(compareAtPrice);
+
+              const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
+
+              // console.log(optionTitle, "fil");
+              return (
+                <div style={{ display: "block" }}>
+                  <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                    <div
+                      className={
+                        index % 8 < 4
+                          ? index % 2 === 0
+                            ? classes.boxcontairproduct
+                            : classes.boxcontairproduct2
+                          : index % 2 === 0
+                          ? classes.boxcontairproduct3
+                          : classes.boxcontairproduct4
+                      }
+                    >
+                      <Link
+                        href={item.node.product.slug && "en/product/[...slugOrId]"}
+                        as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                      >
+                        <a target="_blank">
+                          <img
+                            src={
+                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                ? "/justin/justin4.svg"
+                                : item?.node?.product?.media[0]?.URLs?.large
+                            }
+                            className={
+                              index % 8 < 4
+                                ? index % 2 === 0
+                                  ? classes.image
+                                  : classes.image2
+                                : index % 2 === 0
+                                ? classes.image3
+                                : classes.image4
+                            }
+                            key={item?.node?.product?.id}
+                            alt={"hhhh"}
+                          />
+                        </a>
+                      </Link>
+                      <div className={classes.cartcontent}>
+                        <div className={classes.cartcontenttext}>
+                          <Typography
+                            style={{
+                              fontWeight: "600",
+                              fontSize: "18px",
+                              fontFamily: "lato",
+                              marginTop: "20px",
+                              left: "12px",
+                            }}
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            {firstThreeWords}
+                          </Typography>
+                          <Typography
+                            className={classes.price}
+                            style={{
+                              fontWeight: "600",
+                              fontSize: "18px",
+                              fontFamily: "lato",
+
+                              color: "#FDC114",
+                              left: "12px",
+                            }}
+                          >
+                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "RS ")}
+                          </Typography>
+                          <div className={classes.strikethroughoff}>
+                            <strike className={classes.strikethrough}>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "RS ")}
+                            </strike>
+                            <Typography
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "12px",
+                                fontFamily: "lato",
+
+                                left: "12px",
+                              }}
+                              variant="h4"
+                              component="h2"
+                              className={classes.carttitle2}
+                            >{`-${percentage}%`}</Typography>
+                          </div>
+                        </div>
+                        <div className={classes.cartbackground}>
+                          <Typography
+                            style={{
+                              fontWeight: "600",
+                              fontSize: "18px",
+                              fontFamily: "lato",
+                              marginTop: "10px",
+                              left: "12px",
+                            }}
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            Size:{" "}
+                            <span className={classes.sizes}>
+                              {size == 0
+                                ? "XL"
+                                : "S" || size == 1
+                                ? "L"
+                                : "S" || size == 2
+                                ? "M"
+                                : "S" || size == 3
+                                ? "S"
+                                : "S"}
+                            </span>
+                          </Typography>
+                          {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress />
+                          ) : (
+                            <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled || item?.node?.product?.isSoldOut}
+                            >
+                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                              <Typography
+                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                variant="h5"
+                                component="h2"
+                              >
+                                {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                              </Typography>
+                            </Button>
+                          )}
+                        </div>
                       </div>
-                    </Box>
-                  </Link>
-                </Grid>
-              </>
-            );
-          })}
+                    </div>
+                  </Grid>
+                </div>
+              );
+            })}
+          </Masonry>
         </Grid>
+        
+      </div>
+      <div className={classes.header}>
+        <h1 className={classes.typography}></h1>
+        <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+          <Typography gutterBottom variant="body1" className={classes.explore}>
+            Explore More
+          </Typography>
+        </a>
       </div>
     </div>
   );

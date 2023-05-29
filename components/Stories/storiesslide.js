@@ -6,13 +6,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from "next/link";
+import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
 import Box from "@material-ui/core/Box";
 
 const Storyslider = ({ itemData ,cart,sellerss}) => {
  
+  SwiperCore.use([Autoplay, Pagination, Navigation]);
  
- 
-   
+   const [isLoading, setIsLoading] = useState({});
    const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const updatedItems = cart?.item?.map((item) => {
@@ -28,8 +29,6 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     // do something with updatedItems
   }, [cart?.item, sellerss]);
   const useStyles = makeStyles((theme) => ({
-  
-   
     typography: {
       background: "#333333",
       opacity: "15%",
@@ -37,8 +36,136 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
 
       width: "200px",
     },
+    typography: {
+      background: "#333333",
+      opacity: "15%",
+      height: "8px",
+      width: "180px",
+    },
+    text: {
+      position: "absolute",
+      bottom: 60,
+    },
+    header: {
+      height: "50px",
+      position: "relative",
+    },
+    headermain: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+
+    image2: {
+      width: "315px",
+      height: "231px",
+      objectFit: "fill",
+
+      cursor: "pointer",
+    },
+
+    size: {
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: theme.spacing(1),
+    },
+    sizes: {
+      height: "30px",
+      width: "30px",
+      marginLeft: "12px",
+      fontFamily: "lato",
+      fontStyle: "semibold",
+      fontSize: "12px",
+
+      display: "flex",
+      color: "#FDC114",
+      justifyContent: "center",
+      border: "1px solid #000000",
+    },
+    cartimage: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-start",
+    },
+    carttitle: {
+      display: "flex",
+      marginLeft: theme.spacing(1),
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+    },
+    carttitle2: {
+      display: "flex",
+    },
+    cartcontent: {
+      display: "flex",
+      justifyContent: "space-between",
+      flexDirection: "row",
+    },
+    cartcontenttext: {
+      display: "flex",
+
+      flexDirection: "column",
+    },
+
+    explore: {
+      position: "absolute",
+      top: "6px",
+      right: "10px",
+      color: "#FDC114",
+      zIndex: 900,
+    },
+    maintitle: {
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+      width: "312px",
+      flexDirection: "column",
+    },
+    spanofnextword: {
+      color: "#FDC114",
+    },
+    toast: {
+      background: "yellow",
+      color: "black",
+    },
+    pricing: {
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: theme.spacing(1),
+      marginBottom: theme.spacing(2),
+    },
+    boxcontairproduct: {
+      height: "333px",
+      width: "315px",
+      borderRadius: "5px",
+      marginBottom: "20px",
+      border: "0.5px solid #9C9C9C",
+      gridRowEnd: "span 1",
+      flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    },
+
+    price: {
+      marginLeft: "12px",
+    },
+    strikethroughoff: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "110px",
+      marginLeft: "12px",
+    },
+    cartbackground: {
+      marginRight: "8px",
+    },
+    strikethrough: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
     main: {
-      margin: "3vh",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
     },
     text: {
       position: "absolute",
@@ -52,10 +179,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       display: "flex",
       justifyContent: "space-between",
     },
-    image: {
-      width: "290px",
-      borderRadius: "10px",
-    },
+
     size: {
       display: "flex",
       flexDirection: "row",
@@ -65,18 +189,20 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     },
     rootimg: {
       position: "relative",
+      marginBottom: "60px",
     },
     cart: {
       height: "35px",
       width: "84px",
-      borderRadius: "40px",
+      borderRadius: "5px",
       background: "#FDC114",
+      cursor: "pointer",
       display: "flex",
       justifyContent: "space-evenly",
       alignItems: "center",
-      bottom: "15px",
-      left: "10px",
-      position: "absolute",
+      marginTop: "10px",
+      borderColor: "none",
+      zIndex: 1,
       transition: "all 0.2s linear",
       "&:hover": {
         transform: "scale(1.08)",
@@ -89,26 +215,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       flexDirection: "row",
       justifyContent: "space-between",
     },
-    iconforwad: {
-      position: "absolute",
-      bottom: "332px",
-      right: "10px",
-      background: "#333333",
-      color: "FDC114",
-      borderRadius: "4px",
-      cursor: "pointer",
-      zIndex: 1251,
-    },
-    iconback: {
-      position: "absolute",
-      bottom: "332px",
-      left: "20px",
-      borderRadius: "4px",
-      color: "FDC114",
-      background: "#333333",
-      cursor: "pointer",
-      zIndex: 1251,
-    },
+
     title: {
       color: theme.palette.reaction.reactionBlue,
       marginRight: theme.spacing(),
@@ -132,10 +239,17 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       height: 312,
       width: 312,
     },
-    root: {
+    main: {
       display: "flex",
       width: "100%",
-      justifyContent: "space-between",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    root: {
+      display: "flex",
+      width: "95%",
+
+      justifyContent: "center",
       alignItems: "center",
     },
     gridroot: {
@@ -163,13 +277,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       display: "flex",
       justifyContent: "space-between",
     },
-    image: {
-      width: "312px",
-      maxHeight: "450px",
-      objectFit: "cover",
-      borderRadius: "10px",
-      cursor: "pointer",
-    },
+
     size: {
       display: "flex",
       flexDirection: "row",
@@ -186,51 +294,47 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       justifyContent: "flex-start",
       alignItems: "flex-start",
     },
+    swiperpaggination: {
+      marginBottom: "60px",
+      "& .swiper-pagination": {
+        position: "absolute",
+        bottom: "0px",
+        display: "flex",
+        flexDirection: "row",
+
+        justifyContent: "center",
+        alignItems: "center",
+        transition: "0.3s opacity",
+        zIndex: 10,
+      },
+      "& .swiper-pagination-bullet": {
+        bottom: "0px",
+        width: "20px",
+        height: "20px",
+        background: "black",
+        color: "black",
+        border: "none",
+        opacity: 1,
+        // Add spacing at the top
+      },
+      "& .swiper-pagination-bullet-active": {
+        width: "20px",
+        marginTop: "60px",
+        marginBottom: "60px",
+        height: "20px",
+        transition: "width 0.5s",
+        border: "1px solid #FDC114",
+        background: "#FDC114",
+        opacity: 1,
+      },
+    },
     price: {
       marginLeft: "20px",
       fontWeight: "700",
       fontSize: "20px",
     },
-    rootimg: {
-      position: "relative",
-      display: "inline-grid",
-      width: "312px",
 
-      maxWidth: "312px",
-      marginLeft: "10px",
-      marginRight: "10px",
-    },
-    cartbackground: {
-      background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-      borderRadius: "0px 0px 16px 16px",
-      alignItems: "center",
-      justifyContent: "initial",
-      height: "75px",
-      width: "100%",
-      bottom: "20%",
-      display: "inline-grid",
-      width: "100%",
-      marginTop: " -75px",
-      padding: "13px 20px",
-    },
-    cart: {
-      height: "35px",
-      width: "84px",
-      borderRadius: "40px",
-      background: "#FDC114",
-      cursor: "pointer",
-      display: "flex",
-      justifyContent: "space-evenly",
-      alignItems: "center",
-      borderColor: "none",
-      zIndex: 1200,
-      transition: "all 0.2s linear",
-      "&:hover": {
-        transform: "scale(1.08)",
-        transition: "left 0.2s linear",
-        background: "#FDC114",
-      },
-    },
+  
     explore: {
       position: "absolute",
       top: "6px",
@@ -279,154 +383,206 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
 
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Swiper
-        ref={sliderRef}
-        breakpoints={{
-          1500: {
-            width: 1500,
-            slidesPerView: 4,
-          },
-          1200: {
-            width: 1200,
-            slidesPerView: 4,
-          },
-          1000: {
-            width: 1000,
-            slidesPerView: 3,
-          },
+    <div className={classes.main}>
+      <div className={classes.root}>
+        <Swiper
+          ref={sliderRef}
+          className={classes.swiperpaggination}
+          modules={[Pagination, Autoplay, Navigation]}
+          pagination={true}
+          breakpoints={{
+            1500: {
+              slidesPerView: 5,
+            },
+            1200: {
+              slidesPerView: 4,
+            },
+            1000: {
+              slidesPerView: 3,
+            },
 
-          800: {
-            width: 800,
-            slidesPerView: 2,
-          },
-          600: {
-            width: 600,
-            slidesPerView: 1,
-          },
-        }}
-        onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
-      >
-        {" "}
-        <div className={classes.controller}>
-          {activeIndex - 0 ? (
-            <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
-          ) : (
-            ""
-          )}
-        </div>
-        <Grid />
-        <div className={classes.root}>
-          <Grid
-            container
-            className={classes.gridroot}
-            align="center"
-            justify="space-between"
-            alignItems="center"
-          ></Grid>
-          {sellerss ? sellerss?.map((item) => {
-            const cartitem = cart?.items;
-            const isDisabled = cartitem?.some((data) => {
-              return data.productConfiguration.productId === item?.node?.product?.productId;
-            });
-            // console.log(item?.node?.product?.productId, "ssss", cart?.items[0]?.productConfiguration?.productId);
-            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-            return (
-              <SwiperSlide key={item.id}>
-                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                  <Link
-                    href={item.node.product.slug && "en/product/[...slugOrId]"}
-                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                  >
-                    <img
-                      src={
-                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                          ? "/justin/justin4.svg"
-                          : item?.node?.product?.media[0]?.URLs?.large
-                      }
-                      className={classes.image}
-                      key={item?.node?.product?.id}
-                      alt={"hhhh"}
-                    />
-                  </Link>
-                  <div className={classes.cartbackground}>
-                    <Button
-                      className={classes.cart}
-                      onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                      disabled={isDisabled}
-                    >
-                      {/* {isLoading && <PageLoading />} */}
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography
-                        style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                        variant="h5"
-                        component="h2"
-                      >
-                        {isDisabled ? "Added" : "+ Cart"}
-                      </Typography>
-                    </Button>
-                  </div>
-                  <Box className={classes.maintitle}>
-                    <Typography
-                      style={{ fontWeight: "700", fontSize: "24px" }}
-                      gutterBottom
-                      variant="h4"
-                      component="h2"
-                      className={classes.carttitle}
-                    >
-                      {item.node.product.title}
-                    </Typography>
-                    <div className={classes.size}>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                        gutterBottom
-                        variant="h4"
-                      >
-                        Size :
-                      </Typography>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                        gutterBottom
-                        variant="h4"
-                      >
-                        {size == 0
-                          ? "Extra Large"
-                          : "Small" || size == 1
-                          ? "Large"
-                          : "Small" || size == 2
-                          ? "Medium"
-                          : "Small" || size == 3
-                          ? "Small"
-                          : "Small"}
-                      </Typography>
-                    </div>
-                    <div className={classes.size}>
-                      {" "}
-                      <strike>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </strike>
-                      <Typography gutterBottom variant="h5" className={classes.price}>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </Typography>
-                    </div>
-                  </Box>
-                </Grid>
-              </SwiperSlide>
-            );
-          }) : ""}
-        </div>
-      </Swiper>
-      {/* {activeIndex <sellerss?.length + 1 ? (
+            800: {
+              slidesPerView: 2,
+            },
+            600: {
+              slidesPerView: 1,
+            },
+          }}
+          onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+        >
+          {" "}
+          <Grid />
+          <div className={classes.root}>
+            <Grid
+              container
+              className={classes.gridroot}
+              align="center"
+              justify="space-between"
+              alignItems="center"
+            ></Grid>
+            {sellerss
+              ? sellerss?.map((item) => {
+                  const cartitem = cart?.items;
+                  const isDisabled = cartitem?.some((data) => {
+                    return data.productConfiguration.productId === item?.node?.product?.productId;
+                  });
+                  // console.log(item?.node?.product?.productId, "ssss", cart?.items[0]?.productConfiguration?.productId);
+                    const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                    const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                    const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                    const str = item.node.product.title;
+                    const words = str.match(/[a-zA-Z0-9]+/g);
+                    const firstThreeWords = words.slice(0, 3).join(" ");
+                    const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                      /[^0-9.]/g,
+                      "",
+                    );
+
+                    const compareAtPrice =
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        /[^0-9.]/g,
+                        "",
+                      );
+
+                    const parsedDisplayPrice = parseFloat(displayPrice);
+                    const parsedCompareAtPrice = parseFloat(compareAtPrice);
+
+                    const percentage = Math.floor(
+                      ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                    );
+
+                  return (
+                    <SwiperSlide key={item.id}>
+                      <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                        <div className={classes.boxcontairproduct}>
+                          <Link
+                            href={item.node.product.slug && "en/product/[...slugOrId]"}
+                            as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                          >
+                            <a target="_blank">
+                              <img
+                                src={
+                                  !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                    ? "/justin/justin4.svg"
+                                    : item?.node?.product?.media[0]?.URLs?.large
+                                }
+                                key={item?.node?.product?.id}
+                                alt={"hhhh"}
+                                className={classes.image2}
+                              />
+                            </a>
+                          </Link>
+                          <div className={classes.cartcontent}>
+                            <div className={classes.cartcontenttext}>
+                              <Typography
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+                                  marginTop: "20px",
+                                  left: "12px",
+                                }}
+                                variant="h4"
+                                component="h2"
+                                className={classes.carttitle}
+                              >
+                                {firstThreeWords}
+                              </Typography>
+                              <Typography
+                                className={classes.price}
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+
+                                  color: "#FDC114",
+                                  left: "12px",
+                                }}
+                              >
+                                {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                  ?.replace(/\.00$/, "")
+                                  .replace(/\$/g, "RS ")}
+                              </Typography>
+                              <div className={classes.strikethroughoff}>
+                                <strike className={classes.strikethrough}>
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                    ?.replace(/\.00$/, "")
+                                    .replace(/\$/g, "RS ")}
+                                </strike>
+                                <Typography
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "12px",
+                                    fontFamily: "lato",
+
+                                    left: "12px",
+                                  }}
+                                  variant="h4"
+                                  component="h2"
+                                  className={classes.carttitle2}
+                                >{`-${percentage}%`}</Typography>
+                              </div>
+                            </div>
+                            <div className={classes.cartbackground}>
+                              <Typography
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+                                  marginTop: "10px",
+                                  left: "12px",
+                                }}
+                                variant="h4"
+                                component="h2"
+                                className={classes.carttitle}
+                              >
+                                Size:{" "}
+                                <span className={classes.sizes}>
+                                  {size == 0
+                                    ? "XL"
+                                    : "S" || size == 1
+                                    ? "L"
+                                    : "S" || size == 2
+                                    ? "M"
+                                    : "S" || size == 3
+                                    ? "S"
+                                    : "S"}
+                                </span>
+                              </Typography>
+                              {isLoading[item?.node?.product?.productId] ? (
+                                <CircularProgress />
+                              ) : (
+                                <Button
+                                  className={classes.cart}
+                                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                  disabled={isDisabled || item?.node?.product?.isSoldOut}
+                                >
+                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                  <Typography
+                                    style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                    variant="h5"
+                                    component="h2"
+                                  >
+                                    {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                  </Typography>
+                                </Button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </Grid>
+                    </SwiperSlide>
+                  );
+                })
+              : ""}
+          </div>
+        </Swiper>
+        {/* {activeIndex <sellerss?.length + 1 ? (
         <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
       ) : (
         ""
       )} */}
+      </div>
     </div>
   );
 };

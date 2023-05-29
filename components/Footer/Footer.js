@@ -13,13 +13,34 @@ const date = new Date();
 
 
 const useStyles = makeStyles((theme) => ({
-  footerthirdsec:{
-   display :"flex",
+  footerthirdsec: {
+    display: "flex",
 
-   justifyContent:"center",
-   flexDirection:"column",
-   width:"100%"
-  }
+    justifyContent: "center",
+    flexDirection: "column",
+    width: "100%",
+  },
+  explore: {
+    position: "absolute",
+    top: "6px",
+    right: "10px",
+    color: "#FDC114",
+    zIndex: 900,
+  },
+  strikethroughoff: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "110px",
+    marginLeft: "12px",
+  },
+  strikethrough: {
+    display: "flex",
+    fontSize: "12px",
+    color: "#9C9C9C",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));
 
 
@@ -28,7 +49,7 @@ const Footer = () =>{
   return (
     <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
       <Grid container>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px", textAlign: "center" }}>
             <span>
               <a href="/">
@@ -41,33 +62,112 @@ const Footer = () =>{
         <Grid item xs={12} md={3}>
           <div style={{ fontWeight: "700", fontSize: "26px", textAlign: "center" }}>
             <a href="/">
-              {" "}
-              <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>Home</div>
+              <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Home
+                </span>
+              </div>
             </a>
-            <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0">
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Explore</div>
+
+            <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0" style={{ position: "relative" }}>
+              <div style={{ marginTop: "25px", cursor: "pointer", color: "white", position: "relative" }}>
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Explore
+                </span>
+              </div>
+              {/* <img src="/images/footerbackground.webp" className={classes.explore}></img> */}
             </a>
             <a target="_blank" href="https://bizb.store/how-to-sell/">
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>How to Sell</div>
+              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  How to Sell
+                </span>
+              </div>
             </a>
             <a
               target="_blank"
               href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
             >
-              {" "}
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}> Our Blogs</div>{" "}
+              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>
+                {" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Our Blogs
+                </span>
+              </div>{" "}
             </a>
             <a href="/en/contactus">
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>Contact Us</div>
+              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>
+                {" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Contact Us
+                </span>
+              </div>
             </a>
             <a target="_blank" href="https://bizb.store/about-us/">
-              <div style={{ marginTop: "25px", marginBottom: "107px", cursor: "pointer", color: "white" }}>
-                About Us
+              <div style={{ marginTop: "25px", marginBottom: "41px", cursor: "pointer", color: "white" }}>
+                {" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  About Us
+                </span>
               </div>
             </a>
           </div>
         </Grid>
-        <Grid sm={0} md={0}lg={1}></Grid>
+        <Grid sm={0} md={0} lg={2}></Grid>
         <Grid item xs={12} md={5} lg={4}>
           <div className={classes.footerthirdsec}>
             <div style={{ marginTop: "80px" }}></div>
@@ -79,13 +179,13 @@ const Footer = () =>{
                 <span>
                   <img src="/images/emailIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white" }}> Hello@bizb.store </span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> Hello@bizb.store </span>
               </a>
               <a href="tel:+92 312 5253680" target="_blank">
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white" }}> +92 312 5253680</span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> +92 312 5253680</span>
               </a>
             </div>
             <div
@@ -116,13 +216,21 @@ const Footer = () =>{
           </div>
         </Grid>
       </Grid>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <span style={{ paddingBottom: "20px", fontWeight: "500", fontSize: "16px", marginLeft: "91px" }}>
-          Copyright {date.getFullYear()} All rights reserved.
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          borderTop: "1px solid #918d8ce6",
+          padding: "10px",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ fontWeight: "500", fontSize: "16px", marginLeft: "91px" }}>
+          Copyright {date.getFullYear()}. All rights reserved.
         </span>
         <a href="https://www.codistan.org/" target="_blank">
           <span
-            style={{ paddingBottom: "20px", fontWeight: "500", fontSize: "20px", marginRight: "90px", color: "white" }}
+            style={{ paddingBottom: "10px", fontWeight: "500", fontSize: "20px", marginRight: "90px", color: "white" }}
           >
             POWERED BY <span style={{ color: "#FDC114" }}>CODISTAN</span>
           </span>

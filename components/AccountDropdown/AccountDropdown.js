@@ -102,9 +102,9 @@ const AccountDropdown = ({ headerType }) => {
         >
           <span>
             {headerType ? (
-              <img src="/images/accountIconLight.svg" className="headerlogo" />
+              <img src="/icons/user.webp" className="headerlogo" />
             ) : (
-              <img src="/images/accountIconDark.svg" className="headerlogo" />
+              <img src="/icons/user.webp" className="headerlogo" />
             )}
           </span>
         </IconButton>
