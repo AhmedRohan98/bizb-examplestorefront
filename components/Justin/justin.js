@@ -51,6 +51,10 @@ const useStyles = makeStyles((theme) => ({
     bottom: 60,
   },
   header: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+marginTop:"60px",
     height: "50px",
     position: "relative",
   },
@@ -152,8 +156,9 @@ const useStyles = makeStyles((theme) => ({
   },
   explore: {
     position: "absolute",
-    top: "6px",
-    right: "10px",
+    top: "25px",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     color: "#FDC114",
     zIndex: 900,
   },
@@ -181,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
     height: "501px",
     width: "315px",
     borderRadius: "5px",
-  
+
     zIndex: 1,
     border: "0.5px solid #9C9C9C",
     gridRowEnd: "span 1",
@@ -190,7 +195,7 @@ const useStyles = makeStyles((theme) => ({
   },
   boxcontairproduct4: {
     height: "501px",
-  
+
     width: "315px",
     borderRadius: "5px",
 
@@ -205,7 +210,7 @@ const useStyles = makeStyles((theme) => ({
     width: "315px",
     borderRadius: "5px",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-   
+
     marginBottom: "20px",
 
     zIndex: 1,
@@ -436,12 +441,12 @@ const Justin = (props) => {
       />
       <div className={classes.mainheadings}>
         <Typography variant="h3" className={classes.mainheading}>
-        Just IN <span className={classes.spanline}></span>
+          Just IN <span className={classes.spanline}></span>
         </Typography>
       </div>
       <div className={classes.root}>
         <Grid container className={classes.gridroot}>
-          <Masonry columnsCount={4} >
+          <Masonry columnsCount={4}>
             {catalogdata?.map((item, index) => {
               console.log(index, "nodde");
               const cartitem = props?.cart?.items;
@@ -467,7 +472,7 @@ const Justin = (props) => {
 
               // console.log(optionTitle, "fil");
               return (
-                <div style={{display: "block"}}>
+                <div style={{ display: "block" }}>
                   <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
                     <div
                       className={
@@ -609,6 +614,15 @@ const Justin = (props) => {
             })}
           </Masonry>
         </Grid>
+        
+      </div>
+      <div className={classes.header}>
+        <h1 className={classes.typography}></h1>
+        <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+          <Typography gutterBottom variant="body1" className={classes.explore}>
+            Explore More
+          </Typography>
+        </a>
       </div>
     </div>
   );
