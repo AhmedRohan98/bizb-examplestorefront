@@ -30,7 +30,7 @@ const Instagram = (props) => {
     image: {
       width: "440px",
       height: "440px",
-      marginBottom: "20px",
+     
       [theme.breakpoints.down(600)]: {
         width: "32vw",
         paddingRight: "0",
@@ -42,6 +42,7 @@ const Instagram = (props) => {
     mainheading: {
       display: "flex",
       marginTop: "60px",
+      marginBottom:"60px",
       justifyContent: "center",
       textTransform: "uppercase",
       position: "relative",
@@ -87,7 +88,7 @@ const Instagram = (props) => {
       flexDirection: "column",
       justifyContent: "center",
       position: "relative",
-      marginBottom: "0px",
+      marginBottom: "60px",
       marginTop: "100px",
       width: "100%",
     },

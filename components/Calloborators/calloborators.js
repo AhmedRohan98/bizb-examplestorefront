@@ -182,10 +182,10 @@ const lastIndex = sellers?.length - 1;
           loop={false}
           breakpoints={{
             1600: {
-              slidesPerView: 8,
+              slidesPerView: 9,
             },
             1200: {
-              slidesPerView: 8,
+              slidesPerView: 9,
             },
             1000: {
               width: 1000,

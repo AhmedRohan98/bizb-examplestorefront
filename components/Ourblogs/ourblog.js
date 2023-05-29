@@ -6,7 +6,7 @@ const OurBlogs = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
      
-      padding: "50px",
+      paddingRight: "7px",
     },
     look: {
       overflow: "hidden",

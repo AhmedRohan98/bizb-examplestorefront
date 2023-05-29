@@ -263,19 +263,17 @@ const MainSlider = (props) => {
 
       <Preloved {...props} />
 
-      <Story {...props} />
       <Justin {...props} />
 
-      {/* <Story {...props} />
+      <Story {...props} />
 
       <BizbCalloborators />
 
-  
+      <Appsec />
+      <Caloborators />
 
-    
       <OurBlogs />
-      <Instagram {...props} /> 
-     <Caloborators />  */}
+      <Instagram {...props} />
     </>
   );
 };
