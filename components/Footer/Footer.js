@@ -49,7 +49,7 @@ const Footer = () =>{
   return (
     <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
       <Grid container>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px", textAlign: "center" }}>
             <span>
               <a href="/">
@@ -132,7 +132,9 @@ const Footer = () =>{
               </div>{" "}
             </a>
             <a href="/en/contactus">
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}> <span
+              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>
+                {" "}
+                <span
                   style={{
                     textDecoration: "line-through",
                     textDecorationColor: "rgba(255, 255, 255, 0.15)",
@@ -141,10 +143,15 @@ const Footer = () =>{
                     width: "100%",
                     display: "inline-block",
                   }}
-                >Contact Us</span></div>
+                >
+                  Contact Us
+                </span>
+              </div>
             </a>
             <a target="_blank" href="https://bizb.store/about-us/">
-              <div style={{ marginTop: "25px", marginBottom: "41px", cursor: "pointer", color: "white" }}> <span
+              <div style={{ marginTop: "25px", marginBottom: "41px", cursor: "pointer", color: "white" }}>
+                {" "}
+                <span
                   style={{
                     textDecoration: "line-through",
                     textDecorationColor: "rgba(255, 255, 255, 0.15)",
@@ -153,11 +160,14 @@ const Footer = () =>{
                     width: "100%",
                     display: "inline-block",
                   }}
-                >About Us</span></div>
+                >
+                  About Us
+                </span>
+              </div>
             </a>
           </div>
         </Grid>
-        <Grid sm={0} md={0} lg={1}></Grid>
+        <Grid sm={0} md={0} lg={2}></Grid>
         <Grid item xs={12} md={5} lg={4}>
           <div className={classes.footerthirdsec}>
             <div style={{ marginTop: "80px" }}></div>
@@ -169,13 +179,13 @@ const Footer = () =>{
                 <span>
                   <img src="/images/emailIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white" }}> Hello@bizb.store </span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> Hello@bizb.store </span>
               </a>
               <a href="tel:+92 312 5253680" target="_blank">
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white" }}> +92 312 5253680</span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> +92 312 5253680</span>
               </a>
             </div>
             <div

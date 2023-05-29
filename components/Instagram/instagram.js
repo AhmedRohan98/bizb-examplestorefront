@@ -67,8 +67,8 @@ const Instagram = (props) => {
     },
     text: {
       position: "absolute",
-      top: "12px",
-      left: "12px",
+      top: "8px",
+      left: "8px",
       width: "440px",
       height: "440px",
       color: "white",
@@ -92,6 +92,9 @@ const Instagram = (props) => {
       marginTop: "100px",
       width: "100%",
     },
+    instagramdiv:{
+      maxWidth:"1390px"
+    }
   }));
 
   const lastImageIndex = images?.length - 1;
@@ -100,23 +103,25 @@ const Instagram = (props) => {
     <div className={classes.main}>
       <div className={classes.mainheadings}>
         <Typography variant="h3" className={classes.mainheading}>
-         instagram <span className={classes.spanline}></span>
+          instagram <span className={classes.spanline}></span>
         </Typography>
       </div>
       <div className={classes.root}>
         <Hidden smDown>
-          <Grid container xs={12} spacing={3} alignItems="center" justify="center">
-            {images?.map((item, i) => (
-              <Grid item className={classes.gridroot}>
-                <a target="_blank" href={item.permalink}>
-                  <img src={item.media_url} className={classes.image} />
-                  {i === lastImageIndex ? (
-                    <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>
-                  ) : null}
-                </a>
-              </Grid>
-            ))}
-          </Grid>
+          <div className={classes.instagramdiv}>
+            <Grid container xs={12} spacing={2} alignItems="center" justify="center" maxWidth={1260}>
+              {images?.map((item, i) => (
+                <Grid item className={classes.gridroot}>
+                  <a target="_blank" href={item.permalink}>
+                    <img src={item.media_url} className={classes.image} />
+                    {i === lastImageIndex ? (
+                      <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>
+                    ) : null}
+                  </a>
+                </Grid>
+              ))}
+            </Grid>
+          </div>
         </Hidden>
         <Hidden mdUp>
           <Grid container xs={12} alignItems="center" justify="center" className={classes.maindiv}>
