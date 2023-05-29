@@ -205,7 +205,7 @@ const useStyles = makeStyles((theme) => ({
     width: "315px",
     borderRadius: "5px",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-    marginBottom: "10px",
+   
     marginBottom: "20px",
 
     zIndex: 1,

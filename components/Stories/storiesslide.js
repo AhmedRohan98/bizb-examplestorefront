@@ -58,15 +58,28 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     image2: {
       width: "315px",
       height: "231px",
-      objectFit: "cover",
-      borderRadius: "10px",
+      objectFit: "fill",
+
       cursor: "pointer",
     },
-  
+
     size: {
       display: "flex",
       flexDirection: "row",
       marginLeft: theme.spacing(1),
+    },
+    sizes: {
+      height: "30px",
+      width: "30px",
+      marginLeft: "12px",
+      fontFamily: "lato",
+      fontStyle: "semibold",
+      fontSize: "12px",
+
+      display: "flex",
+      color: "#FDC114",
+      justifyContent: "center",
+      border: "1px solid #000000",
     },
     cartimage: {
       display: "flex",
@@ -93,7 +106,6 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       flexDirection: "column",
     },
 
-   
     explore: {
       position: "absolute",
       top: "6px",
@@ -129,10 +141,8 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       border: "0.5px solid #9C9C9C",
       gridRowEnd: "span 1",
       flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-      marginBottom: "10px",
     },
-   
-  
+
     price: {
       marginLeft: "12px",
     },
@@ -151,11 +161,11 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       justifyContent: "center",
       alignItems: "center",
     },
-   
+
     main: {
-      width:"100%",
-      display:"flex",
-      justifyContent:"center",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
     },
     text: {
       position: "absolute",
@@ -169,10 +179,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       display: "flex",
       justifyContent: "space-between",
     },
-    image: {
-      width: "290px",
-      borderRadius: "10px",
-    },
+
     size: {
       display: "flex",
       flexDirection: "row",
@@ -182,19 +189,20 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     },
     rootimg: {
       position: "relative",
-      marginBottom:"60px"
+      marginBottom: "60px",
     },
     cart: {
       height: "35px",
       width: "84px",
-      borderRadius: "40px",
+      borderRadius: "5px",
       background: "#FDC114",
+      cursor: "pointer",
       display: "flex",
       justifyContent: "space-evenly",
       alignItems: "center",
-      bottom: "15px",
-      left: "10px",
-      position: "absolute",
+      marginTop: "10px",
+      borderColor: "none",
+      zIndex: 1,
       transition: "all 0.2s linear",
       "&:hover": {
         transform: "scale(1.08)",
@@ -240,8 +248,8 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     root: {
       display: "flex",
       width: "95%",
-      
-     justifyContent:"center",
+
+      justifyContent: "center",
       alignItems: "center",
     },
     gridroot: {
@@ -269,13 +277,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       display: "flex",
       justifyContent: "space-between",
     },
-    image: {
-      width: "312px",
-      maxHeight: "450px",
-      objectFit: "cover",
-      borderRadius: "10px",
-      cursor: "pointer",
-    },
+
     size: {
       display: "flex",
       flexDirection: "row",
@@ -331,25 +333,8 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       fontWeight: "700",
       fontSize: "20px",
     },
+
   
-    cart: {
-      height: "35px",
-      width: "84px",
-      borderRadius: "40px",
-      background: "#FDC114",
-      cursor: "pointer",
-      display: "flex",
-      justifyContent: "space-evenly",
-      alignItems: "center",
-      borderColor: "none",
-      zIndex: 1200,
-      transition: "all 0.2s linear",
-      "&:hover": {
-        transform: "scale(1.08)",
-        transition: "left 0.2s linear",
-        background: "#FDC114",
-      },
-    },
     explore: {
       position: "absolute",
       top: "6px",
@@ -527,7 +512,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                                 <Typography
                                   style={{
                                     fontWeight: "600",
-                                    fontSize: "18px",
+                                    fontSize: "12px",
                                     fontFamily: "lato",
 
                                     left: "12px",
@@ -535,7 +520,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                                   variant="h4"
                                   component="h2"
                                   className={classes.carttitle2}
-                                >{`${percentage}%`}</Typography>
+                                >{`-${percentage}%`}</Typography>
                               </div>
                             </div>
                             <div className={classes.cartbackground}>
@@ -544,14 +529,25 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                                   fontWeight: "600",
                                   fontSize: "18px",
                                   fontFamily: "lato",
-                                  marginTop: "20px",
+                                  marginTop: "10px",
                                   left: "12px",
                                 }}
                                 variant="h4"
                                 component="h2"
                                 className={classes.carttitle}
                               >
-                                Size:
+                                Size:{" "}
+                                <span className={classes.sizes}>
+                                  {size == 0
+                                    ? "XL"
+                                    : "S" || size == 1
+                                    ? "L"
+                                    : "S" || size == 2
+                                    ? "M"
+                                    : "S" || size == 3
+                                    ? "S"
+                                    : "S"}
+                                </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
                                 <CircularProgress />
