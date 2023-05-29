@@ -11,10 +11,23 @@ const Caloborators = () => {
 
   SwiperCore.use([Autoplay]);
   const useStyles = makeStyles((theme) => ({
+    main: {
+      backgroundColor: "rgba(156, 156, 156, 0.1)",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      position:"relative",
+      marginBottom:"0px",
+      marginTop: "100px",
+      width: "100%",
+    },
     root: {
-      background: theme.palette.reaction.gradient,
-      position: "relative",
-      margin: "50px",
+      marginTop: "40px",
+marginBottom:"60px",
+      display: "flex",
+      justifyContent: "center",
+      allignItems:"center",
+      width: "80%",
     },
     image: {
       height: "100px",
@@ -40,11 +53,13 @@ const Caloborators = () => {
       justifyContent: "space-between",
     },
     iconforwad: {
-      cursor: "pointer",
       position: "absolute",
-      bottom: "41%",
-      right: "20px",
-      background: "#333333",
+      bottom: "180px",
+      right: "30px",
+      height: "50px",
+      width: "50px",
+      padding: "18px",
+      background: "#000000",
       color: "FDC114",
       borderRadius: "4px",
       cursor: "pointer",
@@ -52,12 +67,14 @@ const Caloborators = () => {
     },
     iconback: {
       position: "absolute",
-      bottom: "90px",
-      left: "20px",
-      borderRadius: "4px",
+      bottom: "180px",
+      height: "50px",
+      padding: "18px",
+      width: "50px",
+      left: "30px",
+      borderRadius: "5px",
       color: "FDC114",
-      background: "#333333",
-      bottom: "41%",
+      background: "#000000",
       cursor: "pointer",
       zIndex: 1251,
     },
@@ -77,13 +94,37 @@ const Caloborators = () => {
     dark: {
       color: "#333333",
     },
-    main: {
-      width: "100%",
-      position: "relative",
-    },
+
     mainheading: {
-      paddingTop: "30px",
-      paddingLeft: "50px",
+      display: "flex",
+      marginTop: "60px",
+      justifyContent: "center",
+      textTransform: "uppercase",
+      position: "relative",
+      width: "100%",
+    },
+    spanline: {
+      marginTop: "20px",
+      bottom: 0,
+      left: 0,
+      height: "5px",
+      marginLeft: "10px",
+      width: "50px",
+      backgroundColor: "#FDC114",
+    },
+    mainheadings: {
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      allignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+    },
+    heading: {
+      display: "flex",
+      justifyContent: "center",
+      allignItems: "center",
+      marginTop: theme.spacing(2),
     },
     swiperslide: {
       display: "flex",
@@ -127,27 +168,28 @@ const lastIndex = sellers?.length - 1;
   const classes = useStyles();
   return (
     <div className={classes.main}>
-      <div className={classes.mainheading}>
-        <Typography variant="h3">Collaborators</Typography>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+          our collaborators <span className={classes.spanline}></span>
+        </Typography>
       </div>
 
-      <div className={classes.root}>
+      <div >
         <Swiper
           ref={sliderRef}
           autoplay={{ delay: 3000 }}
+          className={classes.root}
           loop={false}
           breakpoints={{
             1600: {
-              width: 1600,
-              slidesPerView: 7,
+              slidesPerView: 9,
             },
             1200: {
-              width: 1200,
-              slidesPerView: 6,
+              slidesPerView: 9,
             },
             1000: {
               width: 1000,
-              slidesPerView: 5,
+              slidesPerView: 6,
             },
 
             800: {
@@ -171,17 +213,17 @@ const lastIndex = sellers?.length - 1;
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
-      <div className={classes.controller}>
-        {lastIndex && (
-          <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
-        )}
+        <div className={classes.controller}>
+          {lastIndex && (
+            <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
+          )}
 
-        {activeIndex - 0 ? (
-          <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
-        ) : (
-          ""
-        )}
+          {activeIndex - 0 ? (
+            <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
+          ) : (
+            ""
+          )}
+        </div>
       </div>
     </div>
   );

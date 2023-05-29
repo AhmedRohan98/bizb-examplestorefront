@@ -16,6 +16,10 @@ const Instagram = (props) => {
       justifyContent: "center",
       flexDirection: "column",
     },
+    maindiv:{
+      maxWidth:"1300px",
+      marginTop:"60px"
+    },
     gridroot: {
       display: "flex",
       alignItems: "center",
@@ -24,9 +28,9 @@ const Instagram = (props) => {
       position: "relative",
     },
     image: {
-      width: "382px",
-      height: "auto",
-      marginBottom: "20px",
+      width: "440px",
+      height: "440px",
+     
       [theme.breakpoints.down(600)]: {
         width: "32vw",
         paddingRight: "0",
@@ -36,15 +40,37 @@ const Instagram = (props) => {
     },
 
     mainheading: {
-      paddingTop: "30px",
-      paddingLeft: "50px",
+      display: "flex",
+      marginTop: "60px",
+      marginBottom:"60px",
+      justifyContent: "center",
+      textTransform: "uppercase",
+      position: "relative",
+      width: "100%",
+    },
+    spanline: {
+      marginTop: "20px",
+      bottom: 0,
+      left: 0,
+      height: "5px",
+      marginLeft: "10px",
+      width: "50px",
+      backgroundColor: "#FDC114",
+    },
+    mainheadings: {
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      allignItems: "center",
+      justifyContent: "center",
+      width: "100%",
     },
     text: {
       position: "absolute",
-      top: "40px",
-      left: "40px",
-      width: "382px",
-      height: "auto",
+      top: "8px",
+      left: "8px",
+      width: "440px",
+      height: "440px",
       color: "white",
       padding: "1rem",
       backgroundColor: "rgba(0, 0, 0, 0.7)",
@@ -57,32 +83,48 @@ const Instagram = (props) => {
         left: "0",
       },
     },
+    main: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      position: "relative",
+      marginBottom: "60px",
+      marginTop: "100px",
+      width: "100%",
+    },
+    instagramdiv:{
+      maxWidth:"1390px"
+    }
   }));
 
   const lastImageIndex = images?.length - 1;
   const classes = useStyles();
   return (
-    <>
-      <div className={classes.mainheading}>
-        <Typography variant="h3">Instagram</Typography>
+    <div className={classes.main}>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+          instagram <span className={classes.spanline}></span>
+        </Typography>
       </div>
       <div className={classes.root}>
         <Hidden smDown>
-          <Grid container xs={12} spacing={10} alignItems="center" justify="center">
-            {images?.map((item, i) => (
-              <Grid item className={classes.gridroot}>
-                <a target="_blank" href={item.permalink}>
-                  <img src={item.media_url} className={classes.image} />
-                  {i === lastImageIndex ? (
-                    <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>
-                  ) : null}
-                </a>
-              </Grid>
-            ))}
-          </Grid>
+          <div className={classes.instagramdiv}>
+            <Grid container xs={12} spacing={2} alignItems="center" justify="center" maxWidth={1260}>
+              {images?.map((item, i) => (
+                <Grid item className={classes.gridroot}>
+                  <a target="_blank" href={item.permalink}>
+                    <img src={item.media_url} className={classes.image} />
+                    {i === lastImageIndex ? (
+                      <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>
+                    ) : null}
+                  </a>
+                </Grid>
+              ))}
+            </Grid>
+          </div>
         </Hidden>
         <Hidden mdUp>
-          <Grid container xs={12} alignItems="center" justify="center">
+          <Grid container xs={12} alignItems="center" justify="center" className={classes.maindiv}>
             {images?.map((item, i) => (
               <Grid item className={classes.gridroot}>
                 <a target="_blank" href={item.permalink}>
@@ -96,7 +138,7 @@ const Instagram = (props) => {
           </Grid>
         </Hidden>
       </div>
-    </>
+    </div>
   );
 };
 

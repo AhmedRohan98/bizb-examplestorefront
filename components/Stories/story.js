@@ -23,16 +23,12 @@ const Story = (props) => {
   const catgormobile = catagories?.slice(0, 3);
   const [activeIndex, setActiveIndex] = useState(0);
   const useStyles = makeStyles((theme) => ({
-    root: {
-      background: theme.palette.reaction.gradient,
-      position: "relative",
-      margin: "50px",
-    },
     image: {
       height: "100px",
       display: "flex",
       allignItems: "center",
       justifyContent: "center",
+      objectFit:"contain",
       width: "100px",
       margin: "10px",
       borderRadius: "100%",
@@ -53,9 +49,12 @@ const Story = (props) => {
     },
     iconforwad: {
       position: "absolute",
-      bottom: "130px",
+      bottom: "120px",
       right: "20px",
-      background: "#333333",
+      height: "50px",
+      width: "50px",
+      padding: "18px",
+      background: "#000000",
       color: "FDC114",
       borderRadius: "4px",
       cursor: "pointer",
@@ -63,17 +62,21 @@ const Story = (props) => {
     },
     iconback: {
       position: "absolute",
-      bottom: "130px",
+      bottom: "120px",
+      height: "50px",
+      padding: "18px",
+      width: "50px",
       left: "20px",
-      borderRadius: "4px",
+      borderRadius: "5px",
       color: "FDC114",
-      background: "#333333",
+      background: "#000000",
       cursor: "pointer",
       zIndex: 1251,
     },
     catgorytag: {
       display: "flex",
       flexDirection: "row",
+      justifyContent: "center",
       marginTop: theme.spacing(3),
       [theme.breakpoints.down(700)]: {
         display: "none",
@@ -99,34 +102,74 @@ const Story = (props) => {
       flexDirection: "column",
       justifyContent: "center",
       allignItems: "center",
+      textAlign:"center",
       width: "120px",
     },
     catagoriesinactive: {
       color: "#000000",
       cursor: "pointer",
-      marginRight: theme.spacing(3),
+      marginRight: "36px",
     },
     catagoriesactive: {
-      color: "#FDC114",
-      textDecoration: "line-through",
-      WebkitTextDecorationThickness: "4x" /* set thickness to 2 pixels for webkit-based browsers */,
-      textDecorationThickness: "4px",
-      textDecorationColor: "rgba(51,51,51,0.15)",
-      marginRight: theme.spacing(3),
+      color: "#000000",
+      display: "inline-block",
+      marginRight: "36px",
+      position: "relative",
+      textDecoration: "none",
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        bottom: "-5px",
+        width: "100%",
+        height: "5px",
+        backgroundColor: "#FDC114",
+      },
       "&:hover": {
-        color: "#FDC114",
+        color: "#000000",
       },
     },
     dark: {
       color: "#333333",
     },
     main: {
-      background: "#EAE7FF",
+      backgroundColor: "rgba(156, 156, 156, 0.1)",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
       width: "100%",
     },
+    root: {
+      background: theme.palette.reaction.gradient,
+      marginTop: "40px",
+
+      display:"flex",
+      justifyContent:"center",
+      width: "90%",
+    },
     mainheading: {
-      paddingTop: "30px",
-      paddingLeft: "50px",
+      display: "flex",
+      marginTop: "60px",
+      justifyContent: "center",
+      position: "relative",
+      width: "100%",
+    },
+    spanline: {
+      marginTop: "20px",
+      bottom: 0,
+      left: 0,
+      height: "5px",
+      marginLeft: "10px",
+      width: "50px",
+      backgroundColor: "#FDC114",
+    },
+    mainheadings: {
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      allignItems: "center",
+      justifyContent: "center",
+      width: "100%",
     },
     heading: {
       display: "flex",
@@ -394,10 +437,12 @@ const Story = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.main}>
-      <div className={classes.mainheading}>
-        <Typography variant="h3">STORES</Typography>
+      <div className={classes.mainheadings}>
+        <Typography variant="h3" className={classes.mainheading}>
+          STORES <span className={classes.spanline}></span>
+        </Typography>
         <div className={classes.catgorytag}>
-          {catagories?.slice(0,6)?.map((filterName) => (
+          {catagories?.slice(0, 6)?.map((filterName) => (
             <Filter
               name={filterName.displayTitle}
               onClick={() => setFilter(filterName.displayTitle) + setResource(filterName.displayTitle)}
@@ -405,63 +450,55 @@ const Story = (props) => {
             />
           ))}
         </div>
-       
       </div>
 
-      <div className={classes.root}>
+      <div className={classes.mainheadings}>
         <Swiper
+          spaceBetween={10}
           ref={sliderRef}
+          className={classes.root}
           breakpoints={{
             1600: {
-              width: 1600,
               slidesPerView: 7,
             },
             1200: {
-              width: 1200,
               slidesPerView: 6,
             },
             1000: {
-              width: 1000,
               slidesPerView: 5,
             },
-
             800: {
-              width: 800,
-              slidesPerView: 5,
-            },
-            600: {
-              width: 800,
               slidesPerView: 4,
             },
-            400: {
-              width: 800,
+            600: {
               slidesPerView: 3,
+            },
+            400: {
+              slidesPerView: 2,
             },
           }}
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
-          {" "}
-          <div className={classes.controller}>
-            {activeIndex < ITEMS.length - 1 ? (
-              <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
-            ) : (
-              ""
-            )}
-            {activeIndex &&sellers.length - 0 ? (
-              <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
-            ) : (
-              ""
-            )}
-          </div>
-          {/* {setIntial(sellers[1]?._id)} */}
           {sellers?.map((item) => (
             <SwiperSlide key={item.id} onClick={() => setSellerToGet(item?._id)} active={item.store === filterproducts}>
               <Item item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
-        <Storyslider sellerss={sellerss} cart={props?.cart} />
+        <div className={classes.controller}>
+          {activeIndex < ITEMS.length - 1 ? (
+            <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
+          ) : (
+            ""
+          )}
+          {activeIndex && sellers.length - 0 ? (
+            <ArrowBackIos className={classes.iconback} style={{ fill: "#FDC114" }} onClick={handlePrev} />
+          ) : (
+            ""
+          )}
+        </div>
       </div>
+      <Storyslider sellerss={sellerss} cart={props?.cart} />
     </div>
   );
 };

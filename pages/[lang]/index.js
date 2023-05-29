@@ -74,7 +74,7 @@ class ProductGridPage extends Component {
     const addItemsToCart = this.props.addItemsToCart;
 
     return typeof window !== undefined ? (
-      <Layout headerType={true}>
+      <Layout headerType={false}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
 
         <DynamicSlider
@@ -119,7 +119,7 @@ export async function getStaticProps({ params: { lang } }) {
   // console.log("data is ", data);
 
   const feed = await data.json();
-  // console.log("new feed", feed);
+  console.log("new feed", feed);
 
   if (!primaryShop?.shop) {
     return {

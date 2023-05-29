@@ -13,7 +13,10 @@ const Appsec = () => {
       flexDirection: "column",
       alignItems: "center",
       padding: "15px",
+      marginTop: "60px",
+
       justifyContent: "center",
+      marginBottom: "60px",
     },
     img: {
       width: "100%",
@@ -51,7 +54,7 @@ const Appsec = () => {
       width: "60vh",
 
       paddingTop: theme.spacing(5),
-      height:"400px",
+      height: "400px",
       justifyContent: "space-between",
       alignItems: "center",
     },
@@ -72,7 +75,6 @@ const Appsec = () => {
       height: "auto",
       width: "auto",
       marginTop: theme.spacing(4),
-
     },
     image: {
       height: "52px",
@@ -81,7 +83,7 @@ const Appsec = () => {
 
       [theme.breakpoints.up(700)]: {
         marginTop: theme.spacing(4),
-        marginBottom :theme.spacing(2)
+        marginBottom: theme.spacing(2),
       },
     },
     imae: {

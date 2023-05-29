@@ -40,11 +40,13 @@ const BizbCalloborators = () => {
     },
     image: {
       position: "relative",
+      marginTop:"100px",
       width: "100%",
     },
     collobarotors: {
       width: "100%",
       position: "relative",
+      marginBottom:"60px"
     },
     cart: {
       width: "10%",

@@ -61,6 +61,8 @@ const styles = (theme: Theme) =>
       cursor: "pointer",
       zIndex: 1200,
     },
+   
+
     dark: {
       color: "#333333",
       backgroundImage: "none !important",
@@ -188,9 +190,9 @@ const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
           >
             {/* @ts-ignore TODO: Refactor link to address type error */}
             {headerType ? (
-              <img src="/images/searchIconLight.svg" className="headerlogo" />
+              <img src="/icons/search.webp" className="headerlogo" />
             ) : (
-              <img src="/images/searchIconDark.svg" className="headerlogo" />
+              <img src="/icons/search.webp" className="headerlogo" />
             )}
           </span>
         </Hidden>
