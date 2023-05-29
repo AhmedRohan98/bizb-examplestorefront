@@ -31,12 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 
   gridroot: {
-    maxWidth: "1350px",
+    maxWidth: "1340px",
   },
   root: {
-    display: "flex",
+    display: "grid",
+    justifyItems: "center",
     alignItems: "start",
-    justifyContent: "center",
+    gridRowGap: 0,
     maxWidth: "100%",
   },
   typography: {
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   size: {
-    display: "flex",
+    // display: "flex",
     flexDirection: "row",
     marginLeft: theme.spacing(1),
   },
@@ -180,24 +181,24 @@ const useStyles = makeStyles((theme) => ({
     height: "501px",
     width: "315px",
     borderRadius: "5px",
-    marginBottom: "20px",
+  
     zIndex: 1,
     border: "0.5px solid #9C9C9C",
     gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-    marginBottom: "10px",
+    marginBottom: "20px",
   },
   boxcontairproduct4: {
     height: "501px",
-    marginBottom: "20px",
+  
     width: "315px",
     borderRadius: "5px",
-    marginBottom: "20px",
+
     border: "0.5px solid #9C9C9C",
     gridRowEnd: "span 1",
     zIndex: 1,
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-    marginBottom: "10px",
+    marginBottom: "20px",
   },
   boxcontairproduct3: {
     height: "333px",
@@ -206,7 +207,7 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "10px",
     marginBottom: "20px",
-    gridRowEnd: "span 2",
+
     zIndex: 1,
     border: "0.5px solid #9C9C9C",
   },
@@ -274,20 +275,19 @@ const Justin = (props) => {
 
   const catalogdata = props?.catalogItems;
   // console.log(catalogdata,"cat")
-const [soldOutProducts, setSoldOutProducts] = useState([]);
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
 
   const { uiStore } = props;
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
-// 
+  //
 
   // console.log(cart, "cartx");
 
   useEffect(() => {
-    uiStore?.setPageSize(15);
-  
+    uiStore?.setPageSize(16);
   }, []);
   // useEffect(() => {
   //   if (cart?.items?.length) {
@@ -319,7 +319,7 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
     });
     const soldOutProducts = catalogdata?.filter((product) => product?.node?.product?.isSoldOut);
     setSoldOutProducts(soldOutProducts);
-    
+
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [props?.cart?.items, catalogdata]);
@@ -370,12 +370,12 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
     const selectedVariant = variantById(product.variants, variant._id);
 
     // If variant is not already in the cart, add the new item
-// parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
-const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
+    // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
+    const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
     await addItemsToCart([
       {
         price: {
-          amount:price,
+          amount: price,
           currencyCode: "USD",
         },
         metafields: [
@@ -384,7 +384,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
             value: product.media[0]?.URLs?.large,
           },
         ],
-    
+
         productConfiguration: {
           productId: product.productId,
           productVariantId: selectedVariant.variantId,
@@ -396,16 +396,16 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
 
   const handleOnClick = async (product, variant) => {
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: true,
-  }));
+      ...prevState,
+      [product.productId]: true,
+    }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!");
     setIsLoading((prevState) => ({
-    ...prevState,
-    [product.productId]: false,
-  }));
+      ...prevState,
+      [product.productId]: false,
+    }));
     // Scroll to the top
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -436,12 +436,12 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
       />
       <div className={classes.mainheadings}>
         <Typography variant="h3" className={classes.mainheading}>
-          our blogs <span className={classes.spanline}></span>
+        Just IN <span className={classes.spanline}></span>
         </Typography>
       </div>
       <div className={classes.root}>
         <Grid container className={classes.gridroot}>
-          <Masonry columnsCount={4} gutter="10px">
+          <Masonry columnsCount={4} >
             {catalogdata?.map((item, index) => {
               console.log(index, "nodde");
               const cartitem = props?.cart?.items;
@@ -467,7 +467,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
 
               // console.log(optionTitle, "fil");
               return (
-                <>
+                <div style={{display: "block"}}>
                   <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
                     <div
                       className={
@@ -604,7 +604,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                       </div>
                     </div>
                   </Grid>
-                </>
+                </div>
               );
             })}
           </Masonry>
