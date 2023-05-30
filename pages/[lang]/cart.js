@@ -649,7 +649,7 @@ class CartPage extends Component {
  };
   handleAddToCartClick = async (product, variant) => {
     const { addItemsToCart } = this.props;
-    console.log("called", product);
+    // console.log("called", product);
     // Disable button after it has been clicked
 
     // console.log(pdpSelectedVariantId, "star");
@@ -681,7 +681,7 @@ class CartPage extends Component {
   };
 
   handleOnClick = async (product, variant) => {
-    console.log("called");
+    // console.log("called");
     this.setState((prevState) => ({
       isLoading: {
         ...prevState.isLoading,

@@ -5,18 +5,11 @@ import Grid from "@material-ui/core/Grid";
 import { useRouter } from "next/router";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { Element} from "react-scroll";
+import { Element } from "react-scroll";
 import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
-  },
   root2: {
     display: "flex",
     justifyContent: "center",
@@ -44,12 +37,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-  },
-  titleBar: {
-    background: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " + "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
-  },
-  icon: {
-    color: "white",
   },
   subtitle: {
     width: "534px",
@@ -96,9 +83,6 @@ const useStyles = makeStyles((theme) => ({
       right: "2%",
     },
   },
-  imagec: {
-    width: "100%",
-  },
   mobileicon: {
     display: "flex",
     alignItems: "center",
@@ -136,25 +120,6 @@ const useStyles = makeStyles((theme) => ({
       background: theme.palette.secondary.selected,
     },
   },
-  buttonshoptbecome: {
-    background: theme.palette.secondary.selected,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "180px",
-    height: "35px",
-    border: "none",
-
-    right: "50px",
-    position: "initial",
-    borderRadius: "40px",
-    transition: "all 0.2s linear",
-    "&:hover": {
-      transform: "scale(1.08)",
-      transition: "left 0.2s linear",
-      background: theme.palette.secondary.selected,
-    },
-  },
   buttonshopt: {
     fontSize: "22px",
     color: "#000000",
@@ -163,45 +128,6 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "26px",
     cursor: "pointer",
     fontFamily: "Ostrich Sans Black",
-  },
-  mobileview: {
-    height: "60px",
-    width: "350px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddig: "8px",
-    alignItems: "center",
-    background: theme.palette.reaction.black80,
-    borderRadius: "90px",
-    zIndex: 9999,
-    bottom: "10px",
-    position: "fixed",
-    display: "none",
-    [theme.breakpoints.down(700)]: {
-      display: "block",
-      height: "60px",
-      width: "90vw",
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      paddig: "8px",
-      alignItems: "center",
-      background: theme.palette.reaction.black80,
-      borderRadius: "90px",
-      zIndex: 1,
-      bottom: "10px",
-      position: "fixed",
-    },
-  },
-  mobileviewfixed: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "space-evenly",
-    justifyContent: "sapce-between",
-  },
-  mobileviewfixedText: {
-    color: "#ffffff",
   },
   imagess: {
     width: "100%",
@@ -213,7 +139,6 @@ const useStyles = makeStyles((theme) => ({
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  // console.log("all props....", props.nodes);
 
   var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;
@@ -223,7 +148,6 @@ const Preloved = (props) => {
   const clickHandler = (id) => {
     router.push("/en/categories/" + id);
   };
-  // console.log(res, "sssss");
 
   function FormRow1() {
     return (
@@ -365,7 +289,6 @@ const Preloved = (props) => {
             Now you can revamp your daily wear wardrobe every month while saving more than 50% from your monthly budget!
           </Typography>
         </Box>
-      
       </div>
 
       <Container className={classes.mobileicon} display={{ lg: "block", xl: "none", sm: "none" }}>

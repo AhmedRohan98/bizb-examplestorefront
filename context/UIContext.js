@@ -78,7 +78,7 @@ const [filterPrice, setFilterPrice] = useState([
 
   const setPageSize = (size) => {
     // Validate page size
-    console.log("set page si",size)
+    // console.log("set page si",size)
     _setPageSize(inPageSizes(size) ? size : PAGE_SIZES._20);
   };
 
