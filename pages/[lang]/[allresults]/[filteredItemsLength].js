@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AllResults(props) {
-  console.log(props.cart, "new");
+  // console.log(props.cart, "new");
   const { allItems, totalLength, uiStore, catalogItems,cart } = props;
   const {items}=cart
   const [soldOutProducts, setSoldOutProducts] = useState([]);
@@ -409,7 +409,7 @@ const firstThreeWords = words.slice(0, 3).join(" ");
 }
 
 export async function getServerSideProps({ params, query }) {
-  console.log("obj is ", params, query);
+  // console.log("obj is ", params, query);
   const { lang, allresults, filteredItemsLength } = params;
   return {
     props: {

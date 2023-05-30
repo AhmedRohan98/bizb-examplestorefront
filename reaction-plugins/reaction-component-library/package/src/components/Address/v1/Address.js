@@ -97,7 +97,7 @@ class Address extends Component {
 
   render() {
     const { address, addressOrder, className, isFlat } = this.props;
-    console.log(address,"sssss")
+    // console.log(address,"sssss")
     return (
       <AddressElement className={className}>
         {isFlat ? addressToString(address) : addressOrder.map(this.renderAddressProperty)}

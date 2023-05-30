@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
 import Link from "next/link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -25,11 +24,6 @@ const useStyles = makeStyles((theme) => ({
       padding: "0",
     },
   },
-  cardaction: {
-    height: 312,
-    width: 312,
-  },
-
   gridroot: {
     maxWidth: "1340px",
   },
@@ -46,56 +40,37 @@ const useStyles = makeStyles((theme) => ({
     height: "8px",
     width: "180px",
   },
-  text: {
-    position: "absolute",
-    bottom: 60,
-  },
   header: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-marginTop:"60px",
+    marginTop: "60px",
     height: "50px",
     position: "relative",
-  },
-  headermain: {
-    display: "flex",
-    justifyContent: "space-between",
   },
   image: {
     width: "315px",
     height: "387px",
-
     objectFit: "fill",
-
     cursor: "pointer",
   },
   image4: {
     width: "315px",
     height: "387px",
-
     objectFit: "fill",
-
     cursor: "pointer",
   },
   image2: {
     width: "315px",
     height: "231px",
     objectFit: "fill",
-
     cursor: "pointer",
   },
   image3: {
     width: "315px",
     height: "231px",
     objectFit: "fill",
-
     cursor: "pointer",
-  },
-  size: {
-    // display: "flex",
-    flexDirection: "row",
-    marginLeft: theme.spacing(1),
   },
   sizes: {
     height: "30px",
@@ -131,10 +106,8 @@ marginTop:"60px",
   },
   cartcontenttext: {
     display: "flex",
-
     flexDirection: "column",
   },
-
   cart: {
     height: "35px",
     width: "84px",
@@ -162,31 +135,10 @@ marginTop:"60px",
     color: "#FDC114",
     zIndex: 900,
   },
-  maintitle: {
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    width: "312px",
-    flexDirection: "column",
-  },
-  spanofnextword: {
-    color: "#FDC114",
-  },
-  toast: {
-    background: "yellow",
-    color: "black",
-  },
-  pricing: {
-    display: "flex",
-    flexDirection: "row",
-    marginLeft: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-  },
   boxcontairproduct: {
     height: "501px",
     width: "315px",
     borderRadius: "5px",
-
     zIndex: 1,
     border: "0.5px solid #9C9C9C",
     gridRowEnd: "span 1",
@@ -195,10 +147,8 @@ marginTop:"60px",
   },
   boxcontairproduct4: {
     height: "501px",
-
     width: "315px",
     borderRadius: "5px",
-
     border: "0.5px solid #9C9C9C",
     gridRowEnd: "span 1",
     zIndex: 1,
@@ -210,9 +160,7 @@ marginTop:"60px",
     width: "315px",
     borderRadius: "5px",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-
     marginBottom: "20px",
-
     zIndex: 1,
     border: "0.5px solid #9C9C9C",
   },
@@ -279,7 +227,6 @@ const Justin = (props) => {
   // const UIContextJustInPage = useContext(UIContext);
 
   const catalogdata = props?.catalogItems;
-  // console.log(catalogdata,"cat")
   const [soldOutProducts, setSoldOutProducts] = useState([]);
 
   const { uiStore } = props;
@@ -288,9 +235,6 @@ const Justin = (props) => {
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
   //
-
-  // console.log(cart, "cartx");
-
   useEffect(() => {
     uiStore?.setPageSize(16);
   }, []);
@@ -325,7 +269,6 @@ const Justin = (props) => {
     const soldOutProducts = catalogdata?.filter((product) => product?.node?.product?.isSoldOut);
     setSoldOutProducts(soldOutProducts);
 
-    // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [props?.cart?.items, catalogdata]);
   function selectVariant(variant, optionId) {
@@ -369,8 +312,6 @@ const Justin = (props) => {
 
     // Disable button after it has been clicked
 
-    // console.log(pdpSelectedVariantId, "star");
-
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
 
@@ -389,7 +330,6 @@ const Justin = (props) => {
             value: product.media[0]?.URLs?.large,
           },
         ],
-
         productConfiguration: {
           productId: product.productId,
           productVariantId: selectedVariant.variantId,
@@ -415,7 +355,6 @@ const Justin = (props) => {
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
-  //  const notify = () => toast("Wow so easy!");
   const classes = useStyles();
   return (
     <div className={classes.main}>
@@ -448,12 +387,12 @@ const Justin = (props) => {
         <Grid container className={classes.gridroot}>
           <Masonry columnsCount={4}>
             {catalogdata?.map((item, index) => {
-              console.log(index, "nodde");
+              // console.log(index, "nodde");
               const cartitem = props?.cart?.items;
               const isDisabled = cartitem?.some((data) => {
                 return data.productConfiguration.productId === item?.node?.product?.productId;
               });
-              // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
               const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
               const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
@@ -614,7 +553,6 @@ const Justin = (props) => {
             })}
           </Masonry>
         </Grid>
-        
       </div>
       <div className={classes.header}>
         <h1 className={classes.typography}></h1>

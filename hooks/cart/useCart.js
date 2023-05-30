@@ -136,7 +136,7 @@ export default function useCart() {
     update(cache, { data: mutationData }) {
       if (mutationData && mutationData.removeCartItems) {
         const { cart: cartPayload } = mutationData.removeCartItems;
-console.log(cart,"rrrrrrrrrrr")
+// console.log(cart,"rrrrrrrrrrr")
         if (cartPayload) {
           // Update Apollo cache
           cache.writeQuery({
