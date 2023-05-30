@@ -29,7 +29,7 @@ const Instagram = (props) => {
     },
     image: {
       width: "440px",
-      height: "440px",
+      
      
       [theme.breakpoints.down(600)]: {
         width: "32vw",
@@ -111,7 +111,7 @@ const Instagram = (props) => {
           <div className={classes.instagramdiv}>
             <Grid container xs={12} spacing={2} alignItems="center" justify="center" maxWidth={1260}>
               {images?.map((item, i) => (
-                <Grid item className={classes.gridroot}>
+                <Grid item className={classes.gridroot} xs={4}>
                   <a target="_blank" href={item.permalink}>
                     <img src={item.media_url} className={classes.image} />
                     {i === lastImageIndex ? (

@@ -475,7 +475,7 @@ const Justin = (props) => {
               // console.log(optionTitle, "fil");
               return (
                 <div style={{ display: "block" }}>
-                  <Grid item lg={3} sm={6} md={4} xs={12} style={{ display: "flex", justifyContent: "flex-start" }}>
+               
                     <div className={classes.boxcontairproduct}>
                       <Link
                         href={item.node.product.slug && "en/product/[...slugOrId]"}
@@ -592,7 +592,7 @@ const Justin = (props) => {
                         </div>
                       </div>
                     </div>
-                  </Grid>
+                 
                 </div>
               );
             })}
