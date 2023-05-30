@@ -186,6 +186,7 @@ const useStyles = makeStyles((theme) => ({
   },
   boxcontairproduct: {
     maxHeight: "700px",
+     
     width: "315px",
     borderRadius: "5px",
     

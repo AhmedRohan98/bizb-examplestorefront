@@ -16,9 +16,9 @@ const Instagram = (props) => {
       justifyContent: "center",
       flexDirection: "column",
     },
-    maindiv:{
-      maxWidth:"1300px",
-      marginTop:"60px"
+    maindiv: {
+      maxWidth: "1300px",
+      marginTop: "60px",
     },
     gridroot: {
       display: "flex",
@@ -28,9 +28,9 @@ const Instagram = (props) => {
       position: "relative",
     },
     image: {
-      width: "440px",
-      
-     
+      maxWidth: "440px",
+      maxHeight: "640px",
+
       [theme.breakpoints.down(600)]: {
         width: "32vw",
         paddingRight: "0",
@@ -42,7 +42,7 @@ const Instagram = (props) => {
     mainheading: {
       display: "flex",
       marginTop: "60px",
-      marginBottom:"60px",
+      marginBottom: "60px",
       justifyContent: "center",
       textTransform: "uppercase",
       position: "relative",
@@ -92,9 +92,9 @@ const Instagram = (props) => {
       marginTop: "100px",
       width: "100%",
     },
-    instagramdiv:{
-      maxWidth:"1390px"
-    }
+    instagramdiv: {
+      maxWidth: "1390px",
+    },
   }));
 
   const lastImageIndex = images?.length - 1;
