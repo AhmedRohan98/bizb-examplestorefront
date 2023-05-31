@@ -11,6 +11,7 @@ import TableContainer from "@material-ui/core//TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { withComponents } from "@reactioncommerce/components-context";
 const styles = (theme) => ({
   loadMore: {
     display: "flex",
@@ -216,10 +217,16 @@ class CartItems extends Component {
     onChangeCartItemQuantity(quantity, _id);
   };
 
-  handleRemoveItem = async(_id) => {
+  static defaultProps = {
+    isMiniCart: false,
+    isReadOnly: false,
+    onChangeCartItemQuantity() {},
+    onRemoveItemFromCart() {},
+  };
+  handleRemoveItem = async (itemID) => {
     const { onRemoveItemFromCart } = this.props;
-// console.log("id",_id)
-  await  onRemoveItemFromCart(_id);
+    console.log("id", this.props);
+    await onRemoveItemFromCart(itemID);
     // console.log("item clicked", onRemoveItemFromCart);
   };
 
@@ -321,4 +328,4 @@ class CartItems extends Component {
   }
 }
 
-export default withStyles(styles)(CartItems);
+export default withComponents(withStyles(styles)(CartItems));

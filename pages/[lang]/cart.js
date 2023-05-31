@@ -641,12 +641,12 @@ class CartPage extends Component {
   // Your async logic here
 
   clickHandler = (item) => {
-   const productSlug = item;
+    const productSlug = item;
 
-   const url = `/en/product/${productSlug}`;
-   const newWindow = window.open(url, "_blank");
-   newWindow.opener.focus();
- };
+    const url = `/en/product/${productSlug}`;
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener.focus();
+  };
   handleAddToCartClick = async (product, variant) => {
     const { addItemsToCart } = this.props;
     // console.log("called", product);
@@ -698,6 +698,11 @@ class CartPage extends Component {
       },
     }));
     // Scroll to the top
+  };
+  handleRemoveItem = async (itemId) => {
+    const { onRemoveCartItems } = this.props;
+
+    await onRemoveCartItems(itemId);
   };
   renderCartItems() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems, catalogItems } = this.props;
@@ -975,6 +980,7 @@ class CartPage extends Component {
   }
 }
 
+
 /**
  *  Server props for the cart route
  *
@@ -984,10 +990,10 @@ class CartPage extends Component {
 export async function getServerSideProps({ params: { lang } }) {
   return {
     props: {
-      ...(await fetchPrimaryShop(lang)),
-      ...(await fetchTranslations(lang, ["common"])),
-    },
+      ...await fetchPrimaryShop(lang),
+      ...await fetchTranslations(lang, ["common"])
+    }
   };
 }
 
-export default withApollo()(withStyles(styles)(withCart(withCatalogItems(inject("uiStore")(CartPage)))));
+export default withApollo()(withStyles(styles)(withCart(inject("uiStore")(CartPage))));
