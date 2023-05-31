@@ -72,6 +72,13 @@ query catalogItemsQuery(
                 displayPrice
                 __typename
               }
+              media {
+                URLs {
+                  small
+                  large
+                  medium
+                }
+              }
               _id
               variantId
               optionTitle
