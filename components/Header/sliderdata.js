@@ -1,6 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
-import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import Story from "../Stories/story";
 import Justin from "../Justin/justin";
@@ -8,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Preloved from "../Preloved/prelovedSec";
 import Appsec from "../Appsection/appsec";
 import Instagram from "../Instagram/instagram";
-import SwiperCore, {  Pagination, Autoplay ,Navigation} from "swiper";
+import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
 import OurBlogs from "../Ourblogs/ourblog";
 import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
@@ -24,14 +23,9 @@ const MainSlider = (props) => {
     main: {
       marginTop: "25px",
     },
-
     root: {
       position: "relative",
     },
-    // scroll: {
-
-    // } ,
-
     image: {
       height: "80vh",
       width: "100%",
@@ -43,7 +37,6 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
-
       background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
       mixBlendMode: "pass-through",
       zIndex: 9999,
@@ -52,53 +45,16 @@ const MainSlider = (props) => {
       bottom: "5px",
       height: "170px",
     },
-
     controllert: {
       position: "absolute",
       display: "flex",
       flexDirection: "row",
-
       zIndex: 9998,
       width: "300px",
       bottom: "40px",
     },
-
-    title: {
-      color: theme.palette.reaction.reactionBlue,
-      marginRight: theme.spacing(),
-      borderBottom: `solid 5px ${theme.palette.reaction.reactionBlue200}`,
-    },
-    top: {
-      // alignItems: "center",
-      display: "flex",
-      marginTop: "200px",
-    },
     text: {
       fontSize: "18px",
-      color: "white",
-
-      Fontfamily: "Circular Std",
-    },
-    dark: {
-      color: "#333333",
-    },
-    iconforwad: {
-      cursor: "pointer",
-      height: "auto",
-      color: "white",
-      position: "absolute",
-      right: "2px",
-    },
-    iconback: {
-      cursor: "pointer",
-      height: "auto",
-      color: "white",
-      zIndex: 9999,
-      position: "absolute",
-      left: "2px",
-    },
-    arrowc: {
-      height: "auto",
       color: "white",
     },
     sliderr: {
@@ -117,7 +73,7 @@ const MainSlider = (props) => {
         display: "none",
       },
     },
-    swiperpaggination: {
+    swiperPagination: {
       "& .swiper-pagination": {
         position: "absolute",
         top: "50%",
@@ -138,7 +94,6 @@ const MainSlider = (props) => {
         background: "none",
         color: "none",
         border: "1px solid black",
-
         opacity: 1,
         // Add spacing at the top
       },
@@ -148,24 +103,13 @@ const MainSlider = (props) => {
         marginTop: "12px",
         marginBottom: "12px",
         transition: "width 0.5s",
-
         background: "black",
-
         opacity: 1,
       },
     },
     mobileima: {
       marginTop: theme.spacing(6),
       width: "100%",
-    },
-    topheaderfor: {
-      backgroundImage: "linear-gradient(180deg, #000000 34.9%, rgba(0, 0, 0, 0) 100%) !important",
-      opacity: "0.7 !important",
-      position: "absolute",
-      top: "0vh",
-      width: "100%",
-      height: "170px",
-      zIndex: 1200,
     },
   }));
   const ITEMS = [
@@ -216,7 +160,6 @@ const MainSlider = (props) => {
   }, []);
 
   const classes = useStyles();
- 
 
   return (
     <>
@@ -228,11 +171,7 @@ const MainSlider = (props) => {
                 <Link to="target-element" smooth={true} duration={2000}>
                   {" "}
                   <div style={{ display: "flex", cursor: "pointer" }}>
-                    <img
-                      style={{ marginRight: "12px" }}
-                      src="/icons/scrolltodiscovermore.webp"
-                      className={classes.ie}
-                    />
+                    <img style={{ marginRight: "12px" }} src="/icons/scrolltodiscovermore.webp" />
                     <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
                       Scroll to discover more
                     </Typography>
@@ -247,6 +186,7 @@ const MainSlider = (props) => {
               modules={[Pagination, Autoplay, Navigation]}
               pagination={{ clickable: true }}
               className={classes.swiperpaggination}
+
             >
               {ITEMS.map((item) => (
                 <SwiperSlide>

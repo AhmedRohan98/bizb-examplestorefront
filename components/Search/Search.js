@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   input: {
+    borderRadius: "18px",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.common.white,
     textTransform: "none",
@@ -66,24 +67,24 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  paper: {
-    position: "absolute",
-    outline: "none",
-    width: "92%",
-    height: "",
-    borderRadius: "18px",
-    backgroundColor: "transparent",
-    // transform: "translate(-50%, -50%)",
-    top: "170px",
-    left: "62px",
-  },
-  icon: {
-    cursor: "pointer",
-    "&:hover": {
-      transform: "scale(1.08)",
-      transition: "left 0.2s linear",
-    },
-  },
+  // paper: {
+  //   position: "absolute",
+  //   outline: "none",
+  //   width: "92%",
+  //   height: "",
+  //   borderRadius: "18px",
+  //   backgroundColor: "transparent",
+  //   // transform: "translate(-50%, -50%)",
+  //   top: "170px",
+  //   left: "62px",
+  // },
+  // icon: {
+  //   cursor: "pointer",
+  //   "&:hover": {
+  //     transform: "scale(1.08)",
+  //     transition: "left 0.2s linear",
+  //   },
+  // },
   CloseIcon: {
     cursor: "pointer",
     height: "33px",
@@ -108,11 +109,11 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     borderBottom: "1px solid #e5e5e5 !important",
   },
-  cartimage: {
-    height: "188px",
-    width: "254px",
-    borderRadius: "10px",
-  },
+  // cartimage: {
+  //   height: "188px",
+  //   width: "254px",
+  //   borderRadius: "10px",
+  // },
   cartitemtext: {
     display: "flex",
     flexDirection: "column",
@@ -166,7 +167,7 @@ const handleSearchSubmit = (event) => {
   const trimmedValue = searchLocal?.trim(); // remove leading/trailing spaces
   if (trimmedValue) {
     uiStore?.setSearchItems(trimmedValue);
-    console.log(trimmedValue, "query2");
+    // console.log(trimmedValue, "query2");
   }
 };
  const handleSearchChange = (event) => {
