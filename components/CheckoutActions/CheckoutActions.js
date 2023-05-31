@@ -611,7 +611,7 @@ const CheckoutActions = (prop) => {
                       Phone Number <span style={{ color: "#FD1010" }}>*</span>
                     </span>
                     <TextField
-                      placeholder="Enter your name"
+                      placeholder="Enter Your Phone Number Without Zero"
                       type="tel"
                       InputProps={{
                         style: { color: "black" },
