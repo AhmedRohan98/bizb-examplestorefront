@@ -21,8 +21,8 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
  * @name buildJSONLd
  * @param {Object} product - The product
  * @param {Object} shop - The shop
- * 
- * 
+ *
+ *
  * @summary Builds a JSONLd object from product properties.
  * @return {String} Stringified product jsonld
  */
@@ -77,14 +77,14 @@ function buildJSONLd(product, shop) {
  * @param {Object} shop - the shop this product belong to
  * @return {React.Component} The product detail page
  */
-function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems ,cart,uiStore}) {
+function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems, cart, uiStore }) {
   const router = useRouter();
   // console.log(uiStore,"page si")
-  const {setPageSize}=uiStore;
-  
-useEffect(() => {
-  setPageSize(100);
-}, []);
+  const { setPageSize } = uiStore;
+
+  useEffect(() => {
+    setPageSize(100);
+  }, []);
 
   const currencyCode = (shop && shop.currency.code) || "USD";
   const JSONLd = useMemo(() => {
@@ -128,7 +128,7 @@ DynamicSlider.propTypes = {
   /**
    * Catalog Product item
    */
-   cart:PropTypes.array,
+  cart: PropTypes.array,
   catalogItems: PropTypes.array,
   product: PropTypes.object,
   shop: PropTypes.shape({
@@ -184,6 +184,5 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-
 
 export default withApollo()(withCart(withCatalogItems(ProductDetailPage)));
