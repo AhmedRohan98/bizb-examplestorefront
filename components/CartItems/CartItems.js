@@ -176,7 +176,13 @@ const styles = (theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  cartimage2:{
+    height:"40px",
+    width:"30px",
+    margin:"10px"
+  }
 });
+
 
 class CartItems extends Component {
   static propTypes = {
@@ -294,13 +300,14 @@ class CartItems extends Component {
                         <Typography variant="h4" className={classes.cartpric}>
                           Store:{item?.productVendor}
                         </Typography>{" "}
+                        <img
+                          style={{ cursor: "pointer",  }}
+                          src="/cart/icon.svg"
+                          className={classes.cartimage2}
+                          alt={item.title}
+                          onClick={() => this.handleRemoveItem(item._id)}
+                        />
                       </div>
-                      <img
-                        style={{ cursor: "pointer" }}
-                        src="/cart/icon.svg"
-                        alt={item.title}
-                        onClick={() => this.handleRemoveItem(item._id)}
-                      />
                     </div>
                   </TableCell>
                   <TableCell align="right">
