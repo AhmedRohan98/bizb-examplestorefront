@@ -49,11 +49,15 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
   image: {
-    width: "315px",
-    height: "387px",
-    objectFit: "fill",
+    width: "312px", // Reduced by 1px to create space for the border
+    maxHeight: "600px",
+    marginTop:"1px",
+    marginRight:"2px",
+    marginLeft:"1px",
+        objectFit: "cover",
     cursor: "pointer",
   },
+
   image4: {
     width: "315px",
     height: "387px",
@@ -136,17 +140,18 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 900,
   },
   boxcontairproduct: {
-    height: "501px",
+    maxHeight: "700px",
+     
     width: "315px",
     borderRadius: "5px",
-    zIndex: 1,
-    border: "0.5px solid #9C9C9C",
+    zIndex: 9999,
+    border: "1px solid #9C9C9C",
     gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "20px",
   },
   boxcontairproduct4: {
-    height: "501px",
+    maxHeight: "780px",
     width: "315px",
     borderRadius: "5px",
     border: "0.5px solid #9C9C9C",
@@ -236,7 +241,7 @@ const Justin = (props) => {
   const [isLoading, setIsLoading] = useState({});
   //
   useEffect(() => {
-    uiStore?.setPageSize(16);
+    uiStore?.setPageSize(15);
   }, []);
   // useEffect(() => {
   //   if (cart?.items?.length) {
@@ -385,7 +390,7 @@ const Justin = (props) => {
       </div>
       <div className={classes.root}>
         <Grid container className={classes.gridroot}>
-          <Masonry columnsCount={4}>
+          <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
             {catalogdata?.map((item, index) => {
               // console.log(index, "nodde");
               const cartitem = props?.cart?.items;
@@ -412,18 +417,8 @@ const Justin = (props) => {
               // console.log(optionTitle, "fil");
               return (
                 <div style={{ display: "block" }}>
-                  <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                    <div
-                      className={
-                        index % 8 < 4
-                          ? index % 2 === 0
-                            ? classes.boxcontairproduct
-                            : classes.boxcontairproduct2
-                          : index % 2 === 0
-                          ? classes.boxcontairproduct3
-                          : classes.boxcontairproduct4
-                      }
-                    >
+               
+                    <div className={classes.boxcontairproduct}>
                       <Link
                         href={item.node.product.slug && "en/product/[...slugOrId]"}
                         as={item.node.product.slug && `en/product/${item.node.product.slug}`}
@@ -435,15 +430,7 @@ const Justin = (props) => {
                                 ? "/justin/justin4.svg"
                                 : item?.node?.product?.media[0]?.URLs?.large
                             }
-                            className={
-                              index % 8 < 4
-                                ? index % 2 === 0
-                                  ? classes.image
-                                  : classes.image2
-                                : index % 2 === 0
-                                ? classes.image3
-                                : classes.image4
-                            }
+                            className={classes.image}
                             key={item?.node?.product?.id}
                             alt={"hhhh"}
                           />
@@ -547,7 +534,7 @@ const Justin = (props) => {
                         </div>
                       </div>
                     </div>
-                  </Grid>
+                 
                 </div>
               );
             })}

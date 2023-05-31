@@ -184,8 +184,9 @@ const MainSlider = (props) => {
               autoplay
               ref={sliderRef}
               modules={[Pagination, Autoplay, Navigation]}
-              pagination={true}
-              className={classes.swiperPagination}
+              pagination={{ clickable: true }}
+              className={classes.swiperpaggination}
+
             >
               {ITEMS.map((item) => (
                 <SwiperSlide>
