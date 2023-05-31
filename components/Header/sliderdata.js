@@ -38,7 +38,7 @@ const MainSlider = (props) => {
       justifyContent: "center",
       background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
       mixBlendMode: "pass-through",
-      zIndex: 9999,
+      zIndex: 2,
       opacity: 1,
       width: "100%",
       bottom: "5px",
