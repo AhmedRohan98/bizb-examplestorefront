@@ -308,7 +308,7 @@ const CheckoutActions = (prop) => {
     productConfiguration: item.productConfiguration,
     quantity: item.quantity,
   }));
-  console.log(cart);
+  // console.log(cart);
   const handlepay = async (values, action) => {
     try {
       // const { data } = apolloClient.mutate({

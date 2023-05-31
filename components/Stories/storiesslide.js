@@ -25,7 +25,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
         disabled: item.inCart || isItemInCart,
       };
     });
-    console.log(updatedItems, "all");
+    // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [cart?.item, sellerss]);
   const useStyles = makeStyles((theme) => ({

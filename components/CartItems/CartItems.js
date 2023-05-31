@@ -218,9 +218,9 @@ class CartItems extends Component {
 
   handleRemoveItem = async(_id) => {
     const { onRemoveItemFromCart } = this.props;
-console.log("id",_id)
+// console.log("id",_id)
   await  onRemoveItemFromCart(_id);
-    console.log("item clicked", onRemoveItemFromCart);
+    // console.log("item clicked", onRemoveItemFromCart);
   };
 
   render() {

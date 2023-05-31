@@ -86,7 +86,7 @@ interface HeaderProps extends WithStyles<typeof styles> {
 const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
   const [modalFlag, setModalFlag] = useState(false);
   const handleOpenModal = () => {
-    console.log("ModalFlag",modalFlag);
+    // console.log("ModalFlag",modalFlag);
     setModalFlag(true);
   };
   const handleNavigationToggleClick = () => {

@@ -24,7 +24,7 @@ export default function SellersCatalogItems(Component) {
     render() {
       const { primaryShopId, routingStore, uiStore, tag } = this.props;
       const sellerIds = uiStore?.sellerId;
-console.log("page",uiStore.pageSize);
+// console.log("page",uiStore.pageSize);
       const variables = {
         sellerIds: sellerIds,
         ...paginationVariablesFromUrlParams( { defaultPageLimit: uiStore?.pageSize }),

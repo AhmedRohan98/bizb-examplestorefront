@@ -25,7 +25,7 @@ export default (req, res) => {
   if (detections && detections.length) {
     detections.forEach((language) => {
       if (found || typeof language !== "string") return;
-      console.log("allowedLocales",allowedLocales)
+      // console.log("allowedLocales",allowedLocales)
       const lookedUpLocale = allowedLocales?.find((allowedLocale) => allowedLocale.name === language);
 
       if (lookedUpLocale) {
