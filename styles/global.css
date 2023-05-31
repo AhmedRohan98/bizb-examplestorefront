@@ -373,7 +373,21 @@ a:hover {
     margin: 0 10px;
   }
 }
-
+.swiper-button-prev:after, .swiper-button-next:after {
+    font-family: swiper-icons;
+    /* font-size: var(--swiper-navigation-size); */
+    text-transform: none !important;
+    letter-spacing: 0;
+    font-size: 30px;
+    
+    padding: 16px;
+    background: black;
+    text-transform: none;
+    font-feature-settings: normal,;
+    font-variant: normal;
+    font-variant: initial;
+    line-height: 1;
+}
 .react-slick * {
   min-height: 0;
   min-width: 0;

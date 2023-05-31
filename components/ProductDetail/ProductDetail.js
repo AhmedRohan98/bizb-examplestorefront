@@ -319,10 +319,15 @@ const styles = (theme) => ({
     objectFit: "contain",
   },
   thumbimage: {
-    borderRadius: "18px",
-    objectFit: "cover",
     height: "160px",
     width: "180px",
+    // paddingTop: "10px",
+  },
+  thumbimages: {
+    objectFit: "cover",
+    maxHeight: "160px",
+    width: "180px",
+    borderRadius: "18px",
     // paddingTop: "10px",
   },
   carttex: {
@@ -753,7 +758,7 @@ const ProductDetail = ({ ...props }) => {
                         return (
                           <SwiperSlide key={index}>
                             <div className={classes.thumbimage}>
-                              <img src={slide.URLs.thumbnail} alt="" className={classes.thumbimage} />
+                              <img src={slide.URLs.thumbnail} alt="" className={classes.thumbimages} />
                             </div>
                           </SwiperSlide>
                         );
