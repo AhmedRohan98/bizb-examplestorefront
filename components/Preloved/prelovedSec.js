@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
     textTransform: "uppercase",
     "&:hover": {
-      color: "black",
+      color: theme.palette.primary.contrastText,
     },
   },
   buttonshop: {

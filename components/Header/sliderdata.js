@@ -175,8 +175,9 @@ const MainSlider = (props) => {
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               autoplay
               ref={sliderRef}
+            
               modules={[Pagination, Autoplay, Navigation]}
-              pagination={{clickable:true}}
+              pagination={{ clickable: true }}
               className={classes.swiperPagination}
             >
               {ITEMS.map((item) => (
