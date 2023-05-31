@@ -192,14 +192,14 @@ const MainSlider = (props) => {
           </div>
         </div>
       </div>
-      <Preloved {...props} />
+      {/* <Preloved {...props} /> */}
       <Justin {...props} />
-      <Story {...props} />
+      {/* <Story {...props} />
       <BizbCalloborators />
       <Appsec />
       <Caloborators />
       <OurBlogs />
-      <Instagram {...props} />
+      <Instagram {...props} /> */}
     </>
   );
 };
