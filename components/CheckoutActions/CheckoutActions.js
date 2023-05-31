@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import Router from "translations/i18nRouter";
 import CloseIcon from "@material-ui/icons/Close";
 import { Grid, TextField, Typography, Button } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -12,7 +12,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { ToastContainer, toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { useFormik, useFormikContext } from "formik";
+
 import Select, { components } from "react-select";
 import { placeOrderQuery } from "../../hooks/orders/query";
 const useStyles = makeStyles((theme) => ({
@@ -298,10 +299,7 @@ const CheckoutActions = (prop) => {
 
   const [error, setError] = useState("");
 
-  const handleChangeEmail = (event) => {
-    setCheckedEmail(event.target.checked);
-  };
-
+  
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
     price: item.price.amount,
@@ -449,15 +447,14 @@ const CheckoutActions = (prop) => {
       console.log(error);
     }
   };
-  const initialValues = {
+  const [initialValues, setInitialValues] = useState({
     email: "",
     FullName: "",
     phonenumber: "",
     CompleteAddress: "",
     orderNotes: "",
-
     city: "",
-  };
+  });
   const addressSchema = Yup.object({
     email: Yup.string().email().required("Please enter your email"),
 
@@ -471,7 +468,7 @@ const CheckoutActions = (prop) => {
     orderNotes: Yup.string(),
   });
 
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue ,formik} = useFormik({
     initialValues,
     validationSchema: addressSchema,
     validateOnChange: true,
@@ -574,6 +571,25 @@ const CheckoutActions = (prop) => {
     { value: "Karachi", label: "Karachi" },
     { value: "Rawalpandi", label: "Rawalpandi" },
   ];
+ 
+  
+
+  const handleChangeEmail = (event) => {
+    formik.handleChange(event);
+  };
+
+  // useEffect(() => {
+  //   const storedValues = localStorage.getItem("formValues");
+  //   if (storedValues) {
+  //     setInitialValues(JSON.parse(storedValues));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("formValues", JSON.stringify(formik?.values));
+  //   setInitialValues(formik?.values); // Update initialValues with the latest formik values
+  // }, [formik?.values]);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
