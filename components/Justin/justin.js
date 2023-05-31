@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   gridroot: {
-    maxWidth: "1340px",
+    maxWidth: "1480px",
   },
   root: {
     display: "grid",
