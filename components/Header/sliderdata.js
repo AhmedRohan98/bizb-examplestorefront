@@ -13,7 +13,6 @@ import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
-
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props?.catalogItems;
@@ -129,7 +128,6 @@ const MainSlider = (props) => {
       image: "/Desktop-images/desktop4.webp",
       id: 4,
     },
-
     {
       image: "/Desktop-images/desktop5.webp",
       id: 6,
@@ -137,7 +135,6 @@ const MainSlider = (props) => {
   ];
   function Item({ item }) {
     const classes = useStyles();
-
     return (
       <>
         <SwiperSlide>
@@ -146,21 +143,16 @@ const MainSlider = (props) => {
       </>
     );
   }
-
   const sliderRef = useRef(null);
-
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
   }, []);
-
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-
   const classes = useStyles();
-
   return (
     <>
       <div className={classes.main}>
@@ -184,9 +176,8 @@ const MainSlider = (props) => {
               autoplay
               ref={sliderRef}
               modules={[Pagination, Autoplay, Navigation]}
-              pagination={{ clickable: true }}
-              className={classes.swiperpaggination}
-
+              pagination={{clickable:true}}
+              className={classes.swiperPagination}
             >
               {ITEMS.map((item) => (
                 <SwiperSlide>
@@ -200,22 +191,15 @@ const MainSlider = (props) => {
           </div>
         </div>
       </div>
-
       <Preloved {...props} />
-
       <Justin {...props} />
-
       <Story {...props} />
-
       <BizbCalloborators />
-
       <Appsec />
       <Caloborators />
-
       <OurBlogs />
       <Instagram {...props} />
     </>
   );
 };
-
 export default MainSlider;
