@@ -79,7 +79,7 @@ function buildJSONLd(product, shop) {
  */
 function ProductDetailPage({ addItemsToCart, product, isLoadingProduct, shop, catalogItems ,cart,uiStore}) {
   const router = useRouter();
-  console.log(uiStore,"page si")
+  // console.log(uiStore,"page si")
   const {setPageSize}=uiStore;
   
 useEffect(() => {

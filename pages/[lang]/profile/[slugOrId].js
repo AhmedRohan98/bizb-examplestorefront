@@ -20,7 +20,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 function SellerPublicProfile(props) {
-  console.log("propssssssssssssssssssssss", props);
+  // console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
@@ -172,7 +172,7 @@ function SellerPublicProfile(props) {
       marginBottom: theme.spacing(2),
     },
   }));
-  console.log(props.totalcount, "propertiese");
+  // console.log(props.totalcount, "propertiese");
   const router = useRouter();
    const shop = useShop();
   const { slugOrId } = router.query;
@@ -590,7 +590,7 @@ function SellerPublicProfile(props) {
   );
 }
 export async function getServerSideProps({ params, query }) {
-  console.log("obj is ", params, query);
+  // console.log("obj is ", params, query);
   const { lang, allresults, filteredItemsLength } = params;
   return {
     props: {
