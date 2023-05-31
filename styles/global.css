@@ -377,6 +377,7 @@ a:hover {
 .react-slick * {
   min-height: 0;
   min-width: 0;
+  border-radius: 18px;
 }
 
 .react-slick .slick-prev,

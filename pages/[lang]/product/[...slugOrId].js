@@ -184,5 +184,5 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-
+     
 export default withApollo()(withCart(withCatalogItems(ProductDetailPage)));
