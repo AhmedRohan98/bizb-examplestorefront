@@ -328,6 +328,7 @@ const styles = (theme) => ({
     maxHeight: "160px",
     width: "180px",
     borderRadius: "18px",
+    objectPosition: "top",
     // paddingTop: "10px",
   },
   carttex: {
@@ -775,7 +776,7 @@ const ProductDetail = ({ ...props }) => {
                     spaceBetween={32}
                     ref={sliderRef}
                     pagination={{
-                      clickable: true,
+                      clickable:false,
                     }}
                     mousewheel={true}
                     navigation={true}
