@@ -25,7 +25,7 @@ const styles = (theme) => ({
     height: "34px",
     width: "27px",
     marginBottom: theme.spacing(1),
-   
+
     marginBottom: theme.spacing(1),
   },
 
@@ -101,50 +101,50 @@ class NavigationDesktop extends Component {
       headerType,
     } = this.props;
     // console.log(tags, "tags in deskyop");
-  const style = {
-    borderRadius: "8px",
-    marginTop: "12px",
-    left: "15%",
-    width: 330,
-    bgcolor: "#ffffff",
-    outline: "none",
-    boxShadow: 24,
-    p: 2,
-    minHeight: "0",
-  };
+    const style = {
+      borderRadius: "8px",
+      marginTop: "12px",
+      left: "15%",
+      width: 330,
+      bgcolor: "#ffffff",
+      outline: "none",
+      boxShadow: 24,
+      p: 2,
+      minHeight: "0",
+    };
     const { anchorEl } = this.state;
- const ITEMScategory = [
-   {
-     image: "/categoriestypes/junior.svg",
-     id: 1,
-     title: "Casual",
-   },
-   {
-     image: "/categoriestypes/causal.svg",
-     id: 2,
-     title: "Western",
-   },
-   {
-     image: "/categoriestypes/party.svg",
-     id: 3,
-     title: "Shoes",
-   },
-   {
-     image: "/categoriestypes/shoes.svg",
-     id: 4,
-     title: "Bridal",
-   },
-   {
-     image: "/categoriestypes/asseso.svg",
-     id: 5,
-     title: "Party Wear",
-   },
-   {
-     image: "/categoriestypes/westrn.svg",
-     id: 6,
-     title: "Accessories",
-   },
- ];
+    const ITEMScategory = [
+      {
+        image: "/categoriestypes/junior.svg",
+        id: 1,
+        title: "Casual",
+      },
+      {
+        image: "/categoriestypes/causal.svg",
+        id: 2,
+        title: "Western",
+      },
+      {
+        image: "/categoriestypes/party.svg",
+        id: 3,
+        title: "Shoes",
+      },
+      {
+        image: "/categoriestypes/shoes.svg",
+        id: 4,
+        title: "Bridal",
+      },
+      {
+        image: "/categoriestypes/asseso.svg",
+        id: 5,
+        title: "Party Wear",
+      },
+      {
+        image: "/categoriestypes/westrn.svg",
+        id: 6,
+        title: "Accessories",
+      },
+    ];
     return (
       <>
         <nav>
