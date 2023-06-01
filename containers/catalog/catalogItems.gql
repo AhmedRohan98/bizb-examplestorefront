@@ -5,6 +5,7 @@ query catalogItemsQuery(
   $last: ConnectionLimitInt
   $before: ConnectionCursor
   $after: ConnectionCursor
+  $offset:Int
   $sortBy: CatalogItemSortByField
   $sortByPriceCurrencyCode: String
   $sortOrder: SortOrder
@@ -18,6 +19,7 @@ query catalogItemsQuery(
     first: $first
     last: $last
     before: $before
+    offset:$offset
     after: $after
     sortBy: $sortBy
     sortByPriceCurrencyCode: $sortByPriceCurrencyCode

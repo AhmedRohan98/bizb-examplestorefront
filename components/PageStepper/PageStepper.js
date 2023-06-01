@@ -59,7 +59,7 @@ if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
   );
   const scrollToPosition = (documentHeight - windowHeight) / 2;
 
-  window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+  window.scrollTo({ bottom: scrollToPosition, behavior: "smooth" });
 }
 
     pageInfo.loadNextPage();
@@ -90,14 +90,8 @@ if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
     const { classes, pageInfo } = this.props;
 
     return (
-      <Grid className={classes.root} container justify="space-between">
-        <Grid item>
-          {pageInfo.hasPreviousPage && (
-            <button className={classes.loadmore} onClick={this.handlePreviousClick}>
-              Load Previous
-            </button>
-          )}
-        </Grid>
+      <Grid className={classes.root} container justify="center">
+        
         <Grid item>
           {pageInfo.hasNextPage && (
             <button className={classes.loadmore} onClick={this.handleNextClick}>

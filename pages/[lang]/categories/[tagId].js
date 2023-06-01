@@ -640,7 +640,7 @@ function Categories(props) {
   const { category, uiStore, routingStore, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy, cart, tags } =
     props;
   const [isLoading, setIsLoading] = useState({});
-const [soldOutProducts, setSoldOutProducts] = useState([]);
+  const [soldOutProducts, setSoldOutProducts] = useState([]);
 
   const router = useRouter();
   const { tagId } = router.query;
@@ -730,7 +730,7 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
 
     const selectedVariant = variantById(product.variants, variant._id);
     if (selectedVariant) {
-      const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
+      const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
       await addItemsToCart([
         {
           price: {
@@ -767,6 +767,10 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
       [product.productId]: false,
     }));
   };
+
+  useEffect(() => {
+    console.log("catalog items in tag", catalogItems);
+  }, [catalogItems]);
 
   const firstfour = catalogItems?.slice(0, 4);
   const allproducts = catalogItems?.slice(4, catalogItems.length);
@@ -1085,14 +1089,14 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
       </components.DropdownIndicator>
     );
   };
- const clickHandler = (item) => {
-   const productSlug = item;
+  const clickHandler = (item) => {
+    const productSlug = item;
 
-   const url = `/en/product/${productSlug}`;
-   const newWindow = window.open(url, "_blank");
-   newWindow.opener.focus();
- };
- 
+    const url = `/en/product/${productSlug}`;
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener.focus();
+  };
+
   useEffect(() => {
     const updatedItems = cart?.items?.map((item) => {
       const isItemInCart = catalogItems?.some((product) => {
@@ -1106,8 +1110,8 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
     });
     // console.log(updatedItems, "all");
     // do something with updatedItems
-      const soldOutProducts = catalogItems?.filter((product) => product?.node?.product?.isSoldOut);
-      setSoldOutProducts(soldOutProducts);
+    const soldOutProducts = catalogItems?.filter((product) => product?.node?.product?.isSoldOut);
+    setSoldOutProducts(soldOutProducts);
   }, [cart?.items]);
   // console.log(category, "dis");
   return (
@@ -1136,7 +1140,7 @@ const [soldOutProducts, setSoldOutProducts] = useState([]);
               textTransform: "capitalize",
             }}
           />
-        
+
           <Box className={classes.topheader}>
             {["left"].map((anchor) => (
               <React.Fragment key={anchor}>
