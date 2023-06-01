@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": { background: theme.palette.secondary.selected },
   },
   popover: {
-    marginTop:"70px",
+    marginTop: "70px",
     "& .MuiPopover-paper": {
       borderBottomLeftRadius: "20px",
       borderBottomRightRadius: "20px",
@@ -93,13 +93,12 @@ const AccountDropdown = ({ headerType }) => {
           <ViewerInfo viewer={viewer} headerType={headerType} />
         </ButtonBase>
       ) : (
-        <IconButton
-          color="inherit"
-          onClick={toggleOpen}
-          style={{
+        <IconButton color="inherit" onClick={() => setEntryModal("login")}
+          style=
+          {{
             background: anchorElement ? "#fdc114" : "",
           }}
-        >
+          >
           <span>
             {headerType ? (
               <img src="/icons/user.webp" className="headerlogo" />
