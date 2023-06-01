@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
   gridroot: {
     maxWidth: "100%",
-    justifyContent:"space-between"
+    justifyContent: "space-between",
   },
   root: {
     display: "grid",
     justifyItems: "center",
     alignItems: "start",
-    
+
     maxWidth: "100%",
   },
   typography: {
@@ -393,7 +393,7 @@ const Justin = (props) => {
 
       <div className={classes.gridroot}>
         <ResponsiveMasonry
-          columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4 ,1750:5,1920:5}}
+          columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
           style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
         >
           <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -422,7 +422,7 @@ const Justin = (props) => {
 
               // console.log(optionTitle, "fil");
               return (
-                <div style={{ display: "block" }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
                   <div className={classes.boxcontairproduct}>
                     <Link
                       href={item.node.product.slug && "en/product/[...slugOrId]"}
