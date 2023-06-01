@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "700px",
     width: "315px",
     borderRadius: "5px",
-    zIndex: 9999,
+   
     // border: "1px solid #9C9C9C",
     gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout

@@ -39,10 +39,9 @@ function SellerPublicProfile(props) {
         padding: "0",
       },
     },
-     profilebaner: {
+    profilebaner: {
       width: "100%",
     },
-  
 
     gridroot: {
       maxWidth: "100%",
@@ -142,7 +141,7 @@ function SellerPublicProfile(props) {
       maxHeight: "700px",
       width: "315px",
       borderRadius: "5px",
-      zIndex: 9999,
+     
       // border: "1px solid #9C9C9C",
       gridRowEnd: "span 1",
       flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
@@ -295,17 +294,17 @@ function SellerPublicProfile(props) {
   };
 
   const handleOnClick = async (product, variant) => {
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: true,
-    }));
+    // setIsLoading((prevState) => ({
+    //   ...prevState,
+    //   [product.productId]: true,
+    // }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!");
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: false,
-    }));
+    // setIsLoading((prevState) => ({
+    //   ...prevState,
+    //   [product.productId]: false,
+    // }));
     // Scroll to the top
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
