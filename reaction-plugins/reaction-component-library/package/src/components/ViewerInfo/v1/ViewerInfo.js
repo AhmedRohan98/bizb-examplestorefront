@@ -98,11 +98,11 @@ class ViewerInfo extends Component {
 
         {headerType ? (
           <ViewerFirstNameText compact={compact} full={full} style={{ color: "#ffffff" }}>
-            {this.viewerName}
+            {/* {this.viewerName} */}
           </ViewerFirstNameText>
         ) : (
           <ViewerFirstNameText compact={compact} full={full} style={{ color: "#000000" }}>
-            {this.viewerName}
+            {/* {this.viewerName} */}
           </ViewerFirstNameText>
         )}
       </ViewerInfoContainer>

@@ -124,6 +124,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#b22b27",
     fontFamily: "Lato",
   },
+  phone: {
+    paddingLeft: "10px",
+  },
 }));
 
 /**
@@ -183,9 +186,9 @@ export default function SignUp(props) {
       // Creating user will login also
       await passwordClient.createUser({
         email: values.email,
-        password: (values.password),
+        password: values.password,
         firstName: values.FullName,
-        phoneNumber:values.phonenumber
+        phoneNumber: values.phonenumber,
       });
       action.resetForm(); // to get rid of all the values after submitting the form
       closeModal();
@@ -347,7 +350,7 @@ export default function SignUp(props) {
             Register
           </Button>
         </div>
-        <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
+        {/* <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
         <div className={classes.socialmediaAuth}>
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "15px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
@@ -361,7 +364,7 @@ export default function SignUp(props) {
               Register With Facebook
             </Typography>
           </Box>
-        </div>
+        </div> */}
 
         {!!error && <div className={classes.formerror}>{error}</div>}
         <div

@@ -7,7 +7,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, withStyles } from "@material-ui/core/styles";
-import Mobileheader from "./mobileheader"
+import Mobileheader from "./mobileheader";
 import { NavigationDesktop } from "components/NavigationDesktop";
 import {
   NavigationMobile,
@@ -61,7 +61,6 @@ const styles = (theme: Theme) =>
       cursor: "pointer",
       zIndex: 1200,
     },
-   
 
     dark: {
       color: "#333333",
@@ -77,13 +76,13 @@ interface HeaderProps extends WithStyles<typeof styles> {
     toggleMenuDrawerOpen: Function;
   };
   viewer: any;
-  tags:PropTypes.arrayOf,
+  tags: PropTypes.arrayOf;
 }
 
 {
   /* @ts-ignore TODO: Refactor link to address type error */
 }
-const Header: any = ({ classes, shop, uiStore, headerType,tags }) => {
+const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
   const [modalFlag, setModalFlag] = useState(false);
   const handleOpenModal = () => {
     // console.log("ModalFlag",modalFlag);
