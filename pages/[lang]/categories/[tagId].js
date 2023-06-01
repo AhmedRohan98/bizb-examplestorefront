@@ -727,8 +727,18 @@ const ITEMScategory = [
 ];
 
 function Categories(props) {
-  const { category, uiStore, routingStore, addItemsToCart, catalogItems, catalogItemsPageInfo, sortBy, cart, tags } =
-    props;
+  const {
+    category,
+    uiStore,
+    routingStore,
+    addItemsToCart,
+    catalogItems,
+    catalogItemsPageInfo,
+    sortBy,
+    cart,
+    tags,
+    isLoadingCatalogItems,
+  } = props;
   const [isLoading, setIsLoading] = useState({});
   const [soldOutProducts, setSoldOutProducts] = useState([]);
 
@@ -1203,6 +1213,8 @@ function Categories(props) {
     const soldOutProducts = catalogItems?.filter((product) => product?.node?.product?.isSoldOut);
     setSoldOutProducts(soldOutProducts);
   }, [cart?.items]);
+  
+
   // console.log(category, "dis");
   return (
     <Layout shop={shop} tagId={tagId}>
@@ -1442,24 +1454,21 @@ function Categories(props) {
                       return (
                         <div style={{ display: "flex", justifyContent: "center" }}>
                           <div className={classes.boxcontairproduct}>
-                            <Link
-                              href={item.node.product.slug && "en/product/[...slugOrId]"}
-                              as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                            >
-                              <a target="_blank">
-                                {/* {console.log("Images", item?.node)} */}
-                                <img
-                                  src={
-                                    !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                      ? "/justin/justin4.svg"
-                                      : item?.node?.product?.media[0]?.URLs?.large
-                                  }
-                                  className={classes.image}
-                                  key={item?.node?.product?.id}
-                                  alt={"hhhh"}
-                                />
-                              </a>
-                            </Link>
+                          
+                              {/* {console.log("Images", item?.node)} */}
+                              <img
+                                onClick={() => clickHandler(item.node.product.slug)}
+                                src={
+                                  !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                    ? "/justin/justin4.svg"
+                                    : item?.node?.product?.media[0]?.URLs?.large
+                                }
+                                className={classes.image}
+                                key={item?.node?.product?.id}
+                                alt={"hhhh"}
+                              />
+                         
+
                             <div className={classes.cartcontent}>
                               <div className={classes.cartcontenttext}>
                                 <Typography
@@ -1565,168 +1574,163 @@ function Categories(props) {
           </Grid>
           {/* Products Below Image   */}
           <div className={classes.main}>
-          
-              <div className={classes.gridroot}>
-                <ResponsiveMasonry
-                  columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
-                  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                >
-                  <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                    {allproducts?.map((item, index) => {
-                      // console.log(index, "nodde");
-                      const cartitem = props?.cart?.items;
-                      const isDisabled = cartitem?.some((data) => {
-                        return data.productConfiguration.productId === item?.node?.product?.productId;
-                      });
+            <div className={classes.gridroot}>
+              <ResponsiveMasonry
+                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
+                style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+              >
+                <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                  {allproducts?.map((item, index) => {
+                    // console.log(index, "nodde");
+                    const cartitem = props?.cart?.items;
+                    const isDisabled = cartitem?.some((data) => {
+                      return data.productConfiguration.productId === item?.node?.product?.productId;
+                    });
 
-                      const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                      const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-                      const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-                      const str = item.node.product.title;
-                      const words = str.match(/[a-zA-Z0-9]+/g);
-                      const firstThreeWords = words.slice(0, 3).join(" ");
-                      const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                    const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                    const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                    const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                    const str = item.node.product.title;
+                    const words = str.match(/[a-zA-Z0-9]+/g);
+                    const firstThreeWords = words.slice(0, 3).join(" ");
+                    const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                      /[^0-9.]/g,
+                      "",
+                    );
+
+                    const compareAtPrice =
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
                         /[^0-9.]/g,
                         "",
                       );
 
-                      const compareAtPrice =
-                        item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-                          /[^0-9.]/g,
-                          "",
-                        );
+                    const parsedDisplayPrice = parseFloat(displayPrice);
+                    const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                      const parsedDisplayPrice = parseFloat(displayPrice);
-                      const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                    const percentage = Math.floor(
+                      ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                    );
 
-                      const percentage = Math.floor(
-                        ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                      );
+                    // console.log(optionTitle, "fil");
+                    return (
+                      <div style={{ display: "flex", justifyContent: "center" }}>
+                        <div className={classes.boxcontairproduct}>
+                          <a target="_blank">
+                            {/* {console.log("Images", item?.node)} */}
+                            <img
+                              src={
+                                !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                  ? "/justin/justin4.svg"
+                                  : item?.node?.product?.media[0]?.URLs?.large
+                              }
+                              className={classes.image}
+                              key={item?.node?.product?.id}
+                              alt={"hhhh"}
+                              onClick={() => clickHandler(item.node.product.slug)}
+                            />
+                          </a>
 
-                      // console.log(optionTitle, "fil");
-                      return (
-                        <div style={{ display: "flex", justifyContent: "center" }}>
-                          <div className={classes.boxcontairproduct}>
-                            <Link
-                              href={item.node.product.slug && "en/product/[...slugOrId]"}
-                              as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                            >
-                              <a target="_blank">
-                                {/* {console.log("Images", item?.node)} */}
-                                <img
-                                  src={
-                                    !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                      ? "/justin/justin4.svg"
-                                      : item?.node?.product?.media[0]?.URLs?.large
-                                  }
-                                  className={classes.image}
-                                  key={item?.node?.product?.id}
-                                  alt={"hhhh"}
-                                />
-                              </a>
-                            </Link>
-                            <div className={classes.cartcontent}>
-                              <div className={classes.cartcontenttext}>
-                                <Typography
-                                  style={{
-                                    fontWeight: "600",
-                                    fontSize: "18px",
-                                    fontFamily: "lato",
-                                    // marginTop: "10px",
-                                    left: "12px",
-                                  }}
-                                  variant="h4"
-                                  component="h2"
-                                  className={classes.carttitle}
-                                >
-                                  {firstThreeWords}
-                                </Typography>
-                                <Typography
-                                  className={classes.price}
-                                  style={{
-                                    fontWeight: "600",
-                                    fontSize: "18px",
-                                    fontFamily: "lato",
-                                    color: "#FDC114",
-                                    left: "12px",
-                                  }}
-                                >
-                                  {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                          <div className={classes.cartcontent}>
+                            <div className={classes.cartcontenttext}>
+                              <Typography
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+                                  // marginTop: "10px",
+                                  left: "12px",
+                                }}
+                                variant="h4"
+                                component="h2"
+                                className={classes.carttitle}
+                              >
+                                {firstThreeWords}
+                              </Typography>
+                              <Typography
+                                className={classes.price}
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+                                  color: "#FDC114",
+                                  left: "12px",
+                                }}
+                              >
+                                {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                  ?.replace(/\.00$/, "")
+                                  .replace(/\$/g, "Rs. ")}
+                              </Typography>
+                              <div className={classes.strikethroughoff}>
+                                <strike className={classes.strikethrough}>
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
                                     ?.replace(/\.00$/, "")
                                     .replace(/\$/g, "Rs. ")}
-                                </Typography>
-                                <div className={classes.strikethroughoff}>
-                                  <strike className={classes.strikethrough}>
-                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                                      ?.replace(/\.00$/, "")
-                                      .replace(/\$/g, "Rs. ")}
-                                  </strike>
-                                  <Typography
-                                    style={{
-                                      fontWeight: "600",
-                                      fontSize: "12px",
-                                      fontFamily: "lato",
-                                      left: "12px",
-                                    }}
-                                    variant="h4"
-                                    component="h2"
-                                    className={classes.carttitle2}
-                                  >{`-${percentage}%`}</Typography>
-                                </div>
-                              </div>
-                              <div className={classes.cartbackground}>
+                                </strike>
                                 <Typography
                                   style={{
                                     fontWeight: "600",
-                                    fontSize: "18px",
+                                    fontSize: "12px",
                                     fontFamily: "lato",
                                     left: "12px",
                                   }}
                                   variant="h4"
                                   component="h2"
-                                  className={classes.carttitle}
-                                >
-                                  Size:{" "}
-                                  <span className={classes.sizes}>
-                                    {size == 0
-                                      ? "XL"
-                                      : "S" || size == 1
-                                      ? "L"
-                                      : "S" || size == 2
-                                      ? "M"
-                                      : "S" || size == 3
-                                      ? "S"
-                                      : "S"}
-                                  </span>
-                                </Typography>
-                                {isLoading[item?.node?.product?.productId] ? (
-                                  <CircularProgress />
-                                ) : (
-                                  <Button
-                                    className={classes.cart}
-                                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                                    disabled={isDisabled || item?.node?.product?.isSoldOut}
-                                  >
-                                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                                    <Typography
-                                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                                      variant="h5"
-                                      component="h2"
-                                    >
-                                      {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                                    </Typography>
-                                  </Button>
-                                )}
+                                  className={classes.carttitle2}
+                                >{`-${percentage}%`}</Typography>
                               </div>
+                            </div>
+                            <div className={classes.cartbackground}>
+                              <Typography
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "18px",
+                                  fontFamily: "lato",
+                                  left: "12px",
+                                }}
+                                variant="h4"
+                                component="h2"
+                                className={classes.carttitle}
+                              >
+                                Size:{" "}
+                                <span className={classes.sizes}>
+                                  {size == 0
+                                    ? "XL"
+                                    : "S" || size == 1
+                                    ? "L"
+                                    : "S" || size == 2
+                                    ? "M"
+                                    : "S" || size == 3
+                                    ? "S"
+                                    : "S"}
+                                </span>
+                              </Typography>
+                              {isLoading[item?.node?.product?.productId] ? (
+                                <CircularProgress />
+                              ) : (
+                                <Button
+                                  className={classes.cart}
+                                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                  disabled={isDisabled || item?.node?.product?.isSoldOut}
+                                >
+                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                  <Typography
+                                    style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                    variant="h5"
+                                    component="h2"
+                                  >
+                                    {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                  </Typography>
+                                </Button>
+                              )}
                             </div>
                           </div>
                         </div>
-                      );
-                    })}
-                  </Masonry>
-                </ResponsiveMasonry>
-              </div>
-         
+                      </div>
+                    );
+                  })}
+                </Masonry>
+              </ResponsiveMasonry>
+            </div>
           </div>
           {/* <div className={classes.massonary}>
             <ResponsiveMasonry columnsCountBreakPoints={{ 350: 2, 750: 2, 1200: 4 }}>
@@ -1736,7 +1740,9 @@ function Categories(props) {
             </ResponsiveMasonry>
           </div> */}
           <div className={classes.loadmore}>
-            {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
+            {catalogItemsPageInfo?.hasNextPage && (
+              <PageStepper pageInfo={catalogItemsPageInfo} loading={isLoadingCatalogItems}></PageStepper>
+            )}
           </div>
         </div>
       )}
