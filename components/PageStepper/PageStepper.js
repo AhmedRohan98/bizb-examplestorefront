@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Button from "@reactioncommerce/components/Button/v1";
 import Grid from "@material-ui/core/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import { CircularProgress } from "@material-ui/core";
 const styles = (theme) => ({
   root: {
     paddingTop: theme.spacing(2),
@@ -34,6 +34,12 @@ const styles = (theme) => ({
 });
 
 class PageStepper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false, // Initialize the loading state property to false
+    };
+  }
   static propTypes = {
     classes: PropTypes.object,
     pageInfo: PropTypes.shape({
@@ -46,21 +52,30 @@ class PageStepper extends Component {
   };
 
   handleNextClick = () => {
-    const { pageInfo } = this.props;
-if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
-  const windowHeight = window.innerHeight;
-  const documentHeight = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight,
-    document.body.clientHeight,
-    document.documentElement.clientHeight,
-  );
-  const scrollToPosition = (documentHeight - windowHeight) / 2;
+     this.setState({ loading: true });
 
-  window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
-}
+    // Simulate an asynchronous loading operation
+    setTimeout(() => {
+      // Perform the actual loading logic here
+
+      // Set the loading state to false when loading is complete
+      this.setState({ loading: false });
+    }, 2000);
+    const { pageInfo } = this.props;
+    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+      const windowHeight = window.innerHeight;
+      const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.clientHeight,
+      );
+      const scrollToPosition = (documentHeight - windowHeight) / 2;
+
+      window.scrollTo({ bottom: scrollToPosition, behavior: "smooth" });
+    }
 
     pageInfo.loadNextPage();
   };
@@ -68,41 +83,38 @@ if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
   handlePreviousClick = () => {
     const { pageInfo } = this.props;
 
- if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
-   const windowHeight = window.innerHeight;
-   const documentHeight = Math.max(
-     document.body.scrollHeight,
-     document.documentElement.scrollHeight,
-     document.body.offsetHeight,
-     document.documentElement.offsetHeight,
-     document.body.clientHeight,
-     document.documentElement.clientHeight,
-   );
-   const scrollToPosition = (documentHeight - windowHeight) / 2;
+    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+      const windowHeight = window.innerHeight;
+      const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.clientHeight,
+      );
+      const scrollToPosition = (documentHeight - windowHeight) / 2;
 
-   window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
- }
+      window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+    }
 
     pageInfo.loadPreviousPage();
   };
 
   render() {
     const { classes, pageInfo } = this.props;
-
+const { loading } = this.state;
     return (
-      <Grid className={classes.root} container justify="space-between">
+      <Grid className={classes.root} container justify="center">
         <Grid item>
-          {pageInfo.hasPreviousPage && (
-            <button className={classes.loadmore} onClick={this.handlePreviousClick}>
-              Load Previous
-            </button>
-          )}
-        </Grid>
-        <Grid item>
-          {pageInfo.hasNextPage && (
-            <button className={classes.loadmore} onClick={this.handleNextClick}>
-              Load More
-            </button>
+          {loading ? (
+            <CircularProgress /> // Show the circular progress bar when loading is true
+          ) : (
+            pageInfo.hasNextPage && (
+              <button className={classes.loadmore} onClick={this.handleNextClick}>
+                Load More
+              </button>
+            )
           )}
         </Grid>
       </Grid>

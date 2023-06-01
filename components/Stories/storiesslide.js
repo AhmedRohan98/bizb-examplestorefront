@@ -407,7 +407,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
                 alignItems="center"
               ></Grid>
               {sellerss
-                ? sellerss?.map((item) => {
+                ? sellerss?.slice(0, 5)?.map((item) => {
                     const cartitem = cart?.items;
                     const isDisabled = cartitem?.some((data) => {
                       return data.productConfiguration.productId === item?.node?.product?.productId;
@@ -561,11 +561,11 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
                 : ""}
             </div>
           </Swiper>
-          {activeIndex < sellerss?.length + 1 ? (
+          {/* {activeIndex < sellerss?.length + 1 ? (
             <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
           ) : (
             ""
-          )}
+          )} */}
         </div>
       </div>
       <div className={classes.header}>
@@ -581,3 +581,4 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
 };
 
 export default Storyslider;
+

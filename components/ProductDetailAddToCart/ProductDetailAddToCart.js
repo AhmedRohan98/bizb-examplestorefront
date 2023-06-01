@@ -89,7 +89,7 @@ class ProductDetailAddToCart extends Component {
     await onClick(this.state.addToCartQuantity);
     // Scroll to the top
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
-      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+      window.scrollTo({ left: 0, bottom: 0, behavior: "smooth" });
     }
 
     // Reset cart quantity to 1 after items are added to cart
