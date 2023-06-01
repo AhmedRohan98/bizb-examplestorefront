@@ -28,13 +28,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     justifyContent:"space-between"
   },
-  root: {
-    display: "grid",
-    justifyItems: "center",
-    alignItems: "start",
-    
-    maxWidth: "100%",
-  },
+
   typography: {
     background: "#333333",
     opacity: "15%",
