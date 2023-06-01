@@ -198,6 +198,7 @@ function SellerPublicProfile(props) {
   }));
   // console.log(props.totalcount, "propertiese");
   const router = useRouter();
+  
    const shop = useShop();
   const { slugOrId } = router.query;
   useEffect(() => {
@@ -294,17 +295,17 @@ function SellerPublicProfile(props) {
   };
 
   const handleOnClick = async (product, variant) => {
-    // setIsLoading((prevState) => ({
-    //   ...prevState,
-    //   [product.productId]: true,
-    // }));
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: true,
+    }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!");
-    // setIsLoading((prevState) => ({
-    //   ...prevState,
-    //   [product.productId]: false,
-    // }));
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: false,
+    }));
     // Scroll to the top
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -325,9 +326,7 @@ function SellerPublicProfile(props) {
     }, []);              
   return (
     <Layout shop={shop}>
-      {isLoading ? (
-        <PageLoading />
-      ) : (
+   
         <div className={classes.main}>
           <ToastContainer
             position="top-right"
@@ -636,7 +635,7 @@ function SellerPublicProfile(props) {
             )}
           </div>
         </div>
-      )}
+    
     </Layout>
   );
 }
