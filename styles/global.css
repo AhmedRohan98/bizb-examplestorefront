@@ -674,7 +674,7 @@ a:hover {
   cursor: pointer;
 }
 .sellerProfile__infoMetaContent {
-  font-family: "Karla" !important;
+  font-family: "lato" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-size: 18px !important;
@@ -682,7 +682,7 @@ a:hover {
   color: #000000 !important;
 }
 .sellerProfile__infoMetaTitle {
-  font-family: "Karla" !important;
+  font-family: "lato" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-size: 18px !important;
