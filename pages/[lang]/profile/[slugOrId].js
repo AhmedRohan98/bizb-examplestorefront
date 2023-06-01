@@ -509,19 +509,21 @@ function SellerPublicProfile(props) {
               return (
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <div className={classes.boxcontairproduct}>
-                    {/* {console.log("Images", item?.node)} */}
-                    <img
-                      src={
-                        !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                          ? "/justin/justin4.svg"
-                          : item?.node?.product?.media[0]?.URLs?.large
-                      }
-                      className={classes.image}
-                      key={item?.node?.product?.id}
-                      onClick={() => clickHandler(item.node.product.slug)}
-                      alt={"hhhh"}
-                    />
-
+                    
+                      
+                        {/* {console.log("Images", item?.node)} */}
+                        <img
+                          src={
+                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              ? "/justin/justin4.svg"
+                              : item?.node?.product?.media[0]?.URLs?.large
+                          }
+                          className={classes.image}
+                          key={item?.node?.product?.id}
+                             onClick={() => clickHandler(item.node.product.slug)}
+                          alt={"hhhh"}
+                        />
+                   
                     <div className={classes.cartcontent}>
                       <div className={classes.cartcontenttext}>
                         <Typography

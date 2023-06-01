@@ -74,7 +74,7 @@ const Footer = () => {
         </Grid>
         <Grid item xs={12} md={3}>
           <div style={{ fontWeight: "700", fontSize: "26px", textAlign: "center" }}>
-            <a href="/">
+            <a href="/en">
               <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>
                 <span
                   style={{
@@ -91,7 +91,7 @@ const Footer = () => {
               </div>
             </a>
 
-            <a href="/en/categories/cmVhY3Rpb24vdGFnOnBldGQydko2NmV3RWdjeWZ0" style={{ position: "relative" }}>
+            <a href="/en/explore" style={{ position: "relative" }}>
               <div style={{ marginTop: "25px", cursor: "pointer", color: "white", position: "relative" }}>
                 <span
                   style={{
