@@ -378,7 +378,7 @@ a:hover {
     /* font-size: var(--swiper-navigation-size); */
     text-transform: none !important;
     letter-spacing: 0;
-    font-size: 30px;
+    font-size: 20px;
     
     padding: 16px;
     background: black;
@@ -674,7 +674,7 @@ a:hover {
   cursor: pointer;
 }
 .sellerProfile__infoMetaContent {
-  font-family: "Karla" !important;
+  font-family: "lato" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-size: 18px !important;
@@ -682,7 +682,7 @@ a:hover {
   color: #000000 !important;
 }
 .sellerProfile__infoMetaTitle {
-  font-family: "Karla" !important;
+  font-family: "lato" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-size: 18px !important;
@@ -690,7 +690,11 @@ a:hover {
   color: #999999 !important;
   margin-left: 5px !important;
 }
+.sellerProfile{
+  margin-top: 30px;
+}
 .sellerProfile .makeStyles-root-47 {
+  
   width: 100% !important;
   display: flex;
   justify-content: center;

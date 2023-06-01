@@ -28,13 +28,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     justifyContent: "space-between",
   },
-  root: {
-    display: "grid",
-    justifyItems: "center",
-    alignItems: "start",
 
-    maxWidth: "100%",
-  },
   typography: {
     background: "#333333",
     opacity: "15%",
@@ -60,24 +54,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
 
-  image4: {
-    width: "315px",
-    height: "387px",
-    objectFit: "fill",
-    cursor: "pointer",
-  },
-  image2: {
-    width: "315px",
-    height: "231px",
-    objectFit: "fill",
-    cursor: "pointer",
-  },
-  image3: {
-    width: "315px",
-    height: "231px",
-    objectFit: "fill",
-    cursor: "pointer",
-  },
+
   sizes: {
     height: "30px",
     width: "30px",
@@ -146,31 +123,13 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "700px",
     width: "315px",
     borderRadius: "5px",
-    zIndex: 9999,
+   
     // border: "1px solid #9C9C9C",
     gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "20px",
   },
-  boxcontairproduct4: {
-    maxHeight: "780px",
-    width: "315px",
-    borderRadius: "5px",
-    border: "0.5px solid #9C9C9C",
-    gridRowEnd: "span 1",
-    zIndex: 1,
-    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-    marginBottom: "20px",
-  },
-  boxcontairproduct3: {
-    height: "333px",
-    width: "315px",
-    borderRadius: "5px",
-    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-    marginBottom: "20px",
-    zIndex: 1,
-    border: "0.5px solid #9C9C9C",
-  },
+
   price: {
     marginLeft: "12px",
   },
@@ -191,17 +150,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
-  boxcontairproduct2: {
-    zIndex: 1,
-    height: "333px",
-    width: "315px",
-    borderRadius: "5px",
-    gridRowEnd: "span 2",
-    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
-    marginBottom: "10px",
-    marginBottom: "20px",
-    border: "0.5px solid #9C9C9C",
-  },
+
   mainheading: {
     display: "flex",
     marginTop: "60px",
