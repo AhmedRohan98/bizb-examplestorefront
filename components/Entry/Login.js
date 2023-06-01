@@ -277,7 +277,7 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
             </Button>
           </div>
         </form>
-        <div style={{ textAlign: "center", marginTop: "15px", fontSize: "16px" }}>OR</div>
+        {/* <div style={{ textAlign: "center", marginTop: "15px", fontSize: "16px" }}>OR</div>
         <div className={classes.socialmediaAuth}>
           <Box className={classes.socialmedia}>
             <img style={{ marginLeft: "20px" }} src="/authentication/signup3.svg" alt="Login-SignUP" />
@@ -301,7 +301,7 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
               Login With Facebook
             </Typography>
           </Box>
-        </div>
+        </div> */}
         <div
           className={classes.switchEntryMode}
           onClick={handleOpenSignUp}

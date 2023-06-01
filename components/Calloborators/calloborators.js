@@ -16,17 +16,17 @@ const Caloborators = () => {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      position:"relative",
-      marginBottom:"0px",
+      position: "relative",
+      marginBottom: "0px",
       marginTop: "100px",
       width: "100%",
     },
     root: {
       marginTop: "40px",
-marginBottom:"60px",
+      marginBottom: "60px",
       display: "flex",
       justifyContent: "center",
-      allignItems:"center",
+      allignItems: "center",
       width: "80%",
     },
     image: {
@@ -54,8 +54,8 @@ marginBottom:"60px",
     },
     iconforwad: {
       position: "absolute",
-      bottom: "180px",
-      right: "30px",
+      bottom: "120px",
+      right: "20px",
       height: "50px",
       width: "50px",
       padding: "18px",
@@ -67,11 +67,11 @@ marginBottom:"60px",
     },
     iconback: {
       position: "absolute",
-      bottom: "180px",
+      bottom: "120px",
       height: "50px",
       padding: "18px",
       width: "50px",
-      left: "30px",
+      left: "20px",
       borderRadius: "5px",
       color: "FDC114",
       background: "#000000",
@@ -143,7 +143,9 @@ marginBottom:"60px",
               src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
               className={classes.image}
             />
-            <Typography style={{ textAlign: "center", marginBottom:"20px" ,marginTop:"10px"}} variant='h5'>{item.storeName}</Typography>
+            <Typography style={{ textAlign: "center", marginBottom: "20px", marginTop: "10px" }} variant="h5">
+              {item.storeName}
+            </Typography>
           </div>
         </SwiperSlide>
       </>
@@ -161,9 +163,9 @@ marginBottom:"60px",
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
-//  console.log("active index is ", activeIndex);
-//  console.log("active index sellerlength", sellers?.length); 
-const lastIndex = sellers?.length - 1;
+  //  console.log("active index is ", activeIndex);
+  //  console.log("active index sellerlength", sellers?.length);
+  const lastIndex = sellers?.length - 1;
 
   const classes = useStyles();
   return (
@@ -174,7 +176,7 @@ const lastIndex = sellers?.length - 1;
         </Typography>
       </div>
 
-      <div >
+      <div>
         <Swiper
           ref={sliderRef}
           autoplay={{ delay: 3000 }}

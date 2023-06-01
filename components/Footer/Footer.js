@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 const date = new Date();
 
-
 const useStyles = makeStyles((theme) => ({
   footerthirdsec: {
     display: "flex",
@@ -43,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-const Footer = () =>{
-    const classes = useStyles();
+const Footer = () => {
+  const classes = useStyles();
   return (
     <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
       <Grid container>
@@ -57,7 +55,7 @@ const Footer = () =>{
               </a>
             </span>
           </div>
-          <div style={{ marginTop:"10px" ,marginLeft: "90px" }}>
+          <div style={{ marginTop: "10px", marginLeft: "90px" }}>
             <img src="/icons/instagram.svg" />
             <img src="/icons/facebook.svg" />
             <img src="/icons/twitter.svg" />
@@ -184,7 +182,7 @@ const Footer = () =>{
                 <span>
                   <img src="/images/emailIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> Hello@bizb.store </span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> hello@bizb.store </span>
               </a>
               <a href="tel:+92 312 5253680" target="_blank">
                 <span style={{ marginLeft: "20px" }}>
@@ -243,6 +241,6 @@ const Footer = () =>{
       </div>
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;
