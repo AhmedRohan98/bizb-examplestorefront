@@ -33,7 +33,7 @@ function SellerPublicProfile(props) {
     main: {
       width: "100%",
       padding: "75px",
-      
+
       [theme.breakpoints.down("xs")]: {
         padding: "0",
       },
@@ -171,6 +171,9 @@ function SellerPublicProfile(props) {
       marginLeft: theme.spacing(1),
       marginBottom: theme.spacing(2),
     },
+    sellerProfile:{
+      marginTop:"320px"
+    }
   }));
   // console.log(props.totalcount, "propertiese");
   const router = useRouter();
@@ -327,7 +330,7 @@ function SellerPublicProfile(props) {
           />
           <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
           <div className="sellerProfile">
-            <Typography variant="h2">Profile</Typography>
+           
             <Grid container className="publicProfile__profileInfoWrapper">
               <Grid xs={12} item className="publicProfile__profileInfoSection">
                 <div
