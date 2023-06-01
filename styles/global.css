@@ -378,7 +378,7 @@ a:hover {
     /* font-size: var(--swiper-navigation-size); */
     text-transform: none !important;
     letter-spacing: 0;
-    font-size: 30px;
+    font-size: 20px;
     
     padding: 16px;
     background: black;
@@ -690,7 +690,11 @@ a:hover {
   color: #999999 !important;
   margin-left: 5px !important;
 }
+.sellerProfile{
+  margin-top: 30px;
+}
 .sellerProfile .makeStyles-root-47 {
+  
   width: 100% !important;
   display: flex;
   justify-content: center;
