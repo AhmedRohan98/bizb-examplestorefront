@@ -168,32 +168,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 
-  pricing: {
-    display: "flex",
-    flexDirection: "row",
-    marginLeft: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-  },
-  cartimage: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  carttitle: {
-    display: "flex",
-    marginLeft: theme.spacing(1),
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  price: {
-    marginLeft: "20px",
-  },
-  rootimg: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    position: "relative",
-    display: "inline-grid",
-  },
 
   main: {
     width: "100%",
@@ -207,32 +181,7 @@ const useStyles = makeStyles((theme) => ({
     width: 312,
   },
 
-  root: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  gridroot: {
-    width: "100%",
-    display: "flex",
-    alignItems: "baseline",
-
-    position: "relative",
-    justifyContent: "center",
-  },
-  typography: {
-    background: "#333333",
-    opacity: "15%",
-    height: "8px",
-
-    width: "180px",
-  },
-
-  text: {
-    position: "absolute",
-    bottom: 60,
-  },
+ 
   header: {
     height: "50px",
     position: "relative",
@@ -243,16 +192,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 
-  imagemai: {
-    width: "312px",
-    borderRadius: "10px",
-    cursor: "pointer",
-  },
-  size: {
-    display: "flex",
-    flexDirection: "row",
-    marginLeft: theme.spacing(1),
-  },
+ 
+
   cartimage: {
     display: "flex",
     justifyContent: "center",
@@ -409,10 +350,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: " -75px",
     padding: "13px 20px",
   },
-  massonary: {
-    width: "92%",
-    // margin: "8%",
-  },
+
 
   modalitems: {
     display: "flex",
