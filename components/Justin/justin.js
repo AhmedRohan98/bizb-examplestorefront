@@ -25,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   gridroot: {
-    maxWidth: "1480px",
+    maxWidth: "100%",
+    justifyContent:"space-between"
   },
   root: {
     display: "grid",
     justifyItems: "center",
     alignItems: "start",
-    gridRowGap: 0,
+    
     maxWidth: "100%",
   },
   typography: {
@@ -389,8 +390,12 @@ const Justin = (props) => {
           Just IN <span className={classes.spanline}></span>
         </Typography>
       </div>
-      <div className={classes.root}>
-        <Grid container className={classes.gridroot}>
+
+      <div className={classes.gridroot}>
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4 ,1750:5,1920:5}}
+          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        >
           <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
             {catalogdata?.map((item, index) => {
               // console.log(index, "nodde");
@@ -536,8 +541,9 @@ const Justin = (props) => {
               );
             })}
           </Masonry>
-        </Grid>
+        </ResponsiveMasonry>
       </div>
+
       <div className={classes.header}>
         <h1 className={classes.typography}></h1>
         <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">

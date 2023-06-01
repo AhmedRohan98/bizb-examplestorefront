@@ -38,7 +38,7 @@ const MainSlider = (props) => {
       justifyContent: "center",
       background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
       mixBlendMode: "pass-through",
-      zIndex: 9999,
+      zIndex: 2,
       opacity: 1,
       width: "100%",
       bottom: "5px",
@@ -175,8 +175,9 @@ const MainSlider = (props) => {
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               autoplay
               ref={sliderRef}
+              // direction="vertical"
               modules={[Pagination, Autoplay, Navigation]}
-              pagination={{clickable:true}}
+              pagination={{ clickable: true }}
               className={classes.swiperPagination}
             >
               {ITEMS.map((item) => (
@@ -191,14 +192,14 @@ const MainSlider = (props) => {
           </div>
         </div>
       </div>
-      <Preloved {...props} />
+      {/* <Preloved {...props} /> */}
       <Justin {...props} />
-      <Story {...props} />
+      {/* <Story {...props} />
       <BizbCalloborators />
       <Appsec />
       <Caloborators />
       <OurBlogs />
-      <Instagram {...props} />
+      <Instagram {...props} /> */}
     </>
   );
 };

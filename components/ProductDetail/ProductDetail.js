@@ -319,10 +319,16 @@ const styles = (theme) => ({
     objectFit: "contain",
   },
   thumbimage: {
-    borderRadius: "18px",
-    objectFit: "cover",
     height: "160px",
     width: "180px",
+    // paddingTop: "10px",
+  },
+  thumbimages: {
+    objectFit: "cover",
+    maxHeight: "160px",
+    width: "180px",
+    borderRadius: "18px",
+    objectPosition: "top",
     // paddingTop: "10px",
   },
   carttex: {
@@ -416,7 +422,7 @@ const ProductDetail = ({ ...props }) => {
 
   const { product, catalogItems, cart } = props;
   // console.log(product, "product");
-  const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
+  const tagIds = product?.tags?.nodes?.[0]?._id || [1]?._id || [2]?._id;
   // console.log("dddd",props)
   const { uiStore } = props;
   const filteredProducts = catalogItems?.filter((product) => {
@@ -753,7 +759,7 @@ const ProductDetail = ({ ...props }) => {
                         return (
                           <SwiperSlide key={index}>
                             <div className={classes.thumbimage}>
-                              <img src={slide.URLs.thumbnail} alt="" className={classes.thumbimage} />
+                              <img src={slide.URLs.thumbnail} alt="" className={classes.thumbimages} />
                             </div>
                           </SwiperSlide>
                         );
@@ -770,7 +776,7 @@ const ProductDetail = ({ ...props }) => {
                     spaceBetween={32}
                     ref={sliderRef}
                     pagination={{
-                      clickable: true,
+                      clickable:false,
                     }}
                     mousewheel={true}
                     navigation={true}
