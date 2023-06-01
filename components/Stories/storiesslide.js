@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRef, useCallback, useState,useEffect } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,12 +9,11 @@ import Link from "next/link";
 import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
 import Box from "@material-ui/core/Box";
 
-const Storyslider = ({ itemData ,cart,sellerss}) => {
- 
+const Storyslider = ({ itemData, cart, sellerss }) => {
   SwiperCore.use([Autoplay, Pagination, Navigation]);
- 
-   const [isLoading, setIsLoading] = useState({});
-   const [activeIndex, setActiveIndex] = useState(0);
+
+  const [isLoading, setIsLoading] = useState({});
+  const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const updatedItems = cart?.item?.map((item) => {
       const isItemInCart = sellerss?.some((product) => {
@@ -59,7 +58,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       width: "315px",
       height: "231px",
       objectFit: "fill",
-
+      borderRadius: "10px",
       cursor: "pointer",
     },
 
@@ -138,7 +137,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       width: "315px",
       borderRadius: "5px",
       marginBottom: "20px",
-      border: "0.5px solid #9C9C9C",
+      // border: "0.5px solid #9C9C9C",
       gridRowEnd: "span 1",
       flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     },
@@ -334,7 +333,6 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
       fontSize: "20px",
     },
 
-  
     explore: {
       position: "absolute",
       top: "6px",
@@ -358,16 +356,10 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
     },
   }));
 
-  // console.log(itemData, "nwwwwwwwwwwwwwwwww");
-
   function Item({ item }) {
     const classes = useStyles();
 
-    return (
-      <>
-      
-      </>
-    );
+    return <></>;
   }
   const sliderRef = useRef(null);
 
@@ -389,7 +381,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
           ref={sliderRef}
           className={classes.swiperpaggination}
           modules={[Pagination, Autoplay, Navigation]}
-          pagination={true}
+          pagination={false}
           breakpoints={{
             1500: {
               slidesPerView: 5,
@@ -427,29 +419,26 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                     return data.productConfiguration.productId === item?.node?.product?.productId;
                   });
                   // console.log(item?.node?.product?.productId, "ssss", cart?.items[0]?.productConfiguration?.productId);
-                    const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                    const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-                    const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-                    const str = item.node.product.title;
-                    const words = str.match(/[a-zA-Z0-9]+/g);
-                    const firstThreeWords = words.slice(0, 3).join(" ");
-                    const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                      /[^0-9.]/g,
-                      "",
-                    );
+                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                  const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                  const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                  const str = item.node.product.title;
+                  const words = str.match(/[a-zA-Z0-9]+/g);
+                  const firstThreeWords = words.slice(0, 3).join(" ");
+                  const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                    /[^0-9.]/g,
+                    "",
+                  );
 
-                    const compareAtPrice =
-                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-                        /[^0-9.]/g,
-                        "",
-                      );
+                  const compareAtPrice =
+                    item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
 
-                    const parsedDisplayPrice = parseFloat(displayPrice);
-                    const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                  const parsedDisplayPrice = parseFloat(displayPrice);
+                  const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                    const percentage = Math.floor(
-                      ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                    );
+                  const percentage = Math.floor(
+                    ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                  );
 
                   return (
                     <SwiperSlide key={item.id}>
@@ -479,7 +468,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                                   fontWeight: "600",
                                   fontSize: "18px",
                                   fontFamily: "lato",
-                                  marginTop: "20px",
+                                  // marginTop: "20px",
                                   left: "12px",
                                 }}
                                 variant="h4"
@@ -494,27 +483,25 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                                   fontWeight: "600",
                                   fontSize: "18px",
                                   fontFamily: "lato",
-
                                   color: "#FDC114",
                                   left: "12px",
                                 }}
                               >
                                 {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
                                   ?.replace(/\.00$/, "")
-                                  .replace(/\$/g, "RS ")}
+                                  .replace(/\$/g, "Rs.")}
                               </Typography>
                               <div className={classes.strikethroughoff}>
                                 <strike className={classes.strikethrough}>
                                   {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
                                     ?.replace(/\.00$/, "")
-                                    .replace(/\$/g, "RS ")}
+                                    .replace(/\$/g, "Rs. ")}
                                 </strike>
                                 <Typography
                                   style={{
                                     fontWeight: "600",
                                     fontSize: "12px",
                                     fontFamily: "lato",
-
                                     left: "12px",
                                   }}
                                   variant="h4"
@@ -529,7 +516,7 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
                                   fontWeight: "600",
                                   fontSize: "18px",
                                   fontFamily: "lato",
-                                  marginTop: "10px",
+                                  // marginTop: "10px",
                                   left: "12px",
                                 }}
                                 variant="h4"
@@ -577,11 +564,11 @@ const Storyslider = ({ itemData ,cart,sellerss}) => {
               : ""}
           </div>
         </Swiper>
-        {/* {activeIndex <sellerss?.length + 1 ? (
+        {activeIndex <sellerss?.length + 1 ? (
         <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
       ) : (
         ""
-      )} */}
+      )}
       </div>
     </div>
   );

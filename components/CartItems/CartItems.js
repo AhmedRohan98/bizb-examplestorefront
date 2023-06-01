@@ -313,7 +313,7 @@ class CartItems extends Component {
                   <TableCell align="right">
                     {" "}
                     <Typography variant="h4" className={classes.cartprice}>
-                      RS: {item?.price?.amount}
+                      Rs.: {item?.price?.amount}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
@@ -322,7 +322,7 @@ class CartItems extends Component {
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="h4" className={classes.cartprice}>
-                      RS: {item?.price?.amount}
+                      Rs.: {item?.price?.amount}
                     </Typography>
                   </TableCell>
                 </TableRow>
