@@ -226,7 +226,7 @@ const Footer = () =>{
         }}
       >
         <span style={{ fontWeight: "500", fontSize: "16px", marginLeft: "91px" }}>
-          Copyright {date.getFullYear()}. All rights reserved.
+          Copyright {date.getFullYear()}. All Rights Reserved.
         </span>
         <a href="https://www.codistan.org/" target="_blank">
           <span
