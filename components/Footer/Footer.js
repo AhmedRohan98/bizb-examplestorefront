@@ -69,7 +69,7 @@ const Footer = () => {
             <img src="/icons/facebook.svg" className={classes.imagesicons} />
             <img src="/icons/twitter.svg" className={classes.imagesicons} />
             <img src="/icons/linkedin2.svg" className={classes.imagesicons} />
-            <img src="/icons/youtube.svg" className={classes.imagesicons} />
+            
           </div>
         </Grid>
         <Grid item xs={12} md={3}>
