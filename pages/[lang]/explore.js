@@ -201,7 +201,7 @@ function Explore(props) {
   // console.log(props.totalcount, "propertiese");
   
   useEffect(() => {
-    uiStore?.setPageSize(15);
+    uiStore?.setPageSize(60);
 
    
   }, []);
