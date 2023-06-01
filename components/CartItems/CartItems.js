@@ -11,6 +11,7 @@ import TableContainer from "@material-ui/core//TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { withComponents } from "@reactioncommerce/components-context";
 const styles = (theme) => ({
   loadMore: {
     display: "flex",
@@ -175,7 +176,13 @@ const styles = (theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  cartimage2:{
+    height:"40px",
+    width:"30px",
+    margin:"10px"
+  }
 });
+
 
 class CartItems extends Component {
   static propTypes = {
@@ -216,10 +223,16 @@ class CartItems extends Component {
     onChangeCartItemQuantity(quantity, _id);
   };
 
-  handleRemoveItem = async(_id) => {
+  static defaultProps = {
+    isMiniCart: false,
+    isReadOnly: false,
+    onChangeCartItemQuantity() {},
+    onRemoveItemFromCart() {},
+  };
+  handleRemoveItem = async (itemID) => {
     const { onRemoveItemFromCart } = this.props;
-// console.log("id",_id)
-  await  onRemoveItemFromCart(_id);
+    console.log("id", this.props);
+    await onRemoveItemFromCart(itemID);
     // console.log("item clicked", onRemoveItemFromCart);
   };
 
@@ -287,19 +300,20 @@ class CartItems extends Component {
                         <Typography variant="h4" className={classes.cartpric}>
                           Store:{item?.productVendor}
                         </Typography>{" "}
+                        <img
+                          style={{ cursor: "pointer",  }}
+                          src="/cart/icon.svg"
+                          className={classes.cartimage2}
+                          alt={item.title}
+                          onClick={() => this.handleRemoveItem(item._id)}
+                        />
                       </div>
-                      <img
-                        style={{ cursor: "pointer" }}
-                        src="/cart/icon.svg"
-                        alt={item.title}
-                        onClick={() => this.handleRemoveItem(item._id)}
-                      />
                     </div>
                   </TableCell>
                   <TableCell align="right">
                     {" "}
                     <Typography variant="h4" className={classes.cartprice}>
-                      RS: {item?.price?.amount}
+                      Rs.: {item?.price?.amount}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
@@ -308,7 +322,7 @@ class CartItems extends Component {
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="h4" className={classes.cartprice}>
-                      RS: {item?.price?.amount}
+                      Rs.: {item?.price?.amount}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -321,4 +335,4 @@ class CartItems extends Component {
   }
 }
 
-export default withStyles(styles)(CartItems);
+export default withComponents(withStyles(styles)(CartItems));

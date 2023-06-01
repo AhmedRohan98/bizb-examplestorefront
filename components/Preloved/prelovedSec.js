@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
     textTransform: "uppercase",
     "&:hover": {
-      color: "black",
+      color: theme.palette.primary.contrastText,
     },
   },
   buttonshop: {
@@ -166,7 +166,7 @@ const Preloved = (props) => {
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
           <img src={res?.page5.heroMediaUrl} className={classes.imagess} />
-          <Element name="target-element"></Element>
+          
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page5.displayTitle}
@@ -192,6 +192,7 @@ const Preloved = (props) => {
             </Typography>
             <a href="https://bizb.store/vendor-register/" target="_blank">
               <Button className={classes.buttonshop}>
+              
                 <h4 className={classes.buttonshopt}>Sell Now</h4>
               </Button>
             </a>
@@ -220,6 +221,7 @@ const Preloved = (props) => {
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
+             
               {res?.page3.displayTitle}
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page3._id)}>
@@ -256,6 +258,7 @@ const Preloved = (props) => {
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page4._id)}>
               {" "}
+              <Element name="target-element"></Element>
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </Button>
           </div>

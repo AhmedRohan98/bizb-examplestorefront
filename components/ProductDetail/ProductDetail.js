@@ -6,6 +6,7 @@ import withWidth, { isWidthUp, isWidthDown } from "@material-ui/core/withWidth";
 import inject from "hocs/inject";
 import Router from "translations/i18nRouter";
 import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import variantById from "lib/utils/variantById";
 import CloseIcon from "@material-ui/icons/Close";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -120,9 +121,8 @@ const styles = (theme) => ({
   },
   offer: {
     display: "flex",
-    // marginRight: theme.spacing(10),
     background: "#E16452",
-    padding: "4px",
+    padding: "10px",
     borderBotom: "1px solid red",
     color: "#ffffff",
   },
@@ -190,73 +190,7 @@ const styles = (theme) => ({
     justifyContent: "space-between",
   },
 
-  image: {
-    width: "312px",
-    maxHeight: "450px",
-    objectFit: "cover",
-    borderRadius: "10px",
-    cursor: "pointer",
-  },
-  size: {
-    display: "flex",
-    flexDirection: "row",
-    marginLeft: theme.spacing(1),
-  },
-  cartimage: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  carttitle: {
-    display: "flex",
-    marginLeft: theme.spacing(1),
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  price: {
-    marginLeft: "20px",
-    fontWeight: "700",
-    fontSize: "20px",
-  },
-  rootimg: {
-    position: "relative",
-    display: "inline-grid",
-    width: "312px",
-    maxWidth: "312px",
-    marginLeft: "10px",
-    marginRight: "10px",
-  },
-  cartbackground: {
-    background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-    borderRadius: "0px 0px 16px 16px",
-    alignItems: "center",
-    justifyContent: "initial",
-    height: "75px",
-    width: "100%",
-    bottom: "20%",
-    display: "inline-grid",
-    width: "100%",
-    marginTop: " -75px",
-    padding: "13px 20px",
-  },
-  cart: {
-    height: "35px",
-    width: "84px",
-    borderRadius: "40px",
-    background: "#FDC114",
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    borderColor: "none",
-    zIndex: 1200,
-    transition: "all 0.2s linear",
-    "&:hover": {
-      transform: "scale(1.08)",
-      transition: "left 0.2s linear",
-      background: "#FDC114",
-    },
-  },
+
   explore: {
     position: "absolute",
     top: "6px",
@@ -319,9 +253,16 @@ const styles = (theme) => ({
     objectFit: "contain",
   },
   thumbimage: {
-    borderRadius: "18px",
     height: "160px",
     width: "180px",
+    // paddingTop: "10px",
+  },
+  thumbimages: {
+    objectFit: "cover",
+    maxHeight: "160px",
+    width: "180px",
+    borderRadius: "18px",
+    objectPosition: "top",
     // paddingTop: "10px",
   },
   carttex: {
@@ -354,6 +295,158 @@ const styles = (theme) => ({
   },
   magnifyContainer: {
     width: "1000px",
+  },
+  gridroot: {
+    maxWidth: "100%",
+    justifyContent: "space-between",
+  },
+
+  typography: {
+    background: "#333333",
+    opacity: "15%",
+    height: "8px",
+    width: "180px",
+  },
+  header: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "60px",
+    height: "50px",
+    position: "relative",
+  },
+  image: {
+    width: "312px", // Reduced by 1px to create space for the border
+    maxHeight: "600px",
+    marginTop: "1px",
+    borderRadius: "10px",
+    marginRight: "2px",
+    marginLeft: "1px",
+    objectFit: "cover",
+    cursor: "pointer",
+  },
+
+  sizes: {
+    height: "30px",
+    width: "30px",
+    marginLeft: "12px",
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    border: "1px solid #000000",
+  },
+  cartimage: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  carttitle: {
+    display: "flex",
+    marginLeft: theme.spacing(1),
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  carttitle2: {
+    display: "flex",
+  },
+  cartcontent: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingBottom: "10px",
+  },
+  cartcontenttext: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  cart: {
+    height: "35px",
+    width: "84px",
+    borderRadius: "5px",
+    background: "#FDC114",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: "10px",
+    borderColor: "none",
+    zIndex: 1,
+    transition: "all 0.2s linear",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
+  },
+  explore: {
+    position: "absolute",
+    top: "25px",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    color: "#FDC114",
+    zIndex: 900,
+  },
+  boxcontairproduct: {
+    maxHeight: "700px",
+    width: "315px",
+    borderRadius: "5px",
+  
+    // border: "1px solid #9C9C9C",
+    gridRowEnd: "span 1",
+    flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+    marginBottom: "20px",
+  },
+
+  price: {
+    marginLeft: "12px",
+  },
+  strikethroughoff: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "110px",
+    marginLeft: "12px",
+  },
+  cartbackground: {
+    marginRight: "8px",
+  },
+  strikethrough: {
+    display: "flex",
+    fontSize: "12px",
+    color: "#9C9C9C",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  mainheading: {
+    display: "flex",
+    marginTop: "60px",
+    marginBottom: "60px",
+    justifyContent: "center",
+    textTransform: "uppercase",
+    position: "relative",
+    width: "100%",
+  },
+  spanline: {
+    marginTop: "20px",
+    bottom: 0,
+    left: 0,
+    height: "5px",
+    marginLeft: "10px",
+    width: "50px",
+    backgroundColor: "#FDC114",
+  },
+  mainheadings: {
+    display: "flex",
+    flexDirection: "column",
+    position: "relative",
+    allignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
 });
 
@@ -415,7 +508,7 @@ const ProductDetail = ({ ...props }) => {
 
   const { product, catalogItems, cart } = props;
   // console.log(product, "product");
-  const tagIds = product?.tags?.nodes?.[0]._id || [1]._id || [2]._id;
+  const tagIds = product?.tags?.nodes?.[0]?._id || [1]?._id || [2]?._id;
   // console.log("dddd",props)
   const { uiStore } = props;
   const filteredProducts = catalogItems?.filter((product) => {
@@ -602,17 +695,17 @@ const ProductDetail = ({ ...props }) => {
   }
 
   const handleOnClick = async (product, variant) => {
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: true,
-    }));
+    // setIsLoading((prevState) => ({
+    //   ...prevState,
+    //   [product.productId]: true,
+    // }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!", {});
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: false,
-    }));
+    // setIsLoading((prevState) => ({
+    //   ...prevState,
+    //   [product.productId]: false,
+    // }));
     // Scroll to the top
   };
   const handleAddToCartClickforsingle = async (quantity) => {
@@ -682,387 +775,416 @@ const ProductDetail = ({ ...props }) => {
       height: "100%",
     },
   };
+  const displayPrice = product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
+  const compareAtPrice = product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+
+  const parsedDisplayPrice = parseFloat(displayPrice);
+  const parsedCompareAtPrice = parseFloat(compareAtPrice);
+  const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeButton={<CustomCloseButton />}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        background="green"
-        toastStyle={{
-          backgroundColor: "#FDC114",
-          color: "black",
-          fontSize: "16px",
-          fontFamily: "lato",
-        }}
-      />{" "}
-      <Box className={classes.slider}>
-        <Grid
-          container
-          spacing={0}
-          className={classes.sliderflex}
-          xs={12}
-          md={12}
-          sm={12}
-          lg={12}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
-          <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
-            <div className={classes.thumb}>
-              <Swiper
-                onSwiper={setImagesNavSlider}
-                direction="vertical"
-                spaceBetween={24}
-                slidesPerView={3}
-                navigation={{
-                  nextEl: ".slider__next",
-                  prevEl: ".slider__prev",
-                }}
-                className={classes.container1}
-                breakpoints={{
-                  0: {
-                    direction: "horizontal",
-                  },
-                  768: {
-                    direction: "vertical",
-                  },
-                }}
-                modules={[Navigation, Thumbs, Mousewheel, Pagination]}
-                onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
-              >
-                {product?.variants[0].media[1] &&
-                  product?.variants[0].media.map((slide, index) => {
-                    return (
-                      <SwiperSlide key={index}>
-                        <div className={classes.thumbimage}>
-                          <img src={slide.URLs.thumbnail} alt="" className={classes.thumbimage} />
-                        </div>
-                      </SwiperSlide>
-                    );
-                  })}
-              </Swiper>
-            </div>
-          </Grid>
-          <Grid item xs={0} md={12} sm={0} lg={10}>
-            <div className="fluid react-slick">
-              <Swiper
-                thumbs={{ swiper: imagesNavSlider }}
-                direction="horizontal"
-                slidesPerView={1}
-                spaceBetween={32}
-                ref={sliderRef}
-                pagination={{
-                  clickable: true,
-                }}
-                mousewheel={true}
-                navigation={true}
-                breakpoints={{
-                  0: {
-                    direction: "horizontal",
-                    thumbs: "false",
-                  },
-                  768: {
-                    direction: "horizontal",
-                  },
-                }}
-                modules={[Navigation, Thumbs, Mousewheel, Pagination]}
-                onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
-              >
-                <div className="fluid__image-container">
-                  {product?.variants[0]?.media.map((slide, index) => {
-                    return (
-                      <SwiperSlide className={classes.sliderimage2}>
-                        <div>
-                          <ReactImageMagnify
-                            {...{
-                              smallImage: {
-                                alt: "Wristwatch by Versace",
-                                isFluidWidth: true,
-                                width: 600,
-                                className: "images",
-                                height: 400,
-                                src: slide.URLs.large,
-
-                                sizes: "(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px",
-                              },
-                              largeImage: {
-                                src: slide.URLs.large,
-                                isFluidWidth: true,
-                                width: 1426,
-                                marginLeft: "100px",
-                                height: 1600,
-                              },
-                              lensStyle: {
-                                backgroundColor: "rgba(0,0,0,.6)",
-                              },
-                            }}
-                            enlargedImagePortalId="portal"
-                            enlargedImageContainerDimensions={{
-                              width: "150%",
-                              marginLeft: "100px",
-                              height: "100%",
-                            }}
-                          />
-                        </div>
-                      </SwiperSlide>
-                    );
-                  })}
+      {typeof window !== "undefined" && (
+        <div>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeButton={<CustomCloseButton />}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            background="green"
+            toastStyle={{
+              backgroundColor: "#FDC114",
+              color: "black",
+              fontSize: "16px",
+              fontFamily: "lato",
+            }}
+          />{" "}
+          <Box className={classes.slider}>
+            <Grid
+              container
+              spacing={0}
+              className={classes.sliderflex}
+              xs={12}
+              md={12}
+              sm={12}
+              lg={12}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
+              <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
+                <div className={classes.thumb}>
+                  <Swiper
+                    onSwiper={setImagesNavSlider}
+                    direction="vertical"
+                    spaceBetween={24}
+                    slidesPerView={3}
+                    navigation={{
+                      nextEl: ".slider__next",
+                      prevEl: ".slider__prev",
+                    }}
+                    className={classes.container1}
+                    breakpoints={{
+                      0: {
+                        direction: "horizontal",
+                      },
+                      768: {
+                        direction: "vertical",
+                      },
+                    }}
+                    modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+                    onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+                  >
+                    {product?.variants[0].media[1] &&
+                      product?.variants[0].media.map((slide, index) => {
+                        return (
+                          <SwiperSlide key={index}>
+                            <div className={classes.thumbimage}>
+                              <img src={slide.URLs.thumbnail} alt="" className={classes.thumbimages} />
+                            </div>
+                          </SwiperSlide>
+                        );
+                      })}
+                  </Swiper>
                 </div>
-              </Swiper>
-              <div className="fluid__instructions" style={{ position: "relative" }}>
-                <div id="portal" className="portal" />
-                <div className={classes.carttext}>
-                  <Typography style={{ fontWeight: "700" }} variant="subtitle1">
-                    {product?.title}
-                  </Typography>
-                  <div className={classes.size2}>
-                    {" "}
-                    <div className={classes.size}>
-                      {" "}
-                      <strike>
+              </Grid>
+              <Grid style={{}} item xs={0} md={12} sm={0} lg={8}>
+                <div style={{}} className="fluid react-slick">
+                  <Swiper
+                    thumbs={{ swiper: imagesNavSlider }}
+                    direction="horizontal"
+                    slidesPerView={1}
+                    spaceBetween={32}
+                    ref={sliderRef}
+                    pagination={{
+                      clickable: false,
+                    }}
+                    mousewheel={true}
+                    navigation={true}
+                    breakpoints={{
+                      0: {
+                        direction: "horizontal",
+                        thumbs: "false",
+                      },
+                      768: {
+                        direction: "horizontal",
+                      },
+                    }}
+                    modules={[Navigation, Thumbs, Mousewheel, Pagination]}
+                    onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
+                  >
+                    <div className="fluid__image-container">
+                      {product?.variants[0]?.media.map((slide, index) => {
+                        return (
+                          <SwiperSlide className={classes.sliderimage2}>
+                            <div>
+                              <ReactImageMagnify
+                                {...{
+                                  smallImage: {
+                                    alt: "Wristwatch by Versace",
+                                    isFluidWidth: true,
+                                    width: 600,
+                                    className: "images",
+                                    height: 400,
+                                    src: slide.URLs.large,
+                                    sizes: "(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px",
+                                  },
+                                  largeImage: {
+                                    src: slide.URLs.large,
+                                    isFluidWidth: true,
+                                    width: 1426,
+                                    marginLeft: "100px",
+                                    height: 1600,
+                                  },
+                                  lensStyle: {
+                                    backgroundColor: "rgba(0,0,0,.6)",
+                                  },
+                                }}
+                                enlargedImagePortalId="portal"
+                                enlargedImageContainerDimensions={{
+                                  width: "150%",
+                                  marginLeft: "100px",
+                                  height: "100%",
+                                }}
+                              />
+                            </div>
+                          </SwiperSlide>
+                        );
+                      })}
+                    </div>
+                  </Swiper>
+                  <div className="fluid__instructions" style={{ position: "relative" }}>
+                    <div id="portal" className="portal" />
+                    <div className={classes.carttext}>
+                      <Typography style={{ fontWeight: "700" }} variant="subtitle1">
+                        {product?.title}
+                      </Typography>
+                      <div className={classes.size2}>
                         {" "}
-                        <Typography
-                          style={{ fontWeight: "500", padding: "4px" }}
-                          gutterBottom
-                          variant="h4"
-                          className={classes.price2}
-                        >
-                          {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                            ?.replace(/\.00$/, "")
-                            ?.replace(/\$/g, "RS ")}
+                        <div className={classes.size}>
+                          {" "}
+                          <strike>
+                            {" "}
+                            <Typography
+                              style={{ fontWeight: "500", padding: "4px" }}
+                              gutterBottom
+                              variant="h4"
+                              className={classes.price2}
+                            >
+                              {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                ?.replace(/\.00$/, "")
+                                ?.replace(/\$/g, "Rs. ")}
+                            </Typography>
+                          </strike>
+                          <Typography
+                            style={{ fontWeight: "700", padding: "4px" }}
+                            gutterBottom
+                            variant="h4"
+                            className={classes.price}
+                          >
+                            {product?.variants[0]?.pricing[0]?.displayPrice
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "Rs. ")}
+                          </Typography>
+                        </div>
+                        <Typography gutterBottom variant="h4" className={classes.offer}>
+                          {`-${percentage}%`}
                         </Typography>
-                      </strike>
-                      <Typography
-                        style={{ fontWeight: "700", padding: "4px" }}
-                        gutterBottom
-                        variant="h4"
-                        className={classes.price}
-                      >
-                        {product?.variants[0]?.pricing[0]?.displayPrice?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
-                      </Typography>
+                      </div>
+                      <div className={classes.sizeimage}>
+                        <img src="/cart/available.svg" alt="available" />
+                        <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
+                          {size == 0
+                            ? "Extra Large"
+                            : "Small" || size == 1
+                            ? "Large"
+                            : "Small" || size == 2
+                            ? "Medium"
+                            : "Small" || size == 3
+                            ? "Small"
+                            : "Small"}
+                        </Typography>
+                      </div>
+                      <div className={classes.sizeimage}>
+                        <Typography style={{ fontWeight: "500" }} variant="h4" className={classes.offr}>
+                          Sold By :
+                        </Typography>
+                        <Link
+                          href={"/en/profile/[slugOrId]"}
+                          as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}
+                        >
+                          <Typography
+                            style={{ fontWeight: "700", cursor: "pointer" }}
+                            variant="h4"
+                            className={classes.offr}
+                          >
+                            {product?.variants[0]?.uploadedBy.storeName}
+                          </Typography>
+                        </Link>
+                      </div>
+
+                      <div>
+                        <Button
+                          className={classes.cart2}
+                          fullWidth
+                          onClick={handleOnClickforsingle}
+                          disabled={isDisabled || product?.isSoldOut}
+                        >
+                          <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                          <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
+                            {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : "+ Cart"}
+                          </Typography>
+                        </Button>
+                      </div>
+                      <TabContext value={value}>
+                        <TabList onChange={handleChange} className={classes.tabs}>
+                          <Tab label="Description" value="1" />
+                        </TabList>
+
+                        <TabPanel value="1" className={classes.sizechart}>
+                          {product?.description}
+                        </TabPanel>
+                      </TabContext>
                     </div>
-                    <Typography gutterBottom variant="h4" className={classes.offer}>
-                      50 % off
-                    </Typography>
                   </div>
-                  <div className={classes.sizeimage}>
-                    <img src="/cart/available.svg" alt="available" />
-                    <Typography style={{ fontWeight: "700" }} variant="h4" className={classes.offr}>
-                      {size == 0
-                        ? "Extra Large"
-                        : "Small" || size == 1
-                        ? "Large"
-                        : "Small" || size == 2
-                        ? "Medium"
-                        : "Small" || size == 3
-                        ? "Small"
-                        : "Small"}
-                    </Typography>
-                  </div>
-                  <div className={classes.sizeimage}>
-                    <Typography style={{ fontWeight: "500" }} variant="h4" className={classes.offr}>
-                      Sold By :
-                    </Typography>
-                    <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}>
-                      <Typography
-                        style={{ fontWeight: "700", cursor: "pointer" }}
-                        variant="h4"
-                        className={classes.offr}
-                      >
-                        {product?.variants[0]?.uploadedBy.storeName}
-                      </Typography>
-                    </Link>
-                  </div>
-
-                  <div>
-                    <Button
-                      className={classes.cart2}
-                      fullWidth
-                      onClick={handleOnClickforsingle}
-                      disabled={isDisabled || product?.isSoldOut}
-                    >
-                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                      <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
-                        {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : "+ Cart"}
-                      </Typography>
-                    </Button>
-                  </div>
-                  <TabContext value={value}>
-                    <TabList onChange={handleChange} className={classes.tabs}>
-                      <Tab label="Description" value="1" />
-                    </TabList>
-
-                    <TabPanel value="1" className={classes.sizechart}>
-                      {product?.description}
-                    </TabPanel>
-                  </TabContext>
                 </div>
-              </div>
-            </div>
-          </Grid>
+              </Grid>
 
-          <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
-        </Grid>
-      </Box>
-      {/* <Fragment>
-        <Grid container spacing={5}>
-          <Grid item className={classes.breadcrumbGrid} xs={12}>
-            <Breadcrumbs isPDP tagId={routingStore.tagId} product={product} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <div className={classes.section}>
-              <MediaGallery mediaItems={pdpMediaItems} />
-            </div>
-          </Grid>
+              <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
+            </Grid>
+          </Box>
+          <Typography variant="h3" className={classes.related}>
+            <div className="text"></div>
+            Related <span className={classes.spanofnextword}>Products</span>
+          </Typography>
+          <div className={classes.gridroot}>
+         
+              <ResponsiveMasonry
+                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
+                style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+              >
+                <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                  {filteredProducts?.slice(0, 5)?.map((item, key) => {
+                    const cartitem = cart?.items;
+                    const isDisabled = cartitem?.some((data) => {
+                      return data.productConfiguration.productId === item?.node?.product?.productId;
+                    });
+                    const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                    const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
+                    const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
+                    const str = item.node.product.title;
+                    const words = str.match(/[a-zA-Z0-9]+/g);
+                    const firstThreeWords = words.slice(0, 3).join(" ");
+                    const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                      /[^0-9.]/g,
+                      "",
+                    );
 
-          <Grid item xs={12} sm={6}>
-            <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
-            <div className={classes.info}>
-              <ProductDetailVendor>{product.vendor}</ProductDetailVendor>
-            </div>
-            <div className={classes.info}>
-              <ProductDetailPrice
-                className={classes.bottomMargin}
-                compareAtPrice={compareAtDisplayPrice}
-                price={productPrice.displayPrice}
-              />
-            </div>
-            <div className={classes.info}>
-              <ProductDetailDescription>{product.description}</ProductDetailDescription>
-            </div>
-            <VariantList
-              onSelectOption={handleSelectOption}
-              onSelectVariant={handleSelectVariant}
-              product={product}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              currencyCode={currencyCode}
-              variants={product.variants}
-            />
-            <ProductDetailAddToCart
-              onClick={handleAddToCartClick}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              variants={product.variants}
-            />
-          </Grid>
-        </Grid>
- </Fragment> */}
-      <Typography variant="h3" className={classes.related}>
-        <div className="text"></div>
-        Related <span className={classes.spanofnextword}>Products</span>
-      </Typography>
-      <div className={classes.root}>
-        <Grid container className={classes.gridroot} align="center" justify="center" alignItems="center">
-          {filteredProducts?.slice(0, 5)?.map((item, key) => {
-            const cartitem = cart?.items;
-            const isDisabled = cartitem?.some((data) => {
-              return data.productConfiguration.productId === item?.node?.product?.productId;
-            });
+                    const compareAtPrice =
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        /[^0-9.]/g,
+                        "",
+                      );
 
-            // console.log(cart?.items, "item");
-            // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-            const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-            const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
-            const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
-            return (
-              <>
-                <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
-                  <img
-                    src={
-                      !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                        ? "/justin/justin4.svg"
-                        : item?.node?.product?.media[0]?.URLs?.large
-                    }
-                    className={classes.image}
-                    key={item?.node?.product?.id}
-                    alt={"hhhh"}
-                    onClick={() => clickHandler(item.node.product.slug)}
-                  />
+                    const parsedDisplayPrice = parseFloat(displayPrice);
+                    const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                  <div className={classes.cartbackground}>
-                    {isLoading[item?.node?.product?.productId] ? (
-                      <CircularProgress />
-                    ) : (
-                      <Button
-                        className={classes.cart}
-                        onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        disabled={isDisabled || item?.node?.product?.isSoldOut}
-                      >
-                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        <Typography
-                          style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                          variant="h5"
-                          component="h2"
-                        >
-                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        </Typography>
-                      </Button>
-                    )}
-                  </div>
-                  <Box className={classes.maintitle} onClick={() => clickHandler(item.node.product.slug)}>
-                    <Typography
-                      style={{ fontWeight: "700", fontSize: "24px" }}
-                      gutterBottom
-                      variant="h4"
-                      component="h2"
-                      className={classes.carttitle}
-                    >
-                      {item.node.product.title}
-                    </Typography>
-                    <div className={classes.size}>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato" }}
-                        gutterBottom
-                        variant="h4"
-                      >
-                        Size :
-                      </Typography>
-                      <Typography
-                        style={{ fontWeight: "700", fontSize: "24px", fontFamily: "lato", marginLeft: "10px" }}
-                        gutterBottom
-                        variant="h4"
-                      >
-                        {size == 0
-                          ? "Extra Large"
-                          : "Small" || size == 1
-                          ? "Large"
-                          : "Small" || size == 2
-                          ? "Medium"
-                          : "Small" || size == 3
-                          ? "Small"
-                          : "Small"}
-                      </Typography>
-                    </div>
-                    <div className={classes.pricing}>
-                      {" "}
-                      <strike>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </strike>
-                      <Typography gutterBottom variant="h5" className={classes.price}>
-                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                          ?.replace(/\.00$/, "")
-                          .replace(/\$/g, "RS ")}
-                      </Typography>
-                    </div>
-                  </Box>
-                </Grid>
-              </>
-            );
-          })}
-        </Grid>
-      </div>
+                    const percentage = Math.floor(
+                      ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                    );
+
+                    return (
+                      <>
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                          <div className={classes.boxcontairproduct}>
+                            <Link
+                              href={item.node.product.slug && "en/product/[...slugOrId]"}
+                              as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                            >
+                              <a target="_blank">
+                                {/* {console.log("Images", item?.node)} */}
+                                <img
+                                  src={
+                                    !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                      ? "/justin/justin4.svg"
+                                      : item?.node?.product?.media[0]?.URLs?.large
+                                  }
+                                  className={classes.image}
+                                  key={item?.node?.product?.id}
+                                  alt={"hhhh"}
+                                />
+                              </a>
+                            </Link>
+                            <div className={classes.cartcontent}>
+                              <div className={classes.cartcontenttext}>
+                                <Typography
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "18px",
+                                    fontFamily: "lato",
+                                    // marginTop: "10px",
+                                    left: "12px",
+                                  }}
+                                  variant="h4"
+                                  component="h2"
+                                  className={classes.carttitle}
+                                >
+                                  {firstThreeWords}
+                                </Typography>
+                                <Typography
+                                  className={classes.price}
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "18px",
+                                    fontFamily: "lato",
+                                    color: "#FDC114",
+                                    left: "12px",
+                                  }}
+                                >
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                    ?.replace(/\.00$/, "")
+                                    .replace(/\$/g, "Rs. ")}
+                                </Typography>
+                                <div className={classes.strikethroughoff}>
+                                  <strike className={classes.strikethrough}>
+                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                      ?.replace(/\.00$/, "")
+                                      .replace(/\$/g, "Rs. ")}
+                                  </strike>
+                                  <Typography
+                                    style={{
+                                      fontWeight: "600",
+                                      fontSize: "12px",
+                                      fontFamily: "lato",
+                                      left: "12px",
+                                    }}
+                                    variant="h4"
+                                    component="h2"
+                                    className={classes.carttitle2}
+                                  >{`-${percentage}%`}</Typography>
+                                </div>
+                              </div>
+                              <div className={classes.cartbackground}>
+                                <Typography
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "18px",
+                                    fontFamily: "lato",
+                                    left: "12px",
+                                  }}
+                                  variant="h4"
+                                  component="h2"
+                                  className={classes.carttitle}
+                                >
+                                  Size:{" "}
+                                  <span className={classes.sizes}>
+                                    {size == 0
+                                      ? "XL"
+                                      : "S" || size == 1
+                                      ? "L"
+                                      : "S" || size == 2
+                                      ? "M"
+                                      : "S" || size == 3
+                                      ? "S"
+                                      : "S"}
+                                  </span>
+                                </Typography>
+                                {isLoading[item?.node?.product?.productId] ? (
+                                  <CircularProgress />
+                                ) : (
+                                  <Button
+                                    className={classes.cart}
+                                    onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                    disabled={isDisabled || item?.node?.product?.isSoldOut}
+                                  >
+                                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                    <Typography
+                                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                      variant="h5"
+                                      component="h2"
+                                    >
+                                      {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                    </Typography>
+                                  </Button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+                </Masonry>
+              </ResponsiveMasonry>
+          
+          </div>
+        </div>
+      )}
     </>
   );
 };

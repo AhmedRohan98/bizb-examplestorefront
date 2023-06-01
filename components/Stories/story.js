@@ -11,10 +11,9 @@ const Story = (props) => {
   // console.log("all props....", props);
   const [sellers, loading, refetch] = useGetAllSeller();
   const [sellerToGet, setSellerToGet] = useState(sellers ? sellers[1]?._id : "");
-  const [intialvalues, setIntial] = useState(sellers ? sellers[1]?._id :"");
+  const [intialvalues, setIntial] = useState(sellers ? sellers[1]?._id : "");
   const [sellerss, loadingSellerss, refetchSellerss] = useGetAllSellers(sellerToGet ? sellerToGet : intialvalues);
 
- 
   // const { edges } = sellers?.sellerCatalogItems ?? {};
   // useEffect(() => {
   //   console.log("Sellers All", sellers);
@@ -28,7 +27,7 @@ const Story = (props) => {
       display: "flex",
       allignItems: "center",
       justifyContent: "center",
-      objectFit:"contain",
+      objectFit: "contain",
       width: "100px",
       margin: "10px",
       borderRadius: "100%",
@@ -85,7 +84,6 @@ const Story = (props) => {
     },
     catgorytagm: {
       display: "none",
-
       [theme.breakpoints.down(700)]: {
         display: "flex",
         flexDirection: "row",
@@ -102,7 +100,7 @@ const Story = (props) => {
       flexDirection: "column",
       justifyContent: "center",
       allignItems: "center",
-      textAlign:"center",
+      textAlign: "center",
       width: "120px",
     },
     catagoriesinactive: {
@@ -143,8 +141,8 @@ const Story = (props) => {
       background: theme.palette.reaction.gradient,
       marginTop: "40px",
 
-      display:"flex",
-      justifyContent:"center",
+      display: "flex",
+      justifyContent: "center",
       width: "90%",
     },
     mainheading: {
@@ -383,14 +381,14 @@ const Story = (props) => {
       </Typography>
     );
   }
-  
+
   const [resouce, setResource] = useState("OUR PRODUCTS");
   const [filter, setFilter] = useState(catagories?.[0]?.displayTitle || catgormobile?.[0]?.displayTitle);
   const [filterproducts, setFilterProducts] = useState(null);
   const filteredItems = !filter ? ITEMS : ITEMS.filter((item) => item.Catagory.includes(filter));
   const filteredproducts = !filterproducts ? itemData : itemData.filter((item) => item.store.includes(filterproducts));
   // console.log(filteredItems, "dddddddddddddddddddddd");
-  function Item({ item ,active}) {
+  function Item({ item, active }) {
     const classes = useStyles();
     // console.log(active, "name");
     return (
@@ -425,14 +423,14 @@ const Story = (props) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
- useEffect(() => {
-     if (!sellers) {
-       refetch();
-     }
-     refetchSellerss();
-     setIntial(sellers ? sellers[1]?._id : "");
+  useEffect(() => {
+    if (!sellers) {
+      refetch();
+    }
+    refetchSellerss();
+    setIntial(sellers ? sellers[1]?._id : "");
     //  console.log("data in sellerss bhjjknkn", sellers);
-   }, [sellerToGet, intialvalues]);
+  }, [sellerToGet, intialvalues]);
 
   const classes = useStyles();
   return (
