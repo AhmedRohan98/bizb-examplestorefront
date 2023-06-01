@@ -57,7 +57,12 @@ const Footer = () =>{
               </a>
             </span>
           </div>
-          <div style={{ fontSize: "20px", marginLeft: "90px", fontWeight: "500" }}>IN. FB. TW. LI</div>
+          <div style={{ marginTop:"10px" ,marginLeft: "90px" }}>
+            <img src="/icons/instagram.svg" />
+            <img src="/icons/facebook.svg" />
+            <img src="/icons/twitter.svg" />
+            <img src="/icons/linkedin.svg" />
+          </div>
         </Grid>
         <Grid item xs={12} md={3}>
           <div style={{ fontWeight: "700", fontSize: "26px", textAlign: "center" }}>
