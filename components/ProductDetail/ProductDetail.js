@@ -1067,12 +1067,12 @@ const ProductDetail = ({ ...props }) => {
                           <strike>
                             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
                               ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "RS ")}
+                              .replace(/\$/g, "Rs. ")}
                           </strike>
                           <Typography gutterBottom variant="h5" className={classes.price}>
                             {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
                               ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "RS ")}
+                              .replace(/\$/g, "Rs. ")}
                           </Typography>
                         </div>
                       </Box>
