@@ -41,6 +41,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+  imagesicons: {
+    margin: "2px",
+    cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+     
+    },
+  },
 }));
 
 
@@ -57,11 +66,12 @@ const Footer = () =>{
               </a>
             </span>
           </div>
-          <div style={{ marginTop:"10px" ,marginLeft: "90px" }}>
-            <img src="/icons/instagram.svg" />
-            <img src="/icons/facebook.svg" />
-            <img src="/icons/twitter.svg" />
-            <img src="/icons/linkedin.svg" />
+          <div style={{ marginTop: "10px", marginLeft: "90px" }}>
+            <img src="/icons/instagram.svg" className={classes.imagesicons} />
+            <img src="/icons/facebook.svg" className={classes.imagesicons} />
+            <img src="/icons/twitter.svg" className={classes.imagesicons} />
+            <img src="/icons/linkedin2.svg" className={classes.imagesicons} />
+            <img src="/icons/youtube.svg" className={classes.imagesicons} />
           </div>
         </Grid>
         <Grid item xs={12} md={3}>
