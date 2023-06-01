@@ -53,8 +53,6 @@ const useStyles = makeStyles((theme) => ({
     objectFit: "cover",
     cursor: "pointer",
   },
-
-
   sizes: {
     height: "30px",
     width: "30px",
@@ -62,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "lato",
     fontStyle: "semibold",
     fontSize: "12px",
-
     display: "flex",
     color: "#FDC114",
     justifyContent: "center",
@@ -123,7 +120,6 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "700px",
     width: "315px",
     borderRadius: "5px",
-   
     // border: "1px solid #9C9C9C",
     gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
