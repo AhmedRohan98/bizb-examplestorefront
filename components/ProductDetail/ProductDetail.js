@@ -932,50 +932,7 @@ const ProductDetail = ({ ...props }) => {
               <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
             </Grid>
           </Box>
-          {/* <Fragment>
-        <Grid container spacing={5}>
-          <Grid item className={classes.breadcrumbGrid} xs={12}>
-            <Breadcrumbs isPDP tagId={routingStore.tagId} product={product} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <div className={classes.section}>
-              <MediaGallery mediaItems={pdpMediaItems} />
-            </div>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <ProductDetailTitle pageTitle={product.pageTitle} title={product.title} />
-            <div className={classes.info}>
-              <ProductDetailVendor>{product.vendor}</ProductDetailVendor>
-            </div>
-            <div className={classes.info}>
-              <ProductDetailPrice
-                className={classes.bottomMargin}
-                compareAtPrice={compareAtDisplayPrice}
-                price={productPrice.displayPrice}
-              />
-            </div>
-            <div className={classes.info}>
-              <ProductDetailDescription>{product.description}</ProductDetailDescription>
-            </div>
-            <VariantList
-              onSelectOption={handleSelectOption}
-              onSelectVariant={handleSelectVariant}
-              product={product}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              currencyCode={currencyCode}
-              variants={product.variants}
-            />
-            <ProductDetailAddToCart
-              onClick={handleAddToCartClick}
-              selectedOptionId={pdpSelectedOptionId}
-              selectedVariantId={pdpSelectedVariantId}
-              variants={product.variants}
-            />
-          </Grid>
-        </Grid>
-     </Fragment> */}
+         
           <Typography variant="h3" className={classes.related}>
             <div className="text"></div>
             Related <span className={classes.spanofnextword}>Products</span>
@@ -987,9 +944,6 @@ const ProductDetail = ({ ...props }) => {
                 const isDisabled = cartitem?.some((data) => {
                   return data.productConfiguration.productId === item?.node?.product?.productId;
                 });
-
-                // console.log(cart?.items, "item");
-                // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                 const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
                 const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
