@@ -8,8 +8,14 @@ import Grid from "@material-ui/core/Grid";
 import Link from "next/link";
 import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
 import Box from "@material-ui/core/Box";
-
-const Storyslider = ({ itemData, cart, sellerss }) => {
+import { CircularProgress } from "@material-ui/core";
+import inject from "hocs/inject";
+import variantById from "lib/utils/variantById";
+import { ToastContainer, toast } from "react-toastify";
+const Storyslider = (props) => {
+  
+  const { uiStore, routingStore, itemData, cart, sellerss, addItemsToCart } = props;
+  console.log(props,"props")
   SwiperCore.use([Autoplay, Pagination, Navigation]);
 
   const [isLoading, setIsLoading] = useState({});
@@ -142,6 +148,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
       height: "333px",
       width: "315px",
       borderRadius: "5px",
+      marginLeft:"20px",
       marginBottom: "20px",
       // border: "0.5px solid #9C9C9C",
       gridRowEnd: "span 1",
@@ -355,7 +362,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
   }));
 
   const sliderRef = useRef(null);
-
+ const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -365,6 +372,59 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
   }, []);
+ const handleAddToCartClick = async (quantity, product, variant) => {
+   const {
+     addItemsToCart,
+     currencyCode,
+     cart,
+     uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+   } = props;
+
+   // Disable button after it has been clicked
+
+   // console.log(pdpSelectedVariantId, "star");
+
+   // Get selected variant or variant optiono
+   const selectedVariant = variantById(product.variants, variant._id);
+
+   // If variant is not already in the cart, add the new item
+   // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
+   const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
+   await addItemsToCart([
+     {
+       price: {
+         amount: price,
+         currencyCode: "USD",
+       },
+       metafields: [
+         {
+           key: "media",
+           value: product.media[0]?.URLs?.large,
+         },
+       ],
+       productConfiguration: {
+         productId: product.productId,
+         productVariantId: selectedVariant.variantId,
+       },
+       quantity,
+     },
+   ]);
+ };
+
+ const handleOnClick = async (product, variant) => {
+   setIsLoading((prevState) => ({
+     ...prevState,
+     [product.productId]: true,
+   }));
+
+   await handleAddToCartClick(addToCartQuantity, product, variant);
+   toast.success(" added to cart successfully!");
+   setIsLoading((prevState) => ({
+     ...prevState,
+     [product.productId]: false,
+   }));
+   // Scroll to the top
+ };
 
   const classes = useStyles();
   return (
@@ -439,7 +499,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
 
                     return (
                       <SwiperSlide key={item.id}>
-                        <Grid item lg={3} sm={6} md={4} xs={12} className={classes.rootimg}>
+                      
                           <div className={classes.boxcontairproduct}>
                             <Link
                               href={item.node.product.slug && "en/product/[...slugOrId]"}
@@ -554,7 +614,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
                               </div>
                             </div>
                           </div>
-                        </Grid>
+                      
                       </SwiperSlide>
                     );
                   })
@@ -580,5 +640,5 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
   );
 };
 
-export default Storyslider;
+export default inject("routingStore", "uiStore") (Storyslider);
 
