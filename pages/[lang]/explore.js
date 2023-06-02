@@ -964,7 +964,7 @@ const handleChangeChecksize = (event) => {
                           RS. 500
                         </Typography>
                         <Typography variant="h5" className={classes.filternameprice}>
-                          RS. 1,0000
+                          RS. 10,000
                         </Typography>
                       </div>
                     </div>
