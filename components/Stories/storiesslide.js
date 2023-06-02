@@ -425,10 +425,10 @@ const Storyslider = (props) => {
             pagination={false}
             breakpoints={{
               1500: {
-                slidesPerView: 5,
+                slidesPerView: 3,
               },
               1200: {
-                slidesPerView: 4,
+                slidesPerView: 3,
               },
               1000: {
                 slidesPerView: 3,
