@@ -8,6 +8,10 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import withCart from "containers/cart/withCart";
 import PageStepper from "components/PageStepper/PageStepper";
+import Select, { components } from "react-select";
+import Slider from "@material-ui/core/Slider";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import withCatalogItems from "containers/catalog/withCatalogItems";
@@ -20,18 +24,131 @@ import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import { locales } from "translations/config";
+import clsx from "clsx";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 function Explore(props) {
   console.log("props", props);
-  const { uiStore, routingStore, cart, addItemsToCart,
-    catalogItemsPageInfo, } = props;
+  const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
+     const [state, setState] = useState();
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+   const [price, setPrice] = useState([500, 10000]);
+     const [selectedOption, setSelectedOption] = useState(null);
+     const setSortBy = (sortBy) => {
+       routingStore.setSearch({ sortby: sortBy });
+       uiStore.setSortBy(sortBy);
+     };
+ const toggleDrawer = (anchor, open) => (event) => {
+   setState(!state);
+ };
+ 
+const handleChangeChecksize = (event) => {
+  const selectedSize = event.target.name;
+  const updatedFilters = uiStore.filters
+    .filter((filter) => filter.name !== "size")
+    .concat({ name: "size", value: selectedSize });
+  uiStore.setFilters(updatedFilters);
+};
+  const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
+    setPrice(newValue);
+    const { value } = event.target;
+    const updatedFilters = uiStore.filterPrice
+      .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
+      .concat({ name: minFilterName, value: newValue[0] })
+      .concat({ name: maxFilterName, value: newValue[1] });
+      
+    uiStore.setFilterPrice(updatedFilters);
+  };
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <img src="/colors/vector.svg" />
+      </components.DropdownIndicator>
+    );
+  };
+   const customStyles = {
+     indicatorSeparator: () => ({
+       height: "48px",
+       color: "black",
+     }),
+     control: (provided, state) => ({
+       ...provided,
+       height: "48px",
+       marginTop: "10px",
+       background: "#F7F7F9",
+       borderRadius: "6px",
+       border: state.isFocused ? "none" : "none",
+       boxShadow: state.isFocused ? "none" : "none",
+       width: "255px", // Change this to the desired width
+     }),
+     menu: (provided, state) => ({
+       ...provided,
+       // Set the width of the menu to the full viewport width
+       maxWidth: "none",
 
+       // Ensure that the menu can extend beyond the width of the container
+     }),
+     menuList: (provided, state) => ({
+       ...provided,
+       border: "none",
+     }),
+     option: (provided, state) => ({
+       fontFamily: "Lato",
+       fontStyle: "normal",
+       fontWeight: state.isFocused ? 800 : 500,
+       fontSize: "14px",
+       lineHeight: "19px",
+       textTransform: "capitalize",
+       letterSpacin: "0.05em",
+       padding: "13px",
+       borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
+       color: state.isFocused ? "#000000" : "#989898",
+       "&:hover": {
+         color: "#FDC114",
+       },
+     }),
+     dropdownIndicator: (base, state) => ({
+       ...base,
+       icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
+       "&:hover": {
+         color: "green",
+       },
+     }),
+     input: (provided) => ({
+       ...provided,
+     }),
+     placeholder: (defaultStyles) => {
+       return {
+         ...defaultStyles,
+         fontFamily: "Lato",
+         fontStyle: "normal",
+         fontWeight: 500,
+         fontSize: "16px",
+         lineHeight: "19px",
+         textTransform: "capitalize",
+         color: "#969696",
+         "&:hover": {
+           color: "blue",
+         },
+       };
+     },
+   };
+    const options = [
+      { value: "updatedAt-desc", label: "New Arrivals" },
+      { value: "minPrice-asc", label: "Price Low To High" },
+      { value: "minPrice-desc", label: "Price High To Low" },
+    ];
+     const handleChangeSortBy = (selectedOption) => {
+       setSortBy(selectedOption.value);
+     };
   const useStyles = makeStyles((theme) => ({
     main: {
       width: "100%",
@@ -41,10 +158,435 @@ function Explore(props) {
         padding: "0",
       },
     },
+    list: {
+      width: "379px",
+    },
+    fullList: {
+      width: "auto",
+    },
+    checkbox: {
+      fontSize: "20px",
+      color: "#333333",
+      fontFamily: "Lato",
+      fontWeight: 500,
+      marginTop: "10px",
+      lineHeight: "24px",
+      fontStyle: "normal",
+      color: theme.palette.secondary.selected,
+      "& .MuiTypography-body1": {
+        fontSize: "20px",
+        color: "#000000",
+        fontFamily: "Lato",
+        fontWeight: 500,
+        marginTop: "10px",
+        marginLeft: "10px",
+        lineHeight: "24px",
+        fontStyle: "normal",
+      },
+      "& .MuiCheckbox-colorSecondary.Mui-checked": {
+        color: theme.palette.secondary.selected,
+        outline: "none",
+      },
+      "& .MuiCheckbox-colorSecondary": {
+        outline: "1px solid #333333",
+      },
+      "& .MuiCheckbox-root": {
+        outline: "1px solid #333333",
+        marginLeft: "20px",
+        marginRight: "10px",
+        marginTop: "10px",
+
+        borderRadius: 0,
+        width: 21,
+        height: 21,
+      },
+    },
+    mainimage: {
+      position: "relative",
+      display: "inline-grid",
+    },
+    categoriestext: {
+      position: "absolute",
+      top: "30px",
+      left: "50px",
+    },
+    categoriestexts: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
+    },
+    categoriesname: {
+      fontSize: "48px",
+      color: "#ffffff",
+      fontFamily: "Ostrich Sans Black",
+      fontWeight: 900,
+
+      lineHeight: "58px",
+      fontStyle: "normal",
+    },
+    image: {
+      width: "312px",
+      maxHeight: "450px",
+      objectFit: "cover",
+      borderRadius: "10px",
+      cursor: "pointer",
+    },
+    typography: {
+      background: "#333333",
+      opacity: "15%",
+      height: "8px",
+
+      width: "180px",
+    },
+
+    text: {
+      position: "absolute",
+      bottom: 60,
+    },
+    header: {
+      height: "50px",
+      position: "relative",
+    },
+
+    size: {
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: theme.spacing(1),
+    },
+
+    main: {
+      width: "100%",
+      padding: "25px",
+      [theme.breakpoints.down("xs")]: {
+        padding: "0",
+      },
+    },
+
+    explore: {
+      position: "absolute",
+      top: "6px",
+      right: "10px",
+      color: "#FDC114",
+      zIndex: 900,
+    },
+    maintitle: {
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+      width: "312px",
+      flexDirection: "column",
+    },
+
+    spanofnextword: {
+      color: "#FDC114",
+    },
+    toast: {
+      background: "green",
+      color: "white",
+    },
+    modal: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: theme.spacing(10),
+      border: "none",
+      "&:focus": {
+        outline: "none",
+      },
+    },
+
+    images: {
+      minHeigth: "201px",
+      maxHeight: "355px",
+      width: "310px",
+      marginTop: theme.spacing(2),
+      display: "inline-grid",
+      position: "relative",
+      [theme.breakpoints.down(700)]: {
+        width: "185px",
+        minHeigth: "145px",
+        maxHeight: "230px",
+      },
+    },
+    paper: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: theme.spacing(2),
+      marginRight: "2vh",
+      boxShadow: "none",
+      width: "255px",
+      height: "48px",
+      borderRadius: "6px",
+      background: "#F7F7F9",
+      "& .MuiInput-underline:before": {
+        borderBottom: "none",
+      },
+      ".MuiOutlinedInput-notchedOutline": { border: 0 },
+    },
+    maingrid: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
+    categorytoggle: {
+      marginLeft: theme.spacing(2),
+      cursor: "pointer",
+      "&:hover": {
+        transform: "scale(1.08)",
+        transition: "left 0.2s linear",
+      },
+    },
+    rootimg: {
+      position: "relative",
+      display: "inline-grid",
+      width: "312px",
+
+      maxWidth: "312px",
+      marginLeft: "10px",
+      marginRight: "10px",
+    },
+    cartbackground: {
+      background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+      borderRadius: "0px 0px 16px 16px",
+      alignItems: "center",
+      justifyContent: "initial",
+      height: "75px",
+      width: "100%",
+      bottom: "20%",
+      display: "inline-grid",
+      width: "100%",
+      marginTop: " -75px",
+      padding: "13px 20px",
+    },
+
+    modalitems: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    modalitemsimage: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    modalitemstitle: {
+      display: "flex",
+      width: "90%",
+
+      flexDirection: "column",
+    },
+    loadmorediv: {
+      display: "flex",
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      marginBottom: theme.spacing(2),
+    },
+    vector: {
+      marginRight: theme.spacing(2),
+      marginTop: theme.spacing(2),
+    },
+    categoryavatar: {
+      marginTop: "13px",
+      height: "34px",
+      width: "27px",
+      marginBottom: theme.spacing(1),
+    },
+    catgorytitle: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(1),
+      marginLeft: theme.spacing(3),
+      width: "80%",
+      borderBottom: "0.5px dotted #0101013b",
+      "&:hover": {
+        color: theme.palette.secondary.selected,
+      },
+    },
+    selectDesktop: {
+      marginRight: theme.spacing(3),
+    },
+
+    filters: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: theme.spacing(4),
+      height: "100px",
+      background: "#333333",
+    },
+    close: {
+      color: "#ffffff",
+    },
+    filtersTitle: {
+      color: "#ffffff",
+    },
+    slider: {
+      color: "black",
+      width: "257px",
+
+      height: "2px",
+      "& > span > span": {
+        color: "#FDC114",
+        width: "100px",
+        fontWeight: 800,
+      },
+      "& .PrivateValueLabel-thumb": {
+        width: "100px",
+      },
+      "& .MuiSlider-track": {
+        border: "none",
+      },
+      "& .MuiSlider-thumb": {
+        width: "13px",
+        height: "13px",
+
+        backgroundColor: "#fff",
+        border: "0.5px solid #9E9E9E",
+        "&:before": {
+          boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
+        },
+        "&:hover, &.Mui-focusVisible, &.Mui-active": {
+          boxShadow: "none",
+        },
+      },
+    },
+    loadmore: {
+      marginLeft: theme.spacing(5),
+      marginRight: theme.spacing(5),
+    },
+    filternames: {
+      borderBottom: "2px solid #000000",
+      marginLeft: theme.spacing(3),
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+      width: "62px",
+    },
+    slidervalues: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      width: "300px",
+      flexDirection: "row",
+    },
+    slidervaluesmain: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100%",
+    },
+    filternames2: {
+      borderBottom: "2px solid #000000",
+      marginLeft: theme.spacing(3),
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(0),
+      width: "75px",
+    },
+    colorsmain: {
+      display: "flex",
+      flexDirection: "row",
+      marginTop: theme.spacing(1),
+      marginLeft: theme.spacing(3),
+    },
+    colortitle: {
+      marginLeft: theme.spacing(1),
+    },
+    slidervalue: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    filternameprice: {
+      marginTop: theme.spacing(3),
+      color: "#989898",
+      lineHeight: "19px",
+      fontWeight: 400,
+      marginBottom: "0px",
+    },
+    topheader: {
+      display: "flex",
+      justifyContent: "flex-end",
+
+      [theme.breakpoints.down(700)]: {
+        display: "none",
+      },
+      reactselect: {
+        height: "120px",
+        width: "100px",
+      },
+    },
+
+    sizesfiltes: {
+      marginLeft: "5px",
+    },
+    mobilefilters: {
+      topheader: {
+        display: "flex",
+        justifyContent: "flex-end",
+        display: "none",
+        [theme.breakpoints.down(700)]: {
+          display: "block",
+        },
+      },
+    },
+    mainimageofcategory: {
+      height: "900px",
+      width: "700px",
+      objectFit: "cover",
+    },
+    gridroot: {
+      width: "100%",
+      display: "flex",
+      alignItems: "baseline",
+      position: "relative",
+      justifyContent: "space-between",
+    },
+    grid1: {
+      marginTop: theme.spacing(6),
+    },
+    gridroot: {
+      maxWidth: "100%",
+      justifyContent: "space-between",
+    },
+
+    typography: {
+      background: "#333333",
+      opacity: "15%",
+      height: "8px",
+      width: "180px",
+    },
+    header: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: "60px",
+      height: "50px",
+      position: "relative",
+    },
+    topheader: {
+      display: "flex",
+      justifyContent: "flex-end",
+      marginBottom:"60px",
+
+      [theme.breakpoints.down(700)]: {
+        display: "none",
+      },
+      reactselect: {
+        height: "120px",
+        width: "100px",
+      },
+    },
     profilebaner: {
       width: "100%",
 
-      marginBottom:"60px"
+      marginBottom: "60px",
     },
 
     gridroot: {
@@ -365,6 +907,96 @@ function Explore(props) {
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
         </div>
+        <Box className={classes.topheader}>
+          {["left"].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <img
+                src="/categoriestypes/Vector.svg"
+                alt="vector"
+                className={classes.vector}
+                onClick={toggleDrawer(anchor, true)}
+              />
+              <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
+                <div className={classes.filters}>
+                  {" "}
+                  <Typography variant="h3" className={classes.filtersTitle}>
+                    FILTER
+                  </Typography>
+                  <CloseIcon
+                    onClick={() => {
+                      setState(!state);
+                    }}
+                    className={classes.close}
+                  />
+                </div>
+                <div className={clsx(classes.list)} role="presentation">
+                  <List>
+                    <Typography variant="h4" className={classes.filternames}>
+                      SIZE
+                    </Typography>
+                    {["Small", "Medium", "Large", "Extra Large"].map((text, index) => (
+                      <ListItem button key={text}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              onChange={handleChangeChecksize}
+                              name={text}
+                              variant="h6"
+                              className="size-checkbox"
+                            />
+                          }
+                          label={text}
+                          className={classes.checkbox}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                  <Divider />
+
+                  <Divider />
+                  <List>
+                    <Typography variant="h4" className={classes.filternames2}>
+                      PRICE
+                    </Typography>
+                    <div className={classes.slidervaluesmain}>
+                      <div className={classes.slidervalues}>
+                        <Typography variant="h5" className={classes.filternameprice}>
+                          RS. 500
+                        </Typography>
+                        <Typography variant="h5" className={classes.filternameprice}>
+                          RS. 1,0000
+                        </Typography>
+                      </div>
+                    </div>
+                    <div className={classes.slidervalue}>
+                      <Slider
+                        value={price}
+                        aria-labelledby="range-slider"
+                        min={500}
+                        max={10000}
+                        onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
+                        className={classes.slider}
+                        valueLabelDisplay="auto"
+                      />
+                    </div>
+                  </List>
+                </div>
+              </Drawer>
+            </React.Fragment>
+          ))}
+          <div className={classes.selectDesktop}>
+            <Select
+              defaultValue={selectedOption}
+              placeholder="Sort by"
+              components={{ DropdownIndicator }}
+              styles={customStyles}
+              options={options}
+              onChange={handleChangeSortBy}
+              value={options.find((option) => option.value === sortBy)}
+              className={classes.reactselect}
+            />
+          </div>
+        </Box>
         <div className={classes.gridroot}>
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
