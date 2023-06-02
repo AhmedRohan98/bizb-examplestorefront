@@ -176,81 +176,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0",
     },
   },
-  cardaction: {
-    height: 312,
-    width: 312,
-  },
 
- 
-  header: {
-    height: "50px",
-    position: "relative",
-  },
-
-  headermain: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-
- 
-
-  cartimage: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  carttitle: {
-    display: "flex",
-    marginLeft: theme.spacing(1),
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  price: {
-    marginLeft: "20px",
-  },
-  rootimg: {
-    position: "relative",
-    display: "inline-grid",
-    width: "312px",
-
-    maxWidth: "312px",
-    marginLeft: "10px",
-    marginRight: "10px",
-  },
-  cartbackground: {
-    background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
-
-    borderRadius: "0px 0px 16px 16px",
-
-    alignItems: "center",
-    justifyContent: "initial",
-    height: "75px",
-    width: "100%",
-    bottom: "20%",
-    display: "inline-grid",
-
-    width: "100%",
-    marginTop: " -75px",
-    padding: "13px 20px",
-  },
-  cart: {
-    height: "35px",
-    width: "84px",
-    borderRadius: "40px",
-    background: "#FDC114",
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    borderColor: "none",
-    zIndex: 1200,
-    transition: "all 0.2s linear",
-    "&:hover": {
-      transform: "scale(1.08)",
-      transition: "left 0.2s linear",
-      background: "#FDC114",
-    },
-  },
   explore: {
     position: "absolute",
     top: "6px",
@@ -559,74 +485,7 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     position: "relative",
   },
-  image: {
-    width: "312px", // Reduced by 1px to create space for the border
-    maxHeight: "600px",
-    marginTop: "1px",
-    borderRadius: "10px",
-    marginRight: "2px",
-    marginLeft: "1px",
-    objectFit: "cover",
-    cursor: "pointer",
-  },
-
-  sizes: {
-    height: "30px",
-    width: "30px",
-    marginLeft: "12px",
-    fontFamily: "lato",
-    fontStyle: "semibold",
-    fontSize: "12px",
-
-    display: "flex",
-    color: "#FDC114",
-    justifyContent: "center",
-    border: "1px solid #000000",
-  },
-  cartimage: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  carttitle: {
-    display: "flex",
-    marginLeft: theme.spacing(1),
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  carttitle2: {
-    display: "flex",
-  },
-  cartcontent: {
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    paddingBottom: "10px",
-  },
-  cartcontenttext: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  cart: {
-    height: "35px",
-    width: "84px",
-    borderRadius: "5px",
-    background: "#FDC114",
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    marginTop: "10px",
-    borderColor: "none",
-    zIndex: 1,
-    transition: "all 0.2s linear",
-    "&:hover": {
-      transform: "scale(1.08)",
-      transition: "left 0.2s linear",
-      background: "#FDC114",
-    },
-  },
-  explore: {
+ explore: {
     position: "absolute",
     top: "25px",
     left: "50%",
@@ -778,7 +637,7 @@ function Categories(props) {
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const shop = useShop();
   const [open, setOpen] = useState(false);
-  const [price, setPrice] = useState([0, 10000]);
+  const [price, setPrice] = useState([500, 10000]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedOptionMobS, setSelectedOptionMobS] = useState(null);
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
@@ -790,7 +649,7 @@ function Categories(props) {
   }, []);
 
   const options = [
-    { value: "Recommend", label: "Recommend" },
+   
     { value: "updatedAt-desc", label: "New Arrivals" },
     { value: "minPrice-asc", label: "Price Low To High" },
     { value: "minPrice-desc", label: "Price High To Low" },
@@ -802,7 +661,7 @@ function Categories(props) {
     { value: "Medium", label: "Medium" },
     { value: "Medium", label: "Medium" },
     { value: "Large", label: "Large" },
-    { value: "Extra-Large", label: "Extra-Large" },
+    { value: "Extra-Large", label: "Extra Large" },
   ];
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
@@ -1300,7 +1159,7 @@ function Categories(props) {
                             RS. 500
                           </Typography>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 10,00
+                            RS. 1,00000
                           </Typography>
                         </div>
                       </div>
@@ -1308,7 +1167,7 @@ function Categories(props) {
                         <Slider
                           value={price}
                           aria-labelledby="range-slider"
-                          min={0}
+                          min={500}
                           max={10000}
                           onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
                           className={classes.slider}
