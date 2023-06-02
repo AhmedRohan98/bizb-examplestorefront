@@ -8,6 +8,10 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import withCart from "containers/cart/withCart";
 import PageStepper from "components/PageStepper/PageStepper";
+import Select, { components } from "react-select";
+import Slider from "@material-ui/core/Slider";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import withCatalogItems from "containers/catalog/withCatalogItems";
@@ -20,18 +24,128 @@ import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import { locales } from "translations/config";
+import clsx from "clsx";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 function Explore(props) {
   console.log("props", props);
-  const { uiStore, routingStore, cart, addItemsToCart,
-    catalogItemsPageInfo, } = props;
+  const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
+     const [state, setState] = useState();
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+   const [price, setPrice] = useState([0, 10000]);
+     const [selectedOption, setSelectedOption] = useState(null);
+ const toggleDrawer = (anchor, open) => (event) => {
+   setState(!state);
+ };
+ 
+const handleChangeChecksize = (event) => {
+  const selectedSize = event.target.name;
+  const updatedFilters = uiStore.filters
+    .filter((filter) => filter.name !== "size")
+    .concat({ name: "size", value: selectedSize });
+  uiStore.setFilters(updatedFilters);
+};
+  const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
+    setPrice(newValue);
+    const { value } = event.target;
+    const updatedFilters = uiStore.filterPrice
+      .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
+      .concat({ name: minFilterName, value: newValue[0] })
+      .concat({ name: maxFilterName, value: newValue[1] });
+      
+    uiStore.setFilterPrice(updatedFilters);
+  };
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <img src="/colors/vector.svg" />
+      </components.DropdownIndicator>
+    );
+  };
+   const customStyles = {
+     indicatorSeparator: () => ({
+       height: "48px",
+       color: "black",
+     }),
+     control: (provided, state) => ({
+       ...provided,
+       height: "48px",
+       marginTop: "10px",
+       background: "#F7F7F9",
+       borderRadius: "6px",
+       border: state.isFocused ? "none" : "none",
+       boxShadow: state.isFocused ? "none" : "none",
+       width: "255px", // Change this to the desired width
+     }),
+     menu: (provided, state) => ({
+       ...provided,
+       // Set the width of the menu to the full viewport width
+       maxWidth: "none",
 
+       // Ensure that the menu can extend beyond the width of the container
+     }),
+     menuList: (provided, state) => ({
+       ...provided,
+       border: "none",
+     }),
+     option: (provided, state) => ({
+       fontFamily: "Lato",
+       fontStyle: "normal",
+       fontWeight: state.isFocused ? 800 : 500,
+       fontSize: "14px",
+       lineHeight: "19px",
+       textTransform: "capitalize",
+       letterSpacin: "0.05em",
+       padding: "13px",
+       borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
+       color: state.isFocused ? "#000000" : "#989898",
+       "&:hover": {
+         color: "#FDC114",
+       },
+     }),
+     dropdownIndicator: (base, state) => ({
+       ...base,
+       icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
+       "&:hover": {
+         color: "green",
+       },
+     }),
+     input: (provided) => ({
+       ...provided,
+     }),
+     placeholder: (defaultStyles) => {
+       return {
+         ...defaultStyles,
+         fontFamily: "Lato",
+         fontStyle: "normal",
+         fontWeight: 500,
+         fontSize: "16px",
+         lineHeight: "19px",
+         textTransform: "capitalize",
+         color: "#969696",
+         "&:hover": {
+           color: "blue",
+         },
+       };
+     },
+   };
+    const options = [
+      { value: "Recommend", label: "Recommend" },
+      { value: "updatedAt-desc", label: "New Arrivals" },
+      { value: "minPrice-asc", label: "Price Low To High" },
+      { value: "minPrice-desc", label: "Price High To Low" },
+    ];
+     const handleChangeSortBy = (selectedOption) => {
+       setSortBy(selectedOption.value);
+     };
   const useStyles = makeStyles((theme) => ({
     main: {
       width: "100%",
@@ -346,7 +460,7 @@ function Explore(props) {
           }}
         />
 
-        <img src="/profile/explore.webp" className={classes.profilebaner} />
+        {/* <img src="/profile/explore.webp" className={classes.profilebaner} /> */}
 
         <div className={classes.headermain}>
           {/* <button onClick={notify}>Notify!</button>
@@ -365,6 +479,96 @@ function Explore(props) {
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
         </div>
+        <Box className={classes.topheader}>
+          {["left"].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <img
+                src="/categoriestypes/Vector.svg"
+                alt="vector"
+                className={classes.vector}
+                onClick={toggleDrawer(anchor, true)}
+              />
+              <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
+                <div className={classes.filters}>
+                  {" "}
+                  <Typography variant="h3" className={classes.filtersTitle}>
+                    FILTER
+                  </Typography>
+                  <CloseIcon
+                    onClick={() => {
+                      setState(!state);
+                    }}
+                    className={classes.close}
+                  />
+                </div>
+                <div className={clsx(classes.list)} role="presentation">
+                  <List>
+                    <Typography variant="h4" className={classes.filternames}>
+                      SIZE
+                    </Typography>
+                    {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
+                      <ListItem button key={text}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              onChange={handleChangeChecksize}
+                              name={text}
+                              variant="h6"
+                              className="size-checkbox"
+                            />
+                          }
+                          label={text}
+                          className={classes.checkbox}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                  <Divider />
+
+                  <Divider />
+                  <List>
+                    <Typography variant="h4" className={classes.filternames2}>
+                      PRICE
+                    </Typography>
+                    <div className={classes.slidervaluesmain}>
+                      <div className={classes.slidervalues}>
+                        <Typography variant="h5" className={classes.filternameprice}>
+                          RS. 500
+                        </Typography>
+                        <Typography variant="h5" className={classes.filternameprice}>
+                          RS. 10,00
+                        </Typography>
+                      </div>
+                    </div>
+                    <div className={classes.slidervalue}>
+                      <Slider
+                        value={price}
+                        aria-labelledby="range-slider"
+                        min={0}
+                        max={10000}
+                        onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
+                        className={classes.slider}
+                        valueLabelDisplay="auto"
+                      />
+                    </div>
+                  </List>
+                </div>
+              </Drawer>
+            </React.Fragment>
+          ))}
+          <div className={classes.selectDesktop}>
+            <Select
+              defaultValue={selectedOption}
+              placeholder="Sort by"
+              components={{ DropdownIndicator }}
+              styles={customStyles}
+              options={options}
+              onChange={handleChangeSortBy}
+              value={options.find((option) => option.value === sortBy)}
+              className={classes.reactselect}
+            />
+          </div>
+        </Box>
         <div className={classes.gridroot}>
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
