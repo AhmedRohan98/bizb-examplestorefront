@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import useGetAllSellers from "../../hooks/sellerByID/useGetAllproductsbySeller";
 import Storyslider from "./storiesslide";
 const Story = (props) => {
+  const { addItemsToCart}=props
   // console.log("all props....", props);
   const [sellers, loading, refetch] = useGetAllSeller();
   const [sellerToGet, setSellerToGet] = useState(sellers ? sellers[1]?._id : "");
@@ -390,7 +391,7 @@ const Story = (props) => {
   // console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item, active }) {
     const classes = useStyles();
-    // console.log(active, "name");
+    console.log(active, "active is called");
     return (
       <>
         <SwiperSlide>
@@ -479,7 +480,7 @@ const Story = (props) => {
         >
           {sellers?.map((item) => (
             <SwiperSlide key={item.id} onClick={() => setSellerToGet(item?._id)} active={item.store === filterproducts}>
-              <Item item={item} />
+              <Item item={item} active={item.storeName === filterproducts} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -496,7 +497,7 @@ const Story = (props) => {
           )}
         </div>
       </div>
-      <Storyslider sellerss={sellerss} cart={props?.cart} />
+      <Storyslider sellerss={sellerss} cart={props?.cart} addItemsToCart={addItemsToCart} />
     </div>
   );
 };

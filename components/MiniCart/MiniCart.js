@@ -130,6 +130,7 @@ const styles = (theme) => ({
   total1: {
     display: "flex",
     justifyContent: "space-around",
+    marginBottom:"30px"
   },
   cart1: {
     height: "48px",
