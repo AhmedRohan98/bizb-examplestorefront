@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import useGetAllSellers from "../../hooks/sellerByID/useGetAllproductsbySeller";
 import Storyslider from "./storiesslide";
+import Tooltip from "@material-ui/core/Tooltip";
 const Story = (props) => {
   const { addItemsToCart}=props
   // console.log("all props....", props);
@@ -395,19 +396,27 @@ const Story = (props) => {
     return (
       <>
         <SwiperSlide>
-          <div className={classes.box}>
-            <img
-              src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
-              className={classes.image}
-            />
-            <Typography
-              style={{ textAlign: "center", marginBottom: "60px", marginTop: "10px" }}
-              variant="h5"
-              className={active ? classes.catagoriesactive : classes.catagoriesinactive}
-            >
-              {item.storeName}
-            </Typography>
-          </div>
+          <Tooltip disableFocusListener disableTouchListener title="Please click to display items in store">
+            <div className={classes.box}>
+              <img
+                src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
+                className={classes.image}
+              />
+              <Typography
+                style={{
+                  textAlign: "center",
+                  marginBottom: "60px",
+                  marginTop: "10px",
+                  color: "#000000",
+                  cursor: "pointer",
+                }}
+                variant="h5"
+                // className={active ? classes.catagoriesactive : classes.catagoriesinactive}
+              >
+                {item.storeName}
+              </Typography>
+            </div>
+          </Tooltip>
         </SwiperSlide>
       </>
     );
