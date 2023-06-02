@@ -16,12 +16,11 @@ import getAccountsHandler from "../../lib/accountsServer.js";
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
-    width: "189px",
-    height: "135px",
-    background: theme.palette.reaction.black80,
+    boxShadow: " 0 3px 5px 0 #000",
+    // zIndex: "99999999",
+    width: "150px",
+    background: "#fff",
     padding: theme.spacing(2),
-    borderBottomLeftRadius: "20px",
-    borderBottomRightRadius: "20px",
     "& .MuiPopover-paper": {
       display: "none",
     },
@@ -48,6 +47,13 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiPopover-paper": {
       borderBottomLeftRadius: "20px",
       borderBottomRightRadius: "20px",
+    },
+  },
+  profile: {
+    color: "#333333",
+    cursor: "pointer",
+    "&:hover": {
+      color: "#fdc114",
     },
   },
 }));
@@ -93,12 +99,13 @@ const AccountDropdown = ({ headerType }) => {
           <ViewerInfo viewer={viewer} headerType={headerType} />
         </ButtonBase>
       ) : (
-        <IconButton color="inherit" onClick={() => setEntryModal("login")}
-          style=
-          {{
+        <IconButton
+          color="inherit"
+          onClick={() => setEntryModal("login")}
+          style={{
             background: anchorElement ? "#fdc114" : "",
           }}
-          >
+        >
           <span>
             {headerType ? (
               <img src="/icons/user.webp" className="headerlogo" />
@@ -121,47 +128,26 @@ const AccountDropdown = ({ headerType }) => {
           horizontal: "center",
           marginTop: "100px",
         }}
-        elevation={0}
+        // elevation={0}
         open={Boolean(anchorElement)}
         onClose={onClose}
       >
         <div className={classes.accountDropdown}>
           {isAuthenticated ? (
             <Fragment>
-              <div className={classes.authContent}>
-                <div className={classes.marginBottom}>
-                  <Link href="/profile/address">
-                    <Button className={classes.authbutton} fullWidth>
-                      Profile
-                    </Button>
-                  </Link>
-                </div>
-                <Button color="primary" className={classes.authbutton} fullWidth onClick={handleSignOut}>
-                  Sign Out
-                </Button>
-                {/* <div className={classes.marginBottom}>
-                <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("change-password")}>
-                  Change Password
-                </Button>
-              </div> */}
+              <div style={{ marginBottom: "20px" }}>
+                <Link href="/profile/address">
+                  <span className={classes.profile}>Profile</span>
+                </Link>
               </div>
+              <div style={{ cursor: "pointer", marginBottom: "24px" }} onClick={handleSignOut}>
+                <span className={classes.profile} style={{ cursor: "pointer" }}>
+                  Log out
+                </span>
+              </div>{" "}
             </Fragment>
           ) : (
-            <Fragment>
-              <div className={classes.authContent}>
-                <Button
-                  className={classes.authbutton}
-                  fullWidth
-                  variant="contained"
-                  onClick={() => setEntryModal("signup")}
-                >
-                  Register
-                </Button>
-              </div>
-              <Button className={classes.authbutton} fullWidth onClick={() => setEntryModal("login")}>
-                Login
-              </Button>
-            </Fragment>
+            <></>
           )}
         </div>
       </Popover>

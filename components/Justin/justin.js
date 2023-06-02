@@ -491,7 +491,7 @@ const Justin = (props) => {
 
       <div className={classes.header}>
         <h1 className={classes.typography}></h1>
-        <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+        <a href="/en/explore">
           <Typography gutterBottom variant="body1" className={classes.explore}>
             Explore More
           </Typography>
