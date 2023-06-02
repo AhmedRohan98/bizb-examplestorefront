@@ -22,8 +22,9 @@ import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import { locales } from "translations/config";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 function Explore(props) {
-  // console.log("props", props);
-  const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo } = props;
+  console.log("props", props);
+  const { uiStore, routingStore, cart, addItemsToCart,
+    catalogItemsPageInfo, } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
@@ -42,7 +43,7 @@ function Explore(props) {
     },
     profilebaner: {
       width: "100%",
-      height:"450px",
+
       marginBottom:"60px"
     },
 
