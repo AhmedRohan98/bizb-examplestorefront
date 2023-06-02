@@ -171,56 +171,22 @@ class NavigationDesktop extends Component {
                 Home
               </span>
             </Link>
-            <span
-              className="hoverable"
-              style={{
-                marginRight: "40px",
-                padding: "9px 11px",
-                marginLeft: "30px",
-                fontSize: "18px",
-                fontFamily: '"Ostrich Sans Black"',
-                fontWeight: 900,
-                color: this.state.anchorEl ? "#fdc114" : "",
-              }}
-              onClick={this.handlePopOverClick}
-            >
-              Explore
-            </span>
-            <Popover
-              anchorEl={anchorEl}
-              transformOrigin={{
-                vertical: "center",
-                horizontal: "center",
-              }}
-              anchorOrigin={{
-                vertical: "center",
-                horizontal: "center",
-                marginTop: "100px",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={this.handlePopOverClose}
-              style={{ marginTop: "100px" }}
-            >
-              <Box sx={style}>
-                <div className={classes.modalitems}>
-                  <div className={classes.modalitemsimage}>
-                    {ITEMScategory.map((item) => (
-                      <img src={item.image} className={classes.categoryavatar} />
-                    ))}
-                  </div>
-
-                  <div className={classes.modalitemstitle}>
-                    {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
-                      <a href={`/en/categories/${itemtitle._id}`}>
-                        <Typography variant="h4" className={classes.catgorytitle}>
-                          {itemtitle.displayTitle}
-                        </Typography>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </Box>
-            </Popover>
+            <a href="/en/explore">
+              <span
+                className="hoverable"
+                style={{
+                  marginRight: "40px",
+                  padding: "9px 11px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black"',
+                  fontWeight: 900,
+                  color: this.state.anchorEl ? "#fdc114" : "",
+                }}
+              >
+                Explore
+              </span>
+            </a>
             <span
               className="hoverable"
               style={{
