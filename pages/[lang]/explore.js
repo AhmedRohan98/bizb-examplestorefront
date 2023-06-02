@@ -43,6 +43,7 @@ function Explore(props) {
     },
     profilebaner: {
       width: "100%",
+      height:"450px",
       marginBottom:"60px"
     },
 
@@ -349,7 +350,7 @@ function Explore(props) {
           }}
         />
 
-        <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+        <img src="/profile/explore.webp" className={classes.profilebaner} />
 
         <div className={classes.headermain}>
           {/* <button onClick={notify}>Notify!</button>
