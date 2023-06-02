@@ -43,6 +43,7 @@ function Explore(props) {
     },
     profilebaner: {
       width: "100%",
+      marginBottom:"60px"
     },
 
     gridroot: {
@@ -201,7 +202,7 @@ function Explore(props) {
   // console.log(props.totalcount, "propertiese");
   
   useEffect(() => {
-    uiStore?.setPageSize(15);
+    uiStore?.setPageSize(60);
 
    
   }, []);
@@ -347,8 +348,8 @@ function Explore(props) {
             textTransform: "capitalize",
           }}
         />
-       
-      
+
+        <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
 
         <div className={classes.headermain}>
           {/* <button onClick={notify}>Notify!</button>
@@ -520,9 +521,7 @@ function Explore(props) {
           </ResponsiveMasonry>
         </div>
         <div className={classes.loadmore}>
-          {catalogItemsPageInfo?.hasNextPage && (
-            <PageStepper pageInfo={catalogItemsPageInfo} ></PageStepper>
-          )}
+          {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
     </Layout>
