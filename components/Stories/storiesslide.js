@@ -24,22 +24,13 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
         disabled: item.inCart || isItemInCart,
       };
     });
-    // console.log(updatedItems, "all");
-    // do something with updatedItems
   }, [cart?.item, sellerss]);
   const useStyles = makeStyles((theme) => ({
     typography: {
       background: "#333333",
       opacity: "15%",
       height: "4px",
-
       width: "200px",
-    },
-    typography: {
-      background: "#333333",
-      opacity: "15%",
-      height: "8px",
-      width: "180px",
     },
     text: {
       position: "absolute",
@@ -49,7 +40,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      marginTop: "60px",
+      marginBottom: "30px",
       height: "50px",
       position: "relative",
     },
@@ -57,7 +48,6 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
       display: "flex",
       justifyContent: "space-between",
     },
-
     image2: {
       width: "320px",
       height: "231px",
@@ -66,7 +56,6 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
       borderRadius: "10px",
       cursor: "pointer",
     },
-
     size: {
       display: "flex",
       flexDirection: "row",
@@ -79,7 +68,6 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
       fontFamily: "lato",
       fontStyle: "semibold",
       fontSize: "12px",
-
       display: "flex",
       color: "#FDC114",
       justifyContent: "center",
@@ -106,7 +94,6 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
     },
     cartcontenttext: {
       display: "flex",
-
       flexDirection: "column",
     },
 
@@ -300,7 +287,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
       alignItems: "flex-start",
     },
     swiperpaggination: {
-      marginBottom: "60px",
+      // marginBottom: "60px",
       "& .swiper-pagination": {
         position: "absolute",
         bottom: "0px",
