@@ -42,6 +42,8 @@ function Explore(props) {
     },
     profilebaner: {
       width: "100%",
+      height:"450px",
+      marginBottom:"60px"
     },
 
     gridroot: {
@@ -342,6 +344,8 @@ function Explore(props) {
             textTransform: "capitalize",
           }}
         />
+
+        <img src="/profile/explore.webp" className={classes.profilebaner} />
 
         <div className={classes.headermain}>
           {/* <button onClick={notify}>Notify!</button>
