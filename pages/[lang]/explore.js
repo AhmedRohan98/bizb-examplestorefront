@@ -23,8 +23,7 @@ import { locales } from "translations/config";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 function Explore(props) {
   // console.log("props", props);
-  const { uiStore, routingStore, cart, addItemsToCart,
-    catalogItemsPageInfo, } = props;
+  const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
@@ -199,11 +198,9 @@ function Explore(props) {
     },
   }));
   // console.log(props.totalcount, "propertiese");
-  
+
   useEffect(() => {
     uiStore?.setPageSize(15);
-
-   
   }, []);
   useEffect(() => {
     const updatedItems = props?.cart?.items?.map((item) => {
@@ -250,8 +247,6 @@ function Explore(props) {
     }
 
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
-
-   
   }
 
   const handleAddToCartClick = async (quantity, product, variant) => {
@@ -347,8 +342,6 @@ function Explore(props) {
             textTransform: "capitalize",
           }}
         />
-       
-      
 
         <div className={classes.headermain}>
           {/* <button onClick={notify}>Notify!</button>
@@ -520,9 +513,7 @@ function Explore(props) {
           </ResponsiveMasonry>
         </div>
         <div className={classes.loadmore}>
-          {catalogItemsPageInfo?.hasNextPage && (
-            <PageStepper pageInfo={catalogItemsPageInfo} ></PageStepper>
-          )}
+          {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
     </Layout>
@@ -551,7 +542,7 @@ export async function getStaticProps({ params: { lang } }) {
   return {
     props: {
       ...primaryShop,
-     
+
       feed,
     },
     // eslint-disable-next-line camelcase
