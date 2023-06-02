@@ -570,7 +570,7 @@ const Storyslider = ({ itemData, cart, sellerss }) => {
       </div>
       <div className={classes.header}>
         <h2 className={classes.typography}></h2>
-        <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
+        <a href="/en/explore">
           <Typography gutterBottom variant="body1" className={classes.explore}>
             Explore More
           </Typography>
