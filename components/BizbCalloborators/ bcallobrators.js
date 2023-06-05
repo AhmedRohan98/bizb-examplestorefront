@@ -1,10 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from '@material-ui/core/Grid';
-import Box  from '@material-ui/core/Box';
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 const BizbCalloborators = () => {
-
-
   const useStyles = makeStyles((theme) => ({
     root: {
       background: theme.palette.action.main,
@@ -30,7 +28,8 @@ const BizbCalloborators = () => {
       },
     },
     buttonshopt: {
-      fontSize: "16px",
+      fontSize: "22px",
+      fontFamily: "Ostrich Sans Black",
       color: "#000000",
       fontWeight: 900,
       fontStyle: "Black",
@@ -40,13 +39,13 @@ const BizbCalloborators = () => {
     },
     image: {
       position: "relative",
-      marginTop:"100px",
+      marginTop: "100px",
       width: "100%",
     },
     collobarotors: {
       width: "100%",
       position: "relative",
-      marginBottom:"60px"
+      marginBottom: "60px",
     },
     cart: {
       width: "10%",
@@ -62,8 +61,7 @@ const BizbCalloborators = () => {
       },
     },
   }));
-  
-  
+
   const classes = useStyles();
   return (
     <Box display={{ xs: "block", lg: "block", xl: "block" }}>

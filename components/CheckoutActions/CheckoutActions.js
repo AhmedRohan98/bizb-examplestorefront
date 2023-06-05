@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import Router from "translations/i18nRouter";
 import CloseIcon from "@material-ui/icons/Close";
 import { Grid, TextField, Typography, Button } from "@material-ui/core";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -299,7 +299,6 @@ const CheckoutActions = (prop) => {
 
   const [error, setError] = useState("");
 
-  
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
     price: item.price.amount,
@@ -468,7 +467,7 @@ const CheckoutActions = (prop) => {
     orderNotes: Yup.string(),
   });
 
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue ,formik} = useFormik({
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue, formik } = useFormik({
     initialValues,
     validationSchema: addressSchema,
     validateOnChange: true,
@@ -571,11 +570,9 @@ const CheckoutActions = (prop) => {
     { value: "Karachi", label: "Karachi" },
     { value: "Rawalpandi", label: "Rawalpandi" },
   ];
- 
-  
 
   const handleChangeEmail = (event) => {
-    formik.handleChange(event);
+    setCheckedEmail(event.target.checked);
   };
 
   // useEffect(() => {
