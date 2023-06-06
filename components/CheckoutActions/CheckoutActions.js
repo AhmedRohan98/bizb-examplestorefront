@@ -570,17 +570,23 @@ const CheckoutActions = (prop) => {
     setCheckedEmail(event.target.checked);
   };
 
-  const address = "do do do";
-  const city = "lahgore";
-  const amount = 1944;
+  const address = "d,dd,d,,d";
+  const city = values.city;
+  const amount = cart.checkout.summary.itemTotal.amount;
 
   const [shippingData, loading, refetch] = useGetShipping(address, city, amount);
 
+useEffect(() => {
+  if (values.city) {
+    refetch();
+  }
+}, [values.city, refetch]);
 
-  // useEffect(() => {
-  //   localStorage.setItem("formValues", JSON.stringify(formik?.values));
-  //   setInitialValues(formik?.values); // Update initialValues with the latest formik values
-  // }, [formik?.values]);
+useEffect(() => {
+  console.log(shippingData, "dddd");
+}, [shippingData]);
+
+
 
   return (
     <>

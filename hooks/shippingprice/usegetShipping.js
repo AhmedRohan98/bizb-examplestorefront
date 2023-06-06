@@ -11,8 +11,8 @@ export default function useGetShipping(address, city, amount) {
 
   useEffect(() => {
     refetch();
-    console.log (data,"ffff")
-  }, [address, city, amount]);
+   
+  }, [ city]);
 
   return [shippingData, loading, refetch];
 }
