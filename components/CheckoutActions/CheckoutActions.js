@@ -13,7 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import * as Yup from "yup";
 import { useFormik, useFormikContext } from "formik";
-
+import useGetShipping from "../../hooks/shippingprice/usegetShipping";
 import Select, { components } from "react-select";
 import { placeOrderQuery } from "../../hooks/orders/query";
 const useStyles = makeStyles((theme) => ({
@@ -564,23 +564,18 @@ const CheckoutActions = (prop) => {
       </components.DropdownIndicator>
     );
   };
-  const options = [
-    { value: "Lahore", label: "Lahore" },
-    { value: "Islamabad", label: "Islamabad" },
-    { value: "Karachi", label: "Karachi" },
-    { value: "Rawalpandi", label: "Rawalpandi" },
-  ];
+
 
   const handleChangeEmail = (event) => {
     setCheckedEmail(event.target.checked);
   };
 
-  // useEffect(() => {
-  //   const storedValues = localStorage.getItem("formValues");
-  //   if (storedValues) {
-  //     setInitialValues(JSON.parse(storedValues));
-  //   }
-  // }, []);
+  const address = "do do do";
+  const city = "lahgore";
+  const amount = 1944;
+
+  const [shippingData, loading, refetch] = useGetShipping(address, city, amount);
+
 
   // useEffect(() => {
   //   localStorage.setItem("formValues", JSON.stringify(formik?.values));
