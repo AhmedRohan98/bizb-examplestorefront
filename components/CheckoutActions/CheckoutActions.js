@@ -294,6 +294,7 @@ const CheckoutActions = (prop) => {
   // console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
   const [checkedEmail, setCheckedEmail] = React.useState(false);
   const [placeOrder] = useMutation(placeOrderQuery);
+  const [getValue, setValue] = useState({})
 
   const classes = useStyles();
 
@@ -409,25 +410,26 @@ const CheckoutActions = (prop) => {
                 // displayTotal: total.displayAmount,
                 // displayTax: taxTotal && taxTotal.displayAmount,
                 shopId: cart.shop._id,
-                totalPrice: cart.checkout.summary.itemTotal.amount + 10,
+                totalPrice: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
                 type: "shipping",
-                selectedFulfillmentMethodId: "cmVhY3Rpb24vZnVsZmlsbG1lbnRNZXRob2Q6Zm1YU1FFM2dKbzM4V2NvZGUy",
+                selectedFulfillmentMethodId: shippingData?._id,
               },
             ],
             shopId: cart.shop._id,
           },
           payments: [
             {
-              amount: cart.checkout.summary.itemTotal.amount + 10,
+              amount: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
 
               method: "iou_example",
             },
           ],
 
-          total: cart.checkout.summary.itemTotal.amount + 10,
+          total: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
           totalItemQuantity: 1,
         },
       });
+      console.log("Order", placeOrder)
 
       const {
         placeOrder: { orders, token },
@@ -474,6 +476,8 @@ const CheckoutActions = (prop) => {
     validateOnBlur: false,
 
     onSubmit: async (values, action) => {
+      setValue(values)
+      console.log("values",values)
       await handlepay(values, action);
       action.resetForm();
     },
@@ -570,11 +574,11 @@ const CheckoutActions = (prop) => {
     setCheckedEmail(event.target.checked);
   };
 
-  const address = "d,dd,d,,d";
-  const city = values.city;
+  // const address = values.CompleteAddress;
+  // const city = values.city;
   const amount = cart.checkout.summary.itemTotal.amount;
 
-  const [shippingData, loading, refetch] = useGetShipping(address, city, amount);
+  const [shippingData, loading, refetch] = useGetShipping(getValue?.CompleteAddress, getValue.city, amount);
 
 useEffect(() => {
   if (values.city) {
@@ -583,7 +587,9 @@ useEffect(() => {
 }, [values.city, refetch]);
 
 useEffect(() => {
-  console.log(shippingData, "dddd");
+  console.log("shippingData", shippingData);
+
+  console.log("shippingData _id",shippingData?._id);
 }, [shippingData]);
 
 
@@ -782,7 +788,7 @@ useEffect(() => {
                       Shipping Cost
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {10}
+                      {shippingData? shippingData?.cost: ""}
                     </Typography>
                   </div>
                 </div>
@@ -792,7 +798,7 @@ useEffect(() => {
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {cart.checkout.summary.itemTotal.amount + 10}
+                    {cart.checkout.summary.itemTotal.amount + shippingData?.cost}
                   </Typography>
                 </div>
               </div>
