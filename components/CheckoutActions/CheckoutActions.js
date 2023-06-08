@@ -380,16 +380,16 @@ const CheckoutActions = (prop) => {
               {
                 data: {
                   shippingAddress: {
-                    address1: values.CompleteAddress,
+                    address1: getValue.CompleteAddress,
                     address2: values.orderNotes,
-                    city: values.city,
+                    city: getValue.city,
                     company: null,
                     country: "pakistan",
-                    fullName: values.FullName,
+                    fullName: getValue.FullName,
                     isBillingDefault: false,
                     isCommercial: false,
                     isShippingDefault: false,
-                    phone: values.phonenumber,
+                    phone: getValue.phonenumber,
                     postal: "pak",
                     region: "pandi",
                   },
@@ -476,7 +476,7 @@ const CheckoutActions = (prop) => {
     validateOnBlur: false,
 
     onSubmit: async (values, action) => {
-      setValue(values)
+      // setValue(values)
       console.log("values",values)
       await handlepay(values, action);
       action.resetForm();
@@ -578,19 +578,25 @@ const CheckoutActions = (prop) => {
   // const city = values.city;
   const amount = cart.checkout.summary.itemTotal.amount;
 
-  const [shippingData, loading, refetch] = useGetShipping(getValue?.CompleteAddress, getValue.city, amount);
+  const [shippingData, loading, refetch] = useGetShipping(values.CompleteAddress, values.city, amount);
 
 useEffect(() => {
+  setValue(values)
+
   if (values.city) {
+
     refetch();
   }
 }, [values.city, refetch]);
 
 useEffect(() => {
+
   console.log("shippingData", shippingData);
+  console.log("setValue", values);
+
 
   console.log("shippingData _id",shippingData?._id);
-}, [shippingData]);
+}, [values.city,shippingData]);
 
 
 
@@ -798,7 +804,7 @@ useEffect(() => {
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {cart.checkout.summary.itemTotal.amount + shippingData?.cost}
+                    {shippingData?.cost?  shippingData?.cost+cart.checkout.summary.itemTotal.amount: cart.checkout.summary.itemTotal.amount }
                   </Typography>
                 </div>
               </div>
