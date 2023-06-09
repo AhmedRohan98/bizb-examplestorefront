@@ -395,6 +395,7 @@ const Justin = (props) => {
                             fontSize: "18px",
                             fontFamily: "lato",
                             // marginTop: "10px",
+                            textTransform: 'capitalize',
                             left: "12px",
                           }}
                           variant="h4"
