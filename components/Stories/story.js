@@ -9,8 +9,9 @@ import useGetAllSellers from "../../hooks/sellerByID/useGetAllproductsbySeller";
 import Storyslider from "./storiesslide";
 import Tooltip from "@material-ui/core/Tooltip";
 const Story = (props) => {
-  const { addItemsToCart}=props
+  const { addItemsToCart } = props;
   // console.log("all props....", props);
+  const [show, setShow] = useState(false);
   const [sellers, loading, refetch] = useGetAllSeller();
   const [sellerToGet, setSellerToGet] = useState(sellers ? sellers[1]?._id : "");
   const [intialvalues, setIntial] = useState(sellers ? sellers[1]?._id : "");
@@ -488,7 +489,14 @@ const Story = (props) => {
           onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
         >
           {sellers?.map((item) => (
-            <SwiperSlide key={item.id} onClick={() => setSellerToGet(item?._id)} active={item.store === filterproducts}>
+            <SwiperSlide
+              key={item.id}
+              onClick={() => {
+                setSellerToGet(item?._id);
+                setShow(true);
+              }}
+              active={item.store === filterproducts}
+            >
               <Item item={item} active={item.storeName === filterproducts} />
             </SwiperSlide>
           ))}
@@ -506,7 +514,7 @@ const Story = (props) => {
           )}
         </div>
       </div>
-      <Storyslider sellerss={sellerss} cart={props?.cart} addItemsToCart={addItemsToCart} />
+      <Storyslider show={show} storeId={sellerToGet} sellerss={sellerss} cart={props?.cart} addItemsToCart={addItemsToCart} />
     </div>
   );
 };
