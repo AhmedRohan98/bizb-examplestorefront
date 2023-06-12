@@ -26,7 +26,7 @@ const styles = (theme: Theme) =>
   createStyles({
     appBar: {
       textTransform: "uppercase",
-      height: "170px",
+      height: "120px",
       width: "100%",
       background: "none",
       display: "flex",
@@ -50,7 +50,7 @@ const styles = (theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
       paddingTop: "20px",
-      height: "170px",
+      height: "120px",
       zIndex: 1200,
       "& > *:last-child": {
         border: "none !important", // or any other custom styles you want to apply
@@ -61,7 +61,6 @@ const styles = (theme: Theme) =>
       cursor: "pointer",
       zIndex: 1200,
     },
-
     dark: {
       color: "#333333",
       backgroundImage: "none !important",
@@ -139,7 +138,6 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
               <img
                 style={{
                   zIndex: 0,
-                  width: "50px",
                   width: "95px",
                   cursor: "pointer",
                 }}
@@ -153,8 +151,8 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
                 <img
                   style={{
                     zIndex: 0,
-                    width: "50px",
                     width: "95px",
+                    height: "80px",
                     cursor: "pointer",
                   }}
                   src="/images/logoDark.svg"
@@ -165,7 +163,6 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
                 <img
                   style={{
                     zIndex: 0,
-                    width: "50px",
                     width: "60px",
                     cursor: "pointer",
                   }}
