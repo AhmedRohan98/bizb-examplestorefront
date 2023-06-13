@@ -295,6 +295,7 @@ const Storyslider = (props) => {
       alignItems: "flex-start",
     },
     swiperpaggination: {
+      width: "100%",
       // marginBottom: "60px",
       "& .swiper-pagination": {
         position: "absolute",
@@ -302,7 +303,7 @@ const Storyslider = (props) => {
         display: "flex",
         flexDirection: "row",
 
-        justifyContent: "center",
+        justifyContent: "",
         alignItems: "center",
         transition: "0.3s opacity",
         zIndex: 10,
@@ -426,10 +427,10 @@ const Storyslider = (props) => {
             pagination={false}
             breakpoints={{
               1500: {
-                slidesPerView: 3,
+                slidesPerView: 5,
               },
               1200: {
-                slidesPerView: 3,
+                slidesPerView: 4,
               },
               1000: {
                 slidesPerView: 3,

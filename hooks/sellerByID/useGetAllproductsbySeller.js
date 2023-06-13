@@ -16,10 +16,9 @@ export default function useGetAllSeller(id) {
 
   const sellers = data?.sellerCatalogItems?.edges;
 
- 
-  useEffect(() => {
-    refetch();
-  });
+  // useEffect(() => {
+  //   refetch();
+  // });
 
   return [sellers, loading, refetch];
 }
