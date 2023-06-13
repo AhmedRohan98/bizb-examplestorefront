@@ -9,61 +9,60 @@ import { NavigationItemDesktop } from "components/NavigationDesktop";
 import Link from "components/Link/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-const styles = (theme) => (
-  {
-    light: {
-      color: "#FFFFFF",
-      cursor: "pointer",
-      zIndex: 1200,
-    },
-    dark: {
-      color: "#333333",
-      cursor: "pointer",
-      zIndex: 1200,
-    },
-    categoryavatar: {
-      marginTop: "13px",
-      height: "34px",
-      width: "27px",
-      marginBottom: theme.spacing(1),
+const styles = (theme) => ({
+  light: {
+    color: "#FFFFFF",
+    cursor: "pointer",
+    zIndex: 1200,
+  },
+  dark: {
+    color: "#333333",
+    cursor: "pointer",
+    zIndex: 1200,
+  },
+  categoryavatar: {
+    marginTop: "13px",
+    height: "34px",
+    width: "27px",
+    marginBottom: theme.spacing(1),
 
-      marginBottom: theme.spacing(1),
-    },
+    marginBottom: theme.spacing(1),
+  },
 
-    modalitems: {
-      display: "flex",
-      flexDirection: "row",
-    },
-    modalitemsimage: {
-      display: "flex",
-      flexDirection: "column",
-    },
-    modalitemstitle: {
-      display: "flex",
-      width: "90%",
+  modalitems: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  modalitemsimage: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  modalitemstitle: {
+    display: "flex",
+    width: "90%",
 
-      flexDirection: "column",
+    flexDirection: "column",
+  },
+  catgorytitle: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+    width: "80%",
+    borderBottom: "0.5px dotted #0101013b",
+    "&:hover": {
+      color: theme.palette.secondary.selected,
     },
-    catgorytitle: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(1),
-      marginLeft: theme.spacing(3),
-      width: "80%",
-      borderBottom: "0.5px dotted #0101013b",
-      "&:hover": {
-        color: theme.palette.secondary.selected,
-      },
-    },
-  }
-  // createStyles({
-  //   popover: {
-  //     pointerEvents: "none",
-  //   },
-  //   paper: {
-  //     padding: theme.spacing(1),
-  //   },
-  // })
-);
+  },
+  popover: {
+    pointerEvents: "none",
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
+});
+// createStyles({
+//
+// })
 
 class NavigationDesktop extends Component {
   static propTypes = {
@@ -83,6 +82,10 @@ class NavigationDesktop extends Component {
     this.state = {
       anchorEl: null,
     };
+
+    // Bind the class methods in the constructor
+    this.handlePopOverOpen = this.handlePopOverOpen.bind(this);
+    this.handlePopOverClose = this.handlePopOverClose.bind(this);
   }
 
   // function that updates the anchorEl state
@@ -91,11 +94,19 @@ class NavigationDesktop extends Component {
   };
 
   handlePopOverClose = () => {
-    this.setAnchorEl(null);
+    // console.log("hover");
+    this.setState({
+      anchorEl: null,
+    });
+    console.log("after hover");
   };
 
   handlePopOverOpen = (event) => {
-    this.setAnchorEl(event.currentTarget);
+    console.log("hover open");
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
+    // console.log("after hover open");
   };
 
   renderNavItem(navItem, index) {
@@ -183,6 +194,8 @@ class NavigationDesktop extends Component {
             </Link>
             <a href="/en/explore">
               <span
+                onMouseEnter={this.handlePopOverOpen}
+                onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
                   marginRight: "40px",
@@ -191,14 +204,16 @@ class NavigationDesktop extends Component {
                   fontSize: "18px",
                   fontFamily: '"Ostrich Sans Black"',
                   fontWeight: 900,
-                  color: this.state.anchorEl ? "#fdc114" : "",
+                  // color: this.state.anchorEl ? "#fdc114" : "",
                 }}
-                onMouseEnter={this.handlePopoverOpen}
-                onMouseLeave={this.handlePopoverClose}
               >
                 Explore
               </span>
               <Popover
+                className={classes.popover}
+                classes={{
+                  paper: classes.paper,
+                }}
                 anchorEl={anchorEl}
                 transformOrigin={{
                   vertical: "center",
