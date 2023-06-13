@@ -53,7 +53,16 @@ const styles = (theme) => ({
       color: theme.palette.secondary.selected,
     },
   },
+  popover: {
+    pointerEvents: "none",
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
 });
+// createStyles({
+//
+// })
 
 class NavigationDesktop extends Component {
   static propTypes = {
@@ -73,6 +82,10 @@ class NavigationDesktop extends Component {
     this.state = {
       anchorEl: null,
     };
+
+    // Bind the class methods in the constructor
+    this.handlePopOverOpen = this.handlePopOverOpen.bind(this);
+    this.handlePopOverClose = this.handlePopOverClose.bind(this);
   }
 
   // function that updates the anchorEl state
@@ -81,11 +94,19 @@ class NavigationDesktop extends Component {
   };
 
   handlePopOverClose = () => {
-    this.setAnchorEl(null);
+    // console.log("hover");
+    this.setState({
+      anchorEl: null,
+    });
+    console.log("after hover");
   };
 
-  handlePopOverClick = (event) => {
-    this.setAnchorEl(event.currentTarget);
+  handlePopOverOpen = (event) => {
+    console.log("hover open");
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
+    // console.log("after hover open");
   };
 
   renderNavItem(navItem, index) {
@@ -173,6 +194,8 @@ class NavigationDesktop extends Component {
             </Link>
             <a href="/en/explore">
               <span
+                onMouseEnter={this.handlePopOverOpen}
+                onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
                   marginRight: "40px",
@@ -181,11 +204,52 @@ class NavigationDesktop extends Component {
                   fontSize: "18px",
                   fontFamily: '"Ostrich Sans Black"',
                   fontWeight: 900,
-                  color: this.state.anchorEl ? "#fdc114" : "",
+                  // color: this.state.anchorEl ? "#fdc114" : "",
                 }}
               >
                 Explore
               </span>
+              <Popover
+                className={classes.popover}
+                classes={{
+                  paper: classes.paper,
+                }}
+                anchorEl={anchorEl}
+                transformOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                }}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                  marginTop: "100px",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={this.handlePopOverClose}
+                style={{ marginTop: "100px" }}
+                // onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Box sx={style}>
+                  <div className={classes.modalitems}>
+                    <div className={classes.modalitemsimage}>
+                      {ITEMScategory.map((item) => (
+                        <img src={item.image} className={classes.categoryavatar} />
+                      ))}
+                    </div>
+
+                    <div className={classes.modalitemstitle}>
+                      {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
+                        <a href={`/en/categories/${itemtitle._id}`}>
+                          <Typography variant="h4" className={classes.catgorytitle}>
+                            {itemtitle.displayTitle}
+                          </Typography>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </Box>
+              </Popover>
             </a>
             <span
               className="hoverable"
