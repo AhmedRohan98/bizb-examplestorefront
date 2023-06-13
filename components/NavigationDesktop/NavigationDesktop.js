@@ -9,51 +9,61 @@ import { NavigationItemDesktop } from "components/NavigationDesktop";
 import Link from "components/Link/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-const styles = (theme) => ({
-  light: {
-    color: "#FFFFFF",
-    cursor: "pointer",
-    zIndex: 1200,
-  },
-  dark: {
-    color: "#333333",
-    cursor: "pointer",
-    zIndex: 1200,
-  },
-  categoryavatar: {
-    marginTop: "13px",
-    height: "34px",
-    width: "27px",
-    marginBottom: theme.spacing(1),
-
-    marginBottom: theme.spacing(1),
-  },
-
-  modalitems: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  modalitemsimage: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  modalitemstitle: {
-    display: "flex",
-    width: "90%",
-
-    flexDirection: "column",
-  },
-  catgorytitle: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
-    marginLeft: theme.spacing(3),
-    width: "80%",
-    borderBottom: "0.5px dotted #0101013b",
-    "&:hover": {
-      color: theme.palette.secondary.selected,
+const styles = (theme) => (
+  {
+    light: {
+      color: "#FFFFFF",
+      cursor: "pointer",
+      zIndex: 1200,
     },
-  },
-});
+    dark: {
+      color: "#333333",
+      cursor: "pointer",
+      zIndex: 1200,
+    },
+    categoryavatar: {
+      marginTop: "13px",
+      height: "34px",
+      width: "27px",
+      marginBottom: theme.spacing(1),
+
+      marginBottom: theme.spacing(1),
+    },
+
+    modalitems: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    modalitemsimage: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    modalitemstitle: {
+      display: "flex",
+      width: "90%",
+
+      flexDirection: "column",
+    },
+    catgorytitle: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(1),
+      marginLeft: theme.spacing(3),
+      width: "80%",
+      borderBottom: "0.5px dotted #0101013b",
+      "&:hover": {
+        color: theme.palette.secondary.selected,
+      },
+    },
+  }
+  // createStyles({
+  //   popover: {
+  //     pointerEvents: "none",
+  //   },
+  //   paper: {
+  //     padding: theme.spacing(1),
+  //   },
+  // })
+);
 
 class NavigationDesktop extends Component {
   static propTypes = {
@@ -84,7 +94,7 @@ class NavigationDesktop extends Component {
     this.setAnchorEl(null);
   };
 
-  handlePopOverClick = (event) => {
+  handlePopOverOpen = (event) => {
     this.setAnchorEl(event.currentTarget);
   };
 
@@ -183,9 +193,48 @@ class NavigationDesktop extends Component {
                   fontWeight: 900,
                   color: this.state.anchorEl ? "#fdc114" : "",
                 }}
+                onMouseEnter={this.handlePopoverOpen}
+                onMouseLeave={this.handlePopoverClose}
               >
                 Explore
               </span>
+              <Popover
+                anchorEl={anchorEl}
+                transformOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                }}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                  marginTop: "100px",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={this.handlePopOverClose}
+                style={{ marginTop: "100px" }}
+                // onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Box sx={style}>
+                  <div className={classes.modalitems}>
+                    <div className={classes.modalitemsimage}>
+                      {ITEMScategory.map((item) => (
+                        <img src={item.image} className={classes.categoryavatar} />
+                      ))}
+                    </div>
+
+                    <div className={classes.modalitemstitle}>
+                      {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
+                        <a href={`/en/categories/${itemtitle._id}`}>
+                          <Typography variant="h4" className={classes.catgorytitle}>
+                            {itemtitle.displayTitle}
+                          </Typography>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </Box>
+              </Popover>
             </a>
             <span
               className="hoverable"
