@@ -393,7 +393,6 @@ const Story = (props) => {
   // console.log(filteredItems, "dddddddddddddddddddddd");
   function Item({ item, active }) {
     const classes = useStyles();
-    console.log(active, "active is called");
     return (
       <>
         <SwiperSlide>
@@ -514,7 +513,13 @@ const Story = (props) => {
           )}
         </div>
       </div>
-      <Storyslider show={show} storeId={sellerToGet} sellerss={sellerss} cart={props?.cart} addItemsToCart={addItemsToCart} />
+      <Storyslider
+        show={show}
+        storeId={sellerToGet}
+        sellerss={sellerss}
+        cart={props?.cart}
+        addItemsToCart={addItemsToCart}
+      />
     </div>
   );
 };
