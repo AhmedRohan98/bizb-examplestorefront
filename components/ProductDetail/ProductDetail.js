@@ -885,7 +885,7 @@ const ProductDetail = ({ ...props }) => {
                       {product?.variants[0]?.media.map((slide, index) => {
                         return (
                           <SwiperSlide className={classes.sliderimage2}>
-                            <div>
+                            <div style={{ borderRadius: "18px", overflow: "hidden" }}>
                               <ReactImageMagnify
                                 {...{
                                   smallImage: {

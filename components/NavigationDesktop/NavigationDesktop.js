@@ -23,9 +23,8 @@ const styles = (theme) => ({
   categoryavatar: {
     marginTop: "13px",
     height: "34px",
-    width: "27px",
+    width: "34px",
     marginBottom: theme.spacing(1),
-
     marginBottom: theme.spacing(1),
   },
 
@@ -60,9 +59,6 @@ const styles = (theme) => ({
     padding: theme.spacing(1),
   },
 });
-// createStyles({
-//
-// })
 
 class NavigationDesktop extends Component {
   static propTypes = {
@@ -121,7 +117,7 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-    // console.log(tags, "tags in deskyop");
+    console.log(tags, "tags in deskyop");
     const style = {
       borderRadius: "8px",
       marginTop: "12px",
@@ -163,6 +159,11 @@ class NavigationDesktop extends Component {
       {
         image: "/categoriestypes/westrn.svg",
         id: 6,
+        title: "Accessories",
+      },
+      {
+        image: "/categoriestypes/seller.png",
+        id: 7,
         title: "Accessories",
       },
     ];
@@ -239,7 +240,8 @@ class NavigationDesktop extends Component {
                     </div>
 
                     <div className={classes.modalitemstitle}>
-                      {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
+                      {console.log("tags", tags)}
+                      {tags?.nodes?.map((itemtitle) => (
                         <a href={`/en/categories/${itemtitle._id}`}>
                           <Typography variant="h4" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
@@ -292,4 +294,4 @@ class NavigationDesktop extends Component {
   }
 }
 
-export default withStyles(styles)(inject("navItems")(NavigationDesktop));
+export default withStyles(styles)(inject("navItems", "uiStore")(NavigationDesktop));

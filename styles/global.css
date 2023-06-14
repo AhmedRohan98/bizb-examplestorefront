@@ -397,7 +397,7 @@ swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizon
 .react-slick * {
   min-height: 0;
   min-width: 0;
-  border-radius: 18px;
+  /* border-radius: 18px; */
 }
 
 .react-slick .slick-prev,
