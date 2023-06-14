@@ -54,7 +54,7 @@ const styles = (theme) => ({
     },
   },
   popover: {
-    pointerEvents: "none",
+    // pointerEvents: "none",
   },
   paper: {
     padding: theme.spacing(1),
@@ -195,7 +195,7 @@ class NavigationDesktop extends Component {
             <a href="/en/explore">
               <span
                 onMouseEnter={this.handlePopOverOpen}
-                onMouseLeave={this.handlePopOverClose}
+                // onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
                   marginRight: "40px",
