@@ -359,7 +359,6 @@ const Justin = (props) => {
 
               const compareAtPrice =
                 item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
-
               const parsedDisplayPrice = parseFloat(displayPrice);
               const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
@@ -395,7 +394,7 @@ const Justin = (props) => {
                             fontSize: "18px",
                             fontFamily: "lato",
                             // marginTop: "10px",
-                            textTransform: 'capitalize',
+                            textTransform: "capitalize",
                             left: "12px",
                           }}
                           variant="h4"
