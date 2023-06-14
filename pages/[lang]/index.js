@@ -61,6 +61,7 @@ class ProductGridPage extends Component {
       uiStore,
       feed,
     } = this.props;
+    // console.log("these props are", this.props);
     const pageSize = query && inPageSizes(query.limit) ? parseInt(query.limit, 10) : uiStore.pageSize;
     const sortBy = query && query.sortby ? query.sortby : uiStore.sortBy;
 
@@ -76,7 +77,7 @@ class ProductGridPage extends Component {
     return typeof window !== undefined ? (
       <Layout headerType={false}>
         <Helmet title={pageTitle} meta={[{ name: "descrition", content: shop && shop.description }]} />
-
+        {/* {console.log("tags", this.props)} */}
         <DynamicSlider
           {...this.props?.tags}
           catalogItems={catalogItems}
