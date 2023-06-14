@@ -375,7 +375,7 @@ export default function SignUp(props) {
           tabIndex={0}
         >
           <Typography variant="h5">
-            Don't have an account ? <span className={classes.switchaccout}>Login</span>
+            Already have an account ? <span className={classes.switchaccout}>Login</span>
           </Typography>
         </div>
       </form>
