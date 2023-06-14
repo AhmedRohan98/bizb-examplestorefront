@@ -117,7 +117,7 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-    // console.log(tags, "tags in deskyop");
+    console.log(tags, "tags in deskyop");
     const style = {
       borderRadius: "8px",
       marginTop: "12px",
@@ -240,6 +240,7 @@ class NavigationDesktop extends Component {
                     </div>
 
                     <div className={classes.modalitemstitle}>
+                      {console.log("tags", tags)}
                       {tags?.nodes?.map((itemtitle) => (
                         <a href={`/en/categories/${itemtitle._id}`}>
                           <Typography variant="h4" className={classes.catgorytitle}>
@@ -293,4 +294,4 @@ class NavigationDesktop extends Component {
   }
 }
 
-export default withStyles(styles)(inject("navItems")(NavigationDesktop));
+export default withStyles(styles)(inject("navItems", "uiStore")(NavigationDesktop));
