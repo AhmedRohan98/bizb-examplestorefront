@@ -90,7 +90,7 @@ before_script:
 stages:
   # - checkout
   - build
-  - deploy
+  #- deploy
 
 # checkout_code:
 #   stage: checkout
