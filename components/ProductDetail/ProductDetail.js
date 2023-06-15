@@ -507,8 +507,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  // console.log(props, "new");
-
+  
   const { product, catalogItems, cart } = props;
   // console.log(product, "product");
   const tagIds = product?.tags?.nodes?.[0]?._id || [1]?._id || [2]?._id;
