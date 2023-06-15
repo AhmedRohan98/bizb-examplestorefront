@@ -166,6 +166,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "lowercase",
     alignItems: "center",
     width: "380px",
+    marginBottom:20
   },
 
   phone: {
@@ -190,9 +191,21 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   cartdelivery: {
-    fontWeight: 400,
+    fontWeight: 500,
 
     color: "#333333",
+    marginLeft: theme.spacing(2),
+  },
+  cartname: {
+    fontWeight: 500,
+
+    color: "#333333",
+    marginLeft: theme.spacing(2),
+  },
+  cartdescription: {
+    fontWeight: 400,
+
+    color: "#c4c4c0",
     marginLeft: theme.spacing(2),
   },
   cartdelivery2: {
@@ -205,6 +218,15 @@ const useStyles = makeStyles((theme) => ({
   cartcard: {
     height: "391px",
     width: "391px",
+    boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
+    borderRadius: "18px",
+    padding: theme.spacing(2),
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+  cartcard2: {
+   
     boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     borderRadius: "18px",
     padding: theme.spacing(2),
@@ -282,6 +304,28 @@ const useStyles = makeStyles((theme) => ({
 
     justifyContent: "center",
   },
+  displayCart:{
+    display:"flex",
+    flexDirection:"row", 
+    justifyContent:"flex-start",
+    marginBottom:10,
+    marginRight:40,
+    
+  },
+  displayCartGrid:{
+    margin:0,
+    justifyContent:"flex-start",
+   
+
+    
+  },
+  divider:{
+    marginVertical: 10,
+    height: 6,
+    backgroundColor: '#e0e0e0',
+   
+  },
+   
 }));
 
 const CheckoutActions = (prop) => {
@@ -582,6 +626,7 @@ const CheckoutActions = (prop) => {
 
 useEffect(() => {
   setValue(values)
+  console.log("props here",prop?.cart.items)
 
   if (values.city) {
 
@@ -597,6 +642,62 @@ useEffect(() => {
 
   console.log("shippingData _id",shippingData?._id);
 }, [values.city,shippingData]);
+
+const [cartData, setCartData] = useState([{
+  id: 1, img:"https://images.unsplash.com/photo-1618588507085-c79565432917?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwbmF0dXJlfGVufDB8fDB8fHww&w=1000&q=80", name:"Name of Product", desc:"Description Of Product", price:"Price"
+},
+{
+  id: 2, img:"https://images.unsplash.com/photo-1618588507085-c79565432917?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwbmF0dXJlfGVufDB8fDB8fHww&w=1000&q=80", name:"Name of Product", desc:"Description Of Product", price:"Price"
+},
+{
+  id: 3, img:"https://images.unsplash.com/photo-1618588507085-c79565432917?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwbmF0dXJlfGVufDB8fDB8fHww&w=1000&q=80", name:"Name of Product", desc:"Description Of Product", price:"Price"
+}])
+
+const CartDataDisplay = () =>{
+  return(
+    <Box
+    sx={{
+        mb: 2,
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        overflowY: "scroll",
+        height:200,
+        width:"400px",
+        
+       // justifyContent="flex-end" # DO NOT USE THIS WITH 'scroll'
+      }}
+  >{ prop?.cart.items?.map((prod)=>(
+    
+    <div className={classes.cartcard}>
+    <div className={classes.displayCart} key={prod.id}>
+    <img src={prod.metafields[0].value}
+    height="120" width='120' style={{borderRadius:"5px"}} />
+    <div className={classes.displayCartGrid}>
+    <Typography gutterBottom variant="h4" className={classes.cartname}>
+                  {prod.title}
+    </Typography>
+    <Typography gutterBottom variant="h5" className={classes.cartdescription}>
+    Size:{' '}
+                  {prod?.optionTitle
+                    ? JSON?.parse(prod?.optionTitle.replace(/'/g, ''))?.size
+                    : null}
+    </Typography> 
+    
+    <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
+     Rs: {" "} {prod.price.amount}
+                  
+    </Typography> 
+    </div>          
+    </div>
+  </div>
+
+  ))}
+   
+
+  </Box>
+  )
+}
 
 
 
@@ -765,10 +866,16 @@ useEffect(() => {
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={6} justifyContent="center">
+
             <div className={classes.summary}>
               <Typography variant="h3" className={classes.mainheadingp}>
-                PAYMENT
+                ORDER
               </Typography>
+              <div className={classes.cartcard2}>
+              <CartDataDisplay/>
+              </div>
+
+
               <div className={classes.cartpayment}>
                 <img src="/cart/ellipse.svg" />
                 <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
