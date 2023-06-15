@@ -358,8 +358,8 @@ function SellerPublicProfile(props) {
                     backgroundImage: profile
                       ? profile.image
                         ? "URL(" + profile.profilePhoto + ")"
-                        : "URL(" + "/images/sellerProfile.jpg" + ")"
-                      : "URL(" + "/images/sellerProfile.jpg" + ")",
+                        : "URL(" + "/images/seller-placeholder.png" + ")"
+                      : "URL(" + "/images/seller-placeholder.png" + ")",
                   }}
                 >
                   {/* <div className="sellerProfile__badge"> 
@@ -369,7 +369,7 @@ function SellerPublicProfile(props) {
                 <div className="publicProfile__infoContainer">
                   <div className="sellerProfile__infoRow publicProfile__infoRow">
                     <Typography className="publicProfile__name" variant="h1">
-                      <span>{profile && profile?.name ? profile?.name : profile?.name}</span>
+                      <span>{profile && profile?.storeName?profile?.storeName: profile?.name ? profile?.name : profile?.name}</span>
                       {profile && profile && <img src="/icons/tickIcon.png" />}
                     </Typography>
                   </div>

@@ -210,47 +210,7 @@ class NavigationDesktop extends Component {
               >
                 Explore
               </span>
-              <Popover
-                className={classes.popover}
-                classes={{
-                  paper: classes.paper,
-                }}
-                anchorEl={anchorEl}
-                transformOrigin={{
-                  vertical: "center",
-                  horizontal: "center",
-                }}
-                anchorOrigin={{
-                  vertical: "center",
-                  horizontal: "center",
-                  marginTop: "100px",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={this.handlePopOverClose}
-                style={{ marginTop: "100px" }}
-                // onClose={handlePopoverClose}
-                disableRestoreFocus
-              >
-                <Box sx={style}>
-                  <div className={classes.modalitems}>
-                    <div className={classes.modalitemsimage}>
-                      {ITEMScategory.map((item) => (
-                        <img src={item.image} className={classes.categoryavatar} />
-                      ))}
-                    </div>
-
-                    <div className={classes.modalitemstitle}>
-                      {tags?.nodes?.map((itemtitle) => (
-                        <a href={`/en/categories/${itemtitle._id}`}>
-                          <Typography variant="h4" className={classes.catgorytitle}>
-                            {itemtitle.displayTitle}
-                          </Typography>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </Box>
-              </Popover>
+             
             </a>
             <span
               className="hoverable"
