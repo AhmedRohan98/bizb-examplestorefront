@@ -9,6 +9,7 @@ import { NavigationItemDesktop } from "components/NavigationDesktop";
 import Link from "components/Link/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import { sendGraphQLQuery } from "./graphqlUtils";
 const styles = (theme) => ({
   light: {
     color: "#FFFFFF",
@@ -83,7 +84,25 @@ class NavigationDesktop extends Component {
     this.handlePopOverOpen = this.handlePopOverOpen.bind(this);
     this.handlePopOverClose = this.handlePopOverClose.bind(this);
   }
+  componentDidMount() {
+    this.fetchData();
+    console.log("fetch data");
+  }
 
+  fetchData = async () => {
+    console.log("called")
+    try {
+      console.log("called try")
+      const response = await sendGraphQLQuery();
+
+      // Handle the response data
+      console.log("response", response);
+    } catch (error) {
+      console.log("called catch")
+      // Handle any errors
+      console.error(error);
+    }
+  };
   // function that updates the anchorEl state
   setAnchorEl = (value) => {
     this.setState({ anchorEl: value });
