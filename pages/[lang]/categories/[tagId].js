@@ -1622,7 +1622,7 @@ Categories.propTypes = {
   sortBy: PropTypes.string.isRequired,
 };
 export async function getStaticPaths() {
-  const primaryShop = await fetchPrimaryShop(lang);
+  const primaryShop = await fetchPrimaryShop();
   const tags = await fetchTags(primaryShop);
   let paths = [];
 
