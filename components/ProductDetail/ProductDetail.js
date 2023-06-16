@@ -248,7 +248,6 @@ const styles = (theme) => ({
     minHeight: "600px",
     alignItems: "center",
     justifyContent: "center",
-    maxHeight: "600px",
     maxWidth: "600px",
     objectFit: "contain",
   },
@@ -507,7 +506,7 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-  
+
   const { product, catalogItems, cart } = props;
   // console.log(product, "product");
   const tagIds = product?.tags?.nodes?.[0]?._id || [1]?._id || [2]?._id;
@@ -968,12 +967,12 @@ const ProductDetail = ({ ...props }) => {
                           {size == 0
                             ? "Extra Large"
                             : "Small" || size == 1
-                            ? "Large"
-                            : "Small" || size == 2
-                            ? "Medium"
-                            : "Small" || size == 3
-                            ? "Small"
-                            : "Small"}
+                              ? "Large"
+                              : "Small" || size == 2
+                                ? "Medium"
+                                : "Small" || size == 3
+                                  ? "Small"
+                                  : "Small"}
                         </Typography>
                       </div>
                       <div className={classes.sizeimage}>
@@ -1152,12 +1151,12 @@ const ProductDetail = ({ ...props }) => {
                                   {size == 0
                                     ? "XL"
                                     : "S" || size == 1
-                                    ? "L"
-                                    : "S" || size == 2
-                                    ? "M"
-                                    : "S" || size == 3
-                                    ? "S"
-                                    : "S"}
+                                      ? "L"
+                                      : "S" || size == 2
+                                        ? "M"
+                                        : "S" || size == 3
+                                          ? "S"
+                                          : "S"}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
