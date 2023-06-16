@@ -117,7 +117,7 @@ deploy-aws-ecs-dev:
   image: docker:19.03.1
   variables:
     DOCKER_REGISTRY: codistan/bizb-frontend-production
-    AWS_DEFAULT_REGION: us-east-1
+    AWS_DEFAULT_REGION: ap-southeast-1
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
     TASK_DEFINITION_NAME: bizb-frontend-task
