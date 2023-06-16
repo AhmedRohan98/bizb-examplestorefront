@@ -119,8 +119,8 @@ deploy-aws-ecs-dev:
     AWS_DEFAULT_REGION: ap-southeast-1
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
-    # TASK_DEFINITION_NAME: bizb-frontend-task
-    TASK_DEFINITION_ARN: = arn:aws:ecs:ap-southeast-1:622843207602:task-definition/bizb-frontend-task
+    TASK_DEFINITION_NAME: bizb-frontend-task
+    TASK_DEFINITION_ARN: = arn:aws:ecs:ap-southeast-1:622843207602:task-definition/bizb-frontend-task:6
     CLUSTER_NAME: bizb-cluster
     SERVICE_NAME: bizb-frontend
   services:
