@@ -78,19 +78,19 @@
     #- ssh  -o StrictHostKeyChecking=no ubuntu@13.57.70.213 "cd /home/ubuntu/bizb-dev/reaction-development-platform/example-storefront && sudo docker build --tag=bizb:ui . && sudo docker run -d --rm -it --network host bizb:ui" 
 
 
-image: docker:19.03.13
+# image: docker:19.03.13
 
-services:
-  - docker:19.03.13-dind
+# services:
+#   - docker:19.03.13-dind
 
-before_script:
-  - rm -rf .cache
-  - rm -rf node_modules
+# before_script:
+#   - rm -rf .cache
+#   - rm -rf node_modules
 
-stages:
-  # - checkout
-  - build
-  - deploy
+# stages:
+#   # - checkout
+#   # - build
+#   - deploy
 
 # checkout_code:
 #   stage: checkout
@@ -98,18 +98,18 @@ stages:
 #     - git checkout ranchers-dev
 #     - git pull origin ranchers-dev
 
-build_docker_image:
-  stage: build
-  script:
-    - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    # - docker rmi ranchers:api
-    # - export IMAGE_TAG=$(date +%Y%m%d%H%M%S)
-    # - git checkout ranchers-dev
-    - docker build --no-cache -t bizb:example-storefront .
-    - docker tag bizb:example-storefront $DOCKER_USERNAME/bizb-frontend-production
-    - docker push $DOCKER_USERNAME/bizb-frontend-production
-  only:
-    - production
+# build_docker_image:
+#   stage: build
+#   script:
+#     - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#     # - docker rmi ranchers:api
+#     # - export IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+#     # - git checkout ranchers-dev
+#     - docker build --no-cache -t bizb:example-storefront .
+#     - docker tag bizb:example-storefront $DOCKER_USERNAME/bizb-frontend-production
+#     - docker push $DOCKER_USERNAME/bizb-frontend-production
+#   only:
+#     - production
 
 
 deploy-aws-ecs-dev:
