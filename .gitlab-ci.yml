@@ -90,7 +90,7 @@ before_script:
 stages:
   # - checkout
   - build
-  #- deploy
+  - deploy
 
 # checkout_code:
 #   stage: checkout
@@ -110,6 +110,39 @@ build_docker_image:
     - docker push $DOCKER_USERNAME/bizb-frontend-production
   only:
     - production
+
+
+deploy-aws-ecs-dev:
+  stage: deploy
+  image: docker:19.03.1
+  variables:
+    DOCKER_REGISTRY: codistan/bizb-frontend-production:latest
+    AWS_DEFAULT_REGION: us-east-1
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
+    TASK_DEFINITION_NAME: bizb-frontend-task
+    CLUSTER_NAME: bizb-cluster
+    SERVICE_NAME: bizb-frontend
+  services:
+    - docker:19.03.1-dind
+  only:
+    - production
+  before_script:
+    - apk add --no-cache curl jq python py-pip
+    - pip install awscli
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+    - aws configure set region $AWS_DEFAULT_REGION
+    - $(aws ecr get-login --no-include-email --region "${AWS_DEFAULT_REGION}")
+    - IMAGE_TAG=latest
+  script:
+  - echo ${DOCKER_REGISTRY}:$IMAGE_TAG
+  - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "${AWS_DEFAULT_REGION}")
+  - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${DOCKER_REGISTRY}:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0]')
+  - echo "Registering new container definition..."
+  - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${TASK_DEFINITION_NAME}" --container-definitions "${NEW_CONTAINER_DEFINTIION}"
+  - echo "Updating the service..."
+  - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}"  --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
 
 # deploy_to_remote:
 #   stage: deploy
