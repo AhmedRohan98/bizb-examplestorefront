@@ -120,7 +120,6 @@ deploy-aws-ecs-dev:
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
     TASK_DEFINITION_NAME: bizb-frontend-task
-    TASK_DEFINITION_ARN: = arn:aws:ecs:ap-southeast-1:622843207602:task-definition/bizb-frontend-task:6
     CLUSTER_NAME: bizb-cluster
     SERVICE_NAME: bizb-frontend
   services:
@@ -137,12 +136,12 @@ deploy-aws-ecs-dev:
     - IMAGE_TAG=latest
   script:
   - echo ${DOCKER_REGISTRY}:$IMAGE_TAG
-  - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_ARN" --region "${AWS_DEFAULT_REGION}")
+  - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "${AWS_DEFAULT_REGION}")
   - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${DOCKER_REGISTRY}:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0]')
   - echo "Registering new container definition..."
-  - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${TASK_DEFINITION_ARN}" --container-definitions "${NEW_CONTAINER_DEFINTIION}"
+  - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${TASK_DEFINITION_NAME}" --container-definitions "${NEW_CONTAINER_DEFINTIION}"
   - echo "Updating the service..."
-  - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_ARN}" --force-new-deployment
+  - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
 
 # deploy-aws-ecs-dev:
 #   stage: deploy
