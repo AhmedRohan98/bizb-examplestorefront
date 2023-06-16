@@ -138,7 +138,7 @@ deploy-aws-ecs-dev:
   script:
   - echo ${DOCKER_REGISTRY}:$IMAGE_TAG
   - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "${AWS_DEFAULT_REGION}")
-  - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${DOCKER_REGISTRY}:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0]')
+  - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${DOCKER_REGISTRY}:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0].networkMode = "awsvpc"')
   - echo "Registering new container definition..."
   - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${TASK_DEFINITION_NAME}"  --requires-compatibilities FARGATE --container-definitions "${NEW_CONTAINER_DEFINTIION}"
   #  --requires-compatibilities FARGATE"
