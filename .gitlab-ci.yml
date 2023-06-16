@@ -148,6 +148,33 @@
 #   - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
 
   #######################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@######################################################
+#########################################%%%%%%%%%%%%%%%%%%%%%%%%%%%#################################################
+# deploy-aws-ecs-dev:
+#   stage: deploy
+#   image: docker:19.03.1
+#   variables:
+#     AWS_DEFAULT_REGION: ap-southeast-1
+#     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
+#     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
+#     TASK_DEFINITION_NAME: bizb-frontend-task
+#     CLUSTER_NAME: bizb-cluster
+#     SERVICE_NAME: bizb-frontend
+#   services:
+#     - docker:19.03.1-dind
+#   before_script:
+#     - apk add --no-cache curl jq python py-pip
+#     - pip install awscli
+#     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+#     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+#     - aws configure set region $AWS_DEFAULT_REGION
+#   script:
+#     - new_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq '.services[0].taskDefinition')
+#     - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
+#     # - aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
+#     # - aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME
+#   only:
+#     - production
+##################################%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%###########################################
 
 deploy-aws-ecs-dev:
   stage: deploy
@@ -168,13 +195,14 @@ deploy-aws-ecs-dev:
     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
     - aws configure set region $AWS_DEFAULT_REGION
   script:
-    - new_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq '.services[0].taskDefinition')
+    - current_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq -r '.services[0].taskDefinition')
+    - new_task_definition=$(aws ecs describe-task-definition --task-definition $current_task_definition | jq -r '.taskDefinition')
+    - aws ecs register-task-definition --cli-input-json "$new_task_definition"
     - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
     # - aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
     # - aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME
   only:
     - production
-
 
 # deploy-aws-ecs-dev:
 #   stage: deploy
