@@ -268,7 +268,8 @@ deploy-aws-ecs-dev:
     - current_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq -r '.services[0].taskDefinition')
     - new_task_definition=$(aws ecs describe-task-definition --task-definition $current_task_definition | jq -r '.taskDefinition')
     - new_task_definition=$(echo "$new_task_definition" | jq 'del(.taskDefinitionArn, .revision, .status, .compatibilities, .registeredAt, .registeredBy, .requiresAttributes)')
-    - aws ecs register-task-definition --cli-input-json "$new_task_definition"
+    # - aws ecs register-task-definition --cli-input-json "$new_task_definition"
+    - new_task_definition_arn=$(aws ecs register-task-definition --cli-input-json "$new_task_definition" | jq -r '.taskDefinition.taskDefinitionArn')
     - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $new_task_definition_arn --force-new-deployment
     # - aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
     # - aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME
