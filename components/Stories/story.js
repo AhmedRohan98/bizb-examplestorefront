@@ -198,7 +198,7 @@ const Story = (props) => {
       store: "Westrn",
     },
     {
-      image: "/stories/story2.svg",
+      image: "/images/seller-placeholder.png",
       id: 3,
       title: "Charizma Store",
       Catagory: "Casuals",
@@ -219,14 +219,14 @@ const Story = (props) => {
       store: "Charizma Store",
     },
     {
-      image: "/stories/story2.svg",
+      image: "/images/seller-placeholder.png",
       id: 6,
       title: "Charizma Store",
       Catagory: "Accessories",
       store: "Charizma Store",
     },
     {
-      image: "/stories/story2.svg",
+      image: "/images/seller-placeholder.png",
       id: 7,
       title: "Westrn",
       Catagory: "Western",
@@ -247,7 +247,7 @@ const Story = (props) => {
       store: "Western",
     },
     {
-      image: "/stories/story2.svg",
+      image: "/images/seller-placeholder.png",
       id: 10,
       title: "Western",
       store: "Western",
@@ -399,7 +399,7 @@ const Story = (props) => {
           <Tooltip disableFocusListener disableTouchListener title="Please click to display items in store">
             <div className={classes.box}>
               <img
-                src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
+                src={!item?.picture || !item?.picture ? "/images/seller-placeholder.png" : item?.picture}
                 className={classes.image}
               />
               <Typography
