@@ -551,6 +551,62 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "100%",
   },
+  cart: {
+    height: "35px",
+    width: "84px",
+    borderRadius: "5px",
+    background: "#FDC114",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: "10px",
+    borderColor: "none",
+    zIndex: 1,
+    transition: "all 0.2s linear",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
+  },
+  sizes: {
+    height: "30px",
+    width: "30px",
+    marginLeft: "12px",
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    border: "1px solid #000000",
+  },
+  cartimage: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  carttitle: {
+    display: "flex",
+    marginLeft: theme.spacing(1),
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  cartcontenttext: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  carttitle2: {
+    display: "flex",
+  },
+  cartcontent: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingBottom: "10px",
+  },
+
 }));
 const ITEMScategory = [
   {
@@ -1637,7 +1693,7 @@ export async function getStaticPaths() {
         lang: "en",
         tagId: tag._id,
       },
-    }))
+    }));
   }
   // add this line
   // console.log(paths,"end");
@@ -1662,3 +1718,4 @@ export async function getStaticProps({ params: { lang, tagId }, ...context }) {
 }
 
 export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(Categories))));
+
