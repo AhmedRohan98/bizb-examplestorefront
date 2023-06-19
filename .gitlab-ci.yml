@@ -78,19 +78,19 @@
     #- ssh  -o StrictHostKeyChecking=no ubuntu@13.57.70.213 "cd /home/ubuntu/bizb-dev/reaction-development-platform/example-storefront && sudo docker build --tag=bizb:ui . && sudo docker run -d --rm -it --network host bizb:ui" 
 
 
-image: docker:19.03.13
+# image: docker:19.03.13
 
-services:
-  - docker:19.03.13-dind
+# services:
+#   - docker:19.03.13-dind
 
-before_script:
-  - rm -rf .cache
-  - rm -rf node_modules
+# before_script:
+#   - rm -rf .cache
+#   - rm -rf node_modules
 
-stages:
-  # - checkout
-  - build
-  - deploy
+# stages:
+#   # - checkout
+#   # - build
+#   - deploy
 
 # checkout_code:
 #   stage: checkout
@@ -98,46 +98,210 @@ stages:
 #     - git checkout ranchers-dev
 #     - git pull origin ranchers-dev
 
-build_docker_image:
-  stage: build
-  script:
-    - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    # - docker rmi ranchers:api
-    # - export IMAGE_TAG=$(date +%Y%m%d%H%M%S)
-    # - git checkout ranchers-dev
-    - docker build --no-cache -t bizb:example-storefront .
-    - docker tag bizb:example-storefront $DOCKER_USERNAME/bizb:example-storefront
-    - docker push $DOCKER_USERNAME/bizb:example-storefront
-  only:
-    - staging
+# build_docker_image:
+#   stage: build
+#   script:
+#     - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#     # - docker rmi ranchers:api
+#     # - export IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+#     # - git checkout ranchers-dev
+#     - docker build --no-cache -t bizb:example-storefront .
+#     - docker tag bizb:example-storefront $DOCKER_USERNAME/bizb-frontend-production
+#     - docker push $DOCKER_USERNAME/bizb-frontend-production
+#   only:
+#     - production
+############################################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#####################################
+# deploy-aws-ecs-dev:
+#   stage: deploy
+#   image: docker:19.03.1
+#   variables:
+#     DOCKER_REGISTRY: codistan/bizb-frontend-production
+#     AWS_DEFAULT_REGION: ap-southeast-1
+#     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
+#     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
+#     TASK_DEFINITION_NAME: bizb-frontend-task
+#     CLUSTER_NAME: bizb-cluster
+#     SERVICE_NAME: bizb-frontend
+#   services:
+#     - docker:19.03.1-dind
+#   only:
+#     - production
+#   before_script:
+#     - apk add --no-cache curl jq python py-pip
+#     - pip install awscli
+#     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+#     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+#     - aws configure set region $AWS_DEFAULT_REGION
+#     # - $(aws ecr get-login --no-include-email --region "${AWS_DEFAULT_REGION}")
+#     - IMAGE_TAG=latest
+#   script:
+#   - echo ${DOCKER_REGISTRY}:$IMAGE_TAG
+#   - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "${AWS_DEFAULT_REGION}")
+#   - NEW_CONTAINER_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${DOCKER_REGISTRY}:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0].networkMode = "awsvpc" | .requiresCompatibilities = ["FARGATE"]')
 
-deploy_to_remote:
+#   # - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${DOCKER_REGISTRY}:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0]')
+#   - echo "Registering new container definition..."
+#   - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${TASK_DEFINITION_NAME}" --container-definitions "${NEW_CONTAINER_DEFINITION}"
+
+#   # - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${TASK_DEFINITION_NAME}" --container-definitions "${NEW_CONTAINER_DEFINTIION}"
+#   - echo "Updating the service..."
+#   - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
+
+  #######################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@######################################################
+#########################################%%%%%%%%%%%%%%%%%%%%%%%%%%%#################################################
+# deploy-aws-ecs-dev:
+#   stage: deploy
+#   image: docker:19.03.1
+#   variables:
+#     AWS_DEFAULT_REGION: ap-southeast-1
+#     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
+#     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
+#     TASK_DEFINITION_NAME: bizb-frontend-task
+#     CLUSTER_NAME: bizb-cluster
+#     SERVICE_NAME: bizb-frontend
+#   services:
+#     - docker:19.03.1-dind
+#   before_script:
+#     - apk add --no-cache curl jq python py-pip
+#     - pip install awscli
+#     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+#     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+#     - aws configure set region $AWS_DEFAULT_REGION
+#   script:
+#     - new_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq '.services[0].taskDefinition')
+#     - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
+#     # - aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
+#     # - aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME
+#   only:
+#     - production
+##################################%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%###########################################
+##!!!#
+# deploy-aws-ecs-dev:
+#   stage: deploy
+#   image: docker:19.03.1
+#   variables:
+#     AWS_DEFAULT_REGION: ap-southeast-1
+#     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
+#     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
+#     TASK_DEFINITION_NAME: bizb-frontend-task
+#     CLUSTER_NAME: bizb-cluster
+#     SERVICE_NAME: bizb-frontend
+#   services:
+#     - docker:19.03.1-dind
+#   before_script:
+#     - apk add --no-cache curl jq python py-pip
+#     - pip install awscli
+#     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+#     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+#     - aws configure set region $AWS_DEFAULT_REGION
+#   script:
+#     - current_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq -r '.services[0].taskDefinition')
+#     - new_task_definition=$(aws ecs describe-task-definition --task-definition $current_task_definition | jq -r '.taskDefinition')
+#     - aws ecs register-task-definition --cli-input-json "$new_task_definition"
+#     - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
+#     # - aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
+#     # - aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME
+#   only:
+#     - production
+
+# deploy-aws-ecs-dev:
+#   stage: deploy
+#   image: docker:19.03.1
+#   variables:
+#     DOCKER_REGISTRY: codistan/bizb-frontend-production
+#     AWS_DEFAULT_REGION: ap-southeast-1
+#     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
+#     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
+#     TASK_DEFINITION_NAME: $bizb-frontend-task
+#     CLUSTER_NAME: bizb-cluster
+#     SERVICE_NAME: bizb-frontend
+#   services:
+#     - docker:19.03.1-dind
+#   only:
+#     - production
+#   before_script:
+#     - apk add --no-cache curl jq python py-pip
+#     - pip install awscli
+#     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+#     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+#     - aws configure set region $AWS_DEFAULT_REGION
+#     # - $(aws ecr get-login --no-include-email --region "${AWS_DEFAULT_REGION}")
+#     - IMAGE_TAG=latest
+#   script:
+#   - echo ${DOCKER_REGISTRY}:$IMAGE_TAG
+#   - TASK_DEFINITION=$(TASK_DEFINITION_NAME)
+#   # - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINITION_NAME" --region "${AWS_DEFAULT_REGION}")
+#   # - NEW_CONTAINER_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${DOCKER_REGISTRY}:$IMAGE_TAG" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions[0]')
+#   - echo "Registering task ..."
+#   - task=$(aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --task-definition "$TASK_DEFINITION")
+#   # - echo "Registering new container definition..."
+#   # - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${TASK_DEFINITION_NAME}" --container-definitions "${NEW_CONTAINER_DEFINTIION}"
+#   #  --requires-compatibilities FARGATE"
+#   - echo "Updating the service..."
+#   - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION}" --force-new-deployment
+ # - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}" --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
+
+  # - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}"  --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
+
+  ##!!!##
+deploy-aws-ecs-dev:
   stage: deploy
+  image: docker:19.03.1
+  variables:
+    AWS_DEFAULT_REGION: ap-southeast-1
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
+    TASK_DEFINITION_NAME: bizb-frontend-task
+    CLUSTER_NAME: bizb-cluster
+    SERVICE_NAME: bizb-frontend
+  services:
+    - docker:19.03.1-dind
+  only:
+    - production
   before_script:
-    - apk add --no-cache openssh
-    - mkdir -p ~/.ssh
-    - eval "$(ssh-agent -s)"
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - chmod 700 ~/.ssh
-    - ssh-keyscan -H '13.57.70.213' >> ~/.ssh/known_hosts
+    - apk add --no-cache curl jq python py-pip
+    - pip install awscli
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+    - aws configure set region $AWS_DEFAULT_REGION
   script:
+    - current_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq -r '.services[0].taskDefinition')
+    - new_task_definition=$(aws ecs describe-task-definition --task-definition $current_task_definition | jq -r '.taskDefinition')
+    - new_task_definition=$(echo "$new_task_definition" | jq 'del(.taskDefinitionArn, .revision, .status, .compatibilities, .registeredAt, .registeredBy, .requiresAttributes)')
+    # - aws ecs register-task-definition --cli-input-json "$new_task_definition"
+    - new_task_definition_arn=$(aws ecs register-task-definition --cli-input-json "$new_task_definition" | jq -r '.taskDefinition.taskDefinitionArn')
+    - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $new_task_definition_arn --force-new-deployment
+    # - aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
+    # - aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME
+
+
+# deploy_to_remote:
+#   stage: deploy
+#   before_script:
+#     - apk add --no-cache openssh
+#     - mkdir -p ~/.ssh
+#     - eval "$(ssh-agent -s)"
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#     - chmod 700 ~/.ssh
+#     - ssh-keyscan -H '13.57.70.213' >> ~/.ssh/known_hosts
+ # script:
     # - apk add --no-cache openssh
     # - mkdir -p ~/.ssh
     # - eval "$(ssh-agent -s)"
     # - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     # - chmod 700 ~/.ssh
     # - ssh-keyscan -H '13.57.70.213' >> ~/.ssh/known_hosts
-    - ssh ubuntu@13.57.70.213 "sudo docker rm -f bizb-example-storefront || true && sudo docker image rm -f $DOCKER_USERNAME/bizb:example-storefront || true"
-    - ssh ubuntu@13.57.70.213 "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-    # - ssh -x ubuntu@13.57.70.213 "docker login -u $DOCKER_USERNAME -p \"$(echo "$DOCKER_PASSWORD" | sed 's/([^()]*)/\\\1/g')\""
-    - ssh ubuntu@13.57.70.213 "sudo docker pull $DOCKER_USERNAME/bizb:example-storefront"
+    # - ssh ubuntu@13.57.70.213 "sudo docker rm -f bizb-example-storefront || true && sudo docker image rm -f $DOCKER_USERNAME/bizb:example-storefront || true"
+    # - ssh ubuntu@13.57.70.213 "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+    # # - ssh -x ubuntu@13.57.70.213 "docker login -u $DOCKER_USERNAME -p \"$(echo "$DOCKER_PASSWORD" | sed 's/([^()]*)/\\\1/g')\""
+    # - ssh ubuntu@13.57.70.213 "sudo docker pull $DOCKER_USERNAME/bizb:example-storefront"
     # - ssh ubuntu@13.57.70.213 "sudo docker run -d -p 8080:3000 $DOCKER_USERNAME/mechiridion:mechiridion-dev"
     # - ssh ubuntu@13.57.70.213 "sudo docker rm -f mechiridion-backend-container && sudo docker image rm -f $DOCKER_USERNAME/bizb:mechiridion || true && sudo docker run --name mechiridion-backend-container -d --rm -it --network host $DOCKER_USERNAME/mechiridion-api:mechiridion"
     # - ssh ubuntu@13.57.70.213 "sudo docker stop $(sudo docker ps -a -q --filter name=mechiridion-backend-container) 2> /dev/null && docker rm $(sudo docker ps -a -q --filter name=mechiridion-backend-container)"
    
 
-    - ssh ubuntu@13.57.70.213 "sudo docker run --name bizb-example-storefront -d -it --network host $DOCKER_USERNAME/bizb:example-storefront" 
+    #- ssh ubuntu@13.57.70.213 "sudo docker run --name bizb-example-storefront -d -it --network host $DOCKER_USERNAME/bizb:example-storefront" 
 
     # - ssh ubuntu@13.57.70.213 "sudo docker run -d --rm -it --network host $DOCKER_USERNAME/bizb:mechiridion"
-  only:
-    - staging
+  # only:
+  #   - staging

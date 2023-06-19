@@ -9,6 +9,9 @@ import { NavigationItemDesktop } from "components/NavigationDesktop";
 import Link from "components/Link/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import { Query } from "@apollo/react-components";
+import categoryTags from "../../hooks/categoryTags/getTags.gql";
+import { sendGraphQLQuery } from "./graphqlUtils";
 const styles = (theme) => ({
   light: {
     color: "#FFFFFF",
@@ -60,11 +63,29 @@ const styles = (theme) => ({
   },
 });
 
+const tagsCategory = () => (
+  <Query errorPolicy="all" query={categoryTags}
+    variables={{
+      shopId: "cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==",
+      filter: "category-"
+    }}>
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error</p>;
+      const { viewer } = data;
+      return <NavigationDesktop data={data} />;
+    }}
+  </Query>
+);
+
+
 class NavigationDesktop extends Component {
+
   static propTypes = {
     classes: PropTypes.object,
     navItems: PropTypes.object,
     tags: PropTypes.arrayOf(),
+
   };
 
   static defaultProps = {
@@ -77,12 +98,20 @@ class NavigationDesktop extends Component {
     super(props);
     this.state = {
       anchorEl: null,
+      categoryTagsInfo: null
     };
 
     // Bind the class methods in the constructor
     this.handlePopOverOpen = this.handlePopOverOpen.bind(this);
     this.handlePopOverClose = this.handlePopOverClose.bind(this);
   }
+
+  componentDidMount() {
+    this.fetchData();
+    console.log("fetch data");
+  }
+
+
 
   // function that updates the anchorEl state
   setAnchorEl = (value) => {
@@ -109,6 +138,32 @@ class NavigationDesktop extends Component {
     return <NavigationItemDesktop key={index} navItem={navItem} />;
   }
 
+  fetchData = async () => {
+    // console.log("NavigationDesktop222", this.props.data)
+
+    console.log("user")
+    try {
+      console.log("user try")
+      const response = await sendGraphQLQuery();
+
+      // Handle the response data
+      console.log("user 1")
+
+      console.log("NavigationDesktop222", response);
+      this.setState({
+        categoryTagsInfo: response.data.tags.nodes
+      })
+
+      // this.state.categoryTagsInfo(response.data.tags.nodes)
+      console.log("NavigationDesktop222", this.state.categoryTagsInfo);
+
+    } catch (error) {
+      console.log("called catch")
+      // Handle any errors
+      console.error("user", error);
+    }
+  };
+
   render() {
     const {
       classes,
@@ -117,7 +172,8 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-    // console.log(tags, "tags in deskyop");
+    const { categoryTagsInfo } = this.state
+    console.log(categoryTagsInfo, "tags in deskyop");
     const style = {
       borderRadius: "8px",
       marginTop: "12px",
@@ -210,7 +266,49 @@ class NavigationDesktop extends Component {
               >
                 Explore
               </span>
-             
+              <Popover
+                className={classes.popover}
+                classes={{
+                  paper: classes.paper,
+                }}
+                anchorEl={anchorEl}
+                transformOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                }}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                  marginTop: "100px",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={this.handlePopOverClose}
+                style={{ marginTop: "100px" }}
+                // onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Box sx={style}>
+                  <div className={classes.modalitems}>
+                    <div className={classes.modalitemsimage}>
+                      {ITEMScategory.map((item) => (
+                        <img src={item.image} className={classes.categoryavatar} />
+                      ))}
+                    </div>
+
+                    <div className={classes.modalitemstitle}>
+                      {console.log("tags", tags)}
+                      {categoryTagsInfo?.map((itemtitle) => (
+                        <a href={`/en/categories/${itemtitle._id}`}>
+                          <Typography variant="h4" className={classes.catgorytitle}>
+                            {itemtitle.displayTitle}
+                          </Typography>
+                        </a>
+                      ))
+                      }
+                    </div>
+                  </div>
+                </Box>
+              </Popover>
             </a>
             <span
               className="hoverable"
@@ -253,4 +351,4 @@ class NavigationDesktop extends Component {
   }
 }
 
-export default withStyles(styles)(inject("navItems")(NavigationDesktop));
+export default withStyles(styles)(inject("navItems", "uiStore")(NavigationDesktop));
