@@ -514,6 +514,7 @@ const slide = [
 const ProductDetail = ({ ...props }) => {
 
   const { product, catalogItems, cart } = props;
+  console.log("product", product)
   // console.log(product, "product");
   const tagIds = product?.tags?.nodes?.[0]?._id || [1]?._id || [2]?._id;
   // console.log("dddd",props)
@@ -535,6 +536,14 @@ const ProductDetail = ({ ...props }) => {
     sliderRef.current.swiper.slidePrev();
   }, []);
 
+  const clickHandler = (item) => {
+    const productSlug = item;
+
+    const url = `/en/product/${productSlug}`;
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener.focus();
+  };
+
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
@@ -551,6 +560,7 @@ const ProductDetail = ({ ...props }) => {
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   useEffect(() => {
+    console.log("props", props)
     const updatedItems = cart?.items.map((item) => {
       const isItemInCart = filteredProducts?.some((product) => {
         return item.productConfiguration?.productId === product?.node.product?.productId;
@@ -773,9 +783,10 @@ const ProductDetail = ({ ...props }) => {
     // Scroll to the top
   };
   const router = useRouter();
-  const clickHandler = (item) => {
-    router.push("/en/product/" + item);
-  };
+  // const clickHandler = (item) => {
+
+  //   router.replace("/en/product/" + item);
+  // };
   const optionTitle = product?.variants[0]?.optionTitle;
   const validOptionTitle = optionTitle ? optionTitle?.replace(/'/g, '"') : null;
   const size = validOptionTitle ? JSON?.parse(validOptionTitle)?.size : null;
@@ -1088,11 +1099,9 @@ const ProductDetail = ({ ...props }) => {
                     <>
                       <div style={{ display: "flex", justifyContent: "center" }}>
                         <div className={classes.boxcontairproduct}>
-                          <Link
-                            // href={item.node.product.slug && "en/product/[...slugOrId]"}
-                            as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                          >
-                            <a target="_blank">
+                          <div onClick={() => clickHandler(item.node.product.slug)}>
+                            <a target="_blank"
+                            >
                               {/* {console.log("Images", item?.node)} */}
                               <img
                                 src={
@@ -1105,7 +1114,7 @@ const ProductDetail = ({ ...props }) => {
                                 alt={"hhhh"}
                               />
                             </a>
-                          </Link>
+                          </div>
                           <div className={classes.cartcontent}>
                             <div className={classes.cartcontenttext}>
                               <Typography
@@ -1185,7 +1194,10 @@ const ProductDetail = ({ ...props }) => {
                               ) : (
                                 <Button
                                   className={classes.cart}
-                                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                  onClick={() => {
+                                    console.log("problem", item?.node?.product)
+                                    handleOnClick(item?.node?.product, item?.node?.product?.variants[0])
+                                  }}
                                   disabled={isDisabled || item?.node?.product?.isSoldOut}
                                 >
                                   <img component="img" src="/icons/cart.svg" className={classes.cartimageJustIn} />
@@ -1201,14 +1213,14 @@ const ProductDetail = ({ ...props }) => {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div >
                     </>
                   );
                 })}
               </Masonry>
             </ResponsiveMasonry>
           </div>
-        </div>
+        </div >
       )}
     </>
   );
