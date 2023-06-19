@@ -1628,7 +1628,7 @@ Categories.propTypes = {
   sortBy: PropTypes.string.isRequired,
 };
 export async function getStaticPaths() {
-  const tags = await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==");
+  const tags = await fetchTags(process.env.SHOP_ID);
   let paths = [];
 
   if (tags && tags.tags && tags.tags.nodes) {
@@ -1649,14 +1649,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { lang, tagId }, ...context }) {
   const primaryShop = await fetchPrimaryShop(lang);
-  const categories = await fetchAllCategories(["cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg=="], [tagId]);
+  const categories = await fetchAllCategories([process.env.SHOP_ID], [tagId]);
 
   return {
     props: {
       ...primaryShop,
       tagId,
       category: categories,
-      ...(await fetchTags("cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==")),
+      ...(await fetchTags(process.env.SHOP_ID)),
     },
   };
 }
