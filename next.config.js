@@ -8,7 +8,8 @@ module.exports = {
     EXTERNAL_GRAPHQL_URL: appConfig.EXTERNAL_GRAPHQL_URL,
     SEGMENT_ANALYTICS_SKIP_MINIMIZE: appConfig.SEGMENT_ANALYTICS_SKIP_MINIMIZE,
     SEGMENT_ANALYTICS_WRITE_KEY: appConfig.SEGMENT_ANALYTICS_WRITE_KEY,
-    STRIPE_PUBLIC_API_KEY: appConfig.STRIPE_PUBLIC_API_KEY
+    STRIPE_PUBLIC_API_KEY: appConfig.STRIPE_PUBLIC_API_KEY,
+    SHOP_ID:appConfig.SHOP_ID
   },
   webpack: (webpackConfig) => {
     webpackConfig.module.rules.push({

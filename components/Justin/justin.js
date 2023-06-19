@@ -453,12 +453,12 @@ const Justin = (props) => {
                             {size == 0
                               ? "XL"
                               : "S" || size == 1
-                              ? "L"
-                              : "S" || size == 2
-                              ? "M"
-                              : "S" || size == 3
-                              ? "S"
-                              : "S"}
+                                ? "L"
+                                : "S" || size == 2
+                                  ? "M"
+                                  : "S" || size == 3
+                                    ? "S"
+                                    : "S"}
                           </span>
                         </Typography>
                         {isLoading[item?.node?.product?.productId] ? (
