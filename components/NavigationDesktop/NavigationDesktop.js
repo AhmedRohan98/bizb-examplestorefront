@@ -188,8 +188,7 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-    const { categoryTagsInfo } = this.state
-    console.log(categoryTagsInfo, "tags in deskyop");
+
     const style = {
       borderRadius: "8px",
       marginTop: "12px",
@@ -202,6 +201,10 @@ class NavigationDesktop extends Component {
       minHeight: "0",
     };
     const { anchorEl } = this.state;
+    console.log(tags?.nodes)
+    console.log(this.state.categoryTagsInfo)
+    const tagsData=tags?.nodes?tags?.nodes:this.state.categoryTagsInfo;
+
     const ITEMScategory = [
       {
         image: "/categoriestypes/junior.svg",
@@ -241,6 +244,7 @@ class NavigationDesktop extends Component {
     ];
     return (
       <>
+
         <nav>
           <div className={headerType ? classNames(classes.light) : classNames(classes.dark)}>
             <Link href="/" onClick={() => this.setState({
@@ -317,8 +321,8 @@ class NavigationDesktop extends Component {
                     </div>
 
                     <div className={classes.modalitemstitle}>
-                      {console.log("tags", tags)}
-                      {categoryTagsInfo?.map((itemtitle) => (
+                      {console.log("tags", tagsData)}
+                      {tagsData?.map((itemtitle) => (
                         <a href={`/en/categories/${itemtitle._id}`}>
                           <Typography variant="h4" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
