@@ -675,7 +675,7 @@ const CheckoutActions = (prop) => {
                 {prod.title}
               </Typography>
               <Typography gutterBottom variant="h5" className={classes.cartdescription}>
-                Rs: {" "} {prod.price.amount}
+                Rs. {" "} {prod.price.amount}
 
               </Typography>
 
