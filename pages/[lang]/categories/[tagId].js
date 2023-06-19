@@ -168,6 +168,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 
+
   main: {
     width: "100%",
     padding: "25px",
@@ -275,6 +276,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: " -75px",
     padding: "13px 20px",
   },
+
 
   modalitems: {
     display: "flex",
@@ -647,6 +649,7 @@ function Categories(props) {
   }, []);
 
   const options = [
+
     { value: "updatedAt-desc", label: "New Arrivals" },
     { value: "minPrice-asc", label: "Price Low To High" },
     { value: "minPrice-desc", label: "Price High To Low" },
@@ -1070,6 +1073,7 @@ function Categories(props) {
     setSoldOutProducts(soldOutProducts);
   }, [cart?.items]);
 
+
   // console.log(category, "dis");
   return (
     <Layout shop={shop} tagId={tagId}>
@@ -1264,9 +1268,9 @@ function Categories(props) {
               xs={12}
               sm={6}
               md={12}
-              // align="center"
-              // justify="center"
-              // alignItems="center"
+            // align="center"
+            // justify="center"
+            // alignItems="center"
             >
               <div className={classes.gridroot}>
                 <ResponsiveMasonry
@@ -1309,6 +1313,7 @@ function Categories(props) {
                       return (
                         <div style={{ display: "flex", justifyContent: "center" }}>
                           <div className={classes.boxcontairproduct}>
+
                             {/* {console.log("Images", item?.node)} */}
                             <img
                               onClick={() => clickHandler(item.node.product.slug)}
@@ -1321,6 +1326,7 @@ function Categories(props) {
                               key={item?.node?.product?.id}
                               alt={"hhhh"}
                             />
+
 
                             <div className={classes.cartcontent}>
                               <div className={classes.cartcontenttext}>
@@ -1388,12 +1394,12 @@ function Categories(props) {
                                     {size == 0
                                       ? "XL"
                                       : "S" || size == 1
-                                      ? "L"
-                                      : "S" || size == 2
-                                      ? "M"
-                                      : "S" || size == 3
-                                      ? "S"
-                                      : "S"}
+                                        ? "L"
+                                        : "S" || size == 2
+                                          ? "M"
+                                          : "S" || size == 3
+                                            ? "S"
+                                            : "S"}
                                   </span>
                                 </Typography>
                                 {isLoading[item?.node?.product?.productId] ? (
@@ -1549,12 +1555,12 @@ function Categories(props) {
                                   {size == 0
                                     ? "XL"
                                     : "S" || size == 1
-                                    ? "L"
-                                    : "S" || size == 2
-                                    ? "M"
-                                    : "S" || size == 3
-                                    ? "S"
-                                    : "S"}
+                                      ? "L"
+                                      : "S" || size == 2
+                                        ? "M"
+                                        : "S" || size == 3
+                                          ? "S"
+                                          : "S"}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
@@ -1622,8 +1628,7 @@ Categories.propTypes = {
   sortBy: PropTypes.string.isRequired,
 };
 export async function getStaticPaths() {
-  const primaryShop = await fetchPrimaryShop();
-  const tags = await fetchTags(primaryShop);
+  const tags = await fetchTags(process.env.SHOP_ID);
   let paths = [];
 
   if (tags && tags.tags && tags.tags.nodes) {
@@ -1644,14 +1649,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { lang, tagId }, ...context }) {
   const primaryShop = await fetchPrimaryShop(lang);
-  const categories = await fetchAllCategories([primaryShop], [tagId]);
+  const categories = await fetchAllCategories([process.env.SHOP_ID], [tagId]);
 
   return {
     props: {
       ...primaryShop,
       tagId,
       category: categories,
-      ...(await fetchTags(primaryShop)),
+      ...(await fetchTags(process.env.SHOP_ID)),
     },
   };
 }

@@ -140,7 +140,7 @@ const Caloborators = () => {
         <SwiperSlide>
           <div className={classes.box}>
             <img
-              src={!item?.picture || !item?.picture ? "/stories/story2.svg" : item?.picture}
+              src={!item?.picture || !item?.picture ? "/images/seller-placeholder.png" : item?.picture}
               className={classes.image}
             />
             <Typography style={{ textAlign: "center", marginBottom: "20px", marginTop: "10px" }} variant="h5">

@@ -54,6 +54,17 @@ const styles = (theme) => ({
     "&:hover": {
       color: theme.palette.secondary.selected,
     },
+    // "&:active": {
+    //   textDecorationColor: "#FDC114",
+    //   textDecorationThickness: "3px", // Adjust the underline thickness
+    //   textDecorationLine: "underline", // Add an underline style for compatibility
+    // },
+  },
+  currentCategory: {
+    textDecorationColor: "#FDC114",
+    textDecorationThickness: "3px", // Adjust the underline thickness
+    textDecorationLine: "underline",
+
   },
   popover: {
     // pointerEvents: "none",
@@ -66,7 +77,7 @@ const styles = (theme) => ({
 const tagsCategory = () => (
   <Query errorPolicy="all" query={categoryTags}
     variables={{
-      shopId: "cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==",
+      shopId: process.env.SHOP_ID,
       filter: "category-"
     }}>
     {({ loading, error, data }) => {
@@ -80,6 +91,7 @@ const tagsCategory = () => (
 
 
 class NavigationDesktop extends Component {
+
 
   static propTypes = {
     classes: PropTypes.object,
@@ -98,7 +110,8 @@ class NavigationDesktop extends Component {
     super(props);
     this.state = {
       anchorEl: null,
-      categoryTagsInfo: null
+      categoryTagsInfo: null,
+      selectedPage: null
     };
 
     // Bind the class methods in the constructor
@@ -109,6 +122,9 @@ class NavigationDesktop extends Component {
   componentDidMount() {
     this.fetchData();
     console.log("fetch data");
+
+
+
   }
 
 
@@ -227,7 +243,9 @@ class NavigationDesktop extends Component {
       <>
         <nav>
           <div className={headerType ? classNames(classes.light) : classNames(classes.dark)}>
-            <Link href="/">
+            <Link href="/" onClick={() => this.setState({
+              selectedPage: true
+            })}>
               <span
                 className="hoverable"
                 style={{
@@ -239,11 +257,14 @@ class NavigationDesktop extends Component {
                   letterSpacing: "4%",
                   fontFamily: '"Ostrich Sans Black',
                   fontWeight: 900,
-                  textDecoration: "underline",
-                  textDecorationColor: "#FDC114",
-                  textDecorationThickness: "3px", // Adjust the underline thickness
-                  textDecorationLine: "underline", // Add an underline style for compatibility
+                  // textDecoration: "underline",
+
                   marginBottom: "-4px",
+                  // "::selection": {
+                  //   textDecorationColor: "#FDC114",
+                  //   textDecorationThickness: "3px", // Adjust the underline thickness
+                  //   textDecorationLine: "underline", // Add an underline style for compatibility
+                  // }
                 }}
               >
                 Home
