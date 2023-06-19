@@ -130,7 +130,7 @@ const styles = (theme) => ({
   total1: {
     display: "flex",
     justifyContent: "space-around",
-    marginBottom:"30px"
+    marginBottom: "30px"
   },
   cart1: {
     height: "48px",
@@ -307,10 +307,10 @@ const MiniCart = ({ ...props }) => {
                                 {" "}
                                 <Typography variant="h4">{item.title}</Typography>
                                 <Typography variant="h4" className={classes.cartpric}>
-                                  Store:{item?.productVendor?.slice(0,10)}
+                                  Store:{item?.productVendor?.slice(0, 10)}
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
-                                  RS: {item?.price?.amount}
+                                  Rs. {item?.price?.amount}
                                 </Typography>
                               </div>
 
@@ -327,7 +327,7 @@ const MiniCart = ({ ...props }) => {
                       <div className={classes.total}>
                         <div className={classes.total1}>
                           <Typography variant="h4">Subtotal</Typography>
-                          <Typography variant="h4">RS: {cart?.checkout?.summary?.total?.amount}</Typography>
+                          <Typography variant="h4">Rs. {cart?.checkout?.summary?.total?.amount}</Typography>
                         </div>
                         <div className={classes.total1}>
                           <div style={{ cursor: "pointer" }}>

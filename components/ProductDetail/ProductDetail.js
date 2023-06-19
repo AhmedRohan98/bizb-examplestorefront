@@ -217,6 +217,12 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(5),
     margin: theme.spacing(5),
   },
+  centerDiv: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+  },
   cart2: {
     height: "35px",
     width: "100%",
@@ -696,17 +702,17 @@ const ProductDetail = ({ ...props }) => {
   }
 
   const handleOnClick = async (product, variant) => {
-    // setIsLoading((prevState) => ({
-    //   ...prevState,
-    //   [product.productId]: true,
-    // }));
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: true,
+    }));
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!", {});
-    // setIsLoading((prevState) => ({
-    //   ...prevState,
-    //   [product.productId]: false,
-    // }));
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: false,
+    }));
     // Scroll to the top
   };
   const handleAddToCartClickforsingle = async (quantity) => {
@@ -754,7 +760,15 @@ const ProductDetail = ({ ...props }) => {
 
   const handleOnClickforsingle = async () => {
     // Pass chosen quantity to onClick callback
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: true,
+    }));
     await handleAddToCartClickforsingle(addToCartQuantity);
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: false,
+    }));
 
     // Scroll to the top
   };
@@ -922,7 +936,9 @@ const ProductDetail = ({ ...props }) => {
                   <div className="fluid__instructions" style={{ position: "relative" }}>
                     <div id="portal" className="portal" />
                     <div className={classes.carttext}>
-                      <Typography style={{ fontWeight: "700" }} variant="subtitle1">
+                      <Typography style={{
+                        fontWeight: "700", textTransform: "capitalize",
+                      }} variant="subtitle1">
                         {product?.title}
                       </Typography>
                       <div className={classes.size2}>
@@ -996,19 +1012,24 @@ const ProductDetail = ({ ...props }) => {
                           </Typography>
                         </Link>
                       </div>
-
+                      {console.log("product?.productId", product?.productId)}
                       <div>
-                        <Button
-                          className={classes.cart2}
-                          fullWidth
-                          onClick={handleOnClickforsingle}
-                          disabled={isDisabled || product?.isSoldOut}
-                        >
-                          <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                          <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
-                            {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : " + Cart"}
-                          </Typography>
-                        </Button>
+                        {isLoading[product?.productId] ? (
+                          <div className={classes.centerDiv}><CircularProgress /></div>
+                        ) : (
+
+                          <Button
+                            className={classes.cart2}
+
+                            onClick={handleOnClickforsingle}
+                            disabled={isDisabled || product?.isSoldOut}
+                          >
+                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                            <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
+                              {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : " + Cart"}
+                            </Typography>
+                          </Button>
+                        )}
                       </div>
                       <TabContext value={value}>
                         <TabList onChange={handleChange} className={classes.tabs}>
@@ -1068,7 +1089,7 @@ const ProductDetail = ({ ...props }) => {
                       <div style={{ display: "flex", justifyContent: "center" }}>
                         <div className={classes.boxcontairproduct}>
                           <Link
-                            href={item.node.product.slug && "en/product/[...slugOrId]"}
+                            // href={item.node.product.slug && "en/product/[...slugOrId]"}
                             as={item.node.product.slug && `en/product/${item.node.product.slug}`}
                           >
                             <a target="_blank">
