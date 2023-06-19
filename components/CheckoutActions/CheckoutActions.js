@@ -198,6 +198,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cartname: {
     fontWeight: 500,
+    textTransform: "capitalize",
 
     color: "#333333",
     marginLeft: theme.spacing(2),
@@ -874,7 +875,7 @@ const CheckoutActions = (prop) => {
               </div>
               <div className={classes.cartcard}>
                 <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
-                  Cart Totals
+                  Cart Total
                 </Typography>
                 <div className={classes.empty}></div>
                 <div className={classes.shipping}>
@@ -883,7 +884,7 @@ const CheckoutActions = (prop) => {
                       Subtotal
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {cart.checkout.summary.itemTotal.amount}
+                      Rs. {" "}{cart.checkout.summary.itemTotal.amount}
                     </Typography>
                   </div>
                   <div className={classes.subtotal}>
@@ -891,7 +892,7 @@ const CheckoutActions = (prop) => {
                       Shipping Cost
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {shippingData ? shippingData?.cost : ""}
+                      Rs. {" "}{shippingData ? shippingData?.cost : "0"}
                     </Typography>
                   </div>
                 </div>
@@ -901,7 +902,7 @@ const CheckoutActions = (prop) => {
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {shippingData?.cost ? shippingData?.cost + cart.checkout.summary.itemTotal.amount : cart.checkout.summary.itemTotal.amount}
+                    Rs. {" "}{shippingData?.cost ? shippingData?.cost + cart.checkout.summary.itemTotal.amount : cart.checkout.summary.itemTotal.amount}
                   </Typography>
                 </div>
               </div>
