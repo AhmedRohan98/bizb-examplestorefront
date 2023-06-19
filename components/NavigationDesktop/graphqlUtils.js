@@ -22,7 +22,7 @@ export const sendGraphQLQuery = async (query) => {
         }
       `,
       variables: {
-        shopId: "cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==",
+        shopId: process.env.SHOP_ID,
         filter: 'category-', // Replace null with your desired filter value
       },
     });

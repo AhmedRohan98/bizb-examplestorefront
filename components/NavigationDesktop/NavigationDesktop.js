@@ -77,7 +77,7 @@ const styles = (theme) => ({
 const tagsCategory = () => (
   <Query errorPolicy="all" query={categoryTags}
     variables={{
-      shopId: "cmVhY3Rpb24vc2hvcDp4TW1NRmFOR2I0TGhDY3dNeg==",
+      shopId: process.env.SHOP_ID,
       filter: "category-"
     }}>
     {({ loading, error, data }) => {
