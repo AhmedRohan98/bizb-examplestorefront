@@ -1637,7 +1637,7 @@ export async function getStaticPaths() {
         lang: "en",
         tagId: tag._id,
       },
-    }));
+    }))
   }
   // add this line
   // console.log(paths,"end");
