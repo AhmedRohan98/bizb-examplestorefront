@@ -46,13 +46,24 @@ const styles = (theme) => ({
 
     flexDirection: "column",
   },
+  categoryTagsLink:{
+    borderBottom:"1px solid #59595940"
+  },
   catgorytitle: {
+    letterSpacing:"0.85px",
+    fontFamily:"Ostrich Sans Black",
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(0),
-    marginLeft: theme.spacing(3),
-    borderBottom: "0.5px dotted #0101013b",
+    marginBottom: theme.spacing(1),
+    padding:"0px 15px",
+    boxShadow:" inset 0 0 0 0 #FDC114",
+    color: "black",
+    // margin: "0 -.25rem",
+    // padding: "0 .25rem",
+    transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
+  
     "&:hover": {
-      color: theme.palette.secondary.selected,
+      color: "white",
+      boxShadow: "inset 150px 0 0 0 #FDC114"
     },
     // "&:active": {
     //   textDecorationColor: "#FDC114",
@@ -68,6 +79,7 @@ const styles = (theme) => ({
   },
   popover: {
     // pointerEvents: "none",
+    top:"0"
   },
   paper: {
     padding: theme.spacing(0),
@@ -194,16 +206,25 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-
+    
     const style = {
       borderRadius: "8px",
-      marginTop: "10px",
+      "&::before": {
+        backgroundColor: "#fdc114",
+        content: '""',
+        display: "block",
+        position: "absolute",
+        width: 12,
+        height: 12,
+        top: -6,
+        transform: "rotate(45deg)",
+        left: "calc(50% - 6px)"
+      },
       left: "15%",
-      width: 250,
       bgcolor: "#ffffff",
       outline: "none",
+      padding:"10px 0px",
       boxShadow: 24,
-      p: 2,
     };
     const { anchorEl } = this.state;
     console.log(tags?.nodes)
@@ -305,7 +326,7 @@ class NavigationDesktop extends Component {
                 Explore
               </span>
               <Popover
-                className={classes.popover}
+                className={classes.popover }
                 classes={{
                   paper: classes.paper,
                 }}
@@ -321,22 +342,18 @@ class NavigationDesktop extends Component {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={this.handlePopOverClose}
-                style={{ marginTop: "90px" }}
+                style={{ marginTop: "75px" }}
                 // onClose={handlePopoverClose}
                 disableRestoreFocus
               >
-                <Box sx={style}>
+                <Box sx={style} >
                   <div className={classes.modalitems}>
-                    <div className={classes.modalitemsimage}>
-                      {ITEMScategory.map((item) => (
-                        <img src={item.image} className={classes.categoryavatar} />
-                      ))}
-                    </div>
+                  
 
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
-                      {tagsData?.map((itemtitle) => (
-                        <a href={`/en/categories/${itemtitle._id}`}>
+                      {tagsData?.map((itemtitle,i) => (
+                        <a href={`/en/categories/${itemtitle._id}`} className={tagsData.length!==i+1? classes.categoryTagsLink:""}>
                           <Typography variant="h6" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
                           </Typography>
