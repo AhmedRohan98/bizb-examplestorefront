@@ -176,10 +176,10 @@ const styles = (theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  cartimage2:{
-    height:"40px",
-    width:"30px",
-    margin:"10px"
+  cartimage2: {
+    height: "40px",
+    width: "30px",
+    margin: "10px"
   }
 });
 
@@ -213,8 +213,8 @@ class CartItems extends Component {
   };
 
   static defaultProps = {
-    onChangeCartItemQuantity() {},
-    onRemoveItemFromCart() {},
+    onChangeCartItemQuantity() { },
+    onRemoveItemFromCart() { },
   };
 
   handleItemQuantityChange = (quantity, _id) => {
@@ -226,8 +226,8 @@ class CartItems extends Component {
   static defaultProps = {
     isMiniCart: false,
     isReadOnly: false,
-    onChangeCartItemQuantity() {},
-    onRemoveItemFromCart() {},
+    onChangeCartItemQuantity() { },
+    onRemoveItemFromCart() { },
   };
   handleRemoveItem = async (itemID) => {
     const { onRemoveItemFromCart } = this.props;
@@ -301,7 +301,7 @@ class CartItems extends Component {
                           Store:{item?.productVendor}
                         </Typography>{" "}
                         <img
-                          style={{ cursor: "pointer",  }}
+                          style={{ cursor: "pointer", }}
                           src="/cart/icon.svg"
                           className={classes.cartimage2}
                           alt={item.title}
@@ -313,7 +313,7 @@ class CartItems extends Component {
                   <TableCell align="right">
                     {" "}
                     <Typography variant="h4" className={classes.cartprice}>
-                      Rs.: {item?.price?.amount}
+                      Rs.  {item?.price?.amount}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
@@ -322,7 +322,7 @@ class CartItems extends Component {
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="h4" className={classes.cartprice}>
-                      Rs.: {item?.price?.amount}
+                      Rs.  {item?.price?.amount}
                     </Typography>
                   </TableCell>
                 </TableRow>

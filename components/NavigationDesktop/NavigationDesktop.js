@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import { Query } from "@apollo/react-components";
 import categoryTags from "../../hooks/categoryTags/getTags.gql";
 import { sendGraphQLQuery } from "./graphqlUtils";
+import Router from 'next/router';
+
 const styles = (theme) => ({
   light: {
     color: "#FFFFFF",
@@ -24,9 +26,9 @@ const styles = (theme) => ({
     zIndex: 1200,
   },
   categoryavatar: {
-    marginTop: "13px",
-    height: "34px",
-    width: "34px",
+
+    height: "25px",
+    width: "25px",
     marginBottom: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -41,18 +43,27 @@ const styles = (theme) => ({
   },
   modalitemstitle: {
     display: "flex",
-    width: "90%",
 
     flexDirection: "column",
   },
+  categoryTagsLink:{
+    borderBottom:"1px solid #59595940"
+  },
   catgorytitle: {
-    marginTop: theme.spacing(2),
+    letterSpacing:"0.85px",
+    fontFamily:"Ostrich Sans Black",
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    marginLeft: theme.spacing(3),
-    width: "80%",
-    borderBottom: "0.5px dotted #0101013b",
+    padding:"0px 15px",
+    boxShadow:" inset 0 0 0 0 #FDC114",
+    color: "black",
+    // margin: "0 -.25rem",
+    // padding: "0 .25rem",
+    transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
+  
     "&:hover": {
-      color: theme.palette.secondary.selected,
+      color: "white",
+      boxShadow: "inset 150px 0 0 0 #FDC114"
     },
     // "&:active": {
     //   textDecorationColor: "#FDC114",
@@ -68,9 +79,10 @@ const styles = (theme) => ({
   },
   popover: {
     // pointerEvents: "none",
+    top:"0"
   },
   paper: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0),
   },
 });
 
@@ -104,6 +116,7 @@ class NavigationDesktop extends Component {
     classes: {},
     navItems: {},
     headerType: false,
+
   };
 
   constructor(props) {
@@ -111,7 +124,9 @@ class NavigationDesktop extends Component {
     this.state = {
       anchorEl: null,
       categoryTagsInfo: null,
-      selectedPage: null
+      selectedPage: null,
+      currentLink: null
+
     };
 
     // Bind the class methods in the constructor
@@ -120,8 +135,11 @@ class NavigationDesktop extends Component {
   }
 
   componentDidMount() {
+    const currentLink = Router.pathname;
+
+
     this.fetchData();
-    console.log("fetch data");
+    console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
 
 
 
@@ -188,17 +206,25 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-
+    
     const style = {
       borderRadius: "8px",
-      marginTop: "12px",
+      "&::before": {
+        backgroundColor: "#fdc114",
+        content: '""',
+        display: "block",
+        position: "absolute",
+        width: 12,
+        height: 12,
+        top: -6,
+        transform: "rotate(45deg)",
+        left: "calc(50% - 6px)"
+      },
       left: "15%",
-      width: 330,
       bgcolor: "#ffffff",
       outline: "none",
+      padding:"10px 0px",
       boxShadow: 24,
-      p: 2,
-      minHeight: "0",
     };
     const { anchorEl } = this.state;
     console.log(tags?.nodes)
@@ -248,7 +274,7 @@ class NavigationDesktop extends Component {
         <nav>
           <div className={headerType ? classNames(classes.light) : classNames(classes.dark)}>
             <Link href="/" onClick={() => this.setState({
-              selectedPage: true
+              selectedPage: '/[lang]'
             })}>
               <span
                 className="hoverable"
@@ -264,11 +290,11 @@ class NavigationDesktop extends Component {
                   // textDecoration: "underline",
 
                   marginBottom: "-4px",
-                  // "::selection": {
-                  //   textDecorationColor: "#FDC114",
-                  //   textDecorationThickness: "3px", // Adjust the underline thickness
-                  //   textDecorationLine: "underline", // Add an underline style for compatibility
-                  // }
+
+                  textDecorationColor: Router.pathname === '/[lang]' ? "#FDC114" : null,
+                  textDecorationThickness: Router.pathname === '/[lang]' ? "3px" : null, // Adjust the underline thickness
+                  textDecorationLine: Router.pathname === '/[lang]' ? "underline" : null, // Add an underline style for compatibility
+
                 }}
               >
                 Home
@@ -277,6 +303,9 @@ class NavigationDesktop extends Component {
             <a href="/en/explore">
               <span
                 onMouseEnter={this.handlePopOverOpen}
+                onClick={() => this.setState({
+                  selectedPage: '/[lang]/categories/[tagId]'
+                })}
                 // onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
@@ -287,12 +316,17 @@ class NavigationDesktop extends Component {
                   fontFamily: '"Ostrich Sans Black"',
                   fontWeight: 900,
                   // color: this.state.anchorEl ? "#fdc114" : "",
+
+                  textDecorationColor: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "#FDC114" : null,
+                  textDecorationThickness: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "3px" : null, // Adjust the underline thickness
+                  textDecorationLine: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "underline" : null, // Add an underline style for compatibility
+
                 }}
               >
                 Explore
               </span>
               <Popover
-                className={classes.popover}
+                className={classes.popover }
                 classes={{
                   paper: classes.paper,
                 }}
@@ -308,23 +342,19 @@ class NavigationDesktop extends Component {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={this.handlePopOverClose}
-                style={{ marginTop: "100px" }}
+                style={{ marginTop: "75px" }}
                 // onClose={handlePopoverClose}
                 disableRestoreFocus
               >
-                <Box sx={style}>
+                <Box sx={style} >
                   <div className={classes.modalitems}>
-                    <div className={classes.modalitemsimage}>
-                      {ITEMScategory.map((item) => (
-                        <img src={item.image} className={classes.categoryavatar} />
-                      ))}
-                    </div>
+                  
 
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
-                      {tagsData?.map((itemtitle) => (
-                        <a href={`/en/categories/${itemtitle._id}`}>
-                          <Typography variant="h4" className={classes.catgorytitle}>
+                      {tagsData?.map((itemtitle,i) => (
+                        <a href={`/en/categories/${itemtitle._id}`} className={tagsData.length!==i+1? classes.categoryTagsLink:""}>
+                          <Typography variant="h6" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
                           </Typography>
                         </a>

@@ -130,6 +130,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
   },
   categoriesname: {
+    textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
+    textTransform: "uppercase",
     fontSize: "48px",
     color: "#ffffff",
     fontFamily: "Ostrich Sans Black",
@@ -551,6 +553,63 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "100%",
   },
+  cart: {
+    height: "35px",
+    width: "84px",
+    borderRadius: "5px",
+    background: "#FDC114",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: "10px",
+    borderColor: "none",
+    zIndex: 1,
+    transition: "all 0.2s linear",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
+  },
+  sizes: {
+    height: "30px",
+    width: "30px",
+    marginLeft: "12px",
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    border: "1px solid #000000",
+  },
+  cartimage: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  carttitle: {
+
+    display: "flex",
+    marginLeft: theme.spacing(1),
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  cartcontenttext: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  carttitle2: {
+    display: "flex",
+  },
+  cartcontent: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingBottom: "10px",
+  },
+
 }));
 const ITEMScategory = [
   {
@@ -1324,8 +1383,8 @@ function Categories(props) {
                               }
                               className={classes.image}
                               key={item?.node?.product?.id}
-                              alt={"hhhh"}
-                            />
+                              alt={item?.node?.product?.title}
+                              />
 
 
                             <div className={classes.cartcontent}>
@@ -1435,7 +1494,7 @@ function Categories(props) {
           <div className={classes.main}>
             <div className={classes.gridroot}>
               <ResponsiveMasonry
-                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
+                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
                 style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
               >
                 <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1637,7 +1696,7 @@ export async function getStaticPaths() {
         lang: "en",
         tagId: tag._id,
       },
-    }))
+    }));
   }
   // add this line
   // console.log(paths,"end");
@@ -1662,3 +1721,4 @@ export async function getStaticProps({ params: { lang, tagId }, ...context }) {
 }
 
 export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(Categories))));
+

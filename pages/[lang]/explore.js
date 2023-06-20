@@ -608,6 +608,16 @@ const handleChangeChecksize = (event) => {
       height: "50px",
       position: "relative",
     },
+    // image: {
+    //   width: "312px", // Reduced by 1px to create space for the border
+    //   maxHeight: "600px",
+    //   marginTop: "1px",
+    //   borderRadius: "10px",
+    //   marginRight: "2px",
+    //   marginLeft: "1px",
+    //   objectFit: "cover",
+    //   cursor: "pointer",
+    // },
     image: {
       width: "312px", // Reduced by 1px to create space for the border
       maxHeight: "600px",
@@ -617,6 +627,18 @@ const handleChangeChecksize = (event) => {
       marginLeft: "1px",
       objectFit: "cover",
       cursor: "pointer",
+      [theme.breakpoints.up("lg")]: {
+        width: "312px", // Reduced by 1px to create space for the border
+  
+      },
+      [theme.breakpoints.down("lg")]: {
+        width: "275px", // Reduced by 1px to create space for the border
+  
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "312px", // Reduced by 1px to create space for the border
+  
+      },
     },
 
     sizes: {
@@ -999,7 +1021,7 @@ const handleChangeChecksize = (event) => {
         </Box>
         <div className={classes.gridroot}>
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
+            columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
             style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
             <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1045,8 +1067,8 @@ const handleChangeChecksize = (event) => {
                         className={classes.image}
                         key={item?.node?.product?.id}
                         onClick={() => clickHandler(item.node.product.slug)}
-                        alt={"hhhh"}
-                      />
+                        alt={item?.node?.product?.title}
+                        />
 
                       <div className={classes.cartcontent}>
                         <div className={classes.cartcontenttext}>
