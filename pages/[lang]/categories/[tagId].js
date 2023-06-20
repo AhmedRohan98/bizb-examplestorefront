@@ -1383,8 +1383,8 @@ function Categories(props) {
                               }
                               className={classes.image}
                               key={item?.node?.product?.id}
-                              alt={"hhhh"}
-                            />
+                              alt={item?.node?.product?.title}
+                              />
 
 
                             <div className={classes.cartcontent}>
@@ -1494,7 +1494,7 @@ function Categories(props) {
           <div className={classes.main}>
             <div className={classes.gridroot}>
               <ResponsiveMasonry
-                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1420: 4, 1750: 5, 1920: 5 }}
+                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
                 style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
               >
                 <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
