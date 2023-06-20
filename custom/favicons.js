@@ -16,10 +16,10 @@ const favicons = [
     sizes: "16x16",
     href: "/favicons/favicon-16x16.png"
   },
-  {
-    rel: "manifest",
-    href: "/favicons/manifest.json"
-  },
+  // {
+  //   rel: "manifest",
+  //   href: "/favicons/manifest.json"
+  // },
   {
     rel: "mask-icon",
     color: "#5bbad5",
