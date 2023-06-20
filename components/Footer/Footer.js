@@ -57,14 +57,14 @@ const Footer = () => {
     <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
       <Grid container>
         <Grid item xs={12} md={3}>
-          <div style={{ display: "flex", marginTop: "70px", marginLeft: "100px", textAlign: "center" }}>
+          <div style={{ display: "flex", marginTop: "70px", textAlign: "center" ,justifyContent:"center"}}>
             <span>
               <a href="/">
-                <img src="/images/logoLight.svg" />
+                <img src="/images/logoLight.svg" height="65px" />
               </a>
             </span>
           </div>
-          <div style={{ marginTop: "10px", marginLeft: "90px" }}>
+          <div style={{ marginTop: "10px",  display: "flex", justifyContent:"center" }}>
             <img src="/icons/instagram.svg" className={classes.imagesicons} />
             <img src="/icons/facebook.svg" className={classes.imagesicons} />
             <img src="/icons/twitter.svg" className={classes.imagesicons} />
@@ -73,7 +73,7 @@ const Footer = () => {
           </div>
         </Grid>
         <Grid item xs={12} md={3}>
-          <div style={{ fontWeight: "700", fontSize: "26px", textAlign: "center" }}>
+          <div style={{ fontWeight: "700", fontSize: "1.1rem", textAlign: "center" }}>
             <a href="/en">
               <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>
                 <span
@@ -192,13 +192,13 @@ const Footer = () => {
                 <span>
                   <img src="/images/emailIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> hello@bizb.store </span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}> hello@bizb.store </span>
               </a>
               <a href="tel:+92 312 5253680" target="_blank">
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white", fontSize: "18px" }}> +92 312 5253680</span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}> +92 312 5253680</span>
               </a>
             </div>
             <div
@@ -206,7 +206,7 @@ const Footer = () => {
                 marginTop: "50px",
 
                 fontWeight: "500",
-                fontSize: "18px",
+                fontSize: "1rem",
               }}
             >
               DOWNLOAD OUR APP
@@ -238,12 +238,12 @@ const Footer = () => {
           alignItems: "center",
         }}
       >
-        <span style={{ fontWeight: "500", fontSize: "16px", marginLeft: "91px" }}>
+        <span style={{ fontWeight: "500", fontSize: "0.8rem", marginLeft: "91px" }}>
           Copyright {date.getFullYear()}. All Rights Reserved.
         </span>
         <a href="https://www.codistan.org/" target="_blank">
           <span
-            style={{ paddingBottom: "10px", fontWeight: "500", fontSize: "20px", marginRight: "90px", color: "white" }}
+            style={{ paddingBottom: "10px", fontWeight: "500", fontSize: "0.8rem", marginRight: "90px", color: "white" }}
           >
             POWERED BY <span style={{ color: "#FDC114" }}>CODISTAN</span>
           </span>

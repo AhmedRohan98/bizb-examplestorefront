@@ -632,7 +632,7 @@ const handleChangeChecksize = (event) => {
   
       },
       [theme.breakpoints.down("lg")]: {
-        width: "275px", // Reduced by 1px to create space for the border
+        width: "calc(16.5rem - 0.5vw)", // Reduced by 1px to create space for the border
   
       },
       [theme.breakpoints.down("sm")]: {
