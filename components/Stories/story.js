@@ -109,10 +109,12 @@ const Story = (props) => {
     catagoriesinactive: {
       color: "#000000",
       cursor: "pointer",
+      fontSize:"1.4rem",
       marginRight: "36px",
     },
     catagoriesactive: {
       color: "#000000",
+      fontSize:"1.4rem",
       display: "inline-block",
       marginRight: "36px",
       position: "relative",
