@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
     },
     [theme.breakpoints.down("lg")]: {
-      width: "275px", // Reduced by 1px to create space for the border
+      width: "calc(16.5rem - 0.5vw)", // Reduced by 1px to create space for the border
 
     },
     [theme.breakpoints.down("sm")]: {
@@ -66,12 +66,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sizes: {
-    height: "30px",
-    width: "30px",
-    marginLeft: "12px",
+    height: "24px",
+    width: "24px",
+    marginLeft: "5px",
     fontFamily: "lato",
     fontStyle: "semibold",
     fontSize: "12px",
+    lineHeight:"0px",
+    padding:"10px",
     display: "flex",
     color: "#FDC114",
     justifyContent: "center",
@@ -81,6 +83,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
+  },
+  cartsize: {
+    display: "flex",
+    marginLeft: theme.spacing(0.5),
+    justifyContent: "end",
+    alignItems: "center",
   },
   carttitle: {
     display: "flex",
@@ -146,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "110px",
-    marginLeft: "12px",
+    marginLeft: "0px",
   },
   cartbackground: {
     marginRight: "8px",
@@ -400,14 +408,19 @@ const Justin = (props) => {
                     </Link>
                     <div className={classes.cartcontent}>
                       <div className={classes.cartcontenttext}>
+                      <Link
+                      href={item.node.product.slug && "en/product/[...slugOrId]"}
+                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                    >
+                      <a target="_blank">
                         <Typography
                           style={{
                             fontWeight: "600",
-                            fontSize: "18px",
+                            fontSize: "1rem",
                             fontFamily: "lato",
                             // marginTop: "10px",
                             textTransform: "capitalize",
-                            left: "12px",
+                            marginLeft: "0px",
                           }}
                           variant="h4"
                           component="h2"
@@ -415,15 +428,16 @@ const Justin = (props) => {
                         >
                           {firstThreeWords}
                         </Typography>
+                        </a>
+                        </Link>
                         <Typography
                           className={classes.price}
                           style={{
                             fontWeight: "600",
-                            fontSize: "18px",
+                            fontSize: "1rem",
                             fontFamily: "lato",
                             color: "#FDC114",
-                            left: "12px",
-                          }}
+                            marginLeft: "0px",                          }}
                         >
                           {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
                             ?.replace(/\.00$/, "")
@@ -438,29 +452,28 @@ const Justin = (props) => {
                           <Typography
                             style={{
                               fontWeight: "600",
-                              fontSize: "12px",
+                              fontSize: "0.9rem",
                               fontFamily: "lato",
-                              left: "12px",
-                            }}
+                              marginLeft: "0px",                            }}
                             variant="h4"
                             component="h2"
                             className={classes.carttitle2}
-                          >{`-${percentage}%`}</Typography>
+                          >{`-${Math.abs(percentage)}%`}</Typography>
                         </div>
                       </div>
                       <div className={classes.cartbackground}>
                         <Typography
                           style={{
                             fontWeight: "600",
-                            fontSize: "18px",
+                            fontSize: "0.8rem",
                             fontFamily: "lato",
-                            left: "12px",
+                            left: "5px",
                           }}
                           variant="h4"
                           component="h2"
-                          className={classes.carttitle}
+                          className={classes.cartsize}
                         >
-                          Size:{" "}
+                          Size{" "}
                           <span className={classes.sizes}>
                             {size == 0
                               ? "XL"
