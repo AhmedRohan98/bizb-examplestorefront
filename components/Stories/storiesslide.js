@@ -501,7 +501,7 @@ const Storyslider = (props) => {
                                     : item?.node?.product?.media[0]?.URLs?.large
                                 }
                                 key={item?.node?.product?.id}
-                                alt={"hhhh"}
+                                alt={item?.node?.product?.title}
                                 className={classes.image2}
                               />
                             </a>
