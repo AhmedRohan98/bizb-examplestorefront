@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import { Query } from "@apollo/react-components";
 import categoryTags from "../../hooks/categoryTags/getTags.gql";
 import { sendGraphQLQuery } from "./graphqlUtils";
+import Router from 'next/router';
+
 const styles = (theme) => ({
   light: {
     color: "#FFFFFF",
@@ -104,6 +106,7 @@ class NavigationDesktop extends Component {
     classes: {},
     navItems: {},
     headerType: false,
+
   };
 
   constructor(props) {
@@ -111,7 +114,9 @@ class NavigationDesktop extends Component {
     this.state = {
       anchorEl: null,
       categoryTagsInfo: null,
-      selectedPage: null
+      selectedPage: null,
+      currentLink: null
+
     };
 
     // Bind the class methods in the constructor
@@ -120,8 +125,11 @@ class NavigationDesktop extends Component {
   }
 
   componentDidMount() {
+    const currentLink = Router.pathname;
+
+
     this.fetchData();
-    console.log("fetch data");
+    console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
 
 
 
@@ -244,7 +252,7 @@ class NavigationDesktop extends Component {
         <nav>
           <div className={headerType ? classNames(classes.light) : classNames(classes.dark)}>
             <Link href="/" onClick={() => this.setState({
-              selectedPage: true
+              selectedPage: '/[lang]'
             })}>
               <span
                 className="hoverable"
@@ -260,11 +268,11 @@ class NavigationDesktop extends Component {
                   // textDecoration: "underline",
 
                   marginBottom: "-4px",
-                  // "::selection": {
-                  //   textDecorationColor: "#FDC114",
-                  //   textDecorationThickness: "3px", // Adjust the underline thickness
-                  //   textDecorationLine: "underline", // Add an underline style for compatibility
-                  // }
+
+                  textDecorationColor: Router.pathname === '/[lang]' ? "#FDC114" : null,
+                  textDecorationThickness: Router.pathname === '/[lang]' ? "3px" : null, // Adjust the underline thickness
+                  textDecorationLine: Router.pathname === '/[lang]' ? "underline" : null, // Add an underline style for compatibility
+
                 }}
               >
                 Home
@@ -273,6 +281,9 @@ class NavigationDesktop extends Component {
             <a href="/en/explore">
               <span
                 onMouseEnter={this.handlePopOverOpen}
+                onClick={() => this.setState({
+                  selectedPage: '/[lang]/categories/[tagId]'
+                })}
                 // onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
@@ -283,6 +294,11 @@ class NavigationDesktop extends Component {
                   fontFamily: '"Ostrich Sans Black"',
                   fontWeight: 900,
                   // color: this.state.anchorEl ? "#fdc114" : "",
+
+                  textDecorationColor: Router.pathname === '/[lang]/categories/[tagId]' ? "#FDC114" : null,
+                  textDecorationThickness: Router.pathname === '/[lang]/categories/[tagId]' ? "3px" : null, // Adjust the underline thickness
+                  textDecorationLine: Router.pathname === '/[lang]/categories/[tagId]' ? "underline" : null, // Add an underline style for compatibility
+
                 }}
               >
                 Explore
