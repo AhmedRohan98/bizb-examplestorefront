@@ -296,9 +296,9 @@ class NavigationDesktop extends Component {
                   fontWeight: 900,
                   // color: this.state.anchorEl ? "#fdc114" : "",
 
-                  textDecorationColor: Router.pathname === '/[lang]/categories/[tagId]' ? "#FDC114" : null,
-                  textDecorationThickness: Router.pathname === '/[lang]/categories/[tagId]' ? "3px" : null, // Adjust the underline thickness
-                  textDecorationLine: Router.pathname === '/[lang]/categories/[tagId]' ? "underline" : null, // Add an underline style for compatibility
+                  textDecorationColor: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "#FDC114" : null,
+                  textDecorationThickness: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "3px" : null, // Adjust the underline thickness
+                  textDecorationLine: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "underline" : null, // Add an underline style for compatibility
 
                 }}
               >
