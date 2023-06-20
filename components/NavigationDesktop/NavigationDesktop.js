@@ -26,9 +26,9 @@ const styles = (theme) => ({
     zIndex: 1200,
   },
   categoryavatar: {
-    marginTop: "13px",
-    height: "34px",
-    width: "34px",
+
+    height: "25px",
+    width: "25px",
     marginBottom: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -43,15 +43,13 @@ const styles = (theme) => ({
   },
   modalitemstitle: {
     display: "flex",
-    width: "90%",
 
     flexDirection: "column",
   },
   catgorytitle: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(0),
     marginLeft: theme.spacing(3),
-    width: "80%",
     borderBottom: "0.5px dotted #0101013b",
     "&:hover": {
       color: theme.palette.secondary.selected,
@@ -72,7 +70,7 @@ const styles = (theme) => ({
     // pointerEvents: "none",
   },
   paper: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0),
   },
 });
 
@@ -200,14 +198,13 @@ class NavigationDesktop extends Component {
     console.log(categoryTagsInfo, "tags in deskyop");
     const style = {
       borderRadius: "8px",
-      marginTop: "12px",
+      marginTop: "10px",
       left: "15%",
-      width: 330,
+      width: 250,
       bgcolor: "#ffffff",
       outline: "none",
       boxShadow: 24,
       p: 2,
-      minHeight: "0",
     };
     const { anchorEl } = this.state;
     const ITEMScategory = [
@@ -320,7 +317,7 @@ class NavigationDesktop extends Component {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={this.handlePopOverClose}
-                style={{ marginTop: "100px" }}
+                style={{ marginTop: "90px" }}
                 // onClose={handlePopoverClose}
                 disableRestoreFocus
               >
@@ -336,7 +333,7 @@ class NavigationDesktop extends Component {
                       {console.log("tags", tags)}
                       {categoryTagsInfo?.map((itemtitle) => (
                         <a href={`/en/categories/${itemtitle._id}`}>
-                          <Typography variant="h4" className={classes.catgorytitle}>
+                          <Typography variant="h6" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
                           </Typography>
                         </a>
