@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginTop: "100px",
     [theme.breakpoints.down(600)]: {
-      fontSize: "36px",
+      fontSize: "2.4rem",
     },
   },
   preloved: {
     [theme.breakpoints.down(600)]: {
-      fontSize: "36px !important",
+      fontSize: "2.4rem",
     },
   },
   PrelovedHeader2: {
