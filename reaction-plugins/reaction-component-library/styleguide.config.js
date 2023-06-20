@@ -575,10 +575,10 @@ module.exports = {
         }
       ],
       links: [
-        {
-          rel: "manifest",
-          href: "/manifest.json"
-        },
+        // {
+        //   rel: "manifest",
+        //   href: "/manifest.json"
+        // },
         {
           rel: "icon",
           type: "image/png",

@@ -26,9 +26,9 @@ const styles = (theme) => ({
     zIndex: 1200,
   },
   categoryavatar: {
-    marginTop: "13px",
-    height: "34px",
-    width: "34px",
+
+    height: "25px",
+    width: "25px",
     marginBottom: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -43,15 +43,13 @@ const styles = (theme) => ({
   },
   modalitemstitle: {
     display: "flex",
-    width: "90%",
 
     flexDirection: "column",
   },
   catgorytitle: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(0),
     marginLeft: theme.spacing(3),
-    width: "80%",
     borderBottom: "0.5px dotted #0101013b",
     "&:hover": {
       color: theme.palette.secondary.selected,
@@ -72,7 +70,7 @@ const styles = (theme) => ({
     // pointerEvents: "none",
   },
   paper: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0),
   },
 });
 
@@ -199,14 +197,13 @@ class NavigationDesktop extends Component {
 
     const style = {
       borderRadius: "8px",
-      marginTop: "12px",
+      marginTop: "10px",
       left: "15%",
-      width: 330,
+      width: 250,
       bgcolor: "#ffffff",
       outline: "none",
       boxShadow: 24,
       p: 2,
-      minHeight: "0",
     };
     const { anchorEl } = this.state;
     console.log(tags?.nodes)
@@ -299,9 +296,9 @@ class NavigationDesktop extends Component {
                   fontWeight: 900,
                   // color: this.state.anchorEl ? "#fdc114" : "",
 
-                  textDecorationColor: Router.pathname === '/[lang]/categories/[tagId]' ? "#FDC114" : null,
-                  textDecorationThickness: Router.pathname === '/[lang]/categories/[tagId]' ? "3px" : null, // Adjust the underline thickness
-                  textDecorationLine: Router.pathname === '/[lang]/categories/[tagId]' ? "underline" : null, // Add an underline style for compatibility
+                  textDecorationColor: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "#FDC114" : null,
+                  textDecorationThickness: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "3px" : null, // Adjust the underline thickness
+                  textDecorationLine: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "underline" : null, // Add an underline style for compatibility
 
                 }}
               >
@@ -324,7 +321,7 @@ class NavigationDesktop extends Component {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={this.handlePopOverClose}
-                style={{ marginTop: "100px" }}
+                style={{ marginTop: "90px" }}
                 // onClose={handlePopoverClose}
                 disableRestoreFocus
               >
@@ -340,7 +337,7 @@ class NavigationDesktop extends Component {
                       {console.log("tags", tagsData)}
                       {tagsData?.map((itemtitle) => (
                         <a href={`/en/categories/${itemtitle._id}`}>
-                          <Typography variant="h4" className={classes.catgorytitle}>
+                          <Typography variant="h6" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
                           </Typography>
                         </a>
