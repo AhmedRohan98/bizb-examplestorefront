@@ -130,6 +130,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
   },
   categoriesname: {
+    textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
+    textTransform: "uppercase",
     fontSize: "48px",
     color: "#ffffff",
     fontFamily: "Ostrich Sans Black",
@@ -588,6 +590,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
   },
   carttitle: {
+
     display: "flex",
     marginLeft: theme.spacing(1),
     justifyContent: "flex-start",
