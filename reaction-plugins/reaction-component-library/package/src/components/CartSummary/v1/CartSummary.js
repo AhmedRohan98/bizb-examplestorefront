@@ -122,7 +122,7 @@ const CartSummary = (props) => {
       </div>
       <div className={classes.cartcard}>
         <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
-          Cart Totals
+          Cart Total
         </Typography>
         <div className={classes.empty}></div>
         <div className={classes.shipping}>

@@ -11,6 +11,8 @@ import TableContainer from "@material-ui/core//TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import formatCurrency from "lib/utils/formatCurrency";
+
 import { withComponents } from "@reactioncommerce/components-context";
 const styles = (theme) => ({
   loadMore: {
@@ -85,8 +87,8 @@ const styles = (theme) => ({
     alignItems: "flex-start",
   },
   cartimage: {
-    height: "140px !important",
-    width: "130px !important",
+    objectFit:"contain",
+    width: "100px !important",
 
     borderRadius: "10px",
   },
@@ -97,6 +99,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
   },
   cartprice: {
+    fontSize:"1rem",
     paddingTop: theme.spacing(1),
     color: theme.palette.secondary.selected,
   },
@@ -157,6 +160,7 @@ const styles = (theme) => ({
     paddingRight: 0,
   },
   carttitle: {
+    fontSize:"0.9rem",
     marginLeft: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
@@ -177,9 +181,9 @@ const styles = (theme) => ({
     justifyContent: "center",
   },
   cartimage2: {
-    height: "40px",
-    width: "30px",
-    margin: "10px"
+    height: "24px",
+    width: "24px",
+    margin: "15px"
   }
 });
 
@@ -291,15 +295,13 @@ class CartItems extends Component {
                   <TableCell>
                     <div className={classes.cartitemtext}>
                       {item?.metafields ? (
-                        <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage}></img>
+                        <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage} ></img>
                       ) : (
                         ""
                       )}{" "}
                       <div className={classes.carttitle}>
-                        <Typography variant="h4">{item.title}</Typography>
-                        <Typography variant="h4" className={classes.cartpric}>
-                          Store:{item?.productVendor}
-                        </Typography>{" "}
+                        <Typography variant="h4" style={{textTransform:"capitalize"}}>{item.title.toString().toLowerCase()}</Typography>
+                       <br/>
                         <img
                           style={{ cursor: "pointer", }}
                           src="/cart/icon.svg"
@@ -313,16 +315,16 @@ class CartItems extends Component {
                   <TableCell align="right">
                     {" "}
                     <Typography variant="h4" className={classes.cartprice}>
-                      Rs.  {item?.price?.amount}
+                     {formatCurrency(item?.price?.amount)}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
                     {" "}
-                    <Typography variant="h4">{item.quantity}</Typography>
+                    <Typography variant="h4" style={{fontSize:"1rem",textAlign:"center"}}>{item.quantity}</Typography>
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="h4" className={classes.cartprice}>
-                      Rs.  {item?.price?.amount}
+                      {formatCurrency(item?.price?.amount)}
                     </Typography>
                   </TableCell>
                 </TableRow>
