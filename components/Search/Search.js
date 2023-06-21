@@ -261,7 +261,7 @@ const handleSearchSubmit = (event) => {
                           <div className={classes.cartitemtext}>
                             <Typography variant="h4">{product?.node?.product?.title}</Typography>
                             <Typography variant="h4" className={classes.cartpric}>
-                              Store: {product?.node?.product?.vendor}
+                              Store: {product?.node?.product?.vendor?product?.node?.product?.vendor:product?.node?.product?.variants[0]?.uploadedBy?.storeName}
                             </Typography>
                             <div className={classes.pricing}>
                               {" "}
