@@ -113,6 +113,13 @@ function SellerPublicProfile(props) {
       justifyContent: "center",
       alignItems: "flex-start",
     },
+    
+  cartsize: {
+    display: "flex",
+    marginLeft: theme.spacing(0.5),
+    justifyContent: "end",
+    alignItems: "center",
+  },
     carttitle: {
       display: "flex",
       marginLeft: theme.spacing(1),
@@ -178,7 +185,7 @@ function SellerPublicProfile(props) {
       flexDirection: "row",
       justifyContent: "space-between",
       width: "110px",
-      marginLeft: "12px",
+      marginLeft: "0px",
     },
     cartbackground: {
       marginRight: "8px",
@@ -551,10 +558,11 @@ function SellerPublicProfile(props) {
                         <Typography
                           style={{
                             fontWeight: "600",
-                            fontSize: "18px",
+                            fontSize: "1rem",
                             fontFamily: "lato",
                             // marginTop: "10px",
-                            left: "12px",
+                            textTransform: "capitalize",
+                            marginLeft: "0px",
                           }}
                           variant="h4"
                           component="h2"
@@ -566,10 +574,10 @@ function SellerPublicProfile(props) {
                           className={classes.price}
                           style={{
                             fontWeight: "600",
-                            fontSize: "18px",
+                            fontSize: "1rem",
                             fontFamily: "lato",
                             color: "#FDC114",
-                            left: "12px",
+                            marginLeft: "0px",     
                           }}
                         >
                           {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
@@ -585,29 +593,29 @@ function SellerPublicProfile(props) {
                           <Typography
                             style={{
                               fontWeight: "600",
-                              fontSize: "12px",
+                              fontSize: "0.9rem",
                               fontFamily: "lato",
-                              left: "12px",
+                              marginLeft: "0px",    
                             }}
                             variant="h4"
                             component="h2"
                             className={classes.carttitle2}
-                          >{`-${percentage}%`}</Typography>
+                          >{`-${Math.abs(percentage)}%`}</Typography>
                         </div>
                       </div>
                       <div className={classes.cartbackground}>
                         <Typography
                           style={{
                             fontWeight: "600",
-                            fontSize: "18px",
+                            fontSize: "0.8rem",
                             fontFamily: "lato",
-                            left: "12px",
+                            left: "5px",
                           }}
                           variant="h4"
                           component="h2"
-                          className={classes.carttitle}
+                          className={classes.cartsize}
                         >
-                          Size:{" "}
+                          Size{" "}
                           <span className={classes.sizes}>
                             {size == 0
                               ? "XL"
