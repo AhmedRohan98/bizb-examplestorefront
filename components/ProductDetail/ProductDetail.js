@@ -9,6 +9,7 @@ import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import variantById from "lib/utils/variantById";
 import CloseIcon from "@material-ui/icons/Close";
+import { useMediaQuery } from 'react-responsive'
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
 import ReactImageMagnify from "react-image-magnify";
@@ -17,7 +18,6 @@ import Link from "next/link";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRef, useCallback, useState } from "react";
-
 import Typography from "@material-ui/core/Typography";
 import Tab from "@material-ui/core/Tab";
 import MagnifyImage from "./imageMagnify";
@@ -119,6 +119,21 @@ const styles = (theme) => ({
     color: "#333333",
     opacity: 0.5,
   },
+  storeText:{
+    fontSize: "1.1rem",
+    fontFamily:"Lato"
+
+  },
+  storeName: {
+    textTransform:"uppercase",
+    fontSize: "1.1rem",
+    "&:hover":{
+      color:"#FDC114",
+      cursor:"pointer",
+      textDecoration:"underline"
+    }
+
+  },  
   offer: {
     display: "flex",
     background: "#E16452",
@@ -214,7 +229,7 @@ const styles = (theme) => ({
   },
   related: {
     color: "#000000",
-    marginLeft: theme.spacing(5),
+    marginLeft: theme.spacing(2),
     margin: theme.spacing(5),
   },
   centerDiv: {
@@ -374,6 +389,13 @@ const styles = (theme) => ({
     justifyContent: "center",
     alignItems: "flex-start",
   },
+  
+  cartsize: {
+    display: "flex",
+    marginLeft: theme.spacing(0.5),
+    justifyContent: "end",
+    alignItems: "center",
+  },
   carttitle: {
     display: "flex",
     marginLeft: theme.spacing(1),
@@ -444,12 +466,12 @@ const styles = (theme) => ({
   cartbackground: {
     marginRight: "8px",
   },
-  strikethrough: {
+  strikethroughoff: {
     display: "flex",
-    fontSize: "12px",
-    color: "#9C9C9C",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "110px",
+    marginLeft: "0px",
   },
 
   mainheading: {
@@ -549,7 +571,25 @@ const ProductDetail = ({ ...props }) => {
 
     return productTags?.some((tag) => tag === tagIds);
   });
+  const isSix = useMediaQuery({ query: '(min-width: 1750px)' })
+  const isFour = useMediaQuery({ query: '(min-width: 1440px)' })
+  const isFive = useMediaQuery({ query: '(min-width: 1300px)' })
+  const isTwo = useMediaQuery({ query: '(min-width: 700px)' })
+  let spliceBy=4;
+  if(isSix){
+    spliceBy=6;
+  }else if(isFive){
+    spliceBy=5;
 
+  }else if(isFour){
+    spliceBy=4;
+
+  }else if(isTwo){
+    spliceBy=2;
+
+  }
+
+  const relatedProducts=filteredProducts.slice(0,spliceBy);
   // console.log(filteredProducts, "fil");
   const sliderRef = useRef(null);
 
@@ -1003,7 +1043,7 @@ const ProductDetail = ({ ...props }) => {
                           </Typography>
                         </div>
                         <Typography gutterBottom variant="h4" className={classes.offer}>
-                          {`-${percentage}%`}
+                          {`-${Math.abs(percentage)}%`}
                         </Typography>
                       </div>
                       <div className={classes.sizeimage}>
@@ -1028,9 +1068,9 @@ const ProductDetail = ({ ...props }) => {
                         <Typography
                           style={{ fontWeight: "500", paddingLeft: "10px" }}
                           variant="h4"
-                          className={classes.offr}
+                          className={classes.storeText}
                         >
-                          Sold By :
+                          Sold By
                         </Typography>
                         <Link
                           href={"/en/profile/[slugOrId]"}
@@ -1039,13 +1079,12 @@ const ProductDetail = ({ ...props }) => {
                           <Typography
                             style={{ fontWeight: "700", cursor: "pointer", paddingRight: "10px" }}
                             variant="h4"
-                            className={classes.offr}
+                            className={classes.storeName}
                           >
                             {product?.variants[0]?.uploadedBy.storeName}
                           </Typography>
                         </Link>
                       </div>
-                      {console.log("product?.productId", product?.productId)}
                       <div>
                         {isLoading[product?.productId] ? (
                           <div className={classes.centerDiv}><CircularProgress /></div>
@@ -1081,6 +1120,7 @@ const ProductDetail = ({ ...props }) => {
               <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
             </Grid>
           </Box>
+          <Box style={{padding:"0px 50px"}}>
           <Typography variant="h3" className={classes.related}>
             <div className="text"></div>
             Related <span className={classes.spanofnextword}>Products</span>
@@ -1091,7 +1131,7 @@ const ProductDetail = ({ ...props }) => {
               style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
             >
               <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                {filteredProducts?.slice(0, 5)?.map((item, key) => {
+                {relatedProducts?.map((item, key) => {
                   const cartitem = cart?.items;
                   const isDisabled = cartitem?.some((data) => {
                     return data.productConfiguration.productId === item?.node?.product?.productId;
@@ -1140,27 +1180,27 @@ const ProductDetail = ({ ...props }) => {
                           <div className={classes.cartcontent}>
                             <div className={classes.cartcontenttext}>
                               <Typography
-                                style={{
-                                  fontWeight: "600",
-                                  fontSize: "18px",
-                                  fontFamily: "lato",
-                                  // marginTop: "10px",
-                                  left: "12px",
+                                style={{ fontWeight: "600",
+                                fontSize: "1rem",
+                                fontFamily: "lato",
+                                // marginTop: "10px",
+                                textTransform: "capitalize",
+                                marginLeft: "0px",
                                 }}
                                 variant="h4"
                                 component="h2"
                                 className={classes.carttitle}
                               >
-                                {firstThreeWords}
+                                {firstThreeWords.toString().toLowerCase()}
                               </Typography>
                               <Typography
                                 className={classes.price}
                                 style={{
                                   fontWeight: "600",
-                                  fontSize: "18px",
+                                  fontSize: "1rem",
                                   fontFamily: "lato",
                                   color: "#FDC114",
-                                  left: "12px",
+                                  marginLeft: "0px",    
                                 }}
                               >
                                 {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
@@ -1176,9 +1216,9 @@ const ProductDetail = ({ ...props }) => {
                                 <Typography
                                   style={{
                                     fontWeight: "600",
-                                    fontSize: "12px",
+                                    fontSize: "0.9rem",
                                     fontFamily: "lato",
-                                    left: "12px",
+                                    marginLeft: "0px",  
                                   }}
                                   variant="h4"
                                   component="h2"
@@ -1190,15 +1230,15 @@ const ProductDetail = ({ ...props }) => {
                               <Typography
                                 style={{
                                   fontWeight: "600",
-                                  fontSize: "18px",
+                                  fontSize: "0.8rem",
                                   fontFamily: "lato",
-                                  left: "12px",
+                                  left: "5px",
                                 }}
                                 variant="h4"
                                 component="h2"
-                                className={classes.carttitle}
+                                className={classes.cartsize}
                               >
-                                Size:{" "}
+                                Size{" "}
                                 <span className={classes.sizes}>
                                   {size == 0
                                     ? "XL"
@@ -1242,6 +1282,7 @@ const ProductDetail = ({ ...props }) => {
               </Masonry>
             </ResponsiveMasonry>
           </div>
+          </Box>
         </div >
       )}
     </>
