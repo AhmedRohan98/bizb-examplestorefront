@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "0px",
   },
   cartbackground: {
-    marginRight: "8px",
+    marginRight: "4px",
   },
   strikethrough: {
     display: "flex",

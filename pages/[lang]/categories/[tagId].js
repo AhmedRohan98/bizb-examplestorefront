@@ -8,6 +8,8 @@ import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Link from "next/link";
+import { useMediaQuery } from 'react-responsive'
+
 import InputBase from "@material-ui/core/InputBase";
 import PageLoading from "components/PageLoading";
 import Divider from "@material-ui/core/Divider";
@@ -141,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
   },
   image: {
-    width: "312px",
+    width: "calc(16.5rem - 0.5vw)",
     maxHeight: "450px",
     objectFit: "cover",
     borderRadius: "10px",
@@ -455,7 +457,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainimageofcategory: {
     height: "900px",
-    width: "700px",
+    width: "calc(100% - 1vw)",
     objectFit: "cover",
   },
   gridroot: {
@@ -467,6 +469,7 @@ const useStyles = makeStyles((theme) => ({
   },
   grid1: {
     marginTop: theme.spacing(6),
+    padding:"0px 50px"
   },
   gridroot: {
     maxWidth: "100%",
@@ -514,10 +517,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "110px",
-    marginLeft: "12px",
+    marginLeft: "0px",
   },
   cartbackground: {
-    marginRight: "8px",
+    marginRight: "4px",
   },
   strikethrough: {
     display: "flex",
@@ -588,6 +591,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
+  },
+  
+  cartsize: {
+    display: "flex",
+    marginLeft: theme.spacing(0.5),
+    justifyContent: "end",
+    alignItems: "center",
   },
   carttitle: {
 
@@ -790,8 +800,22 @@ function Categories(props) {
     console.log("catalog items in tag", catalogItems);
   }, [catalogItems]);
 
-  const firstfour = catalogItems?.slice(0, 4);
-  const allproducts = catalogItems?.slice(4, catalogItems.length);
+  const isSix = useMediaQuery({ query: '(min-width: 1750px)' })
+  const isFour = useMediaQuery({ query: '(min-width: 1300px)' })
+  const isTwo = useMediaQuery({ query: '(min-width: 700px)' })
+  let spliceBy=4;
+  if(isSix){
+    spliceBy=6;
+  }else if(isFour){
+    spliceBy=4;
+
+  }else if(isTwo){
+    spliceBy=2;
+
+  }
+  const firstfour = catalogItems?.slice(0, spliceBy);
+  
+  const allproducts = catalogItems?.slice(spliceBy, catalogItems.length);
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
@@ -1261,7 +1285,7 @@ function Categories(props) {
             // alignItems="center"
             className={classes.grid1}
           >
-            <Grid style={{ display: "flex", justifyContent: "end" }} item lg={6} xs={12} sm={6} md={12}>
+            <Grid style={{ display: "flex", justifyContent: "start" }} item lg={6} xs={12} sm={6} md={6}>
               <div className={classes.mainimage}>
                 <div className={classes.categoriestext}>
                   <div className={classes.categoriestexts}>
@@ -1333,7 +1357,7 @@ function Categories(props) {
             >
               <div className={classes.gridroot}>
                 <ResponsiveMasonry
-                  columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 2, 1420: 2, 1750: 2, 1920: 2 }}
+                  columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
                   style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
                 >
                   <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1392,10 +1416,10 @@ function Categories(props) {
                                 <Typography
                                   style={{
                                     fontWeight: "600",
-                                    fontSize: "18px",
+                                    fontSize: "1rem",
                                     fontFamily: "lato",
                                     // marginTop: "10px",
-                                    left: "12px",
+                                    marginLeft: "0px",
                                   }}
                                   variant="h4"
                                   component="h2"
@@ -1407,10 +1431,10 @@ function Categories(props) {
                                   className={classes.price}
                                   style={{
                                     fontWeight: "600",
-                                    fontSize: "18px",
+                                    fontSize: "1rem",
                                     fontFamily: "lato",
                                     color: "#FDC114",
-                                    left: "12px",
+                                    marginLeft: "0px",        
                                   }}
                                 >
                                   {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
@@ -1426,29 +1450,29 @@ function Categories(props) {
                                   <Typography
                                     style={{
                                       fontWeight: "600",
-                                      fontSize: "12px",
+                                      fontSize: "0.9rem",
                                       fontFamily: "lato",
-                                      left: "12px",
+                                      marginLeft: "0px",         
                                     }}
                                     variant="h4"
                                     component="h2"
                                     className={classes.carttitle2}
-                                  >{`-${percentage}%`}</Typography>
+                                  >{`-${Math.abs(percentage)}%`}</Typography>
                                 </div>
                               </div>
                               <div className={classes.cartbackground}>
                                 <Typography
                                   style={{
                                     fontWeight: "600",
-                                    fontSize: "18px",
+                                    fontSize: "0.8rem",
                                     fontFamily: "lato",
-                                    left: "12px",
+                                    left: "5px",
                                   }}
                                   variant="h4"
                                   component="h2"
-                                  className={classes.carttitle}
+                                  className={classes.cartsize}
                                 >
-                                  Size:{" "}
+                                  Size {" "}
                                   <span className={classes.sizes}>
                                     {size == 0
                                       ? "XL"
@@ -1494,7 +1518,7 @@ function Categories(props) {
           <div className={classes.main}>
             <div className={classes.gridroot}>
               <ResponsiveMasonry
-                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+                columnsCountBreakPoints={{ 350: 1,700: 2 ,900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
                 style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
               >
                 <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1553,10 +1577,11 @@ function Categories(props) {
                               <Typography
                                 style={{
                                   fontWeight: "600",
-                                  fontSize: "18px",
+                                  fontSize: "1rem",
                                   fontFamily: "lato",
                                   // marginTop: "10px",
-                                  left: "12px",
+                                  textTransform: "capitalize",
+                                  marginLeft: "0px",
                                 }}
                                 variant="h4"
                                 component="h2"
@@ -1568,10 +1593,10 @@ function Categories(props) {
                                 className={classes.price}
                                 style={{
                                   fontWeight: "600",
-                                  fontSize: "18px",
+                                  fontSize: "1rem",
                                   fontFamily: "lato",
                                   color: "#FDC114",
-                                  left: "12px",
+                                  marginLeft: "0px",       
                                 }}
                               >
                                 {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
@@ -1587,9 +1612,9 @@ function Categories(props) {
                                 <Typography
                                   style={{
                                     fontWeight: "600",
-                                    fontSize: "12px",
+                                    fontSize: "0.9rem",
                                     fontFamily: "lato",
-                                    left: "12px",
+                                    marginLeft: "0px", 
                                   }}
                                   variant="h4"
                                   component="h2"
@@ -1601,15 +1626,15 @@ function Categories(props) {
                               <Typography
                                 style={{
                                   fontWeight: "600",
-                                  fontSize: "18px",
+                                  fontSize: "0.8rem",
                                   fontFamily: "lato",
-                                  left: "12px",
+                                  left: "5px",
                                 }}
                                 variant="h4"
                                 component="h2"
-                                className={classes.carttitle}
+                                className={classes.cartsize}
                               >
-                                Size:{" "}
+                                Size
                                 <span className={classes.sizes}>
                                   {size == 0
                                     ? "XL"
