@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import * as Yup from "yup";
 import { useFormik, useFormikContext } from "formik";
+import Link from "components/Link";
 import useGetShipping from "../../hooks/shippingprice/usegetShipping";
 import Select, { components } from "react-select";
 import formatCurrency from "lib/utils/formatCurrency";
@@ -200,6 +201,16 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     marginLeft: theme.spacing(2),
   },
+  storeName: {
+    
+    fontSize: "0.9rem",
+    "&:hover":{
+      color:"#FDC114",
+      cursor:"pointer",
+      textDecoration:"underline"
+    }
+
+  },  
   cartname: {
     fontWeight: 500,
     textTransform: "capitalize",
@@ -211,7 +222,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     marginTop: "0px",
 
-    color: "#c4c4c0",
     marginLeft: theme.spacing(2),
   },
   cartdelivery2: {
@@ -230,9 +240,10 @@ const useStyles = makeStyles((theme) => ({
   },
   cartcard3: {
     width: "391px",
-    boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
-    borderRadius: "18px",
+    // boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
+    // borderRadius: "18px",
     padding: theme.spacing(2),
+    borderBottom:"1px solid #f6f6f6",
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -658,7 +669,13 @@ const CheckoutActions = (prop) => {
     console.log("shippingData _id", shippingData?._id);
   }, [values.city, shippingData]);
 
+  const clickHandler = (item) => {
+    const productSlug = item;
 
+    const url = `/en/product/${productSlug}`;
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener.focus();
+  };
 
   const CartDataDisplay = () => {
     return (
@@ -676,10 +693,10 @@ const CheckoutActions = (prop) => {
         <div className={classes.cartcard3}>
           <div className={classes.displayCart} key={prod.id}>
             <img src={prod.metafields[0].value}
-              height="90" width='90' style={{ borderRadius: "5px" }} />
+             style={{ borderRadius: "5px" ,width:"75px",ojectFit:"contain"}} />
             <div className={classes.displayCartGrid}>
               <Typography gutterBottom variant="h4" className={classes.cartname}>
-                {prod.title.toString().toLowerCase()}
+               <span  onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>{prod.title.toString().toLowerCase()}</span>
               </Typography>
               <Typography gutterBottom variant="h5" className={classes.cartdescription}>
                 {formatCurrency(prod.price.amount)}
