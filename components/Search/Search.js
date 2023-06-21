@@ -117,20 +117,37 @@ const useStyles = makeStyles((theme) => ({
   cartitemtext: {
     display: "flex",
     flexDirection: "column",
+    fontSize: "1.1rem",
+    textTransform:"capitalize"
   },
   cartprice: {
     color: theme.palette.secondary.selected,
-    fontSize: "24px",
+    fontSize: "1.1rem",
   },
   totatlproducts: {
     color: theme.palette.secondary.selected,
-    fontSize: "24px",
+    fontSize: "1.1rem",
     padding: theme.spacing(4),
+  },
+  
+  storeName: {
+    paddingTop: "10px",
+    fontSize: "0.9rem",
+    "&:hover":{
+      color:"#FDC114",
+      cursor:"pointer",
+      textDecoration:"underline"
+    }
+
   },
   cartpric: {
     paddingTop: "10px",
+    fontSize: "0.9rem",
+
   },
   price: {
+    fontSize: "1.1rem",
+
     marginLeft: theme.spacing(2),
   },
   image: {
@@ -260,20 +277,25 @@ const handleSearchSubmit = (event) => {
                           ></img>
                           <div className={classes.cartitemtext}>
                             <Typography variant="h4">{product?.node?.product?.title}</Typography>
+                            <Link href={`/en/profile/${product?.node?.product?.variants[0]?.uploadedBy?.userId}`} >
+                            <a style={{ color: "#FDC114" }}> 
+                          
                             <Typography variant="h4" className={classes.cartpric}>
-                              Store: {product?.node?.product?.vendor?product?.node?.product?.vendor:product?.node?.product?.variants[0]?.uploadedBy?.storeName}
-                            </Typography>
+                              Store: <span className={classes.storeName} >{product?.node?.product?.vendor?product?.node?.product?.vendor:product?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                              </span></Typography>
+                            </a>
+                            </Link>
                             <div className={classes.pricing}>
                               {" "}
                               <strike className={classes.cartprice}>
                                 {product?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
                                   ?.replace(/\.00$/, "")
-                                  .replace(/\$/g, "RS ")}
+                                  .replace(/\$/g, "Rs. ")}
                               </strike>
                               <Typography gutterBottom variant="h4" className={classes.price}>
                                 {product?.node?.product?.variants[0]?.pricing[0]?.displayPrice
                                   ?.replace(/\.00$/, "")
-                                  .replace(/\$/g, "RS ")}
+                                  .replace(/\$/g, "Rs. ")}
                               </Typography>
                             </div>
                           </div>
@@ -287,7 +309,7 @@ const handleSearchSubmit = (event) => {
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
                 <Link href={`/en/search/${searchLocal}`}>
-                  <a style={{ color: "#FDC114" }}> {`See all results(${filteredItems?.length})`}</a>
+                  <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
                 </Link>
               </Typography>
             </div>
