@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import Backdrop from "@material-ui/core/Backdrop";
 import Router from "translations/i18nRouter";
 import Badge from "@material-ui/core/Badge";
-
+import formatCurrency from "../../lib/utils/formatCurrency"
 import withCart from "containers/cart/withCart";
 import Link from "components/Link";
 
@@ -37,6 +37,16 @@ const styles = (theme) => ({
 
     border: "green",
   },
+  storeName: {
+    textTransform:"uppercase",
+    fontSize: "0.9rem",
+    "&:hover":{
+      // color:"#FDC114",
+      // cursor:"pointer",
+      // textDecoration:"underline"
+    }
+
+  },  
   badge: {
     width: 20,
     height: 20,
@@ -114,6 +124,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
   },
   cartprice: {
+    fontSize:"1rem",
     paddingTop: theme.spacing(1),
     color: theme.palette.secondary.selected,
   },
@@ -124,13 +135,13 @@ const styles = (theme) => ({
     borderTop: "1px solid #E5E5E5",
     position: "fixed",
     width: "390px",
-
+    padding:"10px 0px",
     bottom: "10px",
   },
   total1: {
     display: "flex",
     justifyContent: "space-around",
-    marginBottom: "30px"
+    padding:"5px 0px",
   },
   cart1: {
     height: "48px",
@@ -207,11 +218,15 @@ const styles = (theme) => ({
     },
   },
   bagecontet: {
-    marginBottom: "50px",
-    marginLeft: "40px",
+    marginBottom: "30px",
+    marginLeft: "35px",
+    borderRadius:"50px",
+    height:"20px",
+    width:"20px",
+    background:"#fdc114",
     position: "absolute",
     color: "black",
-    fontSize: "25px",
+    fontSize: "1rem",
     fontWeight: "400",
     fontFamily: "Lato",
   },
@@ -240,7 +255,7 @@ const MiniCart = ({ ...props }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
+ 
   const handleCheckoutButtonClick = () => {
     Router.push("/cart/checkout");
     // console.log("button clicked");
@@ -286,7 +301,7 @@ const MiniCart = ({ ...props }) => {
                     <div className={classes.paper}>
                       <div className={classes.cartmodal}>
                         {" "}
-                        <Typography style={{ fontWeight: "700", fontFamily: "Lato" }} variant="subtitle1">
+                        <Typography style={{ fontWeight: "700", fontFamily: "Lato",fontSize:"1.1rem" }} variant="subtitle1">
                           Cart
                         </Typography>
                         <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
@@ -305,19 +320,20 @@ const MiniCart = ({ ...props }) => {
                               {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
                               <div className={classes.cartitemtext}>
                                 {" "}
-                                <Typography variant="h4">{item.title}</Typography>
-                                <Typography variant="h4" className={classes.cartpric}>
-                                  Store:{item?.productVendor?.slice(0, 10)}
+                                <Typography variant="h4" style={{textTransform:"capitalize",fontSize:"0.9rem"}}>{item.title.toString().toLowerCase()}</Typography>
+                                <Typography variant="h4" style={{fontSize:"1rem"}}>
+                                 Store:&nbsp;<span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}</span> 
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
-                                  Rs. {item?.price?.amount}
+                                
+                                  {formatCurrency(item?.price?.amount)}
                                 </Typography>
                               </div>
 
                               <img
                                 style={{ cursor: "pointer" }}
-                                src="/cart/icon.svg"
-                                alt={item.title}
+                                src={`/cart/icon.svg`}
+                                alt={"Delete"}
                                 onClick={() => handleRemoveItem(item._id)}
                               />
                             </div>
@@ -326,8 +342,10 @@ const MiniCart = ({ ...props }) => {
                       </div>
                       <div className={classes.total}>
                         <div className={classes.total1}>
-                          <Typography variant="h4">Subtotal</Typography>
-                          <Typography variant="h4">Rs. {cart?.checkout?.summary?.total?.amount}</Typography>
+                          <Typography variant="h4" style={{fontSize:"1.2rem"}}>Total Price</Typography>
+                          <Typography variant="h4" style={{fontSize:"1.2rem"}}>
+                          {formatCurrency(cart?.checkout?.summary?.total?.amount)}
+                          </Typography>
                         </div>
                         <div className={classes.total1}>
                           <div style={{ cursor: "pointer" }}>

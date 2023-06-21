@@ -13,8 +13,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import * as Yup from "yup";
 import { useFormik, useFormikContext } from "formik";
+import Link from "components/Link";
 import useGetShipping from "../../hooks/shippingprice/usegetShipping";
 import Select, { components } from "react-select";
+import formatCurrency from "lib/utils/formatCurrency";
 import { placeOrderQuery } from "../../hooks/orders/query";
 const useStyles = makeStyles((theme) => ({
   formerror: {
@@ -166,7 +168,9 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "lowercase",
     alignItems: "center",
     width: "380px",
+    fontSize:"1.5rem",
     marginBottom: 20
+
   },
 
   phone: {
@@ -174,6 +178,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "17px",
   },
   mainheading: {
+    fontSize:"1.5rem",
     textTransform: "uppercase",
     alignItems: "center",
     width: "100%",
@@ -192,22 +197,31 @@ const useStyles = makeStyles((theme) => ({
   },
   cartdelivery: {
     fontWeight: 500,
-
+    fontSize:"1rem",
     color: "#333333",
     marginLeft: theme.spacing(2),
   },
+  storeName: {
+    
+    fontSize: "0.9rem",
+    "&:hover":{
+      color:"#FDC114",
+      cursor:"pointer",
+      textDecoration:"underline"
+    }
+
+  },  
   cartname: {
     fontWeight: 500,
     textTransform: "capitalize",
-
+    fontSize:"1rem",
     color: "#333333",
     marginLeft: theme.spacing(2),
   },
   cartdescription: {
     fontWeight: 400,
-    marginTop: "40px",
+    marginTop: "0px",
 
-    color: "#c4c4c0",
     marginLeft: theme.spacing(2),
   },
   cartdelivery2: {
@@ -226,9 +240,10 @@ const useStyles = makeStyles((theme) => ({
   },
   cartcard3: {
     width: "391px",
-    boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
-    borderRadius: "18px",
+    // boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
+    // borderRadius: "18px",
     padding: theme.spacing(2),
+    borderBottom:"1px solid #f6f6f6",
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -253,11 +268,13 @@ const useStyles = makeStyles((theme) => ({
   },
   subtotal: {
     display: "flex",
+    fontSize:"1rem",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: theme.spacing(2),
   },
   subtotalamount: {
+    fontSize:"1rem",
     fontWeight: 700,
     lineHeight: "34px",
   },
@@ -290,6 +307,7 @@ const useStyles = makeStyles((theme) => ({
   },
   labelSpan: {
     width: "300px",
+    fontSize:"1rem"
   },
   register: {
     width: "261px",
@@ -651,7 +669,13 @@ const CheckoutActions = (prop) => {
     console.log("shippingData _id", shippingData?._id);
   }, [values.city, shippingData]);
 
+  const clickHandler = (item) => {
+    const productSlug = item;
 
+    const url = `/en/product/${productSlug}`;
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener.focus();
+  };
 
   const CartDataDisplay = () => {
     return (
@@ -669,13 +693,13 @@ const CheckoutActions = (prop) => {
         <div className={classes.cartcard3}>
           <div className={classes.displayCart} key={prod.id}>
             <img src={prod.metafields[0].value}
-              height="90" width='90' style={{ borderRadius: "5px" }} />
+             style={{ borderRadius: "5px" ,width:"75px",ojectFit:"contain"}} />
             <div className={classes.displayCartGrid}>
               <Typography gutterBottom variant="h4" className={classes.cartname}>
-                {prod.title}
+               <span  onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>{prod.title.toString().toLowerCase()}</span>
               </Typography>
               <Typography gutterBottom variant="h5" className={classes.cartdescription}>
-                Rs. {" "} {prod.price.amount}
+                {formatCurrency(prod.price.amount)}
 
               </Typography>
 
@@ -880,29 +904,29 @@ const CheckoutActions = (prop) => {
                 <div className={classes.empty}></div>
                 <div className={classes.shipping}>
                   <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4">
+                    <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
                       Subtotal
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      Rs. {" "}{cart.checkout.summary.itemTotal.amount}
+                      {formatCurrency(cart.checkout.summary.itemTotal.amount)}
                     </Typography>
                   </div>
                   <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4">
+                    <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
                       Shipping Cost
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      Rs. {" "}{shippingData ? shippingData?.cost : "0"}
+                      {formatCurrency(shippingData ? shippingData?.cost : "0")}
                     </Typography>
                   </div>
                 </div>
                 <div className={classes.empty}></div>
                 <div className={classes.subtotal}>
-                  <Typography gutterBottom variant="h4">
+                  <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    Rs. {" "}{shippingData?.cost ? shippingData?.cost + cart.checkout.summary.itemTotal.amount : cart.checkout.summary.itemTotal.amount}
+                    {shippingData?.cost ? formatCurrency(shippingData?.cost + cart.checkout.summary.itemTotal.amount) :formatCurrency(cart.checkout.summary.itemTotal.amount)}
                   </Typography>
                 </div>
               </div>
