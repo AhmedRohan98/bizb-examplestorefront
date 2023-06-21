@@ -22,6 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { CircularProgress } from "@material-ui/core";
 import variantById from "lib/utils/variantById";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
+import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -82,6 +83,9 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
 //   },
 // }));
 const styles = (theme) => ({
+  cartMain:{
+    padding:"50px 50px",
+  },
   cartEmptyMessageContainer: {
     display: "flex",
     alignItems: "center",
@@ -291,10 +295,14 @@ const styles = (theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: theme.spacing(2),
+    fontSize:"1rem"
   },
   subtotalamount: {
     fontWeight: 700,
-    lineHeight: "34px",
+    
+    lineHeight: "34px",  
+      fontSize:"1rem"
+
   },
   orderbutn: {
     width: "100%",
@@ -710,7 +718,7 @@ class CartPage extends Component {
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
         <>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={8} sm={8}>
             <div className={classes.itemWrapper}>
               <CartItems
                 hasMoreCartItems={hasMoreCartItems}
@@ -746,34 +754,34 @@ class CartPage extends Component {
           <div className={classes.carttotalsummar}>
             <div className={classes.cartcard}>
               <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
-                Cart Totals
+                Cart Total
               </Typography>
               <div className={classes.empty}></div>
               <div className={classes.shipping}>
                 <div className={classes.subtotal}>
-                  <Typography gutterBottom variant="h4">
+                  <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
                     Subtotal
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    Rs. {cart.checkout.summary.itemTotal.amount}
+                    {formatCurrency(cart.checkout.summary.itemTotal.amount)}
                   </Typography>
                 </div>
-                {/* <div className={classes.subtotal}>
-                  <Typography gutterBottom variant="h4">
+                <div className={classes.subtotal}>
+                  <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
                     Shipping Cost
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    RS: {10}
+                    Calculated at checkout
                   </Typography>
-                </div> */}
+                </div> 
               </div>
               <div className={classes.empty}></div>
               <div className={classes.subtotal}>
-                <Typography gutterBottom variant="h4">
+                <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
                   Total
                 </Typography>
                 <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                  Rs. {cart.checkout.summary.itemTotal.amount}
+                  {formatCurrency(cart.checkout.summary.itemTotal.amount)}
                 </Typography>
               </div>
             </div>
@@ -849,11 +857,11 @@ class CartPage extends Component {
             </div>
           </div>
           <section>
-            <Grid container>
+            <Grid container className={classes.cartMain}>
               {this.renderCartItems()}
               {this.renderCartSummary()}
             </Grid>
-            {cart?.items?.length ? (
+            {filteredProducts&& filteredProducts.length ? (
               <>
                 <Typography variant="h3" className={classes.related}>
                   You <span className={classes.spanofnextword}>may</span>
