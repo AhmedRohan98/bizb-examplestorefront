@@ -300,7 +300,7 @@ class CartItems extends Component {
                         ""
                       )}{" "}
                       <div className={classes.carttitle}>
-                        <Typography variant="h4" style={{textTransform:"capitalize"}}>{item.title.toString().toLowerCase()}</Typography>
+                        <Typography variant="h4" style={{textTransform:"capitalize",fontSize:"1rem"}}>{item.title.toString().toLowerCase()}</Typography>
                        <br/>
                         <img
                           style={{ cursor: "pointer", }}
