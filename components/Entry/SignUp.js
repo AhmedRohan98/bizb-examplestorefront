@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   input: {
-    width: "387px",
+    width: "100%",
     borderRadius: "6px",
     color: "red",
     justifyContent: "center",
@@ -336,7 +336,7 @@ export default function SignUp(props) {
           />
           <Typography variant="body2" className={classes.terms}>
             {" "}
-            Agree Term & Conditions
+            I understand and agree to Terms & Conditions.
           </Typography>
         </div>
         <div className={classes.socialmedia2}>

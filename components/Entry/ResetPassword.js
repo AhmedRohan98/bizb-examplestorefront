@@ -71,8 +71,7 @@ export default function ResetPassword(props) {
     <form className={classes.root} noValidate>
       <h1>Choose a new password</h1>
       <FormControl>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password" aria-describedby="password" onChange={handlePasswordChange} style={{color:"black"}} value={password}
+        <input id="password" aria-describedby="password" placeholder={"Enter your new password here"} onChange={handlePasswordChange} style={{height:"50px",fontSize:"1rem","border":"none",borderBottom:"1px solid grey"}} value={password}
           type="password"
         />
       </FormControl>

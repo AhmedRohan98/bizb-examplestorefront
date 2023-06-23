@@ -9,6 +9,17 @@ import hashPassword from "../../lib/utils/hashPassword";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 const useStyles = makeStyles((theme) => ({
+  yellowHoverText: {
+    
+    fontSize: "0.9rem",
+    marginTop:"5px",
+    "&:hover":{
+      color:"#FDC114",
+      cursor:"pointer",
+      textDecoration:"underline"
+    }
+
+  },
   label: {
     display: "flex",
     marginTop: theme.spacing(1),
@@ -26,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
   },
   input: {
-    width: "387px",
+    width: "100%",
     borderRadius: "6px",
     color: "red",
     justifyContent: "center",
@@ -45,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   password: {
-    width: "387px",
+    width: "100%",
     fontFamily: "Lato !important",
     borderRadius: "6px",
     color: "red",
@@ -258,13 +269,13 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
               {errors.password && touched.password ? <p className={classes.formerror}>{errors.password}</p> : null}
             </Grid>
             <div
-              className={classes.forgotPassword}
+              className={classes.yellowHoverText}
               onClick={handleForgotPasswordClick}
               onKeyDown={handleForgotPasswordClick}
               role="button"
               tabIndex={0}
             >
-              Forgot Password?
+              Forgot Your Password, Click Here?
             </div>
           </Grid>
           {!!error && <p className={classes.formerror}>{error}</p>}
