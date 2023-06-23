@@ -61,7 +61,7 @@ class ProductGridPage extends Component {
       uiStore,
       feed,
     } = this.props;
-    // console.log("these props are", this.props);
+    console.log("these props are", this.props);
     const pageSize = query && inPageSizes(query.limit) ? parseInt(query.limit, 10) : uiStore.pageSize;
     const sortBy = query && query.sortby ? query.sortby : uiStore.sortBy;
 

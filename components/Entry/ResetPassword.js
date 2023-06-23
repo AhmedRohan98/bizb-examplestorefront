@@ -5,6 +5,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import red from "@material-ui/core/colors/red";
 import { useRouter } from "next/router";
 
@@ -47,7 +48,8 @@ export default function ResetPassword(props) {
   const { resetToken, openModal } = props;
   const router = useRouter();
   const classes = useStyles();
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");  const [buttonDisable, setButtonDisable] = useState(false);
+
   const [error, setError] = useState("");
   const { passwordClient } = getAccountsHandler();
 
@@ -61,9 +63,14 @@ export default function ResetPassword(props) {
 
   const resetPassword = async () => {
     try {
+      
+      setButtonDisable(true);
+      setError("")
       await passwordClient.resetPassword(resetToken, hashPassword(password));
       router.push("/");
     } catch (err) {
+      setButtonDisable(false);
+
       setError(err.message);
     }
   };
@@ -71,15 +78,21 @@ export default function ResetPassword(props) {
     <form className={classes.root} noValidate>
       <h1>Choose a new password</h1>
       <FormControl>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password" aria-describedby="password" onChange={handlePasswordChange} style={{color:"black"}} value={password}
+        <input id="password" aria-describedby="password" placeholder={"Enter your new password here"} onChange={handlePasswordChange} style={{height:"50px",fontSize:"1rem","border":"none",borderBottom:"1px solid grey"}} value={password}
           type="password"
         />
       </FormControl>
       {!!error && <div className={classes.error}>{error}</div>}
       <Button className={classes.resetButton} onClick={resetPassword} color="primary" variant="contained"
         tabIndex="0" role="button"
-      >Reset Password</Button>
+        disabled={buttonDisable}
+
+      >
+      {buttonDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Reset Password"}
+
+
+      
+      </Button>
       <div className={classes.switchEntryMode} onClick={handleOpenForgotPassword} onKeyDown={handleOpenForgotPassword} role="button"
         tabIndex={0}
       >Send reset link again</div>

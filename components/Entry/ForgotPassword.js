@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from "@material-ui/core/Button";
 import red from "@material-ui/core/colors/red";
 
@@ -48,6 +49,7 @@ export default function ForgotPassword(props) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { passwordClient } = getAccountsHandler();
+  const [buttonDisable, setButtonDisable] = useState(false);
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -57,9 +59,13 @@ export default function ForgotPassword(props) {
   };
   const handleForgotPassword = async () => {
     try {
+      setButtonDisable(true);
+      setError("")
       await passwordClient.requestPasswordReset(email);
       setSuccess("Check your inbox for password reset email");
     } catch (err) {
+      setButtonDisable(false);
+
       setError(err.message);
     }
   };
@@ -72,11 +78,18 @@ export default function ForgotPassword(props) {
           type="email"
         />
       </FormControl>
-      <Button onClick={handleForgotPassword} color="primary" variant="contained" className={classes.sendButton}
-        tabIndex="0" role="button"
-      >Send link to reset password</Button>
+      
       {!!error && <div className={classes.error}>{error}</div>}
       {!!success && <div className={classes.success}>{success}</div>}
+      <Button onClick={handleForgotPassword} color="primary" variant="contained" className={classes.sendButton}
+        tabIndex="0" role="button"
+        disabled={buttonDisable}
+
+      >
+      {buttonDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Send link to reset password"}
+
+
+      </Button>
       <div className={classes.switchEntryMode} onClick={handleOpenLogIn} onKeyDown={handleOpenLogIn} role="button"
         tabIndex={0}
       >Go to Log In</div>
