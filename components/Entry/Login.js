@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import useViewer from "hooks/viewer/useViewer";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import Box from "@material-ui/core/Box";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
@@ -10,7 +12,8 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 const useStyles = makeStyles((theme) => ({
   yellowHoverText: {
-    
+    textAlign:"center",
+    marginLeft:"15px",
     fontSize: "0.9rem",
     marginTop:"5px",
     "&:hover":{
@@ -29,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   formerror: {
     paddingLeft: theme.spacing(1),
     margin: "0px",
+    marginLeft:"5px",
     fontSize: "14px",
     color: "#b22b27",
     fontFamily: "Lato",
@@ -156,6 +160,7 @@ export default function Login(props) {
   const classes = useStyles();
 
   const [error, setError] = useState("");
+  const [loginDisable, setLoginDisable] = useState(false);
   const [viewer, , refetch] = useViewer();
   const { passwordClient } = getAccountsHandler();
 
@@ -170,6 +175,7 @@ export default function Login(props) {
  
  });
  const registerUser = async (values, action) => {
+  setLoginDisable(true);
 const { email, password } = values;
    try {
      await passwordClient.login({
@@ -186,6 +192,8 @@ const { email, password } = values;
     //  setError("Password update required, Check your regisetered email to resset password");
 
     // }
+    setLoginDisable(false);
+
      setError(err.message);
    }
  };
@@ -268,15 +276,7 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
               </label>
               {errors.password && touched.password ? <p className={classes.formerror}>{errors.password}</p> : null}
             </Grid>
-            <div
-              className={classes.yellowHoverText}
-              onClick={handleForgotPasswordClick}
-              onKeyDown={handleForgotPasswordClick}
-              role="button"
-              tabIndex={0}
-            >
-              Forgot Your Password, Click Here?
-            </div>
+           
           </Grid>
           {!!error && <p className={classes.formerror}>{error}</p>}
           <div className={classes.socialmedia2}>
@@ -286,9 +286,10 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
               InputProps={{ disableUnderline: true }}
               variant="h5"
               role="button"
+              disabled={loginDisable}
               type="submit"
             >
-              Login
+              {loginDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Login"}
             </Button>
           </div>
         </form>
@@ -317,6 +318,15 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
             </Typography>
           </Box>
         </div> */}
+        <div
+        className={classes.yellowHoverText}
+        onClick={handleForgotPasswordClick}
+        onKeyDown={handleForgotPasswordClick}
+        role="button"
+        tabIndex={0}
+      >
+        Forgot Your Password? Click Here
+      </div>
         <div
           className={classes.switchEntryMode}
           onClick={handleOpenSignUp}

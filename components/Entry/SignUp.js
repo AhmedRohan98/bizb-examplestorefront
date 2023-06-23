@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from "prop-types";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
@@ -136,6 +137,7 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function SignUp(props) {
   const [checkedEmail, setCheckedEmail] = React.useState(false);
+  const [regiseterDisable, setRegisterDisable] = useState(false);
 
   const { closeModal, openModal } = props;
   const classes = useStyles();
@@ -182,6 +184,8 @@ export default function SignUp(props) {
       .oneOf([Yup.ref("password"), null], "Password must match"),
   });
   const registerUser2 = async (values, action) => {
+    setRegisterDisable(true)
+    setError("")
     try {
       // Creating user will login also
       await passwordClient.createUser({
@@ -194,6 +198,8 @@ export default function SignUp(props) {
       closeModal();
       await refetch();
     } catch (err) {
+    setRegisterDisable(false)
+
       setError(err.message);
     }
   };
@@ -206,7 +212,7 @@ export default function SignUp(props) {
     onSubmit: async (values, action) => {
       await registerUser2(values, action);
       //// to get rid of all the values after submitting the form
-      action.resetForm();
+      // action.resetForm();
     },
   });
 
@@ -330,6 +336,8 @@ export default function SignUp(props) {
             ) : null}
           </Grid>
         </Grid>
+        {!!error && <div className={classes.formerror}>{error}</div>}
+
         <div className={classes.checkboxdiv}>
           <FormControlLabel
             control={<Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />}
@@ -346,8 +354,11 @@ export default function SignUp(props) {
             variant="h5"
             type="submit"
             role="button"
+            disabled={regiseterDisable}
           >
-            Register
+          {regiseterDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Register"}
+
+            
           </Button>
         </div>
         {/* <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
@@ -366,7 +377,6 @@ export default function SignUp(props) {
           </Box>
         </div> */}
 
-        {!!error && <div className={classes.formerror}>{error}</div>}
         <div
           className={classes.switchEntryMode}
           onClick={handleOpenLogIn}
