@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     background: theme.palette.background.default,
-    paddingLeft: theme.spacing(6.75),
+    padding: "40px",
   },
   grid3: {
     
@@ -91,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginTop: theme.spacing(2),
     marginRight: theme.spacing(2),
+    cursor:"pointer"
   },
   topheader: {
     display: "flex",
