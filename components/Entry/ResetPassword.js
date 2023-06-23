@@ -72,7 +72,7 @@ export default function ResetPassword(props) {
       <h1>Choose a new password</h1>
       <FormControl>
         <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password" aria-describedby="password" onChange={handlePasswordChange} value={password}
+        <Input id="password" aria-describedby="password" onChange={handlePasswordChange} style={{color:"black"}} value={password}
           type="password"
         />
       </FormControl>

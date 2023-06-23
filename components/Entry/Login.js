@@ -166,11 +166,15 @@ const { email, password } = values;
          email,
        },
 
-       password: password,
+       password: hashPassword(password),
      });
     closeModal();
      await refetch();
    } catch (err) {
+    // if(err.message=="Password update required."){
+    //  setError("Password update required, Check your regisetered email to resset password");
+
+    // }
      setError(err.message);
    }
  };
