@@ -469,7 +469,7 @@ const useStyles = makeStyles((theme) => ({
   },
   grid1: {
     marginTop: theme.spacing(6),
-    padding:"0px 50px"
+    padding: "0px 50px"
   },
   gridroot: {
     maxWidth: "100%",
@@ -592,7 +592,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "flex-start",
   },
-  
+
   cartsize: {
     display: "flex",
     marginLeft: theme.spacing(0.5),
@@ -803,18 +803,18 @@ function Categories(props) {
   const isSix = useMediaQuery({ query: '(min-width: 1750px)' })
   const isFour = useMediaQuery({ query: '(min-width: 1300px)' })
   const isTwo = useMediaQuery({ query: '(min-width: 700px)' })
-  let spliceBy=4;
-  if(isSix){
-    spliceBy=6;
-  }else if(isFour){
-    spliceBy=4;
+  let spliceBy = 4;
+  if (isSix) {
+    spliceBy = 6;
+  } else if (isFour) {
+    spliceBy = 4;
 
-  }else if(isTwo){
-    spliceBy=2;
+  } else if (isTwo) {
+    spliceBy = 2;
 
   }
   const firstfour = catalogItems?.slice(0, spliceBy);
-  
+
   const allproducts = catalogItems?.slice(spliceBy, catalogItems.length);
 
   const [products, setProducts] = React.useState([]);
@@ -1242,7 +1242,7 @@ function Categories(props) {
                             RS. 500
                           </Typography>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 1,00000
+                            RS. 100,000
                           </Typography>
                         </div>
                       </div>
@@ -1408,7 +1408,7 @@ function Categories(props) {
                               className={classes.image}
                               key={item?.node?.product?.id}
                               alt={item?.node?.product?.title}
-                              />
+                            />
 
 
                             <div className={classes.cartcontent}>
@@ -1434,7 +1434,7 @@ function Categories(props) {
                                     fontSize: "1rem",
                                     fontFamily: "lato",
                                     color: "#FDC114",
-                                    marginLeft: "0px",        
+                                    marginLeft: "0px",
                                   }}
                                 >
                                   {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
@@ -1452,7 +1452,7 @@ function Categories(props) {
                                       fontWeight: "600",
                                       fontSize: "0.9rem",
                                       fontFamily: "lato",
-                                      marginLeft: "0px",         
+                                      marginLeft: "0px",
                                     }}
                                     variant="h4"
                                     component="h2"
@@ -1518,7 +1518,7 @@ function Categories(props) {
           <div className={classes.main}>
             <div className={classes.gridroot}>
               <ResponsiveMasonry
-                columnsCountBreakPoints={{ 350: 1,700: 2 ,900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+                columnsCountBreakPoints={{ 350: 1, 700: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
                 style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
               >
                 <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1596,7 +1596,7 @@ function Categories(props) {
                                   fontSize: "1rem",
                                   fontFamily: "lato",
                                   color: "#FDC114",
-                                  marginLeft: "0px",       
+                                  marginLeft: "0px",
                                 }}
                               >
                                 {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
@@ -1614,7 +1614,7 @@ function Categories(props) {
                                     fontWeight: "600",
                                     fontSize: "0.9rem",
                                     fontFamily: "lato",
-                                    marginLeft: "0px", 
+                                    marginLeft: "0px",
                                   }}
                                   variant="h4"
                                   component="h2"
