@@ -46,21 +46,21 @@ const styles = (theme) => ({
 
     flexDirection: "column",
   },
-  categoryTagsLink:{
-    borderBottom:"1px solid #59595940"
+  categoryTagsLink: {
+    borderBottom: "1px solid #59595940"
   },
   catgorytitle: {
-    letterSpacing:"0.85px",
-    fontFamily:"Ostrich Sans Black",
+    letterSpacing: "0.85px",
+    fontFamily: "Ostrich Sans Black",
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    padding:"0px 15px",
-    boxShadow:" inset 0 0 0 0 #FDC114",
+    padding: "0px 15px",
+    boxShadow: " inset 0 0 0 0 #FDC114",
     color: "black",
     // margin: "0 -.25rem",
     // padding: "0 .25rem",
     transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
-  
+
     "&:hover": {
       color: "white",
       boxShadow: "inset 150px 0 0 0 #FDC114"
@@ -79,7 +79,7 @@ const styles = (theme) => ({
   },
   popover: {
     // pointerEvents: "none",
-    top:"0"
+    top: "0"
   },
   paper: {
     padding: theme.spacing(0),
@@ -206,7 +206,7 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
-    
+
     const style = {
       borderRadius: "8px",
       "&::before": {
@@ -223,13 +223,13 @@ class NavigationDesktop extends Component {
       left: "15%",
       bgcolor: "#ffffff",
       outline: "none",
-      padding:"10px 0px",
+      padding: "10px 0px",
       boxShadow: 24,
     };
     const { anchorEl } = this.state;
     console.log(tags?.nodes)
     console.log(this.state.categoryTagsInfo)
-    const tagsData=tags?.nodes?tags?.nodes:this.state.categoryTagsInfo;
+    const tagsData = tags?.nodes ? tags?.nodes : this.state.categoryTagsInfo;
 
     const ITEMScategory = [
       {
@@ -326,7 +326,7 @@ class NavigationDesktop extends Component {
                 Explore
               </span>
               <Popover
-                className={classes.popover }
+                className={classes.popover}
                 classes={{
                   paper: classes.paper,
                 }}
@@ -348,12 +348,12 @@ class NavigationDesktop extends Component {
               >
                 <Box sx={style} >
                   <div className={classes.modalitems}>
-                  
+
 
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
-                      {tagsData?.map((itemtitle,i) => (
-                        <a href={`/en/categories/${itemtitle._id}`} className={tagsData.length!==i+1? classes.categoryTagsLink:""}>
+                      {tagsData?.map((itemtitle, i) => (
+                        <a href={`/en/categories/${itemtitle._id}`} className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}>
                           <Typography variant="h6" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
                           </Typography>
@@ -383,7 +383,7 @@ class NavigationDesktop extends Component {
                 color: "inherit",
               }}
               target="_blank"
-              href="https://bizb.store/how-to-sell/"
+              href="/en/SellerRegistrationPage"
             >
               <span
                 className="hoverable"
