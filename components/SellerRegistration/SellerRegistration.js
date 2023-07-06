@@ -12,10 +12,15 @@ import {
 import useViewer from '../../hooks/viewer/useViewer'
 import { withApollo } from 'lib/apollo/withApollo'
 import { makeStyles } from "@material-ui/core/styles";
+import useSellerRegistration from '../../hooks/SellerRegistration/useSellerRegistration'
+import hashPassword from '../../lib/utils/hashPassword'
+import { ToastContainer, toast } from "react-toastify";
+import CloseIcon from "@material-ui/icons/Close";
 
 const SellerRegistration = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
     let phoneNumreg = /^(?:\+92\d{10}|03\d{9})$/
+    const [sellerRegistrationFunction, loding] = useSellerRegistration()
     const [viewer, , refetch] = useViewer()
 
     const [loginDisable, setLoginDisable] = React.useState(false);
@@ -26,8 +31,9 @@ const SellerRegistration = () => {
         width: "890px",
         backgroundColor: '#F7F7F9',
         borderRadius: '8px',
-        marginBottom: 7,
+        //marginBottom: 7,
         justifyContent: "center",
+        marginRight: "5%"
     }
 
     const style2 = {
@@ -63,16 +69,16 @@ const SellerRegistration = () => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        bgcolor: 'background.paper',
+        backgroundColor: 'grey',
         borderRadius: '18px',
-        boxShadow: 24,
-        p: 4,
+        boxShadow: "0 3px 5px 0 #000",
+        padding: 4,
     }
 
     const useStyles = makeStyles((theme) => ({
 
         styleofdiv: {
-            marginLeft: "20%",
+            marginLeft: "23%",
             marginTop: "2%",
             marginBottom: "3%"
         },
@@ -121,8 +127,6 @@ const SellerRegistration = () => {
             fontSize: '22px',
             margin: 0,
             fontWeight: "500",
-
-
         },
         register: {
             width: "214px",
@@ -134,7 +138,7 @@ const SellerRegistration = () => {
             marginBottom: "2%",
             justifyContent: "center",
             alignItems: "center",
-            marginLeft: "70%",
+            marginLeft: "72%",
             background: theme.palette.secondary.selected,
             "&:hover": {
                 transform: "scale(1.08)",
@@ -145,6 +149,8 @@ const SellerRegistration = () => {
     }))
 
     const classes = useStyles();
+    const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
+
 
 
     const [userName, setuserName] = React.useState({
@@ -200,18 +206,20 @@ const SellerRegistration = () => {
         isTouched: false,
     })
 
+    const [emailError, setEmailError] = React.useState("")
+
     const [userError, setuserError] = React.useState('')
 
     const [errors, seterros] = React.useState({
         valid: false,
         value: '',
     })
-    const [getcondition, setcondition] = React.useState(false)
     const [open, setOpen] = React.useState(false)
+    const [error, seterror] = React.useState('')
+
     const handleClose = () => setOpen(false)
 
     const handleSubmit = () => {
-        setLoginDisable(true)
         if (
             userName.value !== '' &&
             reg.test(useremail.value) === true &&
@@ -225,15 +233,50 @@ const SellerRegistration = () => {
             zipcode.value !== ''
 
         ) {
-            setLoginDisable(false)
+            handlePublish()
             seterros({ ...errors, value: 'Done', valid: false })
-            clearForm()
         } else {
             setLoginDisable(false)
-
             seterros({ ...errors, value: 'Not Completed', valid: true })
+
+
         }
     }
+
+    const handlePublish = async () => {
+        try {
+            setLoginDisable(true)
+            const sellerRegistration = await sellerRegistrationFunction({
+                variables: {
+                    input: {
+                        email: useremail.value,
+                        storeName: storeName.value,
+                        address1: address1.value,
+                        address2: address2.value,
+                        state: state.value,
+                        city: city.value,
+                        country: country.value,
+                        postalcode: zipcode.value,
+                        phone: contactnumber.value,
+                        fullName: userName.value,
+                        password: hashPassword(password.value)
+                    }
+
+                },
+            })
+            console.log('sellerRegistration:', sellerRegistration)
+            setLoginDisable(false)
+            clearForm()
+            toast.success("You're successfully registered as a Seller!");
+
+            // clearForm()
+        } catch (error) {
+            setLoginDisable(false)
+            seterror(error.message)
+            console.log('error', error)
+        }
+    }
+
     const clearForm = () => {
         setuserName({ value: '', isTouched: false })
         setcontactnumber({ value: '', isTouched: false })
@@ -275,7 +318,28 @@ const SellerRegistration = () => {
 
     return (
         <div className={classes.styleofdiv}>
+
             <Box style={styleBox}>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeButton={<CustomCloseButton />}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                    background="green"
+                    toastStyle={{
+                        backgroundColor: "#FDC114",
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: "Lato",
+                        textTransform: "capitalize",
+                    }}
+                />
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -349,6 +413,7 @@ const SellerRegistration = () => {
                                 onBlur={() => setuseremail({ ...useremail, isTouched: true })}
                                 InputProps={style2}
                                 style={style}
+
                             />
 
                         </div>
@@ -655,6 +720,9 @@ const SellerRegistration = () => {
                         <p id='nameError' className={classes.style9}>
                             {errors.valid ? errors.value : ''}
                         </p>
+                        <p id='nameError' className={classes.style9}>
+                            {error ? error : ""}
+                        </p>
                         <Button
                             className={classes.register}
                             style={{ fontFamily: "Ostrich Sans Black", fontSize: "20px" }}
@@ -667,6 +735,8 @@ const SellerRegistration = () => {
                         >
                             {loginDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Register"}
                         </Button>
+
+                        {/* <button type='submit' onClick={(e)}></button> */}
 
                     </FormControl>
                 </div>
