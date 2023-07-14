@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
-     
+
     },
   },
 }));
@@ -57,19 +57,27 @@ const Footer = () => {
     <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
       <Grid container>
         <Grid item xs={12} md={3}>
-          <div style={{ display: "flex", marginTop: "70px", textAlign: "center" ,justifyContent:"center"}}>
+          <div style={{ display: "flex", marginTop: "70px", textAlign: "center", justifyContent: "center" }}>
             <span>
               <a href="/">
                 <img src="/images/logoLight.svg" height="65px" />
               </a>
             </span>
           </div>
-          <div style={{ marginTop: "10px",  display: "flex", justifyContent:"center" }}>
-            <img src="/icons/instagram.svg" className={classes.imagesicons} />
-            <img src="/icons/facebook.svg" className={classes.imagesicons} />
-            <img src="/icons/twitter.svg" className={classes.imagesicons} />
-            <img src="/icons/linkedin2.svg" className={classes.imagesicons} />
-            
+          <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
+            <a target="_blank" href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134">
+
+              <img src="/icons/instagram.svg" className={classes.imagesicons} />
+            </a>
+            <a target="_blank" href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134">
+
+              <img src="/icons/facebook.svg" className={classes.imagesicons} />
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134">
+
+              <img src="/icons/linkedin2.svg" className={classes.imagesicons} />
+            </a>
+
           </div>
         </Grid>
         <Grid item xs={12} md={3}>
