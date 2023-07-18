@@ -16,6 +16,8 @@ import useSellerRegistration from '../../hooks/SellerRegistration/useSellerRegis
 import hashPassword from '../../lib/utils/hashPassword'
 import { ToastContainer, toast } from "react-toastify";
 import CloseIcon from "@material-ui/icons/Close";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const SellerRegistration = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
@@ -96,7 +98,7 @@ const SellerRegistration = () => {
             display: 'flex',
             alignItems: 'start',
             margin: 0,
-            width: "20%"
+            width: "30%"
 
 
         },
@@ -145,6 +147,20 @@ const SellerRegistration = () => {
                 transition: "left 0.2s linear",
                 background: "#FDC114",
             },
+        },
+        terms: {
+            lineHeight: "55px",
+        },
+        checkbox: {
+            color: "green",
+            "& .MuiIconButton-label ": {
+                color: theme.palette.secondary.selected,
+            },
+        },
+        checkboxdiv: {
+            display: "flex",
+            flexDirection: "row",
+            marginLeft: "22%"
         },
     }))
 
@@ -216,6 +232,13 @@ const SellerRegistration = () => {
     })
     const [open, setOpen] = React.useState(false)
     const [error, seterror] = React.useState('')
+
+    const [checkTerms, setcheckTerms] = React.useState(false);
+
+
+    const handleChangeTerms = (event) => {
+        setcheckTerms(event.target.checked);
+    };
 
     const handleClose = () => setOpen(false)
 
@@ -484,7 +507,7 @@ const SellerRegistration = () => {
                                 type='text'
                                 size='small'
                                 variant='standard'
-                                placeholder='Enter your Store name'
+                                placeholder='Enter your Address 2'
                                 value={address2.value}
                                 onChange={(e) => setaddress2({ ...address2, value: e.target.value })}
                                 onFocus={() => setaddress2({ ...address2, isTouched: true })}
@@ -508,7 +531,7 @@ const SellerRegistration = () => {
                                 type='text'
                                 size='small'
                                 variant='standard'
-                                placeholder='Enter your Store name'
+                                placeholder='Enter your Country'
                                 value={country.value}
                                 onChange={(e) => setcountry({ ...country, value: e.target.value })}
                                 onFocus={() => setcountry({ ...country, isTouched: true })}
@@ -723,6 +746,35 @@ const SellerRegistration = () => {
                         <p id='nameError' className={classes.style9}>
                             {error ? error : ""}
                         </p>
+                        <div className={classes.checkboxdiv}>
+                            <FormControlLabel
+                                control={<Checkbox checked={checkTerms} onChange={handleChangeTerms} className={classes.checkbox} />}
+                            />
+
+                            <div className={classes.style11}>
+
+                                <p id='nameError' className={classes.style10}>
+                                    *
+                                </p>
+                                <a
+                                    style={{
+                                        color: "inherit",
+                                    }}
+                                    target="_blank"
+                                    href="/en/SellerTermsConditionPage"
+                                >
+                                    <Typography variant='body2' style={{
+                                        fontWeight: 700,
+                                        fontSize: '18px',
+                                        fontStyle: "italic",
+                                        marginTop: "6%"
+                                    }} textAlign='left'>
+                                        Agree  Terms & Conditions
+                                    </Typography>
+                                </a>
+                            </div>
+                        </div>
+
                         <Button
                             className={classes.register}
                             style={{ fontFamily: "Ostrich Sans Black", fontSize: "20px" }}
@@ -737,6 +789,7 @@ const SellerRegistration = () => {
                         </Button>
 
                         {/* <button type='submit' onClick={(e)}></button> */}
+
 
                     </FormControl>
                 </div>
