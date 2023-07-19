@@ -353,7 +353,7 @@ class NavigationDesktop extends Component {
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
                       {tagsData?.map((itemtitle, i) => (
-                        <a href={`/en/categories/${itemtitle._id}`} className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}>
+                        <a href={itemtitle.displayTitle === 'Become a Seller' ? "/en/SellerRegistrationPage" : `/en/categories/${itemtitle._id}`} className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}>
                           <Typography variant="h6" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
                           </Typography>
@@ -365,7 +365,7 @@ class NavigationDesktop extends Component {
                 </Box>
               </Popover>
             </a>
-            <span
+            {/* <span
               className="hoverable"
               style={{
                 marginRight: "40px",
@@ -377,7 +377,7 @@ class NavigationDesktop extends Component {
               }}
             >
               Byol
-            </span>
+            </span> */}
             <a
               style={{
                 color: "inherit",

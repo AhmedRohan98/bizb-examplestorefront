@@ -13,6 +13,7 @@ import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 import SellerRegistration from "../../components/SellerRegistration/SellerRegistration";
+import SellerTermsCondition from "../../components/SellerRegistration/SellerTermsCondition";
 
 const useStyles = makeStyles((theme) => ({
     orderThankYou2: {
@@ -154,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function SellerRegistrationPage(props) {
+function SellerTermsConditionPage(props) {
 
     const classes = useStyles();
 
@@ -173,13 +174,13 @@ function SellerRegistrationPage(props) {
     return (
         <Layout shop={shop}>
             <Helmet>
-                <title>{shop && shop.name} | Seller Registration</title>
-                <meta name="description" content={shop && shop.description} />
+                <title>{shop && shop.name} | Seller Terms & Condition</title>
+                <meta name="seller terms & condition" content={shop && shop.description} />
             </Helmet>
             <Grid container md={12}>
                 <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
 
-                <SellerRegistration />
+                <SellerTermsCondition />
             </Grid>
 
         </Layout>
@@ -208,4 +209,4 @@ export async function getStaticPaths() {
     };
 }
 
-export default withApollo()(SellerRegistrationPage);
+export default withApollo()(SellerTermsConditionPage);
