@@ -260,7 +260,7 @@ build_image:
   before_script:
    # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" --password-stdin
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - echo "WOW! You are logged in!!"
     # - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
   script:
