@@ -244,6 +244,37 @@
   # - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}"  --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
 
   ##!!!##
+
+stages:
+  - build
+  - deploy
+
+build_image:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  #  DOCKER_PASSWORD: "dckr_pat_LropaPjWq9LpQ4t53J9LdZ96k_0"
+  before_script:
+   # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "WOW! You are logged in!!"
+    # - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  script:
+    - echo "Building App"
+   # - docker-compose build --no-cache
+    #- docker-compose build --build-arg IMAGE_NAME=ranchers-tracking-service
+    - docker build --no-cache -t bizb-frontend-production .
+    - docker tag bizb-frontend-production $DOCKER_USERNAME/bizb-frontend-production
+    - docker push $DOCKER_USERNAME/bizb-frontend-production
+   # - docker push $DOCKER_USERNAME/ranchers-tracking-service:latest
+   
+  only:
+    - production
+
 deploy-aws-ecs-dev:
   stage: deploy
   image: docker:19.03.1
