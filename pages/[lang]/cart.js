@@ -877,7 +877,7 @@ class CartPage extends Component {
                       // console.log(cart?.items, "item");
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                      const validOptionTitle = optionTitle ? optionTitle?.replace("None",'"N/A"').replace(/'/g, '"') : null;
+                      const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
