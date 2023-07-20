@@ -850,7 +850,7 @@ const ProductDetail = ({ ...props }) => {
   //   router.replace("/en/product/" + item);
   // };
   const optionTitle = product?.variants[0]?.optionTitle;
-  const validOptionTitle = optionTitle ? optionTitle?.replace("None",'"N/A"').replace(/'/g, '"') : null;
+  const validOptionTitle = optionTitle ? optionTitle?.replace("None","N/A").replace(/'/g, '"') : null;
   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
   const isDisabled = cart?.items?.some((data) => {
     return data.productConfiguration.productId === product?.productId;
