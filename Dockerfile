@@ -10,7 +10,7 @@ RUN apk --no-cache add bash curl less tini vim make
 SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-u", "-c"]
 
 WORKDIR /usr/local/src/app
-ENV CANONICAL_URL=https://prod.bizb.store
+ENV CANONICAL_URL=https://bizb.store
 ENV BUILD_GRAPHQL_URL=https://api.bizb.store/graphql
 ENV EXTERNAL_GRAPHQL_URL=https://api.bizb.store/graphql
 ENV INTERNAL_GRAPHQL_URL=https://api.bizb.store/graphql
