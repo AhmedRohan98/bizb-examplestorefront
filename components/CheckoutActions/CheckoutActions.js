@@ -9,6 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { ToastContainer, toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import * as Yup from "yup";
@@ -365,6 +366,7 @@ const CheckoutActions = (prop) => {
   const [checkedEmail, setCheckedEmail] = React.useState(false);
   const [placeOrder] = useMutation(placeOrderQuery);
   const [getValue, setValue] = useState({})
+  const [orderDisable, setOrderDisable] = useState(false);
 
   const classes = useStyles();
 
@@ -379,6 +381,7 @@ const CheckoutActions = (prop) => {
   // console.log(cart);
   const handlepay = async (values, action) => {
     try {
+      setOrderDisable(true);
       // const { data } = apolloClient.mutate({
       //   mutation: placeOrderMutation,
       //   variables: {
@@ -499,6 +502,8 @@ const CheckoutActions = (prop) => {
           totalItemQuantity: 1,
         },
       });
+      setOrderDisable(false);
+
       console.log("Order", placeOrder)
 
       const {
@@ -515,6 +520,8 @@ const CheckoutActions = (prop) => {
       // Also destroy the collected and cached payment input
       cartStore.resetCheckoutPayments();
     } catch (error) {
+      setOrderDisable(false);
+
       console.log(error);
     }
   };
@@ -937,8 +944,12 @@ const CheckoutActions = (prop) => {
                   variant="h6"
                   type="submit"
                   role="button"
+                  disabled={orderDisable}
+
                 >
-                  Place Order
+                  
+                  {orderDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Place Order"}
+
                 </Button>
                 <ToastContainer
                   position="top-right"

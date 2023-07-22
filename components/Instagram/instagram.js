@@ -76,6 +76,7 @@ const Instagram = (props) => {
       backgroundColor: "rgba(0, 0, 0, 0.7)",
       [theme.breakpoints.down(600)]: {
         width: "32vw",
+        height: "auto",
         paddingRight: "0",
         paddingLeft: "0",
         top: "0",

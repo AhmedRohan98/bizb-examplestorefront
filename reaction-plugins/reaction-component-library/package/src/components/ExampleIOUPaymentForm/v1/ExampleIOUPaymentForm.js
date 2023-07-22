@@ -18,7 +18,7 @@ function buildResult({ amount, fullName = null }) {
   return {
     amount: floatAmount,
     data: { fullName },
-    displayName: fullName ? `IOU from ${fullName}` : null
+    displayName: `Cash On Delivery`
   };
 }
 

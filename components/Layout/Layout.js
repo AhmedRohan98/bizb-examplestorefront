@@ -16,6 +16,12 @@ const styles = (theme) => ({
   article: {
     padding: theme.spacing(0),
   },
+  padding:{
+    paddingBottom:"120px",
+    [theme.breakpoints.down("xs")]: {
+      paddingBottom: "0",
+    },
+  }
 });
 
 class Layout extends Component {
@@ -40,7 +46,7 @@ class Layout extends Component {
       <React.Fragment>
         <div className={classes.root}>
           <Hidden mdUp>
-            <div style={{ paddingBottom: "120px" }}>
+            <div className={classes.padding}>
               <Header shop={shop} viewer={viewer} headerType={0} tags={tags} />
             </div>
           </Hidden>

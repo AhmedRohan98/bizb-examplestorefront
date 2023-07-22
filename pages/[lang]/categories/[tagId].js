@@ -8,7 +8,7 @@ import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Link from "next/link";
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from "react-responsive";
 
 import InputBase from "@material-ui/core/InputBase";
 import PageLoading from "components/PageLoading";
@@ -148,12 +148,12 @@ const useStyles = makeStyles((theme) => ({
     objectFit: "cover",
     borderRadius: "10px",
     cursor: "pointer",
+    marginTop: "25px",
   },
   typography: {
     background: "#333333",
     opacity: "15%",
     height: "8px",
-
     width: "180px",
   },
 
@@ -171,7 +171,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     marginLeft: theme.spacing(1),
   },
-
 
   main: {
     width: "100%",
@@ -280,7 +279,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: " -75px",
     padding: "13px 20px",
   },
-
 
   modalitems: {
     display: "flex",
@@ -457,8 +455,13 @@ const useStyles = makeStyles((theme) => ({
   },
   mainimageofcategory: {
     height: "900px",
-    width: "calc(100% - 1vw)",
+    width: "calc(100% - 2vw)",
+    marginLeft: "1vw",
+    marginRight: "1vw",
     objectFit: "cover",
+    [theme.breakpoints.down(550)]: {
+      height: "500px",
+    },
   },
   gridroot: {
     width: "100%",
@@ -469,7 +472,10 @@ const useStyles = makeStyles((theme) => ({
   },
   grid1: {
     marginTop: theme.spacing(6),
-    padding: "0px 50px"
+    padding: "0px 50px",
+    [theme.breakpoints.down(550)]: {
+      padding: "0px 0px",
+    },
   },
   gridroot: {
     maxWidth: "100%",
@@ -600,7 +606,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   carttitle: {
-
     display: "flex",
     marginLeft: theme.spacing(1),
     justifyContent: "flex-start",
@@ -619,7 +624,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     paddingBottom: "10px",
   },
-
 }));
 const ITEMScategory = [
   {
@@ -718,7 +722,6 @@ function Categories(props) {
   }, []);
 
   const options = [
-
     { value: "updatedAt-desc", label: "New Arrivals" },
     { value: "minPrice-asc", label: "Price Low To High" },
     { value: "minPrice-desc", label: "Price High To Low" },
@@ -800,18 +803,16 @@ function Categories(props) {
     console.log("catalog items in tag", catalogItems);
   }, [catalogItems]);
 
-  const isSix = useMediaQuery({ query: '(min-width: 1750px)' })
-  const isFour = useMediaQuery({ query: '(min-width: 1300px)' })
-  const isTwo = useMediaQuery({ query: '(min-width: 700px)' })
+  const isSix = useMediaQuery({ query: "(min-width: 1750px)" });
+  const isFour = useMediaQuery({ query: "(min-width: 1300px)" });
+  const isTwo = useMediaQuery({ query: "(min-width: 700px)" });
   let spliceBy = 4;
   if (isSix) {
     spliceBy = 6;
   } else if (isFour) {
     spliceBy = 4;
-
   } else if (isTwo) {
     spliceBy = 2;
-
   }
   const firstfour = catalogItems?.slice(0, spliceBy);
 
@@ -1156,7 +1157,6 @@ function Categories(props) {
     setSoldOutProducts(soldOutProducts);
   }, [cart?.items]);
 
-
   // console.log(category, "dis");
   return (
     <Layout shop={shop} tagId={tagId}>
@@ -1351,9 +1351,9 @@ function Categories(props) {
               xs={12}
               sm={6}
               md={12}
-            // align="center"
-            // justify="center"
-            // alignItems="center"
+              // align="center"
+              // justify="center"
+              // alignItems="center"
             >
               <div className={classes.gridroot}>
                 <ResponsiveMasonry
@@ -1396,7 +1396,6 @@ function Categories(props) {
                       return (
                         <div style={{ display: "flex", justifyContent: "center" }}>
                           <div className={classes.boxcontairproduct}>
-
                             {/* {console.log("Images", item?.node)} */}
                             <img
                               onClick={() => clickHandler(item.node.product.slug)}
@@ -1409,7 +1408,6 @@ function Categories(props) {
                               key={item?.node?.product?.id}
                               alt={item?.node?.product?.title}
                             />
-
 
                             <div className={classes.cartcontent}>
                               <div className={classes.cartcontenttext}>
@@ -1472,17 +1470,17 @@ function Categories(props) {
                                   component="h2"
                                   className={classes.cartsize}
                                 >
-                                  Size {" "}
+                                  Size{" "}
                                   <span className={classes.sizes}>
                                     {size == 0
                                       ? "XL"
                                       : "S" || size == 1
-                                        ? "L"
-                                        : "S" || size == 2
-                                          ? "M"
-                                          : "S" || size == 3
-                                            ? "S"
-                                            : "S"}
+                                      ? "L"
+                                      : "S" || size == 2
+                                      ? "M"
+                                      : "S" || size == 3
+                                      ? "S"
+                                      : "S"}
                                   </span>
                                 </Typography>
                                 {isLoading[item?.node?.product?.productId] ? (
@@ -1639,12 +1637,12 @@ function Categories(props) {
                                   {size == 0
                                     ? "XL"
                                     : "S" || size == 1
-                                      ? "L"
-                                      : "S" || size == 2
-                                        ? "M"
-                                        : "S" || size == 3
-                                          ? "S"
-                                          : "S"}
+                                    ? "L"
+                                    : "S" || size == 2
+                                    ? "M"
+                                    : "S" || size == 3
+                                    ? "S"
+                                    : "S"}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
@@ -1746,4 +1744,3 @@ export async function getStaticProps({ params: { lang, tagId }, ...context }) {
 }
 
 export default withApollo()(withCart(withCatalogItems(inject("routingStore", "uiStore")(Categories))));
-
