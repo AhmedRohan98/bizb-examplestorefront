@@ -54,7 +54,7 @@ const Caloborators = () => {
     },
     iconforwad: {
       position: "absolute",
-      bottom: "120px",
+      bottom: "140px",
       right: "20px",
       height: "50px",
       width: "50px",
@@ -67,7 +67,7 @@ const Caloborators = () => {
     },
     iconback: {
       position: "absolute",
-      bottom: "120px",
+      bottom: "140px",
       height: "50px",
       padding: "18px",
       width: "50px",
@@ -87,9 +87,9 @@ const Caloborators = () => {
     box: {
       display: "flex",
       flexDirection: "column",
-      allignItems: "start",
+      alignItems: "center",
       justifyContent: "start",
-      width: "122px",
+      width: "100%",
     },
     dark: {
       color: "#333333",
