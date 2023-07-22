@@ -102,9 +102,9 @@ const Story = (props) => {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      allignItems: "center",
+      alignItems: "center",
       textAlign: "center",
-      width: "120px",
+      width: "100%",
     },
     catagoriesinactive: {
       color: "#000000",
