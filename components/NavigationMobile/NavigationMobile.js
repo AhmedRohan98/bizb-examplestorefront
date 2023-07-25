@@ -135,11 +135,11 @@ class NavigationMobile extends Component {
               Explore
               {/* @ts-ignore TODO: Refactor link to address type error */}
             </MenuList>
-            <br />
-            <MenuList className={classes.navButtonActive}>
+
+            {/* <MenuList className={classes.navButtonActive}>
               Byol
-              {/* @ts-ignore TODO: Refactor link to address type error */}
-            </MenuList>
+              
+            </MenuList> */}
           </nav>
           <Slide direction="left" in={!!this.state.navItem}>
             <nav className={classes.subNav}>
