@@ -33,30 +33,30 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 function Explore(props) {
   console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
-     const [state, setState] = useState();
+  const [state, setState] = useState();
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
-   const [price, setPrice] = useState([500, 10000]);
-     const [selectedOption, setSelectedOption] = useState(null);
-     const setSortBy = (sortBy) => {
-       routingStore.setSearch({ sortby: sortBy });
-       uiStore.setSortBy(sortBy);
-     };
- const toggleDrawer = (anchor, open) => (event) => {
-   setState(!state);
- };
- 
-const handleChangeChecksize = (event) => {
-  const selectedSize = event.target.name;
-  const updatedFilters = uiStore.filters
-    .filter((filter) => filter.name !== "size")
-    .concat({ name: "size", value: selectedSize });
-  uiStore.setFilters(updatedFilters);
-};
+  const [price, setPrice] = useState([500, 10000]);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const setSortBy = (sortBy) => {
+    routingStore.setSearch({ sortby: sortBy });
+    uiStore.setSortBy(sortBy);
+  };
+  const toggleDrawer = (anchor, open) => (event) => {
+    setState(!state);
+  };
+
+  const handleChangeChecksize = (event) => {
+    const selectedSize = event.target.name;
+    const updatedFilters = uiStore.filters
+      .filter((filter) => filter.name !== "size")
+      .concat({ name: "size", value: selectedSize });
+    uiStore.setFilters(updatedFilters);
+  };
   const handleFilterChange = (event, newValue, minFilterName, maxFilterName) => {
     setPrice(newValue);
     const { value } = event.target;
@@ -64,7 +64,7 @@ const handleChangeChecksize = (event) => {
       .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
       .concat({ name: minFilterName, value: newValue[0] })
       .concat({ name: maxFilterName, value: newValue[1] });
-      
+
     uiStore.setFilterPrice(updatedFilters);
   };
   const DropdownIndicator = (props) => {
@@ -74,81 +74,81 @@ const handleChangeChecksize = (event) => {
       </components.DropdownIndicator>
     );
   };
-   const customStyles = {
-     indicatorSeparator: () => ({
-       height: "48px",
-       color: "black",
-     }),
-     control: (provided, state) => ({
-       ...provided,
-       height: "48px",
-       marginTop: "10px",
-       background: "#F7F7F9",
-       borderRadius: "6px",
-       border: state.isFocused ? "none" : "none",
-       boxShadow: state.isFocused ? "none" : "none",
-       width: "255px", // Change this to the desired width
-     }),
-     menu: (provided, state) => ({
-       ...provided,
-       // Set the width of the menu to the full viewport width
-       maxWidth: "none",
+  const customStyles = {
+    indicatorSeparator: () => ({
+      height: "48px",
+      color: "black",
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      height: "48px",
+      marginTop: "10px",
+      background: "#F7F7F9",
+      borderRadius: "6px",
+      border: state.isFocused ? "none" : "none",
+      boxShadow: state.isFocused ? "none" : "none",
+      width: "255px", // Change this to the desired width
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      // Set the width of the menu to the full viewport width
+      maxWidth: "none",
 
-       // Ensure that the menu can extend beyond the width of the container
-     }),
-     menuList: (provided, state) => ({
-       ...provided,
-       border: "none",
-     }),
-     option: (provided, state) => ({
-       fontFamily: "Lato",
-       fontStyle: "normal",
-       fontWeight: state.isFocused ? 800 : 500,
-       fontSize: "14px",
-       lineHeight: "19px",
-       textTransform: "capitalize",
-       letterSpacin: "0.05em",
-       padding: "13px",
-       borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
-       color: state.isFocused ? "#000000" : "#989898",
-       "&:hover": {
-         color: "#FDC114",
-       },
-     }),
-     dropdownIndicator: (base, state) => ({
-       ...base,
-       icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
-       "&:hover": {
-         color: "green",
-       },
-     }),
-     input: (provided) => ({
-       ...provided,
-     }),
-     placeholder: (defaultStyles) => {
-       return {
-         ...defaultStyles,
-         fontFamily: "Lato",
-         fontStyle: "normal",
-         fontWeight: 500,
-         fontSize: "16px",
-         lineHeight: "19px",
-         textTransform: "capitalize",
-         color: "#969696",
-         "&:hover": {
-           color: "blue",
-         },
-       };
-     },
-   };
-    const options = [
-      { value: "updatedAt-desc", label: "New Arrivals" },
-      { value: "minPrice-asc", label: "Price Low To High" },
-      { value: "minPrice-desc", label: "Price High To Low" },
-    ];
-     const handleChangeSortBy = (selectedOption) => {
-       setSortBy(selectedOption.value);
-     };
+      // Ensure that the menu can extend beyond the width of the container
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      border: "none",
+    }),
+    option: (provided, state) => ({
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: state.isFocused ? 800 : 500,
+      fontSize: "14px",
+      lineHeight: "19px",
+      textTransform: "capitalize",
+      letterSpacin: "0.05em",
+      padding: "13px",
+      borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
+      color: state.isFocused ? "#000000" : "#989898",
+      "&:hover": {
+        color: "#FDC114",
+      },
+    }),
+    dropdownIndicator: (base, state) => ({
+      ...base,
+      icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
+      "&:hover": {
+        color: "green",
+      },
+    }),
+    input: (provided) => ({
+      ...provided,
+    }),
+    placeholder: (defaultStyles) => {
+      return {
+        ...defaultStyles,
+        fontFamily: "Lato",
+        fontStyle: "normal",
+        fontWeight: 500,
+        fontSize: "16px",
+        lineHeight: "19px",
+        textTransform: "capitalize",
+        color: "#969696",
+        "&:hover": {
+          color: "blue",
+        },
+      };
+    },
+  };
+  const options = [
+    { value: "updatedAt-desc", label: "New Arrivals" },
+    { value: "minPrice-asc", label: "Price Low To High" },
+    { value: "minPrice-desc", label: "Price High To Low" },
+  ];
+  const handleChangeSortBy = (selectedOption) => {
+    setSortBy(selectedOption.value);
+  };
   const useStyles = makeStyles((theme) => ({
     main: {
       width: "100%",
@@ -231,6 +231,10 @@ const handleChangeChecksize = (event) => {
       objectFit: "cover",
       borderRadius: "10px",
       cursor: "pointer",
+      [theme.breakpoints.down("sm")]: {
+        width: "150px", // Reduced by 1px to create space for the border
+        height: "200px",
+      },
     },
     typography: {
       background: "#333333",
@@ -307,6 +311,13 @@ const handleChangeChecksize = (event) => {
         width: "185px",
         minHeigth: "145px",
         maxHeight: "230px",
+      },
+    },
+    cartText: {
+      fontSize: "18px",
+
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "10px",
       },
     },
     paper: {
@@ -573,7 +584,7 @@ const handleChangeChecksize = (event) => {
     topheader: {
       display: "flex",
       justifyContent: "flex-end",
-      marginBottom:"60px",
+      marginBottom: "60px",
 
       [theme.breakpoints.down(700)]: {
         display: "none",
@@ -629,15 +640,15 @@ const handleChangeChecksize = (event) => {
       cursor: "pointer",
       [theme.breakpoints.up("lg")]: {
         width: "312px", // Reduced by 1px to create space for the border
-  
+
       },
       [theme.breakpoints.down("lg")]: {
         width: "calc(16.5rem - 0.5vw)", // Reduced by 1px to create space for the border
-  
+
       },
       [theme.breakpoints.down("sm")]: {
-        width: "312px", // Reduced by 1px to create space for the border
-  
+        width: "150px", // Reduced by 1px to create space for the border
+        height: "200px",
       },
     },
 
@@ -673,6 +684,12 @@ const handleChangeChecksize = (event) => {
       justifyContent: "space-between",
       flexDirection: "row",
       paddingBottom: "10px",
+      overflow: "hidden",
+
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        paddingBottom: "5px",
+      },
     },
     cartcontenttext: {
       display: "flex",
@@ -696,6 +713,11 @@ const handleChangeChecksize = (event) => {
         transition: "left 0.2s linear",
         background: "#FDC114",
       },
+      [theme.breakpoints.down("sm")]: {
+        width: "34px", // Reduced by 1px to create space for the border
+        height: "20px",
+        marginLeft: theme.spacing(2),
+      },
     },
     explore: {
       position: "absolute",
@@ -714,6 +736,10 @@ const handleChangeChecksize = (event) => {
       gridRowEnd: "span 1",
       flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
       marginBottom: "20px",
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        marginBottom: "10px",
+      },
     },
 
     price: {
@@ -726,8 +752,22 @@ const handleChangeChecksize = (event) => {
       width: "110px",
       marginLeft: "12px",
     },
+    progressBar: {
+      [theme.breakpoints.down("sm")]: {
+        size: "10px",
+        marginLeft: theme.spacing(3),
+      },
+
+    },
+
     cartbackground: {
       marginRight: "8px",
+      display: "flex",
+      flexDirection: "column",
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "row",
+        marginRight: "2px",
+      },
     },
     strikethrough: {
       display: "flex",
@@ -1021,7 +1061,7 @@ const handleChangeChecksize = (event) => {
         </Box>
         <div className={classes.gridroot}>
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+            columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
             style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
             <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1033,7 +1073,7 @@ const handleChangeChecksize = (event) => {
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle ? optionTitle?.replace("None",'"N/A"').replace(/'/g, '"') : null;
+                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                 const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1068,17 +1108,18 @@ const handleChangeChecksize = (event) => {
                         key={item?.node?.product?.id}
                         onClick={() => clickHandler(item.node.product.slug)}
                         alt={item?.node?.product?.title}
-                        />
+                      />
 
                       <div className={classes.cartcontent}>
                         <div className={classes.cartcontenttext}>
                           <Typography
                             style={{
                               fontWeight: "600",
-                              fontSize: "18px",
+                              fontSize: "1rem",
                               fontFamily: "lato",
                               // marginTop: "10px",
-                              left: "12px",
+                              textTransform: "capitalize",
+                              marginLeft: "0px",
                             }}
                             variant="h4"
                             component="h2"
@@ -1123,9 +1164,9 @@ const handleChangeChecksize = (event) => {
                           <Typography
                             style={{
                               fontWeight: "600",
-                              fontSize: "18px",
+                              fontSize: "0.8rem",
                               fontFamily: "lato",
-                              left: "12px",
+                              left: "5px",
                             }}
                             variant="h4"
                             component="h2"
@@ -1136,16 +1177,16 @@ const handleChangeChecksize = (event) => {
                               {size == 0
                                 ? "XL"
                                 : "S" || size == 1
-                                ? "L"
-                                : "S" || size == 2
-                                ? "M"
-                                : "S" || size == 3
-                                ? "S"
-                                : "S"}
+                                  ? "L"
+                                  : "S" || size == 2
+                                    ? "M"
+                                    : "S" || size == 3
+                                      ? "S"
+                                      : "S"}
                             </span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress />
+                            <CircularProgress className={classes.progressBar} />
                           ) : (
                             <Button
                               className={classes.cart}
@@ -1154,9 +1195,11 @@ const handleChangeChecksize = (event) => {
                             >
                               <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                               <Typography
-                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                style={{ fontFamily: "Ostrich Sans Black" }}
                                 variant="h5"
                                 component="h2"
+                                className={classes.cartText}
+
                               >
                                 {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>

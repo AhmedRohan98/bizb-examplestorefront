@@ -149,6 +149,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     cursor: "pointer",
     marginTop: "25px",
+    [theme.breakpoints.down("sm")]: {
+      width: "150px", // Reduced by 1px to create space for the border
+      height: "200px",
+    },
   },
   typography: {
     background: "#333333",
@@ -335,8 +339,21 @@ const useStyles = makeStyles((theme) => ({
   close: {
     color: "#ffffff",
   },
+  cartText: {
+    fontSize: "18px",
+
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "10px",
+    },
+  },
   filtersTitle: {
     color: "#ffffff",
+  },
+  progressBar: {
+    [theme.breakpoints.down("sm")]: {
+      size: "10px",
+      marginLeft: theme.spacing(3),
+    },
   },
   slider: {
     color: "black",
@@ -513,6 +530,10 @@ const useStyles = makeStyles((theme) => ({
     gridRowEnd: "span 1",
     flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
     marginBottom: "20px",
+    [theme.breakpoints.down("sm")]: {
+      width: "90%",
+      marginBottom: "10px",
+    },
   },
 
   price: {
@@ -527,6 +548,12 @@ const useStyles = makeStyles((theme) => ({
   },
   cartbackground: {
     marginRight: "4px",
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "row",
+      marginRight: "2px",
+    },
   },
   strikethrough: {
     display: "flex",
@@ -580,6 +607,11 @@ const useStyles = makeStyles((theme) => ({
       transition: "left 0.2s linear",
       background: "#FDC114",
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "34px", // Reduced by 1px to create space for the border
+      height: "20px",
+      marginLeft: theme.spacing(3),
+    },
   },
   sizes: {
     height: "30px",
@@ -623,6 +655,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     flexDirection: "row",
     paddingBottom: "10px",
+    overflow: "hidden",
+
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      paddingBottom: "5px",
+    },
   },
 }));
 const ITEMScategory = [
@@ -1351,13 +1389,13 @@ function Categories(props) {
               xs={12}
               sm={6}
               md={12}
-              // align="center"
-              // justify="center"
-              // alignItems="center"
+            // align="center"
+            // justify="center"
+            // alignItems="center"
             >
               <div className={classes.gridroot}>
                 <ResponsiveMasonry
-                  columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
+                  columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
                   style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
                 >
                   <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1370,7 +1408,7 @@ function Categories(props) {
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
-                        ? optionTitle?.replace("None", '"N/A"').replace(/'/g, '"')
+                        ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"')
                         : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
@@ -1419,6 +1457,7 @@ function Categories(props) {
                                     fontSize: "1rem",
                                     fontFamily: "lato",
                                     // marginTop: "10px",
+                                    textTransform: "capitalize",
                                     marginLeft: "0px",
                                   }}
                                   variant="h4"
@@ -1477,16 +1516,16 @@ function Categories(props) {
                                     {size == 0
                                       ? "XL"
                                       : "S" || size == 1
-                                      ? "L"
-                                      : "S" || size == 2
-                                      ? "M"
-                                      : "S" || size == 3
-                                      ? "S"
-                                      : "S"}
+                                        ? "L"
+                                        : "S" || size == 2
+                                          ? "M"
+                                          : "S" || size == 3
+                                            ? "S"
+                                            : "S"}
                                   </span>
                                 </Typography>
                                 {isLoading[item?.node?.product?.productId] ? (
-                                  <CircularProgress />
+                                  <CircularProgress className={classes.progressBar} />
                                 ) : (
                                   <Button
                                     className={classes.cart}
@@ -1495,9 +1534,11 @@ function Categories(props) {
                                   >
                                     <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                                     <Typography
-                                      style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                      style={{ fontFamily: "Ostrich Sans Black" }}
                                       variant="h5"
                                       component="h2"
+                                      className={classes.cartText}
+
                                     >
                                       {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                                     </Typography>
@@ -1531,7 +1572,7 @@ function Categories(props) {
 
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                     const validOptionTitle = optionTitle
-                      ? optionTitle?.replace("None", '"N/A"').replace(/'/g, '"')
+                      ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"')
                       : null;
                     const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                     const str = item.node.product.title;
@@ -1641,16 +1682,16 @@ function Categories(props) {
                                   {size == 0
                                     ? "XL"
                                     : "S" || size == 1
-                                    ? "L"
-                                    : "S" || size == 2
-                                    ? "M"
-                                    : "S" || size == 3
-                                    ? "S"
-                                    : "S"}
+                                      ? "L"
+                                      : "S" || size == 2
+                                        ? "M"
+                                        : "S" || size == 3
+                                          ? "S"
+                                          : "S"}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
-                                <CircularProgress />
+                                <CircularProgress size="30px" className={classes.progressBar} />
                               ) : (
                                 <Button
                                   className={classes.cart}
@@ -1659,9 +1700,11 @@ function Categories(props) {
                                 >
                                   <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                                   <Typography
-                                    style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                    style={{ fontFamily: "Ostrich Sans Black" }}
                                     variant="h5"
                                     component="h2"
+                                    className={classes.cartText}
+
                                   >
                                     {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                                   </Typography>
