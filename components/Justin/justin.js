@@ -401,7 +401,8 @@ const Justin = (props) => {
               });
 
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-              const validOptionTitle = optionTitle ? optionTitle?.replace("None", '"N/A"').replace(/'/g, '"') : null;
+              const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"')
+                : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
@@ -511,12 +512,12 @@ const Justin = (props) => {
                             {size == 0
                               ? "XL"
                               : "S" || size == 1
-                              ? "L"
-                              : "S" || size == 2
-                              ? "M"
-                              : "S" || size == 3
-                              ? "S"
-                              : "S"}
+                                ? "L"
+                                : "S" || size == 2
+                                  ? "M"
+                                  : "S" || size == 3
+                                    ? "S"
+                                    : "S"}
                           </span>
                         </Typography>
                         {isLoading[item?.node?.product?.productId] ? (
