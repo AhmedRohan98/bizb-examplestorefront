@@ -119,7 +119,7 @@ const SellerRegistration = () => {
         style9: {
             color: 'red',
             fontSize: '12px',
-            marginLeft: "18%",
+            marginLeft: "24%",
             margin: 0,
             fontWeight: "500",
 
