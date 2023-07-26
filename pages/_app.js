@@ -17,15 +17,14 @@ import "swiper/swiper-bundle.css";
 // import 'swiper/components/scrollbar/scrollbar.scss';
 import "../styles/global.css";
 import "../assets/fonts/style.css";
-  import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import { StripeWrapper } from "components/StripeCard";
 
-if (process.env.isDevelopment === "production")
-{
- // Override the console.log method to do nothing
- console.log = function () {};
- console.error = function () {};
- console.warn = function () {};
+if (process.env.isDevelopment === "production") {
+  // Override the console.log method to do nothing
+  console.log = function () { };
+  console.error = function () { };
+  console.warn = function () { };
 }
 
 export default class App extends NextApp {
@@ -35,10 +34,24 @@ export default class App extends NextApp {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+    // import('react-facebook-pixel')
+    //   .then((x) => x.default)
+    //   .then((ReactPixel) => {
+    //     ReactPixel.init('470474555213027')
+    //     ReactPixel.pageView()
+
+    //     router.events.on('routeChangeComplete', () => {
+    //       ReactPixel.pageView()
+    //     })
+    //   })
   }
 
   render() {
     const { Component, pageProps, ...rest } = this.props;
+
+    // useEffect(() => {
+
+    // }, [router.events])
 
     return (
       <StripeWrapper>

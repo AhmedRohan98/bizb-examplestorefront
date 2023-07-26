@@ -144,7 +144,7 @@ const Footer = () => {
               </div>
               {/* <img src="/images/footerbackground.webp" className={classes.explore}></img> */}
             </a>
-            <a target="_blank" href="https://bizb.store/how-to-sell/">
+            <a target="_blank" href="https://old.bizb.store/how-to-sell/">
               <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 <span
                   style={{
@@ -162,7 +162,7 @@ const Footer = () => {
             </a>
             <a
               target="_blank"
-              href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
+              href="https://old.bizb.store/blog/"
             >
               <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
@@ -197,7 +197,7 @@ const Footer = () => {
                 </span>
               </div>
             </a>
-            <a target="_blank" href="https://bizb.store/about-us/">
+            <a target="_blank" href="https://old.bizb.store/about-us/">
               <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
