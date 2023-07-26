@@ -23,6 +23,24 @@
   transform: translate3d(0, 0, 0);
   z-index: 10;
 } */
+/* Add a class to the Swiper container to target it with media queries */
+  /* Default settings for larger screens */
+  
+  .swiper-container-horizontal{
+    height: 550px;
+  }
+  /* Mobile devices (max-width 767px) */
+  @media (max-width: 767px) {
+    .swiper-container{
+      width: 100vw; /* Show only one slide on mobile, occupying full width */
+    }
+    .swiper-container-horizontal{
+      height: auto;
+    }
+  }
+  .swiper-slide {
+    display: flex;
+  }
 .swiper-slide-active {
   opacity: 1 !important;
 }
@@ -336,6 +354,13 @@ input:-internal-autofill-selected {
 .fixed__instructions {
   flex: 1;
   margin: 0 20px;
+}
+@media screen and (max-width: 700px) {
+  .fluid__instructions {
+    flex: 0 0 auto;
+    margin: 0 0px;
+    padding-left: 0px;
+  }
 }
 
 a {
