@@ -18,6 +18,27 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     flexDirection: "column",
     width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    },
+  },
+  footerStyle: {
+    marginTop: "70px",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "20px",
+    },
+  },
+  footerStyle2: {
+    marginTop: "80px",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "30px",
+    },
+  },
+  footerStyle3: {
+    marginTop: "25px",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "15px",
+    },
   },
   explore: {
     position: "absolute",
@@ -46,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
-
     },
   },
 }));
@@ -57,7 +77,10 @@ const Footer = () => {
     <footer style={{ backgroundColor: "#000000", color: "#FFFFFF" }}>
       <Grid container>
         <Grid item xs={12} md={3}>
-          <div style={{ display: "flex", marginTop: "70px", textAlign: "center", justifyContent: "center" }}>
+          <div
+            style={{ display: "flex", textAlign: "center", justifyContent: "center" }}
+            className={classes.footerStyle}
+          >
             <span>
               <a href="/">
                 <img src="/images/logoLight.svg" height="65px" />
@@ -65,25 +88,30 @@ const Footer = () => {
             </span>
           </div>
           <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
-            <a target="_blank" href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134">
-
+            <a
+              target="_blank"
+              href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+            >
               <img src="/icons/instagram.svg" className={classes.imagesicons} />
             </a>
-            <a target="_blank" href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134">
-
+            <a
+              target="_blank"
+              href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+            >
               <img src="/icons/facebook.svg" className={classes.imagesicons} />
             </a>
-            <a target="_blank" href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134">
-
+            <a
+              target="_blank"
+              href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+            >
               <img src="/icons/linkedin2.svg" className={classes.imagesicons} />
             </a>
-
           </div>
         </Grid>
         <Grid item xs={12} md={3}>
           <div style={{ fontWeight: "700", fontSize: "1.1rem", textAlign: "center" }}>
             <a href="/en">
-              <div style={{ color: "#FDC114", marginTop: "80px", cursor: "pointer" }}>
+              <div style={{ color: "#FDC114", cursor: "pointer" }} className={classes.footerStyle2}>
                 <span
                   style={{
                     textDecoration: "line-through",
@@ -100,7 +128,7 @@ const Footer = () => {
             </a>
 
             <a href="/en/explore" style={{ position: "relative" }}>
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white", position: "relative" }}>
+              <div style={{ cursor: "pointer", color: "white", position: "relative" }} className={classes.footerStyle3}>
                 <span
                   style={{
                     textDecoration: "line-through",
@@ -116,8 +144,8 @@ const Footer = () => {
               </div>
               {/* <img src="/images/footerbackground.webp" className={classes.explore}></img> */}
             </a>
-            <a target="_blank" href="https://bizb.store/how-to-sell/">
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>
+            <a target="_blank" href="https://old.bizb.store/how-to-sell/">
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 <span
                   style={{
                     textDecoration: "line-through",
@@ -134,9 +162,9 @@ const Footer = () => {
             </a>
             <a
               target="_blank"
-              href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
+              href="https://old.bizb.store/blog/"
             >
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
                   style={{
@@ -153,7 +181,7 @@ const Footer = () => {
               </div>{" "}
             </a>
             <a href="/en/contactus">
-              <div style={{ marginTop: "25px", cursor: "pointer", color: "white" }}>
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
                   style={{
@@ -169,8 +197,8 @@ const Footer = () => {
                 </span>
               </div>
             </a>
-            <a target="_blank" href="https://bizb.store/about-us/">
-              <div style={{ marginTop: "25px", marginBottom: "41px", cursor: "pointer", color: "white" }}>
+            <a target="_blank" href="https://old.bizb.store/about-us/">
+              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
                   style={{
@@ -191,7 +219,7 @@ const Footer = () => {
         <Grid sm={0} md={0} lg={2}></Grid>
         <Grid item xs={12} md={5} lg={4}>
           <div className={classes.footerthirdsec}>
-            <div style={{ marginTop: "80px" }}></div>
+            <div className={classes.footerStyle2}></div>
             <Typography variant="typography" style={{ fontWeight: 500 }}>
               FEEL FREE TO CONTACT US, ANYTIME, ANYWHERE
             </Typography>
@@ -251,7 +279,13 @@ const Footer = () => {
         </span>
         <a href="https://www.codistan.org/" target="_blank">
           <span
-            style={{ paddingBottom: "10px", fontWeight: "500", fontSize: "0.8rem", marginRight: "90px", color: "white" }}
+            style={{
+              paddingBottom: "10px",
+              fontWeight: "500",
+              fontSize: "0.8rem",
+              marginRight: "90px",
+              color: "white",
+            }}
           >
             POWERED BY <span style={{ color: "#FDC114" }}>CODISTAN</span>
           </span>
