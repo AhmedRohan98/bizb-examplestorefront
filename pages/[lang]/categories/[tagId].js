@@ -1407,9 +1407,7 @@ function Categories(props) {
                       // console.log(cart?.items, "item");
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                      const validOptionTitle = optionTitle
-                        ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"')
-                        : null;
+                      const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1571,9 +1569,7 @@ function Categories(props) {
                     });
 
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                    const validOptionTitle = optionTitle
-                      ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"')
-                      : null;
+                    const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                     const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                     const str = item.node.product.title;
                     const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1679,15 +1675,7 @@ function Categories(props) {
                               >
                                 Size
                                 <span className={classes.sizes}>
-                                  {size == 0
-                                    ? "XL"
-                                    : "S" || size == 1
-                                      ? "L"
-                                      : "S" || size == 2
-                                        ? "M"
-                                        : "S" || size == 3
-                                          ? "S"
-                                          : "S"}
+                                 {formatSize(size,true)}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (

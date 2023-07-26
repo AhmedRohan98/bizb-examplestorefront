@@ -12,6 +12,7 @@ import { CircularProgress } from "@material-ui/core";
 import inject from "hocs/inject";
 import variantById from "lib/utils/variantById";
 import { ToastContainer, toast } from "react-toastify";
+import formatSize from "../../lib/utils/formatSize";
 const Storyslider = (props) => {
   const { uiStore, routingStore, itemData, cart, sellerss, addItemsToCart, storeId, show } = props;
   console.log(props, "props");
@@ -470,7 +471,7 @@ const Storyslider = (props) => {
                     });
                     // console.log(item?.node?.product?.productId, "ssss", cart?.items[0]?.productConfiguration?.productId);
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                    const validOptionTitle = optionTitle ? optionTitle?.replace("None",'"N/A"').replace(/'/g, '"') : null;
+                    const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
                     const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                     const str = item.node.product.title;
                     const words = str.match(/[a-zA-Z0-9]+/g);
@@ -577,15 +578,7 @@ const Storyslider = (props) => {
                               >
                                 Size {" "}
                                 <span className={classes.sizes}>
-                                  {size == 0
-                                    ? "XL"
-                                    : "S" || size == 1
-                                    ? "L"
-                                    : "S" || size == 2
-                                    ? "M"
-                                    : "S" || size == 3
-                                    ? "S"
-                                    : "S"}
+                                  {formatSize(size,true)}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (

@@ -463,8 +463,8 @@ const CheckoutActions = (prop) => {
                     isCommercial: false,
                     isShippingDefault: false,
                     phone: getValue.phonenumber,
-                    postal: "pak",
-                    region: "pandi",
+                    postal: "",
+                    region: "",
                   },
                 },
                 //                  const initialValues = {
