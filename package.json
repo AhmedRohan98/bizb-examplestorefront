@@ -67,7 +67,8 @@
     "type-check": "tsc",
     "postinstall": "is-ci || is-docker || husky install",
     "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "postpublish": "pinst --enable",
+    "react-facebook-pixel": "1.0.4"
   },
   "eslintConfig": {
     "extends": "@reactioncommerce",
@@ -105,7 +106,7 @@
     "slick-carousel": "1.8.1",
     "@material-ui/lab": "^4.0.0-alpha.46",
     "@material-ui/styles": "^4.9.6",
-    "react-responsive":"^9.0.2",
+    "react-responsive": "^9.0.2",
     "@reactioncommerce/components": "~0.67.2",
     "@reactioncommerce/components-context": "1.2.0",
     "@segment/snippet": "~4.4.0",
