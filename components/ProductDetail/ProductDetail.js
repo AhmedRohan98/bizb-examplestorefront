@@ -1223,7 +1223,7 @@ const ProductDetail = ({ ...props }) => {
                               >
                                 Size{" "}
                                 <span className={classes.sizes}>
-                                  {formatSize(size)}
+                                  {formatSize(size,true)}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (

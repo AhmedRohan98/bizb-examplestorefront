@@ -15,6 +15,7 @@ import { JSON } from "global";
 import { CircularProgress } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 import { UIContext } from "../../context/UIContext.js";
+import formatSize from "../../lib/utils/formatSize";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -509,15 +510,7 @@ const Justin = (props) => {
                         >
                           Size{" "}
                           <span className={classes.sizes}>
-                            {size == 0
-                              ? "XL"
-                              : "S" || size == 1
-                                ? "L"
-                                : "S" || size == 2
-                                  ? "M"
-                                  : "S" || size == 3
-                                    ? "S"
-                                    : "S"}
+                            {formatSize(size,true)}
                           </span>
                         </Typography>
                         {isLoading[item?.node?.product?.productId] ? (
