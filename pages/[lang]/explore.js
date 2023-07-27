@@ -30,6 +30,7 @@ import ListItem from "@material-ui/core/ListItem";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import formatSize from "../../lib/utils/formatSize";
 function Explore(props) {
   console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
@@ -1174,15 +1175,7 @@ function Explore(props) {
                           >
                             Size:{" "}
                             <span className={classes.sizes}>
-                              {size == 0
-                                ? "XL"
-                                : "S" || size == 1
-                                  ? "L"
-                                  : "S" || size == 2
-                                    ? "M"
-                                    : "S" || size == 3
-                                      ? "S"
-                                      : "S"}
+                              {formatSize(size,true)}
                             </span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (

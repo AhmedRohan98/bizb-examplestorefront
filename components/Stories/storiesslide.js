@@ -12,6 +12,7 @@ import { CircularProgress } from "@material-ui/core";
 import inject from "hocs/inject";
 import variantById from "lib/utils/variantById";
 import { ToastContainer, toast } from "react-toastify";
+import formatSize from "../../lib/utils/formatSize";
 const Storyslider = (props) => {
   const { uiStore, routingStore, itemData, cart, sellerss, addItemsToCart, storeId, show } = props;
   console.log(props, "props");
@@ -577,15 +578,7 @@ const Storyslider = (props) => {
                               >
                                 Size {" "}
                                 <span className={classes.sizes}>
-                                  {size == 0
-                                    ? "XL"
-                                    : "S" || size == 1
-                                    ? "L"
-                                    : "S" || size == 2
-                                    ? "M"
-                                    : "S" || size == 3
-                                    ? "S"
-                                    : "S"}
+                                  {formatSize(size,true)}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (

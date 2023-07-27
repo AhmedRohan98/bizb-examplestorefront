@@ -26,6 +26,7 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { CircularProgress } from "@material-ui/core";
+import formatSize from "../../lib/utils/formatSize";
 import { useRouter } from "next/router";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 // import ReactImageMagnify from "react-image-magnify";
@@ -140,6 +141,10 @@ const styles = (theme) => ({
     padding: "10px",
     borderBotom: "1px solid red",
     color: "#ffffff",
+    [theme.breakpoints.down("sm")]: {
+      margin:"25px",
+      paddingRight:"15px"
+    },
   },
   cartimageJustIn: {
     height: "16px",
@@ -257,7 +262,8 @@ const styles = (theme) => ({
   },
   carttext: {
     justifySelf: "end",
-    width: "533px",
+    "maxWidth": "533px",
+    width:"100%",
     zIndex: 1,
   },
   sliderimage2: {
@@ -265,8 +271,9 @@ const styles = (theme) => ({
     position: "relative",
     // display: "inlie-grid",
     margin: "0 auto",
-    // width: "507px",
-    minHeight: "600px",
+    width: "auto",
+    // minHeight: "600px",
+    height:"550px",
     alignItems: "center",
     justifyContent: "center",
     maxWidth: "600px",
@@ -637,6 +644,7 @@ const ProductDetail = ({ ...props }) => {
     // console.log(updatedItems, "all");
     // do something with updatedItems
   }, [cart?.items, product]);
+  
   useEffect(() => {
     selectVariant(product?.variants[0]);
     uiStore.setEndCursor(tagIds);
@@ -930,7 +938,7 @@ const ProductDetail = ({ ...props }) => {
                     onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
                   >
                     {product?.variants[0].media[1] &&
-                      product?.variants[0].media.map((slide, index) => {
+                      product?.variants[0]?.media.map((slide, index) => {
                         return (
                           <SwiperSlide key={index}>
                             <div className={classes.thumbimage}>
@@ -938,40 +946,28 @@ const ProductDetail = ({ ...props }) => {
                             </div>
                           </SwiperSlide>
                         );
-                      })}
+                      })
+                    }
                   </Swiper>
                 </div>
               </Grid>
               <Grid style={{}} item xs={0} md={12} sm={0} lg={8}>
                 <div style={{}} className="fluid react-slick">
                   <Swiper
-                    thumbs={{ swiper: imagesNavSlider }}
                     direction="horizontal"
-                    slidesPerView={1}
-                    spaceBetween={32}
                     ref={sliderRef}
                     pagination={{
                       clickable: false,
                     }}
                     mousewheel={true}
                     navigation={true}
-                    breakpoints={{
-                      0: {
-                        direction: "horizontal",
-                        thumbs: "false",
-                      },
-                      768: {
-                        direction: "horizontal",
-                      },
-                    }}
                     modules={[Navigation, Thumbs, Mousewheel, Pagination]}
                     onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
                   >
-                    <div className="fluid__image-container">
                       {product?.variants[0]?.media.map((slide, index) => {
                         return (
-                          <SwiperSlide className={classes.sliderimage2}>
-                            <div style={{ borderRadius: "18px", overflow: "hidden" }}>
+                          <SwiperSlide className={classes.sliderimage2}  key={index}>
+                            <div style={{ borderRadius: "18px", overflow: "hidden" }} >
                               <ReactImageMagnify
                                 {...{
                                   smallImage: {
@@ -979,7 +975,7 @@ const ProductDetail = ({ ...props }) => {
                                     isFluidWidth: true,
                                     width: 600,
                                     className: "images",
-                                    height: 400,
+                                    height: 550,
                                     src: slide.URLs.large,
                                     sizes: "(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px",
                                   },
@@ -994,18 +990,12 @@ const ProductDetail = ({ ...props }) => {
                                     backgroundColor: "rgba(0,0,0,.6)",
                                   },
                                 }}
-                                enlargedImagePortalId="portal"
-                                enlargedImageContainerDimensions={{
-                                  width: "150%",
-                                  marginLeft: "100px",
-                                  height: "100%",
-                                }}
+                                enlargedImagePosition="over"
                               />
                             </div>
                           </SwiperSlide>
                         );
                       })}
-                    </div>
                   </Swiper>
                   <div className="fluid__instructions" style={{ position: "relative" }}>
                     <div id="portal" className="portal" />
@@ -1043,7 +1033,7 @@ const ProductDetail = ({ ...props }) => {
                               .replace(/\$/g, "Rs. ")}
                           </Typography>
                         </div>
-                        <Typography gutterBottom variant="h4" className={classes.offer}>
+                        <Typography gutterBottom variant="h5" className={classes.offer}>
                           {`-${Math.abs(percentage)}%`}
                         </Typography>
                       </div>
@@ -1051,18 +1041,10 @@ const ProductDetail = ({ ...props }) => {
                         <img style={{ paddingLeft: "10px" }} src="/cart/available.svg" alt="available" />
                         <Typography
                           style={{ fontWeight: "700", paddingRight: "10px" }}
-                          variant="h4"
+                          variant="h5"
                           className={classes.offr}
                         >
-                          {size == 0
-                            ? "Extra Large"
-                            : "Small" || size == 1
-                              ? "Large"
-                              : "Small" || size == 2
-                                ? "Medium"
-                                : "Small" || size == 3
-                                  ? "Small"
-                                  : "Small"}
+                          { formatSize(size)}
                         </Typography>
                       </div>
                       <div className={classes.sizeimage}>
@@ -1121,12 +1103,12 @@ const ProductDetail = ({ ...props }) => {
               <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
             </Grid>
           </Box>
-          <Box style={{padding:"0px 50px"}}>
-          <Typography variant="h3" className={classes.related}>
+          {isTwo&&  <Box style={{padding:"0px 50px"}}>
+         <Typography variant="h3" className={classes.related}>
             <div className="text"></div>
             Related <span className={classes.spanofnextword}>Products</span>
           </Typography>
-          <div className={classes.gridroot}>
+         <div className={classes.gridroot}>
             <ResponsiveMasonry
               columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
               style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -1241,15 +1223,7 @@ const ProductDetail = ({ ...props }) => {
                               >
                                 Size{" "}
                                 <span className={classes.sizes}>
-                                  {size == 0
-                                    ? "XL"
-                                    : "S" || size == 1
-                                      ? "L"
-                                      : "S" || size == 2
-                                        ? "M"
-                                        : "S" || size == 3
-                                          ? "S"
-                                          : "S"}
+                                  {formatSize(size,true)}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
@@ -1283,7 +1257,7 @@ const ProductDetail = ({ ...props }) => {
               </Masonry>
             </ResponsiveMasonry>
           </div>
-          </Box>
+          </Box>}
         </div >
       )}
     </>

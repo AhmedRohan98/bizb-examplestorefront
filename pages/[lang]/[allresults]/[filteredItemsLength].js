@@ -19,6 +19,7 @@ import Link from "next/link";
 import inject from "../../../hocs/inject";
 import { ToastContainer, toast } from "react-toastify";
 import Box from "@material-ui/core/Box";
+import formatSize from "../../../lib/utils/formatSize";
 const useStyles = makeStyles((theme) => ({
   main: {
     width: "100%",
@@ -452,15 +453,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             >
                               Size:{" "}
                               <span className={classes.sizes}>
-                                {size == 0
-                                  ? "XL"
-                                  : "S" || size == 1
-                                  ? "L"
-                                  : "S" || size == 2
-                                  ? "M"
-                                  : "S" || size == 3
-                                  ? "S"
-                                  : "S"}
+                                {formatSize(size,true)}
                               </span>
                             </Typography>
                             {isLoading[item?.node?.product?.productId] ? (
