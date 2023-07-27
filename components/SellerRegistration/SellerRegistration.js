@@ -28,15 +28,7 @@ const SellerRegistration = () => {
     const [loginDisable, setLoginDisable] = React.useState(false);
 
 
-    const style = {
-        height: '48px',
-        width: "890px",
-        backgroundColor: '#F7F7F9',
-        borderRadius: '8px',
-        //marginBottom: 7,
-        justifyContent: "center",
-        marginRight: "5%"
-    }
+
 
     const style2 = {
         disableUnderline: true,
@@ -49,23 +41,16 @@ const SellerRegistration = () => {
             fontFamily: 'Lato',
         },
     }
-    const styleBox = {
-        boxShadow: " 0 3px 5px 0 #000",
-        borderRadius: '18px',
-        padding: 2,
-        backgroundColor: '#FFFFFF',
-        width: "90%",
+    // const styleBox = {
+    //     boxShadow: " 0 3px 5px 0 #000",
+    //     borderRadius: '18px',
+    //     padding: 2,
+    //     backgroundColor: '#FFFFFF',
+    //     width: "90%",
 
 
-    }
 
-    const style3 = {
-        fontWeight: 500,
-        fontSize: '18px',
-        fontStyle: "italic",
-        marginRight: 3
-
-    }
+    // }
     const style4 = {
         position: 'absolute',
         top: '50%',
@@ -78,11 +63,78 @@ const SellerRegistration = () => {
     }
 
     const useStyles = makeStyles((theme) => ({
+        styleBox: {
+            boxShadow: " 0 3px 5px 0 #000",
+            borderRadius: '18px',
+            padding: 2,
+            backgroundColor: '#FFFFFF',
+            width: "90%",
+            [theme.breakpoints.down("sm")]: {
+                width: "400px",
+                boxShadow: "none",
+                borderRadius: '0',
+            },
+        },
+        style3: {
+            fontWeight: 500,
+            fontSize: '18px',
+            fontStyle: "italic",
+            marginRight: 3,
+            [theme.breakpoints.down("sm")]: {
+                fontSize: '13px',
+            },
+
+        },
+        style: {
+            height: '48px',
+            width: "890px",
+            backgroundColor: '#F7F7F9',
+            borderRadius: '8px',
+            //marginBottom: 7,
+            justifyContent: "center",
+            marginRight: "5%",
+            [theme.breakpoints.down("sm")]: {
+                width: "380px",
+            },
+        },
+        terms: {
+            fontWeight: 700,
+            fontSize: '18px',
+            fontStyle: "italic",
+            marginTop: "6%",
+            [theme.breakpoints.down("sm")]: {
+                fontSize: '13px',
+                marginLeft: 0
+            },
+        },
+        text1: {
+            fontWeight: '700',
+            fontSize: '27px',
+            textAlign: 'start',
+            marginTop: 44,
+            marginLeft: "50px",
+            marginBottom: 33,
+            [theme.breakpoints.down("sm")]: {
+                fontSize: '24px',
+                textAlign: 'start',
+                marginTop: 44,
+                marginLeft: "20px",
+                marginBottom: 33,
+
+            },
+
+
+        },
 
         styleofdiv: {
             marginLeft: "23%",
             marginTop: "2%",
-            marginBottom: "3%"
+            marginBottom: "3%",
+            [theme.breakpoints.down("sm")]: {
+                marginLeft: "0%",
+                marginTop: "4%",
+                marginBottom: "8%",
+            },
         },
         style6: {
 
@@ -90,6 +142,10 @@ const SellerRegistration = () => {
             alignItems: 'start',
             justifyContent: 'center',
             marginLeft: "50px",
+            [theme.breakpoints.down("sm")]: {
+                marginLeft: "19px",
+
+            },
 
 
         },
@@ -98,7 +154,11 @@ const SellerRegistration = () => {
             display: 'flex',
             alignItems: 'start',
             margin: 0,
-            width: "30%"
+            width: "30%",
+            [theme.breakpoints.down("sm")]: {
+                width: "70%",
+
+            },
 
 
         },
@@ -122,6 +182,14 @@ const SellerRegistration = () => {
             marginLeft: "24%",
             margin: 0,
             fontWeight: "500",
+            [theme.breakpoints.down("sm")]: {
+                fontSize: '9px',
+                marginLeft: "40%",
+
+
+            },
+
+
 
         },
         style10: {
@@ -129,6 +197,10 @@ const SellerRegistration = () => {
             fontSize: '22px',
             margin: 0,
             fontWeight: "500",
+            [theme.breakpoints.down("sm")]: {
+                fontSize: '14px',
+
+            },
         },
         register: {
             width: "214px",
@@ -147,6 +219,18 @@ const SellerRegistration = () => {
                 transition: "left 0.2s linear",
                 background: "#FDC114",
             },
+            [theme.breakpoints.down("sm")]: {
+                width: "120px",
+                height: "30px",
+                borderRadius: "10px",
+                border: "none",
+                display: "flex",
+
+                marginBottom: "2%",
+                justifyContent: "center",
+                marginLeft: "60%",
+
+            },
         },
         terms: {
             lineHeight: "55px",
@@ -160,7 +244,13 @@ const SellerRegistration = () => {
         checkboxdiv: {
             display: "flex",
             flexDirection: "row",
-            marginLeft: "22%"
+            marginLeft: "22%",
+            [theme.breakpoints.down("sm")]: {
+                marginLeft: "35%",
+                justifyContent: "start"
+
+            },
+
         },
     }))
 
@@ -170,7 +260,7 @@ const SellerRegistration = () => {
 
 
     const [userName, setuserName] = React.useState({
-        value: '',
+        value: viewer?.firstName ? viewer?.firstName : "",
         isTouched: false,
     })
     const [storeName, setstoreName] = React.useState({
@@ -178,7 +268,7 @@ const SellerRegistration = () => {
         isTouched: false,
     })
     const [useremail, setuseremail] = React.useState({
-        value: '',
+        value: viewer?.primaryEmailAddress ? viewer?.primaryEmailAddress : "",
         isTouched: false,
     })
     const [address1, setaddress1] = React.useState({
@@ -337,12 +427,12 @@ const SellerRegistration = () => {
         return <p className={classes.style9}>Postal Code Field is required</p>
     }
 
-    React.useEffect(() => { }, [viewer])
+    React.useEffect(() => { console.log("vieweree,", viewer) }, [viewer])
 
     return (
         <div className={classes.styleofdiv}>
 
-            <Box style={styleBox}>
+            <div className={classes.styleBox}>
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -401,15 +491,7 @@ const SellerRegistration = () => {
                 <div>
                     <Typography
                         variant='body2'
-                        style={{
-                            fontWeight: '700',
-                            fontSize: '27px',
-                            textAlign: 'start',
-                            marginTop: 44,
-                            marginLeft: "50px",
-                            marginBottom: 33
-
-                        }}
+                        className={classes.text1}
                     >
                         Registration
                     </Typography>
@@ -419,7 +501,7 @@ const SellerRegistration = () => {
                         <div className={classes.style7}>
                             <div className={classes.style11}>
 
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Email
                                 </Typography>
                                 <p id='nameError' className={classes.style10}>
@@ -435,7 +517,7 @@ const SellerRegistration = () => {
                                 onChange={(e) => setuseremail({ ...useremail, value: e.target.value })}
                                 onBlur={() => setuseremail({ ...useremail, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
 
                             />
 
@@ -445,7 +527,7 @@ const SellerRegistration = () => {
                         <div className={classes.style7}>
                             <div className={classes.style11}>
 
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Store Name
                                 </Typography>
                                 <p id='nameError' className={classes.style10}>
@@ -462,7 +544,7 @@ const SellerRegistration = () => {
                                 onChange={(e) => setstoreName({ ...storeName, value: e.target.value })}
                                 onFocus={() => setstoreName({ ...storeName, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
 
                         </div>
@@ -470,7 +552,7 @@ const SellerRegistration = () => {
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Address 1
                                 </Typography>
                                 <p id='nameError' className={classes.style10}>
@@ -488,7 +570,7 @@ const SellerRegistration = () => {
                                 onChange={(e) => setaddress1({ ...address1, value: e.target.value })}
                                 onFocus={() => setaddress1({ ...address1, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
                         </div>
                         {address1.isTouched && address1.value === '' ? <AddressErrorMessage /> : null}
@@ -496,7 +578,7 @@ const SellerRegistration = () => {
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Address 2
                                 </Typography>
 
@@ -512,13 +594,13 @@ const SellerRegistration = () => {
                                 onChange={(e) => setaddress2({ ...address2, value: e.target.value })}
                                 onFocus={() => setaddress2({ ...address2, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
                         </div>
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Country
                                 </Typography>
                                 <p id='nameError' className={classes.style10}>
@@ -536,7 +618,7 @@ const SellerRegistration = () => {
                                 onChange={(e) => setcountry({ ...country, value: e.target.value })}
                                 onFocus={() => setcountry({ ...country, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
 
                         </div>
@@ -544,7 +626,7 @@ const SellerRegistration = () => {
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     City/Town
                                 </Typography>
                             </div>
@@ -558,15 +640,14 @@ const SellerRegistration = () => {
                                 onChange={(e) => setcity({ ...city, value: e.target.value })}
                                 onFocus={() => setcity({ ...country, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
-                            {city.isTouched && city.value === '' ? <UserErrorMessage /> : null}
 
                         </div>
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     State/County
                                 </Typography>
                             </div>
@@ -580,14 +661,14 @@ const SellerRegistration = () => {
                                 onChange={(e) => setstate({ ...state, value: e.target.value })}
                                 onFocus={() => setstate({ ...state, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
 
                         </div>
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Postcode/Zip
                                 </Typography>
                                 <p id='nameError' className={classes.style10}>
@@ -605,7 +686,7 @@ const SellerRegistration = () => {
                                 onChange={(e) => setzipcode({ ...zipcode, value: e.target.value })}
                                 onFocus={() => setzipcode({ ...zipcode, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
 
                         </div>
@@ -613,7 +694,7 @@ const SellerRegistration = () => {
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Contact Number
                                 </Typography>
                                 <p id='nameError' className={classes.style10}>
@@ -631,7 +712,7 @@ const SellerRegistration = () => {
                                 onChange={(e) => setcontactnumber({ ...contactnumber, value: e.target.value })}
                                 onFocus={() => setcontactnumber({ ...contactnumber, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
 
                         </div>
@@ -639,7 +720,7 @@ const SellerRegistration = () => {
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Full Name
                                 </Typography>
                                 <p id='nameError' className={classes.style10}>
@@ -657,7 +738,7 @@ const SellerRegistration = () => {
                                 onChange={(e) => setuserName({ ...userName, value: e.target.value })}
                                 onFocus={() => setuserName({ ...userName, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
 
                         </div>
@@ -668,7 +749,7 @@ const SellerRegistration = () => {
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
+                                <Typography variant='body2' className={classes.style3} textAlign='left'>
                                     Referral Code
                                 </Typography>
                             </div>
@@ -682,63 +763,69 @@ const SellerRegistration = () => {
                                 onChange={(e) => setrefferalcode({ ...refferalcode, value: e.target.value })}
                                 onFocus={() => setrefferalcode({ ...refferalcode, isTouched: true })}
                                 InputProps={style2}
-                                style={style}
+                                className={classes.style}
                             />
 
                         </div>
-
-                        <div className={classes.style7}>
-                            <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
-                                    Password
-                                </Typography>
-                                <p id='nameError' className={classes.style10}>
-                                    *
-                                </p>
-                            </div>
+                        {viewer?._id ?
+                            <></> :
+                            <>
 
 
-                            <TextField
-                                type='password'
-                                size='small'
-                                variant='standard'
-                                placeholder='Enter Password'
-                                value={password.value}
-                                onChange={(e) => setPassword({ ...password, value: e.target.value })}
-                                onFocus={() => setPassword({ ...password, isTouched: true })}
-                                InputProps={style2}
-                                style={style}
-                            />
-
-                        </div>
-                        {password.isTouched && password.value.length < 8 ? <PasswordErrorMessage /> : null}
-                        <div className={classes.style7}>
-                            <div className={classes.style11}>
-                                <Typography variant='body2' style={style3} textAlign='left'>
-                                    Confirm Password
-                                </Typography>
-                                <p id='nameError' className={classes.style10}>
-                                    *
-                                </p>
-                            </div>
+                                <div className={classes.style7}>
+                                    <div className={classes.style11}>
+                                        <Typography variant='body2' className={classes.style3} textAlign='left'>
+                                            Password
+                                        </Typography>
+                                        <p id='nameError' className={classes.style10}>
+                                            *
+                                        </p>
+                                    </div>
 
 
-                            <TextField
-                                type='password'
-                                size='small'
-                                variant='standard'
-                                placeholder='Re-enter Password'
-                                value={password2.value}
-                                onChange={(e) => setPassword2({ ...password2, value: e.target.value })}
-                                onFocus={() => setPassword2({ ...password2, isTouched: true })}
-                                InputProps={style2}
-                                style={style}
-                            />
+                                    <TextField
+                                        type='password'
+                                        size='small'
+                                        variant='standard'
+                                        placeholder='Enter Password'
+                                        value={password.value}
+                                        onChange={(e) => setPassword({ ...password, value: e.target.value })}
+                                        onFocus={() => setPassword({ ...password, isTouched: true })}
+                                        InputProps={style2}
+                                        className={classes.style}
+                                    />
 
-                        </div>
-                        {password2.isTouched && password.value !== password2.value ? (
-                            <MissmatchPasswordErrorMessage />
-                        ) : null}
+                                </div>
+                                {password.isTouched && password.value.length < 8 ? <PasswordErrorMessage /> : null}
+                                <div className={classes.style7}>
+                                    <div className={classes.style11}>
+                                        <Typography variant='body2' className={classes.style3} textAlign='left'>
+                                            Confirm Password
+                                        </Typography>
+                                        <p id='nameError' className={classes.style10}>
+                                            *
+                                        </p>
+                                    </div>
+
+
+                                    <TextField
+                                        type='password'
+                                        size='small'
+                                        variant='standard'
+                                        placeholder='Re-enter Password'
+                                        value={password2.value}
+                                        onChange={(e) => setPassword2({ ...password2, value: e.target.value })}
+                                        onFocus={() => setPassword2({ ...password2, isTouched: true })}
+                                        InputProps={style2}
+                                        className={classes.style}
+                                    />
+
+                                </div>
+                                {password2.isTouched && password.value !== password2.value ? (
+                                    <MissmatchPasswordErrorMessage />
+                                ) : null}
+                            </>
+                        }
 
                         <p id='nameError' className={classes.style9}>
                             {errors.valid ? errors.value : ''}
@@ -763,12 +850,7 @@ const SellerRegistration = () => {
                                     target="_blank"
                                     href="/en/SellerTermsConditionPage"
                                 >
-                                    <Typography variant='body2' style={{
-                                        fontWeight: 700,
-                                        fontSize: '18px',
-                                        fontStyle: "italic",
-                                        marginTop: "6%"
-                                    }} textAlign='left'>
+                                    <Typography variant='body2' className={classes.terms} textAlign='left'>
                                         Agree  Terms & Conditions
                                     </Typography>
                                 </a>
@@ -793,7 +875,7 @@ const SellerRegistration = () => {
 
                     </FormControl>
                 </div>
-            </Box>
+            </div>
 
         </div >
     )
