@@ -260,7 +260,7 @@ const SellerRegistration = () => {
 
 
     const [userName, setuserName] = React.useState({
-        value: '',
+        value: viewer?.firstName ? viewer?.firstName : "",
         isTouched: false,
     })
     const [storeName, setstoreName] = React.useState({
@@ -268,7 +268,7 @@ const SellerRegistration = () => {
         isTouched: false,
     })
     const [useremail, setuseremail] = React.useState({
-        value: '',
+        value: viewer?.primaryEmailAddress ? viewer?.primaryEmailAddress : "",
         isTouched: false,
     })
     const [address1, setaddress1] = React.useState({
@@ -427,7 +427,7 @@ const SellerRegistration = () => {
         return <p className={classes.style9}>Postal Code Field is required</p>
     }
 
-    React.useEffect(() => { }, [viewer])
+    React.useEffect(() => { console.log("vieweree,", viewer) }, [viewer])
 
     return (
         <div className={classes.styleofdiv}>
@@ -767,59 +767,65 @@ const SellerRegistration = () => {
                             />
 
                         </div>
-
-                        <div className={classes.style7}>
-                            <div className={classes.style11}>
-                                <Typography variant='body2' className={classes.style3} textAlign='left'>
-                                    Password
-                                </Typography>
-                                <p id='nameError' className={classes.style10}>
-                                    *
-                                </p>
-                            </div>
+                        {viewer?._id ?
+                            <></> :
+                            <>
 
 
-                            <TextField
-                                type='password'
-                                size='small'
-                                variant='standard'
-                                placeholder='Enter Password'
-                                value={password.value}
-                                onChange={(e) => setPassword({ ...password, value: e.target.value })}
-                                onFocus={() => setPassword({ ...password, isTouched: true })}
-                                InputProps={style2}
-                                className={classes.style}
-                            />
-
-                        </div>
-                        {password.isTouched && password.value.length < 8 ? <PasswordErrorMessage /> : null}
-                        <div className={classes.style7}>
-                            <div className={classes.style11}>
-                                <Typography variant='body2' className={classes.style3} textAlign='left'>
-                                    Confirm Password
-                                </Typography>
-                                <p id='nameError' className={classes.style10}>
-                                    *
-                                </p>
-                            </div>
+                                <div className={classes.style7}>
+                                    <div className={classes.style11}>
+                                        <Typography variant='body2' className={classes.style3} textAlign='left'>
+                                            Password
+                                        </Typography>
+                                        <p id='nameError' className={classes.style10}>
+                                            *
+                                        </p>
+                                    </div>
 
 
-                            <TextField
-                                type='password'
-                                size='small'
-                                variant='standard'
-                                placeholder='Re-enter Password'
-                                value={password2.value}
-                                onChange={(e) => setPassword2({ ...password2, value: e.target.value })}
-                                onFocus={() => setPassword2({ ...password2, isTouched: true })}
-                                InputProps={style2}
-                                className={classes.style}
-                            />
+                                    <TextField
+                                        type='password'
+                                        size='small'
+                                        variant='standard'
+                                        placeholder='Enter Password'
+                                        value={password.value}
+                                        onChange={(e) => setPassword({ ...password, value: e.target.value })}
+                                        onFocus={() => setPassword({ ...password, isTouched: true })}
+                                        InputProps={style2}
+                                        className={classes.style}
+                                    />
 
-                        </div>
-                        {password2.isTouched && password.value !== password2.value ? (
-                            <MissmatchPasswordErrorMessage />
-                        ) : null}
+                                </div>
+                                {password.isTouched && password.value.length < 8 ? <PasswordErrorMessage /> : null}
+                                <div className={classes.style7}>
+                                    <div className={classes.style11}>
+                                        <Typography variant='body2' className={classes.style3} textAlign='left'>
+                                            Confirm Password
+                                        </Typography>
+                                        <p id='nameError' className={classes.style10}>
+                                            *
+                                        </p>
+                                    </div>
+
+
+                                    <TextField
+                                        type='password'
+                                        size='small'
+                                        variant='standard'
+                                        placeholder='Re-enter Password'
+                                        value={password2.value}
+                                        onChange={(e) => setPassword2({ ...password2, value: e.target.value })}
+                                        onFocus={() => setPassword2({ ...password2, isTouched: true })}
+                                        InputProps={style2}
+                                        className={classes.style}
+                                    />
+
+                                </div>
+                                {password2.isTouched && password.value !== password2.value ? (
+                                    <MissmatchPasswordErrorMessage />
+                                ) : null}
+                            </>
+                        }
 
                         <p id='nameError' className={classes.style9}>
                             {errors.valid ? errors.value : ''}
