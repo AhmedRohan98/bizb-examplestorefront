@@ -1,6 +1,10 @@
 query viewer {
   viewer {
     _id
+    isSeller
+    storeInfo{
+      storeName
+    }
     addressBook {
       edges {
         node {

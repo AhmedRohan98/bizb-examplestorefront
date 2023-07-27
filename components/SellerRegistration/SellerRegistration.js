@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import useSellerRegistration from '../../hooks/SellerRegistration/useSellerRegistration'
 import hashPassword from '../../lib/utils/hashPassword'
 import { ToastContainer, toast } from "react-toastify";
+
 import CloseIcon from "@material-ui/icons/Close";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -160,6 +161,18 @@ const SellerRegistration = () => {
 
             },
 
+
+        },
+        styleAgree: {
+
+            display: 'flex',
+            alignItems: 'start',
+            margin: 0,
+            width: "40%",
+            [theme.breakpoints.down("sm")]: {
+                width: "70%",
+
+            },
 
         },
         style7: {
@@ -311,7 +324,7 @@ const SellerRegistration = () => {
         value: '',
         isTouched: false,
     })
-
+    const [isAuth, setIsAuth] = React.useState(false);
     const [emailError, setEmailError] = React.useState("")
 
     const [userError, setuserError] = React.useState('')
@@ -333,13 +346,40 @@ const SellerRegistration = () => {
     const handleClose = () => setOpen(false)
 
     const handleSubmit = () => {
+        seterros({ value: '', valid: false });
+        setuserError('');
+
+        console.log("ddt",
+            userName.value !== '' &&
+            reg.test(useremail.value) === true &&
+            phoneNumreg.test(contactnumber.value) === true &&
+            contactnumber.value !== '' &&
+            (isAuth || (!isAuth && password.value.length >= 8 &&
+                password.value === password2.value)) &&
+            storeName.value !== '' &&
+            address1.value !== '' &&
+            country.value !== '' &&
+            zipcode.value !== '')
+        console.log("ddt", {
+            email: useremail.value,
+            storeName: storeName.value,
+            address1: address1.value,
+            address2: address2.value,
+            state: state.value,
+            city: city.value,
+            country: country.value,
+            postalcode: zipcode.value,
+            phone: contactnumber.value,
+            fullName: userName.value,
+            password: hashPassword(password.value)
+        })
         if (
             userName.value !== '' &&
             reg.test(useremail.value) === true &&
             phoneNumreg.test(contactnumber.value) === true &&
             contactnumber.value !== '' &&
-            password.value.length >= 8 &&
-            password.value === password2.value &&
+            (isAuth || (!isAuth && password.value.length >= 8 &&
+                password.value === password2.value)) &&
             storeName.value !== '' &&
             address1.value !== '' &&
             country.value !== '' &&
@@ -350,7 +390,8 @@ const SellerRegistration = () => {
             seterros({ ...errors, value: 'Done', valid: false })
         } else {
             setLoginDisable(false)
-            seterros({ ...errors, value: 'Not Completed', valid: true })
+            console.log("errors", errors)
+            seterros({ ...errors, value: 'Complete all required fields', valid: true })
 
 
         }
@@ -381,6 +422,10 @@ const SellerRegistration = () => {
             setLoginDisable(false)
             clearForm()
             toast.success("You're successfully registered as a Seller!");
+            setTimeout(() => {
+                window.location.href = "https://bizb.store/dashboard/publishproduct";
+
+            }, 300)
 
             // clearForm()
         } catch (error) {
@@ -427,7 +472,20 @@ const SellerRegistration = () => {
         return <p className={classes.style9}>Postal Code Field is required</p>
     }
 
-    React.useEffect(() => { console.log("vieweree,", viewer) }, [viewer])
+    React.useEffect(() => {
+        if (viewer?._id) {
+
+            console.log("isAuth", viewer);
+            setIsAuth(true);
+            setuseremail({ value: viewer?.primaryEmailAddress, isTouched: false })
+            setuserName({ value: viewer?.name ? viewer?.name : "", isTouched: false })
+            if (viewer?.isSeller&& viewer?.storeInfo?.storeName) {
+                window.location.href = "https://bizb.store/dashboard/publishproduct";
+
+            }
+        }
+
+    }, [viewer])
 
     return (
         <div className={classes.styleofdiv}>
@@ -493,8 +551,14 @@ const SellerRegistration = () => {
                         variant='body2'
                         className={classes.text1}
                     >
-                        Registration
+                        Register as a Seller
                     </Typography>
+                    <Typography
+                        variant='p'
+                        className={classes.text1}
+                    >
+                    </Typography>
+
                 </div>
                 <div className={classes.style6}>
                     <FormControl>
@@ -514,6 +578,7 @@ const SellerRegistration = () => {
                                 variant='standard'
                                 placeholder='Enter your Email'
                                 value={useremail.value}
+                                disabled={isAuth}
                                 onChange={(e) => setuseremail({ ...useremail, value: e.target.value })}
                                 onBlur={() => setuseremail({ ...useremail, isTouched: true })}
                                 InputProps={style2}
@@ -634,6 +699,7 @@ const SellerRegistration = () => {
                             <TextField
                                 type='text'
                                 size='small'
+                                name="city"
                                 variant='standard'
                                 placeholder='Enter your City name'
                                 value={city.value}
@@ -655,6 +721,8 @@ const SellerRegistration = () => {
                             <TextField
                                 type='text'
                                 size='small'
+                                name="state"
+
                                 variant='standard'
                                 placeholder='Enter your State name'
                                 value={state.value}
@@ -681,6 +749,8 @@ const SellerRegistration = () => {
                                 type='text'
                                 size='small'
                                 variant='standard'
+                                name="zipcode"
+
                                 placeholder='Enter Postcode'
                                 value={zipcode.value}
                                 onChange={(e) => setzipcode({ ...zipcode, value: e.target.value })}
@@ -718,6 +788,7 @@ const SellerRegistration = () => {
                         </div>
                         {contactnumber.isTouched && phoneNumreg.test(contactnumber.value) !== true ? <PhoneErrorMessage /> : null}
 
+
                         <div className={classes.style7}>
                             <div className={classes.style11}>
                                 <Typography variant='body2' className={classes.style3} textAlign='left'>
@@ -742,6 +813,7 @@ const SellerRegistration = () => {
                             />
 
                         </div>
+
                         {userName.isTouched && userName.value === '' ? <UserErrorMessage /> : null}
                         {userError ? <p className={classes.style9}>{userError}</p> : null}
 
@@ -767,7 +839,7 @@ const SellerRegistration = () => {
                             />
 
                         </div>
-                        {viewer?._id ?
+                        {isAuth ?
                             <></> :
                             <>
 
@@ -834,15 +906,14 @@ const SellerRegistration = () => {
                             {error ? error : ""}
                         </p>
                         <div className={classes.checkboxdiv}>
+
                             <FormControlLabel
                                 control={<Checkbox checked={checkTerms} onChange={handleChangeTerms} className={classes.checkbox} />}
                             />
 
-                            <div className={classes.style11}>
+                            <div className={classes.styleAgree}>
 
-                                <p id='nameError' className={classes.style10}>
-                                    *
-                                </p>
+
                                 <a
                                     style={{
                                         color: "inherit",
@@ -851,7 +922,7 @@ const SellerRegistration = () => {
                                     href="/en/SellerTermsConditionPage"
                                 >
                                     <Typography variant='body2' className={classes.terms} textAlign='left'>
-                                        Agree  Terms & Conditions
+                                        I agree to the BizB <span style={{ color: "#FDC114" }}>Terms & Conditions</span>
                                     </Typography>
                                 </a>
                             </div>
