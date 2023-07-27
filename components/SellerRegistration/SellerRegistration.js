@@ -560,7 +560,6 @@ const SellerRegistration = () => {
                                 InputProps={style2}
                                 style={style}
                             />
-                            {city.isTouched && city.value === '' ? <UserErrorMessage /> : null}
 
                         </div>
 
