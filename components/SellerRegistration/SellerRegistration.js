@@ -479,7 +479,7 @@ const SellerRegistration = () => {
             setIsAuth(true);
             setuseremail({ value: viewer?.primaryEmailAddress, isTouched: false })
             setuserName({ value: viewer?.name ? viewer?.name : "", isTouched: false })
-            if (viewer?.isSeller) {
+            if (viewer?.isSeller&& viewer?.storeInfo?.storeName) {
                 window.location.href = "https://bizb.store/dashboard/publishproduct";
 
             }
