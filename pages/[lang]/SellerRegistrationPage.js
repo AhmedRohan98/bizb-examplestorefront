@@ -149,7 +149,8 @@ const useStyles = makeStyles((theme) => ({
     profilebaner: {
         width: "100%",
         padding: "5%",
-        paddingBottom: 0
+        paddingBottom: 0,
+
 
     },
 }));
@@ -176,13 +177,13 @@ function SellerRegistrationPage(props) {
                 <title>{shop && shop.name} | Seller Registration</title>
                 <meta name="description" content={shop && shop.description} />
             </Helmet>
-            <Grid container md={12}>
+            <Grid container md={12} sm={12} >
                 <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
 
                 <SellerRegistration />
             </Grid>
 
-        </Layout>
+        </Layout >
     );
 }
 
