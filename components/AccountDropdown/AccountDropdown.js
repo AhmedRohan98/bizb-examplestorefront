@@ -90,7 +90,9 @@ const AccountDropdown = ({ headerType }) => {
   const toggleOpen = (event) => {
     setAnchorElement(event.currentTarget);
   };
-
+  const handleProfile=()=>{
+    window.location.href = "https://bizb.store/dashboard/myprofile";
+  }
   return (
     <Fragment headerType>
       <EntryModal onClose={onClose} resetToken={resetToken} />
@@ -136,9 +138,9 @@ const AccountDropdown = ({ headerType }) => {
           {isAuthenticated ? (
             <Fragment>
               <div style={{ marginBottom: "20px" }}>
-                <Link href="https://bizb.store/dashboard/myprofile">
+                <div  onClick={handleProfile}>
                   <span className={classes.profile}>Profile</span>
-                </Link>
+                </div>
               </div>
               <div style={{ cursor: "pointer", marginBottom: "24px" }} onClick={handleSignOut}>
                 <span className={classes.profile} style={{ cursor: "pointer" }}>
