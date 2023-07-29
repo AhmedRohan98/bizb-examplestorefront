@@ -136,7 +136,7 @@ const AccountDropdown = ({ headerType }) => {
           {isAuthenticated ? (
             <Fragment>
               <div style={{ marginBottom: "20px" }}>
-                <Link href="/profile/address">
+                <Link href="https://bizb.store/dashboard/myprofile">
                   <span className={classes.profile}>Profile</span>
                 </Link>
               </div>
