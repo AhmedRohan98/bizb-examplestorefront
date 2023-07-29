@@ -56,6 +56,8 @@ import Popover from "@material-ui/core/Popover";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
 import variantById from "../../../lib/utils/variantById";
+import formatSize from "../../../lib/utils/formatSize";
+
 import inject from "../../../hocs/inject";
 import Layout from "../../../components/Layout";
 
