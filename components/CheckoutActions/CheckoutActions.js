@@ -680,8 +680,7 @@ const CheckoutActions = (prop) => {
     const productSlug = item;
 
     const url = `/en/product/${productSlug}`;
-    const newWindow = window.open(url, "_blank");
-    newWindow.opener.focus();
+    window.lo
   };
 
   const CartDataDisplay = () => {
