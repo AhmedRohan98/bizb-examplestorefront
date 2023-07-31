@@ -18,13 +18,16 @@ import "swiper/swiper-bundle.css";
 import "../styles/global.css";
 import "../assets/fonts/style.css";
 import "react-toastify/dist/ReactToastify.css";
-import { StripeWrapper } from "components/StripeCard";
+// import { StripeWrapper } from "components/StripeCard";
 
-if (process.env.isDevelopment === "production") {
+if (process?.env?.NODE_ENV === "production") {
   // Override the console.log method to do nothing
   console.log = function () { };
   console.error = function () { };
   console.warn = function () { };
+  console.info = function () { };
+  console.trace= function () { };
+  console.debug = function () { };
 }
 
 export default class App extends NextApp {
@@ -54,7 +57,7 @@ export default class App extends NextApp {
     // }, [router.events])
 
     return (
-      <StripeWrapper>
+      // <StripeWrapper>
         <ContextProviders pageProps={pageProps}>
           <ComponentsProvider value={components}>
             <MuiThemeProvider theme={theme}>
@@ -63,7 +66,7 @@ export default class App extends NextApp {
             </MuiThemeProvider>
           </ComponentsProvider>
         </ContextProviders>
-      </StripeWrapper>
+      // </StripeWrapper>
     );
   }
 }

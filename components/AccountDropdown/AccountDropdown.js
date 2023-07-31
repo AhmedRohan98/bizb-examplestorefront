@@ -91,7 +91,7 @@ const AccountDropdown = ({ headerType }) => {
     setAnchorElement(event.currentTarget);
   };
   const handleProfile=()=>{
-    window.location.href = "https://bizb.store/dashboard/myprofile";
+    window.location.href = "https://bizb.store/dashboard/myprofile?role=1";
   }
   return (
     <Fragment headerType>
