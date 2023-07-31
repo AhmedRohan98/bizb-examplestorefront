@@ -63,7 +63,7 @@ function SellerPublicProfile(props) {
       position: "relative",
     },
     image: {
-      width: "312px", // Reduced by 1px to create space for the border
+      width: "275px", // Reduced by 1px to create space for the border
       maxHeight: "600px",
       marginTop: "1px",
       borderRadius: "10px",
@@ -72,20 +72,20 @@ function SellerPublicProfile(props) {
       objectFit: "cover",
       cursor: "pointer",
       [theme.breakpoints.up("lg")]: {
-        width: "312px", // Reduced by 1px to create space for the border
+        width: "275px", // Reduced by 1px to create space for the border
   
       },
       [theme.breakpoints.down("lg")]: {
-        width: "calc(16.5rem - 0.5vw)", // Reduced by 1px to create space for the border
+        width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
   
       },
       [theme.breakpoints.down("sm")]: {
-        width: "312px", // Reduced by 1px to create space for the border
+        width: "275px", // Reduced by 1px to create space for the border
   
       },
     },
     // image: {
-    //   width: "312px", // Reduced by 1px to create space for the border
+    //   width: "275px", // Reduced by 1px to create space for the border
     //   maxHeight: "600px",
     //   marginTop: "1px",
     //   borderRadius: "10px",
