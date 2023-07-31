@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
   },
   image: {
-    width: "calc(16.5rem - 0.5vw)",
+    width: "calc(15rem - 0.5vw)",
     maxHeight: "450px",
     objectFit: "cover",
     borderRadius: "10px",

@@ -26,7 +26,7 @@
 /* Add a class to the Swiper container to target it with media queries */
   /* Default settings for larger screens */
   
-  .swiper-container-horizontal{
+  .react-slick .swiper-container-horizontal{
     height: 550px;
   }
   /* Mobile devices (max-width 767px) */
@@ -34,7 +34,7 @@
     .swiper-container{
       width: 100vw; /* Show only one slide on mobile, occupying full width */
     }
-    .swiper-container-horizontal{
+    .react-slick .swiper-container-horizontal{
       height: auto;
     }
   }
