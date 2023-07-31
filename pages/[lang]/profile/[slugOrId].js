@@ -14,6 +14,8 @@ import SellersCatalogItems from "containers/catalog/withSellerCatalogItem";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import variantById from "../../../lib/utils/variantById";
+
+import formatSize from "../../../lib/utils/formatSize";
 import { makeStyles } from "@material-ui/core/styles";
 import inject from "../../../hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
@@ -617,15 +619,7 @@ function SellerPublicProfile(props) {
                         >
                           Size{" "}
                           <span className={classes.sizes}>
-                            {size == 0
-                              ? "XL"
-                              : "S" || size == 1
-                              ? "L"
-                              : "S" || size == 2
-                              ? "M"
-                              : "S" || size == 3
-                              ? "S"
-                              : "S"}
+                            {formatSize(size,true)}
                           </span>
                         </Typography>
                         {isLoading[item?.node?.product?.productId] ? (
