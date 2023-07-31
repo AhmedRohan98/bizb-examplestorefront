@@ -192,7 +192,12 @@ const handleSearchSubmit = (event) => {
   setSearchLocal(searchQuery);
 };
 
-
+const handleProductDetail=(productSlug)=>{
+  
+  const url = `/en/product/${productSlug}`;
+  const newWindow = window.open(url, "_blank");
+  newWindow.opener.focus();
+}
 
 
 
@@ -269,7 +274,7 @@ const handleSearchSubmit = (event) => {
                     {filteredItems?.slice(0, 3)?.map((product) => {
                       // console.log(filteredItems, "fil");
                       return (
-                        <div key={product.node.product.id} className={classes.cartitem}>
+                        <div key={product.node.product.id} className={classes.cartitem} onClick={()=>handleProductDetail(product?.node?.product?.slug)}>
                           <img
                             src={product?.node?.product?.media[0]?.URLs?.large}
                             alt={product?.title}
