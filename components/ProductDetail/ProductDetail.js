@@ -271,7 +271,7 @@ const styles = (theme) => ({
     position: "relative",
     // display: "inlie-grid",
     margin: "0 auto",
-    width: "auto",
+    width: "560px",
     // minHeight: "600px",
     height: "550px",
     alignItems: "center",
