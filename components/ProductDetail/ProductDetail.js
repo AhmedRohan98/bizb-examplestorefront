@@ -976,11 +976,11 @@ const ProductDetail = ({ ...props }) => {
                                   width: 600,
                                   className: "images",
                                   height: 550,
-                                  src: slide.URLs.large,
+                                  src: slide.URLs.original ? slide.URLs.original : slide.URLs.large,
                                   sizes: "(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px",
                                 },
                                 largeImage: {
-                                  src: slide.URLs.large,
+                                  src: slide.URLs.original ? slide.URLs.original : slide.URLs.large,
                                   isFluidWidth: true,
                                   width: 1426,
                                   marginLeft: "100px",
