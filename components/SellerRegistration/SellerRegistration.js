@@ -19,6 +19,7 @@ import { ToastContainer, toast } from "react-toastify";
 import CloseIcon from "@material-ui/icons/Close";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const SellerRegistration = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
@@ -187,6 +188,21 @@ const SellerRegistration = () => {
 
             display: 'flex',
             justifyContent: 'center',
+
+        },
+        span: {
+            color: 'grey',
+            fontSize: '13px',
+            marginLeft: "24%",
+            fontStyle: "Italic",
+            margin: 0,
+            fontWeight: "500",
+            [theme.breakpoints.down("sm")]: {
+                fontSize: '9px',
+                marginLeft: "40%",
+
+
+            },
 
         },
         style9: {
@@ -479,7 +495,7 @@ const SellerRegistration = () => {
             setIsAuth(true);
             setuseremail({ value: viewer?.primaryEmailAddress, isTouched: false })
             setuserName({ value: viewer?.name ? viewer?.name : "", isTouched: false })
-            if (viewer?.isSeller&& viewer?.storeInfo?.storeName) {
+            if (viewer?.isSeller && viewer?.storeInfo?.storeName) {
                 window.location.href = "https://bizb.store/dashboard/publishproduct";
 
             }
@@ -772,7 +788,6 @@ const SellerRegistration = () => {
                                 </p>
                             </div>
 
-
                             <TextField
                                 type='text'
                                 size='small'
@@ -786,6 +801,7 @@ const SellerRegistration = () => {
                             />
 
                         </div>
+                        <span className={classes.span}>eg. 03xx-xxxxxxx</span>
                         {contactnumber.isTouched && phoneNumreg.test(contactnumber.value) !== true ? <PhoneErrorMessage /> : null}
 
 
