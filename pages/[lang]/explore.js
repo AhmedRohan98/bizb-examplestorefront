@@ -808,7 +808,7 @@ function Explore(props) {
   // console.log(props.totalcount, "propertiese");
 
   useEffect(() => {
-    uiStore?.setPageSize(15);
+    // uiStore?.setPageSize(15);
   }, []);
   useEffect(() => {
     const updatedItems = props?.cart?.items?.map((item) => {
@@ -1175,7 +1175,7 @@ function Explore(props) {
                           >
                             Size:{" "}
                             <span className={classes.sizes}>
-                              {formatSize(size,true)}
+                              {formatSize(size, true)}
                             </span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (
