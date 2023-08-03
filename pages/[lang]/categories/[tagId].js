@@ -1409,7 +1409,7 @@ function Categories(props) {
                       // console.log(cart?.items, "item");
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                      const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                      const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1559,7 +1559,7 @@ function Categories(props) {
           <div className={classes.main}>
             <div className={classes.gridroot}>
               <ResponsiveMasonry
-                columnsCountBreakPoints={{ 350: 1, 700: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+                columnsCountBreakPoints={{ 350: 2, 700: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
                 style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
               >
                 <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -1571,7 +1571,7 @@ function Categories(props) {
                     });
 
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                    const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                    const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                     const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                     const str = item.node.product.title;
                     const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1677,7 +1677,7 @@ function Categories(props) {
                               >
                                 Size
                                 <span className={classes.sizes}>
-                                 {formatSize(size,true)}
+                                  {formatSize(size, true)}
                                 </span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
