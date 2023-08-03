@@ -7,19 +7,34 @@ import { useFormik } from "formik";
 import Layout from "components/Layout";
 import withCart from "containers/cart/withCart";
 import { withApollo } from "lib/apollo/withApollo";
-import {SendContactForm} from "../../hooks/sendForm/sendform";
+import { SendContactForm } from "../../hooks/sendForm/sendform";
 import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
 import CloseIcon from "@material-ui/icons/Close";
 const useStyles = makeStyles((theme) => ({
- orderThankYou: {
-  display: "flex",
-  marginTop: theme.spacing(5),
-  justifyContent: "center",
-  paddingLeft:theme.spacing(50),
-  alignItems: "center",
-  width: "100%",
-},
+  orderThankYou: {
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+      display: "inherit",
+      paddingLeft: theme.spacing(5),
+
+    },
+    marginTop: theme.spacing(5),
+    justifyContent: "center",
+    paddingLeft: theme.spacing(50),
+    alignItems: "center",
+    width: "100%",
+  },
+  gridStyle: {
+    display: "flex",
+
+    [theme.breakpoints.down("sm")]: {
+      display: "block"
+      // display: "inherit",
+      // paddingLeft: theme.spacing(5),
+
+    },
+  },
   img: {
     marginBottom: theme.spacing(3),
   },
@@ -30,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   orderThankYoupara: {
     fontSize: "24px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "20px",
+    },
     color: "#333333",
     fontWeight: 500,
     marginTop: theme.spacing(2),
@@ -95,6 +113,7 @@ const useStyles = makeStyles((theme) => ({
       background: "#FDC114",
     },
   },
+  divStyle: { display: "flex", justifyContent: "center", alignItems: "center", },
   reviews: {
     display: "flex",
     marginTop: theme.spacing(),
@@ -169,6 +188,11 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "331px",
+    [theme.breakpoints.down("sm")]: {
+      width: "280px",
+
+
+    },
     borderRadius: "6px",
     color: "red",
     justifyContent: "center",
@@ -215,6 +239,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: theme.spacing(5),
+
+
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -256,6 +283,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "40px",
     marginTop: theme.spacing(10),
     border: "none",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+
+    },
     display: "flex",
     justifyContent: "flex-start",
   },
@@ -307,14 +339,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "center",
-    width:"60%",
+    width: "60%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+
     flexDirection: "column",
   },
 }));
 
 const CheckoutComplete = () => {
   const classes = useStyles();
-const [sendContactForm] = useMutation(SendContactForm);
+  const [sendContactForm] = useMutation(SendContactForm);
   const sendmail = Yup.object({
     FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
     email: Yup.string().email().required("Please enter your email"),
@@ -325,29 +361,29 @@ const [sendContactForm] = useMutation(SendContactForm);
     email: "",
     orderNotes: "",
   };
-const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetForm } = useFormik({
-  initialValues,
-  validationSchema: sendmail,
-  validateOnChange: true,
-  validateOnBlur: true,
-  onSubmit: async (values, action) => {
-    try {
-      const { data } = await sendContactForm({
-        variables: {
-          name: values.FullName.toString(),
-          email: values.email,
-          message: values.orderNotes.toString(),
-        },
-      });
-      // do something with the response data
-      resetForm();
-      toast.success("Email sent Successfully"); // reset the form after submitting
-    } catch (error) {
-      console.error(error);
-    }
-  },
-});
-    const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetForm } = useFormik({
+    initialValues,
+    validationSchema: sendmail,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: async (values, action) => {
+      try {
+        const { data } = await sendContactForm({
+          variables: {
+            name: values.FullName.toString(),
+            email: values.email,
+            message: values.orderNotes.toString(),
+          },
+        });
+        // do something with the response data
+        resetForm();
+        toast.success("Email sent Successfully"); // reset the form after submitting
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+  const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   return (
     <>
@@ -374,9 +410,9 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetFo
             }}
           />{" "}
           <div className={classes.orderThankYou}>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Grid container xs={12}>
-                <Grid item xs={6} className={classes.contactus}>
+            <div className={classes.divStyle}>
+              <Grid container xs={12} className={classes.gridStyle} >
+                <Grid item xs={12} md={6} lg={6} className={classes.contactus}>
                   <Typography variant="h3">Let’s Talk</Typography>
                   <div className={classes.mainheading}>
                     <Typography variant="h4" className={classes.orderThankYoupara}>
@@ -397,8 +433,16 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetFo
                     </Typography>
                   </div>
                   <div className={classes.socialmediafo}>
-                    <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
-                    <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
+                    <a
+                      target="_blank"
+                      href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+                    >
+                      <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img></a>
+                    <a
+                      target="_blank"
+                      href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+                    >
+                      <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img></a>
                     <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
                   </div>
                 </Grid>
@@ -491,7 +535,7 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched, resetFo
               </Grid>
             </div>
           </div>
-        </Layout>
+        </Layout >
       )}
     </>
   );
