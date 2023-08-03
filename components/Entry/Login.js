@@ -296,7 +296,7 @@ export default function Login(props) {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton onClick={handleClickShowPassword} edge="end" classes={{ root: classes.iconButtonRoot }}>
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     ),
