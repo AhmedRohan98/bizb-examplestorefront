@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 const OurBlogs = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
-     
+
       // paddingRight: "50px",
     },
     look: {
@@ -63,7 +63,7 @@ const OurBlogs = () => {
     mainheading: {
       display: "flex",
       marginTop: "60px",
-      marginBottom:"60px",
+      marginBottom: "60px",
       justifyContent: "center",
       textTransform: "uppercase",
       position: "relative",
@@ -96,7 +96,11 @@ const OurBlogs = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
- 
+      width: "100%",
+      [theme.breakpoints.down(600)]: {
+        paddingLeft: "10%",
+      },
+
     },
     spanofnextword: {
       color: "#FDC114",
@@ -130,7 +134,7 @@ const OurBlogs = () => {
               </a>
             </Typography>
           </Box>
-          
+
         </Grid>
         <Grid item>
           <Box className={classes.wardrobe}>

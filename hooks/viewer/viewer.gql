@@ -2,7 +2,7 @@ query viewer {
   viewer {
     _id
     isSeller
-    storeInfo{
+    storeInfo {
       storeName
     }
     addressBook {
@@ -23,6 +23,10 @@ query viewer {
           region
         }
       }
+    }
+    adminUIShops {
+      _id
+      name
     }
     emailRecords {
       address
