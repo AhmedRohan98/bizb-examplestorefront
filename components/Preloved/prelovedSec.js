@@ -166,7 +166,7 @@ const Preloved = (props) => {
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
           <img src={res?.page5.heroMediaUrl} className={classes.imagess} />
-          
+
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page5.displayTitle}
@@ -190,9 +190,10 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page6.displayTitle}
             </Typography>
-            <a href="https://bizb.store/vendor-register/" target="_blank">
+            <a href="/en/SellerRegistrationPage"
+              target="_blank">
               <Button className={classes.buttonshop}>
-              
+
                 <h4 className={classes.buttonshopt}>Sell Now</h4>
               </Button>
             </a>
@@ -221,7 +222,7 @@ const Preloved = (props) => {
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-             
+
               {res?.page3.displayTitle}
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page3._id)}>
