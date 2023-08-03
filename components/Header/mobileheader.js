@@ -65,11 +65,11 @@ const Mobileheader = (props) => {
         </div>
       </a>
 
-      <a href="https://bizb.store/vendor-register/">
+      <a href="/en/SellerRegistrationPage">
         <div className={classes.mobileviewfixed}>
           {" "}
           <img src="/app-section/sell-icn.svg" />
-          <a target="_blank" href="https://bizb.store/how-to-sell/">
+          <a target="_blank" href="/en/SellerRegistrationPage">
             <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
               {" "}
               Sell

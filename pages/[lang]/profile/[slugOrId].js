@@ -75,15 +75,15 @@ function SellerPublicProfile(props) {
       cursor: "pointer",
       [theme.breakpoints.up("lg")]: {
         width: "275px", // Reduced by 1px to create space for the border
-  
+
       },
       [theme.breakpoints.down("lg")]: {
         width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
-  
+
       },
       [theme.breakpoints.down("sm")]: {
         width: "275px", // Reduced by 1px to create space for the border
-  
+
       },
     },
     // image: {
@@ -115,13 +115,13 @@ function SellerPublicProfile(props) {
       justifyContent: "center",
       alignItems: "flex-start",
     },
-    
-  cartsize: {
-    display: "flex",
-    marginLeft: theme.spacing(0.5),
-    justifyContent: "end",
-    alignItems: "center",
-  },
+
+    cartsize: {
+      display: "flex",
+      marginLeft: theme.spacing(0.5),
+      justifyContent: "end",
+      alignItems: "center",
+    },
     carttitle: {
       display: "flex",
       marginLeft: theme.spacing(1),
@@ -172,7 +172,7 @@ function SellerPublicProfile(props) {
       maxHeight: "700px",
       width: "315px",
       borderRadius: "5px",
-     
+
       // border: "1px solid #9C9C9C",
       gridRowEnd: "span 1",
       flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
@@ -229,12 +229,12 @@ function SellerPublicProfile(props) {
   }));
   // console.log(props.totalcount, "propertiese");
   const router = useRouter();
-  
-   const shop = useShop();
+
+  const shop = useShop();
   const { slugOrId } = router.query;
   useEffect(() => {
-     uiStore?.setPageSize(15);
- 
+    uiStore?.setPageSize(15);
+
     uiStore?.setsellerId(slugOrId);
   }, [slugOrId]);
   useEffect(() => {
@@ -341,92 +341,92 @@ function SellerPublicProfile(props) {
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
   const classes = useStyles();
- const profile = props.catalogItems[0]?.node?.product?.variants[0]?.uploadedBy;  
-   const clickHandler = (item) => {
-     const productSlug = item;
+  const profile = props.catalogItems[0]?.node?.product?.variants[0]?.uploadedBy;
+  const clickHandler = (item) => {
+    const productSlug = item;
 
-     const url = `/en/product/${productSlug}`;
-     const newWindow = window.open(url, "_blank");
-     newWindow.opener.focus();
-    };  
-    useEffect(() => {
-      // Simulate an asynchronous data loading process
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000); // Adjust the delay as needed
-    }, []);              
+    const url = `/en/product/${productSlug}`;
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener.focus();
+  };
+  useEffect(() => {
+    // Simulate an asynchronous data loading process
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Adjust the delay as needed
+  }, []);
   return (
     <Layout shop={shop}>
-   
-        <div className={classes.main}>
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeButton={<CustomCloseButton />}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-            background="green"
-            toastStyle={{
-              backgroundColor: "#FDC114",
-              color: "black",
-              fontSize: "16px",
-              fontFamily: "Lato",
-              textTransform: "capitalize",
-            }}
-          />
-          <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
-          <div className="sellerProfile">
-            <Grid container className="publicProfile__profileInfoWrapper">
-              <Grid xs={12} item className="publicProfile__profileInfoSection">
-                <div
-                  className="sellerProfile__img"
-                  style={{
-                    backgroundImage: profile
-                      ? profile.image
-                        ? "URL(" + profile.profilePhoto + ")"
-                        : "URL(" + "/images/seller-placeholder.png" + ")"
-                      : "URL(" + "/images/seller-placeholder.png" + ")",
-                  }}
-                >
-                  {/* <div className="sellerProfile__badge"> 
+
+      <div className={classes.main}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeButton={<CustomCloseButton />}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          background="green"
+          toastStyle={{
+            backgroundColor: "#FDC114",
+            color: "black",
+            fontSize: "16px",
+            fontFamily: "Lato",
+            textTransform: "capitalize",
+          }}
+        />
+        <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+        <div className="sellerProfile">
+          <Grid container className="publicProfile__profileInfoWrapper">
+            <Grid xs={12} item className="publicProfile__profileInfoSection">
+              <div
+                className="sellerProfile__img"
+                style={{
+                  backgroundImage: profile
+                    ? profile.image
+                      ? "URL(" + profile.profilePhoto + ")"
+                      : "URL(" + "/images/seller-placeholder.png" + ")"
+                    : "URL(" + "/images/seller-placeholder.png" + ")",
+                }}
+              >
+                {/* <div className="sellerProfile__badge"> 
                           <img src={profile ? profile.profilePhoto?profile.profilePhoto:"/icons/medal.svg":"/icons/medal.svg"} />
                         </div> */}
+              </div>
+              <div className="publicProfile__infoContainer">
+                <div className="sellerProfile__infoRow publicProfile__infoRow">
+                  <Typography className="publicProfile__name" variant="h1">
+                    <span>{profile && profile?.storeName ? profile?.storeName : profile?.name ? profile?.name : profile?.name}</span>
+                    {profile && profile && <img src="/icons/tickIcon.png" />}
+                  </Typography>
                 </div>
-                <div className="publicProfile__infoContainer">
-                  <div className="sellerProfile__infoRow publicProfile__infoRow">
-                    <Typography className="publicProfile__name" variant="h1">
-                      <span>{profile && profile?.storeName?profile?.storeName: profile?.name ? profile?.name : profile?.name}</span>
-                      {profile && profile && <img src="/icons/tickIcon.png" />}
-                    </Typography>
-                  </div>
-                  <Hidden xsDown>
-                    <>
-                      {profile && profile?.name && (
-                        <Typography className="sellerProfile__status" variant="h5">
-                          {profile.uname}
-                        </Typography>
-                      )}
-                    </>
-                  </Hidden>
-                  <Hidden xsDown>
-                    <Grid container>
-                      <Grid item xs={12} md={8} lg={6} xl={4}>
-                        <div className="publicProfile__infoMeta">
-                          <div className="sellerProfile__infoMetaRow">
-                            <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                              {props.totalcount}
-                            </Typography>
-                            <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                              {" "}
-                              Products
-                            </Typography>
-                          </div>
-                          {/* <div className="sellerProfile__infoMetaRow">
+                <Hidden xsDown>
+                  <>
+                    {profile && profile?.name && (
+                      <Typography className="sellerProfile__status" variant="h5">
+                        {profile.uname}
+                      </Typography>
+                    )}
+                  </>
+                </Hidden>
+                <Hidden xsDown>
+                  <Grid container>
+                    <Grid item xs={12} md={8} lg={6} xl={4}>
+                      <div className="publicProfile__infoMeta">
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            {props.totalcount}
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                            Products
+                          </Typography>
+                        </div>
+                        {/* <div className="sellerProfile__infoMetaRow">
                           <Typography className="sellerProfile__infoMetaContent" variant="h5">
                             o
                           </Typography>
@@ -444,27 +444,27 @@ function SellerPublicProfile(props) {
                             Following
                           </Typography>
                         </div> */}
-                        </div>
-                      </Grid>
+                      </div>
                     </Grid>
-                  </Hidden>
-                </div>
-              </Grid>
-              <Grid xs={12}>
-                <Hidden smUp>
-                  <Grid container>
-                    <Grid item xs={12} md={8} lg={6} xl={4}>
-                      <div className="publicProfile__infoMeta">
-                        <div className="sellerProfile__infoMetaRow">
-                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                            {props.totalcount}
-                          </Typography>
-                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                            {" "}
-                            Products
-                          </Typography>
-                        </div>
-                        {/* <div className="sellerProfile__infoMetaRow">
+                  </Grid>
+                </Hidden>
+              </div>
+            </Grid>
+            <Grid xs={12}>
+              <Hidden smUp>
+                <Grid container>
+                  <Grid item xs={12} md={8} lg={6} xl={4}>
+                    <div className="publicProfile__infoMeta">
+                      <div className="sellerProfile__infoMetaRow">
+                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                          {props.totalcount}
+                        </Typography>
+                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                          {" "}
+                          Products
+                        </Typography>
+                      </div>
+                      {/* <div className="sellerProfile__infoMetaRow">
                         <Typography className="sellerProfile__infoMetaContent" variant="h5">
                           0
                         </Typography>
@@ -482,16 +482,16 @@ function SellerPublicProfile(props) {
                           Following
                         </Typography>
                       </div> */}
-                      </div>
-                    </Grid>
+                    </div>
                   </Grid>
-                </Hidden>
-              </Grid>
+                </Grid>
+              </Hidden>
             </Grid>
-          </div>
+          </Grid>
+        </div>
 
-          <div className={classes.headermain}>
-            {/* <button onClick={notify}>Notify!</button>
+        <div className={classes.headermain}>
+          {/* <button onClick={notify}>Notify!</button>
         <ToastContainer
           position="bottom-left"
           autoClose={5000}
@@ -506,157 +506,157 @@ function SellerPublicProfile(props) {
           background="green"
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
-          </div>
-          <div className={classes.gridroot}>
-            <ResponsiveMasonry
-              columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-            >
-              <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                {props?.catalogItems?.map((item, key) => {
-                  const cartitem = cart?.items;
-                  const isDisabled = cartitem?.some((data) => {
-                    return data.productConfiguration.productId === item?.node?.product?.productId;
-                  });
-                  // console.log(cart?.items, "item");
-                  // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                  const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
-                  const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+        </div>
+        <div className={classes.gridroot}>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          >
+            <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+              {props?.catalogItems?.map((item, key) => {
+                const cartitem = cart?.items;
+                const isDisabled = cartitem?.some((data) => {
+                  return data.productConfiguration.productId === item?.node?.product?.productId;
+                });
+                // console.log(cart?.items, "item");
+                // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
+                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
-              const words = str.match(/[a-zA-Z0-9]+/g);
-              const firstThreeWords = words.slice(0, 3).join(" ");
-              const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
+                const words = str.match(/[a-zA-Z0-9]+/g);
+                const firstThreeWords = words.slice(0, 3).join(" ");
+                const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
 
-              const compareAtPrice =
-                item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                const compareAtPrice =
+                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
 
-              const parsedDisplayPrice = parseFloat(displayPrice);
-              const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                const parsedDisplayPrice = parseFloat(displayPrice);
+                const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-              const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
+                const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
 
-              // console.log(optionTitle, "fil");
-              return (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div className={classes.boxcontairproduct}>
-                    
-                      
-                        {/* {console.log("Images", item?.node)} */}
-                        <img
-                          src={
-                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? "/justin/justin4.svg"
-                              : item?.node?.product?.media[0]?.URLs?.large
-                          }
-                          className={classes.image}
-                          key={item?.node?.product?.id}
-                             onClick={() => clickHandler(item.node.product.slug)}
-                             alt={item?.node?.product?.title}
-                             />
-                   
-                    <div className={classes.cartcontent}>
-                      <div className={classes.cartcontenttext}>
-                        <Typography
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "1rem",
-                            fontFamily: "lato",
-                            // marginTop: "10px",
-                            textTransform: "capitalize",
-                            marginLeft: "0px",
-                          }}
-                          variant="h4"
-                          component="h2"
-                          className={classes.carttitle}
-                        >
-                          {firstThreeWords}
-                        </Typography>
-                        <Typography
-                          className={classes.price}
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "1rem",
-                            fontFamily: "lato",
-                            color: "#FDC114",
-                            marginLeft: "0px",     
-                          }}
-                        >
-                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "Rs. ")}
-                        </Typography>
-                        <div className={classes.strikethroughoff}>
-                          <strike className={classes.strikethrough}>
-                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "Rs. ")}
-                          </strike>
+                // console.log(optionTitle, "fil");
+                return (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div className={classes.boxcontairproduct}>
+
+
+                      {/* {console.log("Images", item?.node)} */}
+                      <img
+                        src={
+                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                            ? "/justin/justin4.svg"
+                            : item?.node?.product?.media[0]?.URLs?.large
+                        }
+                        className={classes.image}
+                        key={item?.node?.product?.id}
+                        onClick={() => clickHandler(item.node.product.slug)}
+                        alt={item?.node?.product?.title}
+                      />
+
+                      <div className={classes.cartcontent}>
+                        <div className={classes.cartcontenttext}>
                           <Typography
                             style={{
                               fontWeight: "600",
-                              fontSize: "0.9rem",
+                              fontSize: "1rem",
                               fontFamily: "lato",
-                              marginLeft: "0px",    
+                              // marginTop: "10px",
+                              textTransform: "capitalize",
+                              marginLeft: "0px",
                             }}
                             variant="h4"
                             component="h2"
-                            className={classes.carttitle2}
-                          >{`-${Math.abs(percentage)}%`}</Typography>
-                        </div>
-                      </div>
-                      <div className={classes.cartbackground}>
-                        <Typography
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "0.8rem",
-                            fontFamily: "lato",
-                            left: "5px",
-                          }}
-                          variant="h4"
-                          component="h2"
-                          className={classes.cartsize}
-                        >
-                          Size{" "}
-                          <span className={classes.sizes}>
-                            {formatSize(size,true)}
-                          </span>
-                        </Typography>
-                        {isLoading[item?.node?.product?.productId] ? (
-                          <CircularProgress />
-                        ) : (
-                          <Button
-                            className={classes.cart}
-                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                            disabled={isDisabled || item?.node?.product?.isSoldOut}
+                            className={classes.carttitle}
                           >
-                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                            {firstThreeWords}
+                          </Typography>
+                          <Typography
+                            className={classes.price}
+                            style={{
+                              fontWeight: "600",
+                              fontSize: "1rem",
+                              fontFamily: "lato",
+                              color: "#FDC114",
+                              marginLeft: "0px",
+                            }}
+                          >
+                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                              ?.replace(/\.00$/, "")
+                              .replace(/\$/g, "Rs. ")}
+                          </Typography>
+                          <div className={classes.strikethroughoff}>
+                            <strike className={classes.strikethrough}>
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "Rs. ")}
+                            </strike>
                             <Typography
-                              style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                              variant="h5"
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "0.9rem",
+                                fontFamily: "lato",
+                                marginLeft: "0px",
+                              }}
+                              variant="h4"
                               component="h2"
+                              className={classes.carttitle2}
+                            >{`-${Math.abs(percentage)}%`}</Typography>
+                          </div>
+                        </div>
+                        <div className={classes.cartbackground}>
+                          <Typography
+                            style={{
+                              fontWeight: "600",
+                              fontSize: "0.8rem",
+                              fontFamily: "lato",
+                              left: "5px",
+                            }}
+                            variant="h4"
+                            component="h2"
+                            className={classes.cartsize}
+                          >
+                            Size{" "}
+                            <span className={classes.sizes}>
+                              {formatSize(size, true)}
+                            </span>
+                          </Typography>
+                          {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress />
+                          ) : (
+                            <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled || item?.node?.product?.isSoldOut}
                             >
-                              {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                            </Typography>
-                          </Button>
-                        )}
+                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                              <Typography
+                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                variant="h5"
+                                component="h2"
+                              >
+                                {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                              </Typography>
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-              </Masonry>
-            </ResponsiveMasonry>
-          </div>
-
-          <div className={classes.loadmore}>
-            {sellerCatalogItemsPageInfo?.hasNextPage && (
-              <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>
-            )}
-          </div>
+                );
+              })}
+            </Masonry>
+          </ResponsiveMasonry>
         </div>
-    
+
+        <div className={classes.loadmore}>
+          {sellerCatalogItemsPageInfo?.hasNextPage && (
+            <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>
+          )}
+        </div>
+      </div>
+
     </Layout>
   );
 }

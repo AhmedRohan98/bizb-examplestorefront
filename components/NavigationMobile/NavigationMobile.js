@@ -131,10 +131,22 @@ class NavigationMobile extends Component {
               </MenuList>
             </Link>
             <br />
-            <MenuList className={classes.navButtonActive}>
-              Explore
-              {/* @ts-ignore TODO: Refactor link to address type error */}
-            </MenuList>
+            <a href="/en/explore">
+
+              <MenuList className={classes.navButtonActive}>
+                Explore
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <br />
+            <a href="/en/SellerRegistrationPage"
+            >
+
+              <MenuList className={classes.navButtonActive}>
+                Sell
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
 
             {/* <MenuList className={classes.navButtonActive}>
               Byol
