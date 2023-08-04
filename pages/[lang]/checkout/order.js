@@ -230,8 +230,16 @@ function CheckoutComplete(props) {
           <Typography className={classes.connect}>Connect With Our Community</Typography>
         </div>
         <div className={classes.socialmedia}>
-          <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
-          <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
+          <a
+            target="_blank"
+            href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+          >
+            <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img></a>
+          <a
+            target="_blank"
+            href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+          >
+            <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img></a>
           <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
         </div>
         <Typography className={classes.connect}>Facebook Reviews</Typography>

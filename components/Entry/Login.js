@@ -10,16 +10,21 @@ import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
 const useStyles = makeStyles((theme) => ({
   yellowHoverText: {
-    textAlign:"center",
-    marginLeft:"15px",
+    textAlign: "center",
+    marginLeft: "15px",
     fontSize: "0.9rem",
-    marginTop:"5px",
-    "&:hover":{
-      color:"#FDC114",
-      cursor:"pointer",
-      textDecoration:"underline"
+    marginTop: "5px",
+    "&:hover": {
+      color: "#FDC114",
+      cursor: "pointer",
+      textDecoration: "underline"
     }
 
   },
@@ -32,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   formerror: {
     paddingLeft: theme.spacing(1),
     margin: "0px",
-    marginLeft:"5px",
+    marginLeft: "5px",
     fontSize: "14px",
     color: "#b22b27",
     fontFamily: "Lato",
@@ -59,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: "Lato",
     },
   },
+  iconButtonRoot: {
+    '&:hover': {
+      backgroundColor: 'transparent', // Set the hover background to transparent to turn off the hover effect
+    },
+  },
   password: {
     width: "100%",
     fontFamily: "Lato !important",
@@ -67,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     background: "#F7F7F9",
     borderBottomColor: "none",
+
     "& .MuiInputBase-input": {
       height: "48px",
       borderRadius: "6px",
@@ -78,6 +89,10 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInputBase-root": {
       fontFamily: "Lato",
     },
+    '& .MuiInputAdornment-positionEnd': {
+      marginRight: theme.spacing(1),
+    },
+
   },
   register: {
     width: "214px",
@@ -167,67 +182,72 @@ export default function Login(props) {
   const handleOpenSignUp = () => {
     openModal("signup");
   };
- const signUpSchema = Yup.object({
-   
-   email: Yup.string().email().required("Please enter your email"),
+  const signUpSchema = Yup.object({
 
-   password: Yup.string().min(5).max(35).required("Please enter your password"),
- 
- });
- const registerUser = async (values, action) => {
-  setLoginDisable(true);
-const { email, password } = values;
-   try {
-     await passwordClient.login({
-       user: {
-         email,
-       },
+    email: Yup.string().email().required("Please enter your email"),
 
-       password: hashPassword(password),
-     });
-    closeModal();
-     await refetch();
-   } catch (err) {
-    // if(err.message=="Password update required."){
-    //  setError("Password update required, Check your regisetered email to resset password");
+    password: Yup.string().min(5).max(35).required("Please enter your password"),
 
-    // }
-    setLoginDisable(false);
+  });
 
-     setError(err.message);
-   }
- };
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+  const registerUser = async (values, action) => {
+    setLoginDisable(true);
+    const { email, password } = values;
+    try {
+      await passwordClient.login({
+        user: {
+          email,
+        },
+
+        password: hashPassword(password),
+      });
+      closeModal();
+      await refetch();
+    } catch (err) {
+      // if(err.message=="Password update required."){
+      //  setError("Password update required, Check your regisetered email to resset password");
+
+      // }
+      setLoginDisable(false);
+
+      setError(err.message);
+    }
+  };
 
   const handleForgotPasswordClick = () => {
     openModal("forgot-password");
   };
-const registerUser2 = async (values, action) => {
-  try {
-    // Creating user will login also
-    await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
-    action.resetForm(); // to get rid of all the values after submitting the form
-    closeModal();
-    await refetch();
-  } catch (err) {
-    setError(err.message);
-  }
-};
- const initialValues = {
-   email: "",
-   password: "",
- };
-const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
-  initialValues,
-  validationSchema: signUpSchema,
-  validateOnChange: true,
-  validateOnBlur: true,
-  //// By disabling validation onChange and onBlur formik will validate on submit.
-  onSubmit: async (values, action) => {
-    await registerUser(values, action);
-    //// to get rid of all the values after submitting the form
-   
-  },
-});
+  const registerUser2 = async (values, action) => {
+    try {
+      // Creating user will login also
+      await passwordClient.createUser({ email: values.email, password: hashPassword(values.password) });
+      action.resetForm(); // to get rid of all the values after submitting the form
+      closeModal();
+      await refetch();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+    initialValues,
+    validationSchema: signUpSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    //// By disabling validation onChange and onBlur formik will validate on submit.
+    onSubmit: async (values, action) => {
+      await registerUser(values, action);
+      //// to get rid of all the values after submitting the form
+
+    },
+  });
   return (
     <>
       <>
@@ -262,9 +282,8 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
                 </span>
                 <TextField
                   placeholder="Enter Your Password"
-                  InputProps={{ disableUnderline: true }}
                   style={{ fontFamily: "Lato" }}
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   autoComplete="off"
                   name="password"
                   id="password"
@@ -272,11 +291,22 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={classes.password}
+                  InputProps={{
+                    disableUnderline: true,
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleClickShowPassword} edge="end" classes={{ root: classes.iconButtonRoot }}>
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
+
               </label>
               {errors.password && touched.password ? <p className={classes.formerror}>{errors.password}</p> : null}
             </Grid>
-           
+
           </Grid>
           {!!error && <p className={classes.formerror}>{error}</p>}
           <div className={classes.socialmedia2}>
@@ -289,7 +319,7 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
               disabled={loginDisable}
               type="submit"
             >
-              {loginDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Login"}
+              {loginDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Login"}
             </Button>
           </div>
         </form>
@@ -319,14 +349,14 @@ const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useF
           </Box>
         </div> */}
         <div
-        className={classes.yellowHoverText}
-        onClick={handleForgotPasswordClick}
-        onKeyDown={handleForgotPasswordClick}
-        role="button"
-        tabIndex={0}
-      >
-        Forgot Your Password? Click Here
-      </div>
+          className={classes.yellowHoverText}
+          onClick={handleForgotPasswordClick}
+          onKeyDown={handleForgotPasswordClick}
+          role="button"
+          tabIndex={0}
+        >
+          Forgot Your Password? Click Here
+        </div>
         <div
           className={classes.switchEntryMode}
           onClick={handleOpenSignUp}

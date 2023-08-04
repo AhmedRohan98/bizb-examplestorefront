@@ -93,6 +93,9 @@ const AccountDropdown = ({ headerType }) => {
   const handleProfile=()=>{
     window.location.href = "https://bizb.store/dashboard/myprofile?role=1";
   }
+  const handleDashboard = () => {
+    window.location.href = "https://bizb.store/dashboard/publishproduct";
+  }
   return (
     <Fragment headerType>
       <EntryModal onClose={onClose} resetToken={resetToken} />
@@ -138,8 +141,13 @@ const AccountDropdown = ({ headerType }) => {
           {isAuthenticated ? (
             <Fragment>
               <div style={{ marginBottom: "20px" }}>
-                <div  onClick={handleProfile}>
+                <div onClick={handleProfile}>
                   <span className={classes.profile}>Profile</span>
+                </div>
+              </div>
+              <div style={{ marginBottom: "20px" }}>
+                <div onClick={handleDashboard}>
+                  <span className={classes.profile}>Dashboard</span>
                 </div>
               </div>
               <div style={{ cursor: "pointer", marginBottom: "24px" }} onClick={handleSignOut}>

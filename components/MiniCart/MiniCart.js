@@ -38,15 +38,15 @@ const styles = (theme) => ({
     border: "green",
   },
   storeName: {
-    textTransform:"uppercase",
+    textTransform: "uppercase",
     fontSize: "0.9rem",
-    "&:hover":{
+    "&:hover": {
       // color:"#FDC114",
       // cursor:"pointer",
       // textDecoration:"underline"
     }
 
-  },  
+  },
   badge: {
     width: 20,
     height: 20,
@@ -62,6 +62,9 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.paper,
     height: "100%",
     width: "468px",
+    [theme.breakpoints.down("sm")]: {
+      width: "350px",
+    },
     position: "absolute",
     top: "0px",
     right: "0px",
@@ -124,7 +127,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
   },
   cartprice: {
-    fontSize:"1rem",
+    fontSize: "1rem",
     paddingTop: theme.spacing(1),
     color: theme.palette.secondary.selected,
   },
@@ -135,13 +138,19 @@ const styles = (theme) => ({
     borderTop: "1px solid #E5E5E5",
     position: "fixed",
     width: "390px",
-    padding:"10px 0px",
+    padding: "10px 0px",
     bottom: "10px",
+    [theme.breakpoints.down("sm")]: {
+      width: "300px",
+    },
   },
   total1: {
     display: "flex",
     justifyContent: "space-around",
-    padding:"5px 0px",
+    padding: "5px 0px",
+    [theme.breakpoints.down("sm")]: {
+      padding: "0px 0px",
+    },
   },
   cart1: {
     height: "48px",
@@ -152,6 +161,7 @@ const styles = (theme) => ({
     justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: "10px",
+
 
     "&:hover": {
       transform: "scale(1.08)",
@@ -220,10 +230,10 @@ const styles = (theme) => ({
   bagecontet: {
     marginBottom: "30px",
     marginLeft: "35px",
-    borderRadius:"50px",
-    height:"20px",
-    width:"20px",
-    background:"#fdc114",
+    borderRadius: "50px",
+    height: "20px",
+    width: "20px",
+    background: "#fdc114",
     position: "absolute",
     color: "black",
     fontSize: "1rem",
@@ -255,7 +265,7 @@ const MiniCart = ({ ...props }) => {
   const handleClose = () => {
     setOpen(false);
   };
- 
+
   const handleCheckoutButtonClick = () => {
     Router.push("/cart/checkout");
     // console.log("button clicked");
@@ -301,7 +311,7 @@ const MiniCart = ({ ...props }) => {
                     <div className={classes.paper}>
                       <div className={classes.cartmodal}>
                         {" "}
-                        <Typography style={{ fontWeight: "700", fontFamily: "Lato",fontSize:"1.1rem" }} variant="subtitle1">
+                        <Typography style={{ fontWeight: "700", fontFamily: "Lato", fontSize: "1.1rem" }} variant="subtitle1">
                           Cart
                         </Typography>
                         <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
@@ -320,12 +330,12 @@ const MiniCart = ({ ...props }) => {
                               {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
                               <div className={classes.cartitemtext}>
                                 {" "}
-                                <Typography variant="h4" style={{textTransform:"capitalize",fontSize:"0.9rem"}}>{item.title.toString().toLowerCase()}</Typography>
-                                <Typography variant="h4" style={{fontSize:"1rem"}}>
-                                 Store:&nbsp;<span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}</span> 
+                                <Typography variant="h4" style={{ textTransform: "capitalize", fontSize: "0.9rem" }}>{item.title.toString().toLowerCase()}</Typography>
+                                <Typography variant="h4" style={{ fontSize: "1rem" }}>
+                                  Store:&nbsp;<span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}</span>
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
-                                
+
                                   {formatCurrency(item?.price?.amount)}
                                 </Typography>
                               </div>
@@ -342,9 +352,9 @@ const MiniCart = ({ ...props }) => {
                       </div>
                       <div className={classes.total}>
                         <div className={classes.total1}>
-                          <Typography variant="h4" style={{fontSize:"1.2rem"}}>Total Price</Typography>
-                          <Typography variant="h4" style={{fontSize:"1.2rem"}}>
-                          {formatCurrency(cart?.checkout?.summary?.total?.amount)}
+                          <Typography variant="h4" style={{ fontSize: "1.2rem" }}>Total Price</Typography>
+                          <Typography variant="h4" style={{ fontSize: "1.2rem" }}>
+                            {formatCurrency(cart?.checkout?.summary?.total?.amount)}
                           </Typography>
                         </div>
                         <div className={classes.total1}>
