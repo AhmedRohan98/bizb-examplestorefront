@@ -6,6 +6,14 @@ import { ContextProviders } from "context/ContextProviders";
 import { ComponentsProvider } from "@reactioncommerce/components-context";
 import components from "custom/componentsContext";
 import theme from "custom/reactionTheme";
+import TagManager from 'react-gtm-module';
+import { GTM_ID, pageview } from '../lib/utils/gtm'
+import { useRouter } from "next/router";
+
+
+
+// import Script from 'next/script';
+
 // import 'swiper/swiper.min.css';
 // import 'swiper/modules/pagination/pagination.min.css'
 // import 'swiper/modules/navigation/navigation.min.css'
@@ -37,18 +45,30 @@ export default class App extends NextApp {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    // import('react-facebook-pixel')
-    //   .then((x) => x.default)
-    //   .then((ReactPixel) => {
-    //     ReactPixel.init('470474555213027')
-    //     ReactPixel.pageView()
+    console.log("kjgjhvhgc", process.env.NEXT_PUBLIC_GOOGLE_TAG)
+    if (process.browser) {
+      TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG }); // Replace GTM-XXXXXX with your GTM container ID
+    }
+    console.log("process.env.NEXT_PUBLIC_GOOGLE_TAG", process.env.NEXT_PUBLIC_GOOGLE_TAG)
+    // TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG });
 
-    //     router.events.on('routeChangeComplete', () => {
-    //       ReactPixel.pageView()
-    //     })
-    //   })
+    import('react-facebook-pixel')
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        ReactPixel.init('470474555213027')
+        ReactPixel.pageView()
+
+        this.props.router.events.on('routeChangeComplete', () => {
+          ReactPixel.pageView()
+        })
+      })
   }
-
+  // componentWillUnmount() {
+  //   // Remove the event listener on unmount
+  //   if (GTM_ID) {
+  //     this.props.router.events.off('routeChangeComplete', pageview);
+  //   }
+  // }
   render() {
     const { Component, pageProps, ...rest } = this.props;
 
@@ -58,6 +78,44 @@ export default class App extends NextApp {
 
     return (
       // <StripeWrapper>
+      <>
+        <html>
+          <head>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
+
+            <script async>
+              {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                    page_path: window.location.pathname,
+                    });
+                `}
+            </script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','GTM-5FXWHJBJ');
+              `,
+              }}
+            />
+          </head>
+          <body>
+            {/* Add the GTM noscript code */}
+            <noscript>
+              <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FXWHJBJ"
+                height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe>
+            </noscript>
+
+          </body>
+        </html>
+
+
         <ContextProviders pageProps={pageProps}>
           <ComponentsProvider value={components}>
             <MuiThemeProvider theme={theme}>
@@ -66,6 +124,7 @@ export default class App extends NextApp {
             </MuiThemeProvider>
           </ComponentsProvider>
         </ContextProviders>
+      </>
       // </StripeWrapper>
     );
   }
