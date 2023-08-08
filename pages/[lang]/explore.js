@@ -695,6 +695,7 @@ function Explore(props) {
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
+      marginRight: "30px"
     },
     cart: {
       height: "35px",
@@ -744,14 +745,14 @@ function Explore(props) {
     },
 
     price: {
-      marginLeft: "12px",
+      marginRight: "12px",
     },
     strikethroughoff: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
       width: "110px",
-      marginLeft: "12px",
+      marginRight: "12px",
     },
     progressBar: {
       [theme.breakpoints.down("sm")]: {
@@ -1074,7 +1075,7 @@ function Explore(props) {
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                 const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);

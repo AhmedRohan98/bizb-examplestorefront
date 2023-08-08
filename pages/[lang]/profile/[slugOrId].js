@@ -82,8 +82,8 @@ function SellerPublicProfile(props) {
 
       },
       [theme.breakpoints.down("sm")]: {
-        width: "275px", // Reduced by 1px to create space for the border
-
+        width: "150px", // Reduced by 1px to create space for the border
+        height: "200px",
       },
     },
     // image: {
@@ -136,10 +136,18 @@ function SellerPublicProfile(props) {
       justifyContent: "space-between",
       flexDirection: "row",
       paddingBottom: "10px",
+      overflow: "hidden",
+
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        paddingBottom: "5px",
+      },
     },
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
+      marginRight: "30px"
+
     },
     cart: {
       height: "35px",
@@ -159,6 +167,11 @@ function SellerPublicProfile(props) {
         transition: "left 0.2s linear",
         background: "#FDC114",
       },
+      [theme.breakpoints.down("sm")]: {
+        width: "34px", // Reduced by 1px to create space for the border
+        height: "20px",
+        marginLeft: theme.spacing(2),
+      },
     },
     explore: {
       position: "absolute",
@@ -177,6 +190,17 @@ function SellerPublicProfile(props) {
       gridRowEnd: "span 1",
       flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
       marginBottom: "20px",
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        marginBottom: "10px",
+      },
+    },
+    cartText: {
+      fontSize: "18px",
+
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "10px",
+      },
     },
 
     price: {
@@ -191,6 +215,12 @@ function SellerPublicProfile(props) {
     },
     cartbackground: {
       marginRight: "8px",
+      display: "flex",
+      flexDirection: "column",
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "row",
+        marginRight: "2px",
+      },
     },
     strikethrough: {
       display: "flex",
@@ -225,6 +255,13 @@ function SellerPublicProfile(props) {
       allignItems: "center",
       justifyContent: "center",
       width: "100%",
+    },
+    progressBar: {
+      [theme.breakpoints.down("sm")]: {
+        size: "10px",
+        marginLeft: theme.spacing(3),
+      },
+
     },
   }));
   // console.log(props.totalcount, "propertiese");
@@ -509,7 +546,7 @@ function SellerPublicProfile(props) {
         </div>
         <div className={classes.gridroot}>
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+            columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
             style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
             <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -623,7 +660,7 @@ function SellerPublicProfile(props) {
                             </span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress />
+                            <CircularProgress className={classes.progressBar} />
                           ) : (
                             <Button
                               className={classes.cart}
@@ -632,9 +669,11 @@ function SellerPublicProfile(props) {
                             >
                               <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                               <Typography
-                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                style={{ fontFamily: "Ostrich Sans Black" }}
                                 variant="h5"
                                 component="h2"
+                                className={classes.cartText}
+
                               >
                                 {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>
