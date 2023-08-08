@@ -83,8 +83,11 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
 //   },
 // }));
 const styles = (theme) => ({
-  cartMain:{
-    padding:"50px 50px",
+  cartMain: {
+    padding: "50px 50px",
+    [theme.breakpoints.down("sm")]: {
+      padding: "10px 10px",
+    },
   },
   cartEmptyMessageContainer: {
     display: "flex",
@@ -268,6 +271,10 @@ const styles = (theme) => ({
   cartcard: {
     height: "391px",
     width: "391px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+
+    },
     boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     borderRadius: "18px",
     padding: theme.spacing(2),
@@ -275,6 +282,7 @@ const styles = (theme) => ({
   carttotalsummar: {
     display: "flex",
     width: "100%",
+
     alignItems: "center",
     justifyContent: "center",
   },
@@ -295,13 +303,13 @@ const styles = (theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: theme.spacing(2),
-    fontSize:"1rem"
+    fontSize: "1rem"
   },
   subtotalamount: {
     fontWeight: 700,
-    
-    lineHeight: "34px",  
-      fontSize:"1rem"
+
+    lineHeight: "34px",
+    fontSize: "1rem"
 
   },
   orderbutn: {
@@ -471,6 +479,10 @@ const styles = (theme) => ({
   checkoutButtonsContainer: {
     backgroundColor: theme.palette.reaction.black02,
     padding: theme.spacing(2),
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: theme.spacing(8),
+
+    },
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -484,6 +496,10 @@ const styles = (theme) => ({
   topimage: {
     width: "100%",
     height: "100%",
+    [theme.breakpoints.down("sm")]: {
+
+      // marginLeft: theme.spacing(4),
+    },
 
     position: "relative",
   },
@@ -509,6 +525,9 @@ const styles = (theme) => ({
     position: "absolute",
     zIndex: 999,
     background: "rgba(0, 0, 0, 0.6)",
+    [theme.breakpoints.down("sm")]: {
+      alignItems: "inherit",
+    },
     bottom: "0px",
     top: "0px",
     width: "100%",
@@ -554,6 +573,10 @@ const styles = (theme) => ({
   itemWrapper: {
     borderTop: theme.palette.borders.default,
     borderBottom: theme.palette.borders.default,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+
   },
   register: {
     width: "261px",
@@ -759,7 +782,7 @@ class CartPage extends Component {
               <div className={classes.empty}></div>
               <div className={classes.shipping}>
                 <div className={classes.subtotal}>
-                  <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                  <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                     Subtotal
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
@@ -767,17 +790,17 @@ class CartPage extends Component {
                   </Typography>
                 </div>
                 <div className={classes.subtotal}>
-                  <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                  <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                     Shipping Cost
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
                     Calculated at checkout
                   </Typography>
-                </div> 
+                </div>
               </div>
               <div className={classes.empty}></div>
               <div className={classes.subtotal}>
-                <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                   Total
                 </Typography>
                 <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
@@ -861,7 +884,7 @@ class CartPage extends Component {
               {this.renderCartItems()}
               {this.renderCartSummary()}
             </Grid>
-            {filteredProducts&& filteredProducts.length ? (
+            {filteredProducts && filteredProducts.length ? (
               <>
                 <Typography variant="h3" className={classes.related}>
                   You <span className={classes.spanofnextword}>may</span>
@@ -877,7 +900,7 @@ class CartPage extends Component {
                       // console.log(cart?.items, "item");
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                      const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
+                      const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
