@@ -45,7 +45,8 @@ USER node
 # Install ALL dependencies. We need devDependencies for the build command.
 RUN yarn install --production=false --frozen-lockfile --ignore-scripts --non-interactive --no-cache
 
-ENV BUILD_ENV=production NODE_ENV=production
+ENV BUILD_ENV=production
+ENV NODE_ENV=production
 
 # hadolint ignore=SC2046
 RUN export $(grep -v '^#' .env.${NEXTJS_DOTENV:-prod} | xargs -0) && NODE_OPTIONS="" yarn build
