@@ -244,37 +244,6 @@
   # - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${CLUSTER_NAME}" --service "${SERVICE_NAME}"  --task-definition "${TASK_DEFINITION_NAME}" --force-new-deployment
 
   ##!!!##
-
-stages:
-  - build
-  - deploy
-
-build_image:
-  stage: build
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-  #  DOCKER_PASSWORD: "dckr_pat_LropaPjWq9LpQ4t53J9LdZ96k_0"
-  before_script:
-   # - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" --password-stdin
-    - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - echo "WOW! You are logged in!!"
-    # - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  script:
-    - echo "Building App"
-   # - docker-compose build --no-cache
-    #- docker-compose build --build-arg IMAGE_NAME=ranchers-tracking-service
-    - docker build --no-cache -t bizb-frontend-production .
-    - docker tag bizb-frontend-production $DOCKER_USERNAME/bizb-frontend-production
-    - docker push $DOCKER_USERNAME/bizb-frontend-production
-   # - docker push $DOCKER_USERNAME/ranchers-tracking-service:latest
-   
-  only:
-    - production
-
 deploy-aws-ecs-dev:
   stage: deploy
   image: docker:19.03.1
@@ -290,8 +259,8 @@ deploy-aws-ecs-dev:
   only:
     - production
   before_script:
-    - apk add --no-cache curl jq python3 py3-pip  # Use 'python3' and 'py3-pip' for Python 3
-    - pip3 install awscli  
+    - apk add --no-cache curl jq python py-pip
+    - pip install awscli
     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
     - aws configure set region $AWS_DEFAULT_REGION
@@ -338,19 +307,19 @@ deploy-aws-ecs-dev:
   #   - staging
 
 
-# image: docker:19.03.13
+image: docker:19.03.13
 
-# services:
-#   - docker:19.03.13-dind
+services:
+  - docker:19.03.13-dind
 
-# before_script:
-#   - rm -rf .cache
-#   - rm -rf node_modules
+before_script:
+  - rm -rf .cache
+  - rm -rf node_modules
 
-# stages:
-#   # - checkout
-#   - build
-#   - deploy
+stages:
+  # - checkout
+  - build
+  - deploy
 
 # checkout_code:
 #   stage: checkout
@@ -358,47 +327,47 @@ deploy-aws-ecs-dev:
 #     - git checkout ranchers-dev
 #     - git pull origin ranchers-dev
 
-# build_docker_image:
-#   stage: build
-#   script:
-#     - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#     # - docker rmi ranchers:api
-#     # - export IMAGE_TAG=$(date +%Y%m%d%H%M%S)
-#     # - git checkout ranchers-dev
-#     - docker build --no-cache -t bizb:example-storefront .
-#     - docker tag bizb:example-storefront $DOCKER_USERNAME/bizb:example-storefront
-#     - docker push $DOCKER_USERNAME/bizb:example-storefront
-#   only:
-#     - staging
+build_docker_image:
+  stage: build
+  script:
+    - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    # - docker rmi ranchers:api
+    # - export IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+    # - git checkout ranchers-dev
+    - docker build --no-cache -t bizb:example-storefront .
+    - docker tag bizb:example-storefront $DOCKER_USERNAME/bizb:example-storefront
+    - docker push $DOCKER_USERNAME/bizb:example-storefront
+  only:
+    - staging
 
-# deploy_to_remote:
-#   stage: deploy
-#   before_script:
-#     - apk add --no-cache openssh
-#     - mkdir -p ~/.ssh
-#     - eval "$(ssh-agent -s)"
-#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-#     - chmod 700 ~/.ssh
-#     - ssh-keyscan -H '13.57.70.213' >> ~/.ssh/known_hosts
-#   script:
-#     # - apk add --no-cache openssh
-#     # - mkdir -p ~/.ssh
-#     # - eval "$(ssh-agent -s)"
-#     # - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-#     # - chmod 700 ~/.ssh
-#     # - ssh-keyscan -H '13.57.70.213' >> ~/.ssh/known_hosts
-#     - ssh ubuntu@13.57.70.213 "sudo docker rm -f bizb-example-storefront || true && sudo docker image rm -f $DOCKER_USERNAME/bizb:example-storefront || true"
-#     - ssh ubuntu@13.57.70.213 "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-#     # - ssh -x ubuntu@13.57.70.213 "docker login -u $DOCKER_USERNAME -p \"$(echo "$DOCKER_PASSWORD" | sed 's/([^()]*)/\\\1/g')\""
-#     - ssh ubuntu@13.57.70.213 "sudo docker pull $DOCKER_USERNAME/bizb:example-storefront"
-#     # - ssh ubuntu@13.57.70.213 "sudo docker run -d -p 8080:3000 $DOCKER_USERNAME/mechiridion:mechiridion-dev"
-#     # - ssh ubuntu@13.57.70.213 "sudo docker rm -f mechiridion-backend-container && sudo docker image rm -f $DOCKER_USERNAME/bizb:mechiridion || true && sudo docker run --name mechiridion-backend-container -d --rm -it --network host $DOCKER_USERNAME/mechiridion-api:mechiridion"
-#     # - ssh ubuntu@13.57.70.213 "sudo docker stop $(sudo docker ps -a -q --filter name=mechiridion-backend-container) 2> /dev/null && docker rm $(sudo docker ps -a -q --filter name=mechiridion-backend-container)"
+deploy_to_remote:
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh
+    - mkdir -p ~/.ssh
+    - eval "$(ssh-agent -s)"
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H '13.57.70.213' >> ~/.ssh/known_hosts
+  script:
+    # - apk add --no-cache openssh
+    # - mkdir -p ~/.ssh
+    # - eval "$(ssh-agent -s)"
+    # - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    # - chmod 700 ~/.ssh
+    # - ssh-keyscan -H '13.57.70.213' >> ~/.ssh/known_hosts
+    - ssh ubuntu@13.57.70.213 "sudo docker rm -f bizb-example-storefront || true && sudo docker image rm -f $DOCKER_USERNAME/bizb:example-storefront || true"
+    - ssh ubuntu@13.57.70.213 "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+    # - ssh -x ubuntu@13.57.70.213 "docker login -u $DOCKER_USERNAME -p \"$(echo "$DOCKER_PASSWORD" | sed 's/([^()]*)/\\\1/g')\""
+    - ssh ubuntu@13.57.70.213 "sudo docker pull $DOCKER_USERNAME/bizb:example-storefront"
+    # - ssh ubuntu@13.57.70.213 "sudo docker run -d -p 8080:3000 $DOCKER_USERNAME/mechiridion:mechiridion-dev"
+    # - ssh ubuntu@13.57.70.213 "sudo docker rm -f mechiridion-backend-container && sudo docker image rm -f $DOCKER_USERNAME/bizb:mechiridion || true && sudo docker run --name mechiridion-backend-container -d --rm -it --network host $DOCKER_USERNAME/mechiridion-api:mechiridion"
+    # - ssh ubuntu@13.57.70.213 "sudo docker stop $(sudo docker ps -a -q --filter name=mechiridion-backend-container) 2> /dev/null && docker rm $(sudo docker ps -a -q --filter name=mechiridion-backend-container)"
    
 
-#     - ssh ubuntu@13.57.70.213 "sudo docker run --name bizb-example-storefront -d -it --network host $DOCKER_USERNAME/bizb:example-storefront" 
+    - ssh ubuntu@13.57.70.213 "sudo docker run --name bizb-example-storefront -d -it --network host $DOCKER_USERNAME/bizb:example-storefront" 
 
-#     # - ssh ubuntu@13.57.70.213 "sudo docker run -d --rm -it --network host $DOCKER_USERNAME/bizb:mechiridion"
-#   only:
-#     - staging
+    # - ssh ubuntu@13.57.70.213 "sudo docker run -d --rm -it --network host $DOCKER_USERNAME/bizb:mechiridion"
+  only:
+    - staging
 
