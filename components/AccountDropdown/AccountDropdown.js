@@ -90,8 +90,8 @@ const AccountDropdown = ({ headerType }) => {
   const toggleOpen = (event) => {
     setAnchorElement(event.currentTarget);
   };
-  const handleProfile = () => {
-    window.location.href = "https://bizb.store/dashboard/myprofile";
+  const handleProfile=()=>{
+    window.location.href = "https://bizb.store/dashboard/myprofile?role=1";
   }
   const handleDashboard = () => {
     window.location.href = "https://bizb.store/dashboard/publishproduct";

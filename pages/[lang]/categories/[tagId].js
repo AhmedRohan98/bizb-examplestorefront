@@ -1440,9 +1440,8 @@ function Categories(props) {
                             <img
                               onClick={() => clickHandler(item.node.product.slug)}
                               src={
-                                !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                  ? "/justin/justin4.svg"
-                                  : item?.node?.product?.media[0]?.URLs?.large
+                                item?.node?.product?.media[0]?.URLs 
+                                  ?item?.node?.product?.media[0]?.URLs?.large:"/justin/justin4.svg"
                               }
                               className={classes.image}
                               key={item?.node?.product?.id}
@@ -1602,9 +1601,10 @@ function Categories(props) {
                             {/* {console.log("Images", item?.node)} */}
                             <img
                               src={
-                                !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                  ? "/justin/justin4.svg"
-                                  : item?.node?.product?.media[0]?.URLs?.large
+                                item?.node?.product?.media[0]?.URLs
+                                  ?item?.node?.product?.media[0]?.URLs?.large
+                                  : "/justin/justin4.svg"
+
                               }
                               className={classes.image}
                               key={item?.node?.product?.id}
