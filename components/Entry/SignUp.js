@@ -12,6 +12,8 @@ import hashPassword from "../../lib/utils/hashPassword";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import TagManager from 'react-gtm-module';
+
 const useStyles = makeStyles((theme) => ({
   label: {
     display: "flex",
@@ -198,7 +200,7 @@ export default function SignUp(props) {
       closeModal();
       await refetch();
     } catch (err) {
-    setRegisterDisable(false)
+      setRegisterDisable(false)
 
       setError(err.message);
     }
@@ -210,6 +212,16 @@ export default function SignUp(props) {
     validateOnBlur: false,
     //// By disabling validation onChange and onBlur formik will validate on submit.
     onSubmit: async (values, action) => {
+      const dataLayer = {
+        dataLayer: {
+          event: 'sign_in', // The name of the custom event
+          category: 'User',
+          action: 'Sign In',
+          label: 'Successful',
+        },
+      };
+
+      TagManager.dataLayer(dataLayer);
       await registerUser2(values, action);
       //// to get rid of all the values after submitting the form
       // action.resetForm();
@@ -356,9 +368,9 @@ export default function SignUp(props) {
             role="button"
             disabled={regiseterDisable}
           >
-          {regiseterDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Register"}
+            {regiseterDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Register"}
 
-            
+
           </Button>
         </div>
         {/* <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
