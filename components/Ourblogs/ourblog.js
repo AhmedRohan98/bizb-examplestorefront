@@ -128,7 +128,7 @@ const OurBlogs = () => {
               even the queen needs some…{" "}
               <a
                 target="_blank"
-                href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
+                href="https://old.bizb.store/summer-fashion-tips-2/"
               >
                 <span className={classes.blogtextr}>Read More</span>
               </a>
@@ -146,7 +146,7 @@ const OurBlogs = () => {
               one of the biggest issues …{" "}
               <a
                 target="_blank"
-                href="https://bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/"
+                href="https://old.bizb.store/shopping-for-thrift-clothing/"
               >
                 <span className={classes.blogtextr}>Read More</span>
               </a>
@@ -161,7 +161,7 @@ const OurBlogs = () => {
             <Typography variant="h6" className={classes.blogtext}>
               Second-hand market has been on the rise across the globe for years with the COVID-19 pandemic providing an
               additional boost bringing…
-              <a target="_blank" href="https://bizb.store/preloved-clothing-making-fashion-sustainable-in-pakistan/">
+              <a target="_blank" href="https://old.bizb.store/making-sustainability-stylish-breaking-cliches-about-buying-second-hand-apparel/">
                 <span className={classes.blogtextr}>Read More</span>
               </a>
             </Typography>
