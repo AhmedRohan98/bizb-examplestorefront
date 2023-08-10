@@ -16,6 +16,7 @@ import { CircularProgress } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 import { UIContext } from "../../context/UIContext.js";
 import formatSize from "../../lib/utils/formatSize";
+import TagManager from 'react-gtm-module';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -238,6 +239,26 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
+
+  const trackProductView = () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'product_view',
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
+  };
   //
   useEffect(() => {
     uiStore?.setPageSize(15);
@@ -344,6 +365,25 @@ const Justin = (props) => {
   };
 
   const handleOnClick = async (product, variant) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'add_to_cart',
+        ecommerce: {
+          add: {
+            products: [
+              {
+                id: product.productId,
+                name: product.title,
+                price: product.variants[0]?.pricing[0]?.displayPrice,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
+
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -402,7 +442,7 @@ const Justin = (props) => {
               });
 
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-              const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+              const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
@@ -439,7 +479,9 @@ const Justin = (props) => {
                       </a>
                     </Link>
                     <div className={classes.cartcontent}>
-                      <div className={classes.cartcontenttext}>
+                      <div className={classes.cartcontenttext} onCick={() => {
+                        trackProductView()
+                      }}>
                         <Link
                           href={item.node.product.slug && "en/product/[...slugOrId]"}
                           as={item.node.product.slug && `en/product/${item.node.product.slug}`}
@@ -509,7 +551,7 @@ const Justin = (props) => {
                         >
                           Size{" "}
                           <span className={classes.sizes}>
-                            {formatSize(size,true)}
+                            {formatSize(size, true)}
                           </span>
                         </Typography>
                         {isLoading[item?.node?.product?.productId] ? (

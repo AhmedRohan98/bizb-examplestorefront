@@ -14,6 +14,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import TagManager from 'react-gtm-module';
 
 const useStyles = makeStyles((theme) => ({
   yellowHoverText: {
@@ -205,6 +206,15 @@ export default function Login(props) {
 
         password: hashPassword(password),
       });
+      const dataLayer = {
+        dataLayer: {
+          event: 'user_login',
+          email: email,
+        },
+      };
+
+      TagManager.dataLayer(dataLayer);
+
       closeModal();
       await refetch();
     } catch (err) {

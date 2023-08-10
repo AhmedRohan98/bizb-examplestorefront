@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { withComponents } from "@reactioncommerce/components-context";
 import { addTypographyStyles, applyTheme, CustomPropTypes } from "../../../utils";
+import TagManager from 'react-gtm-module';
 
 const Item = styled.div`
   position: relative;
@@ -295,8 +296,27 @@ class CartItem extends Component {
   };
 
   handleRemoveItemFromCart = () => {
+
+
     const { onRemoveItemFromCart, item: { _id } } = this.props;
     onRemoveItemFromCart(_id);
+    const dataLayer = {
+      dataLayer: {
+        event: 'remove_from_cart',
+        ecommerce: {
+          remove: {
+            products: [
+              {
+                id: _id,
+
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
   };
 
   renderImage() {
@@ -389,7 +409,7 @@ class CartItem extends Component {
             displayCompareAtPrice={displayCompareAtPrice}
             hasPriceBottom={isMiniCart}
           />
-          { quantity !== 1 ?
+          {quantity !== 1 ?
             <ItemContentSubtotal isMiniCart={isMiniCart}>
               <ItemContentSubtotalTitle>{totalText} ({quantity}):</ItemContentSubtotalTitle>
               <ItemContentSubtotalDisplay>{displaySubtotal}</ItemContentSubtotalDisplay>

@@ -19,6 +19,8 @@ import useGetShipping from "../../hooks/shippingprice/usegetShipping";
 import Select, { components } from "react-select";
 import formatCurrency from "lib/utils/formatCurrency";
 import { placeOrderQuery } from "../../hooks/orders/query";
+import TagManager from 'react-gtm-module';
+
 const useStyles = makeStyles((theme) => ({
   formerror: {
     paddingLeft: theme.spacing(1),
@@ -169,7 +171,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "lowercase",
     alignItems: "center",
     width: "380px",
-    fontSize:"1.5rem",
+    fontSize: "1.5rem",
     marginBottom: 20
 
   },
@@ -179,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "17px",
   },
   mainheading: {
-    fontSize:"1.5rem",
+    fontSize: "1.5rem",
     textTransform: "uppercase",
     alignItems: "center",
     width: "100%",
@@ -198,24 +200,24 @@ const useStyles = makeStyles((theme) => ({
   },
   cartdelivery: {
     fontWeight: 500,
-    fontSize:"1rem",
+    fontSize: "1rem",
     color: "#333333",
     marginLeft: theme.spacing(2),
   },
   storeName: {
-    
+
     fontSize: "0.9rem",
-    "&:hover":{
-      color:"#FDC114",
-      cursor:"pointer",
-      textDecoration:"underline"
+    "&:hover": {
+      color: "#FDC114",
+      cursor: "pointer",
+      textDecoration: "underline"
     }
 
-  },  
+  },
   cartname: {
     fontWeight: 500,
     textTransform: "capitalize",
-    fontSize:"1rem",
+    fontSize: "1rem",
     color: "#333333",
     marginLeft: theme.spacing(2),
   },
@@ -244,7 +246,7 @@ const useStyles = makeStyles((theme) => ({
     // boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     // borderRadius: "18px",
     padding: theme.spacing(2),
-    borderBottom:"1px solid #f6f6f6",
+    borderBottom: "1px solid #f6f6f6",
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -269,13 +271,13 @@ const useStyles = makeStyles((theme) => ({
   },
   subtotal: {
     display: "flex",
-    fontSize:"1rem",
+    fontSize: "1rem",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: theme.spacing(2),
   },
   subtotalamount: {
-    fontSize:"1rem",
+    fontSize: "1rem",
     fontWeight: 700,
     lineHeight: "34px",
   },
@@ -308,7 +310,7 @@ const useStyles = makeStyles((theme) => ({
   },
   labelSpan: {
     width: "300px",
-    fontSize:"1rem"
+    fontSize: "1rem"
   },
   register: {
     width: "261px",
@@ -380,68 +382,12 @@ const CheckoutActions = (prop) => {
   }));
   // console.log(cart);
   const handlepay = async (values, action) => {
+
     try {
       setOrderDisable(true);
-      // const { data } = apolloClient.mutate({
-      //   mutation: placeOrderMutation,
-      //   variables: {
-      //     input: {
-      //       order: {
-      //         cartId: cart._id,
-      //         currencyCode: cart.shop.currency.code,
-      //         email: cart.email,
-      //         fulfillmentGroups: [
-      //           {
-      //             data: {
-      //               shippingAddress: {
-      //                 address1: notes,
-      //                 address2: notes,
-      //                 city: city,
-      //                 company: null,
-      //                 country: "pakistan",
-      //                 fullName: fullname,
-      //                 isBillingDefault: false,
-      //                 isCommercial: false,
-      //                 isShippingDefault: false,
-      //                 phone: phonenumber,
-      //                 postal: "pak",
-      //                 region: "pandi",
-      //               },
-      //             },
-      //             items,
-      //             selectedFulfillmentMethodId: cs8nCaD32Sqyw5MiP,
-      //             shopId: cart.shop._id,
-      //             totalPrice: cart.checkout.summary.total.displayAmount,
-      //             type: "shipping",
-      //           },
-      //         ],
-      //         shopId: cart.shop._id,
-      //       },
-      //       payments: [
-      //         {
-      //           amount: cart.checkout.summary.total.displayAmount,
-      //           billingAddress: {
-      //             address1: notes,
-      //             address2: notes,
-      //             city: city,
-      //             company: null,
-      //             country: "pakistan",
-      //             fullName: fullname,
-      //             isBillingDefault: false,
-      //             isCommercial: false,
-      //             isShippingDefault: false,
-      //             phone: phonenumber,
-      //             postal: "rawlpandi",
-      //             region: "pandi",
-      //           },
 
-      //           method: "none",
-      //         },
-      //       ],
-      //     },
-      //   },
-      // });
       const { data } = await placeOrder({
+
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -510,6 +456,25 @@ const CheckoutActions = (prop) => {
         placeOrder: { orders, token },
       } = data;
       toast.success("Order placed successfully!");
+      const productIds = prop?.cart?.items?.map((item) => item._id);
+
+      const dataLayer = {
+        dataLayer: {
+          event: 'successful_checkout',
+          ecommerce: {
+            currencyCode: 'PK', // Replace with your currency code
+            purchase: {
+              actionField: {
+                id: orders[0].referenceId, // Replace with the actual order ID
+                revenue: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
+              },
+              products: productIds,
+            },
+          },
+        },
+      };
+
+      TagManager.dataLayer(dataLayer);
 
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
@@ -521,6 +486,23 @@ const CheckoutActions = (prop) => {
       cartStore.resetCheckoutPayments();
     } catch (error) {
       setOrderDisable(false);
+      const productIds = prop?.cart?.items?.map((item) => item._id);
+
+      const dataLayer = {
+        dataLayer: {
+          event: 'failed_checkout',
+          ecommerce: {
+            currencyCode: 'PK', // Replace with your currency code
+            checkout_option: 'Failed', // Replace with a descriptive label
+            checkout: {
+              actionField: { step: 1 },
+              products: productIds,
+            },
+          },
+        },
+      };
+
+      TagManager.dataLayer(dataLayer);
 
       console.log(error);
     }
@@ -699,10 +681,10 @@ const CheckoutActions = (prop) => {
         <div className={classes.cartcard3}>
           <div className={classes.displayCart} key={prod.id}>
             <img src={prod.metafields[0].value}
-             style={{ borderRadius: "5px" ,width:"75px",ojectFit:"contain"}} />
+              style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} />
             <div className={classes.displayCartGrid}>
               <Typography gutterBottom variant="h4" className={classes.cartname}>
-               <span  onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>{prod.title.toString().toLowerCase()}</span>
+                <span onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>{prod.title.toString().toLowerCase()}</span>
               </Typography>
               <Typography gutterBottom variant="h5" className={classes.cartdescription}>
                 {formatCurrency(prod.price.amount)}
@@ -910,7 +892,7 @@ const CheckoutActions = (prop) => {
                 <div className={classes.empty}></div>
                 <div className={classes.shipping}>
                   <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                       Subtotal
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
@@ -918,7 +900,7 @@ const CheckoutActions = (prop) => {
                     </Typography>
                   </div>
                   <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                       Shipping Cost
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
@@ -928,11 +910,11 @@ const CheckoutActions = (prop) => {
                 </div>
                 <div className={classes.empty}></div>
                 <div className={classes.subtotal}>
-                  <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                  <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {shippingData?.cost ? formatCurrency(shippingData?.cost + cart.checkout.summary.itemTotal.amount) :formatCurrency(cart.checkout.summary.itemTotal.amount)}
+                    {shippingData?.cost ? formatCurrency(shippingData?.cost + cart.checkout.summary.itemTotal.amount) : formatCurrency(cart.checkout.summary.itemTotal.amount)}
                   </Typography>
                 </div>
               </div>
@@ -946,8 +928,8 @@ const CheckoutActions = (prop) => {
                   disabled={orderDisable}
 
                 >
-                  
-                  {orderDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Place Order"}
+
+                  {orderDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Place Order"}
 
                 </Button>
                 <ToastContainer

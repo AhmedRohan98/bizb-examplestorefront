@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CartItems from "components/CartItems";
 import OrderSummary from "components/OrderSummary";
+import TagManager from 'react-gtm-module';
 
 const styles = (theme) => ({
   fulfillmentGroup: {
@@ -45,9 +46,9 @@ class OrderFulfillmentGroup extends Component {
 
   static defaultProps = {
     hasMoreCartItems: false,
-    loadMoreCartItems() {},
-    onChangeCartItemsQuantity() {},
-    onRemoveCartItems() {}
+    loadMoreCartItems() { },
+    onChangeCartItemsQuantity() { },
+    onRemoveCartItems() { }
   }
 
   handleItemQuantityChange = (quantity, cartItemId) => {
@@ -57,6 +58,23 @@ class OrderFulfillmentGroup extends Component {
   }
 
   handleRemoveItem = (_id) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'remove_from_cart',
+        ecommerce: {
+          remove: {
+            products: [
+              {
+                id: _id,
+
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     const { onRemoveCartItems } = this.props;
 
     onRemoveCartItems(_id);

@@ -24,6 +24,8 @@ import variantById from "lib/utils/variantById";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
+import TagManager from 'react-gtm-module';
+
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     margin: theme.spacing(4),
@@ -731,6 +733,23 @@ class CartPage extends Component {
     // Scroll to the top
   };
   handleRemoveItem = async (itemId) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'remove_from_cart',
+        ecommerce: {
+          remove: {
+            products: [
+              {
+                id: itemId,
+
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     const { onRemoveCartItems } = this.props;
 
     await onRemoveCartItems(itemId);
@@ -817,6 +836,24 @@ class CartPage extends Component {
                 variant="h5"
                 role="button"
                 type="submit"
+                onClick={() => {
+                  const productIds = cart?.items?.map((item) => item._id);
+
+                  const dataLayer = {
+                    dataLayer: {
+                      event: 'checkout_initiated',
+                      ecommerce: {
+                        currencyCode: 'PK', // Replace with your currency code
+                        checkout: {
+                          actionField: { step: 1 },
+                          products: productIds,
+                        },
+                      },
+                    },
+                  };
+
+                  TagManager.dataLayer(dataLayer);
+                }}
               >
                 Proceed to checkout
               </Button>

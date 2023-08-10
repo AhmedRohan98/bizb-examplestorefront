@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CartItems from "components/CartItems";
+import TagManager from 'react-gtm-module';
 
 const styles = (theme) => ({
   fulfillmentGroup: {
@@ -60,6 +61,23 @@ class OrderCardFulfillmentGroup extends Component {
   }
 
   handleRemoveItem = (_id) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'remove_from_cart',
+        ecommerce: {
+          remove: {
+            products: [
+              {
+                id: _id,
+
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     const { onRemoveCartItems } = this.props;
 
     onRemoveCartItems(_id);

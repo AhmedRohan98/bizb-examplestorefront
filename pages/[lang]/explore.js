@@ -31,6 +31,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
+import TagManager from 'react-gtm-module';
+
 function Explore(props) {
   console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
@@ -856,7 +858,25 @@ function Explore(props) {
 
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
   }
+  const trackProductView = () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'product_view',
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+              },
+            ],
+          },
+        },
+      },
+    };
 
+    TagManager.dataLayer(dataLayer);
+  };
   const handleAddToCartClick = async (quantity, product, variant) => {
     const {
       addItemsToCart,
@@ -897,6 +917,24 @@ function Explore(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'add_to_cart',
+        ecommerce: {
+          add: {
+            products: [
+              {
+                id: product.productId,
+                name: product.title,
+                price: product.variants[0]?.pricing[0]?.displayPrice,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -1074,7 +1112,7 @@ function Explore(props) {
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                 const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1112,7 +1150,9 @@ function Explore(props) {
                       />
 
                       <div className={classes.cartcontent}>
-                        <div className={classes.cartcontenttext}>
+                        <div className={classes.cartcontenttext} onCick={() => {
+                          trackProductView()
+                        }}>
                           <Typography
                             style={{
                               fontWeight: "600",
@@ -1211,7 +1251,7 @@ function Explore(props) {
           {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
-    </Layout>
+    </Layout >
   );
 }
 export async function getStaticProps({ params: { lang } }) {
