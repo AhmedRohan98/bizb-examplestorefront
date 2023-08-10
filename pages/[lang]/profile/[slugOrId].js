@@ -583,7 +583,7 @@ function SellerPublicProfile(props) {
                       <img
                         src={
                           !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
+                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
                             : item?.node?.product?.media[0]?.URLs?.large
                         }
                         className={classes.image}

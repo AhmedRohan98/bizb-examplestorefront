@@ -402,7 +402,7 @@ const Justin = (props) => {
               });
 
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-              const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+              const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
@@ -429,7 +429,7 @@ const Justin = (props) => {
                         <img
                           src={
                             !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? "/justin/justin4.svg"
+                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
                               : item?.node?.product?.media[0]?.URLs?.large
                           }
                           className={classes.image}
@@ -509,7 +509,7 @@ const Justin = (props) => {
                         >
                           Size{" "}
                           <span className={classes.sizes}>
-                            {formatSize(size,true)}
+                            {formatSize(size, true)}
                           </span>
                         </Typography>
                         {isLoading[item?.node?.product?.productId] ? (
