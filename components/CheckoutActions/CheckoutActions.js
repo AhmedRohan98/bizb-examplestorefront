@@ -396,7 +396,9 @@ const CheckoutActions = (prop) => {
   const [applyPromo, data, loadingAfterPromo] = useApplyPromoCode();
   // console.log("helo", afterPromo, data, loadingAfterPromo);
   const classes = useStyles();
-  const [subtotal, setSubTotal] = useState(formatCurrency(cart?.checkout?.summary?.itemTotal?.amount));
+  // console.log("class", cart?.checkout?.summary?.itemTotal?.amount);
+  const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.itemTotal?.amount));
+  console.log(subtotal);
   const [error, setError] = useState("");
 
   const items = cart.items.map((item) => ({
@@ -999,7 +1001,7 @@ const CheckoutActions = (prop) => {
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
                       {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
-                      {subtotal}
+                      Rs .{subtotal}
                       {/* {console.log("subtotal,", subtotal)} */}
                     </Typography>
                   </div>
@@ -1019,7 +1021,13 @@ const CheckoutActions = (prop) => {
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {shippingData?.cost ? formatCurrency(shippingData?.cost) + subtotal : subtotal}
+                    {/* {console.log(
+                      "this is the issue",
+                      shippingData?.cost,
+                      subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
+                      formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
+                    )} */}
+                    Rs .{shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
                   </Typography>
                 </div>
               </div>
