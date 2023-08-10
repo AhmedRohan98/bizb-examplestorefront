@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Layout from "../../../components/Layout/Layout";
 import withCatalogItems from "../../../containers/catalog/withCatalogItems";
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   gridroot: {
     maxWidth: "100%",
     justifyContent: "space-between",
-    marginTop:"60px"
+    marginTop: "60px"
   },
 
   typography: {
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 
     },
   },
-  
+
   // image: {
   //   width: "275px", // Reduced by 1px to create space for the border
   //   maxHeight: "600px",
@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "flex-start",
   },
-  
+
   cartsize: {
     display: "flex",
     marginLeft: theme.spacing(0.5),
@@ -216,99 +216,99 @@ const useStyles = makeStyles((theme) => ({
 
 function AllResults(props) {
   // console.log(props.cart, "new");
-  const { allItems, totalLength, uiStore, catalogItems,cart } = props;
-  const {items}=cart
+  const { allItems, totalLength, uiStore, catalogItems, cart } = props;
+  const { items } = cart
   const [soldOutProducts, setSoldOutProducts] = useState([]);
-   const [isLoading, setIsLoading] = useState({});
+  const [isLoading, setIsLoading] = useState({});
   const { setPageSize, setSearchItems } = uiStore;
-    const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   // useEffect(() => {
 
   //   uiStore?.setPageSize(500);
   // }, []);
-    useEffect(() => {
-      const updatedItems = items?.map((item) => {
-        const isItemInCart = catalogItems?.some((product) => {
-          return item?.productConfiguration?.productId === product?.node.product?.productId;
-        });
-        // setpageSize(20);
-        return {
-          ...item,
-          disabled: item?.inCart || isItemInCart,
-        };
+  useEffect(() => {
+    const updatedItems = items?.map((item) => {
+      const isItemInCart = catalogItems?.some((product) => {
+        return item?.productConfiguration?.productId === product?.node.product?.productId;
       });
+      // setpageSize(20);
+      return {
+        ...item,
+        disabled: item?.inCart || isItemInCart,
+      };
+    });
     const soldOutProducts = catalogItems?.filter((product) => product?.node?.product?.isSoldOut);
     setSoldOutProducts(soldOutProducts);
-    
-    }, [items, catalogItems]);
+
+  }, [items, catalogItems]);
   useEffect(() => {
     setPageSize(allItems);
     setSearchItems(totalLength);
   }, [allItems, totalLength]);
   const shop = useShop();
-    const CustomCloseButton = () => (
-      <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
-    );
- const handleAddToCartClick = async (quantity, product, variant) => {
-   const {
-     addItemsToCart,
-     currencyCode,
-     cart,
-     uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
-   } = props;
+  const CustomCloseButton = () => (
+    <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />
+  );
+  const handleAddToCartClick = async (quantity, product, variant) => {
+    const {
+      addItemsToCart,
+      currencyCode,
+      cart,
+      uiStore: { openCartWithTimeout, pdpSelectedOptionId, pdpSelectedVariantId, setPDPSelectedVariantId },
+    } = props;
 
-   // Disable button after it has been clicked
+    // Disable button after it has been clicked
 
-   // console.log(pdpSelectedVariantId, "star");
+    // console.log(pdpSelectedVariantId, "star");
 
-   // Get selected variant or variant optiono
-   const selectedVariant = variantById(product.variants, variant._id);
+    // Get selected variant or variant optiono
+    const selectedVariant = variantById(product.variants, variant._id);
 
-   // If variant is not already in the cart, add the new item
-const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10); 
-   await addItemsToCart([
-     {
-       price: {
-         amount: price,
-         currencyCode: "USD",
-       },
-       metafields: [
-         {
-           key: "media",
-           value: product.media[0]?.URLs?.large,
-         },
-       ],
-       productConfiguration: {
-         productId: product.productId,
-         productVariantId: selectedVariant.variantId,
-       },
-       quantity,
-     },
-   ]);
- };
+    // If variant is not already in the cart, add the new item
+    const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
+    await addItemsToCart([
+      {
+        price: {
+          amount: price,
+          currencyCode: "USD",
+        },
+        metafields: [
+          {
+            key: "media",
+            value: product.media[0]?.URLs?.large,
+          },
+        ],
+        productConfiguration: {
+          productId: product.productId,
+          productVariantId: selectedVariant.variantId,
+        },
+        quantity,
+      },
+    ]);
+  };
 
- const handleOnClick = async (product, variant) => {
-   setIsLoading((prevState) => ({
-     ...prevState,
-     [product.productId]: true,
-   }));
+  const handleOnClick = async (product, variant) => {
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: true,
+    }));
 
-   await handleAddToCartClick(addToCartQuantity, product, variant);
-   toast.success(" added to cart successfully!", {});
-   setIsLoading((prevState) => ({
-     ...prevState,
-     [product.productId]: false,
-   }));
-   // Scroll to the top
- };
-   const router = useRouter();
- const clickHandler = (item) => {
-   const productSlug = item;
+    await handleAddToCartClick(addToCartQuantity, product, variant);
+    toast.success(" added to cart successfully!", {});
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [product.productId]: false,
+    }));
+    // Scroll to the top
+  };
+  const router = useRouter();
+  const clickHandler = (item) => {
+    const productSlug = item;
 
-   const url = `/en/product/${productSlug}`;
-   const newWindow = window.open(url, "_blank");
-   newWindow.opener.focus();
- };
+    const url = `/en/product/${productSlug}`;
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener.focus();
+  };
   const classes = useStyles();
   return (
     <Layout shop={shop}>
@@ -350,7 +350,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                   });
 
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                  const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
+                  const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
                   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                   const str = item.node.product.title;
                   const words = str.match(/[a-zA-Z0-9]+/g);
@@ -379,7 +379,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                           <img
                             src={
                               !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                ? "/justin/justin4.svg"
+                                ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                 : item?.node?.product?.media[0]?.URLs?.large
                             }
                             className={classes.image}
@@ -394,11 +394,11 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             <Typography
                               style={{
                                 fontWeight: "600",
-                            fontSize: "1rem",
-                            fontFamily: "lato",
-                            // marginTop: "10px",
-                            textTransform: "capitalize",
-                            marginLeft: "0px",
+                                fontSize: "1rem",
+                                fontFamily: "lato",
+                                // marginTop: "10px",
+                                textTransform: "capitalize",
+                                marginLeft: "0px",
                               }}
                               variant="h4"
                               component="h2"
@@ -410,10 +410,10 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                               className={classes.price}
                               style={{
                                 fontWeight: "600",
-                            fontSize: "1rem",
-                            fontFamily: "lato",
-                            color: "#FDC114",
-                            marginLeft: "0px", 
+                                fontSize: "1rem",
+                                fontFamily: "lato",
+                                color: "#FDC114",
+                                marginLeft: "0px",
                               }}
                             >
                               {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
@@ -429,9 +429,9 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                               <Typography
                                 style={{
                                   fontWeight: "600",
-                              fontSize: "0.9rem",
-                              fontFamily: "lato",
-                              marginLeft: "0px",       
+                                  fontSize: "0.9rem",
+                                  fontFamily: "lato",
+                                  marginLeft: "0px",
                                 }}
                                 variant="h4"
                                 component="h2"
@@ -453,7 +453,7 @@ const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(
                             >
                               Size:{" "}
                               <span className={classes.sizes}>
-                                {formatSize(size,true)}
+                                {formatSize(size, true)}
                               </span>
                             </Typography>
                             {isLoading[item?.node?.product?.productId] ? (
