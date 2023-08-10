@@ -1459,7 +1459,7 @@ function Categories(props) {
                       );
 
                       const compareAtPrice =
-                        item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                        item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
                           /[^0-9.]/g,
                           "",
                         );
@@ -1480,7 +1480,7 @@ function Categories(props) {
                               onClick={() => clickHandler(item.node.product.slug)}
                               src={
                                 item?.node?.product?.media[0]?.URLs
-                                  ? item?.node?.product?.media[0]?.URLs?.large : "/justin/justin4.svg"
+                                  ? item?.node?.product?.media[0]?.URLs?.large : item?.node?.product?.media[0]?.URLs?.thumbnail
                               }
                               className={classes.image}
                               key={item?.node?.product?.id}
@@ -1522,7 +1522,7 @@ function Categories(props) {
                                 </Typography>
                                 <div className={classes.strikethroughoff}>
                                   <strike className={classes.strikethrough}>
-                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                       ?.replace(/\.00$/, "")
                                       .replace(/\$/g, "Rs. ")}
                                   </strike>
@@ -1536,7 +1536,7 @@ function Categories(props) {
                                     variant="h4"
                                     component="h2"
                                     className={classes.carttitle2}
-                                  >{`-${Math.abs(percentage)}%`}</Typography>
+                                  >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}</Typography>
                                 </div>
                               </div>
                               <div className={classes.cartbackground}>
@@ -1622,7 +1622,7 @@ function Categories(props) {
                     );
 
                     const compareAtPrice =
-                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
                         /[^0-9.]/g,
                         "",
                       );
@@ -1644,7 +1644,7 @@ function Categories(props) {
                               src={
                                 item?.node?.product?.media[0]?.URLs
                                   ? item?.node?.product?.media[0]?.URLs?.large
-                                  : "/justin/justin4.svg"
+                                  : item?.node?.product?.media[0]?.URLs?.thumbnail
 
                               }
                               className={classes.image}
@@ -1689,7 +1689,7 @@ function Categories(props) {
                               </Typography>
                               <div className={classes.strikethroughoff}>
                                 <strike className={classes.strikethrough}>
-                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                     ?.replace(/\.00$/, "")
                                     .replace(/\$/g, "Rs. ")}
                                 </strike>

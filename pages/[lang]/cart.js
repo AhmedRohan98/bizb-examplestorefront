@@ -948,7 +948,7 @@ class CartPage extends Component {
                             <img
                               src={
                                 !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                  ? "/justin/justin4.svg"
+                                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                   : item?.node?.product?.media[0]?.URLs?.large
                               }
                               className={classes.image}
@@ -1020,7 +1020,7 @@ class CartPage extends Component {
                               <div className={classes.pricing}>
                                 {" "}
                                 <strike>
-                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                     ?.replace(/\.00$/, "")
                                     .replace(/\$/g, "RS ")}
                                 </strike>

@@ -454,7 +454,7 @@ const Justin = (props) => {
               const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
 
               const compareAtPrice =
-                item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
               const parsedDisplayPrice = parseFloat(displayPrice);
               const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
@@ -473,7 +473,7 @@ const Justin = (props) => {
                         <img
                           src={
                             !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? "/justin/justin4.svg"
+                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
                               : item?.node?.product?.media[0]?.URLs?.large
                           }
                           className={classes.image}
@@ -524,7 +524,7 @@ const Justin = (props) => {
                         </Typography>
                         <div className={classes.strikethroughoff}>
                           <strike className={classes.strikethrough}>
-                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                               ?.replace(/\.00$/, "")
                               .replace(/\$/g, "Rs. ")}
                           </strike>
@@ -538,7 +538,7 @@ const Justin = (props) => {
                             variant="h4"
                             component="h2"
                             className={classes.carttitle2}
-                          >{`-${Math.abs(percentage)}%`}</Typography>
+                          >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice  && `-${Math.abs(percentage)}%`}</Typography>
                         </div>
                       </div>
                       <div className={classes.cartbackground}>

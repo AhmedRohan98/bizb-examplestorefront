@@ -892,7 +892,7 @@ const ProductDetail = ({ ...props }) => {
     },
   };
   const displayPrice = product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
-  const compareAtPrice = product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+  const compareAtPrice = product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
   const parsedDisplayPrice = parseFloat(displayPrice);
   const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -1036,7 +1036,7 @@ const ProductDetail = ({ ...props }) => {
                               variant="h4"
                               className={classes.price2}
                             >
-                              {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              {product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                 ?.replace(/\.00$/, "")
                                 ?.replace(/\$/g, "Rs. ")}
                             </Typography>
@@ -1052,9 +1052,9 @@ const ProductDetail = ({ ...props }) => {
                               .replace(/\$/g, "Rs. ")}
                           </Typography>
                         </div>
-                        <Typography gutterBottom variant="h5" className={classes.offer}>
-                          {`-${Math.abs(percentage)}%`}
-                        </Typography>
+                        {product?.variants[0]?.pricing[0]?.compareAtPrice &&<Typography gutterBottom variant="h5" className={classes.offer}>
+                          { `-${Math.abs(percentage)}%`}
+                        </Typography>}
                       </div>
                       <div className={classes.sizeimage}>
                         <img style={{ paddingLeft: "10px" }} src="/cart/available.svg" alt="available" />
@@ -1150,7 +1150,7 @@ const ProductDetail = ({ ...props }) => {
                     );
 
                     const compareAtPrice =
-                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
                     const parsedDisplayPrice = parseFloat(displayPrice);
                     const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -1170,7 +1170,7 @@ const ProductDetail = ({ ...props }) => {
                                 <img
                                   src={
                                     !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                      ? "/justin/justin4.svg"
+                                      ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                       : item?.node?.product?.media[0]?.URLs?.large
                                   }
                                   className={classes.image}
@@ -1212,7 +1212,7 @@ const ProductDetail = ({ ...props }) => {
                                 </Typography>
                                 <div className={classes.strikethroughoff}>
                                   <strike className={classes.strikethrough}>
-                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                       ?.replace(/\.00$/, "")
                                       .replace(/\$/g, "Rs. ")}
                                   </strike>

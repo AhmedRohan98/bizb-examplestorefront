@@ -697,6 +697,7 @@ function Explore(props) {
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
+      marginRight: "30px"
     },
     cart: {
       height: "35px",
@@ -746,14 +747,14 @@ function Explore(props) {
     },
 
     price: {
-      marginLeft: "12px",
+      marginRight: "12px",
     },
     strikethroughoff: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
       width: "110px",
-      marginLeft: "12px",
+      marginRight: "12px",
     },
     progressBar: {
       [theme.breakpoints.down("sm")]: {
@@ -1123,7 +1124,7 @@ function Explore(props) {
                 );
 
                 const compareAtPrice =
-                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
                 const parsedDisplayPrice = parseFloat(displayPrice);
                 const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -1140,7 +1141,7 @@ function Explore(props) {
                       <img
                         src={
                           !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
+                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
                             : item?.node?.product?.media[0]?.URLs?.large
                         }
                         className={classes.image}
@@ -1184,7 +1185,7 @@ function Explore(props) {
                           </Typography>
                           <div className={classes.strikethroughoff}>
                             <strike className={classes.strikethrough}>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                 ?.replace(/\.00$/, "")
                                 .replace(/\$/g, "Rs. ")}
                             </strike>

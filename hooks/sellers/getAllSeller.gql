@@ -1,6 +1,7 @@
 query getAllSeller {
   getAllSeller {
     _id
+    name
     storeName
     picture
   }

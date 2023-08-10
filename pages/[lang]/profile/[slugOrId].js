@@ -84,8 +84,8 @@ function SellerPublicProfile(props) {
 
       },
       [theme.breakpoints.down("sm")]: {
-        width: "275px", // Reduced by 1px to create space for the border
-
+        width: "150px", // Reduced by 1px to create space for the border
+        height: "200px",
       },
     },
     // image: {
@@ -138,10 +138,18 @@ function SellerPublicProfile(props) {
       justifyContent: "space-between",
       flexDirection: "row",
       paddingBottom: "10px",
+      overflow: "hidden",
+
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        paddingBottom: "5px",
+      },
     },
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
+      marginRight: "30px"
+
     },
     cart: {
       height: "35px",
@@ -161,6 +169,11 @@ function SellerPublicProfile(props) {
         transition: "left 0.2s linear",
         background: "#FDC114",
       },
+      [theme.breakpoints.down("sm")]: {
+        width: "34px", // Reduced by 1px to create space for the border
+        height: "20px",
+        marginLeft: theme.spacing(2),
+      },
     },
     explore: {
       position: "absolute",
@@ -179,6 +192,17 @@ function SellerPublicProfile(props) {
       gridRowEnd: "span 1",
       flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
       marginBottom: "20px",
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        marginBottom: "10px",
+      },
+    },
+    cartText: {
+      fontSize: "18px",
+
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "10px",
+      },
     },
 
     price: {
@@ -193,6 +217,12 @@ function SellerPublicProfile(props) {
     },
     cartbackground: {
       marginRight: "8px",
+      display: "flex",
+      flexDirection: "column",
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "row",
+        marginRight: "2px",
+      },
     },
     strikethrough: {
       display: "flex",
@@ -227,6 +257,13 @@ function SellerPublicProfile(props) {
       allignItems: "center",
       justifyContent: "center",
       width: "100%",
+    },
+    progressBar: {
+      [theme.breakpoints.down("sm")]: {
+        size: "10px",
+        marginLeft: theme.spacing(3),
+      },
+
     },
   }));
   // console.log(props.totalcount, "propertiese");
@@ -529,7 +566,7 @@ function SellerPublicProfile(props) {
         </div>
         <div className={classes.gridroot}>
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+            columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
             style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
             <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -549,7 +586,7 @@ function SellerPublicProfile(props) {
                 const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
 
                 const compareAtPrice =
-                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
                 const parsedDisplayPrice = parseFloat(displayPrice);
                 const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -566,7 +603,7 @@ function SellerPublicProfile(props) {
                       <img
                         src={
                           !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
+                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
                             : item?.node?.product?.media[0]?.URLs?.large
                         }
                         className={classes.image}
@@ -608,7 +645,7 @@ function SellerPublicProfile(props) {
                           </Typography>
                           <div className={classes.strikethroughoff}>
                             <strike className={classes.strikethrough}>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                 ?.replace(/\.00$/, "")
                                 .replace(/\$/g, "Rs. ")}
                             </strike>
@@ -622,7 +659,7 @@ function SellerPublicProfile(props) {
                               variant="h4"
                               component="h2"
                               className={classes.carttitle2}
-                            >{`-${Math.abs(percentage)}%`}</Typography>
+                            >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice&& `-${Math.abs(percentage)}%`}</Typography>
                           </div>
                         </div>
                         <div className={classes.cartbackground}>
@@ -643,7 +680,7 @@ function SellerPublicProfile(props) {
                             </span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress />
+                            <CircularProgress className={classes.progressBar} />
                           ) : (
                             <Button
                               className={classes.cart}
@@ -652,9 +689,11 @@ function SellerPublicProfile(props) {
                             >
                               <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
                               <Typography
-                                style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
+                                style={{ fontFamily: "Ostrich Sans Black" }}
                                 variant="h5"
                                 component="h2"
+                                className={classes.cartText}
+
                               >
                                 {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>
