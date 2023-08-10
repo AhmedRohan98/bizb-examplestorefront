@@ -1085,7 +1085,7 @@ function Explore(props) {
                 );
 
                 const compareAtPrice =
-                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
                 const parsedDisplayPrice = parseFloat(displayPrice);
                 const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -1144,7 +1144,7 @@ function Explore(props) {
                           </Typography>
                           <div className={classes.strikethroughoff}>
                             <strike className={classes.strikethrough}>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                 ?.replace(/\.00$/, "")
                                 .replace(/\$/g, "Rs. ")}
                             </strike>
