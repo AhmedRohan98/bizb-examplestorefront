@@ -1014,7 +1014,13 @@ const CheckoutActions = (prop) => {
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {shippingData?.cost ? formatCurrency(shippingData?.cost + cart.checkout.summary.itemTotal.amount) : formatCurrency(cart.checkout.summary.itemTotal.amount)}
+                    {/* {console.log(
+                      "this is the issue",
+                      shippingData?.cost,
+                      subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
+                      formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
+                    )} */}
+                    Rs. {shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
                   </Typography>
                 </div>
               </div>

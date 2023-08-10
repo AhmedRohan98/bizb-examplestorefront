@@ -187,6 +187,13 @@ const Welcome = () => {
             isTabletDevice,
             deviceType,
         });
+            // Track "Page View" event with Google Analytics 4 for Welcome Page
+            ReactGA.send({
+                hitType: 'pageview',
+                page: '/welcome',
+                title: 'Welcome Page',
+            });
+            
     }, []);
     const [createanalyticsFunction, loding] = useCreateanalytics()
 
@@ -216,14 +223,7 @@ const Welcome = () => {
 
 
     const classes = useStyles();
-    useEffect(() => {
-        // Track "Page View" event with Google Analytics 4 for Welcome Page
-        ReactGA.send({
-            hitType: 'pageview',
-            page: '/welcome',
-            title: 'Welcome Page',
-        });
-    }, []);
+
 
 
     return (
