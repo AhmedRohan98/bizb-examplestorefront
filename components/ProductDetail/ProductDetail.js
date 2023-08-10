@@ -873,7 +873,7 @@ const ProductDetail = ({ ...props }) => {
     },
   };
   const displayPrice = product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
-  const compareAtPrice = product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+  const compareAtPrice = product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
   const parsedDisplayPrice = parseFloat(displayPrice);
   const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -1017,7 +1017,7 @@ const ProductDetail = ({ ...props }) => {
                               variant="h4"
                               className={classes.price2}
                             >
-                              {product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              {product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                 ?.replace(/\.00$/, "")
                                 ?.replace(/\$/g, "Rs. ")}
                             </Typography>
@@ -1131,7 +1131,7 @@ const ProductDetail = ({ ...props }) => {
                     );
 
                     const compareAtPrice =
-                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
                     const parsedDisplayPrice = parseFloat(displayPrice);
                     const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -1193,7 +1193,7 @@ const ProductDetail = ({ ...props }) => {
                                 </Typography>
                                 <div className={classes.strikethroughoff}>
                                   <strike className={classes.strikethrough}>
-                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                       ?.replace(/\.00$/, "")
                                       .replace(/\$/g, "Rs. ")}
                                   </strike>
