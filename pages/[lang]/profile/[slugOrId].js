@@ -22,6 +22,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import TagManager from 'react-gtm-module';
+
 function SellerPublicProfile(props) {
   // console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
@@ -363,6 +365,24 @@ function SellerPublicProfile(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'add_to_cart',
+        ecommerce: {
+          add: {
+            products: [
+              {
+                id: product.productId,
+                name: product.title,
+                price: product.variants[0]?.pricing[0]?.displayPrice,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -583,7 +603,7 @@ function SellerPublicProfile(props) {
                       <img
                         src={
                           !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
+                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
                             : item?.node?.product?.media[0]?.URLs?.large
                         }
                         className={classes.image}
@@ -639,7 +659,7 @@ function SellerPublicProfile(props) {
                               variant="h4"
                               component="h2"
                               className={classes.carttitle2}
-                            >{`-${Math.abs(percentage)}%`}</Typography>
+                            >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice&& `-${Math.abs(percentage)}%`}</Typography>
                           </div>
                         </div>
                         <div className={classes.cartbackground}>

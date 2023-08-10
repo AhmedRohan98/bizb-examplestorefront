@@ -29,6 +29,8 @@ import { CircularProgress } from "@material-ui/core";
 import formatSize from "../../lib/utils/formatSize";
 import { useRouter } from "next/router";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import TagManager from 'react-gtm-module';
+
 // import ReactImageMagnify from "react-image-magnify";
 SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
 const styles = (theme) => ({
@@ -782,6 +784,23 @@ const ProductDetail = ({ ...props }) => {
   }
 
   const handleOnClick = async (product, variant) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'add_to_cart',
+        ecommerce: {
+          add: {
+            products: [
+              {
+                id: product.productId,
+                name: product.title,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -1033,9 +1052,9 @@ const ProductDetail = ({ ...props }) => {
                               .replace(/\$/g, "Rs. ")}
                           </Typography>
                         </div>
-                        <Typography gutterBottom variant="h5" className={classes.offer}>
-                          {`-${Math.abs(percentage)}%`}
-                        </Typography>
+                        {product?.variants[0]?.pricing[0]?.compareAtPrice &&<Typography gutterBottom variant="h5" className={classes.offer}>
+                          { `-${Math.abs(percentage)}%`}
+                        </Typography>}
                       </div>
                       <div className={classes.sizeimage}>
                         <img style={{ paddingLeft: "10px" }} src="/cart/available.svg" alt="available" />
@@ -1151,7 +1170,7 @@ const ProductDetail = ({ ...props }) => {
                                 <img
                                   src={
                                     !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                      ? "/justin/justin4.svg"
+                                      ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                       : item?.node?.product?.media[0]?.URLs?.large
                                   }
                                   className={classes.image}

@@ -212,6 +212,7 @@ export default function SignUp(props) {
     validateOnBlur: false,
     //// By disabling validation onChange and onBlur formik will validate on submit.
     onSubmit: async (values, action) => {
+      window.dataLayer = window.dataLayer
       const dataLayer = {
         dataLayer: {
           event: 'sign_in', // The name of the custom event

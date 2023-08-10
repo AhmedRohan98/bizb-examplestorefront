@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import TagManager from 'react-gtm-module';
 
 const styles = (theme) => ({
   summary: {
@@ -37,9 +38,9 @@ class CheckoutSummary extends Component {
 
   static defaultProps = {
     hasMoreCartItems: false,
-    loadMoreCartItems() {},
-    onChangeCartItemsQuantity() {},
-    onRemoveCartItems() {},
+    loadMoreCartItems() { },
+    onChangeCartItemsQuantity() { },
+    onRemoveCartItems() { },
   };
 
   handleItemQuantityChange = (quantity, cartItemId) => {
@@ -49,6 +50,23 @@ class CheckoutSummary extends Component {
   };
 
   handleRemoveItem = (_id) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'remove_from_cart',
+        ecommerce: {
+          remove: {
+            products: [
+              {
+                id: _id,
+
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     const { onRemoveCartItems } = this.props;
 
     onRemoveCartItems(_id);
@@ -77,7 +95,7 @@ class CheckoutSummary extends Component {
   }
 
   renderCartSummary() {
-    const { cart, classes ,handlpay} = this.props;
+    const { cart, classes, handlpay } = this.props;
     // console.log(this.props, "heloo");
 
     if (cart && cart.checkout && cart.checkout.summary) {
