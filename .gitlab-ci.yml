@@ -304,7 +304,7 @@ deploy-aws-ecs-dev:
     - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $new_task_definition_arn --force-new-deployment
     # - aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
     # - aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME
-
+ 
 
 # deploy_to_remote:
 #   stage: deploy
