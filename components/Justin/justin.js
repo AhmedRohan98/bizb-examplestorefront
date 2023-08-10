@@ -258,6 +258,7 @@ const Justin = (props) => {
     };
 
     TagManager.dataLayer(dataLayer);
+
   };
   //
   useEffect(() => {
@@ -383,6 +384,9 @@ const Justin = (props) => {
     };
 
     TagManager.dataLayer(dataLayer);
+    const d = TagManager.dataLayer(dataLayer);
+
+    console.log("dataLayerdataLayer", d)
 
     setIsLoading((prevState) => ({
       ...prevState,

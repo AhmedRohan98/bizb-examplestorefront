@@ -13,6 +13,7 @@ import Link from "components/Link";
 import useStores from "hooks/useStores";
 import EntryModal from "../Entry/EntryModal";
 import getAccountsHandler from "../../lib/accountsServer.js";
+import TagManager from 'react-gtm-module';
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
@@ -82,6 +83,13 @@ const AccountDropdown = ({ headerType }) => {
   };
 
   const handleSignOut = async () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'logout',
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     await accountsClient.logout();
     await refetch();
     onClose();
@@ -90,7 +98,7 @@ const AccountDropdown = ({ headerType }) => {
   const toggleOpen = (event) => {
     setAnchorElement(event.currentTarget);
   };
-  const handleProfile=()=>{
+  const handleProfile = () => {
     window.location.href = "https://bizb.store/dashboard/myprofile?role=1";
   }
   const handleDashboard = () => {
