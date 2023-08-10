@@ -104,7 +104,9 @@ class NavigationMobile extends Component {
     this.handleCloseSubMenu();
     this.props.uiStore.closeMenuDrawer();
   };
-
+  componentDidMount() {
+    this.handleClose;
+  }
   render() {
     const { classes, navItems, uiStore, shop } = this.props;
 
@@ -132,18 +134,36 @@ class NavigationMobile extends Component {
             </Link>
             <br />
             <a href="/en/explore">
-
               <MenuList className={classes.navButtonActive}>
                 Explore
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
             <br />
-            <a href="/en/SellerRegistrationPage"
-            >
-
+            <a target="_blank" href="https://old.bizb.store/how-to-sell/">
+              <MenuList className={classes.navButtonActive}>
+                How to Sell
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <br />
+            <a target="_blank" href="https://old.bizb.store/blog/">
+              <MenuList className={classes.navButtonActive}>
+                Our Blogs
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <br />
+            <a href="/en/SellerRegistrationPage">
               <MenuList className={classes.navButtonActive}>
                 Sell
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <br />
+            <a href="/en/contactus">
+              <MenuList className={classes.navButtonActive}>
+                Contact Us
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>

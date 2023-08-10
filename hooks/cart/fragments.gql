@@ -89,6 +89,10 @@ fragment CartCommon on Cart {
         amount
         displayAmount
       }
+      discountTotal {
+        amount
+        displayAmount
+      }
       surchargeTotal {
         amount
         displayAmount
@@ -185,7 +189,7 @@ fragment CartItemConnectionFragment on CartItemConnection {
       shop {
         _id
       }
-    
+
       subtotal {
         displayAmount
       }
@@ -193,9 +197,8 @@ fragment CartItemConnectionFragment on CartItemConnection {
 
       productTags {
         nodes {
-          name,
+          name
           _id
-          
         }
       }
 
