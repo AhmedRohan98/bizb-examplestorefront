@@ -22,6 +22,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import TagManager from 'react-gtm-module';
+
 function SellerPublicProfile(props) {
   // console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
@@ -363,6 +365,24 @@ function SellerPublicProfile(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'add_to_cart',
+        ecommerce: {
+          add: {
+            products: [
+              {
+                id: product.productId,
+                name: product.title,
+                price: product.variants[0]?.pricing[0]?.displayPrice,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
