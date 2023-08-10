@@ -160,10 +160,7 @@ const Footer = () => {
                 </span>
               </div>
             </a>
-            <a
-              target="_blank"
-              href="https://old.bizb.store/blog/"
-            >
+            <a target="_blank" href="https://old.bizb.store/blog/">
               <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
