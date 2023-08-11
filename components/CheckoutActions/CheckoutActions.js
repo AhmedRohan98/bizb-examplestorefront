@@ -28,11 +28,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#b22b27",
     fontFamily: "Lato",
   },
-
   label: {
+    width: "100%",
     display: "flex",
     marginTop: theme.spacing(1),
-
     fontSize: "24px",
     marginBottom: theme.spacing(1),
     color: "#333333",
@@ -50,11 +49,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   input: {
-    width: "430px",
+    width: "100%",
     height: "48px",
     borderRadius: "6px",
     color: "red",
-
     justifyContent: "center",
     paddingLeft: theme.spacing(2),
     background: "#F7F7F9",
@@ -93,17 +91,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   inputitem: {
-    width: "440px",
+    width: "100%",
   },
   inputitem2: {
-    width: "440px",
+    width: "100%",
   },
   inputorder: {
-    width: "430px",
+    width: "100%",
     height: "218px",
     borderRadius: "6px",
     color: "red",
-
     paddingLeft: theme.spacing(2),
     background: "#F7F7F9",
     borderBottomColor: "none",
@@ -111,12 +108,12 @@ const useStyles = makeStyles((theme) => ({
       color: "#969696",
       fontSize: "16px",
       fontFamily: "lato",
-      padding: "opx",
+      padding: "0px",
     },
     "& .MuiInputBase-input.active": {
       color: "#eeeeeeeeeee6",
       fontSize: "17px",
-      padding: "opx",
+      padding: "0px",
     },
   },
   register: {
@@ -139,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     display: "flex",
     textTransform: "uppercase",
-    marginLeft: "10px",
+    // marginLeft: "10px",
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -167,7 +164,6 @@ const useStyles = makeStyles((theme) => ({
   terms: {
     lineHeight: "100px",
   },
-
   checkbox: {
     color: "green",
     "& .MuiIconButton-label ": {
@@ -178,7 +174,7 @@ const useStyles = makeStyles((theme) => ({
   checkboxdiv: {
     display: "flex",
     flexDirection: "row",
-    width: "380px",
+    width: "100%",
     borderBottom: `solid 1px  #00000030 `,
   },
   register2: {
@@ -186,7 +182,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
-
     lineHeight: "24px",
     fontStyle: "normal",
     marginLeft: "15px",
@@ -203,7 +198,7 @@ const useStyles = makeStyles((theme) => ({
   mainheadingp: {
     textTransform: "lowercase",
     alignItems: "center",
-    width: "380px",
+    width: "100%",
     fontSize: "1.5rem",
     marginBottom: 20,
   },
@@ -225,7 +220,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cartpayment: {
     display: "flex",
-    width: "380px",
+    width: "100%",
     flexDirection: "column",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
@@ -265,13 +260,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
   },
   cartcard: {
-    width: "391px",
+    width: "100%",
     boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     borderRadius: "18px",
     padding: theme.spacing(2),
   },
   cartcard3: {
-    width: "391px",
+    width: "100%",
     // boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     // borderRadius: "18px",
     padding: theme.spacing(2),
@@ -281,6 +276,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cartcard2: {
+    width: "100%",
     boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     borderRadius: "18px",
     padding: theme.spacing(2),
@@ -310,7 +306,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "34px",
   },
   orderbutn: {
-    width: "320px",
+    width: "100%",
     display: "flex",
     marginLeft: "75px",
   },
@@ -323,7 +319,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "430px",
+    width: "100%",
   },
   gridshipp: {
     display: "flex",
@@ -337,7 +333,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
   },
   labelSpan: {
-    width: "300px",
+    width: "100%",
     fontSize: "1rem",
   },
   register: {
@@ -741,7 +737,7 @@ const CheckoutActions = (prop) => {
           mb: 2,
           display: "flex",
           flexDirection: "column",
-          width: "400px",
+          width: "100%",
 
           // justifyContent="flex-end" # DO NOT USE THIS WITH 'scroll'
         }}
@@ -777,7 +773,7 @@ const CheckoutActions = (prop) => {
                 Shipping Details
               </Typography>
 
-              <Grid xs={12} className={classes.root}>
+              <Grid xs={12} style={{ width: "100%" }}>
                 <Grid item className={classes.inputitem}>
                   <label className={classes.label} htmlFor="FullName">
                     <span className={classes.labelSpan} htmlFor="FullName">
@@ -798,7 +794,7 @@ const CheckoutActions = (prop) => {
                   </label>
                   {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
                 </Grid>
-                <Grid xs={12} item className={classes.inputitem}>
+                <Grid xs={12} item style={{ width: "100%" }} className={classes.inputitem}>
                   <label className={classes.label} htmlFor="phonenumber">
                     <span className={classes.labelSpan} htmlFor="phonenumber">
                       Phone Number <span style={{ color: "#FD1010" }}>*</span>
