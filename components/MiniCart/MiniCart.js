@@ -17,6 +17,7 @@ import Badge from "@material-ui/core/Badge";
 import formatCurrency from "../../lib/utils/formatCurrency"
 import withCart from "containers/cart/withCart";
 import Link from "components/Link";
+import ReactGA from "react-ga4";
 
 const styles = (theme) => ({
   popper: {
@@ -267,17 +268,54 @@ const MiniCart = ({ ...props }) => {
   };
 
   const handleCheckoutButtonClick = () => {
+    const productIds = cart?.items?.map((item) => item._id);
+
+    const dataLayer = {
+      dataLayer: {
+        event: 'checkout_initiated',
+        ecommerce: {
+          currencyCode: 'PK', // Replace with your currency code
+          checkout: {
+            actionField: { step: 1 },
+            products: productIds,
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     Router.push("/cart/checkout");
     // console.log("button clicked");
   };
 
   const handleOnClick = () => {
     const { closeCart } = props.uiStore;
+    const productIds = cart?.items.map((item) => item._id);
+
+    const dataLayer = {
+      dataLayer: {
+        event: 'cart_view',
+        ecommerce: {
+          currencyCode: 'USD', // Replace with your currency code
+          cart: {
+            products: productIds,
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
 
     Router.push("/cart");
   };
 
   const handleRemoveItem = async (itemID) => {
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemID,
+    });
     const { onRemoveCartItems } = props;
     console.log(itemID, "me");
     onRemoveCartItems(itemID);

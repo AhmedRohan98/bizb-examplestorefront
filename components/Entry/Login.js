@@ -14,6 +14,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import ReactGA from "react-ga4";
 
 const useStyles = makeStyles((theme) => ({
   yellowHoverText: {
@@ -197,6 +198,12 @@ export default function Login(props) {
   const registerUser = async (values, action) => {
     setLoginDisable(true);
     const { email, password } = values;
+    ReactGA.event({
+      action: 'login',
+      category: 'User',
+      label: 'User Logged In',
+    });
+
     try {
       await passwordClient.login({
         user: {
@@ -205,6 +212,15 @@ export default function Login(props) {
 
         password: hashPassword(password),
       });
+      const dataLayer = {
+        dataLayer: {
+          event: 'user_login',
+          email: email,
+        },
+      };
+
+      TagManager.dataLayer(dataLayer);
+
       closeModal();
       await refetch();
     } catch (err) {
