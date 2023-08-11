@@ -1002,6 +1002,25 @@ const CheckoutActions = (prop) => {
                 <div className={classes.shipping}>
                   <div className={classes.subtotal}>
                     <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
+                      Original Price
+                    </Typography>
+                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                      {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
+                      Rs. {cart?.checkout?.summary?.itemTotal?.amount}
+                      {/* {console.log("subtotal,", subtotal)} */}
+                    </Typography>
+                  </div>
+                  <div className={classes.subtotal}>
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
+                      Discount
+                    </Typography>
+                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                      {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
+                      (Rs. {cart?.checkout?.summary?.discountTotal?.amount}){/* {console.log("subtotal,", subtotal)} */}
+                    </Typography>
+                  </div>
+                  <div className={classes.subtotal}>
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                       Subtotal
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
