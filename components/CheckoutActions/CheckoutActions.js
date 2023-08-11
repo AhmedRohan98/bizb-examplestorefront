@@ -308,18 +308,22 @@ const useStyles = makeStyles((theme) => ({
   orderbutn: {
     width: "100%",
     display: "flex",
-    marginLeft: "75px",
+    // marginLeft: "75px",
   },
   summary: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    paddingRight: "5%",
+    paddingLeft: "5%",
   },
   shippingdetails: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     width: "100%",
+    paddingRight: "5%",
+    paddingLeft: "5%",
   },
   gridshipp: {
     display: "flex",
@@ -337,6 +341,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
   },
   register: {
+    marginLeft: "auto",
+    marginRight: "auto",
     width: "261px",
     height: "48px",
     borderRadius: "40px",
