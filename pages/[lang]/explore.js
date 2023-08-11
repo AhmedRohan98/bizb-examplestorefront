@@ -859,7 +859,25 @@ function Explore(props) {
 
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
   }
+  const trackProductView = () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'product_view',
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+              },
+            ],
+          },
+        },
+      },
+    };
 
+    TagManager.dataLayer(dataLayer);
+  };
   const handleAddToCartClick = async (quantity, product, variant) => {
     const {
       addItemsToCart,
@@ -1121,7 +1139,9 @@ function Explore(props) {
                       />
 
                       <div className={classes.cartcontent}>
-                        <div className={classes.cartcontenttext}>
+                        <div className={classes.cartcontenttext} onCick={() => {
+                          trackProductView()
+                        }}>
                           <Typography
                             style={{
                               fontWeight: "600",
@@ -1220,7 +1240,7 @@ function Explore(props) {
           {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
-    </Layout>
+    </Layout >
   );
 }
 export async function getStaticProps({ params: { lang } }) {

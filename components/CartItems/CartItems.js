@@ -12,6 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import formatCurrency from "lib/utils/formatCurrency";
+import TagManager from 'react-gtm-module';
 import ReactGA from "react-ga4";
 
 import { withComponents } from "@reactioncommerce/components-context";

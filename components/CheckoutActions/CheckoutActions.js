@@ -19,6 +19,8 @@ import useGetShipping from "../../hooks/shippingprice/usegetShipping";
 import Select, { components } from "react-select";
 import formatCurrency from "lib/utils/formatCurrency";
 import { placeOrderQuery } from "../../hooks/orders/query";
+import TagManager from 'react-gtm-module';
+
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
 import ReactGA from "react-ga4";
 
@@ -207,7 +209,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "380px",
     fontSize: "1.5rem",
-    marginBottom: 20,
+    marginBottom: 20
+
   },
 
   phone: {
@@ -243,8 +246,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#FDC114",
       cursor: "pointer",
-      textDecoration: "underline",
-    },
+      textDecoration: "underline"
+    }
+
   },
   cartname: {
     fontWeight: 500,
@@ -340,7 +344,7 @@ const useStyles = makeStyles((theme) => ({
   },
   labelSpan: {
     width: "300px",
-    fontSize: "1rem",
+    fontSize: "1rem"
   },
   register: {
     width: "261px",
@@ -423,68 +427,12 @@ const CheckoutActions = (prop) => {
   }));
   // console.log(cart);
   const handlepay = async (values, action) => {
+
     try {
       setOrderDisable(true);
-      // const { data } = apolloClient.mutate({
-      //   mutation: placeOrderMutation,
-      //   variables: {
-      //     input: {
-      //       order: {
-      //         cartId: cart._id,
-      //         currencyCode: cart.shop.currency.code,
-      //         email: cart.email,
-      //         fulfillmentGroups: [
-      //           {
-      //             data: {
-      //               shippingAddress: {
-      //                 address1: notes,
-      //                 address2: notes,
-      //                 city: city,
-      //                 company: null,
-      //                 country: "pakistan",
-      //                 fullName: fullname,
-      //                 isBillingDefault: false,
-      //                 isCommercial: false,
-      //                 isShippingDefault: false,
-      //                 phone: phonenumber,
-      //                 postal: "pak",
-      //                 region: "pandi",
-      //               },
-      //             },
-      //             items,
-      //             selectedFulfillmentMethodId: cs8nCaD32Sqyw5MiP,
-      //             shopId: cart.shop._id,
-      //             totalPrice: cart.checkout.summary.total.displayAmount,
-      //             type: "shipping",
-      //           },
-      //         ],
-      //         shopId: cart.shop._id,
-      //       },
-      //       payments: [
-      //         {
-      //           amount: cart.checkout.summary.total.displayAmount,
-      //           billingAddress: {
-      //             address1: notes,
-      //             address2: notes,
-      //             city: city,
-      //             company: null,
-      //             country: "pakistan",
-      //             fullName: fullname,
-      //             isBillingDefault: false,
-      //             isCommercial: false,
-      //             isShippingDefault: false,
-      //             phone: phonenumber,
-      //             postal: "rawlpandi",
-      //             region: "pandi",
-      //           },
 
-      //           method: "none",
-      //         },
-      //       ],
-      //     },
-      //   },
-      // });
       const { data } = await placeOrder({
+
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -1045,13 +993,7 @@ const CheckoutActions = (prop) => {
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {/* {console.log(
-                      "this is the issue",
-                      shippingData?.cost,
-                      subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
-                      formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
-                    )} */}
-                    Rs. {shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
+                    {shippingData?.cost ? formatCurrency(shippingData?.cost + cart.checkout.summary.itemTotal.amount) : formatCurrency(cart.checkout.summary.itemTotal.amount)}
                   </Typography>
                 </div>
               </div>
@@ -1064,11 +1006,9 @@ const CheckoutActions = (prop) => {
                   role="button"
                   disabled={orderDisable}
                 >
-                  {orderDisable ? (
-                    <CircularProgress disableShrink size={24} style={{ color: "black" }} />
-                  ) : (
-                    "Place Order"
-                  )}
+
+                  {orderDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Place Order"}
+
                 </Button>
                 <ToastContainer
                   position="top-right"

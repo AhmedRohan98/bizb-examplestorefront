@@ -825,6 +825,24 @@ class CartPage extends Component {
                 variant="h5"
                 role="button"
                 type="submit"
+                onClick={() => {
+                  const productIds = cart?.items?.map((item) => item._id);
+
+                  const dataLayer = {
+                    dataLayer: {
+                      event: 'checkout_initiated',
+                      ecommerce: {
+                        currencyCode: 'PK', // Replace with your currency code
+                        checkout: {
+                          actionField: { step: 1 },
+                          products: productIds,
+                        },
+                      },
+                    },
+                  };
+
+                  TagManager.dataLayer(dataLayer);
+                }}
               >
                 Proceed to checkout
               </Button>

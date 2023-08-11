@@ -31,6 +31,8 @@ import { useRouter } from "next/router";
 import ReactGA from "react-ga4";
 
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import TagManager from 'react-gtm-module';
+
 // import ReactImageMagnify from "react-image-magnify";
 SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
 const styles = (theme) => ({
@@ -793,6 +795,23 @@ const ProductDetail = ({ ...props }) => {
   }
 
   const handleOnClick = async (product, variant) => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'add_to_cart',
+        ecommerce: {
+          add: {
+            products: [
+              {
+                id: product.productId,
+                name: product.title,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

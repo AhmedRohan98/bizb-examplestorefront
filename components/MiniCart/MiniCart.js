@@ -268,12 +268,43 @@ const MiniCart = ({ ...props }) => {
   };
 
   const handleCheckoutButtonClick = () => {
+    const productIds = cart?.items?.map((item) => item._id);
+
+    const dataLayer = {
+      dataLayer: {
+        event: 'checkout_initiated',
+        ecommerce: {
+          currencyCode: 'PK', // Replace with your currency code
+          checkout: {
+            actionField: { step: 1 },
+            products: productIds,
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
     Router.push("/cart/checkout");
     // console.log("button clicked");
   };
 
   const handleOnClick = () => {
     const { closeCart } = props.uiStore;
+    const productIds = cart?.items.map((item) => item._id);
+
+    const dataLayer = {
+      dataLayer: {
+        event: 'cart_view',
+        ecommerce: {
+          currencyCode: 'USD', // Replace with your currency code
+          cart: {
+            products: productIds,
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
 
     Router.push("/cart");
   };
