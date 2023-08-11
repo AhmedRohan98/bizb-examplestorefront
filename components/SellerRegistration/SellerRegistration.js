@@ -847,7 +847,7 @@ const SellerRegistration = () => {
                         <div className={classes.style7}>
                             <div className={classes.style11}>
                                 <Typography variant='body2' className={classes.style3} textAlign='left'>
-                                    Referral Code
+                                    Promo Code
                                 </Typography>
                             </div>
 
