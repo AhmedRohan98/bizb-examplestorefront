@@ -212,6 +212,15 @@ export default function Login(props) {
 
         password: hashPassword(password),
       });
+      const dataLayer = {
+        dataLayer: {
+          event: 'user_login',
+          email: email,
+        },
+      };
+
+      TagManager.dataLayer(dataLayer);
+
       closeModal();
       await refetch();
     } catch (err) {

@@ -740,6 +740,26 @@ function Categories(props) {
   };
   const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
+  const trackProductView = () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'product_view',
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
+  };
+
   // console.log(filteredProducts, "catalogItems3");
   // console.log("catalogItems", catalogItems);
 
@@ -1456,7 +1476,9 @@ function Categories(props) {
                             />
 
                             <div className={classes.cartcontent}>
-                              <div className={classes.cartcontenttext}>
+                              <div className={classes.cartcontenttext} onCick={() => {
+                                trackProductView()
+                              }}>
                                 <Typography
                                   style={{
                                     fontWeight: "600",
@@ -1621,7 +1643,9 @@ function Categories(props) {
                           </a>
 
                           <div className={classes.cartcontent}>
-                            <div className={classes.cartcontenttext}>
+                            <div className={classes.cartcontenttext} onCick={() => {
+                              trackProductView()
+                            }}>
                               <Typography
                                 style={{
                                   fontWeight: "600",

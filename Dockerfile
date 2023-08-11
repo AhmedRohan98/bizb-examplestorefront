@@ -12,10 +12,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-u", "-c"]
 WORKDIR /usr/local/src/app
 ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
 # env variables
-ENV CANONICAL_URL https://bizb.store
-ENV BUILD_GRAPHQL_URL https://api.bizb.store/graphql
-ENV EXTERNAL_GRAPHQL_URL https://api.bizb.store/graphql
-ENV INTERNAL_GRAPHQL_URL https://api.bizb.store/graphql
+ENV CANONICAL_URL https://test.bizb.store
+ENV BUILD_GRAPHQL_URL https://test.bizb.store/graphql
+ENV EXTERNAL_GRAPHQL_URL https://test.bizb.store/graphql
+ENV INTERNAL_GRAPHQL_URL https://test.bizb.store/graphql
 ENV PORT 4000
 ENV NODE_ENV development
 ENV SEGMENT_ANALYTICS_SKIP_MINIMIZE true
@@ -25,10 +25,7 @@ ENV SESSION_SECRET CHANGEME
 ENV STRIPE_PUBLIC_API_KEY ENTER_STRIPE_PUBLIC_KEY_HERE
 ENV INSTAGRAM_KEY IGQVJVNmwyd2xxVmlQSWY3UnFmY29fc3dzeDFrMTdxV19qeElMS3JJUWtjXzU5SmgwaHN4Q0puNGFfMGtSU2dBR2owbkhGZAmZAXSGNUR0h4aE1RTWVCQThnVmpzVFFSTFNlS0VYSjVmamJrdUFGY3ZAGeQZDZD
 ENV SHOP_ID cmVhY3Rpb24vc2hvcDpyaWFhR0xlMlJqYW5UQlF6dw==
-ENV REACT_APP_SHOPID cmVhY3Rpb24vc2hvcDpyaWFhR0xlMlJqYW5UQlF6dw==
-ENV NEXT_PUBLIC_GOOGLE_ANALYTICS G-60BJ8X8BEN
-ENV NEXT_PUBLIC_GOOGLE_TAG G-60BJ8X8BEN
-ENV NODE_ENV production
+ENV REACT_APP_SHOPID=cmVhY3Rpb24vc2hvcDpyaWFhR0xlMlJqYW5UQlF6dw==
 
 
 
@@ -45,8 +42,7 @@ USER node
 # Install ALL dependencies. We need devDependencies for the build command.
 RUN yarn install --production=false --frozen-lockfile --ignore-scripts --non-interactive --no-cache
 
-ENV BUILD_ENV=production
-ENV NODE_ENV=production
+ENV BUILD_ENV=production NODE_ENV=production
 
 # hadolint ignore=SC2046
 RUN export $(grep -v '^#' .env.${NEXTJS_DOTENV:-prod} | xargs -0) && NODE_OPTIONS="" yarn build

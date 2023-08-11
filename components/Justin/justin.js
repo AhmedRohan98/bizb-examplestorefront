@@ -239,6 +239,27 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
+
+  const trackProductView = () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'product_view',
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    TagManager.dataLayer(dataLayer);
+
+  };
   //
   useEffect(() => {
     uiStore?.setPageSize(15);
@@ -446,7 +467,9 @@ const Justin = (props) => {
                       </a>
                     </Link>
                     <div className={classes.cartcontent}>
-                      <div className={classes.cartcontenttext}>
+                      <div className={classes.cartcontenttext} onCick={() => {
+                        trackProductView()
+                      }}>
                         <Link
                           href={item.node.product.slug && "en/product/[...slugOrId]"}
                           as={item.node.product.slug && `en/product/${item.node.product.slug}`}

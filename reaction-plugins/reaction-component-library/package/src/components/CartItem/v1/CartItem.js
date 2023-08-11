@@ -296,6 +296,8 @@ class CartItem extends Component {
   };
 
   handleRemoveItemFromCart = () => {
+
+
     const { onRemoveItemFromCart, item: { _id } } = this.props;
     onRemoveItemFromCart(_id);
     ReactGA.send({

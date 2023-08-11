@@ -13,6 +13,7 @@ import Link from "components/Link";
 import useStores from "hooks/useStores";
 import EntryModal from "../Entry/EntryModal";
 import getAccountsHandler from "../../lib/accountsServer.js";
+import TagManager from 'react-gtm-module';
 import ReactGA from "react-ga4";
 
 const useStyles = makeStyles((theme) => ({
