@@ -31,7 +31,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
-import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 function Explore(props) {
   console.log("props", props);
@@ -918,24 +918,12 @@ function Explore(props) {
   };
 
   const handleOnClick = async (product, variant) => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'add_to_cart',
-        ecommerce: {
-          add: {
-            products: [
-              {
-                id: product.productId,
-                name: product.title,
-                price: product.variants[0]?.pricing[0]?.displayPrice,
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

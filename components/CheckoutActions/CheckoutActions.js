@@ -22,6 +22,8 @@ import { placeOrderQuery } from "../../hooks/orders/query";
 import TagManager from 'react-gtm-module';
 
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
+import ReactGA from "react-ga4";
+
 const useStyles = makeStyles((theme) => ({
   formerror: {
     paddingLeft: theme.spacing(1),
@@ -408,6 +410,14 @@ const CheckoutActions = (prop) => {
   );
   console.log(subtotal);
   const [error, setError] = useState("");
+  useEffect(() => {
+    // Track "Checkout Initiated" event with Google Analytics 4
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'checkout_initiated',
+    });
+  }, []);
 
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
@@ -491,25 +501,11 @@ const CheckoutActions = (prop) => {
         placeOrder: { orders, token },
       } = data;
       toast.success("Order placed successfully!");
-      const productIds = prop?.cart?.items?.map((item) => item._id);
-
-      const dataLayer = {
-        dataLayer: {
-          event: 'successful_checkout',
-          ecommerce: {
-            currencyCode: 'PK', // Replace with your currency code
-            purchase: {
-              actionField: {
-                id: orders[0].referenceId, // Replace with the actual order ID
-                revenue: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
-              },
-              products: productIds,
-            },
-          },
-        },
-      };
-
-      TagManager.dataLayer(dataLayer);
+      ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Ecommerce',
+        eventAction: 'successful_checkout',
+      });
 
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
@@ -520,24 +516,13 @@ const CheckoutActions = (prop) => {
       // Also destroy the collected and cached payment input
       cartStore.resetCheckoutPayments();
     } catch (error) {
+      ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Ecommerce',
+        eventAction: 'failed_checkout',
+      });
       setOrderDisable(false);
-      const productIds = prop?.cart?.items?.map((item) => item._id);
 
-      const dataLayer = {
-        dataLayer: {
-          event: 'failed_checkout',
-          ecommerce: {
-            currencyCode: 'PK', // Replace with your currency code
-            checkout_option: 'Failed', // Replace with a descriptive label
-            checkout: {
-              actionField: { step: 1 },
-              products: productIds,
-            },
-          },
-        },
-      };
-
-      TagManager.dataLayer(dataLayer);
 
       console.log(error);
     }

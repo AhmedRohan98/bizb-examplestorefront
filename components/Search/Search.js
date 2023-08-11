@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { InputAdornment, IconButton, TextField } from "@material-ui/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 import withCatalogItems from "containers/catalog/withCatalogItems";
 const useStyles = makeStyles((theme) => ({
@@ -181,28 +181,22 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   });
 
   const handleSearchSubmit = (event) => {
-
     event.preventDefault(); // prevent default submit action
     const trimmedValue = searchLocal?.trim(); // remove leading/trailing spaces
     if (trimmedValue) {
       uiStore?.setSearchItems(trimmedValue);
-
       // console.log(trimmedValue, "query2");
     }
   };
   const handleSearchChange = (event) => {
     const searchQuery = event.target.value.toLowerCase();
     setSearchLocal(searchQuery);
-    const dataLayer = {
-      dataLayer: {
-        event: 'search',
-        ecommerce: {
-          search_term: searchQuery,
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'product_search',
+      eventLabel: searchQuery,
+    });
   };
 
   const handleProductDetail = (productSlug) => {

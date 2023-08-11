@@ -24,7 +24,7 @@ import variantById from "lib/utils/variantById";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
-import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -733,23 +733,12 @@ class CartPage extends Component {
     // Scroll to the top
   };
   handleRemoveItem = async (itemId) => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'remove_from_cart',
-        ecommerce: {
-          remove: {
-            products: [
-              {
-                id: itemId,
-
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemId,
+    });
     const { onRemoveCartItems } = this.props;
 
     await onRemoveCartItems(itemId);
