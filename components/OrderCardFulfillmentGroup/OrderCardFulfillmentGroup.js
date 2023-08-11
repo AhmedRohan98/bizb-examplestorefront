@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CartItems from "components/CartItems";
+import ReactGA from "react-ga4";
 
 const styles = (theme) => ({
   fulfillmentGroup: {
@@ -60,6 +61,12 @@ class OrderCardFulfillmentGroup extends Component {
   }
 
   handleRemoveItem = (_id) => {
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: _id,
+    });
     const { onRemoveCartItems } = this.props;
 
     onRemoveCartItems(_id);

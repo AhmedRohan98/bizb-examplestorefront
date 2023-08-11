@@ -24,6 +24,9 @@ import variantById from "lib/utils/variantById";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
+import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
+
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     margin: theme.spacing(4),
@@ -731,6 +734,12 @@ class CartPage extends Component {
     // Scroll to the top
   };
   handleRemoveItem = async (itemId) => {
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemId,
+    });
     const { onRemoveCartItems } = this.props;
 
     await onRemoveCartItems(itemId);
@@ -817,6 +826,24 @@ class CartPage extends Component {
                 variant="h5"
                 role="button"
                 type="submit"
+                onClick={() => {
+                  const productIds = cart?.items?.map((item) => item._id);
+
+                  const dataLayer = {
+                    dataLayer: {
+                      event: 'checkout_initiated',
+                      ecommerce: {
+                        currencyCode: 'PK', // Replace with your currency code
+                        checkout: {
+                          actionField: { step: 1 },
+                          products: productIds,
+                        },
+                      },
+                    },
+                  };
+
+                  TagManager.dataLayer(dataLayer);
+                }}
               >
                 Proceed to checkout
               </Button>
@@ -911,7 +938,7 @@ class CartPage extends Component {
                             <img
                               src={
                                 !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                  ? "/justin/justin4.svg"
+                                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                   : item?.node?.product?.media[0]?.URLs?.large
                               }
                               className={classes.image}
@@ -983,7 +1010,7 @@ class CartPage extends Component {
                               <div className={classes.pricing}>
                                 {" "}
                                 <strike>
-                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                     ?.replace(/\.00$/, "")
                                     .replace(/\$/g, "RS ")}
                                 </strike>

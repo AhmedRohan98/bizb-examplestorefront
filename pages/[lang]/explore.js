@@ -31,6 +31,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
+import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
+
 function Explore(props) {
   console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
@@ -857,7 +860,25 @@ function Explore(props) {
 
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
   }
+  const trackProductView = () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'product_view',
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+              },
+            ],
+          },
+        },
+      },
+    };
 
+    TagManager.dataLayer(dataLayer);
+  };
   const handleAddToCartClick = async (quantity, product, variant) => {
     const {
       addItemsToCart,
@@ -898,6 +919,12 @@ function Explore(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -1086,7 +1113,7 @@ function Explore(props) {
                 );
 
                 const compareAtPrice =
-                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(/[^0-9.]/g, "");
+                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
                 const parsedDisplayPrice = parseFloat(displayPrice);
                 const parsedCompareAtPrice = parseFloat(compareAtPrice);
@@ -1103,7 +1130,7 @@ function Explore(props) {
                       <img
                         src={
                           !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
+                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
                             : item?.node?.product?.media[0]?.URLs?.large
                         }
                         className={classes.image}
@@ -1113,7 +1140,9 @@ function Explore(props) {
                       />
 
                       <div className={classes.cartcontent}>
-                        <div className={classes.cartcontenttext}>
+                        <div className={classes.cartcontenttext} onCick={() => {
+                          trackProductView()
+                        }}>
                           <Typography
                             style={{
                               fontWeight: "600",
@@ -1145,7 +1174,7 @@ function Explore(props) {
                           </Typography>
                           <div className={classes.strikethroughoff}>
                             <strike className={classes.strikethrough}>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                 ?.replace(/\.00$/, "")
                                 .replace(/\$/g, "Rs. ")}
                             </strike>
@@ -1212,7 +1241,7 @@ function Explore(props) {
           {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
-    </Layout>
+    </Layout >
   );
 }
 export async function getStaticProps({ params: { lang } }) {
