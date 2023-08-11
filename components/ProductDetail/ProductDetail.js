@@ -9,7 +9,7 @@ import priceByCurrencyCode from "lib/utils/priceByCurrencyCode";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import variantById from "lib/utils/variantById";
 import CloseIcon from "@material-ui/icons/Close";
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from "react-responsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs, Mousewheel, Pagination } from "swiper";
 import ReactImageMagnify from "react-image-magnify";
@@ -126,8 +126,7 @@ const styles = (theme) => ({
   },
   storeText: {
     fontSize: "1.1rem",
-    fontFamily: "Lato"
-
+    fontFamily: "Lato",
   },
   storeName: {
     textTransform: "uppercase",
@@ -135,9 +134,8 @@ const styles = (theme) => ({
     "&:hover": {
       color: "#FDC114",
       cursor: "pointer",
-      textDecoration: "underline"
-    }
-
+      textDecoration: "underline",
+    },
   },
   offer: {
     display: "flex",
@@ -147,7 +145,7 @@ const styles = (theme) => ({
     color: "#ffffff",
     [theme.breakpoints.down("sm")]: {
       margin: "25px",
-      paddingRight: "15px"
+      paddingRight: "15px",
     },
   },
   cartimageJustIn: {
@@ -245,7 +243,6 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-
   },
   cart2: {
     height: "35px",
@@ -266,7 +263,7 @@ const styles = (theme) => ({
   },
   carttext: {
     justifySelf: "end",
-    "maxWidth": "533px",
+    maxWidth: "533px",
     width: "100%",
     zIndex: 1,
   },
@@ -357,15 +354,12 @@ const styles = (theme) => ({
     cursor: "pointer",
     [theme.breakpoints.up("lg")]: {
       width: "275px", // Reduced by 1px to create space for the border
-
     },
     [theme.breakpoints.down("lg")]: {
       width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
-
     },
     [theme.breakpoints.down("sm")]: {
       width: "275px", // Reduced by 1px to create space for the border
-
     },
   },
   // image: {
@@ -567,9 +561,8 @@ const slide = [
 ];
 
 const ProductDetail = ({ ...props }) => {
-
   const { product, catalogItems, cart } = props;
-  console.log("product", product)
+  console.log("product", product);
   // console.log(product, "product");
   const tagIds = product?.tags?.nodes?.[0]?._id || [1]?._id || [2]?._id;
   // console.log("dddd",props)
@@ -582,22 +575,19 @@ const ProductDetail = ({ ...props }) => {
 
     return productTags?.some((tag) => tag === tagIds);
   });
-  const isSix = useMediaQuery({ query: '(min-width: 1750px)' })
-  const isFour = useMediaQuery({ query: '(min-width: 1440px)' })
-  const isFive = useMediaQuery({ query: '(min-width: 1300px)' })
-  const isTwo = useMediaQuery({ query: '(min-width: 700px)' })
+  const isSix = useMediaQuery({ query: "(min-width: 1750px)" });
+  const isFour = useMediaQuery({ query: "(min-width: 1440px)" });
+  const isFive = useMediaQuery({ query: "(min-width: 1300px)" });
+  const isTwo = useMediaQuery({ query: "(min-width: 700px)" });
   let spliceBy = 4;
   if (isSix) {
     spliceBy = 6;
   } else if (isFive) {
     spliceBy = 5;
-
   } else if (isFour) {
     spliceBy = 4;
-
   } else if (isTwo) {
     spliceBy = 2;
-
   }
 
   const relatedProducts = filteredProducts.slice(0, spliceBy);
@@ -889,7 +879,9 @@ const ProductDetail = ({ ...props }) => {
   // };
   const optionTitle = product?.variants[0]?.optionTitle;
 
-  const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
+  const validOptionTitle = optionTitle
+    ? optionTitle?.replace(`None`, `'none'`).replace("None", `none`).replace(/''/g, '"').replace(/'/g, '"')
+    : null;
   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
   const isDisabled = cart?.items?.some((data) => {
     return data.productConfiguration.productId === product?.productId;
@@ -972,12 +964,15 @@ const ProductDetail = ({ ...props }) => {
                         return (
                           <SwiperSlide key={index}>
                             <div className={classes.thumbimage}>
-                              <img src={slide.URLs.thumbnail ? slide.URLs.thumbnail : slide.URLs.large} alt="" className={classes.thumbimages} />
+                              <img
+                                src={slide.URLs.thumbnail ? slide.URLs.thumbnail : slide.URLs.large}
+                                alt=""
+                                className={classes.thumbimages}
+                              />
                             </div>
                           </SwiperSlide>
                         );
-                      })
-                    }
+                      })}
                   </Swiper>
                 </div>
               </Grid>
@@ -997,7 +992,7 @@ const ProductDetail = ({ ...props }) => {
                     {product?.variants[0]?.media.map((slide, index) => {
                       return (
                         <SwiperSlide className={classes.sliderimage2} key={index}>
-                          <div style={{ borderRadius: "18px", overflow: "hidden" }} >
+                          <div style={{ borderRadius: "18px", overflow: "hidden" }}>
                             <ReactImageMagnify
                               {...{
                                 smallImage: {
@@ -1030,9 +1025,13 @@ const ProductDetail = ({ ...props }) => {
                   <div className="fluid__instructions" style={{ position: "relative" }}>
                     <div id="portal" className="portal" />
                     <div className={classes.carttext}>
-                      <Typography style={{
-                        fontWeight: "700", textTransform: "capitalize",
-                      }} variant="subtitle1">
+                      <Typography
+                        style={{
+                          fontWeight: "700",
+                          textTransform: "capitalize",
+                        }}
+                        variant="subtitle1"
+                      >
                         {product?.title}
                       </Typography>
                       <div className={classes.size2}>
@@ -1063,9 +1062,11 @@ const ProductDetail = ({ ...props }) => {
                               .replace(/\$/g, "Rs. ")}
                           </Typography>
                         </div>
-                        {product?.variants[0]?.pricing[0]?.compareAtPrice && <Typography gutterBottom variant="h5" className={classes.offer}>
-                          {`-${Math.abs(percentage)}%`}
-                        </Typography>}
+                        {product?.variants[0]?.pricing[0]?.compareAtPrice && (
+                          <Typography gutterBottom variant="h5" className={classes.offer}>
+                            {`-${Math.abs(percentage)}%`}
+                          </Typography>
+                        )}
                       </div>
                       <div className={classes.sizeimage}>
                         <img style={{ paddingLeft: "10px" }} src="/cart/available.svg" alt="available" />
@@ -1100,12 +1101,12 @@ const ProductDetail = ({ ...props }) => {
                       </div>
                       <div>
                         {isLoading[product?.productId] ? (
-                          <div className={classes.centerDiv}><CircularProgress /></div>
+                          <div className={classes.centerDiv}>
+                            <CircularProgress />
+                          </div>
                         ) : (
-
                           <Button
                             className={classes.cart2}
-
                             onClick={handleOnClickforsingle}
                             disabled={isDisabled || product?.isSoldOut}
                           >
@@ -1133,42 +1134,49 @@ const ProductDetail = ({ ...props }) => {
               <Grid item xs={0} md={0} sm={0} lg={1}></Grid>
             </Grid>
           </Box>
-          {isTwo && <Box style={{ padding: "0px 50px" }}>
-            <Typography variant="h3" className={classes.related}>
-              <div className="text"></div>
-              Related <span className={classes.spanofnextword}>Products</span>
-            </Typography>
-            <div className={classes.gridroot}>
-              <ResponsiveMasonry
-                columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-                style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-              >
-                <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                  {relatedProducts?.map((item, key) => {
-                    const cartitem = cart?.items;
-                    const isDisabled = cartitem?.some((data) => {
-                      return data.productConfiguration.productId === item?.node?.product?.productId;
-                    });
-                    const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                    const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
-                    const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-                    const str = item.node.product.title;
-                    const words = str.match(/[a-zA-Z0-9]+/g);
-                    const firstThreeWords = words.slice(0, 3).join(" ");
-                    const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                      /[^0-9.]/g,
-                      "",
-                    );
+          {isTwo && (
+            <Box style={{ padding: "0px 50px" }}>
+              <Typography variant="h3" className={classes.related}>
+                <div className="text"></div>
+                Related <span className={classes.spanofnextword}>Products</span>
+              </Typography>
+              <div className={classes.gridroot}>
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={{ 350: 1, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+                  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
+                  <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                    {relatedProducts?.map((item, key) => {
+                      const cartitem = cart?.items;
+                      const isDisabled = cartitem?.some((data) => {
+                        return data.productConfiguration.productId === item?.node?.product?.productId;
+                      });
+                      const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                      const validOptionTitle = optionTitle
+                        ? optionTitle
+                            ?.replace(`None`, `'none'`)
+                            .replace("None", `none`)
+                            .replace(/''/g, '"')
+                            .replace(/'/g, '"')
+                        : null;
+                      const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+                      const str = item.node.product.title;
+                      const words = str.match(/[a-zA-Z0-9]+/g);
+                      const firstThreeWords = words.slice(0, 3).join(" ");
+                      const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                        /[^0-9.]/g,
+                        "",
+                      );
 
                     const compareAtPrice =
                       item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
 
-                    const parsedDisplayPrice = parseFloat(displayPrice);
-                    const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                      const parsedDisplayPrice = parseFloat(displayPrice);
+                      const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                    const percentage = Math.floor(
-                      ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                    );
+                      const percentage = Math.floor(
+                        ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                      );
 
                     return (
                       <>
