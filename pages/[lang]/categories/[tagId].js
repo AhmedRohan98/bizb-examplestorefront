@@ -757,7 +757,7 @@ function Categories(props) {
       },
     };
 
-    TagManager.dataLayer(dataLayer);
+    // TagManager.dataLayer(dataLayer);
   };
 
   // console.log(filteredProducts, "catalogItems3");

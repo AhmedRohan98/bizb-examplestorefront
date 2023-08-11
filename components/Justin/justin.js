@@ -257,7 +257,7 @@ const Justin = (props) => {
       },
     };
 
-    TagManager.dataLayer(dataLayer);
+    // TagManager.dataLayer(dataLayer);
 
   };
   //
@@ -522,7 +522,7 @@ const Justin = (props) => {
                             variant="h4"
                             component="h2"
                             className={classes.carttitle2}
-                          >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice  && `-${Math.abs(percentage)}%`}</Typography>
+                          >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}</Typography>
                         </div>
                       </div>
                       <div className={classes.cartbackground}>

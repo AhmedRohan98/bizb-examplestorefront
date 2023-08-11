@@ -841,7 +841,7 @@ class CartPage extends Component {
                     },
                   };
 
-                  TagManager.dataLayer(dataLayer);
+                  // TagManager.dataLayer(dataLayer);
                 }}
               >
                 Proceed to checkout

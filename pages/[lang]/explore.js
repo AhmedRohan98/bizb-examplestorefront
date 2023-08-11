@@ -876,7 +876,7 @@ function Explore(props) {
       },
     };
 
-    TagManager.dataLayer(dataLayer);
+    // TagManager.dataLayer(dataLayer);
   };
   const handleAddToCartClick = async (quantity, product, variant) => {
     const {

@@ -283,7 +283,7 @@ const MiniCart = ({ ...props }) => {
       },
     };
 
-    TagManager.dataLayer(dataLayer);
+    // TagManager.dataLayer(dataLayer);
     Router.push("/cart/checkout");
     // console.log("button clicked");
   };
@@ -304,7 +304,7 @@ const MiniCart = ({ ...props }) => {
       },
     };
 
-    TagManager.dataLayer(dataLayer);
+    // TagManager.dataLayer(dataLayer);
 
     Router.push("/cart");
   };
