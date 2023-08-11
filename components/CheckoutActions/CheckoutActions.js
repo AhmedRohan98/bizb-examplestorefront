@@ -395,11 +395,15 @@ const CheckoutActions = (prop) => {
   const [getValue, setValue] = useState({});
   const [orderDisable, setOrderDisable] = useState(false);
   const [promoCode, setPromoCode] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [errorPromo, setErrorPromo] = useState("");
   const [applyPromo, data, loadingAfterPromo] = useApplyPromoCode();
   // console.log("helo", afterPromo, data, loadingAfterPromo);
   const classes = useStyles();
   // console.log("class", cart?.checkout?.summary?.itemTotal?.amount);
-  const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.itemTotal?.amount));
+  const [subtotal, setSubTotal] = useState(
+    parseInt(cart?.checkout?.summary?.itemTotal?.amount) - parseInt(cart?.checkout?.summary?.discountTotal?.amount),
+  );
   console.log(subtotal);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -585,14 +589,10 @@ const CheckoutActions = (prop) => {
   });
   // setSubTotal(formatCurrency(cart?.checkout?.summary?.itemTotal?.amount));
   const handleApplyPromo = async () => {
+    setIsDisabled(true);
     try {
-      console.log(
-        promoCode,
-        prop?.cartStore?.anonymousCartId,
-        prop.cart?.shop?._id,
-        prop?.cartStore?.anonymousCartId,
-        prop,
-      );
+      setErrorPromo("");
+      // console.log("")
       const response = await applyPromo({
         variables: {
           input: {
@@ -604,9 +604,12 @@ const CheckoutActions = (prop) => {
         },
       });
       console.log("response", response);
-      setSubTotal(response.data.applyDiscountCodeToCart.cart.checkout.summary.total.amount);
+      setSubTotal(response?.data?.applyDiscountCodeToCart?.cart?.checkout?.summary?.total?.amount);
     } catch (err) {
-      console.log(err);
+      console.log("response", err.message);
+      setErrorPromo(err?.message);
+      setIsDisabled(false);
+      console.log(err.message);
     }
   };
   const addressSchema = Yup.object({
@@ -993,8 +996,9 @@ const CheckoutActions = (prop) => {
                           InputProps={{ disableUnderline: true }}
                           variant="h6"
                           role="button"
-                          disabled={!promoCode}
+                          disabled={!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount}
                         >
+                          {/* {console.log("",cart?.checkout?.summary?.discountTotal?.amount)} */}
                           {orderDisable ? (
                             <CircularProgress disableShrink size={24} style={{ color: "black" }} />
                           ) : (
@@ -1004,9 +1008,8 @@ const CheckoutActions = (prop) => {
                       </span>
                     </span>
                   </label>
-                  {/* {errors.CompleteAddress && touched.CompleteAddress ? (
-                      <p className={classes.formerror}>{errors.CompleteAddress}</p>
-                    ) : null} */}
+                  {errorPromo ? <p className={classes.formerror}>{errorPromo}</p> : null}
+                  {/* {console.log("error", errorPromo)} */}
                 </Grid>
               </div>
 
@@ -1022,7 +1025,7 @@ const CheckoutActions = (prop) => {
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
                       {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
-                      Rs .{subtotal}
+                      Rs. {subtotal}
                       {/* {console.log("subtotal,", subtotal)} */}
                     </Typography>
                   </div>
@@ -1048,7 +1051,7 @@ const CheckoutActions = (prop) => {
                       subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
                       formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
                     )} */}
-                    Rs .{shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
+                    Rs. {shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
                   </Typography>
                 </div>
               </div>

@@ -991,7 +991,7 @@ class CartPage extends Component {
                               <div className={classes.pricing}>
                                 {" "}
                                 <strike>
-                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                     ?.replace(/\.00$/, "")
                                     .replace(/\$/g, "RS ")}
                                 </strike>

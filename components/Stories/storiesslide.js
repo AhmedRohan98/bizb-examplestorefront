@@ -489,14 +489,16 @@ const Storyslider = (props) => {
                     "",
                   );
 
-                  const compareAtPrice =
-                    item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount?.replace(
-                      /[^0-9.]/g,
-                      "",
-                    );
+               
 
-                  const parsedDisplayPrice = parseFloat(displayPrice);
-                  const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                    const compareAtPrice =
+                      item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
+                        /[^0-9.]/g,
+                        "",
+                      );
+
+                    const parsedDisplayPrice = parseFloat(displayPrice);
+                    const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
                   const percentage = Math.floor(
                     ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
@@ -568,7 +570,7 @@ const Storyslider = (props) => {
                                 variant="h4"
                                 component="h2"
                                 className={classes.carttitle2}
-                              >{`-${percentage}%`}</Typography>
+                              >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${percentage}%`}</Typography>
                             </div>
                           </div>
                           <div className={classes.cartbackground}>
@@ -598,6 +600,7 @@ const Storyslider = (props) => {
                                 disabled={isDisabled || item?.node?.product?.isSoldOut}
                               >
                                 <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                           
                                 <Typography
                                   style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
                                   variant="h5"

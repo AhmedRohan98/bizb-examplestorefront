@@ -300,7 +300,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                             <div className={classes.pricing}>
                               {" "}
                               <strike className={classes.cartprice}>
-                                {product?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                {product?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                   ?.replace(/\.00$/, "")
                                   .replace(/\$/g, "Rs. ")}
                               </strike>
