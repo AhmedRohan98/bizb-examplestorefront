@@ -1296,7 +1296,7 @@ const ProductDetail = ({ ...props }) => {
                 </Masonry>
               </ResponsiveMasonry>
             </div>
-          </Box>}
+          </Box>)}
         </div >
       )}
     </>
