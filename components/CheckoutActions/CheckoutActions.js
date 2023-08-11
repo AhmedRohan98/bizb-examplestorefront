@@ -9,7 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { ToastContainer, toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import * as Yup from "yup";
@@ -19,6 +19,11 @@ import useGetShipping from "../../hooks/shippingprice/usegetShipping";
 import Select, { components } from "react-select";
 import formatCurrency from "lib/utils/formatCurrency";
 import { placeOrderQuery } from "../../hooks/orders/query";
+import TagManager from 'react-gtm-module';
+
+import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
+import ReactGA from "react-ga4";
+
 const useStyles = makeStyles((theme) => ({
   formerror: {
     paddingLeft: theme.spacing(1),
@@ -27,11 +32,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#b22b27",
     fontFamily: "Lato",
   },
-
   label: {
+    width: "100%",
     display: "flex",
     marginTop: theme.spacing(1),
-
     fontSize: "24px",
     marginBottom: theme.spacing(1),
     color: "#333333",
@@ -49,11 +53,31 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   input: {
-    width: "430px",
+    width: "100%",
     height: "48px",
     borderRadius: "6px",
     color: "red",
-
+    justifyContent: "center",
+    paddingLeft: theme.spacing(2),
+    background: "#F7F7F9",
+    borderBottomColor: "none",
+    "& .MuiInputBase-input": {
+      color: "#969696",
+      fontSize: "16px",
+      fontFamily: "lato",
+      padding: "opx",
+    },
+    "& .MuiInputBase-input.active": {
+      color: "#eeeeeeeeeee6",
+      fontSize: "17px",
+      padding: "opx",
+    },
+  },
+  promoField: {
+    width: "100%",
+    height: "48px",
+    borderRadius: "6px",
+    color: "red",
     justifyContent: "center",
     paddingLeft: theme.spacing(2),
     background: "#F7F7F9",
@@ -71,17 +95,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   inputitem: {
-    width: "440px",
+    width: "100%",
   },
   inputitem2: {
-    width: "440px",
+    width: "100%",
   },
   inputorder: {
-    width: "430px",
+    width: "100%",
     height: "218px",
     borderRadius: "6px",
     color: "red",
-
     paddingLeft: theme.spacing(2),
     background: "#F7F7F9",
     borderBottomColor: "none",
@@ -89,22 +112,35 @@ const useStyles = makeStyles((theme) => ({
       color: "#969696",
       fontSize: "16px",
       fontFamily: "lato",
-      padding: "opx",
+      padding: "0px",
     },
     "& .MuiInputBase-input.active": {
       color: "#eeeeeeeeeee6",
       fontSize: "17px",
-      padding: "opx",
+      padding: "0px",
     },
   },
-
   register: {
     width: "214px",
     height: "48px",
     borderRadius: "40px",
     border: "none",
     display: "flex",
-
+    background: theme.palette.secondary.selected,
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
+  },
+  promoBtn: {
+    width: "100%",
+    height: "48px",
+    borderRadius: "8px",
+    border: "none",
+    display: "flex",
+    textTransform: "uppercase",
+    // marginLeft: "10px",
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -132,7 +168,6 @@ const useStyles = makeStyles((theme) => ({
   terms: {
     lineHeight: "100px",
   },
-
   checkbox: {
     color: "green",
     "& .MuiIconButton-label ": {
@@ -143,7 +178,7 @@ const useStyles = makeStyles((theme) => ({
   checkboxdiv: {
     display: "flex",
     flexDirection: "row",
-    width: "380px",
+    width: "100%",
     borderBottom: `solid 1px  #00000030 `,
   },
   register2: {
@@ -151,7 +186,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#333333",
     fontFamily: "Ostrich Sans Black",
     fontWeight: 900,
-
     lineHeight: "24px",
     fontStyle: "normal",
     marginLeft: "15px",
@@ -168,8 +202,8 @@ const useStyles = makeStyles((theme) => ({
   mainheadingp: {
     textTransform: "lowercase",
     alignItems: "center",
-    width: "380px",
-    fontSize:"1.5rem",
+    width: "100%",
+    fontSize: "1.5rem",
     marginBottom: 20
 
   },
@@ -179,7 +213,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "17px",
   },
   mainheading: {
-    fontSize:"1.5rem",
+    fontSize: "1.5rem",
     textTransform: "uppercase",
     alignItems: "center",
     width: "100%",
@@ -191,31 +225,30 @@ const useStyles = makeStyles((theme) => ({
   },
   cartpayment: {
     display: "flex",
-    width: "380px",
-    flexDirection: "row",
+    width: "100%",
+    flexDirection: "column",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
   },
   cartdelivery: {
     fontWeight: 500,
-    fontSize:"1rem",
+    fontSize: "1rem",
     color: "#333333",
     marginLeft: theme.spacing(2),
   },
   storeName: {
-    
     fontSize: "0.9rem",
-    "&:hover":{
-      color:"#FDC114",
-      cursor:"pointer",
-      textDecoration:"underline"
+    "&:hover": {
+      color: "#FDC114",
+      cursor: "pointer",
+      textDecoration: "underline"
     }
 
-  },  
+  },
   cartname: {
     fontWeight: 500,
     textTransform: "capitalize",
-    fontSize:"1rem",
+    fontSize: "1rem",
     color: "#333333",
     marginLeft: theme.spacing(2),
   },
@@ -233,24 +266,23 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
   },
   cartcard: {
-    width: "391px",
+    width: "100%",
     boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     borderRadius: "18px",
     padding: theme.spacing(2),
-
   },
   cartcard3: {
-    width: "391px",
+    width: "100%",
     // boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     // borderRadius: "18px",
     padding: theme.spacing(2),
-    borderBottom:"1px solid #f6f6f6",
-    '&:hover': {
+    borderBottom: "1px solid #f6f6f6",
+    "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
   },
   cartcard2: {
-
+    width: "100%",
     boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     borderRadius: "18px",
     padding: theme.spacing(2),
@@ -269,31 +301,35 @@ const useStyles = makeStyles((theme) => ({
   },
   subtotal: {
     display: "flex",
-    fontSize:"1rem",
+    fontSize: "1rem",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: theme.spacing(2),
   },
   subtotalamount: {
-    fontSize:"1rem",
+    fontSize: "1rem",
     fontWeight: 700,
     lineHeight: "34px",
   },
   orderbutn: {
-    width: "320px",
+    width: "100%",
     display: "flex",
-    marginLeft: "75px",
+    // marginLeft: "75px",
   },
   summary: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    paddingRight: "5%",
+    paddingLeft: "5%",
   },
   shippingdetails: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "430px",
+    width: "100%",
+    paddingRight: "5%",
+    paddingLeft: "5%",
   },
   gridshipp: {
     display: "flex",
@@ -307,10 +343,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
   },
   labelSpan: {
-    width: "300px",
-    fontSize:"1rem"
+    width: "100%",
+    fontSize: "1rem",
   },
   register: {
+    marginLeft: "auto",
+    marginRight: "auto",
     width: "261px",
     height: "48px",
     borderRadius: "40px",
@@ -337,25 +375,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     marginBottom: 10,
     marginRight: 40,
-
   },
   displayCartGrid: {
     margin: 0,
     justifyContent: "flex-start",
-
-
-
   },
   divider: {
     marginVertical: 10,
     height: 6,
-    backgroundColor: '#e0e0e0',
-
+    backgroundColor: "#e0e0e0",
   },
-
 }));
 
 const CheckoutActions = (prop) => {
+  console.log("props", prop);
   const { cart, apolloClient, cartStore } = prop;
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
@@ -365,12 +398,28 @@ const CheckoutActions = (prop) => {
   // console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
   const [checkedEmail, setCheckedEmail] = React.useState(false);
   const [placeOrder] = useMutation(placeOrderQuery);
-  const [getValue, setValue] = useState({})
+  const [getValue, setValue] = useState({});
   const [orderDisable, setOrderDisable] = useState(false);
-
+  const [promoCode, setPromoCode] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [errorPromo, setErrorPromo] = useState("");
+  const [applyPromo, data, loadingAfterPromo] = useApplyPromoCode();
+  // console.log("helo", afterPromo, data, loadingAfterPromo);
   const classes = useStyles();
-
+  // console.log("class", cart?.checkout?.summary?.itemTotal?.amount);
+  const [subtotal, setSubTotal] = useState(
+    parseInt(cart?.checkout?.summary?.itemTotal?.amount) - parseInt(cart?.checkout?.summary?.discountTotal?.amount),
+  );
+  console.log(subtotal);
   const [error, setError] = useState("");
+  useEffect(() => {
+    // Track "Checkout Initiated" event with Google Analytics 4
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'checkout_initiated',
+    });
+  }, []);
 
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
@@ -380,68 +429,12 @@ const CheckoutActions = (prop) => {
   }));
   // console.log(cart);
   const handlepay = async (values, action) => {
+
     try {
       setOrderDisable(true);
-      // const { data } = apolloClient.mutate({
-      //   mutation: placeOrderMutation,
-      //   variables: {
-      //     input: {
-      //       order: {
-      //         cartId: cart._id,
-      //         currencyCode: cart.shop.currency.code,
-      //         email: cart.email,
-      //         fulfillmentGroups: [
-      //           {
-      //             data: {
-      //               shippingAddress: {
-      //                 address1: notes,
-      //                 address2: notes,
-      //                 city: city,
-      //                 company: null,
-      //                 country: "pakistan",
-      //                 fullName: fullname,
-      //                 isBillingDefault: false,
-      //                 isCommercial: false,
-      //                 isShippingDefault: false,
-      //                 phone: phonenumber,
-      //                 postal: "pak",
-      //                 region: "pandi",
-      //               },
-      //             },
-      //             items,
-      //             selectedFulfillmentMethodId: cs8nCaD32Sqyw5MiP,
-      //             shopId: cart.shop._id,
-      //             totalPrice: cart.checkout.summary.total.displayAmount,
-      //             type: "shipping",
-      //           },
-      //         ],
-      //         shopId: cart.shop._id,
-      //       },
-      //       payments: [
-      //         {
-      //           amount: cart.checkout.summary.total.displayAmount,
-      //           billingAddress: {
-      //             address1: notes,
-      //             address2: notes,
-      //             city: city,
-      //             company: null,
-      //             country: "pakistan",
-      //             fullName: fullname,
-      //             isBillingDefault: false,
-      //             isCommercial: false,
-      //             isShippingDefault: false,
-      //             phone: phonenumber,
-      //             postal: "rawlpandi",
-      //             region: "pandi",
-      //           },
 
-      //           method: "none",
-      //         },
-      //       ],
-      //     },
-      //   },
-      // });
       const { data } = await placeOrder({
+
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -483,7 +476,7 @@ const CheckoutActions = (prop) => {
                 // displayTotal: total.displayAmount,
                 // displayTax: taxTotal && taxTotal.displayAmount,
                 shopId: cart.shop._id,
-                totalPrice: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
+                totalPrice: subtotal + shippingData?.cost,
                 type: "shipping",
                 selectedFulfillmentMethodId: shippingData?._id,
               },
@@ -492,24 +485,29 @@ const CheckoutActions = (prop) => {
           },
           payments: [
             {
-              amount: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
+              amount: subtotal + shippingData?.cost,
 
               method: "iou_example",
             },
           ],
 
-          total: cart.checkout.summary.itemTotal.amount + shippingData?.cost,
+          total: subtotal + shippingData?.cost,
           totalItemQuantity: 1,
         },
       });
       setOrderDisable(false);
 
-      console.log("Order", placeOrder)
+      console.log("Order", placeOrder);
 
       const {
         placeOrder: { orders, token },
       } = data;
       toast.success("Order placed successfully!");
+      ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Ecommerce',
+        eventAction: 'successful_checkout',
+      });
 
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
@@ -520,7 +518,13 @@ const CheckoutActions = (prop) => {
       // Also destroy the collected and cached payment input
       cartStore.resetCheckoutPayments();
     } catch (error) {
+      ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Ecommerce',
+        eventAction: 'failed_checkout',
+      });
       setOrderDisable(false);
+
 
       console.log(error);
     }
@@ -533,9 +537,33 @@ const CheckoutActions = (prop) => {
     orderNotes: "",
     city: "",
   });
+  // setSubTotal(formatCurrency(cart?.checkout?.summary?.itemTotal?.amount));
+  const handleApplyPromo = async () => {
+    setIsDisabled(true);
+    try {
+      setErrorPromo("");
+      // console.log("")
+      const response = await applyPromo({
+        variables: {
+          input: {
+            discountCode: promoCode,
+            cartId: prop?.cartStore?.anonymousCartId || prop.cartStore?.accountCartId,
+            shopId: prop.cart?.shop?._id,
+            token: prop?.cartStore?.anonymousCartToken || null,
+          },
+        },
+      });
+      console.log("response", response);
+      setSubTotal(response?.data?.applyDiscountCodeToCart?.cart?.checkout?.summary?.total?.amount);
+    } catch (err) {
+      console.log("response", err.message);
+      setErrorPromo(err?.message);
+      setIsDisabled(false);
+      console.log(err.message);
+    }
+  };
   const addressSchema = Yup.object({
     email: Yup.string().email().required("Please enter your email"),
-
     FullName: Yup.string().min(3).max(25).required("Please enter your Full name"),
     phonenumber: Yup.string()
       .matches(/^[0-9]{10}$/, "Please Enter 10 digits phone Number")
@@ -554,7 +582,7 @@ const CheckoutActions = (prop) => {
 
     onSubmit: async (values, action) => {
       // setValue(values)
-      console.log("values", values)
+      // console.log("values", values);
       await handlepay(values, action);
       action.resetForm();
     },
@@ -562,7 +590,6 @@ const CheckoutActions = (prop) => {
   const customStyles = {
     indicatorSeparator: () => ({
       height: "48px",
-
       color: "black",
     }),
     control: (provided, state) => ({
@@ -646,7 +673,6 @@ const CheckoutActions = (prop) => {
     );
   };
 
-
   const handleChangeEmail = (event) => {
     setCheckedEmail(event.target.checked);
   };
@@ -658,29 +684,25 @@ const CheckoutActions = (prop) => {
   const [shippingData, loading, refetch] = useGetShipping(values.CompleteAddress, values.city, amount);
 
   useEffect(() => {
-    setValue(values)
-    console.log("props here", prop?.cart.items)
+    setValue(values);
+    // console.log("props here", prop?.cart.items);
 
     if (values.city) {
-
       refetch();
     }
   }, [values.city, refetch]);
 
   useEffect(() => {
-
-    console.log("shippingData", shippingData);
-    console.log("setValue", values);
-
-
-    console.log("shippingData _id", shippingData?._id);
+    // console.log("shippingData", shippingData);
+    // console.log("setValue", values);
+    // console.log("shippingData _id", shippingData?._id);
   }, [values.city, shippingData]);
 
   const clickHandler = (item) => {
     const productSlug = item;
 
     const url = `/en/product/${productSlug}`;
-    window.lo
+    window.lo;
   };
 
   const CartDataDisplay = () => {
@@ -690,37 +712,31 @@ const CheckoutActions = (prop) => {
           mb: 2,
           display: "flex",
           flexDirection: "column",
-          width: "400px",
+          width: "100%",
 
           // justifyContent="flex-end" # DO NOT USE THIS WITH 'scroll'
         }}
-      >{prop?.cart.items?.map((prod) => (
-
-        <div className={classes.cartcard3}>
-          <div className={classes.displayCart} key={prod.id}>
-            <img src={prod.metafields[0].value}
-             style={{ borderRadius: "5px" ,width:"75px",ojectFit:"contain"}} />
-            <div className={classes.displayCartGrid}>
-              <Typography gutterBottom variant="h4" className={classes.cartname}>
-               <span  onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>{prod.title.toString().toLowerCase()}</span>
-              </Typography>
-              <Typography gutterBottom variant="h5" className={classes.cartdescription}>
-                {formatCurrency(prod.price.amount)}
-
-              </Typography>
-
+      >
+        {prop?.cart.items?.map((prod) => (
+          <div className={classes.cartcard3}>
+            <div className={classes.displayCart} key={prod.id}>
+              <img src={prod.metafields[0].value} style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} />
+              <div className={classes.displayCartGrid}>
+                <Typography gutterBottom variant="h4" className={classes.cartname}>
+                  <span onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>
+                    {prod.title.toString().toLowerCase()}
+                  </span>
+                </Typography>
+                <Typography gutterBottom variant="h5" className={classes.cartdescription}>
+                  {formatCurrency(prod.price.amount)}
+                </Typography>
+              </div>
             </div>
           </div>
-        </div>
-
-      ))}
-
-
+        ))}
       </Box>
-    )
-  }
-
-
+    );
+  };
 
   return (
     <>
@@ -732,7 +748,7 @@ const CheckoutActions = (prop) => {
                 Shipping Details
               </Typography>
 
-              <Grid xs={12} className={classes.root}>
+              <Grid xs={12} style={{ width: "100%" }}>
                 <Grid item className={classes.inputitem}>
                   <label className={classes.label} htmlFor="FullName">
                     <span className={classes.labelSpan} htmlFor="FullName">
@@ -753,7 +769,7 @@ const CheckoutActions = (prop) => {
                   </label>
                   {touched.FullName && errors.FullName ? <p className={classes.formerror}>{errors.FullName}</p> : null}
                 </Grid>
-                <Grid xs={12} item className={classes.inputitem}>
+                <Grid xs={12} item style={{ width: "100%" }} className={classes.inputitem}>
                   <label className={classes.label} htmlFor="phonenumber">
                     <span className={classes.labelSpan} htmlFor="phonenumber">
                       Phone Number <span style={{ color: "#FD1010" }}>*</span>
@@ -887,7 +903,6 @@ const CheckoutActions = (prop) => {
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={6} justifyContent="center">
-
             <div className={classes.summary}>
               <Typography variant="h3" className={classes.mainheadingp}>
                 ORDER
@@ -896,13 +911,58 @@ const CheckoutActions = (prop) => {
                 <CartDataDisplay />
               </div>
 
-
               <div className={classes.cartpayment}>
-                <img src="/cart/ellipse.svg" />
-                <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
-                  Cash On Delivery
-                </Typography>
+                <div style={{ display: "flex" }}>
+                  <img src="/cart/ellipse.svg" />
+                  <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
+                    Cash On Delivery
+                  </Typography>
+                </div>
+                <Grid item xs={12} className={classes.inputitem}>
+                  <label className={classes.label} variant="h6" htmlFor="PromoCode">
+                    <span className={classes.labelSpan}>
+                      Promo <span style={{ color: "#FD1010" }}></span>
+                    </span>
+                    <span style={{ display: "flex" }}>
+                      <TextField
+                        placeholder="Enter Promo Code"
+                        InputProps={{ disableUnderline: true }}
+                        autoComplete="off"
+                        type="text"
+                        name="PromoCode"
+                        id="PromoCode"
+                        value={promoCode}
+                        onChange={(e) => {
+                          setPromoCode(e.target.value);
+                        }}
+                        // onBlur={handleBlur}
+                        className={classes.promoField}
+                        inputProps={{ style: { color: "black" } }}
+                      />
+                      <span>
+                        <Button
+                          className={classes.promoBtn}
+                          onClick={handleApplyPromo}
+                          InputProps={{ disableUnderline: true }}
+                          variant="h6"
+                          role="button"
+                          disabled={!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount}
+                        >
+                          {/* {console.log("",cart?.checkout?.summary?.discountTotal?.amount)} */}
+                          {orderDisable ? (
+                            <CircularProgress disableShrink size={24} style={{ color: "black" }} />
+                          ) : (
+                            "Apply"
+                          )}
+                        </Button>
+                      </span>
+                    </span>
+                  </label>
+                  {errorPromo ? <p className={classes.formerror}>{errorPromo}</p> : null}
+                  {/* {console.log("error", errorPromo)} */}
+                </Grid>
               </div>
+
               <div className={classes.cartcard}>
                 <Typography gutterBottom variant="h4" className={classes.cartdelivery2}>
                   Cart Total
@@ -910,15 +970,37 @@ const CheckoutActions = (prop) => {
                 <div className={classes.empty}></div>
                 <div className={classes.shipping}>
                   <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
-                      Subtotal
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
+                      Original Price
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {formatCurrency(cart.checkout.summary.itemTotal.amount)}
+                      {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
+                      Rs. {cart?.checkout?.summary?.itemTotal?.amount}
+                      {/* {console.log("subtotal,", subtotal)} */}
                     </Typography>
                   </div>
                   <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
+                      Discount
+                    </Typography>
+                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                      {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
+                      (Rs. {cart?.checkout?.summary?.discountTotal?.amount}){/* {console.log("subtotal,", subtotal)} */}
+                    </Typography>
+                  </div>
+                  <div className={classes.subtotal}>
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
+                      Subtotal
+                    </Typography>
+                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                      {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
+                      Rs. {subtotal}
+                      {/* {console.log("subtotal,", subtotal)} */}
+                    </Typography>
+                  </div>
+
+                  <div className={classes.subtotal}>
+                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                       Shipping Cost
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
@@ -928,11 +1010,17 @@ const CheckoutActions = (prop) => {
                 </div>
                 <div className={classes.empty}></div>
                 <div className={classes.subtotal}>
-                  <Typography gutterBottom variant="h4" style={{fontSize:"1.1rem"}}>
+                  <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                     Total
                   </Typography>
                   <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                    {shippingData?.cost ? formatCurrency(shippingData?.cost + cart.checkout.summary.itemTotal.amount) :formatCurrency(cart.checkout.summary.itemTotal.amount)}
+                    {/* {console.log(
+                      "this is the issue",
+                      shippingData?.cost,
+                      subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
+                      formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
+                    )} */}
+                    Rs. {shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
                   </Typography>
                 </div>
               </div>
@@ -944,10 +1032,9 @@ const CheckoutActions = (prop) => {
                   type="submit"
                   role="button"
                   disabled={orderDisable}
-
                 >
-                  
-                  {orderDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Place Order"}
+
+                  {orderDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Place Order"}
 
                 </Button>
                 <ToastContainer

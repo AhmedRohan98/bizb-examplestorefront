@@ -31,6 +31,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
+import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
+
 function Explore(props) {
   console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
@@ -695,6 +698,7 @@ function Explore(props) {
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
+      marginRight: "30px"
     },
     cart: {
       height: "35px",
@@ -744,14 +748,14 @@ function Explore(props) {
     },
 
     price: {
-      marginLeft: "12px",
+      marginRight: "12px",
     },
     strikethroughoff: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
       width: "110px",
-      marginLeft: "12px",
+      marginRight: "12px",
     },
     progressBar: {
       [theme.breakpoints.down("sm")]: {
@@ -856,7 +860,25 @@ function Explore(props) {
 
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
   }
+  const trackProductView = () => {
+    const dataLayer = {
+      dataLayer: {
+        event: 'product_view',
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                id: productId,
+                name: productName,
+              },
+            ],
+          },
+        },
+      },
+    };
 
+    TagManager.dataLayer(dataLayer);
+  };
   const handleAddToCartClick = async (quantity, product, variant) => {
     const {
       addItemsToCart,
@@ -897,6 +919,12 @@ function Explore(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -1074,7 +1102,7 @@ function Explore(props) {
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`,`'none'`).replace('None',`none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
                 const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1102,7 +1130,7 @@ function Explore(props) {
                       <img
                         src={
                           !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? "/justin/justin4.svg"
+                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
                             : item?.node?.product?.media[0]?.URLs?.large
                         }
                         className={classes.image}
@@ -1112,7 +1140,9 @@ function Explore(props) {
                       />
 
                       <div className={classes.cartcontent}>
-                        <div className={classes.cartcontenttext}>
+                        <div className={classes.cartcontenttext} onCick={() => {
+                          trackProductView()
+                        }}>
                           <Typography
                             style={{
                               fontWeight: "600",
@@ -1153,7 +1183,7 @@ function Explore(props) {
                                 fontWeight: "600",
                                 fontSize: "12px",
                                 fontFamily: "lato",
-                                left: "12px",
+                                // left: "12px",
                               }}
                               variant="h4"
                               component="h2"
@@ -1211,7 +1241,7 @@ function Explore(props) {
           {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
-    </Layout>
+    </Layout >
   );
 }
 export async function getStaticProps({ params: { lang } }) {
