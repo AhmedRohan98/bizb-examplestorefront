@@ -230,7 +230,7 @@ const Welcome = () => {
         <div className={classes.styleofdiv}>
             <div className={classes.maindivqrcodeapp}>
 
-                <span
+                <a
                     onClick={() => {
                         console.log('kjdgegfiewgfewvfuve')
                         ReactGA.send({
@@ -244,8 +244,8 @@ const Welcome = () => {
                     target="_blank"
                 >
                     <img src="/favicons/Group157.svg" className={classes.image} />
-                </span>
-                <span
+                </a>
+                <a
                     href="https://bizb.store/en?"
                     target="_blank"
                     onClick={() => {
@@ -263,8 +263,8 @@ const Welcome = () => {
                             Visit our website
                         </span>
                     </div>
-                </span>
-                <span onClick={() => {
+                </a>
+                <a onClick={() => {
                     ReactGA.send({
                         hitType: 'event',
                         eventCategory: 'App',
@@ -274,7 +274,7 @@ const Welcome = () => {
 
                 }} href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
                     <img src="/favicons/Group159.svg" className={classes.image} />
-                </span>
+                </a>
 
             </div>
             <div className={classes.socialmediafo}>
