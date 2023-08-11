@@ -28,6 +28,8 @@ import TabPanel from "@material-ui/lab/TabPanel";
 import { CircularProgress } from "@material-ui/core";
 import formatSize from "../../lib/utils/formatSize";
 import { useRouter } from "next/router";
+import ReactGA from "react-ga4";
+
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 // import ReactImageMagnify from "react-image-magnify";
 SwiperCore.use([Navigation, Thumbs, Mousewheel, Pagination]);
@@ -630,6 +632,15 @@ const ProductDetail = ({ ...props }) => {
 
   useEffect(() => {
     console.log("props", props)
+    ReactGA.send({
+      hitType: 'pageview',
+      page: `/product/${props?.product?._id}`,
+      title: `Product View - ${props?.product?.title}`,
+    });
+    // ReactGA.pageview(`/product/${props?.product?._id}`, {
+    //   title: `Product View - ${props?.product?.title}`,
+    // });
+    // console.log("usjbjbde", props)
     const updatedItems = cart?.items.map((item) => {
       const isItemInCart = filteredProducts?.some((product) => {
         return item.productConfiguration?.productId === product?.node.product?.productId;

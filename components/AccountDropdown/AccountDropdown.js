@@ -13,6 +13,7 @@ import Link from "components/Link";
 import useStores from "hooks/useStores";
 import EntryModal from "../Entry/EntryModal";
 import getAccountsHandler from "../../lib/accountsServer.js";
+import ReactGA from "react-ga4";
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
@@ -82,6 +83,12 @@ const AccountDropdown = ({ headerType }) => {
   };
 
   const handleSignOut = async () => {
+    // Track "User Logout" event with Google Analytics 4
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'User',
+      eventAction: 'logout',
+    });
     await accountsClient.logout();
     await refetch();
     onClose();
@@ -90,7 +97,7 @@ const AccountDropdown = ({ headerType }) => {
   const toggleOpen = (event) => {
     setAnchorElement(event.currentTarget);
   };
-  const handleProfile=()=>{
+  const handleProfile = () => {
     window.location.href = "https://bizb.store/dashboard/myprofile?role=1";
   }
   const handleDashboard = () => {

@@ -12,6 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import formatCurrency from "lib/utils/formatCurrency";
+import ReactGA from "react-ga4";
 
 import { withComponents } from "@reactioncommerce/components-context";
 const styles = (theme) => ({
@@ -87,7 +88,7 @@ const styles = (theme) => ({
     alignItems: "flex-start",
   },
   cartimage: {
-    objectFit:"contain",
+    objectFit: "contain",
     width: "100px !important",
 
     borderRadius: "10px",
@@ -99,7 +100,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(1),
   },
   cartprice: {
-    fontSize:"1rem",
+    fontSize: "1rem",
     paddingTop: theme.spacing(1),
     color: theme.palette.secondary.selected,
   },
@@ -160,7 +161,7 @@ const styles = (theme) => ({
     paddingRight: 0,
   },
   carttitle: {
-    fontSize:"0.9rem",
+    fontSize: "0.9rem",
     marginLeft: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
@@ -226,6 +227,14 @@ class CartItems extends Component {
 
     onChangeCartItemQuantity(quantity, _id);
   };
+  componentDidMount() {
+    // Track "Cart View" event with Google Analytics 4
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/cart',
+      title: 'Cart View',
+    });
+  }
 
   static defaultProps = {
     isMiniCart: false,
@@ -234,6 +243,12 @@ class CartItems extends Component {
     onRemoveItemFromCart() { },
   };
   handleRemoveItem = async (itemID) => {
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemID,
+    });
     const { onRemoveItemFromCart } = this.props;
     console.log("id", this.props);
     await onRemoveItemFromCart(itemID);
@@ -300,8 +315,8 @@ class CartItems extends Component {
                         ""
                       )}{" "}
                       <div className={classes.carttitle}>
-                        <Typography variant="h4" style={{textTransform:"capitalize",fontSize:"1rem"}}>{item.title.toString().toLowerCase()}</Typography>
-                       <br/>
+                        <Typography variant="h4" style={{ textTransform: "capitalize", fontSize: "1rem" }}>{item.title.toString().toLowerCase()}</Typography>
+                        <br />
                         <img
                           style={{ cursor: "pointer", }}
                           src="/cart/icon.svg"
@@ -315,12 +330,12 @@ class CartItems extends Component {
                   <TableCell align="right">
                     {" "}
                     <Typography variant="h4" className={classes.cartprice}>
-                     {formatCurrency(item?.price?.amount)}
+                      {formatCurrency(item?.price?.amount)}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
                     {" "}
-                    <Typography variant="h4" style={{fontSize:"1rem",textAlign:"center"}}>{item.quantity}</Typography>
+                    <Typography variant="h4" style={{ fontSize: "1rem", textAlign: "center" }}>{item.quantity}</Typography>
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="h4" className={classes.cartprice}>

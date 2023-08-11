@@ -24,6 +24,8 @@ import variantById from "lib/utils/variantById";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
+import ReactGA from "react-ga4";
+
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     margin: theme.spacing(4),
@@ -731,6 +733,12 @@ class CartPage extends Component {
     // Scroll to the top
   };
   handleRemoveItem = async (itemId) => {
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemId,
+    });
     const { onRemoveCartItems } = this.props;
 
     await onRemoveCartItems(itemId);

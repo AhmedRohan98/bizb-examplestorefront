@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import ProgressiveImage from "components/ProgressiveImage";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import ReactGA from "react-ga4";
+
 const date = new Date();
 
 const useStyles = makeStyles((theme) => ({
@@ -89,18 +91,42 @@ const Footer = () => {
           </div>
           <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
             <a
+              onClick={() => {
+                ReactGA.send({
+                  hitType: 'event',
+                  eventCategory: 'Social',
+                  eventAction: 'share',
+                  eventLabel: "Instagram", // You can replace this with the specific social media platform
+                });
+              }}
               target="_blank"
               href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
               <img src="/icons/instagram.svg" className={classes.imagesicons} />
             </a>
             <a
+              onClick={() => {
+                ReactGA.send({
+                  hitType: 'event',
+                  eventCategory: 'Social',
+                  eventAction: 'share',
+                  eventLabel: "Facebook", // You can replace this with the specific social media platform
+                });
+              }}
               target="_blank"
               href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
               <img src="/icons/facebook.svg" className={classes.imagesicons} />
             </a>
             <a
+              onClick={() => {
+                ReactGA.send({
+                  hitType: 'event',
+                  eventCategory: 'Social',
+                  eventAction: 'share',
+                  eventLabel: "LinkedIn", // You can replace this with the specific social media platform
+                });
+              }}
               target="_blank"
               href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >

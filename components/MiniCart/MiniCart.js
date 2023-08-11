@@ -17,6 +17,7 @@ import Badge from "@material-ui/core/Badge";
 import formatCurrency from "../../lib/utils/formatCurrency"
 import withCart from "containers/cart/withCart";
 import Link from "components/Link";
+import ReactGA from "react-ga4";
 
 const styles = (theme) => ({
   popper: {
@@ -278,6 +279,12 @@ const MiniCart = ({ ...props }) => {
   };
 
   const handleRemoveItem = async (itemID) => {
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemID,
+    });
     const { onRemoveCartItems } = props;
     console.log(itemID, "me");
     onRemoveCartItems(itemID);

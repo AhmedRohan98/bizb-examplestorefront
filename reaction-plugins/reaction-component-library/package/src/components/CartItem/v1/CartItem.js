@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { withComponents } from "@reactioncommerce/components-context";
 import { addTypographyStyles, applyTheme, CustomPropTypes } from "../../../utils";
+import ReactGA from "react-ga4";
 
 const Item = styled.div`
   position: relative;
@@ -297,6 +298,12 @@ class CartItem extends Component {
   handleRemoveItemFromCart = () => {
     const { onRemoveItemFromCart, item: { _id } } = this.props;
     onRemoveItemFromCart(_id);
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: _id,
+    });
   };
 
   renderImage() {
@@ -389,7 +396,7 @@ class CartItem extends Component {
             displayCompareAtPrice={displayCompareAtPrice}
             hasPriceBottom={isMiniCart}
           />
-          { quantity !== 1 ?
+          {quantity !== 1 ?
             <ItemContentSubtotal isMiniCart={isMiniCart}>
               <ItemContentSubtotalTitle>{totalText} ({quantity}):</ItemContentSubtotalTitle>
               <ItemContentSubtotalDisplay>{displaySubtotal}</ItemContentSubtotalDisplay>

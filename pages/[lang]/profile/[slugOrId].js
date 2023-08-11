@@ -22,6 +22,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import ReactGA from "react-ga4";
+
 function SellerPublicProfile(props) {
   // console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
@@ -363,6 +365,12 @@ function SellerPublicProfile(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

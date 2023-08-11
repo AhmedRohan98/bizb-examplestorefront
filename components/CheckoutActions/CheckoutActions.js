@@ -20,6 +20,8 @@ import Select, { components } from "react-select";
 import formatCurrency from "lib/utils/formatCurrency";
 import { placeOrderQuery } from "../../hooks/orders/query";
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
+import ReactGA from "react-ga4";
+
 const useStyles = makeStyles((theme) => ({
   formerror: {
     paddingLeft: theme.spacing(1),
@@ -400,6 +402,14 @@ const CheckoutActions = (prop) => {
   const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.itemTotal?.amount));
   console.log(subtotal);
   const [error, setError] = useState("");
+  useEffect(() => {
+    // Track "Checkout Initiated" event with Google Analytics 4
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'checkout_initiated',
+    });
+  }, []);
 
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
@@ -539,6 +549,11 @@ const CheckoutActions = (prop) => {
         placeOrder: { orders, token },
       } = data;
       toast.success("Order placed successfully!");
+      ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Ecommerce',
+        eventAction: 'successful_checkout',
+      });
 
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
@@ -549,7 +564,13 @@ const CheckoutActions = (prop) => {
       // Also destroy the collected and cached payment input
       cartStore.resetCheckoutPayments();
     } catch (error) {
+      ReactGA.send({
+        hitType: 'event',
+        eventCategory: 'Ecommerce',
+        eventAction: 'failed_checkout',
+      });
       setOrderDisable(false);
+
 
       console.log(error);
     }

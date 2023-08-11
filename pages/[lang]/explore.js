@@ -31,6 +31,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
+import ReactGA from "react-ga4";
+
 function Explore(props) {
   console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, catalogItemsPageInfo, sortBy } = props;
@@ -898,6 +900,12 @@ function Explore(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
