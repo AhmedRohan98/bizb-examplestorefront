@@ -1183,7 +1183,7 @@ function Explore(props) {
                                 fontWeight: "600",
                                 fontSize: "12px",
                                 fontFamily: "lato",
-                                left: "12px",
+                                // left: "12px",
                               }}
                               variant="h4"
                               component="h2"
