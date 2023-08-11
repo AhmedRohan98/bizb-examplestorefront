@@ -1063,8 +1063,8 @@ const ProductDetail = ({ ...props }) => {
                               .replace(/\$/g, "Rs. ")}
                           </Typography>
                         </div>
-                        {product?.variants[0]?.pricing[0]?.compareAtPrice &&<Typography gutterBottom variant="h5" className={classes.offer}>
-                          { `-${Math.abs(percentage)}%`}
+                        {product?.variants[0]?.pricing[0]?.compareAtPrice && <Typography gutterBottom variant="h5" className={classes.offer}>
+                          {`-${Math.abs(percentage)}%`}
                         </Typography>}
                       </div>
                       <div className={classes.sizeimage}>
