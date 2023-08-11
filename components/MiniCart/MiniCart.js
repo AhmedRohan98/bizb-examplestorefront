@@ -18,6 +18,7 @@ import formatCurrency from "../../lib/utils/formatCurrency"
 import withCart from "containers/cart/withCart";
 import Link from "components/Link";
 import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
 
 const styles = (theme) => ({
   popper: {
@@ -283,7 +284,7 @@ const MiniCart = ({ ...props }) => {
       },
     };
 
-    // TagManager.dataLayer(dataLayer);
+    TagManager.dataLayer(dataLayer);
     Router.push("/cart/checkout");
     // console.log("button clicked");
   };
@@ -304,7 +305,7 @@ const MiniCart = ({ ...props }) => {
       },
     };
 
-    // TagManager.dataLayer(dataLayer);
+    TagManager.dataLayer(dataLayer);
 
     Router.push("/cart");
   };

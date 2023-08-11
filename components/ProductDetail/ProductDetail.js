@@ -811,7 +811,7 @@ const ProductDetail = ({ ...props }) => {
       },
     };
 
-    // TagManager.dataLayer(dataLayer);
+    TagManager.dataLayer(dataLayer);
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

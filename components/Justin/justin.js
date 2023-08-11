@@ -17,6 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { UIContext } from "../../context/UIContext.js";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -257,7 +258,7 @@ const Justin = (props) => {
       },
     };
 
-    // TagManager.dataLayer(dataLayer);
+    TagManager.dataLayer(dataLayer);
 
   };
   //

@@ -25,6 +25,7 @@ import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -841,7 +842,7 @@ class CartPage extends Component {
                     },
                   };
 
-                  // TagManager.dataLayer(dataLayer);
+                  TagManager.dataLayer(dataLayer);
                 }}
               >
                 Proceed to checkout
