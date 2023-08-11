@@ -52,6 +52,7 @@ const Welcome = () => {
             height: "150px",
             width: "126px",
         },
+
         image: {
             height: "100px",
             width: "250px",
@@ -68,6 +69,33 @@ const Welcome = () => {
                 width: "200px",
                 marginTop: theme.spacing(1),
                 marginRight: theme.spacing(0),
+            },
+        },
+        type: {
+            width: "100%",
+            color: "white",
+            fontSize: "22px",
+            marginLeft: "20px",
+            marginTop: "9px",
+            [theme.breakpoints.down("sm")]: {
+                fontSize: "16px",
+
+            },
+        },
+        image3: {
+            height: "60px",
+            width: "250px",
+            marginLeft: theme.spacing(1),
+            marginTop: theme.spacing(1),
+
+
+
+            [theme.breakpoints.down("sm")]: {
+                height: "44px",
+                width: "250px",
+                marginRight: theme.spacing(0),
+                marginTop: theme.spacing(1),
+
             },
         },
         image2: {
@@ -97,6 +125,27 @@ const Welcome = () => {
             [theme.breakpoints.down("sm")]: {
                 marginTop: theme.spacing(5),
                 marginBottom: theme.spacing(5),
+
+            },
+            display: "flex",
+            justifyContent: "center",
+        },
+        socialmediadiv: {
+            width: "250px",
+            height: "80px",
+            backgroundColor: "black",
+            marginRight: theme.spacing(2),
+            borderRadius: "18px",
+            marginTop: theme.spacing(1),
+            [theme.breakpoints.down("sm")]: {
+                width: "200px",
+                height: "60px",
+                borderRadius: "10px",
+                marginRight: theme.spacing(0),
+
+
+                // marginTop: theme.spacing(5),
+                // marginBottom: theme.spacing(5),
 
             },
             display: "flex",
@@ -145,7 +194,15 @@ const Welcome = () => {
                     href="https://bizb.store/en?"
                     target="_blank"
                 >
-                    <img src="/favicons/Logo2.svg" className={classes.image} />
+                    <div className={classes.socialmediadiv}>
+
+                        <img src="/images/logoLight.svg" className={classes.image3} />
+                        <span
+                            className={classes.type}
+                        >
+                            Visit our website
+                        </span>
+                    </div>
                 </a>
                 <a onClick={() => {
                     ReactGA.send({
