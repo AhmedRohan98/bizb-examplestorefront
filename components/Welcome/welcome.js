@@ -15,6 +15,8 @@ import useViewer from '../../hooks/viewer/useViewer'
 import { withApollo } from 'lib/apollo/withApollo'
 import { makeStyles } from "@material-ui/core/styles";
 import ReactGA from "react-ga4";
+import useCreateanalytics from '../../hooks/analytics/usecreateAnalytics'
+import DeviceInfo from './DeviceInfo';
 
 
 const Welcome = () => {
@@ -161,6 +163,57 @@ const Welcome = () => {
             },
         },
     }))
+    const [deviceInfo, setDeviceInfo] = useState(null);
+
+    useEffect(() => {
+
+        console.log("DeviceInfo", deviceInfo ? deviceInfo?.deviceType : "")
+        handleanalytics("SCANNED", deviceInfo)
+
+    }, [deviceInfo])
+
+    useEffect(() => {
+        // Access device information when the component mounts
+        const userAgent = navigator.userAgent;
+        const isMobileDevice = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(userAgent);
+        const isTabletDevice = /Tablet|iPad/.test(userAgent);
+
+        const deviceType = isMobileDevice ? 'Mobile' : (isTabletDevice ? 'Tablet' : 'Desktop');
+
+        // Set the device information in the state
+        setDeviceInfo({
+            userAgent,
+            isMobileDevice,
+            isTabletDevice,
+            deviceType,
+        });
+    }, []);
+    const [createanalyticsFunction, loding] = useCreateanalytics()
+
+    const handleanalytics = async (eventName, deviceInfo) => {
+        try {
+            const createanalytics = await createanalyticsFunction({
+                variables: {
+                    input: {
+                        eventName: eventName,
+                        metafields: {
+                            key: "deviceName",
+                            value: deviceInfo ? deviceInfo?.deviceType : ""
+                        }
+                    }
+
+                },
+            })
+            console.log('createanalytics:', createanalytics)
+
+
+            // clearForm()
+        } catch (error) {
+
+            console.log('error', error)
+        }
+    }
+
 
     const classes = useStyles();
     useEffect(() => {
@@ -177,22 +230,29 @@ const Welcome = () => {
         <div className={classes.styleofdiv}>
             <div className={classes.maindivqrcodeapp}>
 
-                <a
+                <span
                     onClick={() => {
+                        console.log('kjdgegfiewgfewvfuve')
                         ReactGA.send({
                             hitType: 'event',
                             eventCategory: 'App',
                             eventAction: 'install_android',
                         });
+                        handleanalytics("ANDROID", deviceInfo)
                     }}
                     href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1"
                     target="_blank"
                 >
                     <img src="/favicons/Group157.svg" className={classes.image} />
-                </a>
-                <a
+                </span>
+                <span
                     href="https://bizb.store/en?"
                     target="_blank"
+                    onClick={() => {
+
+                        handleanalytics("WEB", deviceInfo)
+
+                    }}
                 >
                     <div className={classes.socialmediadiv}>
 
@@ -203,16 +263,18 @@ const Welcome = () => {
                             Visit our website
                         </span>
                     </div>
-                </a>
-                <a onClick={() => {
+                </span>
+                <span onClick={() => {
                     ReactGA.send({
                         hitType: 'event',
                         eventCategory: 'App',
                         eventAction: 'install_ios',
                     });
+                    handleanalytics("IOS", deviceInfo)
+
                 }} href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
                     <img src="/favicons/Group159.svg" className={classes.image} />
-                </a>
+                </span>
 
             </div>
             <div className={classes.socialmediafo}>
