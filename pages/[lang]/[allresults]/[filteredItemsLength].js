@@ -20,6 +20,8 @@ import inject from "../../../hocs/inject";
 import { ToastContainer, toast } from "react-toastify";
 import Box from "@material-ui/core/Box";
 import formatSize from "../../../lib/utils/formatSize";
+import ReactGA from "react-ga4";
+
 const useStyles = makeStyles((theme) => ({
   main: {
     width: "100%",
@@ -288,6 +290,12 @@ function AllResults(props) {
   };
 
   const handleOnClick = async (product, variant) => {
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

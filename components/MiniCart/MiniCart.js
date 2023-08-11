@@ -17,6 +17,7 @@ import Badge from "@material-ui/core/Badge";
 import formatCurrency from "../../lib/utils/formatCurrency"
 import withCart from "containers/cart/withCart";
 import Link from "components/Link";
+import ReactGA from "react-ga4";
 import TagManager from 'react-gtm-module';
 
 const styles = (theme) => ({
@@ -310,23 +311,12 @@ const MiniCart = ({ ...props }) => {
   };
 
   const handleRemoveItem = async (itemID) => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'remove_from_cart',
-        ecommerce: {
-          remove: {
-            products: [
-              {
-                id: itemID,
-
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemID,
+    });
     const { onRemoveCartItems } = props;
     console.log(itemID, "me");
     onRemoveCartItems(itemID);

@@ -13,6 +13,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import formatCurrency from "lib/utils/formatCurrency";
 import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 import { withComponents } from "@reactioncommerce/components-context";
 const styles = (theme) => ({
@@ -227,6 +228,14 @@ class CartItems extends Component {
 
     onChangeCartItemQuantity(quantity, _id);
   };
+  componentDidMount() {
+    // Track "Cart View" event with Google Analytics 4
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/cart',
+      title: 'Cart View',
+    });
+  }
 
   static defaultProps = {
     isMiniCart: false,
@@ -235,23 +244,12 @@ class CartItems extends Component {
     onRemoveItemFromCart() { },
   };
   handleRemoveItem = async (itemID) => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'remove_from_cart',
-        ecommerce: {
-          remove: {
-            products: [
-              {
-                id: itemID,
-
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: itemID,
+    });
     const { onRemoveItemFromCart } = this.props;
     console.log("id", this.props);
     await onRemoveItemFromCart(itemID);

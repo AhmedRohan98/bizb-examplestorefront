@@ -16,6 +16,7 @@ import { CircularProgress } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 import { UIContext } from "../../context/UIContext.js";
 import formatSize from "../../lib/utils/formatSize";
+import ReactGA from "react-ga4";
 import TagManager from 'react-gtm-module';
 
 const useStyles = makeStyles((theme) => ({
@@ -366,28 +367,12 @@ const Justin = (props) => {
   };
 
   const handleOnClick = async (product, variant) => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'add_to_cart',
-        ecommerce: {
-          add: {
-            products: [
-              {
-                id: product.productId,
-                name: product.title,
-                price: product.variants[0]?.pricing[0]?.displayPrice,
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
-    const d = TagManager.dataLayer(dataLayer);
-
-    console.log("dataLayerdataLayer", d)
-
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -538,7 +523,7 @@ const Justin = (props) => {
                             variant="h4"
                             component="h2"
                             className={classes.carttitle2}
-                          >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice  && `-${Math.abs(percentage)}%`}</Typography>
+                          >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}</Typography>
                         </div>
                       </div>
                       <div className={classes.cartbackground}>

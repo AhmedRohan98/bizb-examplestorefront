@@ -14,6 +14,7 @@ import useStores from "hooks/useStores";
 import EntryModal from "../Entry/EntryModal";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
@@ -83,13 +84,12 @@ const AccountDropdown = ({ headerType }) => {
   };
 
   const handleSignOut = async () => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'logout',
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    // Track "User Logout" event with Google Analytics 4
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'User',
+      eventAction: 'logout',
+    });
     await accountsClient.logout();
     await refetch();
     onClose();

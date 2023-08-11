@@ -22,7 +22,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 function SellerPublicProfile(props) {
   // console.log("props", props);
@@ -365,24 +365,12 @@ function SellerPublicProfile(props) {
   };
 
   const handleOnClick = async (product, variant) => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'add_to_cart',
-        ecommerce: {
-          add: {
-            products: [
-              {
-                id: product.productId,
-                name: product.title,
-                price: product.variants[0]?.pricing[0]?.displayPrice,
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

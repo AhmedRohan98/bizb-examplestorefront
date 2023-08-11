@@ -10,7 +10,6 @@ import { withApollo } from "lib/apollo/withApollo";
 import useCart from "hooks/cart/useCart";
 import useShop from "hooks/shop/useShop";
 import useTranslation from "hooks/useTranslation";
-
 import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";

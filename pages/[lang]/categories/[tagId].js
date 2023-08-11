@@ -60,6 +60,7 @@ import formatSize from "../../../lib/utils/formatSize";
 
 import inject from "../../../hocs/inject";
 import Layout from "../../../components/Layout";
+import ReactGA from "react-ga4";
 import TagManager from 'react-gtm-module';
 
 const useStyles = makeStyles((theme) => ({
@@ -847,24 +848,12 @@ function Categories(props) {
 
   const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
-    const dataLayer = {
-      dataLayer: {
-        event: 'add_to_cart',
-        ecommerce: {
-          add: {
-            products: [
-              {
-                id: product.productId,
-                name: product.title,
-                price: product.variants[0]?.pricing[0]?.displayPrice,
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

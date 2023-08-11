@@ -13,6 +13,8 @@ import inject from "hocs/inject";
 import variantById from "lib/utils/variantById";
 import { ToastContainer, toast } from "react-toastify";
 import formatSize from "../../lib/utils/formatSize";
+import ReactGA from "react-ga4";
+
 const Storyslider = (props) => {
   const { uiStore, routingStore, itemData, cart, sellerss, addItemsToCart, storeId, show } = props;
   console.log(props, "props");
@@ -409,6 +411,12 @@ const Storyslider = (props) => {
   };
 
   const handleOnClick = async (product, variant) => {
+    ReactGA.event({
+      category: 'Ecommerce',
+      action: 'add_to_cart',
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -548,7 +556,7 @@ const Storyslider = (props) => {
                             </Typography>
                             <div className={classes.strikethroughoff}>
                               <strike className={classes.strikethrough}>
-                                {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice.displayAmount
+                                {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                   ?.replace(/\.00$/, "")
                                   .replace(/\$/g, "Rs. ")}
                               </strike>

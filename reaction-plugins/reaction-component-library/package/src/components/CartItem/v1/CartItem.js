@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { withComponents } from "@reactioncommerce/components-context";
 import { addTypographyStyles, applyTheme, CustomPropTypes } from "../../../utils";
-import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 const Item = styled.div`
   position: relative;
@@ -300,23 +300,12 @@ class CartItem extends Component {
 
     const { onRemoveItemFromCart, item: { _id } } = this.props;
     onRemoveItemFromCart(_id);
-    const dataLayer = {
-      dataLayer: {
-        event: 'remove_from_cart',
-        ecommerce: {
-          remove: {
-            products: [
-              {
-                id: _id,
-
-              },
-            ],
-          },
-        },
-      },
-    };
-
-    TagManager.dataLayer(dataLayer);
+    ReactGA.send({
+      hitType: 'event',
+      eventCategory: 'Ecommerce',
+      eventAction: 'remove_from_cart',
+      eventLabel: _id,
+    });
   };
 
   renderImage() {

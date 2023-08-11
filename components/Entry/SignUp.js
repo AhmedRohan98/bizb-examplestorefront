@@ -13,6 +13,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 
 const useStyles = makeStyles((theme) => ({
   label: {
@@ -212,7 +213,11 @@ export default function SignUp(props) {
     validateOnBlur: false,
     //// By disabling validation onChange and onBlur formik will validate on submit.
     onSubmit: async (values, action) => {
-      window.dataLayer = window.dataLayer
+      ReactGA.event({
+        category: 'User',
+        action: 'Sign Up',
+        label: 'New User Signed Up',
+      });
       const dataLayer = {
         dataLayer: {
           event: 'sign_in', // The name of the custom event
