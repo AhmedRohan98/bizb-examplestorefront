@@ -23,6 +23,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const SellerRegistration = () => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
+    let SN = /^.{15}$/
     let phoneNumreg = /^(?:\+92\d{10}|03\d{9})$/
     const [sellerRegistrationFunction, loding] = useSellerRegistration()
     const [viewer, , refetch] = useViewer()
@@ -72,7 +73,7 @@ const SellerRegistration = () => {
             backgroundColor: '#FFFFFF',
             width: "90%",
             [theme.breakpoints.down("sm")]: {
-                width: "400px",
+                width: "360px",
                 boxShadow: "none",
                 borderRadius: '0',
             },
@@ -106,6 +107,7 @@ const SellerRegistration = () => {
             marginTop: "6%",
             [theme.breakpoints.down("sm")]: {
                 fontSize: '13px',
+                marginTop: 0,
                 marginLeft: 0
             },
         },
@@ -275,8 +277,9 @@ const SellerRegistration = () => {
             flexDirection: "row",
             marginLeft: "22%",
             [theme.breakpoints.down("sm")]: {
-                marginLeft: "35%",
-                justifyContent: "start"
+                marginLeft: 0,
+                justifyContent: "start",
+                marginBottom: "auto"
 
             },
 
@@ -363,6 +366,7 @@ const SellerRegistration = () => {
 
     const handleSubmit = () => {
         seterros({ value: '', valid: false });
+        seterror("")
         setuserError('');
 
         console.log("ddt",
@@ -429,7 +433,8 @@ const SellerRegistration = () => {
                         postalcode: zipcode.value,
                         phone: contactnumber.value,
                         fullName: userName.value,
-                        password: hashPassword(password.value)
+                        password: hashPassword(password.value),
+                        discountCode: refferalcode.value
                     }
 
                 },
@@ -477,6 +482,9 @@ const SellerRegistration = () => {
     }
     const StoreErrorMessage = () => {
         return <p className={classes.style9}>Store Name Field is required</p>
+    }
+    const StoreLengthErrorMessage = () => {
+        return <p className={classes.style9}>Store Name should be less than 15 characters</p>
     }
     const AddressErrorMessage = () => {
         return <p className={classes.style9}>Address Field is required</p>
@@ -630,6 +638,7 @@ const SellerRegistration = () => {
 
                         </div>
                         {storeName.isTouched && storeName.value === '' ? <StoreErrorMessage /> : null}
+                        {storeName.value.length > 15 ? <StoreLengthErrorMessage /> : null}
 
                         <div className={classes.style7}>
                             <div className={classes.style11}>
