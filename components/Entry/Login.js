@@ -15,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
 
 const useStyles = makeStyles((theme) => ({
   yellowHoverText: {

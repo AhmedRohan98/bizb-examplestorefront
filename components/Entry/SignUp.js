@@ -218,16 +218,16 @@ export default function SignUp(props) {
         action: 'Sign Up',
         label: 'New User Signed Up',
       });
-      // const dataLayer = {
-      //   dataLayer: {
-      //     event: 'sign_in', // The name of the custom event
-      //     category: 'User',
-      //     action: 'Sign In',
-      //     label: 'Successful',
-      //   },
-      // };
+      const dataLayer = {
+        dataLayer: {
+          event: 'sign_in', // The name of the custom event
+          category: 'User',
+          action: 'Sign In',
+          label: 'Successful',
+        },
+      };
 
-      // TagManager.dataLayer(dataLayer);
+      TagManager.dataLayer(dataLayer);
       await registerUser2(values, action);
       //// to get rid of all the values after submitting the form
       // action.resetForm();

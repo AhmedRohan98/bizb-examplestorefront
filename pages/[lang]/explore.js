@@ -32,6 +32,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
+import TagManager from 'react-gtm-module';
 
 function Explore(props) {
   console.log("props", props);
