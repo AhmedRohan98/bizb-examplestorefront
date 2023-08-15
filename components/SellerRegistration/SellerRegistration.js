@@ -944,7 +944,7 @@ const SellerRegistration = () => {
                                         color: "inherit",
                                     }}
                                     target="_blank"
-                                    href="/en/SellerTermsConditionPage"
+                                    href="https://blog.bizb.store/privacy-policy-2/"
                                 >
                                     <Typography variant='body2' className={classes.terms} textAlign='left'>
                                         I agree to the BizB <span style={{ color: "#FDC114" }}>Terms & Conditions</span>
