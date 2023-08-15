@@ -205,7 +205,7 @@ const Footer = () => {
                 </span>
               </div>{" "}
             </a>
-            <a href="/en/contactus">
+            <a href="/en/contact-us">
               <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
@@ -223,7 +223,7 @@ const Footer = () => {
               </div>
             </a>
             <a target="_blank" href="https://blog.bizb.store/about-us/">
-              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
                   style={{
@@ -236,6 +236,40 @@ const Footer = () => {
                   }}
                 >
                   About Us
+                </span>
+              </div>
+            </a>
+            <a target="_blank" href="https://blog.bizb.store/privacy-policy-2/">
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+                {" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Privacy Policy
+                </span>
+              </div>
+            </a>
+            <a target="_blank" href="https://blog.bizb.store/return-policy/">
+              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+                {" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Return Policy
                 </span>
               </div>
             </a>
@@ -255,11 +289,11 @@ const Footer = () => {
                 </span>
                 <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}> hello@bizb.store </span>
               </a>
-              <a href="tel:+92 312 5253680" target="_blank">
+              <a href="tel:+92 319 45330320" target="_blank">
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}> +92 312 5253680</span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}>+92 319 45330320</span>
               </a>
             </div>
             <div

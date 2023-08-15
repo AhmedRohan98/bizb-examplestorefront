@@ -161,9 +161,21 @@ class NavigationMobile extends Component {
               </MenuList>
             </a>
             <br />
-            <a href="/en/contactus">
+            <a href="/en/contact-us">
               <MenuList className={classes.navButtonActive}>
                 Contact Us
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a href="https://blog.bizb.store/privacy-policy-2/">
+              <MenuList className={classes.navButtonActive}>
+                Privacy Policy
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a href="https://blog.bizb.store/return-policy/">
+              <MenuList className={classes.navButtonActive}>
+                Return Policy
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
