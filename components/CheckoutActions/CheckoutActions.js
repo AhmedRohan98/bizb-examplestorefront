@@ -19,7 +19,7 @@ import useGetShipping from "../../hooks/shippingprice/usegetShipping";
 import Select, { components } from "react-select";
 import formatCurrency from "lib/utils/formatCurrency";
 import { placeOrderQuery } from "../../hooks/orders/query";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
 import ReactGA from "react-ga4";
@@ -204,8 +204,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "100%",
     fontSize: "1.5rem",
-    marginBottom: 20
-
+    marginBottom: 20,
   },
 
   phone: {
@@ -241,9 +240,8 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#FDC114",
       cursor: "pointer",
-      textDecoration: "underline"
-    }
-
+      textDecoration: "underline",
+    },
   },
   cartname: {
     fontWeight: 500,
@@ -404,20 +402,41 @@ const CheckoutActions = (prop) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [errorPromo, setErrorPromo] = useState("");
   const [applyPromo, data, loadingAfterPromo] = useApplyPromoCode();
+  const [isDisabledPromo, setIsDisabledPromo] = useState(false);
+
+  console.log("checkout actions page");
+
+  useEffect(() => {
+    setIsDisabledPromo(!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount !== 0);
+  }, [promoCode, isDisabled, cart]);
+
   // console.log("helo", afterPromo, data, loadingAfterPromo);
   const classes = useStyles();
   // console.log("class", cart?.checkout?.summary?.itemTotal?.amount);
-  const [subtotal, setSubTotal] = useState(
-    parseInt(cart?.checkout?.summary?.itemTotal?.amount) - parseInt(cart?.checkout?.summary?.discountTotal?.amount),
-  );
+  useEffect(() => {
+    console.log("cart is ", cart);
+    setIsDisabled(false);
+    setPromoCode("");
+  }, [cart]);
+
+  useEffect(() => {
+    if (parseInt(cart?.checkout?.summary?.discountTotal?.amount) === 0) {
+      console.log("running this condition");
+      setSubTotal(parseInt(cart?.checkout?.summary?.total?.amount));
+    } else {
+      setSubTotal(parseInt(cart?.checkout?.summary?.discountTotal?.amount));
+    }
+  }, [cart]);
+
+  const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.total?.amount));
   console.log(subtotal);
   const [error, setError] = useState("");
   useEffect(() => {
     // Track "Checkout Initiated" event with Google Analytics 4
     ReactGA.send({
-      hitType: 'event',
-      eventCategory: 'Ecommerce',
-      eventAction: 'checkout_initiated',
+      hitType: "event",
+      eventCategory: "Ecommerce",
+      eventAction: "checkout_initiated",
     });
   }, []);
 
@@ -429,12 +448,10 @@ const CheckoutActions = (prop) => {
   }));
   // console.log(cart);
   const handlepay = async (values, action) => {
-
     try {
       setOrderDisable(true);
 
       const { data } = await placeOrder({
-
         variables: {
           order: {
             cartId: cartStore.accountCartId,
@@ -504,9 +521,9 @@ const CheckoutActions = (prop) => {
       } = data;
       toast.success("Order placed successfully!");
       ReactGA.send({
-        hitType: 'event',
-        eventCategory: 'Ecommerce',
-        eventAction: 'successful_checkout',
+        hitType: "event",
+        eventCategory: "Ecommerce",
+        eventAction: "successful_checkout",
       });
 
       // Send user to order confirmation page
@@ -519,12 +536,11 @@ const CheckoutActions = (prop) => {
       cartStore.resetCheckoutPayments();
     } catch (error) {
       ReactGA.send({
-        hitType: 'event',
-        eventCategory: 'Ecommerce',
-        eventAction: 'failed_checkout',
+        hitType: "event",
+        eventCategory: "Ecommerce",
+        eventAction: "failed_checkout",
       });
       setOrderDisable(false);
-
 
       console.log(error);
     }
@@ -554,7 +570,7 @@ const CheckoutActions = (prop) => {
         },
       });
       console.log("response", response);
-      setSubTotal(response?.data?.applyDiscountCodeToCart?.cart?.checkout?.summary?.total?.amount);
+      setSubTotal(response?.data?.applyDiscountCodeToCart?.cart?.checkout?.summary?.discountTotal?.amount);
     } catch (err) {
       console.log("response", err.message);
       setErrorPromo(err?.message);
@@ -918,49 +934,55 @@ const CheckoutActions = (prop) => {
                     Cash On Delivery
                   </Typography>
                 </div>
-                <Grid item xs={12} className={classes.inputitem}>
-                  <label className={classes.label} variant="h6" htmlFor="PromoCode">
-                    <span className={classes.labelSpan}>
-                      Promo <span style={{ color: "#FD1010" }}></span>
-                    </span>
-                    <span style={{ display: "flex" }}>
-                      <TextField
-                        placeholder="Enter Promo Code"
-                        InputProps={{ disableUnderline: true }}
-                        autoComplete="off"
-                        type="text"
-                        name="PromoCode"
-                        id="PromoCode"
-                        value={promoCode}
-                        onChange={(e) => {
-                          setPromoCode(e.target.value);
-                        }}
-                        // onBlur={handleBlur}
-                        className={classes.promoField}
-                        inputProps={{ style: { color: "black" } }}
-                      />
-                      <span>
-                        <Button
-                          className={classes.promoBtn}
-                          onClick={handleApplyPromo}
-                          InputProps={{ disableUnderline: true }}
-                          variant="h6"
-                          role="button"
-                          disabled={!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount}
-                        >
-                          {/* {console.log("",cart?.checkout?.summary?.discountTotal?.amount)} */}
-                          {orderDisable ? (
-                            <CircularProgress disableShrink size={24} style={{ color: "black" }} />
-                          ) : (
-                            "Apply"
-                          )}
-                        </Button>
-                      </span>
-                    </span>
-                  </label>
-                  {errorPromo ? <p className={classes.formerror}>{errorPromo}</p> : null}
-                  {/* {console.log("error", errorPromo)} */}
-                </Grid>
+                {!prop?.cartStore?.anonymousCartToken ? (
+                  <>
+                    <Grid item xs={12} className={classes.inputitem}>
+                      <label className={classes.label} variant="h6" htmlFor="PromoCode">
+                        <span className={classes.labelSpan}>
+                          Promo <span style={{ color: "#FD1010" }}></span>
+                        </span>
+                        <span style={{ display: "flex" }}>
+                          <TextField
+                            placeholder="Enter Promo Code"
+                            InputProps={{ disableUnderline: true }}
+                            autoComplete="off"
+                            type="text"
+                            name="PromoCode"
+                            id="PromoCode"
+                            value={promoCode}
+                            onChange={(e) => {
+                              setPromoCode(e.target.value);
+                            }}
+                            // onBlur={handleBlur}
+                            className={classes.promoField}
+                            inputProps={{ style: { color: "black" } }}
+                          />
+                          <span>
+                            <Button
+                              className={classes.promoBtn}
+                              onClick={handleApplyPromo}
+                              InputProps={{ disableUnderline: true }}
+                              variant="h6"
+                              role="button"
+                              disabled={isDisabledPromo}
+                            >
+                              {/* {console.log("",cart?.checkout?.summary?.discountTotal?.amount)} */}
+                              {orderDisable ? (
+                                <CircularProgress disableShrink size={24} style={{ color: "black" }} />
+                              ) : (
+                                "Apply"
+                              )}
+                            </Button>
+                          </span>
+                        </span>
+                      </label>
+                      {errorPromo ? <p className={classes.formerror}>{errorPromo}</p> : null}
+                      {/* {console.log("error", errorPromo)} */}
+                    </Grid>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
 
               <div className={classes.cartcard}>
@@ -979,26 +1001,36 @@ const CheckoutActions = (prop) => {
                       {/* {console.log("subtotal,", subtotal)} */}
                     </Typography>
                   </div>
-                  <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
-                      Discount
-                    </Typography>
-                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
-                      (Rs. {cart?.checkout?.summary?.discountTotal?.amount}){/* {console.log("subtotal,", subtotal)} */}
-                    </Typography>
-                  </div>
-                  <div className={classes.subtotal}>
-                    <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
-                      Subtotal
-                    </Typography>
-                    <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
-                      Rs. {subtotal}
-                      {/* {console.log("subtotal,", subtotal)} */}
-                    </Typography>
-                  </div>
-
+                  {!prop?.cartStore?.anonymousCartToken ? (
+                    <>
+                      <div className={classes.subtotal}>
+                        <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
+                          Discount
+                        </Typography>
+                        <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                          {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
+                          -(Rs.{" "}
+                          {cart?.checkout?.summary?.discountTotal?.amount == 0
+                            ? 0
+                            : cart?.checkout?.summary?.itemTotal?.amount -
+                              cart?.checkout?.summary?.discountTotal?.amount}
+                          ){/* {console.log("subtotal,", subtotal)} */}
+                        </Typography>
+                      </div>
+                      <div className={classes.subtotal}>
+                        <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
+                          Subtotal
+                        </Typography>
+                        <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
+                          {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
+                          Rs. {subtotal}
+                          {/* {console.log("subtotal,", subtotal)} */}
+                        </Typography>
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                   <div className={classes.subtotal}>
                     <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                       Shipping Cost
@@ -1033,9 +1065,11 @@ const CheckoutActions = (prop) => {
                   role="button"
                   disabled={orderDisable}
                 >
-
-                  {orderDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Place Order"}
-
+                  {orderDisable ? (
+                    <CircularProgress disableShrink size={24} style={{ color: "black" }} />
+                  ) : (
+                    "Place Order"
+                  )}
                 </Button>
                 <ToastContainer
                   position="top-right"

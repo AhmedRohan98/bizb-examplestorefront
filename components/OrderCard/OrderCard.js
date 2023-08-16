@@ -11,14 +11,14 @@ const styles = (theme) => ({
   orderCard: {
     border: `solid 1px ${theme.palette.reaction.black10}`,
     borderRadius: "2px",
-    marginBottom: theme.spacing(2.5)
+    marginBottom: theme.spacing(2.5),
   },
   orderCardHeader: {},
   orderCardFulfillmentGroups: {},
   orderCardSummary: {
     borderTop: theme.palette.borders.default,
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 });
 
 class OrderCard extends Component {
@@ -30,12 +30,14 @@ class OrderCard extends Component {
       email: PropTypes.string.isRequired,
       fulfillmentGroups: PropTypes.arrayOf(PropTypes.object).isRequired,
       payments: PropTypes.arrayOf(PropTypes.object),
-      referenceId: PropTypes.string.isRequired
-    })
+      referenceId: PropTypes.string.isRequired,
+    }),
   };
 
   renderFulfillmentGroups() {
-    const { order: { fulfillmentGroups } } = this.props;
+    const {
+      order: { fulfillmentGroups },
+    } = this.props;
 
     return (
       <Fragment>
@@ -58,7 +60,10 @@ class OrderCard extends Component {
   }
 
   renderSummary() {
-    const { order: { summary } } = this.props;
+    const {
+      order: { summary },
+    } = this.props;
+    console.log("summary", summary);
     return <OrderCardSummary summary={summary} />;
   }
 
@@ -71,15 +76,9 @@ class OrderCard extends Component {
       <Grid container>
         <Grid item xs={12} md={12}>
           <div className={classes.orderCard}>
-            <header className={classes.orderCardHeader}>
-              {this.renderHeader()}
-            </header>
-            <section className={classes.orderCardFulfillmentGroups}>
-              {this.renderFulfillmentGroups()}
-            </section>
-            <section className={classes.orderCardSummary}>
-              {this.renderSummary()}
-            </section>
+            <header className={classes.orderCardHeader}>{this.renderHeader()}</header>
+            <section className={classes.orderCardFulfillmentGroups}>{this.renderFulfillmentGroups()}</section>
+            <section className={classes.orderCardSummary}>{this.renderSummary()}</section>
           </div>
         </Grid>
       </Grid>
