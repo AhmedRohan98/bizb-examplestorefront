@@ -1,5 +1,5 @@
-query getAllSeller {
-  getAllSeller {
+query getAllSeller($searchQuery: String) {
+  getAllSeller(searchQuery: $searchQuery) {
     _id
     name
     storeName

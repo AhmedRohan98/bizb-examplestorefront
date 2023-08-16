@@ -8,6 +8,7 @@ import {
     FormControl,
     TextField,
     CircularProgress,
+    InputAdornment,
     Avatar,
 
 } from "@material-ui/core"
@@ -19,6 +20,7 @@ import { Hidden } from "@material-ui/core";
 import useGetAllSeller from "../../hooks/sellers/useGetAllSeller";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Link from "next/link";
+import { Search } from '@material-ui/icons'
 
 
 const StorePage = () => {
@@ -30,7 +32,7 @@ const StorePage = () => {
             },
         },
         square: {
-            width: "275px", // Reduced by 1px to create space for the border
+            width: "200px", // Reduced by 1px to create space for the border
             height: "200px",
             marginTop: "1px",
             borderRadius: "10px",
@@ -48,11 +50,43 @@ const StorePage = () => {
             },
             [theme.breakpoints.down("sm")]: {
                 width: "150px", // Reduced by 1px to create space for the border
-                height: "200px",
+                height: "150px",
+            },
+            color: 'white',
+            fontSize: "54px",
+            backgroundColor: 'black',
+        },
+        square2: {
+            width: "200px", // Reduced by 1px to create space for the border
+            height: "200px",
+            marginTop: "1px",
+            borderRadius: "10px",
+            marginRight: "2px",
+            marginLeft: "1px",
+            objectFit: "cover",
+            cursor: "pointer",
+            [theme.breakpoints.up("lg")]: {
+                width: "275px", // Reduced by 1px to create space for the border
+
+            },
+            [theme.breakpoints.down("lg")]: {
+                width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
+
+            },
+            [theme.breakpoints.down("sm")]: {
+                width: "150px", // Reduced by 1px to create space for the border
+                height: "150px",
             },
             color: 'white',
             fontSize: "54px",
             backgroundColor: '#FDC114',
+        },
+        textFieldStyle: {
+            height: '38px',
+            width: '200px',
+            backgroundColor: '#EEEDED',
+            borderRadius: '8px',
+
         },
 
         styleofdiv: {
@@ -81,6 +115,20 @@ const StorePage = () => {
             justifyContent: "space-between",
         },
         boxcontairproduct: {
+            maxHeight: "700px",
+            width: "315px",
+            borderRadius: "5px",
+
+            // border: "1px solid #9C9C9C",
+            gridRowEnd: "span 1",
+            flexBasis: "calc(33.33% - 10px)", // Adjust the percentage based on your desired layout
+            marginBottom: "20px",
+            [theme.breakpoints.down("sm")]: {
+                width: "90%",
+                marginBottom: "10px",
+            },
+        },
+        boxcontairproduct2: {
             maxHeight: "700px",
             width: "315px",
             borderRadius: "5px",
@@ -146,11 +194,25 @@ const StorePage = () => {
     }))
 
     const classes = useStyles();
-    const [sellers, loading, refetch] = useGetAllSeller()
+    const [getSearch, setSearch] = React.useState("")
+    const [getSearch2, setSearch2] = React.useState('')
+
+    const [sellers, loading, refetch] = useGetAllSeller(getSearch2)
+
 
     React.useEffect(() => {
         console.log("sellerssellers", sellers)
-    }, [sellers])
+    }, [sellers, loading, refetch])
+
+    React.useEffect(() => {
+        console.log('sss', getSearch)
+
+        const delayDebounceFn = setTimeout(() => {
+            setSearch2(getSearch)
+        }, 900)
+
+        return () => clearTimeout(delayDebounceFn)
+    }, [getSearch])
 
 
     return (
@@ -177,6 +239,26 @@ const StorePage = () => {
                             </div>
 
 
+                        </div>
+                        <div className=''>
+                            <TextField
+                                type='text'
+                                size='small'
+                                variant='standard'
+                                placeholder='Search...'
+                                value={getSearch}
+                                onChange={(e) => setSearch(e.target.value)}
+                                InputProps={{
+                                    disableUnderline: true,
+                                    style: { margin: 0, padding: 1 },
+                                    startAdornment: (
+                                        <InputAdornment position='start' style={{ marginLeft: 3 }}>
+                                            <Search />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                className={classes.textFieldStyle}
+                            />
                         </div>
                     </Grid>
 
@@ -217,7 +299,7 @@ const StorePage = () => {
                                                 as={`/en/profile/${item?._id}`}
                                             >
                                                 <Avatar
-                                                    variant="square" className={classes.square}>
+                                                    variant="square" className={key % 2 ? classes.square : classes.square2}>
                                                     {item?.storeName?.charAt(0).toUpperCase()}</Avatar></Link>
                                         }
 
