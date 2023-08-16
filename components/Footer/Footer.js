@@ -293,7 +293,7 @@ const Footer = () => {
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}>+92 319 45330320</span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}>+92 319 4533032</span>
               </a>
             </div>
             <div
