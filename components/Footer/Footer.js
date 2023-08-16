@@ -205,7 +205,7 @@ const Footer = () => {
                 </span>
               </div>{" "}
             </a>
-            <a href="/en/contact-us">
+            <a target="_blank" href="https://blog.bizb.store/contact-us-2/">
               <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
@@ -293,7 +293,7 @@ const Footer = () => {
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" />
                 </span>
-                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}>+92 319 45330320</span>
+                <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}>+92 319 4533032</span>
               </a>
             </div>
             <div
