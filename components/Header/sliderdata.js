@@ -9,6 +9,8 @@ import Appsec from "../Appsection/appsec";
 import Instagram from "../Instagram/instagram";
 import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
 import OurBlogs from "../Ourblogs/ourblog";
+import ScrollingMessage from '../ScrollingMessage/ScrollingMessage';
+
 import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";

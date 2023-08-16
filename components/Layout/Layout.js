@@ -16,8 +16,8 @@ const styles = (theme) => ({
   article: {
     padding: theme.spacing(0),
   },
-  padding:{
-    paddingBottom:"120px",
+  padding: {
+    paddingBottom: "120px",
     [theme.breakpoints.down("xs")]: {
       paddingBottom: "0",
     },
@@ -32,7 +32,7 @@ class Layout extends Component {
     shop: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }),
-    tags:PropTypes.arrayOf(),
+    tags: PropTypes.arrayOf(),
     viewer: PropTypes.object,
   };
 
@@ -41,12 +41,13 @@ class Layout extends Component {
   };
 
   render() {
-    const { classes, children, shop, viewer, headerType,tags } = this.props;
+    const { classes, children, shop, viewer, headerType, tags } = this.props;
     return (
       <React.Fragment>
         <div className={classes.root}>
           <Hidden mdUp>
             <div className={classes.padding}>
+
               <Header shop={shop} viewer={viewer} headerType={0} tags={tags} />
             </div>
           </Hidden>
