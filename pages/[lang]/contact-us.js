@@ -429,7 +429,7 @@ const CheckoutComplete = () => {
                   <div className={classes.sociallinks}>
                     <img src="/icons/phone.svg" className={classes.email} alt="thanyou"></img>
                     <Typography className={classes.coneect} variant="h5">
-                      +92 312 5253680
+                      +92 319 4533032
                     </Typography>
                   </div>
                   <div className={classes.socialmediafo}>
