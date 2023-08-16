@@ -404,6 +404,8 @@ const CheckoutActions = (prop) => {
   const [applyPromo, data, loadingAfterPromo] = useApplyPromoCode();
   const [isDisabledPromo, setIsDisabledPromo] = useState(false);
 
+  console.log("checkout actions page");
+
   useEffect(() => {
     setIsDisabledPromo(!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount !== 0);
   }, [promoCode, isDisabled, cart]);
