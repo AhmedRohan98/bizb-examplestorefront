@@ -503,7 +503,7 @@ const SellerRegistration = () => {
             setIsAuth(true);
             setuseremail({ value: viewer?.primaryEmailAddress, isTouched: false })
             setuserName({ value: viewer?.name ? viewer?.name : "", isTouched: false })
-            if (viewer?.isSeller && viewer?.storeInfo?.storeName) {
+            if (viewer?.isSeller) {
                 window.location.href = "https://bizb.store/dashboard/publishproduct";
 
             }
