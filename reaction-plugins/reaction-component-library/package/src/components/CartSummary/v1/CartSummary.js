@@ -92,6 +92,7 @@ const CartSummary = (props) => {
     displaySubtotal,
     displaySurcharge,
     displayTax,
+    displaydiscount,
     displayTotal,
     isDense,
     isFreeShipping,
@@ -201,6 +202,11 @@ CartSummary.propTypes = {
    */
   displayTax: PropTypes.string,
   /**
+   *  /**
+   * Calculated discount amount
+   */
+  displaydiscount: PropTypes.string,
+  /**
    * Total amount
    */
   displayTotal: PropTypes.string.isRequired,
@@ -248,5 +254,4 @@ CartSummary.propTypes = {
    * The text for the "Tax" label text.
    */
   taxLabelText: PropTypes.string,
- 
 };

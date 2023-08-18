@@ -267,6 +267,19 @@ exports[`Displays a summary of the current items in the cart 1`] = `
     </tr>
     <tr>
       <td
+        className="c4"
+      >
+        Discount
+        :
+      </td>
+      <td
+        className="c5 c4"
+      >
+        -
+      </td>
+    </tr>
+    <tr>
+      <td
         className="c6"
       >
         Tax
@@ -556,6 +569,19 @@ exports[`Displays a summary with FREE shipping 1`] = `
         className="c4"
       >
         Surcharges
+        :
+      </td>
+      <td
+        className="c5 c4"
+      >
+        -
+      </td>
+    </tr>
+     <tr>
+      <td
+        className="c4"
+      >
+        Discount
         :
       </td>
       <td
@@ -895,6 +921,19 @@ exports[`Displays a summary with applied discount 1`] = `
         -
       </td>
     </tr>
+     <tr>
+      <td
+        className="c4"
+      >
+        Discount
+        :
+      </td>
+      <td
+        className="c5 c4"
+      >
+        -
+      </td>
+    </tr>
     <tr>
       <td
         className="c7"
@@ -1183,9 +1222,23 @@ exports[`Displays a summary with calculated taxes 1`] = `
     </tr>
     <tr>
       <td
+      
         className="c4"
       >
         Surcharges
+        :
+      </td>
+      <td
+        className="c5 c4"
+      >
+        -
+      </td>
+    </tr>
+     <tr>
+      <td
+        className="c4"
+      >
+        Discount
         :
       </td>
       <td
