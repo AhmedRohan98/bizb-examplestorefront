@@ -142,6 +142,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     lineHeight: "19px",
   },
+  imges: {
+    height: "62px",
+    width: "62px",
+  },
   blogtextr: {
     color: theme.palette.secondary.selected,
   },
@@ -234,17 +238,24 @@ function CheckoutComplete(props) {
             target="_blank"
             href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
           >
-            <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img></a>
+            <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
+          </a>
           <a
             target="_blank"
             href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
           >
-            <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img></a>
-          <img src="/cart/twitter.svg" className={classes.imges} alt="thanyou"></img>
+            <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
+          </a>
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
+          >
+            <img src="/cart/linkd.png" className={classes.imges} alt="thanyou"></img>
+          </a>{" "}
         </div>
-        <Typography className={classes.connect}>Facebook Reviews</Typography>
+        {/* <Typography className={classes.connect}>Facebook Reviews</Typography> */}
 
-        <Box className={classes.look}>
+        {/* <Box className={classes.look}>
           <div className={classes.reviews}>
             <div>
               <img src="/cart/avatar.svg" className={classes.cardimage} />
@@ -266,9 +277,14 @@ function CheckoutComplete(props) {
               </Typography>
             </div>
           </div>
-        </Box>
+        </Box> */}
         <Typography className={classes.connect}>Make Your Wardrobe Smart Using Our App</Typography>
-        <img src="/cart/mobile.svg" className={classes.imagemobile} alt="thanyou"></img>
+        <a
+          target="_blank"
+          href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.74994514.1337725914.1682938429-218131156.1681233136&_gac=1.86957418.1682759140.Cj0KCQjwgLOiBhC7ARIsAIeetVDrNuIWkimFzY2OMGgR1kIA3Jtu4RDwNAlEFpyiranTB0hEjTuqcZQaAjrAEALw_wcB"
+        >
+          <img src="/cart/mobile.svg" className={classes.imagemobile} alt="thanyou"></img>
+        </a>
         <Button
           className={classes.register}
           InputProps={{ disableUnderline: true }}
