@@ -273,7 +273,7 @@ build_image:
    # - docker push $DOCKER_USERNAME/ranchers-tracking-service:latest
    
   only:
-    - production
+    - master
 
 deploy-aws-ecs-dev:
   stage: deploy
@@ -288,7 +288,7 @@ deploy-aws-ecs-dev:
   services:
     - docker:19.03.1-dind
   only:
-    - production
+    - master
   before_script:
     - apk add --no-cache curl jq python3 py3-pip  # Use 'python3' and 'py3-pip' for Python 3
     - pip3 install awscli  
