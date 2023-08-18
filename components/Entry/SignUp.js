@@ -5,14 +5,14 @@ import React, { useState } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 import ReactGA from "react-ga4";
 
 const useStyles = makeStyles((theme) => ({
@@ -146,6 +146,8 @@ export default function SignUp(props) {
   const classes = useStyles();
 
   const [error, setError] = useState("");
+  const [getCheckedEmailError, setCheckedEmailError] = useState(false);
+
   const [, , refetch] = useViewer();
   const { passwordClient } = getAccountsHandler();
 
@@ -174,6 +176,7 @@ export default function SignUp(props) {
     password: "",
     confirm_password: "",
     phonenumber: "",
+    // checkedEmail: false,
   };
   const signUpSchema = Yup.object({
     FullName: Yup.string().min(3).max(25).required("Please enter your name"),
@@ -185,25 +188,34 @@ export default function SignUp(props) {
     confirm_password: Yup.string()
       .required()
       .oneOf([Yup.ref("password"), null], "Password must match"),
+    // checkedEmail: Yup.boolean()
+    //   .oneOf([true], "You must accept the terms and conditions")
+    //   .required("You must accept the terms and conditions"),
   });
   const registerUser2 = async (values, action) => {
-    setRegisterDisable(true)
-    setError("")
-    try {
-      // Creating user will login also
-      await passwordClient.createUser({
-        email: values.email,
-        password: values.password,
-        firstName: values.FullName,
-        phoneNumber: values.phonenumber,
-      });
-      action.resetForm(); // to get rid of all the values after submitting the form
-      closeModal();
-      await refetch();
-    } catch (err) {
-      setRegisterDisable(false)
+    if (checkedEmail === true) {
+      setCheckedEmailError(false);
 
-      setError(err.message);
+      setRegisterDisable(true);
+      setError("");
+      try {
+        // Creating user will login also
+        await passwordClient.createUser({
+          email: values.email,
+          password: hashPassword(values.password),
+          firstName: values.FullName,
+          phoneNumber: values.phonenumber,
+        });
+        action.resetForm(); // to get rid of all the values after submitting the form
+        closeModal();
+        await refetch();
+      } catch (err) {
+        setRegisterDisable(false);
+
+        setError(err.message);
+      }
+    } else {
+      setCheckedEmailError(true);
     }
   };
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
@@ -213,17 +225,18 @@ export default function SignUp(props) {
     validateOnBlur: false,
     //// By disabling validation onChange and onBlur formik will validate on submit.
     onSubmit: async (values, action) => {
+      console.log("Signups", values);
       ReactGA.event({
-        category: 'User',
-        action: 'Sign Up',
-        label: 'New User Signed Up',
+        category: "User",
+        action: "Sign Up",
+        label: "New User Signed Up",
       });
       const dataLayer = {
         dataLayer: {
-          event: 'sign_in', // The name of the custom event
-          category: 'User',
-          action: 'Sign In',
-          label: 'Successful',
+          event: "sign_in", // The name of the custom event
+          category: "User",
+          action: "Sign In",
+          label: "Successful",
         },
       };
 
@@ -365,6 +378,8 @@ export default function SignUp(props) {
             I understand and agree to Terms & Conditions.
           </Typography>
         </div>
+        {getCheckedEmailError ? <p className={classes.formerror}>You must accept the terms and conditions</p> : null}
+
         <div className={classes.socialmedia2}>
           <Button
             className={classes.register}
@@ -375,8 +390,6 @@ export default function SignUp(props) {
             disabled={regiseterDisable}
           >
             {regiseterDisable ? <CircularProgress disableShrink size={24} style={{ color: "black" }} /> : "Register"}
-
-
           </Button>
         </div>
         {/* <div style={{ textAlign: "center", marginTop: "10px", fontSize: "16px" }}>OR</div>
