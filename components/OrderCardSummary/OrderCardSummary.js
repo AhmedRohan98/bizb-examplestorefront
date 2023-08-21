@@ -7,48 +7,43 @@ class OrderCardSummary extends Component {
     classes: PropTypes.object,
     summary: PropTypes.shape({
       fulfillmentTotal: PropTypes.shape({
-        displayAmount: PropTypes.string
+        displayAmount: PropTypes.string,
       }),
       itemTotal: PropTypes.shape({
-        displayAmount: PropTypes.string
+        displayAmount: PropTypes.string,
       }),
       surchargeTotal: PropTypes.shape({
-        displayAmount: PropTypes.string
+        displayAmount: PropTypes.string,
       }),
       taxTotal: PropTypes.shape({
-        displayAmount: PropTypes.string
+        displayAmount: PropTypes.string,
+      }),
+      discount: PropTypes.shape({
+        displayAmount: PropTypes.string,
       }),
       total: PropTypes.shape({
-        displayAmount: PropTypes.string
-      })
-    })
-  }
+        displayAmount: PropTypes.string,
+      }),
+    }),
+  };
 
   render() {
     const { summary } = this.props;
 
     if (summary) {
-      const {
-        fulfillmentTotal,
-        itemTotal,
-        surchargeTotal,
-        taxTotal,
-        total
-      } = summary;
+      const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, discount, total } = summary;
 
       return (
         <CartSummary
           isDense
-          displayShipping={fulfillmentTotal && fulfillmentTotal.displayAmount ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-          displaySubtotal={itemTotal && itemTotal.displayAmount ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-          displaySurcharge={surchargeTotal && surchargeTotal.displayAmount ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-          displayTax={taxTotal && taxTotal.displayAmount ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
-          displayTotal={total && total.displayAmount ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "RS ")}
+          displayShipping={
+            fulfillmentTotal && fulfillmentTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")
+          }
+          displaySubtotal={itemTotal && itemTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+          displaySurcharge={surchargeTotal && surchargeTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+          displayTax={taxTotal && taxTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+          displaydiscount={discount && discount.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+          displayTotal={total && total.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
         />
       );
     }
