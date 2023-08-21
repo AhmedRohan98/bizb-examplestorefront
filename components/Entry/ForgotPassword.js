@@ -51,9 +51,7 @@ export default function ForgotPassword(props) {
   const { passwordClient } = getAccountsHandler();
   const [buttonDisable, setButtonDisable] = useState(false);
 
-  useEffect(() => {
-    console.log("forget", buttonDisable);
-  }, [buttonDisable]);
+  useEffect(() => {}, [buttonDisable]);
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
