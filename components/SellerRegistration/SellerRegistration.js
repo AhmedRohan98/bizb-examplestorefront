@@ -446,6 +446,38 @@ const SellerRegistration = () => {
   const PostalErrorMessage = () => {
     return <p className={classes.style9}>Postal Code Field is required</p>;
   };
+  const [deviceInfo, setDeviceInfo] = React.useState(null);
+  const [deviceInfoType, setDeviceInfoType] = React.useState("");
+
+  React.useEffect(() => {
+    console.log("DeviceInfo1", deviceInfo ? deviceInfo : "");
+    console.log("DeviceInfo1", deviceInfoType ? deviceInfoType : "");
+  }, [deviceInfo, deviceInfoType]);
+
+  React.useEffect(() => {
+    // Access device information when the component mounts
+    const userAgent = navigator.userAgent;
+    const isMobileDevice = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(userAgent);
+    const isTabletDevice = /Tablet|iPad/.test(userAgent);
+
+    const deviceType = isMobileDevice ? "Mobile" : isTabletDevice ? "Tablet" : "Desktop";
+
+    if (userAgent.includes("Android")) {
+      setDeviceInfoType("Android");
+    } else if (userAgent.includes("iPhone") || userAgent.includes("iPad")) {
+      setDeviceInfoType("iOS");
+    } else {
+      setDeviceInfoType("Unknown");
+    }
+
+    // Set the device information in the state
+    setDeviceInfo({
+      userAgent,
+      isMobileDevice,
+      isTabletDevice,
+      deviceType,
+    });
+  }, []);
 
   React.useEffect(() => {
     if (viewer?._id) {
@@ -454,7 +486,13 @@ const SellerRegistration = () => {
       setuseremail({ value: viewer?.primaryEmailAddress, isTouched: false });
       setuserName({ value: viewer?.name ? viewer?.name : "", isTouched: false });
       if (viewer?.isSeller) {
-        window.location.href = "https://bizb.store/dashboard/publishproduct";
+        if (deviceInfo && deviceInfo?.deviceType === "Mobile" && deviceInfoType === "Android") {
+          window.location.href = "https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1";
+        } else if (deviceInfo && deviceInfo?.deviceType === "Mobile" && deviceInfoType === "iOS") {
+          window.location.href = "https://apps.apple.com/pk/app/bizb/id1571110423";
+        } else {
+          window.location.href = "https://bizb.store/dashboard/publishproduct";
+        }
       }
     }
   }, [viewer]);
