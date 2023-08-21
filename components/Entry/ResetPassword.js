@@ -53,9 +53,7 @@ export default function ResetPassword(props) {
   const [error, setError] = useState("");
   const { passwordClient } = getAccountsHandler();
 
-  useEffect(() => {
-    console.log("forget", buttonDisable);
-  }, [buttonDisable]);
+  useEffect(() => {}, [buttonDisable]);
 
   const handleOpenForgotPassword = () => {
     openModal("forgot-password");
