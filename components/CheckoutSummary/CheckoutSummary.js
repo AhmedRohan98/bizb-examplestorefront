@@ -38,9 +38,9 @@ class CheckoutSummary extends Component {
 
   static defaultProps = {
     hasMoreCartItems: false,
-    loadMoreCartItems() { },
-    onChangeCartItemsQuantity() { },
-    onRemoveCartItems() { },
+    loadMoreCartItems() {},
+    onChangeCartItemsQuantity() {},
+    onRemoveCartItems() {},
   };
 
   handleItemQuantityChange = (quantity, cartItemId) => {
@@ -51,9 +51,9 @@ class CheckoutSummary extends Component {
 
   handleRemoveItem = (_id) => {
     ReactGA.send({
-      hitType: 'event',
-      eventCategory: 'Ecommerce',
-      eventAction: 'remove_from_cart',
+      hitType: "event",
+      eventCategory: "Ecommerce",
+      eventAction: "remove_from_cart",
       eventLabel: _id,
     });
     const { onRemoveCartItems } = this.props;
@@ -88,7 +88,7 @@ class CheckoutSummary extends Component {
     // console.log(this.props, "heloo");
 
     if (cart && cart.checkout && cart.checkout.summary) {
-      const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
+      const { fulfillmentTotal, itemTotal, surchargeTotal, discount, taxTotal, total } = cart.checkout.summary;
 
       return (
         <Grid item xs={12} className={classes.summary}>
@@ -97,6 +97,7 @@ class CheckoutSummary extends Component {
             displayShipping={fulfillmentTotal && fulfillmentTotal.displayAmount}
             displaySubtotal={itemTotal && itemTotal.displayAmount}
             displaySurcharge={surchargeTotal && surchargeTotal.displayAmount}
+            displaydiscount={discount && discount.displayAmount}
             displayTax={taxTotal && taxTotal.displayAmount}
             displayTotal={total && total.displayAmount}
             itemsQuantity={cart.totalItemQuantity}

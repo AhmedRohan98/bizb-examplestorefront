@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import red from "@material-ui/core/colors/red";
 
@@ -12,29 +12,29 @@ import getAccountsHandler from "../../lib/accountsServer.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "display": "flex",
-    "flexDirection": "column",
+    display: "flex",
+    flexDirection: "column",
     "& > *": {
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
   },
   switchEntryMode: {
     textAlign: "center",
     textDecoration: "underline",
     cursor: "pointer",
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   error: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     color: red[500],
     fontSize: "1.1em",
-    textAlign: "center"
+    textAlign: "center",
   },
   sendButton: {
-    marginTop: theme.spacing(4)
-  }
+    marginTop: theme.spacing(4),
+  },
 }));
 
 /**
@@ -51,18 +51,22 @@ export default function ForgotPassword(props) {
   const { passwordClient } = getAccountsHandler();
   const [buttonDisable, setButtonDisable] = useState(false);
 
+  useEffect(() => {}, [buttonDisable]);
+
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
   };
   const handleOpenLogIn = () => {
     openModal("login");
   };
+
   const handleForgotPassword = async () => {
     try {
       setButtonDisable(true);
-      setError("")
+      setError("");
       await passwordClient.requestPasswordReset(email);
       setSuccess("Check your inbox for password reset email");
+      setButtonDisable(false);
     } catch (err) {
       setButtonDisable(false);
 
@@ -74,29 +78,39 @@ export default function ForgotPassword(props) {
       <h1>Forgot password</h1>
       <FormControl>
         <InputLabel htmlFor="email">Email</InputLabel>
-        <Input id="email" aria-describedby="email" onChange={handleChangeEmail} value={email}
-          type="email"
-        />
+        <Input id="email" aria-describedby="email" onChange={handleChangeEmail} value={email} type="email" />
       </FormControl>
-      
+
       {!!error && <div className={classes.error}>{error}</div>}
       {!!success && <div className={classes.success}>{success}</div>}
-      <Button onClick={handleForgotPassword} color="primary" variant="contained" className={classes.sendButton}
-        tabIndex="0" role="button"
+      <Button
+        onClick={handleForgotPassword}
+        color="primary"
+        variant="contained"
+        className={classes.sendButton}
+        tabIndex="0"
+        role="button"
         disabled={buttonDisable}
-
       >
-      {buttonDisable?<CircularProgress disableShrink size={24} style={{color:"black"}}/>:"Send link to reset password"}
-
-
+        {buttonDisable ? (
+          <CircularProgress disableShrink size={24} style={{ color: "black" }} />
+        ) : (
+          "Send link to reset password"
+        )}
       </Button>
-      <div className={classes.switchEntryMode} onClick={handleOpenLogIn} onKeyDown={handleOpenLogIn} role="button"
+      <div
+        className={classes.switchEntryMode}
+        onClick={handleOpenLogIn}
+        onKeyDown={handleOpenLogIn}
+        role="button"
         tabIndex={0}
-      >Go to Log In</div>
+      >
+        Go to Log In
+      </div>
     </form>
   );
 }
 
 ForgotPassword.propTypes = {
-  openModal: PropTypes.func
+  openModal: PropTypes.func,
 };
