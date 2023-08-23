@@ -11,6 +11,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Tooltip from "@material-ui/core/Tooltip";
+import ReactGA from "react-ga4";
 
 const SellerRegistration = () => {
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -392,6 +393,16 @@ const SellerRegistration = () => {
         },
       });
       console.log("sellerRegistration:", sellerRegistration);
+      ReactGA.event({
+        category: "Seller",
+        action: "Registration",
+        label: "Seller Registration",
+      });
+      ReactGA.event({
+        category: "Referral",
+        action: "Code Used",
+        label: `Referral Code Used - ${refferalcode.value}`,
+      });
       setLoginDisable(false);
       clearForm();
       toast.success("You're successfully registered as a Seller!");

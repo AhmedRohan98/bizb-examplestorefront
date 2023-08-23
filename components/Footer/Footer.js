@@ -93,9 +93,9 @@ const Footer = () => {
             <a
               onClick={() => {
                 ReactGA.send({
-                  hitType: 'event',
-                  eventCategory: 'Social',
-                  eventAction: 'share',
+                  hitType: "event",
+                  eventCategory: "Social",
+                  eventAction: "share",
                   eventLabel: "Instagram", // You can replace this with the specific social media platform
                 });
               }}
@@ -107,14 +107,13 @@ const Footer = () => {
             <a
               onClick={() => {
                 ReactGA.send({
-                  hitType: 'event',
-                  eventCategory: 'Social',
-                  eventAction: 'share',
+                  hitType: "event",
+                  eventCategory: "Social",
+                  eventAction: "share",
                   eventLabel: "Facebook", // You can replace this with the specific social media platform
                 });
               }}
               target="_blank"
-
               href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
               <img src="/icons/facebook.svg" className={classes.imagesicons} />
@@ -122,14 +121,13 @@ const Footer = () => {
             <a
               onClick={() => {
                 ReactGA.send({
-                  hitType: 'event',
-                  eventCategory: 'Social',
-                  eventAction: 'share',
+                  hitType: "event",
+                  eventCategory: "Social",
+                  eventAction: "share",
                   eventLabel: "LinkedIn", // You can replace this with the specific social media platform
                 });
               }}
               target="_blank"
-
               href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
               <img src="/icons/linkedin2.svg" className={classes.imagesicons} />
@@ -257,7 +255,7 @@ const Footer = () => {
               </div>
             </a>
             <a target="_blank" href="https://blog.bizb.store/return-policy/">
-              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
                   style={{
@@ -270,6 +268,23 @@ const Footer = () => {
                   }}
                 >
                   Return Policy
+                </span>
+              </div>
+            </a>
+            <a target="_blank" href="/en/SellerTermsConditionPage">
+              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+                {" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Terms & Condition
                 </span>
               </div>
             </a>
