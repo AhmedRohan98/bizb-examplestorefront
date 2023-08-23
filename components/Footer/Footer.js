@@ -284,7 +284,7 @@ const Footer = () => {
                     display: "inline-block",
                   }}
                 >
-                  Terms & Condition{" "}
+                  Terms & Condition
                 </span>
               </div>
             </a>
