@@ -255,7 +255,7 @@ const Footer = () => {
               </div>
             </a>
             <a target="_blank" href="https://blog.bizb.store/return-policy/">
-              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
                   style={{
