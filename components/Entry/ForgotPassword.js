@@ -64,7 +64,7 @@ export default function ForgotPassword(props) {
     try {
       setButtonDisable(true);
       setError("");
-      await passwordClient.requestPasswordReset(email);
+      await passwordClient.requestPasswordReset(email.toLowerCase());
       setSuccess("Check your inbox for password reset email");
       setButtonDisable(false);
     } catch (err) {

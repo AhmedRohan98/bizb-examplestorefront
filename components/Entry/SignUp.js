@@ -201,7 +201,7 @@ export default function SignUp(props) {
       try {
         // Creating user will login also
         await passwordClient.createUser({
-          email: values.email,
+          email: values.email.toLowerCase(),
           password: hashPassword(values.password),
           firstName: values.FullName,
           phoneNumber: values.phonenumber,
