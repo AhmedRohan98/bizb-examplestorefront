@@ -3,19 +3,19 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import useViewer from "hooks/viewer/useViewer";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Box from "@material-ui/core/Box";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import ReactGA from "react-ga4";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 const useStyles = makeStyles((theme) => ({
   yellowHoverText: {
@@ -26,9 +26,8 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#FDC114",
       cursor: "pointer",
-      textDecoration: "underline"
-    }
-
+      textDecoration: "underline",
+    },
   },
   label: {
     display: "flex",
@@ -67,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   iconButtonRoot: {
-    '&:hover': {
-      backgroundColor: 'transparent', // Set the hover background to transparent to turn off the hover effect
+    "&:hover": {
+      backgroundColor: "transparent", // Set the hover background to transparent to turn off the hover effect
     },
   },
   password: {
@@ -91,10 +90,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInputBase-root": {
       fontFamily: "Lato",
     },
-    '& .MuiInputAdornment-positionEnd': {
+    "& .MuiInputAdornment-positionEnd": {
       marginRight: theme.spacing(1),
     },
-
   },
   register: {
     width: "214px",
@@ -185,11 +183,9 @@ export default function Login(props) {
     openModal("signup");
   };
   const signUpSchema = Yup.object({
-
     email: Yup.string().email().required("Please enter your email"),
 
     password: Yup.string().min(5).max(35).required("Please enter your password"),
-
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -200,22 +196,22 @@ export default function Login(props) {
     setLoginDisable(true);
     const { email, password } = values;
     ReactGA.event({
-      action: 'login',
-      category: 'User',
-      label: 'User Logged In',
+      action: "login",
+      category: "User",
+      label: "User Logged In",
     });
 
     try {
       await passwordClient.login({
         user: {
-          email,
+          email: values.email.toLowerCase(),
         },
 
         password: hashPassword(password),
       });
       const dataLayer = {
         dataLayer: {
-          event: 'user_login',
+          event: "user_login",
           email: email,
         },
       };
@@ -262,7 +258,6 @@ export default function Login(props) {
     onSubmit: async (values, action) => {
       await registerUser(values, action);
       //// to get rid of all the values after submitting the form
-
     },
   });
   return (
@@ -300,7 +295,7 @@ export default function Login(props) {
                 <TextField
                   placeholder="Enter Your Password"
                   style={{ fontFamily: "Lato" }}
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   autoComplete="off"
                   name="password"
                   id="password"
@@ -312,18 +307,20 @@ export default function Login(props) {
                     disableUnderline: true,
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton onClick={handleClickShowPassword} edge="end" classes={{ root: classes.iconButtonRoot }}>
+                        <IconButton
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                          classes={{ root: classes.iconButtonRoot }}
+                        >
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     ),
                   }}
                 />
-
               </label>
               {errors.password && touched.password ? <p className={classes.formerror}>{errors.password}</p> : null}
             </Grid>
-
           </Grid>
           {!!error && <p className={classes.formerror}>{error}</p>}
           <div className={classes.socialmedia2}>
@@ -706,4 +703,3 @@ Login.propTypes = {
 //   closeModal: PropTypes.func,
 //   openModal: PropTypes.func,
 // };
-
