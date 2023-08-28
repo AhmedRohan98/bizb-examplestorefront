@@ -81,6 +81,9 @@ export default class App extends NextApp {
       <>
         <html>
           <head>
+
+            <meta name="facebook-domain-verification" content="n6971v8e6fys3itg7klgsrxng24mju" />
+
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
 
             <script async>
