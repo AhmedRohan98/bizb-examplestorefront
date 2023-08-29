@@ -22,8 +22,8 @@ export const UIProvider = ({ children }) => {
   const [openCartTimeout, setOpenCartTimeout] = useState();
   const [filters, setFilters] = useState([]);
 const [filterPrice, setFilterPrice] = useState([
-  { name: "minPrice", value: 500},
-  { name: "maxPrice", value: 10000 },
+  { name: "minPrice", value: 0},
+  { name: "maxPrice", value: 100000 },
 ]);
   const [entryModal, setEntryModal] = useState(null);
 
