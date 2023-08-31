@@ -299,7 +299,7 @@ class NavigationDesktop extends Component {
                     selectedPage: "/[lang]/categories/[tagId]",
                   })
                 }
-                onMouseLeave={this.handlePopOverClose}
+                // onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
                   marginRight: "40px",
@@ -345,7 +345,7 @@ class NavigationDesktop extends Component {
                 onClose={this.handlePopOverClose}
                 style={{ marginTop: "75px" }}
                 // onClose={handlePopoverClose}
-                // disableRestoreFocus
+                disableRestoreFocus
               >
                 <Box sx={style}>
                   <div className={classes.modalitems}>
