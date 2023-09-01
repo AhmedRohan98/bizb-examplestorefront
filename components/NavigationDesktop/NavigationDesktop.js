@@ -351,7 +351,7 @@ class NavigationDesktop extends Component {
                   <div className={classes.modalitems}>
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
-                      {tagsData?.map((itemtitle, i) => (
+                      {tagsData?.slice(0, 6).map((itemtitle, i) => (
                         <a
                           href={
                             itemtitle.displayTitle === "Become a Seller"

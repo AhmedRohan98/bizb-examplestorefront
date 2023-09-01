@@ -28,7 +28,7 @@ const MainSlider = (props) => {
       position: "relative",
     },
     image: {
-      height: "80vh",
+      height: "100%",
       width: "100%",
       objectPosition: "top",
       objectFit: "cover",
@@ -62,11 +62,10 @@ const MainSlider = (props) => {
       display: "none",
       position: "relative",
       width: "100%",
-      [theme.breakpoints.up(900)]: {
-        display: "block",
-        position: "relative",
-        width: "100%",
-      },
+
+      display: "block",
+      position: "relative",
+      width: "100%",
     },
     imagedesktop: {
       display: "block",
@@ -96,6 +95,9 @@ const MainSlider = (props) => {
         color: "none",
         border: "1px solid black",
         opacity: 1,
+        [theme.breakpoints.down("xs")]: {
+          display: "none",
+        },
         // Add spacing at the top
       },
       "& .swiper-pagination-bullet-active": {
@@ -185,9 +187,9 @@ const MainSlider = (props) => {
               ))}
             </Swiper>
           </div>
-          <div className={classes.imagedesktop}>
+          {/* <div className={classes.imagedesktop}>
             <img src="/Desktop-images/mobile.webp" className={classes.mobileima} />
-          </div>
+          </div> */}
         </div>
       </div>
       <Preloved {...props} />
