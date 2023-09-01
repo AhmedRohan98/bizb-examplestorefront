@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { Query } from "@apollo/react-components";
 import categoryTags from "../../hooks/categoryTags/getTags.gql";
 import { sendGraphQLQuery } from "./graphqlUtils";
-import Router from 'next/router';
+import Router from "next/router";
 
 const styles = (theme) => ({
   light: {
@@ -26,7 +26,6 @@ const styles = (theme) => ({
     zIndex: 1200,
   },
   categoryavatar: {
-
     height: "25px",
     width: "25px",
     marginBottom: theme.spacing(1),
@@ -47,7 +46,7 @@ const styles = (theme) => ({
     flexDirection: "column",
   },
   categoryTagsLink: {
-    borderBottom: "1px solid #59595940"
+    borderBottom: "1px solid #59595940",
   },
   catgorytitle: {
     letterSpacing: "0.85px",
@@ -63,7 +62,7 @@ const styles = (theme) => ({
 
     "&:hover": {
       color: "white",
-      boxShadow: "inset 150px 0 0 0 #FDC114"
+      boxShadow: "inset 150px 0 0 0 #FDC114",
     },
     // "&:active": {
     //   textDecorationColor: "#FDC114",
@@ -75,11 +74,10 @@ const styles = (theme) => ({
     textDecorationColor: "#FDC114",
     textDecorationThickness: "3px", // Adjust the underline thickness
     textDecorationLine: "underline",
-
   },
   popover: {
     // pointerEvents: "none",
-    top: "0"
+    top: "0",
   },
   paper: {
     padding: theme.spacing(0),
@@ -87,11 +85,14 @@ const styles = (theme) => ({
 });
 
 const tagsCategory = () => (
-  <Query errorPolicy="all" query={categoryTags}
+  <Query
+    errorPolicy="all"
+    query={categoryTags}
     variables={{
       shopId: process.env.SHOP_ID,
-      filter: "category-"
-    }}>
+      filter: "category-",
+    }}
+  >
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error</p>;
@@ -101,22 +102,17 @@ const tagsCategory = () => (
   </Query>
 );
 
-
 class NavigationDesktop extends Component {
-
-
   static propTypes = {
     classes: PropTypes.object,
     navItems: PropTypes.object,
     tags: PropTypes.arrayOf(),
-
   };
 
   static defaultProps = {
     classes: {},
     navItems: {},
     headerType: false,
-
   };
 
   constructor(props) {
@@ -125,8 +121,7 @@ class NavigationDesktop extends Component {
       anchorEl: null,
       categoryTagsInfo: null,
       selectedPage: null,
-      currentLink: null
-
+      currentLink: null,
     };
 
     // Bind the class methods in the constructor
@@ -137,15 +132,9 @@ class NavigationDesktop extends Component {
   componentDidMount() {
     const currentLink = Router.pathname;
 
-
     this.fetchData();
     console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
-
-
-
   }
-
-
 
   // function that updates the anchorEl state
   setAnchorEl = (value) => {
@@ -175,24 +164,23 @@ class NavigationDesktop extends Component {
   fetchData = async () => {
     // console.log("NavigationDesktop222", this.props.data)
 
-    console.log("user")
+    console.log("user");
     try {
-      console.log("user try")
+      console.log("user try");
       const response = await sendGraphQLQuery();
 
       // Handle the response data
-      console.log("user 1")
+      console.log("user 1");
 
       console.log("NavigationDesktop222", response);
       this.setState({
-        categoryTagsInfo: response.data.tags.nodes
-      })
+        categoryTagsInfo: response.data.tags.nodes,
+      });
 
       // this.state.categoryTagsInfo(response.data.tags.nodes)
       console.log("NavigationDesktop222", this.state.categoryTagsInfo);
-
     } catch (error) {
-      console.log("called catch")
+      console.log("called catch");
       // Handle any errors
       console.error("user", error);
     }
@@ -218,7 +206,7 @@ class NavigationDesktop extends Component {
         height: 12,
         top: -6,
         transform: "rotate(45deg)",
-        left: "calc(50% - 6px)"
+        left: "calc(50% - 6px)",
       },
       left: "15%",
       bgcolor: "#ffffff",
@@ -227,8 +215,8 @@ class NavigationDesktop extends Component {
       boxShadow: 24,
     };
     const { anchorEl } = this.state;
-    console.log(tags?.nodes)
-    console.log(this.state.categoryTagsInfo)
+    console.log(tags?.nodes);
+    console.log(this.state.categoryTagsInfo);
     const tagsData = tags?.nodes ? tags?.nodes : this.state.categoryTagsInfo;
 
     const ITEMScategory = [
@@ -270,12 +258,16 @@ class NavigationDesktop extends Component {
     ];
     return (
       <>
-
         <nav>
           <div className={headerType ? classNames(classes.light) : classNames(classes.dark)}>
-            <Link href="/" onClick={() => this.setState({
-              selectedPage: '/[lang]'
-            })}>
+            <Link
+              href="/"
+              onClick={() =>
+                this.setState({
+                  selectedPage: "/[lang]",
+                })
+              }
+            >
               <span
                 className="hoverable"
                 style={{
@@ -291,10 +283,9 @@ class NavigationDesktop extends Component {
 
                   marginBottom: "-4px",
 
-                  textDecorationColor: Router.pathname === '/[lang]' ? "#FDC114" : null,
-                  textDecorationThickness: Router.pathname === '/[lang]' ? "3px" : null, // Adjust the underline thickness
-                  textDecorationLine: Router.pathname === '/[lang]' ? "underline" : null, // Add an underline style for compatibility
-
+                  textDecorationColor: Router.pathname === "/[lang]" ? "#FDC114" : null,
+                  textDecorationThickness: Router.pathname === "/[lang]" ? "3px" : null, // Adjust the underline thickness
+                  textDecorationLine: Router.pathname === "/[lang]" ? "underline" : null, // Add an underline style for compatibility
                 }}
               >
                 Home
@@ -303,9 +294,11 @@ class NavigationDesktop extends Component {
             <a href="/en/explore">
               <span
                 onMouseEnter={this.handlePopOverOpen}
-                onClick={() => this.setState({
-                  selectedPage: '/[lang]/categories/[tagId]'
-                })}
+                onClick={() =>
+                  this.setState({
+                    selectedPage: "/[lang]/categories/[tagId]",
+                  })
+                }
                 // onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
@@ -317,10 +310,18 @@ class NavigationDesktop extends Component {
                   fontWeight: 900,
                   // color: this.state.anchorEl ? "#fdc114" : "",
 
-                  textDecorationColor: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "#FDC114" : null,
-                  textDecorationThickness: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "3px" : null, // Adjust the underline thickness
-                  textDecorationLine: Router.pathname === '/[lang]/categories/[tagId]' || Router.pathname === '/[lang]/explore' ? "underline" : null, // Add an underline style for compatibility
-
+                  textDecorationColor:
+                    Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                      ? "#FDC114"
+                      : null,
+                  textDecorationThickness:
+                    Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                      ? "3px"
+                      : null, // Adjust the underline thickness
+                  textDecorationLine:
+                    Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                      ? "underline"
+                      : null, // Add an underline style for compatibility
                 }}
               >
                 Explore
@@ -342,24 +343,28 @@ class NavigationDesktop extends Component {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={this.handlePopOverClose}
-                style={{ marginTop: "75px" }}
+                style={{ marginTop: "135px" }}
                 // onClose={handlePopoverClose}
                 disableRestoreFocus
               >
-                <Box sx={style} >
+                <Box sx={style}>
                   <div className={classes.modalitems}>
-
-
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
-                      {tagsData?.map((itemtitle, i) => (
-                        <a href={itemtitle.displayTitle === 'Become a Seller' ? "/en/SellerRegistrationPage" : `/en/categories/${itemtitle._id}`} className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}>
+                      {tagsData?.slice(0, 6).map((itemtitle, i) => (
+                        <a
+                          href={
+                            itemtitle.displayTitle === "Become a Seller"
+                              ? "/en/SellerRegistrationPage"
+                              : `/en/categories/${itemtitle._id}`
+                          }
+                          className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}
+                        >
                           <Typography variant="h6" className={classes.catgorytitle}>
                             {itemtitle.displayTitle}
                           </Typography>
                         </a>
-                      ))
-                      }
+                      ))}
                     </div>
                   </div>
                 </Box>

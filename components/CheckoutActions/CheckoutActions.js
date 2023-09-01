@@ -426,7 +426,7 @@ const CheckoutActions = (prop) => {
     } else {
       setSubTotal(parseInt(cart?.checkout?.summary?.discountTotal?.amount));
     }
-  }, [cart]);
+  }, [cart, getValue?.phonenumber]);
 
   const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.total?.amount));
   console.log(subtotal);
@@ -450,6 +450,7 @@ const CheckoutActions = (prop) => {
   const handlepay = async (values, action) => {
     try {
       setOrderDisable(true);
+      console.log("getValue.phonenumber", values);
 
       const { data } = await placeOrder({
         variables: {
@@ -463,16 +464,16 @@ const CheckoutActions = (prop) => {
               {
                 data: {
                   shippingAddress: {
-                    address1: getValue.CompleteAddress,
+                    address1: values.CompleteAddress,
                     address2: values.orderNotes,
-                    city: getValue.city,
+                    city: values.city,
                     company: null,
                     country: "pakistan",
-                    fullName: getValue.FullName,
+                    fullName: values.FullName,
                     isBillingDefault: false,
                     isCommercial: false,
                     isShippingDefault: false,
-                    phone: getValue.phonenumber,
+                    phone: values.phonenumber,
                     postal: "",
                     region: "",
                   },

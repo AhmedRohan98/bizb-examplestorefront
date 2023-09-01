@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   orderThankYou: {
     display: "flex",
-    marginTop: theme.spacing(25),
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "29px",
   },
   orderThankYouconnect: {
-    marginTop: theme.spacing(25),
+    marginTop: theme.spacing(10),
   },
   connect: {
     fontSize: "34px",
@@ -207,6 +209,16 @@ function CheckoutComplete(props) {
       <Grid container>
         <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
         <Grid item xs={12} md={6}>
+          <div className={classes.orderThankYou}>
+            <img src="/cart/thankyou.svg" className={classes.img} alt="thanyou"></img>
+            <Typography variant="h3">Your order is confirmed</Typography>
+            <div className={classes.mainheading}>
+              <Typography variant="h4" className={classes.orderThankYoupara}>
+                {" "}
+                Thank You for making fashion sustainable with us.
+              </Typography>
+            </div>
+          </div>
           <Grid item className={classes.orderThankYou2} xs={12} md={12}>
             <Typography variant="h4">
               {"Your order ID is:"} <strong>{order.referenceId}</strong>
@@ -222,14 +234,14 @@ function CheckoutComplete(props) {
         <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}
       </Grid>
       <div className={classes.orderThankYou}>
-        <img src="/cart/thankyou.svg" className={classes.img} alt="thanyou"></img>
+        {/* <img src="/cart/thankyou.svg" className={classes.img} alt="thanyou"></img>
         <Typography variant="h3">Your order is confirmed</Typography>
         <div className={classes.mainheading}>
           <Typography variant="h4" className={classes.orderThankYoupara}>
             {" "}
             Thank You for making fashion sustainable with us.
           </Typography>
-        </div>
+        </div> */}
         <div className={classes.orderThankYouconnect}>
           <Typography className={classes.connect}>Connect With Our Community</Typography>
         </div>

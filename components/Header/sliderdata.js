@@ -9,7 +9,7 @@ import Appsec from "../Appsection/appsec";
 import Instagram from "../Instagram/instagram";
 import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
 import OurBlogs from "../Ourblogs/ourblog";
-import ScrollingMessage from '../ScrollingMessage/ScrollingMessage';
+import ScrollingMessage from "../ScrollingMessage/ScrollingMessage";
 
 import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
@@ -28,7 +28,7 @@ const MainSlider = (props) => {
       position: "relative",
     },
     image: {
-      height: "80vh",
+      height: "100%",
       width: "100%",
       objectPosition: "top",
       objectFit: "cover",
@@ -62,11 +62,10 @@ const MainSlider = (props) => {
       display: "none",
       position: "relative",
       width: "100%",
-      [theme.breakpoints.up(900)]: {
-        display: "block",
-        position: "relative",
-        width: "100%",
-      },
+
+      display: "block",
+      position: "relative",
+      width: "100%",
     },
     imagedesktop: {
       display: "block",
@@ -96,6 +95,9 @@ const MainSlider = (props) => {
         color: "none",
         border: "1px solid black",
         opacity: 1,
+        [theme.breakpoints.down("xs")]: {
+          display: "none",
+        },
         // Add spacing at the top
       },
       "& .swiper-pagination-bullet-active": {
@@ -115,24 +117,20 @@ const MainSlider = (props) => {
   }));
   const ITEMS = [
     {
-      image: "/Desktop-images/desktop1.webp",
+      image: "/Desktop-images/desktop1.png",
       id: 1,
     },
     {
-      image: "/Desktop-images/desktop2.webp",
+      image: "/Desktop-images/desktop2.png",
       id: 2,
     },
     {
-      image: "/Desktop-images/desktop3.webp",
+      image: "/Desktop-images/desktop3.png",
       id: 3,
     },
     {
-      image: "/Desktop-images/desktop4.webp",
+      image: "/Desktop-images/desktop4.jpg",
       id: 4,
-    },
-    {
-      image: "/Desktop-images/desktop5.webp",
-      id: 6,
     },
   ];
   function Item({ item }) {
@@ -177,7 +175,6 @@ const MainSlider = (props) => {
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               autoplay
               ref={sliderRef}
-
               // direction="vertical"
               modules={[Pagination, Autoplay, Navigation]}
               pagination={{ clickable: true }}
@@ -190,9 +187,9 @@ const MainSlider = (props) => {
               ))}
             </Swiper>
           </div>
-          <div className={classes.imagedesktop}>
+          {/* <div className={classes.imagedesktop}>
             <img src="/Desktop-images/mobile.webp" className={classes.mobileima} />
-          </div>
+          </div> */}
         </div>
       </div>
       <Preloved {...props} />
