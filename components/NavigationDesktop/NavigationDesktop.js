@@ -343,7 +343,7 @@ class NavigationDesktop extends Component {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={this.handlePopOverClose}
-                style={{ marginTop: "75px" }}
+                style={{ marginTop: "135px" }}
                 // onClose={handlePopoverClose}
                 disableRestoreFocus
               >
