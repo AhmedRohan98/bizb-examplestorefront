@@ -15,6 +15,7 @@ import Caloborators from "../Calloborators/calloborators";
 import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
+
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const products = props?.catalogItems;
@@ -173,7 +174,9 @@ const MainSlider = (props) => {
             </div>
             <Swiper
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
-              autoplay
+              autoplay={{
+                delay: 2000,
+              }}
               ref={sliderRef}
               // direction="vertical"
               modules={[Pagination, Autoplay, Navigation]}

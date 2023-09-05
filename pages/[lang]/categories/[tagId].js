@@ -61,7 +61,7 @@ import formatSize from "../../../lib/utils/formatSize";
 import inject from "../../../hocs/inject";
 import Layout from "../../../components/Layout";
 import ReactGA from "react-ga4";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -744,7 +744,7 @@ function Categories(props) {
   const trackProductView = () => {
     const dataLayer = {
       dataLayer: {
-        event: 'product_view',
+        event: "product_view",
         ecommerce: {
           detail: {
             products: [
@@ -849,8 +849,8 @@ function Categories(props) {
   const { categorySlug, productSlug } = router.query;
   const handleOnClick = async (product, variant) => {
     ReactGA.event({
-      category: 'Ecommerce',
-      action: 'add_to_cart',
+      category: "Ecommerce",
+      action: "add_to_cart",
       label: product?.productId,
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
@@ -1419,9 +1419,9 @@ function Categories(props) {
               xs={12}
               sm={6}
               md={12}
-            // align="center"
-            // justify="center"
-            // alignItems="center"
+              // align="center"
+              // justify="center"
+              // alignItems="center"
             >
               <div className={classes.gridroot}>
                 <ResponsiveMasonry
@@ -1437,7 +1437,13 @@ function Categories(props) {
                       // console.log(cart?.items, "item");
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                      const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                      const validOptionTitle = optionTitle
+                        ? optionTitle
+                            ?.replace(`None`, `'none'`)
+                            .replace("None", `none`)
+                            .replace(/''/g, '"')
+                            .replace(/'/g, '"')
+                        : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1465,21 +1471,32 @@ function Categories(props) {
                         <div style={{ display: "flex", justifyContent: "center" }}>
                           <div className={classes.boxcontairproduct}>
                             {/* {console.log("Images", item?.node)} */}
-                            <img
-                              onClick={() => clickHandler(item.node.product.slug)}
-                              src={
-                                item?.node?.product?.media[0]?.URLs
-                                  ? item?.node?.product?.media[0]?.URLs?.large : item?.node?.product?.media[0]?.URLs?.thumbnail
-                              }
-                              className={classes.image}
-                              key={item?.node?.product?.id}
-                              alt={item?.node?.product?.title}
-                            />
+                            <Link
+                              href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                              as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                            >
+                              <a target="_blank">
+                                <img
+                                  // onClick={() => clickHandler(item.node.product.slug)}
+                                  src={
+                                    item?.node?.product?.media[0]?.URLs
+                                      ? item?.node?.product?.media[0]?.URLs?.large
+                                      : item?.node?.product?.media[0]?.URLs?.thumbnail
+                                  }
+                                  className={classes.image}
+                                  key={item?.node?.product?.id}
+                                  alt={item?.node?.product?.title}
+                                />
+                              </a>
+                            </Link>
 
                             <div className={classes.cartcontent}>
-                              <div className={classes.cartcontenttext} onCick={() => {
-                                trackProductView()
-                              }}>
+                              <div
+                                className={classes.cartcontenttext}
+                                onCick={() => {
+                                  trackProductView();
+                                }}
+                              >
                                 <Typography
                                   style={{
                                     fontWeight: "600",
@@ -1525,7 +1542,10 @@ function Categories(props) {
                                     variant="h4"
                                     component="h2"
                                     className={classes.carttitle2}
-                                  >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}</Typography>
+                                  >
+                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                      `-${Math.abs(percentage)}%`}
+                                  </Typography>
                                 </div>
                               </div>
                               <div className={classes.cartbackground}>
@@ -1545,12 +1565,12 @@ function Categories(props) {
                                     {size == 0
                                       ? "XL"
                                       : "S" || size == 1
-                                        ? "L"
-                                        : "S" || size == 2
-                                          ? "M"
-                                          : "S" || size == 3
-                                            ? "S"
-                                            : "S"}
+                                      ? "L"
+                                      : "S" || size == 2
+                                      ? "M"
+                                      : "S" || size == 3
+                                      ? "S"
+                                      : "S"}
                                   </span>
                                 </Typography>
                                 {isLoading[item?.node?.product?.productId] ? (
@@ -1567,7 +1587,6 @@ function Categories(props) {
                                       variant="h5"
                                       component="h2"
                                       className={classes.cartText}
-
                                     >
                                       {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                                     </Typography>
@@ -1600,7 +1619,13 @@ function Categories(props) {
                     });
 
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                    const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                    const validOptionTitle = optionTitle
+                      ? optionTitle
+                          ?.replace(`None`, `'none'`)
+                          .replace("None", `none`)
+                          .replace(/''/g, '"')
+                          .replace(/'/g, '"')
+                      : null;
                     const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                     const str = item.node.product.title;
                     const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1627,26 +1652,33 @@ function Categories(props) {
                     return (
                       <div style={{ display: "flex", justifyContent: "center" }}>
                         <div className={classes.boxcontairproduct}>
-                          <a target="_blank">
-                            {/* {console.log("Images", item?.node)} */}
-                            <img
-                              src={
-                                item?.node?.product?.media[0]?.URLs
-                                  ? item?.node?.product?.media[0]?.URLs?.large
-                                  : item?.node?.product?.media[0]?.URLs?.thumbnail
-
-                              }
-                              className={classes.image}
-                              key={item?.node?.product?.id}
-                              alt={"hhhh"}
-                              onClick={() => clickHandler(item.node.product.slug)}
-                            />
-                          </a>
+                          <Link
+                            href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                            as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                          >
+                            <a target="_blank">
+                              {/* {console.log("Images", item?.node)} */}
+                              <img
+                                src={
+                                  item?.node?.product?.media[0]?.URLs
+                                    ? item?.node?.product?.media[0]?.URLs?.large
+                                    : item?.node?.product?.media[0]?.URLs?.thumbnail
+                                }
+                                className={classes.image}
+                                key={item?.node?.product?.id}
+                                alt={"hhhh"}
+                                // onClick={() => clickHandler(item.node.product.slug)}
+                              />
+                            </a>
+                          </Link>
 
                           <div className={classes.cartcontent}>
-                            <div className={classes.cartcontenttext} onCick={() => {
-                              trackProductView()
-                            }}>
+                            <div
+                              className={classes.cartcontenttext}
+                              onCick={() => {
+                                trackProductView();
+                              }}
+                            >
                               <Typography
                                 style={{
                                   fontWeight: "600",
@@ -1708,9 +1740,7 @@ function Categories(props) {
                                 className={classes.cartsize}
                               >
                                 Size
-                                <span className={classes.sizes}>
-                                  {formatSize(size, true)}
-                                </span>
+                                <span className={classes.sizes}>{formatSize(size, true)}</span>
                               </Typography>
                               {isLoading[item?.node?.product?.productId] ? (
                                 <CircularProgress size="30px" className={classes.progressBar} />
@@ -1726,7 +1756,6 @@ function Categories(props) {
                                     variant="h5"
                                     component="h2"
                                     className={classes.cartText}
-
                                   >
                                     {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                                   </Typography>

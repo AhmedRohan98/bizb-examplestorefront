@@ -38,8 +38,8 @@ const styles = (theme: Theme) =>
       },
     },
     imgSize: {
-      width: "23px",
-      height: "23px",
+      width: "29px",
+      height: "29px",
     },
     controls: {
       alignItems: "inherit",

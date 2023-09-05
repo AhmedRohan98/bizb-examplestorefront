@@ -1092,7 +1092,7 @@ const ProductDetail = ({ ...props }) => {
                           as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}
                         >
                           <Typography
-                            style={{ fontWeight: "700", cursor: "pointer", paddingRight: "10px" }}
+                            style={{ fontWeight: "700", cursor: "pointer", paddingRight: "10px", color: "#FDC114" }}
                             variant="h4"
                             className={classes.storeName}
                           >
