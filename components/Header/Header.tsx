@@ -37,6 +37,10 @@ const styles = (theme: Theme) =>
         width: "100%",
       },
     },
+    imgSize: {
+      width: "23px",
+      height: "23px",
+    },
     controls: {
       alignItems: "inherit",
       display: "inherit",
@@ -190,9 +194,9 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
             >
               {/* @ts-ignore TODO: Refactor link to address type error */}
               {headerType ? (
-                <img src="/icons/search.webp" className="headerlogo" />
+                <img src="/icons/search.png" className={classes.imgSize} />
               ) : (
-                <img src="/icons/search.webp" className="headerlogo" />
+                <img src="/icons/search.png" className={classes.imgSize} />
               )}
             </span>
           </Hidden>

@@ -13,7 +13,7 @@ import Link from "components/Link";
 import useStores from "hooks/useStores";
 import EntryModal from "../Entry/EntryModal";
 import getAccountsHandler from "../../lib/accountsServer.js";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 import ReactGA from "react-ga4";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   marginBottom: {
     marginBottom: theme.spacing(2),
+  },
+  imgSize: {
+    width: "28px",
+    height: "28px",
   },
   authbutton: {
     background: theme.palette.secondary.selected,
@@ -86,9 +90,9 @@ const AccountDropdown = ({ headerType }) => {
   const handleSignOut = async () => {
     // Track "User Logout" event with Google Analytics 4
     ReactGA.send({
-      hitType: 'event',
-      eventCategory: 'User',
-      eventAction: 'logout',
+      hitType: "event",
+      eventCategory: "User",
+      eventAction: "logout",
     });
     await accountsClient.logout();
     await refetch();
@@ -100,10 +104,10 @@ const AccountDropdown = ({ headerType }) => {
   };
   const handleProfile = () => {
     window.location.href = "https://bizb.store/dashboard/myprofile?role=1";
-  }
+  };
   const handleDashboard = () => {
     window.location.href = "https://bizb.store/dashboard/publishproduct";
-  }
+  };
   return (
     <Fragment headerType>
       <EntryModal onClose={onClose} resetToken={resetToken} />
@@ -121,9 +125,9 @@ const AccountDropdown = ({ headerType }) => {
         >
           <span>
             {headerType ? (
-              <img src="/icons/user.webp" className="headerlogo" />
+              <img src="/icons/user.png" className={classes.imgSize} />
             ) : (
-              <img src="/icons/user.webp" className="headerlogo" />
+              <img src="/icons/user.png" className={classes.imgSize} />
             )}
           </span>
         </IconButton>
