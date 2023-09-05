@@ -38,8 +38,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   imgSize: {
-    width: "28px",
-    height: "28px",
+    width: "33px",
+    height: "33px",
+    marginTop: "3px",
   },
   authbutton: {
     background: theme.palette.secondary.selected,

@@ -32,7 +32,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 function Explore(props) {
   console.log("props", props);
@@ -644,11 +644,9 @@ function Explore(props) {
       cursor: "pointer",
       [theme.breakpoints.up("lg")]: {
         width: "275px", // Reduced by 1px to create space for the border
-
       },
       [theme.breakpoints.down("lg")]: {
         width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
-
       },
       [theme.breakpoints.down("sm")]: {
         width: "150px", // Reduced by 1px to create space for the border
@@ -698,7 +696,7 @@ function Explore(props) {
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
-      marginRight: "30px"
+      marginRight: "30px",
     },
     cart: {
       height: "35px",
@@ -762,7 +760,6 @@ function Explore(props) {
         size: "10px",
         marginLeft: theme.spacing(3),
       },
-
     },
 
     cartbackground: {
@@ -863,7 +860,7 @@ function Explore(props) {
   const trackProductView = () => {
     const dataLayer = {
       dataLayer: {
-        event: 'product_view',
+        event: "product_view",
         ecommerce: {
           detail: {
             products: [
@@ -920,8 +917,8 @@ function Explore(props) {
 
   const handleOnClick = async (product, variant) => {
     ReactGA.event({
-      category: 'Ecommerce',
-      action: 'add_to_cart',
+      category: "Ecommerce",
+      action: "add_to_cart",
       label: product?.productId,
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
@@ -1102,7 +1099,13 @@ function Explore(props) {
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+                const validOptionTitle = optionTitle
+                  ? optionTitle
+                      ?.replace(`None`, `'none'`)
+                      .replace("None", `none`)
+                      .replace(/''/g, '"')
+                      .replace(/'/g, '"')
+                  : null;
                 const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1127,22 +1130,38 @@ function Explore(props) {
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className={classes.boxcontairproduct}>
                       {/* {console.log("Images", item?.node)} */}
-                      <img
-                        src={
-                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                            : item?.node?.product?.media[0]?.URLs?.large
-                        }
-                        className={classes.image}
-                        key={item?.node?.product?.id}
-                        onClick={() => clickHandler(item.node.product.slug)}
-                        alt={item?.node?.product?.title}
-                      />
+                      <Link
+                        href={item.node.product.slug && `product/${item.node.product.slug}`}
+                        as={item.node.product.slug && `product/${item.node.product.slug}`}
+                      >
+                        <a target="_blank">
+                          <img
+                            src={
+                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                                : item?.node?.product?.media[0]?.URLs?.large
+                                ? item?.node?.product?.media[0]?.URLs?.large
+                                : item?.node?.product?.media[0]?.URLs?.medium
+                                ? item?.node?.product?.media[0]?.URLs?.medium
+                                : item?.node?.product?.media[0]?.URLs?.small
+                                ? item?.node?.product?.media[0]?.URLs?.small
+                                : item?.node?.product?.media[0]?.URLs?.original
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            onClick={() => clickHandler(item.node.product.slug)}
+                            alt={item?.node?.product?.title}
+                          />
+                        </a>
+                      </Link>
 
                       <div className={classes.cartcontent}>
-                        <div className={classes.cartcontenttext} onCick={() => {
-                          trackProductView()
-                        }}>
+                        <div
+                          className={classes.cartcontenttext}
+                          onCick={() => {
+                            trackProductView();
+                          }}
+                        >
                           <Typography
                             style={{
                               fontWeight: "600",
@@ -1203,10 +1222,7 @@ function Explore(props) {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            Size:{" "}
-                            <span className={classes.sizes}>
-                              {formatSize(size, true)}
-                            </span>
+                            Size: <span className={classes.sizes}>{formatSize(size, true)}</span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (
                             <CircularProgress className={classes.progressBar} />
@@ -1222,7 +1238,6 @@ function Explore(props) {
                                 variant="h5"
                                 component="h2"
                                 className={classes.cartText}
-
                               >
                                 {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>
@@ -1241,7 +1256,7 @@ function Explore(props) {
           {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
-    </Layout >
+    </Layout>
   );
 }
 export async function getStaticProps({ params: { lang } }) {
