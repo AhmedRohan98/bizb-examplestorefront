@@ -77,11 +77,9 @@ function SellerPublicProfile(props) {
       cursor: "pointer",
       [theme.breakpoints.up("lg")]: {
         width: "275px", // Reduced by 1px to create space for the border
-
       },
       [theme.breakpoints.down("lg")]: {
         width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
-
       },
       [theme.breakpoints.down("sm")]: {
         width: "150px", // Reduced by 1px to create space for the border
@@ -148,8 +146,7 @@ function SellerPublicProfile(props) {
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
-      marginRight: "30px"
-
+      marginRight: "30px",
     },
     cart: {
       height: "35px",
@@ -263,7 +260,6 @@ function SellerPublicProfile(props) {
         size: "10px",
         marginLeft: theme.spacing(3),
       },
-
     },
   }));
   // console.log(props.totalcount, "propertiese");
@@ -366,8 +362,8 @@ function SellerPublicProfile(props) {
 
   const handleOnClick = async (product, variant) => {
     ReactGA.event({
-      category: 'Ecommerce',
-      action: 'add_to_cart',
+      category: "Ecommerce",
+      action: "add_to_cart",
       label: product?.productId,
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
@@ -402,7 +398,6 @@ function SellerPublicProfile(props) {
   }, []);
   return (
     <Layout shop={shop}>
-
       <div className={classes.main}>
         <ToastContainer
           position="top-right"
@@ -445,7 +440,13 @@ function SellerPublicProfile(props) {
               <div className="publicProfile__infoContainer">
                 <div className="sellerProfile__infoRow publicProfile__infoRow">
                   <Typography className="publicProfile__name" variant="h1">
-                    <span>{profile && profile?.storeName ? profile?.storeName : profile?.name ? profile?.name : profile?.name}</span>
+                    <span>
+                      {profile && profile?.storeName
+                        ? profile?.storeName
+                        : profile?.name
+                        ? profile?.name
+                        : profile?.name}
+                    </span>
                     {profile && profile && <img src="/icons/tickIcon.png" />}
                   </Typography>
                 </div>
@@ -566,12 +567,21 @@ function SellerPublicProfile(props) {
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
+                const validOptionTitle = optionTitle
+                  ? optionTitle
+                      ?.replace(`None`, `'none'`)
+                      .replace("None", `none`)
+                      .replace(/''/g, '"')
+                      .replace(/'/g, '"')
+                  : null;
                 const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
-                const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.]/g, "");
+                const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                  /[^0-9.]/g,
+                  "",
+                );
 
                 const compareAtPrice =
                   item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
@@ -579,26 +589,33 @@ function SellerPublicProfile(props) {
                 const parsedDisplayPrice = parseFloat(displayPrice);
                 const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
+                const percentage = Math.floor(
+                  ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                );
 
                 // console.log(optionTitle, "fil");
                 return (
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className={classes.boxcontairproduct}>
-
-
                       {/* {console.log("Images", item?.node)} */}
-                      <img
-                        src={
-                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                            : item?.node?.product?.media[0]?.URLs?.large
-                        }
-                        className={classes.image}
-                        key={item?.node?.product?.id}
-                        onClick={() => clickHandler(item.node.product.slug)}
-                        alt={item?.node?.product?.title}
-                      />
+                      <Link
+                        href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                        as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                      >
+                        <a target="_blank">
+                          <img
+                            src={
+                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                                ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                                : item?.node?.product?.media[0]?.URLs?.large
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            // onClick={() => clickHandler(item.node.product.slug)}
+                            alt={item?.node?.product?.title}
+                          />
+                        </a>
+                      </Link>
 
                       <div className={classes.cartcontent}>
                         <div className={classes.cartcontenttext}>
@@ -647,7 +664,10 @@ function SellerPublicProfile(props) {
                               variant="h4"
                               component="h2"
                               className={classes.carttitle2}
-                            >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice&& `-${Math.abs(percentage)}%`}</Typography>
+                            >
+                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                `-${Math.abs(percentage)}%`}
+                            </Typography>
                           </div>
                         </div>
                         <div className={classes.cartbackground}>
@@ -662,10 +682,7 @@ function SellerPublicProfile(props) {
                             component="h2"
                             className={classes.cartsize}
                           >
-                            Size{" "}
-                            <span className={classes.sizes}>
-                              {formatSize(size, true)}
-                            </span>
+                            Size <span className={classes.sizes}>{formatSize(size, true)}</span>
                           </Typography>
                           {isLoading[item?.node?.product?.productId] ? (
                             <CircularProgress className={classes.progressBar} />
@@ -681,7 +698,6 @@ function SellerPublicProfile(props) {
                                 variant="h5"
                                 component="h2"
                                 className={classes.cartText}
-
                               >
                                 {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>
@@ -698,12 +714,9 @@ function SellerPublicProfile(props) {
         </div>
 
         <div className={classes.loadmore}>
-          {sellerCatalogItemsPageInfo?.hasNextPage && (
-            <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>
-          )}
+          {sellerCatalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>}
         </div>
       </div>
-
     </Layout>
   );
 }

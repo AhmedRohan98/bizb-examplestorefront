@@ -14,11 +14,11 @@ import Button from "@material-ui/core/Button";
 import Backdrop from "@material-ui/core/Backdrop";
 import Router from "translations/i18nRouter";
 import Badge from "@material-ui/core/Badge";
-import formatCurrency from "../../lib/utils/formatCurrency"
+import formatCurrency from "../../lib/utils/formatCurrency";
 import withCart from "containers/cart/withCart";
 import Link from "components/Link";
 import ReactGA from "react-ga4";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 const styles = (theme) => ({
   popper: {
@@ -46,8 +46,7 @@ const styles = (theme) => ({
       // color:"#FDC114",
       // cursor:"pointer",
       // textDecoration:"underline"
-    }
-
+    },
   },
   badge: {
     width: 20,
@@ -154,6 +153,10 @@ const styles = (theme) => ({
       padding: "0px 0px",
     },
   },
+  imgSize: {
+    width: "28px",
+    height: "28px",
+  },
   cart1: {
     height: "48px",
     width: "140px",
@@ -163,7 +166,6 @@ const styles = (theme) => ({
     justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: "10px",
-
 
     "&:hover": {
       transform: "scale(1.08)",
@@ -273,9 +275,9 @@ const MiniCart = ({ ...props }) => {
 
     const dataLayer = {
       dataLayer: {
-        event: 'checkout_initiated',
+        event: "checkout_initiated",
         ecommerce: {
-          currencyCode: 'PK', // Replace with your currency code
+          currencyCode: "PK", // Replace with your currency code
           checkout: {
             actionField: { step: 1 },
             products: productIds,
@@ -295,9 +297,9 @@ const MiniCart = ({ ...props }) => {
 
     const dataLayer = {
       dataLayer: {
-        event: 'cart_view',
+        event: "cart_view",
         ecommerce: {
-          currencyCode: 'USD', // Replace with your currency code
+          currencyCode: "USD", // Replace with your currency code
           cart: {
             products: productIds,
           },
@@ -312,9 +314,9 @@ const MiniCart = ({ ...props }) => {
 
   const handleRemoveItem = async (itemID) => {
     ReactGA.send({
-      hitType: 'event',
-      eventCategory: 'Ecommerce',
-      eventAction: 'remove_from_cart',
+      hitType: "event",
+      eventCategory: "Ecommerce",
+      eventAction: "remove_from_cart",
       eventLabel: itemID,
     });
     const { onRemoveCartItems } = props;
@@ -350,7 +352,10 @@ const MiniCart = ({ ...props }) => {
                     <div className={classes.paper}>
                       <div className={classes.cartmodal}>
                         {" "}
-                        <Typography style={{ fontWeight: "700", fontFamily: "Lato", fontSize: "1.1rem" }} variant="subtitle1">
+                        <Typography
+                          style={{ fontWeight: "700", fontFamily: "Lato", fontSize: "1.1rem" }}
+                          variant="subtitle1"
+                        >
                           Cart
                         </Typography>
                         <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
@@ -369,12 +374,14 @@ const MiniCart = ({ ...props }) => {
                               {/* <h1>{cart?.checkout?.summary?inventoryavala}</h1> */}
                               <div className={classes.cartitemtext}>
                                 {" "}
-                                <Typography variant="h4" style={{ textTransform: "capitalize", fontSize: "0.9rem" }}>{item.title.toString().toLowerCase()}</Typography>
+                                <Typography variant="h4" style={{ textTransform: "capitalize", fontSize: "0.9rem" }}>
+                                  {item.title.toString().toLowerCase()}
+                                </Typography>
                                 <Typography variant="h4" style={{ fontSize: "1rem" }}>
-                                  Store:&nbsp;<span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}</span>
+                                  Store:&nbsp;
+                                  <span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}</span>
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
-
                                   {formatCurrency(item?.price?.amount)}
                                 </Typography>
                               </div>
@@ -391,7 +398,9 @@ const MiniCart = ({ ...props }) => {
                       </div>
                       <div className={classes.total}>
                         <div className={classes.total1}>
-                          <Typography variant="h4" style={{ fontSize: "1.2rem" }}>Total Price</Typography>
+                          <Typography variant="h4" style={{ fontSize: "1.2rem" }}>
+                            Total Price
+                          </Typography>
                           <Typography variant="h4" style={{ fontSize: "1.2rem" }}>
                             {formatCurrency(cart?.checkout?.summary?.total?.amount)}
                           </Typography>
@@ -483,9 +492,9 @@ const MiniCart = ({ ...props }) => {
               <Badge color="none" border="none" classes={{ badge: classes.badge }}>
                 <span>
                   {headerType ? (
-                    <img src="/icons/shopping-bag.webp" className="headerlogo" />
+                    <img src="/icons/shop.png" className={classes.imgSize} />
                   ) : (
-                    <img src="/icons/shopping-bag.webp" className="headerlogo" />
+                    <img src="/icons/shop.png" className={classes.imgSize} />
                   )}
                 </span>
               </Badge>
@@ -493,9 +502,9 @@ const MiniCart = ({ ...props }) => {
           ) : (
             <span>
               {headerType ? (
-                <img src="/icons/shopping-bag.webp" className="headerlogo" />
+                <img src="/icons/shop.png" className={classes.imgSize} />
               ) : (
-                <img src="/icons/shopping-bag.webp" className="headerlogo" />
+                <img src="/icons/shop.png" className={classes.imgSize} />
               )}
             </span>
           )}
