@@ -52,7 +52,7 @@ class PageStepper extends Component {
   };
 
   handleNextClick = () => {
-     this.setState({ loading: true });
+    this.setState({ loading: true });
 
     // Simulate an asynchronous loading operation
     setTimeout(() => {
@@ -60,7 +60,7 @@ class PageStepper extends Component {
 
       // Set the loading state to false when loading is complete
       this.setState({ loading: false });
-    }, 2000);
+    }, 4000);
     const { pageInfo } = this.props;
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       const windowHeight = window.innerHeight;
@@ -100,10 +100,15 @@ class PageStepper extends Component {
 
     pageInfo.loadPreviousPage();
   };
+  componentDidMount() {
+    const { pageInfo } = this.props;
+
+    console.log("newnewnewn", pageInfo);
+  }
 
   render() {
     const { classes, pageInfo } = this.props;
-const { loading } = this.state;
+    const { loading } = this.state;
     return (
       <Grid className={classes.root} container justify="center">
         <Grid item>
