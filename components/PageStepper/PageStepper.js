@@ -57,9 +57,10 @@ class PageStepper extends Component {
     // Simulate an asynchronous loading operation
     setTimeout(() => {
       // Perform the actual loading logic here
-
-      // Set the loading state to false when loading is complete
-      this.setState({ loading: false });
+      if (pageInfo.hasNextPage === true) {
+        // Set the loading state to false when loading is complete
+        this.setState({ loading: false });
+      }
     }, 4000);
     const { pageInfo } = this.props;
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
