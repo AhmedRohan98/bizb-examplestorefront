@@ -1,8 +1,31 @@
-query getAllSeller($searchQuery: String) {
-  getAllSeller(searchQuery: $searchQuery) {
-    _id
-    name
-    storeName
-    picture
+query getAllNewSeller(
+  $first: ConnectionLimitInt
+  $offset: Int
+  $searchQuery: String
+) {
+  getAllNewSeller(first: $first, offset: $offset, searchQuery: $searchQuery) {
+    totalCount
+    nodes {
+      _id
+      name
+      emailRecords {
+        address
+      }
+      firstName
+      language
+      lastName
+      metafields {
+        namespace
+      }
+      picture
+      updatedAt
+      userId
+      username
+      isSeller
+      storeInfo {
+        storeName
+        image
+      }
+    }
   }
 }
