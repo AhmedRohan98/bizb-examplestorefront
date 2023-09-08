@@ -407,13 +407,7 @@ const SellerRegistration = () => {
       clearForm();
       toast.success("You're successfully registered as a Seller!");
       setTimeout(() => {
-        if (deviceInfo && deviceInfo?.deviceType === "Mobile" && deviceInfoType === "Android") {
-          window.location.href = "https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1";
-        } else if (deviceInfo && deviceInfo?.deviceType === "Mobile" && deviceInfoType === "iOS") {
-          window.location.href = "https://apps.apple.com/pk/app/bizb/id1571110423";
-        } else {
-          window.location.href = "https://bizb.store/dashboard/publishproduct";
-        }
+        window.location.href = "https://bizb.store/dashboard/publishproduct";
 
         // window.location.href = "https://bizb.store/dashboard/publishproduct";
       }, 300);
@@ -505,13 +499,7 @@ const SellerRegistration = () => {
       setuseremail({ value: viewer?.primaryEmailAddress, isTouched: false });
       setuserName({ value: viewer?.name ? viewer?.name : "", isTouched: false });
       if (viewer?.isSeller) {
-        if (deviceInfo && deviceInfo?.deviceType === "Mobile" && deviceInfoType === "Android") {
-          window.location.href = "https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1";
-        } else if (deviceInfo && deviceInfo?.deviceType === "Mobile" && deviceInfoType === "iOS") {
-          window.location.href = "https://apps.apple.com/pk/app/bizb/id1571110423";
-        } else {
-          window.location.href = "https://bizb.store/dashboard/publishproduct";
-        }
+        window.location.href = "https://bizb.store/dashboard/publishproduct";
       }
     }
   }, [viewer]);
