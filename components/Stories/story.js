@@ -109,12 +109,12 @@ const Story = (props) => {
     catagoriesinactive: {
       color: "#000000",
       cursor: "pointer",
-      fontSize:"1.4rem",
+      fontSize: "1.4rem",
       marginRight: "36px",
     },
     catagoriesactive: {
       color: "#000000",
-      fontSize:"1.4rem",
+      fontSize: "1.4rem",
       display: "inline-block",
       marginRight: "36px",
       position: "relative",
@@ -436,9 +436,9 @@ const Story = (props) => {
     sliderRef.current.swiper.slideNext();
   }, []);
   useEffect(() => {
-    if (!sellers) {
-      refetch();
-    }
+    // if (!sellers) {
+    //   refetch();
+    // }
     refetchSellerss();
     setIntial(sellers ? sellers[1]?._id : "");
     //  console.log("data in sellerss bhjjknkn", sellers);
