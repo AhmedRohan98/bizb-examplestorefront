@@ -39,7 +39,6 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
-      background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
       mixBlendMode: "pass-through",
       zIndex: 2,
       opacity: 1,
@@ -54,10 +53,18 @@ const MainSlider = (props) => {
       zIndex: 9998,
       width: "300px",
       bottom: "40px",
+      [theme.breakpoints.down(900)]: {
+        top: "84%",
+        left:"30%"
+      },
     },
     text: {
       fontSize: "18px",
       color: "white",
+      [theme.breakpoints.down(900)]: {
+        fontSize: "12px",
+        alignSelf:"center"
+      },
     },
     sliderr: {
       display: "none",
