@@ -14,6 +14,8 @@ import CloseIcon from "mdi-material-ui/Close";
 import Link from "components/Link";
 import NavigationItemMobile from "./NavigationItemMobile";
 import NavigationSubMenuMobile from "./NavigationSubMenuMobile";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 const styles = (theme) => ({
   root: {
@@ -42,7 +44,7 @@ const styles = (theme) => ({
   menu: {
     flex: "1 1 auto",
     overflowY: "auto",
-    width: 320,
+    width: 240,
     padding: 15,
   },
   subNav: {
@@ -54,15 +56,18 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   navButtonActive: {
-    color: "#5cbe8f",
+    color: "#000000",
     fontSize: "18px",
     background: "none",
     border: "none",
     fontWeight: 600,
-    marginTop: "30px",
-    marginRight: "15px",
+    marginTop: "10px",
+    marginRight: "10px",
     cursor: "pointer",
   },
+  "& .MuiToolbar-root ":{
+    justifyContent:"end"
+  }
 });
 
 class NavigationMobile extends Component {
@@ -115,13 +120,13 @@ class NavigationMobile extends Component {
         <Drawer open={uiStore.isMenuDrawerOpen} onClose={this.handleClose}>
           <div className={classes.header}>
             <Toolbar disableGutters>
-              <div className={classes.toolbarTitle}>
-                <Typography className={classes.title} color="inherit" variant="h6"></Typography>
-              </div>
-              <IconButton onClick={this.handleClose}>
-                <CloseIcon />
-              </IconButton>
+              <IconButton onClick={this.handleClose} >
+                <ChevronLeftIcon />              
+                </IconButton>
+             
+
             </Toolbar>
+
             <Divider />
           </div>
           <nav className={classes.menu}>
@@ -132,35 +137,37 @@ class NavigationMobile extends Component {
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </Link>
-            <br />
             <a href="/en/explore">
               <MenuList className={classes.navButtonActive}>
                 Explore
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <br />
+            <a href="https://bizb.store/dashboard/uploadproductdetail">
+              <MenuList className={classes.navButtonActive}>
+                Upload Product
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a href="/en/SellerRegistrationPage">
+              <MenuList className={classes.navButtonActive}>
+                Become a Seller
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
             <a target="_blank" href="https://old.bizb.store/how-to-sell/">
               <MenuList className={classes.navButtonActive}>
                 How to Sell
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <br />
             <a target="_blank" href="https://old.bizb.store/blog/">
               <MenuList className={classes.navButtonActive}>
                 Our Blogs
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <br />
-            <a href="/en/SellerRegistrationPage">
-              <MenuList className={classes.navButtonActive}>
-                Sell
-                {/* @ts-ignore TODO: Refactor link to address type error */}
-              </MenuList>
-            </a>
-            <br />
+
             <a target="_blank" href="https://blog.bizb.store/contact-us-2/">
               <MenuList className={classes.navButtonActive}>
                 Contact Us
@@ -176,6 +183,12 @@ class NavigationMobile extends Component {
             <a target="_blank" href="https://blog.bizb.store/return-policy/">
               <MenuList className={classes.navButtonActive}>
                 Return Policy
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a target="_blank" href="https://blog.bizb.store/return-policy/">
+              <MenuList className={classes.navButtonActive}>
+                Terms & Condition
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>

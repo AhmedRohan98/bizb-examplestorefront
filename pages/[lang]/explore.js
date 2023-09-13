@@ -922,10 +922,33 @@ function Explore(props) {
       label: product?.productId,
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
+    
+    console.log("google",product )
+    const addToCartData = {
+      event: 'addToCart',
+      ecommerce: {
+        add: {
+          products: [
+            {
+              id: product.productId,
+              name: product.title,
+              price: product?.variants[0]?.pricing[0]?.displayPrice,
+              quantity: 1, // You can adjust this based on your needs
+            },
+          ],
+        },
+      },
+    };
+    
+    TagManager.dataLayer({
+      dataLayer: addToCartData,
+    });
+    
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
     }));
+
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!");

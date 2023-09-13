@@ -12,6 +12,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Tooltip from "@material-ui/core/Tooltip";
 import ReactGA from "react-ga4";
+import TagManager from "react-gtm-module";
 
 const SellerRegistration = () => {
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -398,6 +399,22 @@ const SellerRegistration = () => {
         action: "Registration",
         label: "Seller Registration",
       });
+      const sellerRegistrationData = {
+        event: 'newSellerRegistration', // Define a custom event name
+        ecommerce: {
+          seller: {
+            id: sellerId, // Replace with the new seller's unique identifier
+            name: sellerName, // Replace with the seller's name
+            email: sellerEmail, // Replace with the seller's email
+            // Add any other relevant seller information
+          },
+        },
+      };
+      
+      TagManager.dataLayer({
+        dataLayer: sellerRegistrationData,
+      });
+      
       ReactGA.event({
         category: "Referral",
         action: "Code Used",

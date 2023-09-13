@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
     margin: "10px",
     whiteSpace: 'nowrap',
-    animation: '$move 95s linear infinite',
+    animation: '$move 25s linear infinite',
   },
   '@keyframes move': {
     '0%': { transform: 'translateX(100%)' },
