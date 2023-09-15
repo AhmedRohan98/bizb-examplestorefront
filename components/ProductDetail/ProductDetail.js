@@ -652,7 +652,7 @@ const ProductDetail = ({ ...props }) => {
     selectVariant(product?.variants[0]);
     uiStore.setEndCursor(tagIds);
   }, []);
-  useEffect(() => {}, [uiStore]);
+  useEffect(() => { }, [uiStore]);
 
   function selectVariant(variant, optionId) {
     const { uiStore } = props;
@@ -1089,14 +1089,14 @@ const ProductDetail = ({ ...props }) => {
                         </Typography>
                         <Link
                           href={"/en/profile/[slugOrId]"}
-                          as={`/en/profile/${product?.variants[0]?.uploadedBy.userId}`}
+                          as={`/en/profile/${product?.variants[0]?.uploadedBy?.userId}`}
                         >
                           <Typography
                             style={{ fontWeight: "700", cursor: "pointer", paddingRight: "10px", color: "#FDC114" }}
                             variant="h4"
                             className={classes.storeName}
                           >
-                            {product?.variants[0]?.uploadedBy.storeName}
+                            {product?.variants[0]?.uploadedBy?.storeName}
                           </Typography>
                         </Link>
                       </div>
@@ -1155,10 +1155,10 @@ const ProductDetail = ({ ...props }) => {
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
                         ? optionTitle
-                            ?.replace(`None`, `'none'`)
-                            .replace("None", `none`)
-                            .replace(/''/g, '"')
-                            .replace(/'/g, '"')
+                          ?.replace(`None`, `'none'`)
+                          .replace("None", `none`)
+                          .replace(/''/g, '"')
+                          .replace(/'/g, '"')
                         : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;

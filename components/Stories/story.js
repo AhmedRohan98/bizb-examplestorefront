@@ -144,7 +144,7 @@ const Story = (props) => {
     },
     root: {
       background: theme.palette.reaction.gradient,
-      marginTop: "40px",
+      marginTop: "30px",
 
       display: "flex",
       justifyContent: "center",
@@ -152,7 +152,7 @@ const Story = (props) => {
     },
     mainheading: {
       display: "flex",
-      marginTop: "60px",
+      marginTop: "40px",
       justifyContent: "center",
       position: "relative",
       width: "100%",
@@ -407,7 +407,7 @@ const Story = (props) => {
               <Typography
                 style={{
                   textAlign: "center",
-                  marginBottom: "60px",
+                  marginBottom: "40px",
                   marginTop: "10px",
                   color: "#000000",
                   cursor: "pointer",
@@ -464,7 +464,7 @@ const Story = (props) => {
 
       <div className={classes.mainheadings}>
         <Swiper
-          spaceBetween={10}
+          spaceBetween={0}
           ref={sliderRef}
           className={classes.root}
           breakpoints={{

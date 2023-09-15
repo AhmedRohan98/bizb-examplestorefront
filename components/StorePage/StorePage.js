@@ -307,7 +307,7 @@ const StorePage = () => {
                         </Typography>
                         <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                           {" "}
-                          {item?.firstName? item?.firstName: "User"}
+                          {item?.username? item?.username: "User"}
                         </Typography>
                       </div>
                     </div>

@@ -272,6 +272,11 @@ const MiniCart = ({ ...props }) => {
 
   const handleCheckoutButtonClick = () => {
     const productIds = cart?.items?.map((item) => item._id);
+    ReactGA.send({
+      hitType: "event",
+      eventCategory: "Ecommerce",
+      eventAction: "checkout_initiated",
+    });
 
     const dataLayer = {
       dataLayer: {
@@ -280,7 +285,12 @@ const MiniCart = ({ ...props }) => {
           currencyCode: "PK", // Replace with your currency code
           checkout: {
             actionField: { step: 1 },
-            products: productIds,
+            products:cart.items.map((item) => ({
+              id: item.productConfiguration.productId,
+              price: item.price.amount,
+              quantity:item.quantity, // Adjust the quantity for each product as needed
+  
+            })),
           },
         },
       },
