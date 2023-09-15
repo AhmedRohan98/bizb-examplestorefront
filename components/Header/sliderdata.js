@@ -207,7 +207,7 @@ const MainSlider = (props) => {
       <Story {...props} />
       <BizbCalloborators />
       <Appsec />
-      <Caloborators />
+      {/* <Caloborators /> */}
       <OurBlogs />
       <Instagram {...props} />
     </>

@@ -354,9 +354,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
   },
   progressBar: {
+    marginLeft: "50%",
+
     [theme.breakpoints.down("sm")]: {
       size: "10px",
-      marginLeft: theme.spacing(3),
     },
   },
   slider: {
@@ -550,15 +551,15 @@ const useStyles = makeStyles((theme) => ({
     width: "110px",
     marginLeft: "0px",
   },
-  cartbackground: {
-    marginRight: "4px",
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "row",
-      marginRight: "2px",
-    },
-  },
+  // cartbackground: {
+  //   marginRight: "4px",
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   [theme.breakpoints.down("sm")]: {
+  //     flexDirection: "row",
+  //     marginRight: "2px",
+  //   },
+  // },
   strikethrough: {
     display: "flex",
     fontSize: "12px",
@@ -617,30 +618,30 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(3),
     },
   },
-  sizes: {
-    height: "30px",
-    width: "30px",
-    marginLeft: "12px",
-    fontFamily: "lato",
-    fontStyle: "semibold",
-    fontSize: "12px",
-    display: "flex",
-    color: "#FDC114",
-    justifyContent: "center",
-    border: "1px solid #000000",
-  },
-  cartimage: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
+  // sizes: {
+  //   height: "30px",
+  //   width: "30px",
+  //   marginLeft: "12px",
+  //   fontFamily: "lato",
+  //   fontStyle: "semibold",
+  //   fontSize: "12px",
+  //   display: "flex",
+  //   color: "#FDC114",
+  //   justifyContent: "center",
+  //   border: "1px solid #000000",
+  // },
+  // cartimage: {
+  //   display: "flex",
+  //   justifyContent: "center",
+  //   alignItems: "flex-start",
+  // },
 
-  cartsize: {
-    display: "flex",
-    marginLeft: theme.spacing(0.5),
-    justifyContent: "end",
-    alignItems: "center",
-  },
+  // cartsize: {
+  //   display: "flex",
+  //   marginLeft: theme.spacing(0.5),
+  //   justifyContent: "end",
+  //   alignItems: "center",
+  // },
   carttitle: {
     display: "flex",
     marginLeft: theme.spacing(1),
@@ -649,7 +650,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cartcontenttext: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column", 
+    width: "100%"
   },
   carttitle2: {
     display: "flex",
@@ -665,6 +667,115 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
       paddingBottom: "5px",
     },
+  },
+  cartButton: {
+    width: "100%",
+    // justifyContent:"center"
+  },
+  cartButtonrowDiv: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+  },
+  cartButtonrowDiv2: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // alignItems: "baseline",
+  },
+  cart: {
+    height: "35px",
+    width: "100%",
+    borderRadius: "5px",
+    background: "#FDC114",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: "10px",
+    borderColor: "none",
+    zIndex: 1,
+    transition: "all 0.2s linear",
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: "#FDC114",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%", // Reduced by 1px to create space for the border
+      height: "29px",
+      // marginLeft: theme.spacing(4),
+    },
+    cartimage: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-start",
+      marginRight: 3,
+    },
+  },
+  storeName: {
+    display: "flex",
+    justifyContent: "start",
+    alignItems: "start",
+    fontWeight: "600",
+    fontSize: "0.8rem",
+    fontFamily: "lato",
+    marginLeft: "0px",
+    marginTop: "0px",
+
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "10px",
+    },
+
+
+  },
+  storeNameStyle: {
+    marginLeft: "5px",
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+    lineHeight: "0px",
+    padding: "8px",
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "0px",
+      fontSize: "10px",
+      padding: "4px",
+
+
+
+    },
+  },
+  cartbackground: {
+    display: "flex",
+    flexDirection: "column",
+    // marginLeft: "70px",
+    justifyContent: "end",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "row",
+    },
+  },
+  cartsize: {
+    display: "flex",
+    justifyContent: "end",
+    alignItems: "center",
+  },
+  sizes: {
+    height: "24px",
+    width: "24px",
+    marginLeft: "5px",
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+    lineHeight: "0px",
+    padding: "10px",
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    border: "1px solid #000000",
   },
 }));
 const ITEMScategory = [
@@ -869,7 +980,7 @@ function Categories(props) {
         },
       },
     };
-    
+
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
@@ -1438,9 +1549,9 @@ function Categories(props) {
               xs={12}
               sm={6}
               md={12}
-              // align="center"
-              // justify="center"
-              // alignItems="center"
+            // align="center"
+            // justify="center"
+            // alignItems="center"
             >
               <div className={classes.gridroot}>
                 <ResponsiveMasonry
@@ -1458,10 +1569,10 @@ function Categories(props) {
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
                         ? optionTitle
-                            ?.replace(`None`, `'none'`)
-                            .replace("None", `none`)
-                            .replace(/''/g, '"')
-                            .replace(/'/g, '"')
+                          ?.replace(`None`, `'none'`)
+                          .replace("None", `none`)
+                          .replace(/''/g, '"')
+                          .replace(/'/g, '"')
                         : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
@@ -1501,12 +1612,12 @@ function Categories(props) {
                                     !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
                                       ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                       : item?.node?.product?.media[0]?.URLs?.large
-                                      ? item?.node?.product?.media[0]?.URLs?.large
-                                      : item?.node?.product?.media[0]?.URLs?.medium
-                                      ? item?.node?.product?.media[0]?.URLs?.medium
-                                      : item?.node?.product?.media[0]?.URLs?.small
-                                      ? item?.node?.product?.media[0]?.URLs?.small
-                                      : item?.node?.product?.media[0]?.URLs?.original
+                                        ? item?.node?.product?.media[0]?.URLs?.large
+                                        : item?.node?.product?.media[0]?.URLs?.medium
+                                          ? item?.node?.product?.media[0]?.URLs?.medium
+                                          : item?.node?.product?.media[0]?.URLs?.small
+                                            ? item?.node?.product?.media[0]?.URLs?.small
+                                            : item?.node?.product?.media[0]?.URLs?.original
                                   }
                                   className={classes.image}
                                   key={item?.node?.product?.id}
@@ -1515,7 +1626,7 @@ function Categories(props) {
                               </a>
                             </Link>
 
-                            <div className={classes.cartcontent}>
+                            {/* <div className={classes.cartcontent}>
                               <div
                                 className={classes.cartcontenttext}
                                 onCick={() => {
@@ -1618,6 +1729,158 @@ function Categories(props) {
                                   </Button>
                                 )}
                               </div>
+                            </div> */}
+                            <div>
+                              <div className={classes.cartButton}>
+
+                                <Button
+                                  className={classes.cart}
+                                  onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                  disabled={isDisabled || item?.node?.product?.isSoldOut}
+                                >
+                                  {isLoading[item?.node?.product?.productId] ? (
+                                    <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                                  ) : (
+                                    <>
+                                      <div className={classes.cartButtonrowDiv}>
+                                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                        <Typography
+                                          style={{
+                                            fontFamily: "Ostrich Sans Black",
+                                          }}
+                                          variant="h5"
+                                          component="h2"
+                                          className={classes.cartText}
+                                        >
+                                          {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                        </Typography>
+                                      </div>
+                                      <div>
+                                        <Typography
+                                          style={{
+                                            fontWeight: "600",
+                                            fontSize: "0.9rem",
+                                            fontFamily: "lato",
+                                            marginLeft: "0px",
+                                          }}
+                                          variant="h4"
+                                          component="h2"
+                                          className={classes.carttitle2}
+                                        >
+                                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                            `-${Math.abs(percentage)}%`}
+                                        </Typography>
+                                      </div>
+                                    </>
+                                  )}
+                                </Button>
+                                {/* )} */}
+                              </div>
+                              <div>
+                                <div className={classes.cartcontent}>
+                                  <div
+                                    className={classes.cartcontenttext}
+                                    onCick={() => {
+                                      trackProductView();
+                                    }}
+                                  >
+                                    <Link
+                                      href={item.node.product.slug && "en/product/[...slugOrId]"}
+                                      as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                                    >
+                                      <a target="_blank">
+                                        <Typography
+                                          style={{
+                                            fontWeight: "600",
+                                            fontSize: "1rem",
+                                            fontFamily: "lato",
+                                            // marginTop: "10px",
+                                            textTransform: "capitalize",
+                                            marginLeft: "0px",
+                                          }}
+                                          variant="h4"
+                                          component="h2"
+                                          className={classes.carttitle}
+                                        >
+                                          {firstThreeWords}
+                                        </Typography>
+                                      </a>
+                                    </Link>
+                                    <Typography
+
+
+                                      className={classes.storeName}
+                                    >
+                                      Store Name:{" "}
+                                      <Link
+                                        href={"/en/profile/[slugOrId]"}
+                                        as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
+                                      >
+                                        <a target="_blank">
+                                          <span className={classes.storeNameStyle}>
+                                            {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                          </span>
+                                        </a>
+                                      </Link>
+                                    </Typography>
+                                    <div className={classes.cartButtonrowDiv2}>
+                                      <div>
+                                        <Typography
+                                          className={classes.price}
+                                          style={{
+                                            fontWeight: "600",
+                                            fontSize: "1rem",
+                                            fontFamily: "lato",
+                                            color: "#FDC114",
+                                            marginLeft: "0px",
+                                            textDecoration: "line-through",
+                                          }}
+                                        >
+                                          {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                                            ?.replace(/\.00$/, "")
+                                            .replace(/\$/g, "Rs. ")}
+                                        </Typography>
+                                        <div className={classes.strikethroughoff}>
+                                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                            ?.replace(/\.00$/, "")
+                                            .replace(/\$/g, "Rs. ")}
+                                        </div>
+                                      </div>
+                                      <div className={classes.cartbackground}>
+                                        <Typography
+                                          style={{
+                                            fontWeight: "600",
+                                            fontSize: "0.8rem",
+                                            fontFamily: "lato",
+                                          }}
+                                          variant="h4"
+                                          component="h2"
+                                          className={classes.cartsize}
+                                        >
+                                          Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                                        </Typography>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {/* <div className={classes.cartbackground}>
+                            <Typography
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "0.8rem",
+                                fontFamily: "lato",
+                                left: "5px",
+                              }}
+                              variant="h4"
+                              component="h2"
+                              className={classes.cartsize}
+                            >
+                              Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                            </Typography>
+                          
+                          </div> */}
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1646,10 +1909,10 @@ function Categories(props) {
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                     const validOptionTitle = optionTitle
                       ? optionTitle
-                          ?.replace(`None`, `'none'`)
-                          .replace("None", `none`)
-                          .replace(/''/g, '"')
-                          .replace(/'/g, '"')
+                        ?.replace(`None`, `'none'`)
+                        .replace("None", `none`)
+                        .replace(/''/g, '"')
+                        .replace(/'/g, '"')
                       : null;
                     const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                     const str = item.node.product.title;
@@ -1688,22 +1951,22 @@ function Categories(props) {
                                   !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
                                     ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                     : item?.node?.product?.media[0]?.URLs?.large
-                                    ? item?.node?.product?.media[0]?.URLs?.large
-                                    : item?.node?.product?.media[0]?.URLs?.medium
-                                    ? item?.node?.product?.media[0]?.URLs?.medium
-                                    : item?.node?.product?.media[0]?.URLs?.small
-                                    ? item?.node?.product?.media[0]?.URLs?.small
-                                    : item?.node?.product?.media[0]?.URLs?.original
+                                      ? item?.node?.product?.media[0]?.URLs?.large
+                                      : item?.node?.product?.media[0]?.URLs?.medium
+                                        ? item?.node?.product?.media[0]?.URLs?.medium
+                                        : item?.node?.product?.media[0]?.URLs?.small
+                                          ? item?.node?.product?.media[0]?.URLs?.small
+                                          : item?.node?.product?.media[0]?.URLs?.original
                                 }
                                 className={classes.image}
                                 key={item?.node?.product?.id}
                                 alt={"hhhh"}
-                                // onClick={() => clickHandler(item.node.product.slug)}
+                              // onClick={() => clickHandler(item.node.product.slug)}
                               />
                             </a>
                           </Link>
 
-                          <div className={classes.cartcontent}>
+                          {/* <div className={classes.cartcontent}>
                             <div
                               className={classes.cartcontenttext}
                               onCick={() => {
@@ -1792,6 +2055,158 @@ function Categories(props) {
                                   </Typography>
                                 </Button>
                               )}
+                            </div>
+                          </div> */}
+                          <div>
+                            <div className={classes.cartButton}>
+
+                              <Button
+                                className={classes.cart}
+                                onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                disabled={isDisabled || item?.node?.product?.isSoldOut}
+                              >
+                                {isLoading[item?.node?.product?.productId] ? (
+                                  <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                                ) : (
+                                  <>
+                                    <div className={classes.cartButtonrowDiv}>
+                                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                      <Typography
+                                        style={{
+                                          fontFamily: "Ostrich Sans Black",
+                                        }}
+                                        variant="h5"
+                                        component="h2"
+                                        className={classes.cartText}
+                                      >
+                                        {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                      </Typography>
+                                    </div>
+                                    <div>
+                                      <Typography
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "0.9rem",
+                                          fontFamily: "lato",
+                                          marginLeft: "0px",
+                                        }}
+                                        variant="h4"
+                                        component="h2"
+                                        className={classes.carttitle2}
+                                      >
+                                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                          `-${Math.abs(percentage)}%`}
+                                      </Typography>
+                                    </div>
+                                  </>
+                                )}
+                              </Button>
+                              {/* )} */}
+                            </div>
+                            <div>
+                              <div className={classes.cartcontent}>
+                                <div
+                                  className={classes.cartcontenttext}
+                                  onCick={() => {
+                                    trackProductView();
+                                  }}
+                                >
+                                  <Link
+                                    href={item.node.product.slug && "en/product/[...slugOrId]"}
+                                    as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                                  >
+                                    <a target="_blank">
+                                      <Typography
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "1rem",
+                                          fontFamily: "lato",
+                                          // marginTop: "10px",
+                                          textTransform: "capitalize",
+                                          marginLeft: "0px",
+                                        }}
+                                        variant="h4"
+                                        component="h2"
+                                        className={classes.carttitle}
+                                      >
+                                        {firstThreeWords}
+                                      </Typography>
+                                    </a>
+                                  </Link>
+                                  <Typography
+
+
+                                    className={classes.storeName}
+                                  >
+                                    Store Name:{" "}
+                                    <Link
+                                      href={"/en/profile/[slugOrId]"}
+                                      as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
+                                    >
+                                      <a target="_blank">
+                                        <span className={classes.storeNameStyle}>
+                                          {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                        </span>
+                                      </a>
+                                    </Link>
+                                  </Typography>
+                                  <div className={classes.cartButtonrowDiv2}>
+                                    <div>
+                                      <Typography
+                                        className={classes.price}
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "1rem",
+                                          fontFamily: "lato",
+                                          color: "#FDC114",
+                                          marginLeft: "0px",
+                                          textDecoration: "line-through",
+                                        }}
+                                      >
+                                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                                          ?.replace(/\.00$/, "")
+                                          .replace(/\$/g, "Rs. ")}
+                                      </Typography>
+                                      <div className={classes.strikethroughoff}>
+                                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                          ?.replace(/\.00$/, "")
+                                          .replace(/\$/g, "Rs. ")}
+                                      </div>
+                                    </div>
+                                    <div className={classes.cartbackground}>
+                                      <Typography
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "0.8rem",
+                                          fontFamily: "lato",
+                                        }}
+                                        variant="h4"
+                                        component="h2"
+                                        className={classes.cartsize}
+                                      >
+                                        Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                                      </Typography>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                {/* <div className={classes.cartbackground}>
+                            <Typography
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "0.8rem",
+                                fontFamily: "lato",
+                                left: "5px",
+                              }}
+                              variant="h4"
+                              component="h2"
+                              className={classes.cartsize}
+                            >
+                              Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                            </Typography>
+                          
+                          </div> */}
+                              </div>
                             </div>
                           </div>
                         </div>

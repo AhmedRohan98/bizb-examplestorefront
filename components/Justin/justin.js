@@ -17,7 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { UIContext } from "../../context/UIContext.js";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "60px",
+    marginTop: "10px",
     height: "50px",
     position: "relative",
   },
@@ -62,8 +62,27 @@ const useStyles = makeStyles((theme) => ({
       width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
     },
     [theme.breakpoints.down("sm")]: {
-      width: "150px", // Reduced by 1px to create space for the border
+      width: "100%", // Reduced by 1px to create space for the border
       height: "200px",
+    },
+  },
+  storeNameStyle: {
+    marginLeft: "5px",
+    fontFamily: "lato",
+    fontStyle: "semibold",
+    fontSize: "12px",
+    lineHeight: "0px",
+    padding: "8px",
+    display: "flex",
+    color: "#FDC114",
+    justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "0px",
+      fontSize: "10px",
+      padding: "4px",
+
+
+
     },
   },
   sizes: {
@@ -84,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
+    marginRight: 3,
   },
   cartText: {
     fontSize: "18px",
@@ -98,6 +118,22 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "end",
     alignItems: "center",
   },
+  storeName: {
+    display: "flex",
+    justifyContent: "start",
+    alignItems: "start",
+    fontWeight: "600",
+    fontSize: "0.8rem",
+    fontFamily: "lato",
+    marginLeft: "0px",
+    marginTop: "0px",
+
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "10px",
+    },
+
+
+  },
   carttitle: {
     display: "flex",
     marginLeft: theme.spacing(1),
@@ -111,31 +147,35 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
-    paddingBottom: "10px",
+    paddingBottom: "14px",
     overflow: "hidden",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
-      paddingBottom: "5px",
+      paddingBottom: "8px",
     },
   },
   cartcontenttext: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
+
   },
   progressBar: {
+    justifyContent: "center",
+    display: "flex",
+    marginLeft:"50%",
     [theme.breakpoints.down("sm")]: {
       size: "10px",
-      marginLeft: theme.spacing(3),
     },
   },
   cart: {
     height: "35px",
-    width: "84px",
+    width: "100%",
     borderRadius: "5px",
     background: "#FDC114",
     cursor: "pointer",
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignItems: "center",
     marginTop: "10px",
     borderColor: "none",
@@ -147,9 +187,9 @@ const useStyles = makeStyles((theme) => ({
       background: "#FDC114",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "34px", // Reduced by 1px to create space for the border
-      height: "20px",
-      marginLeft: theme.spacing(4),
+      width: "100%", // Reduced by 1px to create space for the border
+      height: "29px",
+      // marginLeft: theme.spacing(4),
     },
   },
   explore: {
@@ -185,12 +225,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "0px",
   },
   cartbackground: {
-    marginRight: "4px",
     display: "flex",
     flexDirection: "column",
+    // marginLeft: "70px",
+    justifyContent: "end",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "row",
-      marginRight: "2px",
     },
   },
   strikethrough: {
@@ -203,8 +243,8 @@ const useStyles = makeStyles((theme) => ({
 
   mainheading: {
     display: "flex",
-    marginTop: "60px",
-    marginBottom: "60px",
+    marginTop: "40px",
+    marginBottom: "40px",
     justifyContent: "center",
     textTransform: "uppercase",
     position: "relative",
@@ -227,6 +267,21 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "100%",
   },
+  cartButton: {
+    width: "100%",
+  },
+  cartButtonrowDiv: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+  },
+  cartButtonrowDiv2: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // alignItems: "baseline",
+  },
 }));
 
 const Justin = (props) => {
@@ -244,7 +299,7 @@ const Justin = (props) => {
   const trackProductView = () => {
     const dataLayer = {
       dataLayer: {
-        event: 'product_view',
+        event: "product_view",
         ecommerce: {
           detail: {
             products: [
@@ -259,7 +314,6 @@ const Justin = (props) => {
     };
 
     TagManager.dataLayer(dataLayer);
-
   };
   //
   useEffect(() => {
@@ -368,13 +422,13 @@ const Justin = (props) => {
 
   const handleOnClick = async (product, variant) => {
     ReactGA.event({
-      category: 'Ecommerce',
-      action: 'add_to_cart',
+      category: "Ecommerce",
+      action: "add_to_cart",
       label: product?.productId,
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
     const addToCartData = {
-      event: 'addToCart',
+      event: "addToCart",
       ecommerce: {
         add: {
           products: [
@@ -388,7 +442,7 @@ const Justin = (props) => {
         },
       },
     };
-    
+
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
@@ -450,7 +504,9 @@ const Justin = (props) => {
               });
 
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-              const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;
+              const validOptionTitle = optionTitle
+                ? optionTitle?.replace(`None`, `'none'`).replace("None", `none`).replace(/''/g, '"').replace(/'/g, '"')
+                : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
@@ -467,7 +523,12 @@ const Justin = (props) => {
               // console.log(optionTitle, "fil");
               return (
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div className={classes.boxcontairproduct}>
+                  <div
+                    className={classes.boxcontairproduct}
+                    onCick={() => {
+                      trackProductView();
+                    }}
+                  >
                     <Link
                       href={item.node.product.slug && "en/product/[...slugOrId]"}
                       as={item.node.product.slug && `en/product/${item.node.product.slug}`}
@@ -475,27 +536,46 @@ const Justin = (props) => {
                       <a target="_blank">
                         {/* {console.log("Images", item?.node)} */}
                         <img
-                         src={
-                          !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                            ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                            : item?.node?.product?.media[0]?.URLs?.large
-                            ? item?.node?.product?.media[0]?.URLs?.large
-                            : item?.node?.product?.media[0]?.URLs?.medium
-                            ? item?.node?.product?.media[0]?.URLs?.medium
-                            : item?.node?.product?.media[0]?.URLs?.small
-                            ? item?.node?.product?.media[0]?.URLs?.small
-                            : item?.node?.product?.media[0]?.URLs?.original
-                        }
+                          src={
+                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                              : item?.node?.product?.media[0]?.URLs?.large
+                                ? item?.node?.product?.media[0]?.URLs?.large
+                                : item?.node?.product?.media[0]?.URLs?.medium
+                                  ? item?.node?.product?.media[0]?.URLs?.medium
+                                  : item?.node?.product?.media[0]?.URLs?.small
+                                    ? item?.node?.product?.media[0]?.URLs?.small
+                                    : item?.node?.product?.media[0]?.URLs?.original ?
+                                      item?.node?.product?.media[0]?.URLs?.original :
+                                      item?.node?.product?.variants[0]?.media[0]?.URLs?.original ?
+                                        item?.node?.product?.variants[0]?.media[0]?.URLs?.original :
+                                        item?.node?.product?.variants[0]?.media[0]?.URLs?.large ?
+                                          item?.node?.product?.variants[0]?.media[0]?.URLs?.large :
+                                          item?.node?.product?.variants[0]?.media[0]?.URLs?.small ?
+                                            item?.node?.product?.variants[0]?.media[0]?.URLs?.small :
+                                            item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail ?
+                                              item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail :
+                                              item?.node?.product?.variants[0]?.media[3]?.URLs?.original ?
+                                                item?.node?.product?.variants[0]?.media[3]?.URLs?.original :
+                                                item?.node?.product?.variants[0]?.media[3]?.URLs?.large ?
+                                                  item?.node?.product?.variants[0]?.media[3]?.URLs?.large :
+                                                  item?.node?.product?.variants[0]?.media[3]?.URLs?.small ?
+                                                    item?.node?.product?.variants[0]?.media[3]?.URLs?.small :
+                                                    item?.node?.product?.variants[0]?.media[3]?.URLs?.thumbnail ?
+                                                      item?.node?.product?.variants[0]?.media[3]?.URLs?.thumbnail : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+
+                          }
                           className={classes.image}
                           key={item?.node?.product?.id}
                           alt={item?.node?.product?.title}
                         />
                       </a>
                     </Link>
-                    <div className={classes.cartcontent}>
+                    {/* <div className={classes.cartcontent}>
                       <div className={classes.cartcontenttext} onCick={() => {
                         trackProductView()
                       }}>
+                        
                         <Link
                           href={item.node.product.slug && "en/product/[...slugOrId]"}
                           as={item.node.product.slug && `en/product/${item.node.product.slug}`}
@@ -589,6 +669,156 @@ const Justin = (props) => {
                             </Typography>
                           </Button>
                         )}
+                      </div>
+                    </div> */}
+                    <div>
+                      <div className={classes.cartButton}>
+                      <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled || item?.node?.product?.isSoldOut}
+                            >
+                               {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress color="black" size="17px"   className={classes.progressBar} />
+                          ) : (
+                            <>
+                              <div className={classes.cartButtonrowDiv}>
+                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                <Typography
+                                  style={{
+                                    fontFamily: "Ostrich Sans Black",
+                                  }}
+                                  variant="h5"
+                                  component="h2"
+                                  className={classes.cartText}
+                                >
+                                  {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                </Typography>
+                              </div>
+                              <div>
+                                <Typography
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "0.9rem",
+                                    fontFamily: "lato",
+                                    marginLeft: "0px",
+                                  }}
+                                  variant="h4"
+                                  component="h2"
+                                  className={classes.carttitle2}
+                                >
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                    `-${Math.abs(percentage)}%`}
+                                </Typography>
+                              </div>
+                              </>
+                          )}
+                            </Button>
+                      </div>
+                      <div>
+                        <div className={classes.cartcontent}>
+                          <div
+                            className={classes.cartcontenttext}
+                            onCick={() => {
+                              trackProductView();
+                            }}
+                          >
+                            <Link
+                              href={item.node.product.slug && "en/product/[...slugOrId]"}
+                              as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                            >
+                              <a target="_blank">
+                                <Typography
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "1rem",
+                                    fontFamily: "lato",
+                                    // marginTop: "10px",
+                                    textTransform: "capitalize",
+                                    marginLeft: "0px",
+                                  }}
+                                  variant="h4"
+                                  component="h2"
+                                  className={classes.carttitle}
+                                >
+                                  {firstThreeWords}
+                                </Typography>
+                              </a>
+                            </Link>
+                            <Typography
+
+
+                              className={classes.storeName}
+                            >
+                              Store Name:{" "}
+                              <Link
+                                href={"/en/profile/[slugOrId]"}
+                                as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
+                              >
+                                 <a target="_blank">
+                                <span className={classes.storeNameStyle}>
+                                  {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                </span>
+                                </a>
+                              </Link>
+                            </Typography>
+                            <div className={classes.cartButtonrowDiv2}>
+                              <div>
+                                <Typography
+                                  className={classes.price}
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "1rem",
+                                    fontFamily: "lato",
+                                    color: "#FDC114",
+                                    marginLeft: "0px",
+                                    textDecoration: "line-through",
+                                  }}
+                                >
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                                    ?.replace(/\.00$/, "")
+                                    .replace(/\$/g, "Rs. ")}
+                                </Typography>
+                                <div className={classes.strikethroughoff}>
+                                  {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                    ?.replace(/\.00$/, "")
+                                    .replace(/\$/g, "Rs. ")}
+                                </div>
+                              </div>
+                              <div className={classes.cartbackground}>
+                                <Typography
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "0.8rem",
+                                    fontFamily: "lato",
+                                  }}
+                                  variant="h4"
+                                  component="h2"
+                                  className={classes.cartsize}
+                                >
+                                  Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                                </Typography>
+
+                              </div>
+                            </div>
+                          </div>
+                          {/* <div className={classes.cartbackground}>
+                            <Typography
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "0.8rem",
+                                fontFamily: "lato",
+                                left: "5px",
+                              }}
+                              variant="h4"
+                              component="h2"
+                              className={classes.cartsize}
+                            >
+                              Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                            </Typography>
+                          
+                          </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>

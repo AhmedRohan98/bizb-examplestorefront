@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "70px",
+    marginBottom: "40px",
   },
   PrelovedHeader: {
     display: "flex",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "12px",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "100px",
+    marginTop: "40px",
     [theme.breakpoints.down(600)]: {
       fontSize: "2.4rem",
     },
@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#1F1F1F",
     fontFamily: "Lato",
     textAlign: "center",
+    [theme.breakpoints.down(600)]: {
+      fontSize: "20px",
+    },
   },
   carts: {
     position: "relative",
@@ -295,9 +298,7 @@ const Preloved = (props) => {
         </Box>
       </div>
 
-      <Container className={classes.mobileicon} display={{ lg: "block", xl: "none", sm: "none" }}>
-        <img src="/preloved/preloved-mobile.svg" />
-      </Container>
+     
       <div>
         <Grid container>
           <Grid container item xs={12} md={12} sm={12} lg={12}>
