@@ -403,9 +403,8 @@ const SellerRegistration = () => {
         event: 'newSellerRegistration', // Define a custom event name
         ecommerce: {
           seller: {
-            id: sellerId, // Replace with the new seller's unique identifier
-            name: sellerName, // Replace with the seller's name
-            email: sellerEmail, // Replace with the seller's email
+          
+            email: useremail.value, // Replace with the seller's email
             // Add any other relevant seller information
           },
         },
