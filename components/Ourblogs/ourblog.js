@@ -62,8 +62,8 @@ const OurBlogs = () => {
     },
     mainheading: {
       display: "flex",
-      marginTop: "60px",
-      marginBottom: "60px",
+      marginTop: "30px",
+      marginBottom: "30px",
       justifyContent: "center",
       textTransform: "uppercase",
       position: "relative",

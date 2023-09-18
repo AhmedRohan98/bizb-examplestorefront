@@ -71,6 +71,15 @@ const useStyles = makeStyles((theme) => ({
       transition: "left 0.2s linear",
     },
   },
+  divOfFooter: {
+    fontWeight: "700",
+    fontSize: "1.1rem",
+    textAlign: "center",
+    display: "block",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
 }));
 
 const Footer = () => {
@@ -135,7 +144,7 @@ const Footer = () => {
           </div>
         </Grid>
         <Grid item xs={12} md={3}>
-          <div style={{ fontWeight: "700", fontSize: "1.1rem", textAlign: "center" }}>
+          <div className={classes.divOfFooter}>
             <a href="/en">
               <div style={{ color: "#FDC114", cursor: "pointer" }} className={classes.footerStyle2}>
                 <span

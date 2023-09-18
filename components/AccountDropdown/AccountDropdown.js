@@ -158,11 +158,7 @@ const AccountDropdown = ({ headerType }) => {
                   <span className={classes.profile}>Profile</span>
                 </div>
               </div>
-              <div style={{ marginBottom: "20px" }}>
-                <div onClick={handleDashboard}>
-                  <span className={classes.profile}>Dashboard</span>
-                </div>
-              </div>
+              
               <div style={{ cursor: "pointer", marginBottom: "24px" }} onClick={handleSignOut}>
                 <span className={classes.profile} style={{ cursor: "pointer" }}>
                   Log out

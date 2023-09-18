@@ -18,7 +18,7 @@ const Instagram = (props) => {
     },
     maindiv: {
       maxWidth: "1300px",
-      marginTop: "60px",
+      marginTop: "40px",
     },
     gridroot: {
       display: "flex",
@@ -41,7 +41,7 @@ const Instagram = (props) => {
 
     mainheading: {
       display: "flex",
-      marginTop: "60px",
+      marginTop: "30px",
       marginBottom: "60px",
       justifyContent: "center",
       textTransform: "uppercase",
@@ -90,7 +90,7 @@ const Instagram = (props) => {
       justifyContent: "center",
       position: "relative",
       marginBottom: "60px",
-      marginTop: "100px",
+      marginTop: "50px",
       width: "100%",
     },
     instagramdiv: {

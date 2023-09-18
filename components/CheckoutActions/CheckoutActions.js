@@ -431,14 +431,7 @@ const CheckoutActions = (prop) => {
   const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.total?.amount));
   console.log(subtotal);
   const [error, setError] = useState("");
-  useEffect(() => {
-    // Track "Checkout Initiated" event with Google Analytics 4
-    ReactGA.send({
-      hitType: "event",
-      eventCategory: "Ecommerce",
-      eventAction: "checkout_initiated",
-    });
-  }, []);
+  
 
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
@@ -446,6 +439,35 @@ const CheckoutActions = (prop) => {
     productConfiguration: item.productConfiguration,
     quantity: item.quantity,
   }));
+
+  useEffect(() => {
+    console.log("itemitems",items)
+    // Track "Checkout Initiated" event with Google Analytics 4
+    ReactGA.send({
+      hitType: "event",
+      eventCategory: "Ecommerce",
+      eventAction: "checkout_initiated",
+    });
+    const initiatedCheckoutData = {
+      event: 'initiatedCheckout',
+      ecommerce: {
+        checkout: {
+          products:cart.items.map((item) => ({
+            id: item.productConfiguration.productId,
+            price: item.price.amount,
+            quantity:item.quantity, // Adjust the quantity for each product as needed
+
+          }))
+          
+        },
+      },
+    };
+    
+    TagManager.dataLayer({
+      dataLayer: initiatedCheckoutData,
+    });
+    
+  }, []);
   // console.log(cart);
   const handlepay = async (values, action) => {
     try {

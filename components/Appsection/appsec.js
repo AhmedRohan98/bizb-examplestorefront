@@ -68,8 +68,8 @@ const Appsec = () => {
     },
     imageqrcode: {
       marginTop: theme.spacing(1),
-      height: "150px",
-      width: "126px",
+      height: "290px",
+      width: "166px",
     },
     imagetext: {
       height: "auto",
@@ -77,8 +77,8 @@ const Appsec = () => {
       marginTop: theme.spacing(4),
     },
     image: {
-      height: "52px",
-      width: "170px",
+      height: "84px",
+      width: "277px",
       marginTop: theme.spacing(2),
 
       [theme.breakpoints.up(700)]: {
@@ -100,7 +100,7 @@ const Appsec = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <img src="/app-section/appsec1.svg" alt="Using our app" className={classes.img} />
+      {/* <img src="/app-section/appsec1.svg" alt="Using our app" className={classes.img} /> */}
      
 
       <Grid
@@ -123,14 +123,14 @@ const Appsec = () => {
                   href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1"
                   target="_blank"
                 >
-                  <img src="/app-section/googleplay.webp" className={classes.image} />
+                  <img src="/app-section/appstore2.svg" className={classes.image} />
                 </a>
                 <a href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
-                  <img src="/app-section/appleplay.webp" className={classes.image} />
+                  <img src="/app-section/appstore1.svg" className={classes.image} />
                 </a>
               </div>
               <div className={classes.maindivqrcode}>
-                <img src="/app-section/qrcode.webp" className={classes.imageqrcode} />
+                <img src="/images/logoDark.svg" className={classes.imageqrcode} />
               </div>
             </div>
           </Grid>

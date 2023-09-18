@@ -14,7 +14,16 @@ import CloseIcon from "mdi-material-ui/Close";
 import Link from "components/Link";
 import NavigationItemMobile from "./NavigationItemMobile";
 import NavigationSubMenuMobile from "./NavigationSubMenuMobile";
-
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import HomeIcon from '@material-ui/icons/HomeOutlined';
+import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
+import SupervisedUserCircleOutlinedIcon from '@material-ui/icons/SupervisedUserCircleOutlined';
+import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
+import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
+import PhoneOutlinedIcon from '@material-ui/icons/PhoneOutlined';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined';
 const styles = (theme) => ({
   root: {
     display: "flex",
@@ -42,8 +51,8 @@ const styles = (theme) => ({
   menu: {
     flex: "1 1 auto",
     overflowY: "auto",
-    width: 320,
-    padding: 15,
+    width: 240,
+    padding: 0,
   },
   subNav: {
     position: "absolute",
@@ -54,15 +63,27 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   navButtonActive: {
-    color: "#5cbe8f",
+    boxShadow: " inset 0 0 0 0 #FDC114",
+    color: "black",
+    // margin: "0 -.25rem",
+    // padding: "0 .25rem",
+    transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
     fontSize: "18px",
     background: "none",
+    '&:hover': { backgroundColor: '#FDC114' },
     border: "none",
-    fontWeight: 600,
-    marginTop: "30px",
-    marginRight: "15px",
+    fontWeight: 500,
+    padding: 0,
+    paddingTop:1,
+    marginTop: "6px",
+    marginRight: "10px",
     cursor: "pointer",
   },
+
+  input: {
+    justifyContent: "end"
+
+  }
 });
 
 class NavigationMobile extends Component {
@@ -114,68 +135,108 @@ class NavigationMobile extends Component {
       return (
         <Drawer open={uiStore.isMenuDrawerOpen} onClose={this.handleClose}>
           <div className={classes.header}>
-            <Toolbar disableGutters>
-              <div className={classes.toolbarTitle}>
-                <Typography className={classes.title} color="inherit" variant="h6"></Typography>
-              </div>
-              <IconButton onClick={this.handleClose}>
-                <CloseIcon />
+            <Toolbar disableGutters className={classes.input}>
+
+              <IconButton onClick={this.handleClose} >
+                <ChevronLeftIcon style={{color:"black"}}/>
               </IconButton>
+
+
             </Toolbar>
+
             <Divider />
           </div>
           <nav className={classes.menu}>
             <Link href="/">
               {/* <MenuList disablePadding>{navItems.items.map(this.renderNavItem)}</MenuList> */}
+              
               <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <HomeIcon style={{color:"black"}}/>
+              </IconButton>
                 Home
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </Link>
-            <br />
-            <a href="/en/explore">
+            <a href="/en/explore" className={{ "&:hover": { backgroundColor: "red" } }}>
               <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <ExploreOutlinedIcon style={{color:"black"}} />
+              </IconButton>
                 Explore
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <br />
+            <a href="https://bizb.store/dashboard/uploadproductdetail">
+              <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <PublishOutlinedIcon  style={{color:"black"}} />
+              </IconButton>
+                Upload Product
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a href="/en/SellerRegistrationPage">
+              <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <SupervisedUserCircleOutlinedIcon style={{color:"black"}} />
+              </IconButton>
+                Become a Seller
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
             <a target="_blank" href="https://old.bizb.store/how-to-sell/">
               <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <ContactSupportOutlinedIcon style={{color:"black"}} />
+              </IconButton>
                 How to Sell
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <br />
             <a target="_blank" href="https://old.bizb.store/blog/">
               <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <LibraryBooksOutlinedIcon  style={{color:"black"}}/>
+              </IconButton>
                 Our Blogs
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <br />
-            <a href="/en/SellerRegistrationPage">
-              <MenuList className={classes.navButtonActive}>
-                Sell
-                {/* @ts-ignore TODO: Refactor link to address type error */}
-              </MenuList>
-            </a>
-            <br />
+
             <a target="_blank" href="https://blog.bizb.store/contact-us-2/">
               <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <PhoneOutlinedIcon  style={{color:"black"}}/>
+              </IconButton>
                 Contact Us
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
             <a target="_blank" href="https://blog.bizb.store/privacy-policy-2/">
               <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <AssignmentOutlinedIcon  style={{color:"black"}}/>
+              </IconButton>
                 Privacy Policy
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
             <a target="_blank" href="https://blog.bizb.store/return-policy/">
               <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <AssignmentOutlinedIcon  style={{color:"black"}}/>
+              </IconButton>
                 Return Policy
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a target="_blank" href="https://blog.bizb.store/return-policy/">
+              <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <BallotOutlinedIcon  style={{color:"black"}}/>
+              </IconButton>
+                Terms & Condition
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>

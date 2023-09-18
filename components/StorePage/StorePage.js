@@ -303,11 +303,11 @@ const StorePage = () => {
                           component="h2"
                           className={classes.carttitle}
                         >
-                          {item?.storeInfo?.storeName}
+                          {item?.storeInfo?.storeName? item?.storeInfo?.storeName: "User Store"}
                         </Typography>
                         <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                           {" "}
-                          {item?.firstName}
+                          {item?.username? item?.username: "User"}
                         </Typography>
                       </div>
                     </div>

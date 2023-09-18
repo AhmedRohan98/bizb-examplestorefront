@@ -294,15 +294,18 @@ class NavigationDesktop extends Component {
             <a href="/en/explore">
               <span
                 onMouseEnter={this.handlePopOverOpen}
+
                 onClick={() =>
                   this.setState({
                     selectedPage: "/[lang]/categories/[tagId]",
                   })
+                  
                 }
                 // onMouseLeave={this.handlePopOverClose}
                 className="hoverable"
                 style={{
                   marginRight: "40px",
+                  cursor: "pointer",
                   padding: "9px 11px",
                   marginLeft: "30px",
                   fontSize: "18px",
@@ -383,6 +386,27 @@ class NavigationDesktop extends Component {
             >
               Byol
             </span> */}
+                   <a
+              style={{
+                color: "inherit",
+              }}
+              target="_blank"
+              href="https://bizb.store/dashboard/uploadproductdetail"
+            >
+              <span
+                className="hoverable"
+                style={{
+                  marginRight: "40px",
+                  padding: "9px 11px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black"',
+                  fontWeight: 900,
+                }}
+              >
+                Upload Product
+              </span>
+            </a>
             <a
               style={{
                 color: "inherit",
@@ -401,7 +425,7 @@ class NavigationDesktop extends Component {
                   fontWeight: 900,
                 }}
               >
-                Sell
+                Become a Seller
               </span>
             </a>
           </div>
