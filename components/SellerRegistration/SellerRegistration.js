@@ -422,11 +422,11 @@ const SellerRegistration = () => {
       setLoginDisable(false);
       clearForm();
       toast.success("You're successfully registered as a Seller!");
-      setTimeout(() => {
-        window.location.href = "https://bizb.store/dashboard/publishproduct";
+      // setTimeout(() => {
+      //   window.location.href = "https://bizb.store/dashboard/publishproduct";
 
-        // window.location.href = "https://bizb.store/dashboard/publishproduct";
-      }, 300);
+      //   // window.location.href = "https://bizb.store/dashboard/publishproduct";
+      // }, 300);
 
       // clearForm()
     } catch (error) {

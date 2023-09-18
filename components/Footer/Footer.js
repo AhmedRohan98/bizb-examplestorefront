@@ -76,6 +76,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.1rem",
     textAlign: "center",
     display: "block",
+    marginBottom:"30px",
+    marginLeft:"40px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  divOfFooter2: {
+    fontWeight: "700",
+    fontSize: "1.1rem",
+    textAlign: "center",
+    display: "block",
+    marginTop:"75px",
+    marginLeft:"40px",
+
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -143,7 +157,7 @@ const Footer = () => {
             </a>
           </div>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={1} >
           <div className={classes.divOfFooter}>
             <a href="/en">
               <div style={{ color: "#FDC114", cursor: "pointer" }} className={classes.footerStyle2}>
@@ -229,6 +243,12 @@ const Footer = () => {
                 </span>
               </div>
             </a>
+            </div>
+            </Grid>
+            <Grid item xs={12} md={1} lg={2}  >
+
+            <div className={classes.divOfFooter2}>
+
             <a target="_blank" href="https://blog.bizb.store/about-us/">
               <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
