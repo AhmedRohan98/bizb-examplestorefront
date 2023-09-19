@@ -419,6 +419,19 @@ const SellerRegistration = () => {
         action: "Code Used",
         label: `Referral Code Used - ${refferalcode.value}`,
       });
+      const eventObject = {
+        event_name: "SellerRegistration",
+        event_time: Math.floor(Date.now() / 1000),
+        user_data: {
+          // Include any user data, such as email, if applicable
+          email: useremail.value,
+        },
+        // Include any custom data related to the event
+        // custom_data: { key: value },
+      };
+    
+      // Send the event data to Facebook CAPI using the Facebook Pixel
+      fbq('track', "470474555213027", eventObject);
       setLoginDisable(false);
       clearForm();
       toast.success("You're successfully registered as a Seller!");
