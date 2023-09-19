@@ -193,6 +193,10 @@ export default function Login(props) {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const registerUser = async (values, action) => {
+    // localStorage.clear();
+    localStorage.removeItem("accounts:accessToken")
+    localStorage.removeItem("accounts:refreshToken")
+
     setLoginDisable(true);
     const { email, password } = values;
     ReactGA.event({

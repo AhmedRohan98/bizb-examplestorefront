@@ -173,10 +173,10 @@ function SellerRegistrationPage(props) {
 
     return (
         <Layout shop={shop}>
-            <Helmet>
+            {/* <Helmet>
                 <title>{shop && shop.name} | Seller Registration</title>
                 <meta name="description" content={shop && shop.description} />
-            </Helmet>
+            </Helmet> */}
             <Grid container md={12} sm={12} >
                 <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
 
