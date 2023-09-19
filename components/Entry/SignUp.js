@@ -193,6 +193,8 @@ export default function SignUp(props) {
     //   .required("You must accept the terms and conditions"),
   });
   const registerUser2 = async (values, action) => {
+    localStorage.clear();
+
     if (checkedEmail === true) {
       setCheckedEmailError(false);
 
