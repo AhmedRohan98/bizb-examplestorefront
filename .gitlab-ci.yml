@@ -51,7 +51,7 @@ deploy-prod:
 build_staging:
   stage: build
   script:
-    - echo "$DOCKER_PASSWORD_VAR" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build --no-cache -t bizb-frontend-staging .
     - docker tag bizb-frontend-staging $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging
     - docker push $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging
@@ -70,7 +70,7 @@ deploy_to_remote:
     - ssh-keyscan -H "$gcp_client" >> ~/.ssh/known_hosts
   script:
     - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker rm -f bizb-frontend-staging || true && sudo docker image rm -f $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging || true"
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD_VAR"
+    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
     - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker pull $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging"
     - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker run --name bizb-frontend-staging -d -it -p 4001:4001 --network host $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging" 
   only:
