@@ -52,16 +52,20 @@ class PageStepper extends Component {
   };
 
   handleNextClick = () => {
+    console.log("newnewnewn", pageInfo);
+
     this.setState({ loading: true });
 
     // Simulate an asynchronous loading operation
     setTimeout(() => {
       // Perform the actual loading logic here
+      console.log("newnewnewn", pageInfo);
+
       if (pageInfo.hasNextPage === true) {
         // Set the loading state to false when loading is complete
         this.setState({ loading: false });
       }
-    }, 4000);
+    }, 9000);
     const { pageInfo } = this.props;
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       const windowHeight = window.innerHeight;
