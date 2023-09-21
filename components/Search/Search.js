@@ -188,7 +188,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   });
 
   const handleSearchSubmit = (event) => {
-    console.log("workwork 2 on key up")
+    console.log("workwork 2 on key up", searchLocal)
 
     event.preventDefault(); // prevent default submit action
     const trimmedValue = searchLocal?.trim(); // remove leading/trailing spaces
@@ -345,9 +345,14 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
 
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
+                {searchLocal===""?
+                 <Link href={`/en/explore`}>
+                 <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
+               </Link>:
                 <Link href={`/en/search/${searchLocal}`}>
                   <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
                 </Link>
+}
               </Typography>
             </div>
           ) : (
