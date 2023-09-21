@@ -101,8 +101,8 @@ const useStyles = makeStyles((theme) => ({
   pricing: {
     display: "flex",
     flexDirection: "row",
-    marginTop: "10px",
-    marginBottom: theme.spacing(2),
+    marginTop: "6px",
+    marginBottom: theme.spacing(1),
   },
   cartitem: {
     padding: theme.spacing(1),
@@ -134,8 +134,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   storeName: {
-    paddingTop: "10px",
-    fontSize: "0.9rem",
+    paddingTop: "6px",
+    fontSize: "12px",
     "&:hover": {
       color: "#FDC114",
       cursor: "pointer",
@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cartpric: {
-    paddingTop: "10px",
+    paddingTop: "5px",
     fontSize: "0.9rem",
   },
   price: {
@@ -152,11 +152,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
   },
   image: {
-    width: "254px",
-    height: "188px",
+    width: "120px",
+    height: "100px",
     objectFit: "contain",
     borderRadius: "18px",
     cursor: "pointer",
+    marginRight:"20px"
   },
   filteritemsfromsearch: {
     backgroundColor: "white",
@@ -292,7 +293,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
           {filteredItems?.length > 0 ? (
             <div className={classes.filteritemsfromsearch}>
               <div style={{ display: "flex" }}>
-                <div style={{ marginTop: "20px" }}>
+                <div style={{ marginTop: "20px" , width:"100%", marginRight:"25px"}}>
                   <ul>
                     {filteredItems?.slice(0, 3)?.map((product) => {
                       // console.log(filteredItems, "fil");
