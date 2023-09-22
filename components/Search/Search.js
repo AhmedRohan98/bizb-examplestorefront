@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
     objectFit: "contain",
     borderRadius: "18px",
     cursor: "pointer",
-    marginRight:"20px"
+    marginRight: "20px",
   },
   filteritemsfromsearch: {
     backgroundColor: "white",
@@ -188,19 +188,15 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   });
 
   const handleSearchSubmit = (event) => {
-    console.log("workwork 2 on key up", searchLocal)
-
     event.preventDefault(); // prevent default submit action
     const trimmedValue = searchLocal?.trim(); // remove leading/trailing spaces
     if (trimmedValue) {
       uiStore?.setSearchItems(trimmedValue);
       // console.log(trimmedValue, "query2");
     }
-    filteredItems?.length > 0 ? setsearchText(false) : setsearchText(true);
-
   };
   const handleSearchChange = (event) => {
-    console.log("workwork")
+    console.log("workwork");
     const searchQuery = event.target.value.toLowerCase();
     setsearchText(true);
     setSearchLocal(searchQuery);
@@ -210,8 +206,13 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
       eventAction: "product_search",
       eventLabel: searchQuery,
     });
-
   };
+  React.useEffect(() => {
+    console.log("workwork 2 on key up", filteredItems?.length);
+
+    if(filteredItems?.length > 0) {
+      setsearchText(false) }
+  }, [filteredItems]);
 
   const handleProductDetail = (productSlug) => {
     const url = `/en/product/${productSlug}`;
@@ -293,7 +294,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
           {filteredItems?.length > 0 ? (
             <div className={classes.filteritemsfromsearch}>
               <div style={{ display: "flex" }}>
-                <div style={{ marginTop: "20px" , width:"100%", marginRight:"25px"}}>
+                <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
                   <ul>
                     {filteredItems?.slice(0, 3)?.map((product) => {
                       // console.log(filteredItems, "fil");
@@ -345,19 +346,32 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
 
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
-                {searchLocal===""?
-                 <Link href={`/en/explore`}>
-                 <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
-               </Link>:
-                <Link href={`/en/search/${searchLocal}`}>
-                  <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
-                </Link>
-}
+                {searchLocal === "" ? (
+                  <></>
+                ) : (
+                  <Link href={`/en/search/${searchLocal}`}>
+                    <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
+                  </Link>
+                )}
               </Typography>
             </div>
           ) : (
             ""
           )}
+          {searchQuery?.length >0 &&
+            filteredItems?.length ===0 
+              (
+                <div className={classes.filteritemsfromsearch}>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
+                      <Typography variant="h4" className={classes.totatlproducts}>
+                        No Product Found
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
         </div>
       </Modal>
     </>
