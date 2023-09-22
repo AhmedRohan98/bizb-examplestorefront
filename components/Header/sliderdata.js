@@ -125,7 +125,7 @@ const MainSlider = (props) => {
   }));
   const ITEMS = [
     {
-      image: "/Desktop-images/desktop1.png",
+      image: "/Desktop-images/desktop11.png",
       id: 1,
     },
     {
@@ -133,7 +133,7 @@ const MainSlider = (props) => {
       id: 2,
     },
     {
-      image: "/Desktop-images/desktop3.png",
+      image: "/Desktop-images/desktop333.png",
       id: 3,
     },
     {
