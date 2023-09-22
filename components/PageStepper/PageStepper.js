@@ -65,7 +65,7 @@ class PageStepper extends Component {
         // Set the loading state to false when loading is complete
         this.setState({ loading: false });
       }
-    }, 6000);
+    }, 5000);
     const { pageInfo } = this.props;
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       const windowHeight = window.innerHeight;

@@ -266,7 +266,7 @@ const SellerRegistration = () => {
     isTouched: false,
   });
   const [country, setcountry] = React.useState({
-    value: "",
+    value: "Pakistan",
     isTouched: false,
   });
   const [city, setcity] = React.useState({
@@ -435,11 +435,11 @@ const SellerRegistration = () => {
       setLoginDisable(false);
       clearForm();
       toast.success("You're successfully registered as a Seller!");
-      // setTimeout(() => {
-      //   window.location.href = "https://bizb.store/dashboard/publishproduct";
+      setTimeout(() => {
+        window.location.href = "https://bizb.store/dashboard/publishproduct";
 
-      //   // window.location.href = "https://bizb.store/dashboard/publishproduct";
-      // }, 300);
+        // window.location.href = "https://bizb.store/dashboard/publishproduct";
+      }, 300);
 
       // clearForm()
     } catch (error) {
@@ -708,8 +708,8 @@ const SellerRegistration = () => {
                 variant="standard"
                 placeholder="Enter your Country"
                 value={country.value}
-                onChange={(e) => setcountry({ ...country, value: e.target.value })}
-                onFocus={() => setcountry({ ...country, isTouched: true })}
+                // onChange={(e) => setcountry({ ...country, value: e.target.value })}
+                // onFocus={() => setcountry({ ...country, isTouched: true })}
                 InputProps={style2}
                 className={classes.style}
               />
@@ -731,7 +731,7 @@ const SellerRegistration = () => {
                 placeholder="Enter your City name"
                 value={city.value}
                 onChange={(e) => setcity({ ...city, value: e.target.value })}
-                onFocus={() => setcity({ ...country, isTouched: true })}
+                onFocus={() => setcity({ ...city, isTouched: true })}
                 InputProps={style2}
                 className={classes.style}
               />
@@ -805,7 +805,7 @@ const SellerRegistration = () => {
                 className={classes.style}
               />
             </div>
-            <span className={classes.span}>eg. 03xx-xxxxxxx</span>
+            <span className={classes.span}>eg. 03xx xxxxxxx</span>
             {contactnumber.isTouched && phoneNumreg.test(contactnumber.value) !== true ? <PhoneErrorMessage /> : null}
 
             <div className={classes.style7}>
