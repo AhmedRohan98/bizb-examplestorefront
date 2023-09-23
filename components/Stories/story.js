@@ -451,7 +451,7 @@ const Story = (props) => {
         <Typography variant="h3" className={classes.mainheading}>
           STORES <span className={classes.spanline}></span>
         </Typography>
-        <div className={classes.catgorytag}>
+        {/* <div className={classes.catgorytag}>
           {catagories?.slice(0, 6)?.map((filterName) => (
             <Filter
               name={filterName.displayTitle}
@@ -459,7 +459,7 @@ const Story = (props) => {
               active={filterName.displayTitle === filter}
             />
           ))}
-        </div>
+        </div> */}
       </div>
 
       <div className={classes.mainheadings}>
