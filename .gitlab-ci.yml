@@ -1,3 +1,4 @@
+
 #**** Master ****#
 
 image: docker:19.03.13
@@ -76,6 +77,23 @@ deploy_to_remote:
     - staging
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#****************AWS pipeline ****************#
 
 
 # ##master
