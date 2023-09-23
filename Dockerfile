@@ -31,8 +31,6 @@ ENV NEXT_PUBLIC_GOOGLE_TAG G-60BJ8X8BEN
 ENV NODE_ENV production
 
 
-
-
 # Allow yarn/npm to create ./node_modules
 RUN chown node:node .
 
