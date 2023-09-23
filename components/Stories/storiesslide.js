@@ -15,6 +15,14 @@ import { ToastContainer, toast } from "react-toastify";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
 
+const topSellers = [
+  { _id: "65045ad301e948ee5fa2bbf6", name: "ZainuKiDukaan", logo: "/images/seller-placeholder.png" },
+  { _id: "64eef68fd1b6652de769ca53", name: "ss wardrobe", logo: "/images/seller-placeholder.png" },
+  { _id: "64f574714b2c72636d666488", name: "nooran_closet", logo: "/images/seller-placeholder.png" },
+  { _id: "7ad1bc2c661a4a3e", name: "Sania store", logo: "/images/seller-placeholder.png" },
+  { _id: "183b9ea68c2045c8", name: "Preloved store", logo: "/images/seller-placeholder.png" },
+];
+
 const Storyslider = (props) => {
   const { uiStore, routingStore, itemData, cart, sellerss, addItemsToCart, storeId, show } = props;
   console.log(props, "props");
@@ -412,13 +420,13 @@ const Storyslider = (props) => {
 
   const handleOnClick = async (product, variant) => {
     ReactGA.event({
-      category: 'Ecommerce',
-      action: 'add_to_cart',
+      category: "Ecommerce",
+      action: "add_to_cart",
       label: product?.productId,
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
     const addToCartData = {
-      event: 'addToCart',
+      event: "addToCart",
       ecommerce: {
         add: {
           products: [
@@ -432,7 +440,7 @@ const Storyslider = (props) => {
         },
       },
     };
-    
+
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
@@ -455,7 +463,7 @@ const Storyslider = (props) => {
     <>
       <div className={classes.main}>
         <div className={classes.root}>
-          <Swiper
+          {/* <Swiper
             ref={sliderRef}
             className={classes.swiperpaggination}
             modules={[Pagination, Autoplay, Navigation]}
@@ -637,12 +645,45 @@ const Storyslider = (props) => {
                 })
                 : ""}
             </div>
-          </Swiper>
+          </Swiper> */}
+
           {/* {activeIndex < sellerss?.length + 1 ? (
             <ArrowForwardIos className={classes.iconforwad} style={{ fill: "#FDC114" }} onClick={handleNext} />
           ) : (
             ""
           )} */}
+
+          <Grid
+            container
+            spacing={2}
+            style={{
+              marginBottom: "20px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {topSellers.map((item, index) => (
+              <Grid
+                item
+                xs={6}
+                sm={4}
+                md={3}
+                lg={2}
+                key={index}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor: "pointer" }}
+              >
+                <a
+                  href={`/en/profile/${item._id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none", display: "block", textAlign: "center" }}
+                >
+                  <img src={item.logo} alt={item.name} />
+                  <Typography style={{ textAlign: "center", marginTop: "20px" }}>{item.name}</Typography>
+                </a>
+              </Grid>
+            ))}
+          </Grid>
         </div>
       </div>
       {console.log("show", show)}

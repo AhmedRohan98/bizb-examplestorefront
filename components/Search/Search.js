@@ -7,27 +7,29 @@ import { InputAdornment, IconButton, TextField } from "@material-ui/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ReactGA from "react-ga4";
+import { CircularProgress } from "@material-ui/core";
 
 import withCatalogItems from "containers/catalog/withCatalogItems";
 const useStyles = makeStyles((theme) => ({
   inputrootdiv: {
     padding: "47px",
-    borderRadius: "18px",
+    borderRadius: "5px",
   },
   inputRoot: {
     "& .MuiOutlinedInput-root": {
       outline: "none",
       borderColor: "none",
+      border: "none",
     },
     "& .MuiInputBase-root": {
       fontFamily: "Lato",
       color: "green",
     },
     width: "100%",
-    borderRadius: "18px",
+    borderRadius: "5px",
     "& div.MuiFormControl-root": {
       width: "100%",
-      borderRadius: "18px",
+      borderRadius: "5px",
     },
     "& :focus": {
       outline: "none",
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   input: {
-    borderRadius: "18px",
+    borderRadius: "5px",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.common.white,
     textTransform: "none",
@@ -99,8 +101,8 @@ const useStyles = makeStyles((theme) => ({
   pricing: {
     display: "flex",
     flexDirection: "row",
-    marginTop: "10px",
-    marginBottom: theme.spacing(2),
+    marginTop: "6px",
+    marginBottom: theme.spacing(1),
   },
   cartitem: {
     padding: theme.spacing(1),
@@ -119,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     fontSize: "1.1rem",
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   },
   cartprice: {
     color: theme.palette.secondary.selected,
@@ -132,19 +134,17 @@ const useStyles = makeStyles((theme) => ({
   },
 
   storeName: {
-    paddingTop: "10px",
-    fontSize: "0.9rem",
+    paddingTop: "6px",
+    fontSize: "12px",
     "&:hover": {
       color: "#FDC114",
       cursor: "pointer",
-      textDecoration: "underline"
-    }
-
+      textDecoration: "underline",
+    },
   },
   cartpric: {
-    paddingTop: "10px",
+    paddingTop: "5px",
     fontSize: "0.9rem",
-
   },
   price: {
     fontSize: "1.1rem",
@@ -152,11 +152,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
   },
   image: {
-    width: "254px",
-    height: "188px",
+    width: "120px",
+    height: "100px",
     objectFit: "contain",
     borderRadius: "18px",
     cursor: "pointer",
+    marginRight: "20px",
   },
   filteritemsfromsearch: {
     backgroundColor: "white",
@@ -170,9 +171,15 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: "600px",
     },
   },
+  search: {
+    outline: "none",
+    border: "none",
+  },
 }));
 const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
   const [searchLocal, setSearchLocal] = useState();
+  const [searchText, setsearchText] = useState(false);
+
   // fetch products and update catalogItems
   const router = useRouter();
   const filteredItems = catalogItems?.filter((product) => {
@@ -189,26 +196,29 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
     }
   };
   const handleSearchChange = (event) => {
+    console.log("workwork");
     const searchQuery = event.target.value.toLowerCase();
+    setsearchText(true);
     setSearchLocal(searchQuery);
     ReactGA.send({
-      hitType: 'event',
-      eventCategory: 'Ecommerce',
-      eventAction: 'product_search',
+      hitType: "event",
+      eventCategory: "Ecommerce",
+      eventAction: "product_search",
       eventLabel: searchQuery,
     });
   };
+  React.useEffect(() => {
+    console.log("workwork 2 on key up", filteredItems?.length);
+
+    if(filteredItems?.length > 0) {
+      setsearchText(false) }
+  }, [filteredItems]);
 
   const handleProductDetail = (productSlug) => {
-
     const url = `/en/product/${productSlug}`;
     const newWindow = window.open(url, "_blank");
     newWindow.opener.focus();
-  }
-
-
-
-
+  };
 
   const classes = useStyles();
   // IF ITS NOT WORKIS THEN I HAVE TO ADD '\"'+searchTitle+'\"';
@@ -217,7 +227,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
     <>
       <></>
       <Modal open={modalFlag} onClose={() => setModalFlag(false)}>
-        <div>
+        <div className={classes.search}>
           {/* <form onSubmit={handleSearchSubmit}>
               <input type="text" value={searchLocal} onChange={handleSearchChange} onKeyUp={handleSearchSubmit} />
               <button type="submit" onClick={() => setModalFlag(false)}>
@@ -245,7 +255,10 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                   className={classes.input}
                   onInput={handleSearchChange}
                   onKeyUp={handleSearchSubmit}
-                  placeholder="what are you looking for" // add placeholder text
+                  onBlur={() => {
+                    setsearchText(true);
+                  }}
+                  placeholder="What are you looking for..." // add placeholder text
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -261,9 +274,15 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton>
-                          <CloseIcon onClick={() => setModalFlag(false)} className={classes.CloseIcon} />
-                        </IconButton>
+                        {searchText ? (
+                          <IconButton>
+                            <CircularProgress />
+                          </IconButton>
+                        ) : (
+                          <IconButton>
+                            <CloseIcon onClick={() => setModalFlag(false)} className={classes.CloseIcon} />
+                          </IconButton>
+                        )}
                       </InputAdornment>
                     ),
                   }}
@@ -271,17 +290,20 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
               </div>
             </div>
           </form>
+
           {filteredItems?.length > 0 ? (
-            <div
-              className={classes.filteritemsfromsearch}
-            >
+            <div className={classes.filteritemsfromsearch}>
               <div style={{ display: "flex" }}>
-                <div style={{ marginTop: "20px" }}>
+                <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
                   <ul>
                     {filteredItems?.slice(0, 3)?.map((product) => {
                       // console.log(filteredItems, "fil");
                       return (
-                        <div key={product.node.product.id} className={classes.cartitem} onClick={() => handleProductDetail(product?.node?.product?.slug)}>
+                        <div
+                          key={product.node.product.id}
+                          className={classes.cartitem}
+                          onClick={() => handleProductDetail(product?.node?.product?.slug)}
+                        >
                           <img
                             src={product?.node?.product?.media[0]?.URLs?.large}
                             alt={product?.title}
@@ -289,12 +311,16 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                           ></img>
                           <div className={classes.cartitemtext}>
                             <Typography variant="h4">{product?.node?.product?.title}</Typography>
-                            <Link href={`/en/profile/${product?.node?.product?.variants[0]?.uploadedBy?.userId}`} >
+                            <Link href={`/en/profile/${product?.node?.product?.variants[0]?.uploadedBy?.userId}`}>
                               <a style={{ color: "#FDC114" }}>
-
                                 <Typography variant="h4" className={classes.cartpric}>
-                                  Store: <span className={classes.storeName} >{product?.node?.product?.vendor ? product?.node?.product?.vendor : product?.node?.product?.variants[0]?.uploadedBy?.storeName}
-                                  </span></Typography>
+                                  Store:{" "}
+                                  <span className={classes.storeName}>
+                                    {product?.node?.product?.vendor
+                                      ? product?.node?.product?.vendor
+                                      : product?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                  </span>
+                                </Typography>
                               </a>
                             </Link>
                             <div className={classes.pricing}>
@@ -320,14 +346,32 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
 
               <h1></h1>
               <Typography variant="h4" className={classes.totatlproducts}>
-                <Link href={`/en/search/${searchLocal}`}>
-                  <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
-                </Link>
+                {searchLocal === "" ? (
+                  <></>
+                ) : (
+                  <Link href={`/en/search/${searchLocal}`}>
+                    <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
+                  </Link>
+                )}
               </Typography>
             </div>
           ) : (
             ""
           )}
+          {searchQuery?.length >0 &&
+            filteredItems?.length ===0 
+              (
+                <div className={classes.filteritemsfromsearch}>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
+                      <Typography variant="h4" className={classes.totatlproducts}>
+                        No Product Found
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
         </div>
       </Modal>
     </>
