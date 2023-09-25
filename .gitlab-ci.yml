@@ -62,16 +62,17 @@ deploy_to_remote:
     - apk add --no-cache openssh
     - mkdir -p ~/.ssh
     - eval "$(ssh-agent -s)"
-    - echo "$GCP_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - echo "$staging_key" | tr -d '\r' | ssh-add -
     - chmod 700 ~/.ssh
-    - ssh-keyscan -H "$gcp_client" >> ~/.ssh/known_hosts
+    - ssh-keyscan -H "$staging_client" >> ~/.ssh/known_hosts
   script:
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker rm -f bizb-frontend-staging || true && sudo docker image rm -f $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging || true"
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker pull $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging"
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker run --name bizb-frontend-staging -d -it -p 4001:4001 --network host $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging" 
+    - ssh -o StrictHostKeyChecking=no $staging_user@$staging_client "sudo docker rm -f bizb-frontend-staging || true && sudo docker image rm -f $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging || true"
+    - ssh -o StrictHostKeyChecking=no $staging_user@$staging_client "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+    - ssh -o StrictHostKeyChecking=no $staging_user@$staging_client "sudo docker pull $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging"
+    - ssh -o StrictHostKeyChecking=no $staging_user@$staging_client "sudo docker run --name bizb-frontend-staging -d -it -p 4000:4000 --network host $DOCKER_USERNAME/bizb-gcp:bizb-frontend-staging" 
   only:
     - staging
+
 
 
 
