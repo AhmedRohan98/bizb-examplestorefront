@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
   },
   inputRoot: {
+
     "& .MuiOutlinedInput-root": {
       outline: "none",
       borderColor: "none",
@@ -36,11 +37,26 @@ const useStyles = makeStyles((theme) => ({
       color: "blue",
     },
   },
+  input2:{
+    '&::placeholder': {
+      fontSize: '30px',
+
+      [theme.breakpoints.down(600)]: {
+        fontSize: '15px',
+        fontWeight:"500",
+
+      },
+    },
+
+  },
   input: {
     borderRadius: "5px",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.common.white,
     textTransform: "none",
+
+    
+   
     "& .MuiInputBase-root": {
       fontFamily: "Lato",
       color: "green",
@@ -97,10 +113,14 @@ const useStyles = makeStyles((theme) => ({
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
     },
+    [theme.breakpoints.down(600)]: {
+      height: "23px",
+      width: "23px",
+    },
   },
   pricing: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     marginTop: "6px",
     marginBottom: theme.spacing(1),
   },
@@ -126,6 +146,9 @@ const useStyles = makeStyles((theme) => ({
   cartprice: {
     color: theme.palette.secondary.selected,
     fontSize: "1.1rem",
+    [theme.breakpoints.down(600)]: {
+      fontSize:"13px"
+    },
   },
   totatlproducts: {
     color: theme.palette.secondary.selected,
@@ -136,6 +159,11 @@ const useStyles = makeStyles((theme) => ({
   storeName: {
     paddingTop: "6px",
     fontSize: "12px",
+    color: "#FDC114",
+    [theme.breakpoints.down(600)]: {
+      fontSize:"11px"
+    },
+
     "&:hover": {
       color: "#FDC114",
       cursor: "pointer",
@@ -148,8 +176,11 @@ const useStyles = makeStyles((theme) => ({
   },
   price: {
     fontSize: "1.1rem",
+    [theme.breakpoints.down(600)]: {
+      fontSize:"11px"
+    },
 
-    marginLeft: theme.spacing(2),
+    // marginLeft: theme.spacing(2),
   },
   image: {
     width: "120px",
@@ -158,6 +189,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "18px",
     cursor: "pointer",
     marginRight: "20px",
+    [theme.breakpoints.down(600)]: {
+      width: "70px",
+      height: "80px",    },
   },
   filteritemsfromsearch: {
     backgroundColor: "white",
@@ -175,6 +209,20 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     border: "none",
   },
+  headerlogo: {
+    height: "33px",
+    width: "33px",
+    [theme.breakpoints.down(600)]: {
+      height: "23px",
+      width: "23px",
+    },
+  },
+  productTitle:{
+    [theme.breakpoints.down(600)]: {
+      fontSize:"15px",
+      fontWeight:"600"
+    },
+  }
 }));
 const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
   const [searchLocal, setSearchLocal] = useState();
@@ -210,8 +258,9 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   React.useEffect(() => {
     console.log("workwork 2 on key up", filteredItems?.length);
 
-    if(filteredItems?.length > 0) {
-      setsearchText(false) }
+    if (filteredItems?.length > 0) {
+      setsearchText(false);
+    }
   }, [filteredItems]);
 
   const handleProductDetail = (productSlug) => {
@@ -259,14 +308,15 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     setsearchText(true);
                   }}
                   placeholder="What are you looking for..." // add placeholder text
+                  
                   InputProps={{
+                    classes: { input: classes.input2},
                     startAdornment: (
                       <InputAdornment position="start">
                         <IconButton>
                           <img
-                            style={{ height: "33px", width: "33px" }}
                             src="/images/searchIconDark.svg"
-                            className="headerlogo"
+                            className={classes.headerlogo}
                             onClick={() => setModalFlag(false)}
                           />
                         </IconButton>
@@ -310,7 +360,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                             className={classes.image}
                           ></img>
                           <div className={classes.cartitemtext}>
-                            <Typography variant="h4">{product?.node?.product?.title}</Typography>
+                            <Typography variant="h4" className={classes.productTitle}>{product?.node?.product?.title}</Typography>
                             <Link href={`/en/profile/${product?.node?.product?.variants[0]?.uploadedBy?.userId}`}>
                               <a style={{ color: "#FDC114" }}>
                                 <Typography variant="h4" className={classes.cartpric}>
@@ -358,9 +408,9 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
           ) : (
             ""
           )}
-          {searchQuery?.length >0 &&
-            filteredItems?.length ===0 
-              (
+          {searchQuery?.length > 0 &&
+            filteredItems?.length ===
+              0(
                 <div className={classes.filteritemsfromsearch}>
                   <div style={{ display: "flex" }}>
                     <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
@@ -369,9 +419,8 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                       </Typography>
                     </div>
                   </div>
-                </div>
-              )
-            }
+                </div>,
+              )}
         </div>
       </Modal>
     </>

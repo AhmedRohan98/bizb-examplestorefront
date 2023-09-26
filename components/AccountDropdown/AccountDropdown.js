@@ -63,6 +63,12 @@ const useStyles = makeStyles((theme) => ({
       color: "#fdc114",
     },
   },
+  dropdownButton: {
+    [theme.breakpoints.down(700)]: {
+      marginRight: "9px",
+      marginBottom: "7px",
+    },
+  },
 }));
 
 const AccountDropdown = ({ headerType }) => {
@@ -113,7 +119,7 @@ const AccountDropdown = ({ headerType }) => {
     <Fragment headerType>
       <EntryModal onClose={onClose} resetToken={resetToken} />
       {isAuthenticated ? (
-        <ButtonBase onClick={toggleOpen}>
+        <ButtonBase onClick={toggleOpen} className={classes.dropdownButton}>
           <ViewerInfo viewer={viewer} headerType={headerType} />
         </ButtonBase>
       ) : (
@@ -158,7 +164,6 @@ const AccountDropdown = ({ headerType }) => {
                   <span className={classes.profile}>Profile</span>
                 </div>
               </div>
-              
               <div style={{ cursor: "pointer", marginBottom: "24px" }} onClick={handleSignOut}>
                 <span className={classes.profile} style={{ cursor: "pointer" }}>
                   Log out

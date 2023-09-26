@@ -22,6 +22,7 @@ import Search from "components/Search";
 import ScrollingMessage from "../ScrollingMessage/ScrollingMessage";
 import type { FC } from "react";
 import type { WithStyles, Theme } from "@material-ui/core";
+import useViewer from "hooks/viewer/useViewer";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -70,6 +71,14 @@ const styles = (theme: Theme) =>
       color: "#333333",
       backgroundImage: "none !important",
     },
+    iconsInHeader: {
+      marginRight: "25px",
+      marginLeft: "25px",
+      [theme.breakpoints.down(700)]: {
+        marginRight: "1px",
+        marginLeft: "1px",
+      },
+    },
   });
 
 interface HeaderProps extends WithStyles<typeof styles> {
@@ -87,6 +96,8 @@ interface HeaderProps extends WithStyles<typeof styles> {
   /* @ts-ignore TODO: Refactor link to address type error */
 }
 const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
+  const [viewer, , refetch] = useViewer();
+
   const [modalFlag, setModalFlag] = useState(false);
   const handleOpenModal = () => {
     // console.log("ModalFlag",modalFlag);
@@ -95,6 +106,7 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
   const handleNavigationToggleClick = () => {
     uiStore.toggleMenuDrawerOpen();
   };
+  React.useEffect(() => {}, [viewer]);
   return (
     <>
       <ScrollingMessage message="Enjoy free delivery on orders above Rs. 3000" />
@@ -125,6 +137,7 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
                 headerType={headerType}
                 tags={tags}
                 classes={classes}
+                viewer={viewer}
               />
             </Hidden>
             {/* @ts-ignore TODO: Refactor link to address type error */}
@@ -184,32 +197,30 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
 
           <AccountDropdown
             headerType={headerType}
-            style={{ marginRight: "25px", marginLeft: "25px" }}
+            className={classes.iconsInHeader}
+            // style={{ marginRight: "9px",marginBottom:"7px" }}
           />
           {/* @ts-ignore TODO: Refactor link to address type error */}
-          <Hidden smDown>
-            <span
-              onClick={handleOpenModal}
-              style={{ marginRight: "25px", marginLeft: "25px" }}
-            >
-              {/* @ts-ignore TODO: Refactor link to address type error */}
-              {headerType ? (
-                <img src="/icons/search.png" className={classes.imgSize} />
-              ) : (
-                <img src="/icons/search.png" className={classes.imgSize} />
-              )}
-            </span>
-          </Hidden>
+          {/* <Hidden smDown> */}
+          <span
+            onClick={handleOpenModal}
+            className={classes.iconsInHeader}
+          >
+            {/* @ts-ignore TODO: Refactor link to address type error */}
+            {headerType ? (
+              <img src="/icons/search.png" className={classes.imgSize} />
+            ) : (
+              <img src="/icons/search.png" className={classes.imgSize} />
+            )}
+          </span>
+          {/* </Hidden> */}
           {/* @ts-ignore TODO: Refactor link to address type error */}
           <Search modalFlag={modalFlag} setModalFlag={setModalFlag} />
           {/* @ts-ignore TODO: Refactor link to address type error */}
           <MiniCart
             headerType={headerType}
-            style={{
-              marginRight: "25px",
-              marginLeft: "25px",
-              background: "none",
-            }}
+            className={classes.iconsInHeader}
+
             className="headerlogo"
           />
           {/* @ts-ignore TODO: Refactor link to address type error */}
@@ -220,7 +231,7 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
         <MiniCart /> */}
         </Toolbar>
         {/* @ts-ignore TODO: Refactor link to address type error */}
-        <NavigationMobile shop={shop} />
+        <NavigationMobile shop={shop} viewer={viewer} />
       </AppBar>
     </>
   );

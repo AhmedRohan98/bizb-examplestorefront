@@ -219,7 +219,7 @@ const useStyles = makeStyles((theme) => ({
 function AllResults(props) {
   // console.log(props.cart, "new");
   const { allItems, totalLength, uiStore, catalogItems, cart } = props;
-  const { items } = cart
+  const { items } = cart? cart: {}
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
   const { setPageSize, setSearchItems } = uiStore;

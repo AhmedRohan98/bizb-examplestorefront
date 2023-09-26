@@ -6,13 +6,13 @@ import getAllSeller from "./getAllSeller.gql";
  *
  * @returns {Array} the viewer's data
  */
-export default function useGetAllSeller(first, offset, query) {
+export default function useGetAllSeller(itemPerPage, PageNumber, tagsId) {
   const authToken = typeof window !== "undefined" ? window.localStorage.getItem("accounts:accessToken") : undefined;
   const { loading, data, refetch, fetchMore } = useQuery(getAllSeller, {
     variables: {
-      first,
-      offset,
-      query,
+      itemPerPage,
+      PageNumber,
+      tagsId,
     },
   });
   const sellers = data?.getAllNewSeller?.nodes;
