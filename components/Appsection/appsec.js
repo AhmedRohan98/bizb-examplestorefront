@@ -168,7 +168,7 @@ const Appsec = () => {
               Download Our App
             </Typography>
             <Typography variant="h4" className={classes.mobiletitle3}>
-              Now you can revamp you daily wear wardrobe every month while saving more than 50% from your monthly
+              Now you can revamp your daily wear wardrobe every month while saving more than 50% from your monthly
               budget!
             </Typography>
           </div>
