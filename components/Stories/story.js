@@ -462,7 +462,7 @@ const Story = (props) => {
         </div> */}
       </div>
 
-      <div className={classes.mainheadings}>
+      {/* <div className={classes.mainheadings}>
         <Swiper
           spaceBetween={0}
           ref={sliderRef}
@@ -514,7 +514,7 @@ const Story = (props) => {
             ""
           )}
         </div>
-      </div>
+      </div> */}
       <Storyslider
         show={show}
         storeId={sellerToGet}
