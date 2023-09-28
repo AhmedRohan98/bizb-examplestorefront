@@ -18,9 +18,9 @@ build_docker_image:
   stage: build
   script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build --no-cache -t bizb-example-production .
-    - docker tag bizb-example-production $DOCKER_USERNAME/bizb-gcp:bizb-example-production
-    - docker push $DOCKER_USERNAME/bizb-gcp:bizb-example-production
+    - docker build --no-cache -t bizb-frontend-production .
+    - docker tag bizb-frontend-production $DOCKER_USERNAME/bizb-gcp:bizb-frontend-production
+    - docker push $DOCKER_USERNAME/bizb-gcp:bizb-frontend-production
   only:
     - master
 
@@ -34,10 +34,10 @@ deploy-prod:
     - chmod 700 ~/.ssh
     - ssh-keyscan -H "$gcp_client" >> ~/.ssh/known_hosts
   script:
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker rm -f bizb-example-production || true && sudo docker image rm -f $DOCKER_USERNAME/bizb-gcp:bizb-example-production || true"
+    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker rm -f bizb-frontend-production || true && sudo docker image rm -f $DOCKER_USERNAME/bizb-gcp:bizb-frontend-production || true"
     - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker pull $DOCKER_USERNAME/bizb-gcp:bizb-example-production"
-    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker run --name bizb-example-production -d -it -p 4000:4000 --network host $DOCKER_USERNAME/bizb-gcp:bizb-example-production" 
+    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker pull $DOCKER_USERNAME/bizb-gcp:bizb-frontend-production"
+    - ssh -o StrictHostKeyChecking=no $username@$gcp_client "sudo docker run --name bizb-frontend-production -d -it -p 4000:4000 --network host $DOCKER_USERNAME/bizb-gcp:bizb-frontend-production" 
   only:
     - master
 
