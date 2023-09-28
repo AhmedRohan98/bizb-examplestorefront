@@ -15,8 +15,8 @@ export default function useGetAllSeller(itemPerPage, PageNumber, tagsId) {
       tagsId,
     },
   });
-  const sellers = data?.getAllNewSeller?.nodes;
-  const totalCount = data?.getAllNewSeller?.totalCount;
+  const sellers = data?.getAllNewSeller?.AccountDetail;
+  const totalCount = data?.getAllNewSeller?.totalPage;
   useEffect(() => {
     refetch();
   }, [authToken]);

@@ -421,6 +421,7 @@ const Justin = (props) => {
   };
 
   const handleOnClick = async (product, variant) => {
+    
     ReactGA.event({
       category: "Ecommerce",
       action: "add_to_cart",
