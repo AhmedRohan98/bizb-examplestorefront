@@ -6,10 +6,12 @@ import {
   Button,
   Modal,
   FormControl,
+  InputLabel,
   TextField,
   CircularProgress,
   InputAdornment,
   Avatar,
+  MenuItem,
 } from "@material-ui/core";
 import useViewer from "../../hooks/viewer/useViewer";
 import { withApollo } from "lib/apollo/withApollo";
@@ -21,6 +23,12 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Link from "next/link";
 import { Search } from "@material-ui/icons";
 import Pagination from "../Pagination/Pagination";
+// import Select, { components } from "react-select";
+import useprimaryShop from "../../hooks/primaryShop/useprimaryShop";
+import useTagsQuery from "../../hooks/categoryTags/getTags";
+import Select from "@material-ui/core/Select";
+import IconButton from "@material-ui/core/IconButton";
+import Sort from '@material-ui/icons/Sort';
 
 const StorePage = () => {
   const useStyles = makeStyles((theme) => ({
@@ -182,6 +190,41 @@ const StorePage = () => {
       justifyContent: "flex-start",
       alignItems: "flex-start",
     },
+    selectDesktop: {
+      marginRight: theme.spacing(3),
+    },
+    reactselect: {},
+    divForSearch: {
+      flexDirection: "column",
+    },
+    selectDropdown: {
+      borderBottom: "none",
+
+      // boxShadow: "none",
+      // border:"none",
+      // backgroundColor:"none",
+      //  "& .MuiInputLabel-root": { display:"none"},
+      //   "& .MuiInput-notchedOutline": { border: 0 },
+      "&&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: 0,
+      },
+      "& .MuiSelect-select.MuiSelect-select": {
+        padding: "10px",
+      },
+      "&&.MuiInput-underline:before": {
+        borderBottom: "none",
+      },
+      "&&.MuiInput-underline:after": {
+        borderBottom: "none",
+      },
+      // "& .MuiInput-underline:after":{
+      //   borderBottom:"none"
+      // }
+    },
+    sortdiv:{
+      display:"flex",
+      flexDirection:"row"
+    }
   }));
 
   const classes = useStyles();
@@ -189,10 +232,96 @@ const StorePage = () => {
   const [getSearch2, setSearch2] = React.useState("");
   const [itemsPerPage, setitemsPerPage] = React.useState(40);
   const [page, setPage] = React.useState(0);
+  const [categoryProduct, setcategoryProduct] = React.useState("Select a Category");
+  const [primaryShopId, refetch2] = useprimaryShop();
+  const [categoryTags] = useTagsQuery(primaryShopId, "category-");
+  const [categoryID, setcategoryID] = React.useState("");
+
+  React.useEffect(() => {
+    if (!categoryTags && !primaryShopId) {
+      refetch2();
+    }
+
+    console.log("categoryTags in component is", categoryTags);
+  }, [primaryShopId, categoryTags]);
   const handleChangePage = (currentPage) => {
     setPage(currentPage);
   };
-  const [sellers, totalCount, loading, refetch] = useGetAllSeller(itemsPerPage, page, getSearch2);
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <img src="/colors/vector.svg" />
+      </components.DropdownIndicator>
+    );
+  };
+  const customStyles = {
+    indicatorSeparator: () => ({
+      height: "48px",
+      color: "black",
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      height: "48px",
+      marginTop: "30px",
+      background: "#F7F7F9",
+      borderRadius: "6px",
+      border: state.isFocused ? "none" : "none",
+      boxShadow: state.isFocused ? "none" : "none",
+      width: "200px", // Change this to the desired width
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      // Set the width of the menu to the full viewport width
+      maxWidth: "none",
+
+      // Ensure that the menu can extend beyond the width of the container
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      border: "none",
+    }),
+    option: (provided, state) => ({
+      fontFamily: "Lato",
+      fontStyle: "normal",
+      fontWeight: state.isFocused ? 800 : 500,
+      fontSize: "14px",
+      lineHeight: "19px",
+      textTransform: "capitalize",
+      letterSpacin: "0.05em",
+      padding: "13px",
+      borderBottom: state.isLastOption ? "none" : "1px solid #01010136",
+      color: state.isFocused ? "#000000" : "#989898",
+      "&:hover": {
+        color: "#FDC114",
+      },
+    }),
+    dropdownIndicator: (base, state) => ({
+      ...base,
+      icon: state.isFocused ? "url('/colors/vectordark.svg')" : "url('/colors/vectoryellow.svg')",
+      "&:hover": {
+        color: "green",
+      },
+    }),
+    input: (provided) => ({
+      ...provided,
+    }),
+    placeholder: (defaultStyles) => {
+      return {
+        ...defaultStyles,
+        fontFamily: "Lato",
+        fontStyle: "normal",
+        fontWeight: 500,
+        fontSize: "16px",
+        lineHeight: "19px",
+        textTransform: "capitalize",
+        color: "#969696",
+        "&:hover": {
+          color: "blue",
+        },
+      };
+    },
+  };
+  const [sellers, totalCount, loading, refetch] = useGetAllSeller(itemsPerPage, page, categoryID);
 
   React.useEffect(() => {
     console.log("sellerssellers", sellers);
@@ -231,25 +360,87 @@ const StorePage = () => {
                 </Typography>
               </div>
             </div>
-            <div className="">
-              <TextField
-                type="text"
-                size="small"
-                variant="standard"
-                placeholder="Search..."
-                value={getSearch}
-                onChange={(e) => setSearch(e.target.value)}
-                InputProps={{
-                  disableUnderline: true,
-                  style: { margin: 0, padding: 1 },
-                  startAdornment: (
-                    <InputAdornment position="start" style={{ marginLeft: 3 }}>
-                      <Search />
-                    </InputAdornment>
-                  ),
-                }}
-                className={classes.textFieldStyle}
-              />
+            <div className={classes.divForSearch}>
+              {/* <div className="">
+                <TextField
+                  type="text"
+                  size="small"
+                  variant="standard"
+                  placeholder="Search..."
+                  value={getSearch}
+                  onChange={(e) => setSearch(e.target.value)}
+                  InputProps={{
+                    disableUnderline: true,
+                    style: { margin: 0, padding: 1, background: "#F7F7F9",                    borderRadius: "8px",
+                  },
+                    startAdornment: (
+                      <InputAdornment position="start" style={{ marginLeft: 3 }}>
+                        <Search />
+                      </InputAdornment>
+                    ),
+                  }}
+                  className={classes.textFieldStyle}
+                />
+              </div> */}
+              <div>
+                {/* <Select
+                  // defaultValue={selectedOption}
+                  placeholder="Sort by"
+                  components={{ DropdownIndicator }}
+                  styles={customStyles}
+                  options={categoryTags?.map((category) => (
+                    
+                      <Typography variant='body2' style={{ fontWeight: 500, fontSize: '17px' }}>
+                        {category.displayTitle}
+                      </Typography>
+                  ))}
+                  // onChange={handleChangeSortBy}
+                  // value={options.find((option) => option.value === sortBy)}
+                  className={classes.reactselect}
+                /> */}
+                <div className={classes.sortdiv}>
+                  
+                <IconButton>
+                    <Sort style={{ color: "black" , }} />
+                  </IconButton>
+                <FormControl
+                  style={{
+                    width: "260px",
+                    borderRadius: "8px",
+                    backgroundColor: "#F7F7F9",
+                    marginTop: "5px",
+                    borderBottom: "none",
+                  }}
+                >
+                 
+                  <Select
+                    notched={false}
+                    className={classes.selectDropdown}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // onChange={(event) => handleChange(event, 'Category')}
+                    // error={!!categoryError}
+
+                    label="Sort By"
+                  >
+                    {categoryTags?.slice(0, 6).map((category) => (
+                      <MenuItem
+                        key={category._id}
+                        value={category.displayTitle}
+                        onClick={() => {
+                          setcategoryID(category._id);
+                          console.log("key", category._id);
+                        }}
+                      >
+                        <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
+                          {category.displayTitle}
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                </div>
+              </div>
             </div>
           </Grid>
         </Grid>
@@ -303,11 +494,11 @@ const StorePage = () => {
                           component="h2"
                           className={classes.carttitle}
                         >
-                          {item?.storeInfo?.storeName? item?.storeInfo?.storeName: "User Store"}
+                          {item?.storeInfo?.storeName ? item?.storeInfo?.storeName : "User Store"}
                         </Typography>
                         <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                           {" "}
-                          {item?.username? item?.username: "User"}
+                          {item?.username ? item?.username : "User"}
                         </Typography>
                       </div>
                     </div>

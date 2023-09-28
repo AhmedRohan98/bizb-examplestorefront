@@ -51,7 +51,7 @@ const MainSlider = (props) => {
       display: "flex",
       flexDirection: "row",
       zIndex: 9998,
-      width: "300px",
+      // width: "300px",
       bottom: "40px",
       [theme.breakpoints.down(900)]: {
         top: "84%",

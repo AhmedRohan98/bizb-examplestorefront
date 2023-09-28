@@ -394,10 +394,14 @@ const SellerRegistration = () => {
         },
       });
       console.log("sellerRegistration:", sellerRegistration);
+      const sellerInfo = {
+        name: useremail.value,     // Seller Name
+        category: 'Seller Category', // Seller Category
+      };
       ReactGA.event({
         category: "Seller",
         action: "Registration",
-        label: "Seller Registration",
+        label: JSON.stringify(sellerInfo),
       });
       const sellerRegistrationData = {
         event: 'newSellerRegistration', // Define a custom event name

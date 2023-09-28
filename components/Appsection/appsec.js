@@ -17,6 +17,10 @@ const Appsec = () => {
 
       justifyContent: "center",
       marginBottom: "60px",
+      [theme.breakpoints.down(700)]: {
+        marginTop: "5px",
+        marginBottom: "5px",
+      },
     },
     img: {
       width: "100%",
@@ -51,7 +55,6 @@ const Appsec = () => {
     },
     maindivqrcodeappsex: {
       display: "flex",
-     
 
       paddingTop: theme.spacing(5),
       height: "400px",
@@ -59,7 +62,8 @@ const Appsec = () => {
       alignItems: "center",
       [theme.breakpoints.down(700)]: {
         justifyContent: "center",
-
+        paddingTop: "0px",
+        height: "300px",
       },
     },
     maindivapp: {
@@ -82,7 +86,7 @@ const Appsec = () => {
       [theme.breakpoints.down(700)]: {
         // height: "400px",
         // width: "300px",
-        display:"none"
+        display: "none",
       },
     },
     image: {
@@ -103,22 +107,49 @@ const Appsec = () => {
         height: "400px",
         width: "320px",
       },
-      mobiletitle:{
-        [theme.breakpoints.up(700)]: {
-        display:"none"
-        },
-        fontSize:"49px",
-        fontWeight:"700",
-
-      }
     },
+    mobiletitle: {
+      display: "none",
+      [theme.breakpoints.down(700)]: {
+        display: "block",
+        fontSize: "50px",
+        fontWeight: "700",
+        color:"black"
+      },
+    },
+    mobiletitle2: {
+      display: "block",
+      fontSize: "69px",
+      fontWeight: "700",
+      letterSpacing: "1px",
+
+     
+    },
+    mobiletitle3: {
+      display: "block",
+      fontSize: "29px",
+      fontWeight: "400",
+      marginTop: "65px",
+      width: "63%",
+      color: "grey",
+      letterSpacing: "2px",
+      textAlign: "start",
+
+      
+    },
+    divForText:{
+      display:"block",
+      justifyContent:"start",
+      [theme.breakpoints.down(700)]: {
+        display: "none",
+      },
+    }
   }));
 
   const classes = useStyles();
   return (
     <div className={classes.root}>
       {/* <img src="/app-section/appsec1.svg" alt="Using our app" className={classes.img} /> */}
-     
 
       <Grid
         container
@@ -130,15 +161,21 @@ const Appsec = () => {
         justify="center"
         alignItems="center"
       >
-          <Grid item className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
-            <img src="/app-section/text.webp" className={classes.imagetext} />
-            <img src="/app-section/Line-1.webp" className={classes.imagetext} />
-            <div>
-            <Typography className={classes.mobiletitle}>
+        <Grid item className={classes.grid1} lg={6} xs={6} sm={6} md={6}>
+       
+          <div className={classes.divForText}>
+            <Typography variant="h5" className={classes.mobiletitle2}>
               Download Our App
             </Typography>
+            <Typography variant="h4" className={classes.mobiletitle3}>
+              Now you can revamp your daily wear wardrobe every month while saving more than 50% from your monthly
+              budget!
+            </Typography>
+          </div>
+          <img src="/app-section/Line-1.webp" className={classes.imagetext} />
+          <div>
+            <Typography   variant="h2" className={classes.mobiletitle}>Download Our App</Typography>
             <div className={classes.maindivqrcodeappsex}>
-              
               <div className={classes.maindivapp}>
                 <a
                   href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1"
@@ -150,16 +187,14 @@ const Appsec = () => {
                   <img src="/app-section/appstore1.svg" className={classes.image} />
                 </a>
               </div>
-              <div className={classes.maindivqrcode}>
-              </div>
+              <div className={classes.maindivqrcode}></div>
             </div>
-            </div>
-          </Grid>
-          <Hidden smDown>
-
-        <Grid item lg={6} sm={6} md={12} xs={12} className={classes.grid1}>
-          <img src="/app-section/appsec.webp" className={classes.imae} />
+          </div>
         </Grid>
+        <Hidden smDown>
+          <Grid item lg={6} sm={6} md={12} xs={12} className={classes.grid1}>
+            <img src="/app-section/appsec.webp" className={classes.imae} />
+          </Grid>
         </Hidden>
       </Grid>
     </div>

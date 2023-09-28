@@ -1,13 +1,13 @@
 query getAllNewSeller(
-  $first: ConnectionLimitInt
-  $offset: Int
-  $searchQuery: String
+ $PageNumber: Int
+$itemPerPage: Int
+$tagsId: String
 ) {
-  getAllNewSeller(first: $first, offset: $offset, searchQuery: $searchQuery) {
-    totalCount
-    nodes {
+  getAllNewSeller( PageNumber: $PageNumber,itemPerPage: $itemPerPage, tagsId: $tagsId) {
+    AccountDetail {
       _id
       name
+      userId
       emailRecords {
         address
       }
@@ -26,6 +26,22 @@ query getAllNewSeller(
         storeName
         image
       }
+      products {
+        _id
+        createdAt
+        pageTitle
+        tags {
+          nodes {
+            _id
+            name
+          }
+        }
+        title
+        vendor
+        originCountry
+        tagIds
+      }
     }
+    totalPage
   }
 }

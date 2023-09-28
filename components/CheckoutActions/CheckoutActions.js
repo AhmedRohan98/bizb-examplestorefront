@@ -444,9 +444,17 @@ const CheckoutActions = (prop) => {
     console.log("itemitems",items)
     // Track "Checkout Initiated" event with Google Analytics 4
     ReactGA.send({
-      hitType: "event",
-      eventCategory: "Ecommerce",
-      eventAction: "checkout_initiated",
+      category: 'Ecommerce',
+      action: 'checkout_initiated',
+      label: 'Checkout Initiated', // Optional event label
+      nonInteraction: true,         // Optional: Set to true if this event is non-interactive
+      value: 0,                     // Optional: Set a numeric value for the event
+      products: cart.items.map((item) => ({
+        id: item.productConfiguration.productId,
+        price: item.price.amount,
+        quantity:item.quantity, // Adjust the quantity for each product as needed
+
+      }))  // Include the product details here as an array
     });
     const initiatedCheckoutData = {
       event: 'initiatedCheckout',
@@ -543,10 +551,23 @@ const CheckoutActions = (prop) => {
         placeOrder: { orders, token },
       } = data;
       toast.success("Order placed successfully!");
-      ReactGA.send({
-        hitType: "event",
-        eventCategory: "Ecommerce",
-        eventAction: "successful_checkout",
+      // ReactGA.send({
+      //   hitType: "event",
+      //   eventCategory: "Ecommerce",
+      //   eventAction: "successful_checkout",
+      // });
+      ReactGA.event({
+        category: 'Ecommerce',
+        action: 'successful_checkout',
+        label: 'Optional Event Label', // Optional event label
+        nonInteraction: true,         // Optional: Set to true if this event is non-interactive
+        value: 0,                     // Optional: Set a numeric value for the event
+        products: cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity:item.quantity, // Adjust the quantity for each product as needed
+  
+        }))    // Include the product details here as an array
       });
 
       // Send user to order confirmation page
@@ -558,10 +579,23 @@ const CheckoutActions = (prop) => {
       // Also destroy the collected and cached payment input
       cartStore.resetCheckoutPayments();
     } catch (error) {
-      ReactGA.send({
-        hitType: "event",
-        eventCategory: "Ecommerce",
-        eventAction: "failed_checkout",
+      // ReactGA.send({
+      //   hitType: "event",
+      //   eventCategory: "Ecommerce",
+      //   eventAction: "failed_checkout",
+      // });
+      ReactGA.event({
+        category: 'Ecommerce',
+        action: 'failed_checkout',
+        label: 'Optional Event Label', // Optional event label
+        nonInteraction: true,         // Optional: Set to true if this event is non-interactive
+        value: 0,                     // Optional: Set a numeric value for the event
+        products: cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity:item.quantity, // Adjust the quantity for each product as needed
+  
+        }))  ,   // Include the product details here as an array
       });
       setOrderDisable(false);
 

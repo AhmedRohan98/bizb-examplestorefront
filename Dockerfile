@@ -12,7 +12,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-u", "-c"]
 WORKDIR /usr/local/src/app
 ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
 # env variables
-ENV CANONICAL_URL https://staging.bizb.store
+ENV CANONICAL_URL https://bizb.store
 ENV BUILD_GRAPHQL_URL https://staging.bizb.store/graphql
 ENV EXTERNAL_GRAPHQL_URL https://staging.bizb.store/graphql
 ENV INTERNAL_GRAPHQL_URL https://staging.bizb.store/graphql
@@ -29,7 +29,6 @@ ENV REACT_APP_SHOPID cmVhY3Rpb24vc2hvcDpyaWFhR0xlMlJqYW5UQlF6dw==
 ENV NEXT_PUBLIC_GOOGLE_ANALYTICS G-60BJ8X8BEN
 ENV NEXT_PUBLIC_GOOGLE_TAG G-60BJ8X8BEN
 ENV NODE_ENV production
-
 
 
 # Allow yarn/npm to create ./node_modules
