@@ -107,12 +107,14 @@ class NavigationDesktop extends Component {
     classes: PropTypes.object,
     navItems: PropTypes.object,
     tags: PropTypes.arrayOf(),
+    viewer: PropTypes.object
   };
 
   static defaultProps = {
     classes: {},
     navItems: {},
     headerType: false,
+    viewer:{}
   };
 
   constructor(props) {
@@ -134,6 +136,8 @@ class NavigationDesktop extends Component {
 
     this.fetchData();
     console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
+    console.log("viewerviewer", this.props.viewer)
+
   }
 
   // function that updates the anchorEl state
@@ -407,6 +411,29 @@ class NavigationDesktop extends Component {
                 Upload Product
               </span>
             </a>
+            {this.props.viewer?.isSeller===true ?
+            <a
+              style={{
+                color: "inherit",
+              }}
+              target="_blank"
+              href="https://bizb.store/dashboard"
+            >
+              <span
+                className="hoverable"
+                style={{
+                  marginRight: "40px",
+                  padding: "9px 11px",
+                  marginLeft: "30px",
+                  fontSize: "18px",
+                  fontFamily: '"Ostrich Sans Black"',
+                  fontWeight: 900,
+                }}
+              >
+                Dashboard
+              </span>
+            </a>
+            :
             <a
               style={{
                 color: "inherit",
@@ -427,7 +454,7 @@ class NavigationDesktop extends Component {
               >
                 Become a Seller
               </span>
-            </a>
+            </a>}
           </div>
         </nav>
       </>

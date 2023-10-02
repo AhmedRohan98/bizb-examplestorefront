@@ -38,10 +38,10 @@ function Stores(props) {
 
     return (
         <Layout shop={shop}>
-            <Helmet>
+            {/* <Helmet>
                 <title>{shop && shop.name} | Stores</title>
                 <meta name="stores" content={shop && shop.description} />
-            </Helmet>
+            </Helmet> */}
             <Grid container md={12}>
 
                 <StorePage />

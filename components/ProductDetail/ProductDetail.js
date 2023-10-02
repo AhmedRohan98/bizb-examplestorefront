@@ -786,6 +786,12 @@ const ProductDetail = ({ ...props }) => {
   }
 
   const handleOnClick = async (product, variant) => {
+    ReactGA.event({
+      category: "Ecommerce",
+      action: "add_to_cart",
+      label: product?.productId,
+      value: product?.variants[0]?.pricing[0]?.displayPrice,
+    });
     const dataLayer = {
       dataLayer: {
         event: "add_to_cart",

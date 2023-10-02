@@ -96,11 +96,16 @@ class NavigationMobile extends Component {
     uiStore: PropTypes.shape({
       closeMenuDrawer: PropTypes.func,
     }).isRequired,
+    viewer: PropTypes.object
+    
+
   };
 
   static defaultProps = {
     classes: {},
     navItems: {},
+    viewer:{}
+
   };
 
   state = {
@@ -176,6 +181,17 @@ class NavigationMobile extends Component {
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
+            {this.props.viewer?.isSeller===true ?
+             <a href="https://bizb.store/dashboard">
+             <MenuList className={classes.navButtonActive}>
+             <IconButton  >
+               <SupervisedUserCircleOutlinedIcon style={{color:"black"}} />
+             </IconButton>
+               Dashboard
+               {/* @ts-ignore TODO: Refactor link to address type error */}
+             </MenuList>
+           </a>
+            :
             <a href="/en/SellerRegistrationPage">
               <MenuList className={classes.navButtonActive}>
               <IconButton  >
@@ -184,7 +200,7 @@ class NavigationMobile extends Component {
                 Become a Seller
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
-            </a>
+            </a>}
             <a target="_blank" href="https://old.bizb.store/how-to-sell/">
               <MenuList className={classes.navButtonActive}>
               <IconButton  >
