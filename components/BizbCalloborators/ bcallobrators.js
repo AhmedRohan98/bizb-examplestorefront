@@ -124,6 +124,7 @@ const BizbCalloborators = () => {
         right: "48%",
 
       },
+     
       // marginLeft:"160px",
     },
     textclass: {
@@ -189,6 +190,12 @@ const BizbCalloborators = () => {
       padding: "1px",
       [theme.breakpoints.down(600)]: {
         fontSize: "13px",
+        letterSpacing:"0",
+        padding:0
+        
+      },
+      [theme.breakpoints.down(1900)]: {
+        fontSize: "40px",
         letterSpacing:"0",
         padding:0
         
