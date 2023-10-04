@@ -13,6 +13,7 @@ import useTranslation from "hooks/useTranslation";
 import { locales } from "translations/config";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
+import useViewer from "hooks/viewer/useViewer";
 
 const useStyles = makeStyles((theme) => ({
   checkoutActions: {
@@ -78,18 +79,21 @@ const Login = ({ router }) => {
   const classes = useStyles();
   const { locale, t } = useTranslation("common"); // eslint-disable-line no-unused-vars, id-length
   const shop = useShop();
+  const [viewer, , refetch] = useViewer();
 
   const { cart, isLoadingCart, setEmailOnAnonymousCart } = useCart();
   const hasIdentity = !!((cart && cart.account) || (cart && cart.email));
   const pageTitle = `Login | ${shop && shop.name}`;
 
   useEffect(() => {
+    refetch();
+
     // Skipping if the `cart` is not available
     if (!cart) return;
     if (hasIdentity) {
       Router.push("/cart/checkout");
     }
-  }, [cart, hasIdentity, Router]);
+  }, [cart, hasIdentity, Router, viewer]);
 
   if (isLoadingCart) {
     return (
