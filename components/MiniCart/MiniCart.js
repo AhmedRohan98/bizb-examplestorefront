@@ -397,7 +397,8 @@ const MiniCart = ({ ...props }) => {
                                 </Typography>
                                 <Typography variant="h4" style={{ fontSize: "1rem" }}>
                                   Store:&nbsp;
-                                  <span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}</span>
+                                  <span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}
+                                  {console.log("itemite",item)}</span>
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
                                   {formatCurrency(item?.price?.amount)}
