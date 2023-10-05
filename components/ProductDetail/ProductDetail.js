@@ -891,7 +891,7 @@ const ProductDetail = ({ ...props }) => {
     : null;
   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
   const isDisabled = cart?.items?.some((data) => {
-    return data.productConfiguration.productId === product?.productId;
+    return data?.productConfiguration?.productId === product?.productId;
   });
 
   const rimProps = {
@@ -972,7 +972,7 @@ const ProductDetail = ({ ...props }) => {
                           <SwiperSlide key={index}>
                             <div className={classes.thumbimage}>
                               <img
-                                src={slide.URLs.thumbnail ? slide.URLs.thumbnail : slide.URLs.large}
+                                src={slide?.URLs?.thumbnail ? slide?.URLs?.thumbnail : slide?.URLs?.large}
                                 alt=""
                                 className={classes.thumbimages}
                               />
@@ -996,7 +996,7 @@ const ProductDetail = ({ ...props }) => {
                     modules={[Navigation, Thumbs, Mousewheel, Pagination]}
                     onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
                   >
-                    {product?.variants[0]?.media.map((slide, index) => {
+                    {product?.variants[0]?.media?.map((slide, index) => {
                       return (
                         <SwiperSlide className={classes.sliderimage2} key={index}>
                           <div style={{ borderRadius: "18px", overflow: "hidden" }}>
@@ -1156,7 +1156,7 @@ const ProductDetail = ({ ...props }) => {
                     {relatedProducts?.map((item, key) => {
                       const cartitem = cart?.items;
                       const isDisabled = cartitem?.some((data) => {
-                        return data.productConfiguration.productId === item?.node?.product?.productId;
+                        return data?.productConfiguration?.productId === item?.node?.product?.productId;
                       });
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
@@ -1167,7 +1167,7 @@ const ProductDetail = ({ ...props }) => {
                           .replace(/'/g, '"')
                         : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-                      const str = item.node.product.title;
+                      const str = item?.node?.product?.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
                       const firstThreeWords = words.slice(0, 3).join(" ");
                       const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
@@ -1288,7 +1288,7 @@ const ProductDetail = ({ ...props }) => {
                                         variant="h5"
                                         component="h2"
                                       >
-                                        {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : " + Cart"}
+                                        {isDisabled ? "Added" : item?.node?.product?.isSoldOut ? "Sold" : " + Cart"}
                                       </Typography>
                                     </Button>
                                   )}

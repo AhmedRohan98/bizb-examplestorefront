@@ -124,19 +124,55 @@ class NavigationDesktop extends Component {
       categoryTagsInfo: null,
       selectedPage: null,
       currentLink: null,
+      originalData: [
+        'Juniors',
+        'Casuals',
+        'Party Wear',
+        'Shoes',
+        'Accessories',
+        'Western',
+      ],
+      customOrder: [
+        'Casuals',
+        'Western',
+        'Party Wear',
+        'Juniors',
+        'Accessories',
+        'Shoes',
+      ],
+      mappedData: [],
+
     };
 
     // Bind the class methods in the constructor
     this.handlePopOverOpen = this.handlePopOverOpen.bind(this);
     this.handlePopOverClose = this.handlePopOverClose.bind(this);
   }
+  mapData() {
+    const { originalData, customOrder,categoryTagsInfo } = this.state;
 
-  componentDidMount() {
-    const currentLink = Router.pathname;
+    const mappedData = customOrder.map((item) => {
+      const dataItem = categoryTagsInfo.find((originalItem) => originalItem.displayTitle === item);
+      return dataItem ? { ...dataItem } : null;
+    }).filter(Boolean);
 
+    this.setState({ mappedData });
+    // console.log("this.mapData();", categoryTagsInfo)
+    console.log("this.mapData();", this.state.mappedData)
+
+
+  }
+  componentDidMount() {    
     this.fetchData();
-    console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
-    console.log("viewerviewer", this.props.viewer)
+
+    const currentLink = Router.pathname;
+    // this.mapData();
+
+
+    // console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
+    // console.log("viewerviewer", this.props.viewer)
+    // console.log("this.mapData();", this.mapData())
+
 
   }
 
@@ -180,7 +216,10 @@ class NavigationDesktop extends Component {
       this.setState({
         categoryTagsInfo: response.data.tags.nodes,
       });
+      this.mapData();
 
+
+     
       // this.state.categoryTagsInfo(response.data.tags.nodes)
       console.log("NavigationDesktop222", this.state.categoryTagsInfo);
     } catch (error) {
@@ -198,6 +237,7 @@ class NavigationDesktop extends Component {
 
       headerType,
     } = this.props;
+    const { mappedData } = this.state;
 
     const style = {
       borderRadius: "8px",
@@ -358,7 +398,7 @@ class NavigationDesktop extends Component {
                   <div className={classes.modalitems}>
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
-                      {tagsData?.slice(0, 6).map((itemtitle, i) => (
+                      {mappedData?.slice(0, 6).map((itemtitle, i) => (
                         <a
                           href={
                             itemtitle.displayTitle === "Become a Seller"
