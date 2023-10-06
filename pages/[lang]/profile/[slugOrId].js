@@ -399,6 +399,31 @@ function SellerPublicProfile(props) {
     }));
     // Scroll to the top
   };
+  const parseJSON = (jsonString) => {
+   
+    try {
+      let parsedData;
+  
+      // Attempt to parse as JSON with double quotes
+      try {
+        parsedData = JSON.parse(jsonString);
+      } catch (error1) {
+        // If parsing with double quotes fails, try parsing with single quotes
+        try {
+          const validJsonString = jsonString.replace(/'/g, '"');
+          parsedData = JSON.parse(validJsonString);
+        } catch (error2) {
+          console.error("Error parsing JSON:", error2);
+          return null;
+        }
+      }
+  
+      return parsedData.size || null;
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return null;
+    }
+  };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
   const classes = useStyles();
   const profile = props.catalogItems[0]?.node?.product?.variants[0]?.uploadedBy;
@@ -446,8 +471,8 @@ function SellerPublicProfile(props) {
                 className="sellerProfile__img"
                 style={{
                   backgroundImage: profile
-                    ? profile.image
-                      ? "URL(" + profile.profilePhoto + ")"
+                    ? profile?.image
+                      ? "URL(" + profile?.profilePhoto + ")"
                       : "URL(" + "/images/seller-placeholder.png" + ")"
                     : "URL(" + "/images/seller-placeholder.png" + ")",
                 }}
@@ -473,7 +498,7 @@ function SellerPublicProfile(props) {
                   <>
                     {profile && profile?.name && (
                       <Typography className="sellerProfile__status" variant="h5">
-                        {profile.uname}
+                        {profile?.uname}
                       </Typography>
                     )}
                   </>
@@ -484,7 +509,7 @@ function SellerPublicProfile(props) {
                       <div className="publicProfile__infoMeta">
                         <div className="sellerProfile__infoMetaRow">
                           <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                            {props.totalcount}
+                            {props?.totalcount}
                           </Typography>
                           <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                             {" "}
@@ -522,7 +547,7 @@ function SellerPublicProfile(props) {
                     <div className="publicProfile__infoMeta">
                       <div className="sellerProfile__infoMetaRow">
                         <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                          {props.totalcount}
+                          {props?.totalcount}
                         </Typography>
                         <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                           {" "}
@@ -579,22 +604,39 @@ function SellerPublicProfile(props) {
           >
             <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
               {props?.catalogItems?.map((item, key) => {
+                {console.log("validOptionTitle", item)}
+
                 const cartitem = cart?.items;
                 const isDisabled = cartitem?.some((data) => {
-                  return data.productConfiguration.productId === item?.node?.product?.productId;
+                  return data?.productConfiguration?.productId === item?.node?.product?.productId;
                 });
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle
-                  ? optionTitle
-                      ?.replace(`None`, `'none'`)
-                      .replace("None", `none`)
-                      .replace(/''/g, '"')
-                      .replace(/'/g, '"')
-                  : null;
-                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-                const str = item.node.product.title;
+                // const modifiedJsonString = optionTitle.replace(/"color"\s*:\s*"[^"]*"\s*,?/g, '');
+
+                
+                // const validOptionTitle = modifiedJsonString
+                //   ? modifiedJsonString
+                //       ?.replace(`None`, `'none'`)
+                //       .replace(/''/g, '"')
+                //       .replace(/'/g, '"')
+                //       .replace(/"/g, '"')
+                //       .replace(/"/g, '"')
+
+
+
+                //   : null;
+                  {console.log("validOptionTitle", optionTitle)}
+
+
+                const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
+                
+
+                // Access the "size" property
+                const size =validOptionTitle? validOptionTitle: null;
+                {console.log("validOptionTitle", validOptionTitle, "size", size)}
+                const str = item?.node?.product?.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
                 const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
@@ -718,7 +760,7 @@ function SellerPublicProfile(props) {
                                 component="h2"
                                 className={classes.cartText}
                               >
-                                {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                {isDisabled ? "Added" : item?.node?.product?.isSoldOut ? "Sold" : "+ Cart"}
                               </Typography>
                             </Button>
                           )}

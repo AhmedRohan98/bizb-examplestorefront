@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import useViewer from "hooks/viewer/useViewer";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import Router from "translations/i18nRouter";
 import Box from "@material-ui/core/Box";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import hashPassword from "../../lib/utils/hashPassword";
@@ -16,6 +16,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
+import useShop from "hooks/shop/useShop";
+import useCart from "hooks/cart/useCart";
 
 const useStyles = makeStyles((theme) => ({
   yellowHoverText: {
@@ -178,6 +180,23 @@ export default function Login(props) {
   const [loginDisable, setLoginDisable] = useState(false);
   const [viewer, , refetch] = useViewer();
   const { passwordClient } = getAccountsHandler();
+
+
+  const shop = useShop();
+
+  const { cart, refetchAccountCart, setEmailOnAnonymousCart } = useCart();
+  const hasIdentity = !!((cart && cart.account) || (cart && cart.email));
+  const pageTitle = `Login | ${shop && shop.name}`;
+
+  useEffect(() => {
+
+    // Skipping if the `cart` is not available
+    if (!cart) refetchAccountCart();
+    if (hasIdentity) {
+      Router.push("/cart/checkout");
+    }
+  }, [cart, hasIdentity, Router, viewer?._id]);
+
 
   const handleOpenSignUp = () => {
     openModal("signup");

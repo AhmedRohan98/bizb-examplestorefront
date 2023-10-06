@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
   },
   inputRoot: {
-
     "& .MuiOutlinedInput-root": {
       outline: "none",
       borderColor: "none",
@@ -37,17 +36,15 @@ const useStyles = makeStyles((theme) => ({
       color: "blue",
     },
   },
-  input2:{
-    '&::placeholder': {
-      fontSize: '30px',
+  input2: {
+    "&::placeholder": {
+      fontSize: "30px",
 
       [theme.breakpoints.down(600)]: {
-        fontSize: '15px',
-        fontWeight:"500",
-
+        fontSize: "15px",
+        fontWeight: "500",
       },
     },
-
   },
   input: {
     borderRadius: "5px",
@@ -55,8 +52,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     textTransform: "none",
 
-    
-   
     "& .MuiInputBase-root": {
       fontFamily: "Lato",
       color: "green",
@@ -147,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.selected,
     fontSize: "1.1rem",
     [theme.breakpoints.down(600)]: {
-      fontSize:"13px"
+      fontSize: "13px",
     },
   },
   totatlproducts: {
@@ -161,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     color: "#FDC114",
     [theme.breakpoints.down(600)]: {
-      fontSize:"11px"
+      fontSize: "11px",
     },
 
     "&:hover": {
@@ -177,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
   price: {
     fontSize: "1.1rem",
     [theme.breakpoints.down(600)]: {
-      fontSize:"11px"
+      fontSize: "11px",
     },
 
     // marginLeft: theme.spacing(2),
@@ -191,7 +186,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "20px",
     [theme.breakpoints.down(600)]: {
       width: "70px",
-      height: "80px",    },
+      height: "80px",
+    },
   },
   filteritemsfromsearch: {
     backgroundColor: "white",
@@ -217,12 +213,12 @@ const useStyles = makeStyles((theme) => ({
       width: "23px",
     },
   },
-  productTitle:{
+  productTitle: {
     [theme.breakpoints.down(600)]: {
-      fontSize:"15px",
-      fontWeight:"600"
+      fontSize: "15px",
+      fontWeight: "600",
     },
-  }
+  },
 }));
 const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
   const [searchLocal, setSearchLocal] = useState();
@@ -308,9 +304,8 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     setsearchText(true);
                   }}
                   placeholder="What are you looking for..." // add placeholder text
-                  
                   InputProps={{
-                    classes: { input: classes.input2},
+                    classes: { input: classes.input2 },
                     startAdornment: (
                       <InputAdornment position="start">
                         <IconButton>
@@ -354,13 +349,29 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                           className={classes.cartitem}
                           onClick={() => handleProductDetail(product?.node?.product?.slug)}
                         >
-                          <img
-                            src={product?.node?.product?.media[0]?.URLs?.large}
-                            alt={product?.title}
-                            className={classes.image}
-                          ></img>
+                          <Link
+                            href={product.node.product.slug && "en/product/[...slugOrId]"}
+                            as={product.node.product.slug && `en/product/${product.node.product.slug}`}
+                          >
+                            <a target="_blank">
+                              <img
+                                src={product?.node?.product?.media[0]?.URLs?.large}
+                                alt={product?.title}
+                                className={classes.image}
+                              />
+                            </a>
+                          </Link>
                           <div className={classes.cartitemtext}>
-                            <Typography variant="h4" className={classes.productTitle}>{product?.node?.product?.title}</Typography>
+                            <Link
+                              href={product.node.product.slug && "en/product/[...slugOrId]"}
+                              as={product.node.product.slug && `en/product/${product.node.product.slug}`}
+                            >
+                              <a target="_blank">
+                                <Typography variant="h4" className={classes.productTitle}>
+                                  {product?.node?.product?.title}
+                                </Typography>
+                              </a>
+                            </Link>
                             <Link href={`/en/profile/${product?.node?.product?.variants[0]?.uploadedBy?.userId}`}>
                               <a style={{ color: "#FDC114" }}>
                                 <Typography variant="h4" className={classes.cartpric}>
