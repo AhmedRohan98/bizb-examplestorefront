@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const sendGraphQLQuery = async () => {
   try {
-    const response = await axios.post("https://test.bizb.store/graphql", {
+    const response = await axios.post("https://api.bizb.store/graphql", {
       query: `
       query getTags($shopId: ID!, $filter: String) {
         tags(shopId: $shopId, filter: $filter) {
