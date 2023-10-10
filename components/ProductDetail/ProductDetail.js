@@ -950,6 +950,9 @@ const ProductDetail = ({ ...props }) => {
                     direction="vertical"
                     spaceBetween={24}
                     slidesPerView={3}
+                    pagination={{
+                      clickable: true,
+                    }}
                     navigation={{
                       nextEl: ".slider__next",
                       prevEl: ".slider__prev",

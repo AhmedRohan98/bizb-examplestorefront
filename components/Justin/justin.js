@@ -503,6 +503,7 @@ const Justin = (props) => {
                 ? optionTitle?.replace(`None`, `'none'`).replace("None", `none`).replace(/''/g, '"').replace(/'/g, '"')
                 : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+              console.log("nodde6678",optionTitle, "ghghg", validOptionTitle, "size", size);
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
               const firstThreeWords = words.slice(0, 3).join(" ");
@@ -532,25 +533,15 @@ const Justin = (props) => {
                         {/* {console.log("Images", item?.node)} */}
                         <img
                           src={
-                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.media[0]?.URLs?.large
-                              ? item?.node?.product?.media[0]?.URLs?.large
-                              : item?.node?.product?.media[0]?.URLs?.medium
-                              ? item?.node?.product?.media[0]?.URLs?.medium
-                              : item?.node?.product?.media[0]?.URLs?.small
-                              ? item?.node?.product?.media[0]?.URLs?.small
-                              : item?.node?.product?.media[0]?.URLs?.original
-                              ? item?.node?.product?.media[0]?.URLs?.original
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                          
+                              item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
                               ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.original
                               : item?.node?.product?.variants[0]?.media[0]?.URLs?.large
                               ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.original
                               : item?.node?.product?.variants[0]?.media[0]?.URLs?.small
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.small
-                              : item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                             
                       
                           }
                           className={classes.image}

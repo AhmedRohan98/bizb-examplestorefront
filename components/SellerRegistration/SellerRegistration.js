@@ -349,15 +349,15 @@ const SellerRegistration = () => {
       password: hashPassword(password.value),
     });
     if (
-      userName.value !== "" &&
+      userName.value.trim() !== "" &&
       reg.test(useremail.value) === true &&
       phoneNumreg.test(contactnumber.value) === true &&
-      contactnumber.value !== "" &&
+      contactnumber.value.trim() !== "" &&
       (isAuth || (!isAuth && password.value.length >= 8 && password.value === password2.value)) &&
-      storeName.value !== "" &&
-      address1.value !== "" &&
-      country.value !== "" &&
-      zipcode.value !== "" &&
+      storeName.value.trim() !== "" &&
+      address1.value.trim() !== "" &&
+      country.value.trim() !== "" &&
+      zipcode.value.trim() !== "" &&
       checkTerms === true
     ) {
       setcheckTermsError(false);
@@ -649,7 +649,7 @@ const SellerRegistration = () => {
                 className={classes.style}
               />
             </div>
-            {storeName.isTouched && storeName.value === "" ? <StoreErrorMessage /> : null}
+            {storeName.isTouched && storeName.value.trim() === "" ? <StoreErrorMessage /> : null}
             {storeName.value.length > 15 ? <StoreLengthErrorMessage /> : null}
 
             <div className={classes.style7}>
@@ -674,7 +674,7 @@ const SellerRegistration = () => {
                 className={classes.style}
               />
             </div>
-            {address1.isTouched && address1.value === "" ? <AddressErrorMessage /> : null}
+            {address1.isTouched && address1.value.trim() === "" ? <AddressErrorMessage /> : null}
 
             <div className={classes.style7}>
               <div className={classes.style11}>
@@ -718,7 +718,7 @@ const SellerRegistration = () => {
                 className={classes.style}
               />
             </div>
-            {country.isTouched && country.value === "" ? <CountryErrorMessage /> : null}
+            {country.isTouched && country.value.trim() === "" ? <CountryErrorMessage /> : null}
 
             <div className={classes.style7}>
               <div className={classes.style11}>
@@ -785,7 +785,7 @@ const SellerRegistration = () => {
                 className={classes.style}
               />
             </div>
-            {zipcode.isTouched && zipcode.value === "" ? <PostalErrorMessage /> : null}
+            {zipcode.isTouched && zipcode.value.trim() === "" ? <PostalErrorMessage /> : null}
 
             <div className={classes.style7}>
               <div className={classes.style11}>
@@ -835,7 +835,7 @@ const SellerRegistration = () => {
               />
             </div>
 
-            {userName.isTouched && userName.value === "" ? <UserErrorMessage /> : null}
+            {userName.isTouched && userName.value.trim() === "" ? <UserErrorMessage /> : null}
             {userError ? <p className={classes.style9}>{userError}</p> : null}
 
             <div className={classes.style7}>
