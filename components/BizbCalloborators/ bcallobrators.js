@@ -227,7 +227,7 @@ const BizbCalloborators = () => {
 
 
 
-              <a href="https://instagram.com/amalusman?igshid=MzRlODBiNWFlZA=="  target="_blank">
+              <a href="https://bizb.store/en/profile/20380b75a098499d"  target="_blank">
                 <div className={classes.cart1}>
                   <div className={classes.buttonshop}>
                     <button className={classes.buttonshopt} >
@@ -254,7 +254,7 @@ const BizbCalloborators = () => {
                   </Typography>
               </div>
               <div className={classes.textclass3}></div>
-              <a href="https://instagram.com/fartashia.asim?igshid=MzRlODBiNWFlZA==" target="_blank">
+              <a href="https://bizb.store/en/profile/b3504c10c5984d0d" target="_blank">
 
                 <div className={classes.cart2}>
                   <div className={classes.buttonshop}>
@@ -282,7 +282,7 @@ const BizbCalloborators = () => {
                   </Typography>
               </div>
               <div className={classes.textclass3}></div>
-              <a href="https://instagram.com/hajra_sheikhh?igshid=MzRlODBiNWFlZA=="  target="_blank">
+              <a href="https://bizb.store/en/profile/4980780100674604"  target="_blank">
                 <div className={classes.cart}>
                   <div className={classes.buttonshop}>
                     <button className={classes.buttonshopt} variant="h4">
