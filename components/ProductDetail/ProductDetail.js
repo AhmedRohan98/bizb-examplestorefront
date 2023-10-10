@@ -1195,7 +1195,7 @@ const ProductDetail = ({ ...props }) => {
                             <div className={classes.boxcontairproduct}>
                               <div onClick={() => clickHandler(item.node.product.slug)}>
                                 <a target="_blank">
-                                  {console.log("Images", item?.node)}
+                                  {/* {console.log("Images", item?.node)} */}
                                   <img
                                     src={
                                       !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
