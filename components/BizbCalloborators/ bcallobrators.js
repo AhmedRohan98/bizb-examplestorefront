@@ -212,7 +212,6 @@ const BizbCalloborators = () => {
       <Grid
         container
         xs={12}
-        // style={{ position: "absolute", zIndex: 999, bottom: "100px", left: "40px", maxWidth: "90%" }}
       >
         <Grid item xs={4} style={{}}>
           <div className={classes.collobarotors}>
