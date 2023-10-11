@@ -945,6 +945,7 @@ const ProductDetail = ({ ...props }) => {
               <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
               <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
                 <div className={classes.thumb}>
+                  {console.log("imagesNavSlider",imagesNavSlider?.swiper)}
                   <Swiper
                     onSwiper={setImagesNavSlider}
                     direction="vertical"
