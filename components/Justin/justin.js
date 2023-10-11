@@ -158,6 +158,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     display: "flex",
     marginLeft: "50%",
+    marginLeft: "50%",
     [theme.breakpoints.down("sm")]: {
       size: "10px",
     },
@@ -289,6 +290,7 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
+  const [getLoading, setLoading] = useState(false);
   const [getLoading, setLoading] = useState(false);
 
   const trackProductView = () => {
@@ -503,6 +505,7 @@ const Justin = (props) => {
                 ? optionTitle?.replace(`None`, `'none'`).replace("None", `none`).replace(/''/g, '"').replace(/'/g, '"')
                 : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+              console.log("nodde6678",optionTitle, "ghghg", validOptionTitle, "size", size);
               const str = item.node.product.title;
               const words = str.match(/[a-zA-Z0-9]+/g);
               const firstThreeWords = words.slice(0, 3).join(" ");
@@ -532,25 +535,15 @@ const Justin = (props) => {
                         {/* {console.log("Images", item?.node)} */}
                         <img
                           src={
-                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.media[0]?.URLs?.large
-                              ? item?.node?.product?.media[0]?.URLs?.large
-                              : item?.node?.product?.media[0]?.URLs?.medium
-                              ? item?.node?.product?.media[0]?.URLs?.medium
-                              : item?.node?.product?.media[0]?.URLs?.small
-                              ? item?.node?.product?.media[0]?.URLs?.small
-                              : item?.node?.product?.media[0]?.URLs?.original
-                              ? item?.node?.product?.media[0]?.URLs?.original
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                          
+                              item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
                               ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.original
                               : item?.node?.product?.variants[0]?.media[0]?.URLs?.large
                               ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.original
                               : item?.node?.product?.variants[0]?.media[0]?.URLs?.small
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.small
-                              : item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                             
                       
                           }
                           className={classes.image}
@@ -668,6 +661,13 @@ const Justin = (props) => {
                         >
                           {isLoading[item?.node?.product?.productId] ? (
                             <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                        <Button
+                          className={classes.cart}
+                          onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                          disabled={isDisabled || item?.node?.product?.isSoldOut}
+                        >
+                          {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress color="black" size="17px" className={classes.progressBar} />
                           ) : (
                             <>
                               <div className={classes.cartButtonrowDiv}>
@@ -700,7 +700,9 @@ const Justin = (props) => {
                                 </Typography>
                               </div>
                             </>
+                            </>
                           )}
+                        </Button>
                         </Button>
                       </div>
                       <div>
@@ -734,11 +736,16 @@ const Justin = (props) => {
                               </a>
                             </Link>
                             <Typography className={classes.storeName}>
+                            <Typography className={classes.storeName}>
                               Store Name:{" "}
                               <Link
                                 href={"/en/profile/[slugOrId]"}
                                 as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
                               >
+                                <a target="_blank">
+                                  <span className={classes.storeNameStyle}>
+                                    {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                  </span>
                                 <a target="_blank">
                                   <span className={classes.storeNameStyle}>
                                     {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
@@ -816,7 +823,25 @@ const Justin = (props) => {
             <CircularProgress  />
           ) : (
             <>
+      <div className={classes.header}>  {getLoading ? (
+            <CircularProgress  />
+          ) : (
+            <>
         <h1 className={classes.typography}></h1>
+        <a
+          href="/en/explore"
+          onClick={() => {
+          
+            setLoading(true);
+          }}
+        >
+        
+            <Typography gutterBottom variant="body1" className={classes.explore}>
+              Explore More
+            </Typography>
+          
+        </a></>
+          )}
         <a
           href="/en/explore"
           onClick={() => {
