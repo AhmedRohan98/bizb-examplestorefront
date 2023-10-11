@@ -12,7 +12,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-u", "-c"]
 WORKDIR /usr/local/src/app
 ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
 # env variables
-ENV CANONICAL_URL https://bizb.store
+ENV CANONICAL_URL https://staging.bizb.store
 ENV BUILD_GRAPHQL_URL https://staging.bizb.store/graphql
 ENV EXTERNAL_GRAPHQL_URL https://staging.bizb.store/graphql
 ENV INTERNAL_GRAPHQL_URL https://staging.bizb.store/graphql

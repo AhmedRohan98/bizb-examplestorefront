@@ -32,6 +32,10 @@ const BizbCalloborators = () => {
         width: "10px",
         height: "10px",
       },
+      [theme.breakpoints.down(600)]: {
+        width: "10px",
+        height: "10px",
+      },
     },
     buttonshop: {
       background: theme.palette.secondary.selected,
@@ -48,6 +52,10 @@ const BizbCalloborators = () => {
       "&:hover": {
         transform: "scale(1.08)",
         transition: "left 0.2s linear",
+      },
+      [theme.breakpoints.down(600)]: {
+        width: "60px",
+        height: "15px",
       },
       [theme.breakpoints.down(600)]: {
         width: "60px",
@@ -317,6 +325,8 @@ const BizbCalloborators = () => {
               </div>
             </div>
           </a> */}
+      {/* </div>
+      </Grid> */}
       {/* </div>
       </Grid> */}
     </Box>
