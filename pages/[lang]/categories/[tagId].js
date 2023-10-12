@@ -1056,7 +1056,32 @@ function Categories(props) {
   // const handleClose = () => {
   //   setOpen(false);
   // };
-
+  const parseJSON = (jsonString) => {
+   
+    try {
+      let parsedData;
+  
+      // Attempt to parse as JSON with double quotes
+      try {
+        parsedData = JSON.parse(jsonString);
+      } catch (error1) {
+        // If parsing with double quotes fails, try parsing with single quotes
+        try {
+          const validJsonString = jsonString.replace(/'/g, '"');
+          parsedData = JSON.parse(validJsonString);
+        } catch (error2) {
+          console.error("Error parsing JSON:", error2);
+          return null;
+        }
+      }
+  
+      return parsedData.size || null;
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return null;
+    }
+  };
+  
   const handlePopOverClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -1567,14 +1592,12 @@ function Categories(props) {
                       // console.log(cart?.items, "item");
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                      const validOptionTitle = optionTitle
-                        ? optionTitle
-                          ?.replace(`None`, `'none'`)
-                          .replace("None", `none`)
-                          .replace(/''/g, '"')
-                          .replace(/'/g, '"')
-                        : null;
-                      const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+
+                      const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
+                
+
+                      // Access the "size" property
+                      const size =validOptionTitle? validOptionTitle: null;
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
                       const firstThreeWords = words.slice(0, 3).join(" ");
@@ -1609,15 +1632,11 @@ function Categories(props) {
                                 <img
                                   // onClick={() => clickHandler(item.node.product.slug)}
                                   src={
-                                    !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                      ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                                      : item?.node?.product?.media[0]?.URLs?.large
-                                        ? item?.node?.product?.media[0]?.URLs?.large
-                                        : item?.node?.product?.media[0]?.URLs?.medium
-                                          ? item?.node?.product?.media[0]?.URLs?.medium
-                                          : item?.node?.product?.media[0]?.URLs?.small
-                                            ? item?.node?.product?.media[0]?.URLs?.small
-                                            : item?.node?.product?.media[0]?.URLs?.original
+                                    item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                                    : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail?
+                                    item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail  :
+                                     item?.node?.product?.variants[0]?.media[0]?.URLs?.original
                                   }
                                   className={classes.image}
                                   key={item?.node?.product?.id}
@@ -1907,14 +1926,12 @@ function Categories(props) {
                     });
 
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                    const validOptionTitle = optionTitle
-                      ? optionTitle
-                        ?.replace(`None`, `'none'`)
-                        .replace("None", `none`)
-                        .replace(/''/g, '"')
-                        .replace(/'/g, '"')
-                      : null;
-                    const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+            
+                    const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
+                
+
+                    // Access the "size" property
+                    const size =validOptionTitle? validOptionTitle: null;
                     const str = item.node.product.title;
                     const words = str.match(/[a-zA-Z0-9]+/g);
                     const firstThreeWords = words.slice(0, 3).join(" ");
@@ -1948,15 +1965,11 @@ function Categories(props) {
                               {/* {console.log("Images", item?.node)} */}
                               <img
                                 src={
-                                  !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                    ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                                    : item?.node?.product?.media[0]?.URLs?.large
-                                      ? item?.node?.product?.media[0]?.URLs?.large
-                                      : item?.node?.product?.media[0]?.URLs?.medium
-                                        ? item?.node?.product?.media[0]?.URLs?.medium
-                                        : item?.node?.product?.media[0]?.URLs?.small
-                                          ? item?.node?.product?.media[0]?.URLs?.small
-                                          : item?.node?.product?.media[0]?.URLs?.original
+                                  item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                                  ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                                  : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail?
+                                  item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail  :
+                                   item?.node?.product?.variants[0]?.media[0]?.URLs?.original
                                 }
                                 className={classes.image}
                                 key={item?.node?.product?.id}
