@@ -17,7 +17,7 @@ const BizbCalloborators = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-
+      cursor:"pointer",
       borderRadius: "40px",
       width: "120px",
       height: "48px",
@@ -204,13 +204,32 @@ const BizbCalloborators = () => {
     imagesicons: {
       height: "40px",
       width: "40px",
-      marginRight:"20px",
+      marginTop:"5px",
+      marginLeft:"5px",
       [theme.breakpoints.down(600)]: {
-        height: "20px",
-      width: "20px",
-      marginRight:"2px",
+        height: "13px",
+      width: "13px",
+      marginLeft:"2px",
+      marginTop:"2px",
+
 
       },
+    },
+    buttonIcon: {
+      background: theme.palette.secondary.selected,
+      display: "flex",
+      marginRight:"5px",  
+      borderRadius: "40px",
+      width: "50px",
+      height: "50px",
+      [theme.breakpoints.down(600)]: {
+        height: "17px",
+      width: "17px",
+      marginRight:"2px",
+      marginTop:"0px",
+
+      },
+
     },
   }));
 
@@ -239,7 +258,9 @@ const BizbCalloborators = () => {
             <div className={classes.textclass3}></div>
               <div className={classes.cart1}>
                 <a href="https://instagram.com/amalusman?igshid=MzRlODBiNWFlZA==" target="_blank">
-                  <img src="/icons/logo_instagram.png" className={classes.imagesicons} />
+                <div className={classes.buttonIcon}>
+                  <img src="/icons/instalogo.png" className={classes.imagesicons} />
+                  </div>
                 </a>
                 <a href="https://bizb.store/en/profile/20380b75a098499d">
                   <div className={classes.buttonshop}>
@@ -267,8 +288,9 @@ const BizbCalloborators = () => {
             <div className={classes.textclass3}></div>
               <div className={classes.cart2}>
               <a href="https://instagram.com/fartashia.asim?igshid=MzRlODBiNWFlZA==" target="_blank">
-                  <img src="/icons/logo_instagram.png" className={classes.imagesicons} />
-                </a>
+              <div className={classes.buttonIcon}>
+                  <img src="/icons/instalogo.png" className={classes.imagesicons} />
+                  </div>                </a>
                 <a href="https://bizb.store/en/profile/b3504c10c5984d0d" >
 
                 <div className={classes.buttonshop}>
@@ -299,8 +321,9 @@ const BizbCalloborators = () => {
             <div className={classes.textclass3}></div>
               <div className={classes.cart}>
               <a href="https://instagram.com/hajra_sheikhh?igshid=MzRlODBiNWFlZA==" target="_blank">
-                  <img src="/icons/logo_instagram.png" className={classes.imagesicons} />
-                </a>
+              <div className={classes.buttonIcon}>
+                  <img src="/icons/instalogo.png" className={classes.imagesicons} />
+                  </div>                </a>
                 <a href="https://bizb.store/en/profile/4980780100674604" >
                 <div className={classes.buttonshop}>
                   <button className={classes.buttonshopt} variant="h4">

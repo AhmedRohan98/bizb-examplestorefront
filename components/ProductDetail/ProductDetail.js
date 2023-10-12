@@ -973,7 +973,7 @@ const ProductDetail = ({ ...props }) => {
                           <SwiperSlide key={index}>
                             <div className={classes.thumbimage}>
                               <img
-                                src={slide?.URLs?.thumbnail ? slide?.URLs?.thumbnail : slide?.URLs?.large}
+                                src={slide?.URLs?.large ? slide?.URLs?.large : slide?.URLs?.thumbnail}
                                 alt=""
                                 className={classes.thumbimages}
                               />
@@ -1010,11 +1010,11 @@ const ProductDetail = ({ ...props }) => {
                                   width: 600,
                                   className: "images",
                                   height: 550,
-                                  src: slide.URLs.original ? slide.URLs.original : slide.URLs.large,
+                                  src: slide.URLs.large ? slide.URLs.large : slide.URLs.thumbnail,
                                   sizes: "(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px",
                                 },
                                 largeImage: {
-                                  src: slide.URLs.original ? slide.URLs.original : slide.URLs.large,
+                                  src: slide.URLs.large ? slide.URLs.large : slide.URLs.thumbnail,
                                   isFluidWidth: true,
                                   width: 1426,
                                   marginLeft: "100px",
