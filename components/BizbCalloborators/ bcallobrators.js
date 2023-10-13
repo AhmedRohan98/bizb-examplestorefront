@@ -17,7 +17,6 @@ const BizbCalloborators = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      cursor:"pointer",
       borderRadius: "40px",
       width: "120px",
       height: "48px",
@@ -63,12 +62,14 @@ const BizbCalloborators = () => {
       },
     },
     buttonshopt: {
+      cursor:"pointer",
       fontSize: "22px",
       fontFamily: "Ostrich Sans Black",
       color: "#000000",
       fontWeight: 900,
       fontStyle: "Black",
       lineHeight: "26px",
+
       background: "none",
       border: "none",
       [theme.breakpoints.down(600)]: {
@@ -96,11 +97,11 @@ const BizbCalloborators = () => {
       left: "63%",
       // right: "10px",
       bottom: "8%",
-      cursor: "pointer",
       fontFamily: "Ostrich Sans Black",
       [theme.breakpoints.down(600)]: {
         left: "33%",
       },
+      
     },
     cart1: {
       display:"flex",
@@ -110,12 +111,12 @@ const BizbCalloborators = () => {
       position: "absolute",
       right: "11%",
       bottom: "8%",
-      cursor: "pointer",
       fontFamily: "Ostrich Sans Black",
       [theme.breakpoints.down(600)]: {
         marginRight: "60px",
       },
       marginRight: "100px",
+     
     },
     cart2: {
       display:"flex",
@@ -125,11 +126,11 @@ const BizbCalloborators = () => {
       position: "absolute",
       right: "28%",
       bottom: "8%",
-      cursor: "pointer",
       fontFamily: "Ostrich Sans Black",
       [theme.breakpoints.down(600)]: {
         right: "58%",
       },
+      
       // marginLeft:"160px",
     },
     textclass: {
@@ -137,7 +138,6 @@ const BizbCalloborators = () => {
       position: "absolute",
       bottom: "28%",
       marginBottom: "10px",
-      cursor: "pointer",
       display: "block",
       left: "20px",
       fontFamily: "Ostrich Sans Black",
@@ -187,11 +187,17 @@ const BizbCalloborators = () => {
       color: "#FDC114",
       textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
       textTransform: "uppercase",
-      fontSize: "56px",
+      fontSize: "40px",
       letterSpacing: "1px",
       padding: "1px",
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down("sm")]: {
         fontSize: "13px",
+        letterSpacing: "0",
+        padding: 0,
+      },
+    
+      [theme.breakpoints.up("xl")]: {
+        fontSize: "54px",
         letterSpacing: "0",
         padding: 0,
       },
