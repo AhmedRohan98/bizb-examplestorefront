@@ -394,7 +394,7 @@ const CheckoutActions = (prop) => {
   const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
   const cartId = cartStore.hasAccountCart ? cartStore.accountCartId : cartStore.anonymousCartId;
   // console.log(cart.checkout.summary.itemTotal.amount + 10, "prop");
-  const [checkedEmail, setCheckedEmail] = React.useState(false);
+  // const [checkedEmail, setCheckedEmail] = React.useState(false);
   const [placeOrder] = useMutation(placeOrderQuery);
   const [getValue, setValue] = useState({});
   const [orderDisable, setOrderDisable] = useState(false);
@@ -431,7 +431,6 @@ const CheckoutActions = (prop) => {
   const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.total?.amount));
   console.log(subtotal);
   const [error, setError] = useState("");
-  
 
   const items = cart.items.map((item) => ({
     addedAt: item.addedAt,
@@ -441,40 +440,36 @@ const CheckoutActions = (prop) => {
   }));
 
   useEffect(() => {
-    console.log("itemitems",items)
+    console.log("itemitems", items);
     // Track "Checkout Initiated" event with Google Analytics 4
     ReactGA.send({
-      category: 'Ecommerce',
-      action: 'checkout_initiated',
-      label: 'Checkout Initiated', // Optional event label
-      nonInteraction: true,         // Optional: Set to true if this event is non-interactive
-      value: 0,                     // Optional: Set a numeric value for the event
+      category: "Ecommerce",
+      action: "checkout_initiated",
+      label: "Checkout Initiated", // Optional event label
+      nonInteraction: true, // Optional: Set to true if this event is non-interactive
+      value: 0, // Optional: Set a numeric value for the event
       products: cart.items.map((item) => ({
         id: item.productConfiguration.productId,
         price: item.price.amount,
-        quantity:item.quantity, // Adjust the quantity for each product as needed
-
-      }))  // Include the product details here as an array
+        quantity: item.quantity, // Adjust the quantity for each product as needed
+      })), // Include the product details here as an array
     });
     const initiatedCheckoutData = {
-      event: 'initiatedCheckout',
+      event: "initiatedCheckout",
       ecommerce: {
         checkout: {
-          products:cart.items.map((item) => ({
+          products: cart.items.map((item) => ({
             id: item.productConfiguration.productId,
             price: item.price.amount,
-            quantity:item.quantity, // Adjust the quantity for each product as needed
-
-          }))
-          
+            quantity: item.quantity, // Adjust the quantity for each product as needed
+          })),
         },
       },
     };
-    
+
     TagManager.dataLayer({
       dataLayer: initiatedCheckoutData,
     });
-    
   }, []);
   // console.log(cart);
   const handlepay = async (values, action) => {
@@ -557,17 +552,16 @@ const CheckoutActions = (prop) => {
       //   eventAction: "successful_checkout",
       // });
       ReactGA.event({
-        category: 'Ecommerce',
-        action: 'successful_checkout',
-        label: 'Optional Event Label', // Optional event label
-        nonInteraction: true,         // Optional: Set to true if this event is non-interactive
-        value: 0,                     // Optional: Set a numeric value for the event
+        category: "Ecommerce",
+        action: "successful_checkout",
+        label: "Optional Event Label", // Optional event label
+        nonInteraction: true, // Optional: Set to true if this event is non-interactive
+        value: 0, // Optional: Set a numeric value for the event
         products: cart.items.map((item) => ({
           id: item.productConfiguration.productId,
           price: item.price.amount,
-          quantity:item.quantity, // Adjust the quantity for each product as needed
-  
-        }))    // Include the product details here as an array
+          quantity: item.quantity, // Adjust the quantity for each product as needed
+        })), // Include the product details here as an array
       });
 
       // Send user to order confirmation page
@@ -585,17 +579,16 @@ const CheckoutActions = (prop) => {
       //   eventAction: "failed_checkout",
       // });
       ReactGA.event({
-        category: 'Ecommerce',
-        action: 'failed_checkout',
-        label: 'Optional Event Label', // Optional event label
-        nonInteraction: true,         // Optional: Set to true if this event is non-interactive
-        value: 0,                     // Optional: Set a numeric value for the event
+        category: "Ecommerce",
+        action: "failed_checkout",
+        label: "Optional Event Label", // Optional event label
+        nonInteraction: true, // Optional: Set to true if this event is non-interactive
+        value: 0, // Optional: Set a numeric value for the event
         products: cart.items.map((item) => ({
           id: item.productConfiguration.productId,
           price: item.price.amount,
-          quantity:item.quantity, // Adjust the quantity for each product as needed
-  
-        }))  ,   // Include the product details here as an array
+          quantity: item.quantity, // Adjust the quantity for each product as needed
+        })), // Include the product details here as an array
       });
       setOrderDisable(false);
 
@@ -746,9 +739,9 @@ const CheckoutActions = (prop) => {
     );
   };
 
-  const handleChangeEmail = (event) => {
-    setCheckedEmail(event.target.checked);
-  };
+  // const handleChangeEmail = (event) => {
+  //   setCheckedEmail(event.target.checked);
+  // };
 
   // const address = values.CompleteAddress;
   // const city = values.city;
@@ -938,7 +931,7 @@ const CheckoutActions = (prop) => {
                 </Grid>
               </Grid>
               <div className={classes.inputitem2}>
-                <div className={classes.checkboxdiv}>
+                {/* <div className={classes.checkboxdiv}>
                   <FormControlLabel
                     control={
                       <Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />
@@ -948,7 +941,7 @@ const CheckoutActions = (prop) => {
                   <Typography variant="body2" className={classes.terms}>
                     Save this Information for next time
                   </Typography>
-                </div>
+                </div> */}
                 <Grid item xs={12} className={classes.inputitem}>
                   <label className={classes.label} variant="h4" htmlFor="orderNotes">
                     <span className={classes.labelSpan}>Order Notes</span>

@@ -352,6 +352,31 @@ const Justin = (props) => {
 
     // do something with updatedItems
   }, [props?.cart?.items, catalogdata]);
+  const parseJSON = (jsonString) => {
+   
+    try {
+      let parsedData;
+  
+      // Attempt to parse as JSON with double quotes
+      try {
+        parsedData = JSON.parse(jsonString);
+      } catch (error1) {
+        // If parsing with double quotes fails, try parsing with single quotes
+        try {
+          const validJsonString = jsonString.replace(/'/g, '"');
+          parsedData = JSON.parse(validJsonString);
+        } catch (error2) {
+          console.error("Error parsing JSON:", error2);
+          return null;
+        }
+      }
+  
+      return parsedData.size || null;
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return null;
+    }
+  };
   function selectVariant(variant, optionId) {
     const { product, uiStore, cart } = props;
 
@@ -832,12 +857,24 @@ const Justin = (props) => {
       </div>
 
       <div className={classes.header}>
-        <h1 className={classes.typography}></h1>
-        <a href="/en/explore">
-          <Typography gutterBottom variant="body1" className={classes.explore}>
-            Explore More
-          </Typography>
-        </a>
+        {" "}
+        {getLoading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <h1 className={classes.typography}></h1>
+            <a
+              href="/en/explore"
+              onClick={() => {
+                setLoading(true);
+              }}
+            >
+              <Typography gutterBottom variant="body1" className={classes.explore}>
+                Explore More
+              </Typography>
+            </a>
+          </>
+        )}
       </div>
     </div>
   );

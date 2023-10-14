@@ -967,6 +967,31 @@ function Explore(props) {
 
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
   }
+  const parseJSON = (jsonString) => {
+   
+    try {
+      let parsedData;
+  
+      // Attempt to parse as JSON with double quotes
+      try {
+        parsedData = JSON.parse(jsonString);
+      } catch (error1) {
+        // If parsing with double quotes fails, try parsing with single quotes
+        try {
+          const validJsonString = jsonString.replace(/'/g, '"');
+          parsedData = JSON.parse(validJsonString);
+        } catch (error2) {
+          console.error("Error parsing JSON:", error2);
+          return null;
+        }
+      }
+  
+      return parsedData.size || null;
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return null;
+    }
+  };
   const trackProductView = () => {
     const dataLayer = {
       dataLayer: {
@@ -1271,32 +1296,11 @@ function Explore(props) {
                         <a target="_blank">
                         <img
                           src={
-                            !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.media[0]?.URLs?.large
-                                ? item?.node?.product?.media[0]?.URLs?.large
-                                : item?.node?.product?.media[0]?.URLs?.medium
-                                  ? item?.node?.product?.media[0]?.URLs?.medium
-                                  : item?.node?.product?.media[0]?.URLs?.small
-                                    ? item?.node?.product?.media[0]?.URLs?.small
-                                    : item?.node?.product?.media[0]?.URLs?.original ?
-                                      item?.node?.product?.media[0]?.URLs?.original :
-                                      item?.node?.product?.variants[0]?.media[0]?.URLs?.original ?
-                                        item?.node?.product?.variants[0]?.media[0]?.URLs?.original :
-                                        item?.node?.product?.variants[0]?.media[0]?.URLs?.large ?
-                                          item?.node?.product?.variants[0]?.media[0]?.URLs?.large :
-                                          item?.node?.product?.variants[0]?.media[0]?.URLs?.small ?
-                                            item?.node?.product?.variants[0]?.media[0]?.URLs?.small :
-                                            item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail ?
-                                              item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail :
-                                              item?.node?.product?.variants[0]?.media[3]?.URLs?.original ?
-                                                item?.node?.product?.variants[0]?.media[3]?.URLs?.original :
-                                                item?.node?.product?.variants[0]?.media[3]?.URLs?.large ?
-                                                  item?.node?.product?.variants[0]?.media[3]?.URLs?.large :
-                                                  item?.node?.product?.variants[0]?.media[3]?.URLs?.small ?
-                                                    item?.node?.product?.variants[0]?.media[3]?.URLs?.small :
-                                                    item?.node?.product?.variants[0]?.media[3]?.URLs?.thumbnail ?
-                                                      item?.node?.product?.variants[0]?.media[3]?.URLs?.thumbnail : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                            item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                            ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                            : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail?
+                            item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail  :
+                             item?.node?.product?.variants[0]?.media[0]?.URLs?.original
 
                           }
                           className={classes.image}

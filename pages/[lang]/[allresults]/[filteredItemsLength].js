@@ -265,7 +265,31 @@ function AllResults(props) {
 
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
-
+    const parseJSON = (jsonString) => {
+   
+      try {
+        let parsedData;
+    
+        // Attempt to parse as JSON with double quotes
+        try {
+          parsedData = JSON.parse(jsonString);
+        } catch (error1) {
+          // If parsing with double quotes fails, try parsing with single quotes
+          try {
+            const validJsonString = jsonString.replace(/'/g, '"');
+            parsedData = JSON.parse(validJsonString);
+          } catch (error2) {
+            console.error("Error parsing JSON:", error2);
+            return null;
+          }
+        }
+    
+        return parsedData.size || null;
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        return null;
+      }
+    };
     // If variant is not already in the cart, add the new item
     const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
     await addItemsToCart([
@@ -377,8 +401,12 @@ function AllResults(props) {
                   });
 
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                  const validOptionTitle = optionTitle ? optionTitle?.replace(`None`, `'none'`).replace('None', `none`).replace(/''/g, '"').replace(/'/g, '"') : null;;
-                  const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+                 
+                const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
+                
+
+                // Access the "size" property
+                const size =validOptionTitle? validOptionTitle: null;
                   const str = item.node.product.title;
                   const words = str.match(/[a-zA-Z0-9]+/g);
                   const firstThreeWords = words.slice(0, 3).join(" ");

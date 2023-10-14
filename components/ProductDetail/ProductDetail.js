@@ -652,7 +652,7 @@ const ProductDetail = ({ ...props }) => {
     selectVariant(product?.variants[0]);
     uiStore.setEndCursor(tagIds);
   }, []);
-  useEffect(() => { }, [uiStore]);
+  useEffect(() => {}, [uiStore]);
 
   function selectVariant(variant, optionId) {
     const { uiStore } = props;
@@ -945,6 +945,7 @@ const ProductDetail = ({ ...props }) => {
               <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
               <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
                 <div className={classes.thumb}>
+                  {console.log("imagesNavSlider",imagesNavSlider?.swiper)}
                   <Swiper
                     onSwiper={setImagesNavSlider}
                     direction="vertical"
@@ -972,7 +973,7 @@ const ProductDetail = ({ ...props }) => {
                           <SwiperSlide key={index}>
                             <div className={classes.thumbimage}>
                               <img
-                                src={slide?.URLs?.thumbnail ? slide?.URLs?.thumbnail : slide?.URLs?.large}
+                                src={slide?.URLs?.large ? slide?.URLs?.large : slide?.URLs?.thumbnail}
                                 alt=""
                                 className={classes.thumbimages}
                               />
@@ -986,6 +987,7 @@ const ProductDetail = ({ ...props }) => {
               <Grid style={{}} item xs={0} md={12} sm={0} lg={8}>
                 <div style={{}} className="fluid react-slick">
                   <Swiper
+                    thumbs={{ swiper: imagesNavSlider }}
                     direction="horizontal"
                     ref={sliderRef}
                     pagination={{
@@ -1008,11 +1010,11 @@ const ProductDetail = ({ ...props }) => {
                                   width: 600,
                                   className: "images",
                                   height: 550,
-                                  src: slide.URLs.original ? slide.URLs.original : slide.URLs.large,
+                                  src: slide.URLs.large ? slide.URLs.large : slide.URLs.thumbnail,
                                   sizes: "(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px",
                                 },
                                 largeImage: {
-                                  src: slide.URLs.original ? slide.URLs.original : slide.URLs.large,
+                                  src: slide.URLs.large ? slide.URLs.large : slide.URLs.thumbnail,
                                   isFluidWidth: true,
                                   width: 1426,
                                   marginLeft: "100px",
@@ -1161,10 +1163,10 @@ const ProductDetail = ({ ...props }) => {
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
                         ? optionTitle
-                          ?.replace(`None`, `'none'`)
-                          .replace("None", `none`)
-                          .replace(/''/g, '"')
-                          .replace(/'/g, '"')
+                            ?.replace(`None`, `'none'`)
+                            .replace("None", `none`)
+                            .replace(/''/g, '"')
+                            .replace(/'/g, '"')
                         : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item?.node?.product?.title;
