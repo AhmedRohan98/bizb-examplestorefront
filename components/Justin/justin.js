@@ -295,6 +295,7 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
+  const [getLoading, setLoading] = useState(false);
 
   const trackProductView = () => {
     const dataLayer = {
