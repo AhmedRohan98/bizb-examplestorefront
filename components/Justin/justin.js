@@ -80,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "0px",
       fontSize: "10px",
       padding: "4px",
+
+
+
     },
   },
   sizes: {
@@ -128,6 +131,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       fontSize: "10px",
     },
+
+
   },
   carttitle: {
     display: "flex",
@@ -153,11 +158,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
+
   },
   progressBar: {
     justifyContent: "center",
     display: "flex",
-    marginLeft: "50%",
+    marginLeft:"50%",
     [theme.breakpoints.down("sm")]: {
       size: "10px",
     },
@@ -289,7 +295,6 @@ const Justin = (props) => {
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
-  const [getLoading, setLoading] = useState(false);
 
   const trackProductView = () => {
     const dataLayer = {
@@ -416,6 +421,7 @@ const Justin = (props) => {
   };
 
   const handleOnClick = async (product, variant) => {
+    
     ReactGA.event({
       category: "Ecommerce",
       action: "add_to_cart",
@@ -500,7 +506,8 @@ const Justin = (props) => {
 
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
               const validOptionTitle = optionTitle
-                ? optionTitle?.replace(`None`, `'none'`).replace("None", `none`).replace(/''/g, '"').replace(/'/g, '"')
+                ? optionTitle?.replace(`None`, `'none'`).replace("None", `none`)
+                // .replace(/''/g, '"').replace(/'/g, '"')
                 : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
               const str = item.node.product.title;
@@ -535,23 +542,30 @@ const Justin = (props) => {
                             !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
                               ? item?.node?.product?.media[0]?.URLs?.thumbnail
                               : item?.node?.product?.media[0]?.URLs?.large
-                              ? item?.node?.product?.media[0]?.URLs?.large
-                              : item?.node?.product?.media[0]?.URLs?.medium
-                              ? item?.node?.product?.media[0]?.URLs?.medium
-                              : item?.node?.product?.media[0]?.URLs?.small
-                              ? item?.node?.product?.media[0]?.URLs?.small
-                              : item?.node?.product?.media[0]?.URLs?.original
-                              ? item?.node?.product?.media[0]?.URLs?.original
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.original
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                              : item?.node?.product?.variants[0]?.media[0]?.URLs?.small
-                              ? item?.node?.product?.variants[0]?.media[0]?.URLs?.small
-                              : item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
-                      
+                                ? item?.node?.product?.media[0]?.URLs?.large
+                                : item?.node?.product?.media[0]?.URLs?.medium
+                                  ? item?.node?.product?.media[0]?.URLs?.medium
+                                  : item?.node?.product?.media[0]?.URLs?.small
+                                    ? item?.node?.product?.media[0]?.URLs?.small
+                                    : item?.node?.product?.media[0]?.URLs?.original ?
+                                      item?.node?.product?.media[0]?.URLs?.original :
+                                      item?.node?.product?.variants[0]?.media[0]?.URLs?.original ?
+                                        item?.node?.product?.variants[0]?.media[0]?.URLs?.original :
+                                        item?.node?.product?.variants[0]?.media[0]?.URLs?.large ?
+                                          item?.node?.product?.variants[0]?.media[0]?.URLs?.large :
+                                          item?.node?.product?.variants[0]?.media[0]?.URLs?.small ?
+                                            item?.node?.product?.variants[0]?.media[0]?.URLs?.small :
+                                            item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail ?
+                                              item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail :
+                                              item?.node?.product?.variants[0]?.media[3]?.URLs?.original ?
+                                                item?.node?.product?.variants[0]?.media[3]?.URLs?.original :
+                                                item?.node?.product?.variants[0]?.media[3]?.URLs?.large ?
+                                                  item?.node?.product?.variants[0]?.media[3]?.URLs?.large :
+                                                  item?.node?.product?.variants[0]?.media[3]?.URLs?.small ?
+                                                    item?.node?.product?.variants[0]?.media[3]?.URLs?.small :
+                                                    item?.node?.product?.variants[0]?.media[3]?.URLs?.thumbnail ?
+                                                      item?.node?.product?.variants[0]?.media[3]?.URLs?.thumbnail : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+
                           }
                           className={classes.image}
                           key={item?.node?.product?.id}
@@ -661,13 +675,13 @@ const Justin = (props) => {
                     </div> */}
                     <div>
                       <div className={classes.cartButton}>
-                        <Button
-                          className={classes.cart}
-                          onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                          disabled={isDisabled || item?.node?.product?.isSoldOut}
-                        >
-                          {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                      <Button
+                              className={classes.cart}
+                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                              disabled={isDisabled || item?.node?.product?.isSoldOut}
+                            >
+                               {isLoading[item?.node?.product?.productId] ? (
+                            <CircularProgress color="black" size="17px"   className={classes.progressBar} />
                           ) : (
                             <>
                               <div className={classes.cartButtonrowDiv}>
@@ -699,9 +713,9 @@ const Justin = (props) => {
                                     `-${Math.abs(percentage)}%`}
                                 </Typography>
                               </div>
-                            </>
+                              </>
                           )}
-                        </Button>
+                            </Button>
                       </div>
                       <div>
                         <div className={classes.cartcontent}>
@@ -733,16 +747,20 @@ const Justin = (props) => {
                                 </Typography>
                               </a>
                             </Link>
-                            <Typography className={classes.storeName}>
+                            <Typography
+
+
+                              className={classes.storeName}
+                            >
                               Store Name:{" "}
                               <Link
                                 href={"/en/profile/[slugOrId]"}
                                 as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
                               >
-                                <a target="_blank">
-                                  <span className={classes.storeNameStyle}>
-                                    {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
-                                  </span>
+                                 <a target="_blank">
+                                <span className={classes.storeNameStyle}>
+                                  {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                </span>
                                 </a>
                               </Link>
                             </Typography>
@@ -782,6 +800,7 @@ const Justin = (props) => {
                                 >
                                   Size <span className={classes.sizes}>{formatSize(size, true)}</span>
                                 </Typography>
+
                               </div>
                             </div>
                           </div>
@@ -812,25 +831,13 @@ const Justin = (props) => {
         </ResponsiveMasonry>
       </div>
 
-      <div className={classes.header}>  {getLoading ? (
-            <CircularProgress  />
-          ) : (
-            <>
+      <div className={classes.header}>
         <h1 className={classes.typography}></h1>
-        <a
-          href="/en/explore"
-          onClick={() => {
-          
-            setLoading(true);
-          }}
-        >
-        
-            <Typography gutterBottom variant="body1" className={classes.explore}>
-              Explore More
-            </Typography>
-          
-        </a></>
-          )}
+        <a href="/en/explore">
+          <Typography gutterBottom variant="body1" className={classes.explore}>
+            Explore More
+          </Typography>
+        </a>
       </div>
     </div>
   );
