@@ -29,7 +29,8 @@ import "../assets/fonts/style.css";
 import "react-toastify/dist/ReactToastify.css";
 // import { StripeWrapper } from "components/StripeCard";
 
-if (process.env.NODE_ENV === "production") {
+// if (process.env.NODE_ENV === "production") 
+{
   // Override the console.log method to do nothing
   console.log = function () { };
   // console.error = function () { };
