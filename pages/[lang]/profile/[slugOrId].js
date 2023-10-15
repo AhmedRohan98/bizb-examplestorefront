@@ -604,37 +604,20 @@ function SellerPublicProfile(props) {
           >
             <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
               {props?.catalogItems?.map((item, key) => {
-                {console.log("validOptionTitle", item)}
 
                 const cartitem = cart?.items;
                 const isDisabled = cartitem?.some((data) => {
                   return data?.productConfiguration?.productId === item?.node?.product?.productId;
                 });
-                // console.log(cart?.items, "item");
-                // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-                const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                // const modifiedJsonString = optionTitle.replace(/"color"\s*:\s*"[^"]*"\s*,?/g, '');
+                let optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+               let validOptionTitle = optionTitle? optionTitle?.replace(/['"\\]/g,"")
+                .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","'):null;
+            
 
-                
-                // const validOptionTitle = modifiedJsonString
-                //   ? modifiedJsonString
-                //       ?.replace(`None`, `'none'`)
-                //       .replace(/''/g, '"')
-                //       .replace(/'/g, '"')
-                //       .replace(/"/g, '"')
-                //       .replace(/"/g, '"')
-
-
-
-                //   : null;
-                  {console.log("validOptionTitle", optionTitle)}
-
-
-                const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
                 
 
                 // Access the "size" property
-                const size =validOptionTitle? validOptionTitle: null;
+                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 {console.log("validOptionTitle", validOptionTitle, "size", size)}
                 const str = item?.node?.product?.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);

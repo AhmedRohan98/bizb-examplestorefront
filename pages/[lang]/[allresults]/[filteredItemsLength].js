@@ -402,11 +402,15 @@ function AllResults(props) {
 
                   const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                  
-                const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
-                
+                  const validOptionTitle = optionTitle
+                  ? optionTitle?.replace(/['"\\]/g,"")
+                  .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
+                  : null;                
 
                 // Access the "size" property
-                const size =validOptionTitle? validOptionTitle: null;
+                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+
+                // const size =validOptionTitle? validOptionTitle: null;
                   const str = item.node.product.title;
                   const words = str.match(/[a-zA-Z0-9]+/g);
                   const firstThreeWords = words.slice(0, 3).join(" ");
