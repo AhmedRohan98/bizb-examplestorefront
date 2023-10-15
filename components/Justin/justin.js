@@ -532,8 +532,11 @@ const Justin = (props) => {
 
               const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
               const validOptionTitle = optionTitle
-                ? optionTitle?.replace(`None`, `'none'`).replace("None", `none`)
-                // .replace(/''/g, '"').replace(/'/g, '"')
+                ? optionTitle
+                //?.replace(`None`, `'none'`).replace("None", `none`)
+                // ?.replace(/''/g, '').replace(/'/g, '').replace(/"/g, '').replace(/""/g, '').replace(/\\/g, '')
+                ?.replace(/['"\\]/g,"")
+                .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
                 : null;
               const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
               const str = item.node.product.title;
