@@ -696,7 +696,7 @@ function Explore(props) {
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
-      width: "100%"
+      width: "100%",
     },
     // cart: {
     //   height: "35px",
@@ -756,7 +756,7 @@ function Explore(props) {
       marginRight: "12px",
     },
     progressBar: {
-      marginLeft:"50%",
+      marginLeft: "50%",
 
       [theme.breakpoints.down("sm")]: {
         size: "10px",
@@ -861,12 +861,10 @@ function Explore(props) {
       fontFamily: "lato",
       marginLeft: "0px",
       marginTop: "0px",
-  
+
       [theme.breakpoints.down("sm")]: {
         fontSize: "10px",
       },
-  
-  
     },
     storeNameStyle: {
       marginLeft: "5px",
@@ -882,9 +880,6 @@ function Explore(props) {
         marginLeft: "0px",
         fontSize: "10px",
         padding: "4px",
-  
-  
-  
       },
     },
     cartbackground: {
@@ -968,10 +963,9 @@ function Explore(props) {
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
   }
   const parseJSON = (jsonString) => {
-   
     try {
       let parsedData;
-  
+
       // Attempt to parse as JSON with double quotes
       try {
         parsedData = JSON.parse(jsonString);
@@ -985,7 +979,7 @@ function Explore(props) {
           return null;
         }
       }
-  
+
       return parsedData.size || null;
     } catch (error) {
       console.error("Error parsing JSON:", error);
@@ -1058,9 +1052,9 @@ function Explore(props) {
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
 
-    console.log("google", product)
+    console.log("google", product);
     const addToCartData = {
-      event: 'addToCart',
+      event: "addToCart",
       ecommerce: {
         add: {
           products: [
@@ -1083,7 +1077,6 @@ function Explore(props) {
       ...prevState,
       [product.productId]: true,
     }));
-
 
     await handleAddToCartClick(addToCartQuantity, product, variant);
     toast.success(" added to cart successfully!");
@@ -1259,14 +1252,16 @@ function Explore(props) {
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                 const validOptionTitle = optionTitle
                   ? optionTitle
-                  ?.replace(/['"\\]/g,"")
-                  .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
-                
-                    // ?.replace(`None`, `'none'`)
+                      ?.replace(/['"\\]/g, "")
+                      .replace("{", '{"')
+                      .replace(/:/g, '":"')
+                      .replace("}", '"}')
+                      .replace(",", '","')
+                  : // ?.replace(`None`, `'none'`)
                     // .replace("None", `none`)
                     // .replace(/''/g, '"')
                     // .replace(/'/g, '"')
-                  : null;
+                    null;
                 const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
@@ -1296,19 +1291,24 @@ function Explore(props) {
                         as={item.node.product.slug && `product/${item.node.product.slug}`}
                       >
                         <a target="_blank">
-                        <img
-                          src={
-                            item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                            ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                            : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail?
-                            item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail  :
-                             item?.node?.product?.variants[0]?.media[0]?.URLs?.original
-
-                          }
-                          className={classes.image}
-                          key={item?.node?.product?.id}
-                          alt={item?.node?.product?.title}
-                        />
+                          <img
+                            src={
+                              item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                                ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                                : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                                ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                                : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                                ? item?.node?.product?.variants[0]?.media[1]?.URLs?.original
+                                : item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                                ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                                : item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                                ? item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                                : item?.node?.product?.variants[0]?.media[1]?.URLs?.original
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            alt={item?.node?.product?.title}
+                          />
                         </a>
                       </Link>
 
@@ -1404,48 +1404,47 @@ function Explore(props) {
                       </div> */}
                       <div>
                         <div className={classes.cartButton}>
-                         
-                            <Button
-                              className={classes.cart}
-                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                              disabled={isDisabled || item?.node?.product?.isSoldOut}
-                            >
-                               {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress color="black" size="17px"  className={classes.progressBar} />
-                          ) : (
-                            <>
-                              <div className={classes.cartButtonrowDiv}>
-                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                                <Typography
-                                  style={{
-                                    fontFamily: "Ostrich Sans Black",
-                                  }}
-                                  variant="h5"
-                                  component="h2"
-                                  className={classes.cartText}
-                                >
-                                  {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                                </Typography>
-                              </div>
-                              <div>
-                                <Typography
-                                  style={{
-                                    fontWeight: "600",
-                                    fontSize: "0.9rem",
-                                    fontFamily: "lato",
-                                    marginLeft: "0px",
-                                  }}
-                                  variant="h4"
-                                  component="h2"
-                                  className={classes.carttitle2}
-                                >
-                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                                    `-${Math.abs(percentage)}%`}
-                                </Typography>
-                              </div>
+                          <Button
+                            className={classes.cart}
+                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                            disabled={isDisabled || item?.node?.product?.isSoldOut}
+                          >
+                            {isLoading[item?.node?.product?.productId] ? (
+                              <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                            ) : (
+                              <>
+                                <div className={classes.cartButtonrowDiv}>
+                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                  <Typography
+                                    style={{
+                                      fontFamily: "Ostrich Sans Black",
+                                    }}
+                                    variant="h5"
+                                    component="h2"
+                                    className={classes.cartText}
+                                  >
+                                    {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                  </Typography>
+                                </div>
+                                <div>
+                                  <Typography
+                                    style={{
+                                      fontWeight: "600",
+                                      fontSize: "0.9rem",
+                                      fontFamily: "lato",
+                                      marginLeft: "0px",
+                                    }}
+                                    variant="h4"
+                                    component="h2"
+                                    className={classes.carttitle2}
+                                  >
+                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                      `-${Math.abs(percentage)}%`}
+                                  </Typography>
+                                </div>
                               </>
-                          )}
-                            </Button>
+                            )}
+                          </Button>
                           {/* )} */}
                         </div>
                         <div>
@@ -1478,11 +1477,7 @@ function Explore(props) {
                                   </Typography>
                                 </a>
                               </Link>
-                              <Typography
-
-
-                                className={classes.storeName}
-                              >
+                              <Typography className={classes.storeName}>
                                 Store Name:{" "}
                                 <Link
                                   href={"/en/profile/[slugOrId]"}
@@ -1531,7 +1526,6 @@ function Explore(props) {
                                   >
                                     Size <span className={classes.sizes}>{formatSize(size, true)}</span>
                                   </Typography>
-
                                 </div>
                               </div>
                             </div>

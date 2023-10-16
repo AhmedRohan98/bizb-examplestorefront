@@ -650,8 +650,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cartcontenttext: {
     display: "flex",
-    flexDirection: "column", 
-    width: "100%"
+    flexDirection: "column",
+    width: "100%",
   },
   carttitle2: {
     display: "flex",
@@ -727,8 +727,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       fontSize: "10px",
     },
-
-
   },
   storeNameStyle: {
     marginLeft: "5px",
@@ -744,9 +742,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "0px",
       fontSize: "10px",
       padding: "4px",
-
-
-
     },
   },
   cartbackground: {
@@ -966,7 +961,7 @@ function Categories(props) {
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
     const addToCartData = {
-      event: 'addToCart',
+      event: "addToCart",
       ecommerce: {
         add: {
           products: [
@@ -1057,10 +1052,9 @@ function Categories(props) {
   //   setOpen(false);
   // };
   const parseJSON = (jsonString) => {
-   
     try {
       let parsedData;
-  
+
       // Attempt to parse as JSON with double quotes
       try {
         parsedData = JSON.parse(jsonString);
@@ -1074,14 +1068,14 @@ function Categories(props) {
           return null;
         }
       }
-  
+
       return parsedData.size || null;
     } catch (error) {
       console.error("Error parsing JSON:", error);
       return null;
     }
   };
-  
+
   const handlePopOverClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -1574,9 +1568,9 @@ function Categories(props) {
               xs={12}
               sm={6}
               md={12}
-            // align="center"
-            // justify="center"
-            // alignItems="center"
+              // align="center"
+              // justify="center"
+              // alignItems="center"
             >
               <div className={classes.gridroot}>
                 <ResponsiveMasonry
@@ -1594,11 +1588,14 @@ function Categories(props) {
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
 
                       const validOptionTitle = optionTitle
-                      ? optionTitle?.replace(/['"\\]/g,"")
-                      .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
-                      : null;
+                        ? optionTitle
+                            ?.replace(/['"\\]/g, "")
+                            .replace("{", '{"')
+                            .replace(/:/g, '":"')
+                            .replace("}", '"}')
+                            .replace(",", '","')
+                        : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-
 
                       // Access the "size" property
                       const str = item.node.product.title;
@@ -1637,9 +1634,15 @@ function Categories(props) {
                                   src={
                                     item?.node?.product?.variants[0]?.media[0]?.URLs?.large
                                     ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                                    : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail?
-                                    item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail  :
-                                     item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                                    : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                                    : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.original
+                                    : item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                                    : item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                                    : item?.node?.product?.variants[0]?.media[1]?.URLs?.original
                                   }
                                   className={classes.image}
                                   key={item?.node?.product?.id}
@@ -1754,7 +1757,6 @@ function Categories(props) {
                             </div> */}
                             <div>
                               <div className={classes.cartButton}>
-
                                 <Button
                                   className={classes.cart}
                                   onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
@@ -1828,11 +1830,7 @@ function Categories(props) {
                                         </Typography>
                                       </a>
                                     </Link>
-                                    <Typography
-
-
-                                      className={classes.storeName}
-                                    >
+                                    <Typography className={classes.storeName}>
                                       Store Name:{" "}
                                       <Link
                                         href={"/en/profile/[slugOrId]"}
@@ -1881,7 +1879,6 @@ function Categories(props) {
                                         >
                                           Size <span className={classes.sizes}>{formatSize(size, true)}</span>
                                         </Typography>
-
                                       </div>
                                     </div>
                                   </div>
@@ -1929,11 +1926,15 @@ function Categories(props) {
                     });
 
                     const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-            
+
                     const validOptionTitle = optionTitle
-                    ? optionTitle?.replace(/['"\\]/g,"")
-                    .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
-                    : null;                
+                      ? optionTitle
+                          ?.replace(/['"\\]/g, "")
+                          .replace("{", '{"')
+                          .replace(/:/g, '":"')
+                          .replace("}", '"}')
+                          .replace(",", '","')
+                      : null;
                     const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
 
                     // Access the "size" property
@@ -1972,15 +1973,21 @@ function Categories(props) {
                               <img
                                 src={
                                   item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                                  ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                                  : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail?
-                                  item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail  :
-                                   item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
+                                    : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                                    : item?.node?.product?.variants[0]?.media[0]?.URLs?.original
+                                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.original
+                                    : item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                                    : item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.thumbnail
+                                    : item?.node?.product?.variants[0]?.media[1]?.URLs?.original
                                 }
                                 className={classes.image}
                                 key={item?.node?.product?.id}
                                 alt={"hhhh"}
-                              // onClick={() => clickHandler(item.node.product.slug)}
+                                // onClick={() => clickHandler(item.node.product.slug)}
                               />
                             </a>
                           </Link>
@@ -2078,7 +2085,6 @@ function Categories(props) {
                           </div> */}
                           <div>
                             <div className={classes.cartButton}>
-
                               <Button
                                 className={classes.cart}
                                 onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
@@ -2152,11 +2158,7 @@ function Categories(props) {
                                       </Typography>
                                     </a>
                                   </Link>
-                                  <Typography
-
-
-                                    className={classes.storeName}
-                                  >
+                                  <Typography className={classes.storeName}>
                                     Store Name:{" "}
                                     <Link
                                       href={"/en/profile/[slugOrId]"}
@@ -2205,7 +2207,6 @@ function Categories(props) {
                                       >
                                         Size <span className={classes.sizes}>{formatSize(size, true)}</span>
                                       </Typography>
-
                                     </div>
                                   </div>
                                 </div>
