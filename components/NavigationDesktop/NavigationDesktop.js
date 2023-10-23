@@ -82,6 +82,25 @@ const styles = (theme) => ({
   paper: {
     padding: theme.spacing(0),
   },
+  headerHeadings:{
+    marginRight: "40px",
+    padding: "9px 11px",
+    marginLeft: "30px",
+    fontSize: "18px",
+    fontFamily: '"Ostrich Sans Black"',
+    fontWeight: 900,
+    "&:hover": {
+      color: "white",
+      boxShadow: "inset 150px 0 0 0 #FDC114",
+      borderRadius:"18px"
+    },
+    [theme.breakpoints.down(1300)]: {
+      fontSize: "13px",
+      marginLeft: "2px",
+
+
+    },
+  }
 });
 
 const tagsCategory = () => (
@@ -107,14 +126,14 @@ class NavigationDesktop extends Component {
     classes: PropTypes.object,
     navItems: PropTypes.object,
     tags: PropTypes.arrayOf(),
-    viewer: PropTypes.object
+    viewer: PropTypes.object,
   };
 
   static defaultProps = {
     classes: {},
     navItems: {},
     headerType: false,
-    viewer:{}
+    viewer: {},
   };
 
   constructor(props) {
@@ -124,24 +143,9 @@ class NavigationDesktop extends Component {
       categoryTagsInfo: null,
       selectedPage: null,
       currentLink: null,
-      originalData: [
-        'Juniors',
-        'Casuals',
-        'Party Wear',
-        'Shoes',
-        'Accessories',
-        'Western',
-      ],
-      customOrder: [
-        'Casuals',
-        'Western',
-        'Party Wear',
-        'Juniors',
-        'Accessories',
-        'Shoes',
-      ],
+      originalData: ["Juniors", "Casuals", "Party Wear", "Shoes", "Accessories", "Western"],
+      customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes"],
       mappedData: [],
-
     };
 
     // Bind the class methods in the constructor
@@ -149,31 +153,28 @@ class NavigationDesktop extends Component {
     this.handlePopOverClose = this.handlePopOverClose.bind(this);
   }
   mapData() {
-    const { originalData, customOrder,categoryTagsInfo } = this.state;
+    const { originalData, customOrder, categoryTagsInfo } = this.state;
 
-    const mappedData = customOrder.map((item) => {
-      const dataItem = categoryTagsInfo.find((originalItem) => originalItem.displayTitle === item);
-      return dataItem ? { ...dataItem } : null;
-    }).filter(Boolean);
+    const mappedData = customOrder
+      .map((item) => {
+        const dataItem = categoryTagsInfo.find((originalItem) => originalItem.displayTitle === item);
+        return dataItem ? { ...dataItem } : null;
+      })
+      .filter(Boolean);
 
     this.setState({ mappedData });
     // console.log("this.mapData();", categoryTagsInfo)
-    console.log("this.mapData();", this.state.mappedData)
-
-
+    console.log("this.mapData();", this.state.mappedData);
   }
-  componentDidMount() {    
+  componentDidMount() {
     this.fetchData();
 
     const currentLink = Router.pathname;
     // this.mapData();
 
-
     // console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
     // console.log("viewerviewer", this.props.viewer)
     // console.log("this.mapData();", this.mapData())
-
-
   }
 
   // function that updates the anchorEl state
@@ -218,8 +219,6 @@ class NavigationDesktop extends Component {
       });
       this.mapData();
 
-
-     
       // this.state.categoryTagsInfo(response.data.tags.nodes)
       console.log("NavigationDesktop222", this.state.categoryTagsInfo);
     } catch (error) {
@@ -313,17 +312,9 @@ class NavigationDesktop extends Component {
               }
             >
               <span
-                className="hoverable"
-                style={{
-                  marginRight: "40px",
-                  cursor: "pointer",
-                  padding: "9px 11px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  letterSpacing: "4%",
-                  fontFamily: '"Ostrich Sans Black',
-                  fontWeight: 900,
-                  // textDecoration: "underline",
+                  className={classes.headerHeadings}
+                  style={{
+                 
 
                   marginBottom: "-4px",
 
@@ -338,24 +329,15 @@ class NavigationDesktop extends Component {
             <a href="/en/explore">
               <span
                 onMouseEnter={this.handlePopOverOpen}
-
                 onClick={() =>
                   this.setState({
                     selectedPage: "/[lang]/categories/[tagId]",
                   })
-                  
                 }
                 // onMouseLeave={this.handlePopOverClose}
-                className="hoverable"
+                className={classes.headerHeadings}
                 style={{
-                  marginRight: "40px",
-                  cursor: "pointer",
-                  padding: "9px 11px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black"',
-                  fontWeight: 900,
-                  // color: this.state.anchorEl ? "#fdc114" : "",
+                 
 
                   textDecorationColor:
                     Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
@@ -430,7 +412,7 @@ class NavigationDesktop extends Component {
             >
               Byol
             </span> */}
-                   <a
+            <a
               style={{
                 color: "inherit",
               }}
@@ -438,63 +420,42 @@ class NavigationDesktop extends Component {
               href="https://bizb.store/dashboard/uploadproductdetail"
             >
               <span
-                className="hoverable"
-                style={{
-                  marginRight: "40px",
-                  padding: "9px 11px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black"',
-                  fontWeight: 900,
-                }}
+                                 className={classes.headerHeadings}
+
               >
                 Upload Product
               </span>
             </a>
-            {this.props.viewer?.isSeller===true ?
-            <a
-              style={{
-                color: "inherit",
-              }}
-              target="_blank"
-              href="https://bizb.store/dashboard"
-            >
-              <span
-                className="hoverable"
+            {this.props.viewer?.isSeller === true ? (
+              <a
                 style={{
-                  marginRight: "40px",
-                  padding: "9px 11px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black"',
-                  fontWeight: 900,
+                  color: "inherit",
                 }}
+                target="_blank"
+                href="https://bizb.store/dashboard"
               >
-                Dashboard
-              </span>
-            </a>
-            :
-            <a
-              style={{
-                color: "inherit",
-              }}
-              target="_blank"
-              href="/en/SellerRegistrationPage"
-            >
-              <span
-                className="hoverable"
+                <span
+                  className={classes.headerHeadings}
+                >
+                  Dashboard
+                </span>
+              </a>
+            ) : (
+              <a
                 style={{
-                  marginRight: "40px",
-                  padding: "9px 11px",
-                  marginLeft: "30px",
-                  fontSize: "18px",
-                  fontFamily: '"Ostrich Sans Black"',
-                  fontWeight: 900,
+                  color: "inherit",
                 }}
+                target="_blank"
+                href="/en/SellerRegistrationPage"
               >
-                Become a Seller
-              </span>
-            </a>}
+                <span
+                                  className={classes.headerHeadings}
+
+                >
+                  Become a Seller
+                </span>
+              </a>
+            )}
           </div>
         </nav>
       </>

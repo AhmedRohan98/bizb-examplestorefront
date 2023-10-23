@@ -19,6 +19,7 @@ import withCart from "containers/cart/withCart";
 import Link from "components/Link";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
+import { CircularProgress, Hidden } from "@material-ui/core";
 
 const styles = (theme) => ({
   popper: {
@@ -261,6 +262,9 @@ const styles = (theme) => ({
 const MiniCart = ({ ...props }) => {
   const [anchorElement, setAnchorElement] = useState(null);
   const [open, setOpen] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
+  const [isLoading2, setisLoading2] = useState(false);
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -272,6 +276,7 @@ const MiniCart = ({ ...props }) => {
 
   const handleCheckoutButtonClick = () => {
     const productIds = cart?.items?.map((item) => item._id);
+    setisLoading2(true)
     ReactGA.send({
       category: 'Ecommerce',
       action: 'checkout_initiated',
@@ -312,7 +317,7 @@ const MiniCart = ({ ...props }) => {
   const handleOnClick = () => {
     const { closeCart } = props.uiStore;
     const productIds = cart?.items.map((item) => item._id);
-
+    setisLoading(true)
     const dataLayer = {
       dataLayer: {
         event: "cart_view",
@@ -426,18 +431,32 @@ const MiniCart = ({ ...props }) => {
                         </div>
                         <div className={classes.total1}>
                           <div style={{ cursor: "pointer" }}>
+                         
                             <Button className={classes.cart1} onClick={handleOnClick}>
+                            {isLoading ? (
+                          
+                          <CircularProgress />
+                      ) : (
                               <Typography gutterBottom variant="h5" component="h2" className={classes.carttext}>
                                 VIEW CART{" "}
                               </Typography>
+                               )}
                             </Button>
+                       
                           </div>
                           <div style={{ cursor: "pointer" }}>
+                         
                             <Button onClick={handleCheckoutButtonClick} className={classes.cart}>
+                            {isLoading2 ? (
+                          
+                          <CircularProgress color={"black"}/>
+                      ) : (
                               <Typography gutterBottom variant="h5" component="h2">
                                 CHECKOUT
                               </Typography>
+                                )}
                             </Button>
+                    
                           </div>
                         </div>
                       </div>
