@@ -398,6 +398,8 @@ const CheckoutActions = (prop) => {
   const [placeOrder] = useMutation(placeOrderQuery);
   const [getValue, setValue] = useState({});
   const [orderDisable, setOrderDisable] = useState(false);
+  const [orderDisable2, setOrderDisable2] = useState(false);
+
   const [promoCode, setPromoCode] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const [errorPromo, setErrorPromo] = useState("");
@@ -605,7 +607,7 @@ const CheckoutActions = (prop) => {
   });
   // setSubTotal(formatCurrency(cart?.checkout?.summary?.itemTotal?.amount));
   const handleApplyPromo = async () => {
-    setIsDisabled(true);
+    setOrderDisable2(true);
     try {
       setErrorPromo("");
       // console.log("")
@@ -624,7 +626,7 @@ const CheckoutActions = (prop) => {
     } catch (err) {
       console.log("response", err.message);
       setErrorPromo(err?.message);
-      setIsDisabled(false);
+      setOrderDisable2(false);
       console.log(err.message);
     }
   };
@@ -1017,7 +1019,7 @@ const CheckoutActions = (prop) => {
                               disabled={isDisabledPromo}
                             >
                               {/* {console.log("",cart?.checkout?.summary?.discountTotal?.amount)} */}
-                              {orderDisable ? (
+                              {orderDisable2 ? (
                                 <CircularProgress disableShrink size={24} style={{ color: "black" }} />
                               ) : (
                                 "Apply"

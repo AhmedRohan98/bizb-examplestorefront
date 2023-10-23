@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Layout from "components/Layout";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -33,6 +33,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
+import SkeletonLoader from "../../components/Justin/skeletonLoader";
 
 function Explore(props) {
   console.log("props", props);
@@ -40,6 +41,12 @@ function Explore(props) {
   const [state, setState] = useState();
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
+
+  const [queue, setQueue] = useState([]);
+  const [processing, setProcessing] = useState(false);
+
+  const observer = useRef(null);
+  const [lodingforNextPage, setlodingforNextPage] = useState(false)
 
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
@@ -53,6 +60,10 @@ function Explore(props) {
   const toggleDrawer = (anchor, open) => (event) => {
     setState(!state);
   };
+
+  useEffect(() => {
+    processQueue();
+  }, [queue, props?.cart?.items, props?.catalogItems]);
 
   const handleChangeChecksize = (event) => {
     const selectedSize = event.target.name;
@@ -469,6 +480,9 @@ function Explore(props) {
     loadmore: {
       marginLeft: theme.spacing(5),
       marginRight: theme.spacing(5),
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     filternames: {
       borderBottom: "2px solid #000000",
@@ -696,7 +710,7 @@ function Explore(props) {
     cartcontenttext: {
       display: "flex",
       flexDirection: "column",
-      width: "100%"
+      width: "100%",
     },
     // cart: {
     //   height: "35px",
@@ -756,7 +770,7 @@ function Explore(props) {
       marginRight: "12px",
     },
     progressBar: {
-      marginLeft:"50%",
+      marginLeft: "50%",
 
       [theme.breakpoints.down("sm")]: {
         size: "10px",
@@ -861,12 +875,10 @@ function Explore(props) {
       fontFamily: "lato",
       marginLeft: "0px",
       marginTop: "0px",
-  
+
       [theme.breakpoints.down("sm")]: {
         fontSize: "10px",
       },
-  
-  
     },
     storeNameStyle: {
       marginLeft: "5px",
@@ -882,9 +894,6 @@ function Explore(props) {
         marginLeft: "0px",
         fontSize: "10px",
         padding: "4px",
-  
-  
-  
       },
     },
     cartbackground: {
@@ -916,12 +925,74 @@ function Explore(props) {
       border: "1px solid #000000",
     },
   }));
-  // console.log(props.totalcount, "propertiese");
+  console.log(props.totalcount, "propertiese");
+
+  // const handleIntersection = (entries) => {
+  //   const entry = entries[0];
+
+  //   if (entry.isIntersecting && !lodingforNextPage) {
+  //     setlodingforNextPage(true)
+
+  //     // const windowHeight = window.innerHeight;
+  //     // const documentHeight = Math.max(
+  //     //   document.body.scrollHeight,
+  //     //   document.documentElement.scrollHeight,
+  //     //   document.body.offsetHeight,
+  //     //   document.documentElement.offsetHeight,
+  //     //   document.body.clientHeight,
+  //     //   document.documentElement.clientHeight,
+  //     // );
+  //     // const scrollToPosition = (documentHeight - windowHeight) / 2;
+
+  //     // window.scrollTo({ bottom: scrollToPosition, behavior: "smooth" });
+    
+
+  //   catalogItemsPageInfo?.loadNextPage();
+  //   setTimeout(() => {
+  //     if (catalogItemsPageInfo?.hasNextPage === true) { 
+  //       setlodingforNextPage(false)
+  //     }
+  //   }, 5000);
+  //   }
+ 
+  // };
+
+
+  // useEffect(() => {
+  //   console.log("djaDBDBADBABD", observer)
+  //   console.log("djaDBDBADBABD", catalogItemsPageInfo)
+
+  //   // Initialize Intersection Observer
+  //   observer.current = new IntersectionObserver(handleIntersection, {
+  //     root: null, // Use the viewport as the root
+  //     rootMargin: '0px',
+  //     threshold: 1.0, // 100% of target is in the viewport
+  //   });
+
+  //   if (observer.current) {
+  //     // Attach the observer to the last element in the list
+  //     const target = document.querySelector('.infinite-scroll-list-item:last-child');
+
+  //     console.log('target is ', target)
+  //     if (target) {
+  //       observer.current.observe(target);
+  //     }
+  //   }
+
+
+
+  //   return () => {
+  //     // Clean up the observer when the component is unmounted
+  //     if (observer.current) {
+  //       observer.current.disconnect();
+  //     }
+  //   };
+  // }, [catalogItemsPageInfo , lodingforNextPage, observer]);
+
+ 
 
   useEffect(() => {
-    // uiStore?.setPageSize(15);
-  }, []);
-  useEffect(() => {
+
     const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = props?.catalogItems.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
@@ -968,10 +1039,9 @@ function Explore(props) {
     uiStore.setPDPSelectedVariantId(variantId, selectOptionId);
   }
   const parseJSON = (jsonString) => {
-   
     try {
       let parsedData;
-  
+
       // Attempt to parse as JSON with double quotes
       try {
         parsedData = JSON.parse(jsonString);
@@ -985,7 +1055,7 @@ function Explore(props) {
           return null;
         }
       }
-  
+
       return parsedData.size || null;
     } catch (error) {
       console.error("Error parsing JSON:", error);
@@ -1029,7 +1099,12 @@ function Explore(props) {
     // If variant is not already in the cart, add the new item
     // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
     const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
-    await addItemsToCart([
+    // setIsLoading((prevState) => ({
+    //   ...prevState,
+    //   [product.productId]: true,
+    // }));
+    try{
+    const additemtocart =  await addItemsToCart([
       {
         price: {
           amount: price,
@@ -1048,9 +1123,54 @@ function Explore(props) {
         quantity,
       },
     ]);
+    // toast.success(" added to cart successfully!");
+
+    console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id)
+
+    if( additemtocart?.data?.addCartItems?.cart?._id){
+      toast.success(" added to cart successfully!");
+      // setIsLoading((prevState) => ({
+      //   ...prevState,
+      //   [product.productId]: false,
+      // }));
+      setIsLoading((prevState) => ({
+        ...prevState,
+        [product.productId]: false,
+      }));
+
+    }
+  
+  
+  }
+    catch(error){
+      console.log("carcart error for cart",error )
+      toast.error("Something went wrong, try again");
+      // setIsLoading((prevState) => ({
+      //   ...prevState,
+      //   [product.productId]: false,
+      // }));
+      setIsLoading((prevState) => ({
+        ...prevState,
+        [product.productId]: false,
+      }));
+
+
+    }
   };
 
   const handleOnClick = async (product, variant) => {
+
+    const item = {
+      product,
+      variant
+    }
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [item?.product.productId]: true,
+    }));
+
+    setQueue((prevQueue) => [...prevQueue, item]);
+
     ReactGA.event({
       category: "Ecommerce",
       action: "add_to_cart",
@@ -1058,9 +1178,9 @@ function Explore(props) {
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
 
-    console.log("google", product)
+    console.log("google", product);
     const addToCartData = {
-      event: 'addToCart',
+      event: "addToCart",
       ecommerce: {
         add: {
           products: [
@@ -1079,20 +1199,42 @@ function Explore(props) {
       dataLayer: addToCartData,
     });
 
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: true,
-    }));
+    // setIsLoading((prevState) => ({
+    //   ...prevState,
+    //   [product.productId]: true,
+    // }));
 
-
-    await handleAddToCartClick(addToCartQuantity, product, variant);
-    toast.success(" added to cart successfully!");
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: false,
-    }));
+    // await handleAddToCartClick(addToCartQuantity, product, variant);
+    // toast.success(" added to cart successfully!");
+    // setIsLoading((prevState) => ({
+    //   ...prevState,
+    //   [product.productId]: false,
+    // }));
     // Scroll to the top
+    
   };
+
+
+  const processQueue = async () => {
+    if (queue.length > 0 && !processing) {
+      setProcessing(true);
+     
+      const item = queue[0];
+      console.log("itemitemitem",item)
+
+      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
+     
+  
+      await handleAddToCartClick(1, item?.product, item?.variant);
+
+       
+
+      setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
+      setProcessing(false);
+      
+    }
+  };
+
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
   const classes = useStyles();
   const profile = props.catalogItems[0]?.node?.product?.variants[0]?.uploadedBy;
@@ -1104,6 +1246,10 @@ function Explore(props) {
     newWindow.opener.focus();
   };
   useEffect(() => {
+    console.log("catalogItemsPageInfocatalogItemsPageInfo")
+
+    console.log("catalogItemsPageInfocatalogItemsPageInfo",catalogItemsPageInfo)
+
     // Simulate an asynchronous data loading process
     setTimeout(() => {
       setIsLoading(false);
@@ -1243,7 +1389,8 @@ function Explore(props) {
             />
           </div>
         </Box>
-        <div className={classes.gridroot}>
+        {props?.catalogItems?.length>0 ?
+          <div className={classes.gridroot}>
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
             style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -1257,12 +1404,19 @@ function Explore(props) {
                 // console.log(cart?.items, "item");
                 // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                 const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-               
-                const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
-                
-
-                // Access the "size" property
-                const size =validOptionTitle? validOptionTitle: null;
+                const validOptionTitle = optionTitle
+                  ? optionTitle
+                      ?.replace(/['"\\]/g, "")
+                      .replace("{", '{"')
+                      .replace(/:/g, '":"')
+                      .replace("}", '"}')
+                      .replace(",", '","')
+                  : // ?.replace(`None`, `'none'`)
+                    // .replace("None", `none`)
+                    // .replace(/''/g, '"')
+                    // .replace(/'/g, '"')
+                    null;
+                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
@@ -1283,7 +1437,7 @@ function Explore(props) {
 
                 // console.log(optionTitle, "fil");
                 return (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ display: "flex", justifyContent: "center" }} className="infinite-scroll-list-item">
                     <div className={classes.boxcontairproduct}>
                       {/* {console.log("Images", item?.node)} */}
                       <Link
@@ -1291,156 +1445,66 @@ function Explore(props) {
                         as={item.node.product.slug && `product/${item.node.product.slug}`}
                       >
                         <a target="_blank">
-                        <img
-                          src={
-                            item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                            ? item?.node?.product?.variants[0]?.media[0]?.URLs?.large
-                            : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail?
-                            item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail  :
-                             item?.node?.product?.variants[0]?.media[0]?.URLs?.original
-
-                          }
-                          className={classes.image}
-                          key={item?.node?.product?.id}
-                          alt={item?.node?.product?.title}
-                        />
+                          <img
+                            src={
+                              item?.node?.product?.media[0]?.URLs?.medium
+                              ? item?.node?.product?.media[0]?.URLs?.medium
+                              : item?.node?.product?.media[0]?.URLs?.large
+                              ? item?.node?.product?.media[0]?.URLs?.large
+                              : item?.node?.product?.media[0]?.URLs?.thumbnail
+                                   
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            alt={item?.node?.product?.title}
+                          />
                         </a>
                       </Link>
 
-                      {/* <div className={classes.cartcontent}>
-                        <div
-                          className={classes.cartcontenttext}
-                          onCick={() => {
-                            trackProductView();
-                          }}
-                        >
-                          <Typography
-                            style={{
-                              fontWeight: "600",
-                              fontSize: "1rem",
-                              fontFamily: "lato",
-                              // marginTop: "10px",
-                              textTransform: "capitalize",
-                              marginLeft: "0px",
-                            }}
-                            variant="h4"
-                            component="h2"
-                            className={classes.carttitle}
-                          >
-                            {firstThreeWords}
-                          </Typography>
-                          <Typography
-                            className={classes.price}
-                            style={{
-                              fontWeight: "600",
-                              fontSize: "18px",
-                              fontFamily: "lato",
-                              color: "#FDC114",
-                              left: "12px",
-                            }}
-                          >
-                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "Rs. ")}
-                          </Typography>
-                          <div className={classes.strikethroughoff}>
-                            <strike className={classes.strikethrough}>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                                ?.replace(/\.00$/, "")
-                                .replace(/\$/g, "Rs. ")}
-                            </strike>
-                            <Typography
-                              style={{
-                                fontWeight: "600",
-                                fontSize: "12px",
-                                fontFamily: "lato",
-                                // left: "12px",
-                              }}
-                              variant="h4"
-                              component="h2"
-                              className={classes.carttitle2}
-                            >{`-${percentage}%`}</Typography>
-                          </div>
-                        </div>
-                        <div className={classes.cartbackground}>
-                          <Typography
-                            style={{
-                              fontWeight: "600",
-                              fontSize: "0.8rem",
-                              fontFamily: "lato",
-                              left: "5px",
-                            }}
-                            variant="h4"
-                            component="h2"
-                            className={classes.carttitle}
-                          >
-                            Size: <span className={classes.sizes}>{formatSize(size, true)}</span>
-                          </Typography>
-                          {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress className={classes.progressBar} />
-                          ) : (
-                            <Button
-                              className={classes.cart}
-                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                              disabled={isDisabled || item?.node?.product?.isSoldOut}
-                            >
-                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                              <Typography
-                                style={{ fontFamily: "Ostrich Sans Black" }}
-                                variant="h5"
-                                component="h2"
-                                className={classes.cartText}
-                              >
-                                {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                              </Typography>
-                            </Button>
-                          )}
-                        </div>
-                      </div> */}
+        
                       <div>
                         <div className={classes.cartButton}>
-                         
-                            <Button
-                              className={classes.cart}
-                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                              disabled={isDisabled || item?.node?.product?.isSoldOut}
-                            >
-                               {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress color="black" size="17px"  className={classes.progressBar} />
-                          ) : (
-                            <>
-                              <div className={classes.cartButtonrowDiv}>
-                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                                <Typography
-                                  style={{
-                                    fontFamily: "Ostrich Sans Black",
-                                  }}
-                                  variant="h5"
-                                  component="h2"
-                                  className={classes.cartText}
-                                >
-                                  {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                                </Typography>
-                              </div>
-                              <div>
-                                <Typography
-                                  style={{
-                                    fontWeight: "600",
-                                    fontSize: "0.9rem",
-                                    fontFamily: "lato",
-                                    marginLeft: "0px",
-                                  }}
-                                  variant="h4"
-                                  component="h2"
-                                  className={classes.carttitle2}
-                                >
-                                  {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                                    `-${Math.abs(percentage)}%`}
-                                </Typography>
-                              </div>
+                          <Button
+                            className={classes.cart}
+                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                            disabled={isDisabled || item?.node?.product?.isSoldOut}
+                          >
+                            {isLoading[item?.node?.product?.productId] ? (
+                              <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                            ) : (
+                              <>
+                                <div className={classes.cartButtonrowDiv}>
+                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                  <Typography
+                                    style={{
+                                      fontFamily: "Ostrich Sans Black",
+                                    }}
+                                    variant="h5"
+                                    component="h2"
+                                    className={classes.cartText}
+                                  >
+                                    {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                                  </Typography>
+                                </div>
+                                <div>
+                                  <Typography
+                                    style={{
+                                      fontWeight: "600",
+                                      fontSize: "0.9rem",
+                                      fontFamily: "lato",
+                                      marginLeft: "0px",
+                                    }}
+                                    variant="h4"
+                                    component="h2"
+                                    className={classes.carttitle2}
+                                  >
+                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                      `-${Math.abs(percentage)}%`}
+                                  </Typography>
+                                </div>
                               </>
-                          )}
-                            </Button>
+                            )}
+                          </Button>
                           {/* )} */}
                         </div>
                         <div>
@@ -1473,11 +1537,7 @@ function Explore(props) {
                                   </Typography>
                                 </a>
                               </Link>
-                              <Typography
-
-
-                                className={classes.storeName}
-                              >
+                              <Typography className={classes.storeName}>
                                 Store Name:{" "}
                                 <Link
                                   href={"/en/profile/[slugOrId]"}
@@ -1526,7 +1586,6 @@ function Explore(props) {
                                   >
                                     Size <span className={classes.sizes}>{formatSize(size, true)}</span>
                                   </Typography>
-
                                 </div>
                               </div>
                             </div>
@@ -1556,9 +1615,19 @@ function Explore(props) {
             </Masonry>
           </ResponsiveMasonry>
         </div>
+        
+        : (
+          <SkeletonLoader/>
+        )
+}
         <div className={classes.loadmore}>
+        {lodingforNextPage ? (
+            <CircularProgress /> // Show the circular progress bar when loading is true
+          ) : (
+            <></>
+          )}
           {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
-        </div>
+        </div> 
       </div>
     </Layout>
   );

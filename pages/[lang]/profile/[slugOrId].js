@@ -23,6 +23,9 @@ import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ReactGA from "react-ga4";
+import TagManager from "react-gtm-module";
+import SkeletonLoader from "../../../components/Justin/skeletonLoader";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 function SellerPublicProfile(props) {
   // console.log("props", props);
@@ -30,9 +33,18 @@ function SellerPublicProfile(props) {
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
+  const [queue, setQueue] = useState([]);
+  const [processing, setProcessing] = useState(false);
+
+
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+
+  useEffect(() => {
+    processQueue();
+  }, [queue, props?.cart?.items, props?.catalogItems]);
+
 
   const useStyles = makeStyles((theme) => ({
     main: {
@@ -339,28 +351,73 @@ function SellerPublicProfile(props) {
     // If variant is not already in the cart, add the new item
     // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
     const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
-    await addItemsToCart([
-      {
-        price: {
-          amount: price,
-          currencyCode: "USD",
-        },
-        metafields: [
-          {
-            key: "media",
-            value: product.media[0]?.URLs?.large,
+    try{
+      const additemtocart =  await addItemsToCart([
+        {
+          price: {
+            amount: price,
+            currencyCode: "USD",
           },
-        ],
-        productConfiguration: {
-          productId: product.productId,
-          productVariantId: selectedVariant.variantId,
+          metafields: [
+            {
+              key: "media",
+              value: product.media[0]?.URLs?.large,
+            },
+          ],
+          productConfiguration: {
+            productId: product.productId,
+            productVariantId: selectedVariant.variantId,
+          },
+          quantity,
         },
-        quantity,
-      },
-    ]);
+      ]);
+      // toast.success(" added to cart successfully!");
+  
+      console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id)
+  
+      if( additemtocart?.data?.addCartItems?.cart?._id){
+        toast.success(" added to cart successfully!");
+        // setIsLoading((prevState) => ({
+        //   ...prevState,
+        //   [product.productId]: false,
+        // }));
+        setIsLoading((prevState) => ({
+          ...prevState,
+          [product.productId]: false,
+        }));
+  
+      }
+    
+    
+    }
+      catch(error){
+        console.log("carcart error for cart",error )
+        toast.error("Something went wrong, try again");
+        // setIsLoading((prevState) => ({
+        //   ...prevState,
+        //   [product.productId]: false,
+        // }));
+        setIsLoading((prevState) => ({
+          ...prevState,
+          [product.productId]: false,
+        }));
+  
+  
+      }
   };
 
   const handleOnClick = async (product, variant) => {
+
+    const item = {
+      product,
+      variant
+    }
+    setIsLoading((prevState) => ({
+      ...prevState,
+      [item?.product.productId]: true,
+    }));
+
+    setQueue((prevQueue) => [...prevQueue, item]);
     ReactGA.event({
       category: "Ecommerce",
       action: "add_to_cart",
@@ -386,19 +443,29 @@ function SellerPublicProfile(props) {
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: true,
-    }));
-
-    await handleAddToCartClick(addToCartQuantity, product, variant);
-    toast.success(" added to cart successfully!");
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [product.productId]: false,
-    }));
+  
     // Scroll to the top
   };
+
+  
+  const processQueue = async () => {
+    if (queue.length > 0 && !processing) {
+      setProcessing(true);
+     
+      const item = queue[0];
+      console.log("itemitemitem",item)
+
+      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)    
+  
+      await handleAddToCartClick(1, item?.product, item?.variant);      
+
+      setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
+      setProcessing(false);
+      
+    }
+  };
+
+
   const parseJSON = (jsonString) => {
    
     try {
@@ -483,7 +550,7 @@ function SellerPublicProfile(props) {
               </div>
               <div className="publicProfile__infoContainer">
                 <div className="sellerProfile__infoRow publicProfile__infoRow">
-                  <Typography className="publicProfile__name" variant="h1">
+                  {profile?<Typography className="publicProfile__name" variant="h1">
                     <span>
                       {profile && profile?.storeName
                         ? profile?.storeName
@@ -492,7 +559,9 @@ function SellerPublicProfile(props) {
                         : profile?.name}
                     </span>
                     {profile && profile && <img src="/icons/tickIcon.png" />}
-                  </Typography>
+                  </Typography>:
+                  <Skeleton  width={210}/>
+                      }
                 </div>
                 <Hidden xsDown>
                   <>
@@ -597,44 +666,28 @@ function SellerPublicProfile(props) {
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
         </div>
-        <div className={classes.gridroot}>
+        {props?.catalogItems?.length >0 ?
+          <div className={classes.gridroot}>
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
             style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
           >
             <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
               {props?.catalogItems?.map((item, key) => {
-                {console.log("validOptionTitle", item)}
 
                 const cartitem = cart?.items;
                 const isDisabled = cartitem?.some((data) => {
                   return data?.productConfiguration?.productId === item?.node?.product?.productId;
                 });
-                // console.log(cart?.items, "item");
-                // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-                const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                // const modifiedJsonString = optionTitle.replace(/"color"\s*:\s*"[^"]*"\s*,?/g, '');
+                let optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+               let validOptionTitle = optionTitle? optionTitle?.replace(/['"\\]/g,"")
+                .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","'):null;
+            
 
-                
-                // const validOptionTitle = modifiedJsonString
-                //   ? modifiedJsonString
-                //       ?.replace(`None`, `'none'`)
-                //       .replace(/''/g, '"')
-                //       .replace(/'/g, '"')
-                //       .replace(/"/g, '"')
-                //       .replace(/"/g, '"')
-
-
-
-                //   : null;
-                  {console.log("validOptionTitle", optionTitle)}
-
-
-                const validOptionTitle = optionTitle ? parseJSON(optionTitle) : null;
                 
 
                 // Access the "size" property
-                const size =validOptionTitle? validOptionTitle: null;
+                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                 {console.log("validOptionTitle", validOptionTitle, "size", size)}
                 const str = item?.node?.product?.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
@@ -666,9 +719,11 @@ function SellerPublicProfile(props) {
                         <a target="_blank">
                           <img
                             src={
-                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
-                                ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                                : item?.node?.product?.media[0]?.URLs?.large
+                              item?.node?.product?.media[0]?.URLs?.thumbnail
+                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                              : item?.node?.product?.media[0]?.URLs?.medium
+                              ? item?.node?.product?.media[0]?.URLs?.medium
+                              : item?.node?.product?.media[0]?.URLs?.large
                             }
                             className={classes.image}
                             key={item?.node?.product?.id}
@@ -773,6 +828,9 @@ function SellerPublicProfile(props) {
             </Masonry>
           </ResponsiveMasonry>
         </div>
+        : (
+        <SkeletonLoader/>
+      )}
 
         <div className={classes.loadmore}>
           {sellerCatalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>}

@@ -36,6 +36,11 @@ const styles = (theme) => ({
 class PageStepper extends Component {
   constructor(props) {
     super(props);
+    this.buttonRef = React.createRef();
+    this.isButtonInView = false;
+    this.observer = null;
+    this.isRefInFocus = false;
+    this.isComponentMounted = false;
     this.state = {
       loading: false, // Initialize the loading state property to false
     };
@@ -105,10 +110,49 @@ class PageStepper extends Component {
 
     pageInfo.loadPreviousPage();
   };
+
   componentDidMount() {
     const { pageInfo } = this.props;
+    console.log("ajajsjs")
 
-    console.log("newnewnewn", pageInfo);
+    const options = {
+      root: null, // Use the viewport as the root
+      rootMargin: '0px',
+      threshold: 1.0, // When the entire button is in the viewport
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      console.log("ajajsjs",observer)
+      console.log("ajajsjs",entries)
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+          entry.target.click();
+          this.isButtonInView = true;
+            this.isRefInFocus = true;
+            this.isComponentMounted = true;
+          } else {
+            this.isRefInFocus = false;
+          }
+          this.forceUpdate(); // Re-render the component
+         
+        
+
+      });
+    }, options);
+
+    if (this.buttonRef.current) {
+      observer.observe(this.buttonRef.current);
+      // this.observer.observe(this.buttonRef.current);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.observer) {
+      this.observer.disconnect(); // Clean up the observer when the component unmounts
+      this.isButtonInView = false;
+    }
   }
 
   render() {
@@ -121,7 +165,7 @@ class PageStepper extends Component {
             <CircularProgress /> // Show the circular progress bar when loading is true
           ) : (
             pageInfo.hasNextPage && (
-              <button className={classes.loadmore} onClick={this.handleNextClick}>
+              <button className={classes.loadmore} onClick={this.handleNextClick} ref={this.buttonRef} >
                 Load More
               </button>
             )
