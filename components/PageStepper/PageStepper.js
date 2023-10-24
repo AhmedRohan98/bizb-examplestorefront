@@ -1,10 +1,14 @@
-import React, { Component } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Button from "@reactioncommerce/components/Button/v1";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import withStyles from "@material-ui/core/styles/withStyles";
 import { CircularProgress } from "@material-ui/core";
-const styles = (theme) => ({
+import withStyles from "@material-ui/core/styles/withStyles";
+
+
+const styles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
@@ -31,47 +35,30 @@ const styles = (theme) => ({
       background: "#FDC114",
     },
   },
-});
+}));
 
-class PageStepper extends Component {
-  constructor(props) {
-    super(props);
-    this.buttonRef = React.createRef();
-    this.isButtonInView = false;
-    this.observer = null;
-    this.isRefInFocus = false;
-    this.isComponentMounted = false;
-    this.state = {
-      loading: false, // Initialize the loading state property to false
-    };
-  }
-  static propTypes = {
-    classes: PropTypes.object,
-    pageInfo: PropTypes.shape({
-      hasNextPage: PropTypes.bool,
-      hasPreviousPage: PropTypes.bool,
-      loadNextPage: PropTypes.func,
-      loadPreviousPage: PropTypes.func,
-    }).isRequired,
-    theme: PropTypes.object,
-  };
+const PageStepper = ({  pageInfo, theme }) => {
 
-  handleNextClick = () => {
-    console.log("newnewnewn", pageInfo);
+  
 
-    this.setState({ loading: true });
+  const [loading, setLoading] = useState(false);
+  const buttonRef = useRef(null);
+  const isButtonInView = useState(false);
+  const isRefInFocus = useState(false);
+  const isComponentMounted = useRef(false);
+
+  const classes = styles();
+
+  const handleNextClick = () => {
+    setLoading(true);
 
     // Simulate an asynchronous loading operation
     setTimeout(() => {
-      // Perform the actual loading logic here
-      console.log("newnewnewn", pageInfo);
-
       if (pageInfo.hasNextPage === true) {
-        // Set the loading state to false when loading is complete
-        this.setState({ loading: false });
+        setLoading(false);
       }
     }, 5000);
-    const { pageInfo } = this.props;
+
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       const windowHeight = window.innerHeight;
       const documentHeight = Math.max(
@@ -80,7 +67,7 @@ class PageStepper extends Component {
         document.body.offsetHeight,
         document.documentElement.offsetHeight,
         document.body.clientHeight,
-        document.documentElement.clientHeight,
+        document.documentElement.clientHeight
       );
       const scrollToPosition = (documentHeight - windowHeight) / 2;
 
@@ -90,9 +77,7 @@ class PageStepper extends Component {
     pageInfo.loadNextPage();
   };
 
-  handlePreviousClick = () => {
-    const { pageInfo } = this.props;
-
+  const handlePreviousClick = () => {
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       const windowHeight = window.innerHeight;
       const documentHeight = Math.max(
@@ -101,7 +86,7 @@ class PageStepper extends Component {
         document.body.offsetHeight,
         document.documentElement.offsetHeight,
         document.body.clientHeight,
-        document.documentElement.clientHeight,
+        document.documentElement.clientHeight
       );
       const scrollToPosition = (documentHeight - windowHeight) / 2;
 
@@ -111,69 +96,62 @@ class PageStepper extends Component {
     pageInfo.loadPreviousPage();
   };
 
-  componentDidMount() {
-    const { pageInfo } = this.props;
-    console.log("ajajsjs")
+  useEffect(() => {
+    
 
     const options = {
-      root: null, // Use the viewport as the root
-      rootMargin: '0px',
-      threshold: 1.0, // When the entire button is in the viewport
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0,
     };
 
     const observer = new IntersectionObserver((entries) => {
-      console.log("ajajsjs",observer)
-      console.log("ajajsjs",entries)
-
       entries.forEach((entry) => {
-
         if (entry.isIntersecting) {
           entry.target.click();
-          this.isButtonInView = true;
-            this.isRefInFocus = true;
-            this.isComponentMounted = true;
-          } else {
-            this.isRefInFocus = false;
-          }
-          this.forceUpdate(); // Re-render the component
-         
-        
-
+          isButtonInView.current = true;
+          isRefInFocus.current = true;
+          isComponentMounted.current = true;
+        } else {
+          isRefInFocus.current = false;
+        }
       });
     }, options);
 
-    if (this.buttonRef.current) {
-      observer.observe(this.buttonRef.current);
-      // this.observer.observe(this.buttonRef.current);
+    if (buttonRef.current) {
+      observer.observe(buttonRef.current);
     }
-  }
 
-  componentWillUnmount() {
-    if (this.observer) {
-      this.observer.disconnect(); // Clean up the observer when the component unmounts
-      this.isButtonInView = false;
-    }
-  }
+    return () => {
+      observer.disconnect();
+      isButtonInView.current = false;
+    };
+  }, [pageInfo, buttonRef, loading]);
 
-  render() {
-    const { classes, pageInfo } = this.props;
-    const { loading } = this.state;
-    return (
-      <Grid className={classes.root} container justify="center">
-        <Grid item>
-          {loading ? (
-            <CircularProgress /> // Show the circular progress bar when loading is true
-          ) : (
-            pageInfo.hasNextPage && (
-              <button className={classes.loadmore} onClick={this.handleNextClick} ref={this.buttonRef} >
-                Load More
-              </button>
-            )
-          )}
-        </Grid>
+  return (
+    <Grid className={classes.root} container justify="center">
+      <Grid item>
+        {loading ? (
+          <CircularProgress />
+        ) : pageInfo.hasNextPage ? (
+          <button className={classes.loadmore} onClick={handleNextClick} ref={buttonRef}>
+            Load More
+          </button>
+        ) : null}
       </Grid>
-    );
-  }
-}
+    </Grid>
+  );
+};
 
-export default withStyles(styles)(PageStepper);
+PageStepper.propTypes = {
+  classes: PropTypes.object,
+  pageInfo: PropTypes.shape({
+    hasNextPage: PropTypes.bool,
+    hasPreviousPage: PropTypes.bool,
+    loadNextPage: PropTypes.func,
+    loadPreviousPage: PropTypes.func,
+  }).isRequired,
+  theme: PropTypes.object,
+};
+
+export default PageStepper;

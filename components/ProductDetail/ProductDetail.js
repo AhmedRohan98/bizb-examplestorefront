@@ -68,15 +68,11 @@ const styles = (theme) => ({
     height: "600px",
     justifySelf: "end",
     width: "200px",
-   
-    "& .swiper-slide": {
-      opacity: 0.5,
+    "& .swiper-slide":{
+      opacity:0.5,
     },
    
-    
-   
-   
-    
+  
   },
   controller: {
     // width: "90vh",
@@ -893,9 +889,13 @@ const ProductDetail = ({ ...props }) => {
   const optionTitle = product?.variants[0]?.optionTitle;
 
   const validOptionTitle = optionTitle
-  ? optionTitle?.replace(/['"\\]/g,"")
-  .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
-  : null;
+    ? optionTitle
+        ?.replace(/['"\\]/g, "")
+        .replace("{", '{"')
+        .replace(/:/g, '":"')
+        .replace("}", '"}')
+        .replace(",", '","')
+    : null;
   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
   const isDisabled = cart?.items?.some((data) => {
     return data?.productConfiguration?.productId === product?.productId;
@@ -957,7 +957,7 @@ const ProductDetail = ({ ...props }) => {
                     direction="vertical"
                     spaceBetween={24}
                     slidesPerView={3}
-
+                    loop={true}
                     navigation={{
                       nextEl: ".slider__next",
                       prevEl: ".slider__prev",
@@ -994,9 +994,10 @@ const ProductDetail = ({ ...props }) => {
               <Grid style={{}} item xs={0} md={12} sm={0} lg={8}>
                 <div style={{}} className="fluid react-slick">
                   <Swiper
-                    thumbs={{ swiper: imagesNavSlider  }}
+                    thumbs={{ swiper: imagesNavSlider }}
                     direction="horizontal"
                     ref={sliderRef}
+                    loop={true}
                     pagination={{
                       clickable: false,
                     }}
@@ -1169,9 +1170,13 @@ const ProductDetail = ({ ...props }) => {
                       });
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
-                      ? optionTitle?.replace(/['"\\]/g,"")
-                      .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
-                      : null;
+                        ? optionTitle
+                            ?.replace(/['"\\]/g, "")
+                            .replace("{", '{"')
+                            .replace(/:/g, '":"')
+                            .replace("}", '"}')
+                            .replace(",", '","')
+                        : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item?.node?.product?.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
