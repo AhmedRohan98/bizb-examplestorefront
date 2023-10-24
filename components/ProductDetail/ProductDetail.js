@@ -68,9 +68,15 @@ const styles = (theme) => ({
     height: "600px",
     justifySelf: "end",
     width: "200px",
+   
     "& .swiper-slide": {
       opacity: 0.5,
     },
+   
+    
+   
+   
+    
   },
   controller: {
     // width: "90vh",
@@ -946,12 +952,12 @@ const ProductDetail = ({ ...props }) => {
               <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
               <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
                 <div className={classes.thumb}>
-                  {console.log("imagesNavSlider",imagesNavSlider?.swiper)}
                   <Swiper
                     onSwiper={setImagesNavSlider}
                     direction="vertical"
                     spaceBetween={24}
                     slidesPerView={3}
+
                     navigation={{
                       nextEl: ".slider__next",
                       prevEl: ".slider__prev",
@@ -988,7 +994,7 @@ const ProductDetail = ({ ...props }) => {
               <Grid style={{}} item xs={0} md={12} sm={0} lg={8}>
                 <div style={{}} className="fluid react-slick">
                   <Swiper
-                    thumbs={{ swiper: imagesNavSlider }}
+                    thumbs={{ swiper: imagesNavSlider  }}
                     direction="horizontal"
                     ref={sliderRef}
                     pagination={{

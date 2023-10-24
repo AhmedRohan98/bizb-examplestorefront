@@ -32,9 +32,9 @@ import "react-toastify/dist/ReactToastify.css";
 // if (process.env.NODE_ENV === "production") 
 {
   // Override the console.log method to do nothing
-  console.log = function () { };
+  // console.log = function () { };
   // console.error = function () { };
-  console.warn = function () { };
+  // console.warn = function () { };
 }
 
 export default class App extends NextApp {
