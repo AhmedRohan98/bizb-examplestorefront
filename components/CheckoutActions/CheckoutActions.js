@@ -444,40 +444,41 @@ const CheckoutActions = (prop) => {
   useEffect(() => {
     console.log("itemitems", items);
     // Track "Checkout Initiated" event with Google Analytics 4
-    ReactGA.send({
-      category: "Ecommerce",
-      action: "checkout_initiated",
-      label: "Checkout Initiated", // Optional event label
-      nonInteraction: true, // Optional: Set to true if this event is non-interactive
-      value: 0, // Optional: Set a numeric value for the event
-      products: cart.items.map((item) => ({
-        id: item.productConfiguration.productId,
-        price: item.price.amount,
-        quantity: item.quantity, // Adjust the quantity for each product as needed
-      })), // Include the product details here as an array
-    });
-    const initiatedCheckoutData = {
-      event: "initiatedCheckout",
-      ecommerce: {
-        checkout: {
-          products: cart.items.map((item) => ({
-            id: item.productConfiguration.productId,
-            price: item.price.amount,
-            quantity: item.quantity, // Adjust the quantity for each product as needed
-          })),
-        },
-      },
-    };
-
-    TagManager.dataLayer({
-      dataLayer: initiatedCheckoutData,
-    });
+   
   }, []);
   // console.log(cart);
   const handlepay = async (values, action) => {
     try {
       setOrderDisable(true);
       console.log("getValue.phonenumber", values);
+      ReactGA.send({
+        category: "Ecommerce",
+        action: "checkout_initiated",
+        label: "Checkout Initiated", // Optional event label
+        nonInteraction: true, // Optional: Set to true if this event is non-interactive
+        value: 0, // Optional: Set a numeric value for the event
+        products: cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity: item.quantity, // Adjust the quantity for each product as needed
+        })), // Include the product details here as an array
+      });
+      const initiatedCheckoutData = {
+        event: "initiatedCheckout",
+        ecommerce: {
+          checkout: {
+            products: cart.items.map((item) => ({
+              id: item.productConfiguration.productId,
+              price: item.price.amount,
+              quantity: item.quantity, // Adjust the quantity for each product as needed
+            })),
+          },
+        },
+      };
+  
+      TagManager.dataLayer({
+        dataLayer: initiatedCheckoutData,
+      });
 
       const { data } = await placeOrder({
         variables: {
@@ -556,7 +557,7 @@ const CheckoutActions = (prop) => {
       ReactGA.event({
         category: "Ecommerce",
         action: "successful_checkout",
-        label: "Optional Event Label", // Optional event label
+        label: "Successful  Checkout", // Optional event label
         nonInteraction: true, // Optional: Set to true if this event is non-interactive
         value: 0, // Optional: Set a numeric value for the event
         products: cart.items.map((item) => ({
@@ -583,7 +584,7 @@ const CheckoutActions = (prop) => {
       ReactGA.event({
         category: "Ecommerce",
         action: "failed_checkout",
-        label: "Optional Event Label", // Optional event label
+        label: "Failed Checkout", // Optional event label
         nonInteraction: true, // Optional: Set to true if this event is non-interactive
         value: 0, // Optional: Set a numeric value for the event
         products: cart.items.map((item) => ({
