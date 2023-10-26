@@ -14,6 +14,18 @@ stages:
   - build
   - deploy
 
+
+
+build_image_GKE:
+  stage: build
+  script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build --no-cache -t bizb-frontend-production-v0.1 .
+    - docker tag bizb-frontend-production-v0.1 $DOCKER_USERNAME/bizb-frontend-production-v0.1
+    - docker push $DOCKER_USERNAME/bizb-gcp:bizb-frontend-production-v0.1
+  only:
+    - master
+
 build_docker_image:
   stage: build
   script:
