@@ -1523,9 +1523,10 @@ function Explore(props) {
                                 trackProductView();
                               }}
                             >
+                                
                               <Link
-                                href={item.node.product.slug && "en/product/[...slugOrId]"}
-                                as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                                href={item.node.product.slug && `product/${item.node.product.slug}`}
+                                as={item.node.product.slug && `product/${item.node.product.slug}`}
                               >
                                 <a target="_blank">
                                   <Typography

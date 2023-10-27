@@ -68,11 +68,6 @@ const styles = (theme) => ({
     height: "600px",
     justifySelf: "end",
     width: "200px",
-    "& .swiper-slide":{
-      opacity:0.5,
-    },
-   
-  
   },
   controller: {
     // width: "90vh",
@@ -951,7 +946,7 @@ const ProductDetail = ({ ...props }) => {
             >
               <Grid item xs={0} md={0} sm={0} lg={0}></Grid>
               <Grid style={{ display: "content" }} item xs={0} md={2} sm={0} lg={2} className={classes.slidercol}>
-                <div className={classes.thumb}>
+                <div className={`${classes.thumb} thumb-swiper-container`}>
                   <Swiper
                     onSwiper={setImagesNavSlider}
                     direction="vertical"
