@@ -847,3 +847,9 @@ a:hover {
   }
 }
 
+.thumb-swiper-container .swiper-slide {
+  opacity: 0.2 !important;
+}
+.thumb-swiper-container .swiper-slide-thumb-active {
+  opacity: 9 !important
+}
