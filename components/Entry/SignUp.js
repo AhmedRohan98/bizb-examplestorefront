@@ -212,6 +212,31 @@ export default function SignUp(props) {
           phoneNumber: values.phonenumber,
         });
         action.resetForm(); // to get rid of all the values after submitting the form
+        ReactGA.event({
+          category: "User",
+          action: "Sign Up",
+          label: "New User Signed Up",
+          user: {
+            email: values.email.toLowerCase(),
+            firstName: values.FullName,
+            
+          }
+        });
+        const dataLayer = {
+          dataLayer: {
+            event: "sign_in", // The name of the custom event
+            category: "User",
+            action: "Sign In",
+            label: "Successful",
+            user: {
+              email: values.email.toLowerCase(),
+              firstName: values.FullName,
+              
+            }
+          },
+        };
+  
+        TagManager.dataLayer(dataLayer);
         closeModal();
         await refetch();
       } catch (err) {
@@ -231,21 +256,7 @@ export default function SignUp(props) {
     //// By disabling validation onChange and onBlur formik will validate on submit.
     onSubmit: async (values, action) => {
       console.log("Signups", values);
-      ReactGA.event({
-        category: "User",
-        action: "Sign Up",
-        label: "New User Signed Up",
-      });
-      const dataLayer = {
-        dataLayer: {
-          event: "sign_in", // The name of the custom event
-          category: "User",
-          action: "Sign In",
-          label: "Successful",
-        },
-      };
-
-      TagManager.dataLayer(dataLayer);
+     
       await registerUser2(values, action);
       //// to get rid of all the values after submitting the form
       // action.resetForm();

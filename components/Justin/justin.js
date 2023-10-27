@@ -631,11 +631,24 @@ const Justin = (props) => {
 
                             <img
                               src={
-                                item?.node?.product?.media[0]?.URLs?.medium
+                                item?.node?.product?.media[0]?.URLs?.thumbnail
+                                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                                  : item?.node?.product?.media[0]?.URLs?.medium
                                   ? item?.node?.product?.media[0]?.URLs?.medium
-                                  : item?.node?.product?.media[0]?.URLs?.large
-                                  ? item?.node?.product?.media[0]?.URLs?.large
-                                  : item?.node?.product?.media[0]?.URLs?.thumbnail
+                                  : item?.node?.product?.media[0]?.URLs?.large?
+                                  item?.node?.product?.media[0]?.URLs?.large :
+                                  item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail?
+                                  item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail:
+                                  item?.node?.product?.variants[0].media[0]?.URLs?.medium?
+                                  item?.node?.product?.variants[0].media[0]?.URLs?.medium:
+                                  item?.node?.product?.variants[0].media[1]?.URLs?.large ?
+                                  item?.node?.product?.variants[0].media[1]?.URLs?.large :
+                                  item?.node?.product?.variants[0].media[1]?.URLs?.medium 
+
+
+
+                                  
+
                               }
                               className={classes.image}
                               key={item?.node?.product?.id}
