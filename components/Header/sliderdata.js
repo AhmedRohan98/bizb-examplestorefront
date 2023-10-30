@@ -136,13 +136,10 @@ const MainSlider = (props) => {
       image: "/Desktop-images/desktop2.png",
       id: 3,
     },
-    {
-      image: "/Desktop-images/desktop333.png",
-      id: 4,
-    },
+   
     {
       image: "/Desktop-images/desktop4.jpg",
-      id: 5,
+      id: 4,
     },
   ];
   function Item({ item }) {
