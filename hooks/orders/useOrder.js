@@ -27,6 +27,7 @@ export default function useOrder() {
   });
 
   const order = data && data.order;
+  console.log("summary 22", order)
 
   return [
     order,

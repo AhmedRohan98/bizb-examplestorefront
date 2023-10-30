@@ -18,7 +18,7 @@ class OrderCardSummary extends Component {
       taxTotal: PropTypes.shape({
         displayAmount: PropTypes.string,
       }),
-      discount: PropTypes.shape({
+      discountTotal: PropTypes.shape({
         displayAmount: PropTypes.string,
       }),
       total: PropTypes.shape({
@@ -31,9 +31,14 @@ class OrderCardSummary extends Component {
     const { summary } = this.props;
 
     if (summary) {
-      const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, discount, total } = summary;
+      const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, discountTotal, total } = summary;
 
       return (
+        <>
+        <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+        <span>Discount: </span>
+        <span>{discountTotal && discountTotal.amount ? itemTotal.amount-discountTotal.amount: 0 }</span>
+        </div>
         <CartSummary
           isDense
           displayShipping={
@@ -42,9 +47,11 @@ class OrderCardSummary extends Component {
           displaySubtotal={itemTotal && itemTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
           displaySurcharge={surchargeTotal && surchargeTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
           displayTax={taxTotal && taxTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
-          displaydiscount={discount && discount.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
+          displaydiscount={discountTotal && discountTotal.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
           displayTotal={total && total.displayAmount?.replace(/\.00$/, "").replace(/\$/g, "RS ")}
-        />
+
+          />
+          </>
       );
     }
 

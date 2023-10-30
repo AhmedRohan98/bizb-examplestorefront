@@ -38,6 +38,9 @@ class OrderSummary extends Component {
     classes: PropTypes.object,
     fulfillmentGroup: PropTypes.shape({
       summary: PropTypes.shape({
+        discountTotal: PropTypes.shape({
+          displayAmount: PropTypes.string
+        }),
         itemTotal: PropTypes.shape({
           displayAmount: PropTypes.string
         }),
@@ -61,6 +64,7 @@ class OrderSummary extends Component {
       const {
         fulfillmentTotal,
         itemTotal,
+        discountTotal,
         surchargeTotal,
         taxTotal,
         total
@@ -68,11 +72,13 @@ class OrderSummary extends Component {
 
       return (
         <OrderSummaryContainer>
+          xyz
           <CartSummary
             isDense
             displayShipping={fulfillmentTotal && fulfillmentTotal.displayAmount}
             displaySubtotal={itemTotal && itemTotal.displayAmount}
             displaySurcharge={surchargeTotal && surchargeTotal.displayAmount}
+            displaydiscount={discountTotal && discountTotal.displayAmount}
             displayTax={taxTotal && taxTotal.displayAmount}
             displayTotal={total && total.displayAmount}
           />

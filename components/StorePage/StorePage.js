@@ -28,7 +28,9 @@ import useprimaryShop from "../../hooks/primaryShop/useprimaryShop";
 import useTagsQuery from "../../hooks/categoryTags/getTags";
 import Select from "@material-ui/core/Select";
 import IconButton from "@material-ui/core/IconButton";
-import Sort from '@material-ui/icons/Sort';
+import Sort from "@material-ui/icons/Sort";
+import Skeleton from "@material-ui/lab/Skeleton";
+import SkeletonLoader from "../Justin/skeletonLoader";
 
 const StorePage = () => {
   const useStyles = makeStyles((theme) => ({
@@ -146,6 +148,7 @@ const StorePage = () => {
     image: {
       width: "275px", // Reduced by 1px to create space for the border
       maxHeight: "600px",
+      height: "200px",
       marginTop: "1px",
       borderRadius: "10px",
       marginRight: "2px",
@@ -221,16 +224,16 @@ const StorePage = () => {
       //   borderBottom:"none"
       // }
     },
-    sortdiv:{
-      display:"flex",
-      flexDirection:"row"
-    }
+    sortdiv: {
+      display: "flex",
+      flexDirection: "row",
+    },
   }));
 
   const classes = useStyles();
   const [getSearch, setSearch] = React.useState("");
   const [getSearch2, setSearch2] = React.useState("");
-  const [itemsPerPage, setitemsPerPage] = React.useState(40);
+  const [itemsPerPage, setitemsPerPage] = React.useState(150);
   const [page, setPage] = React.useState(0);
   const [categoryProduct, setcategoryProduct] = React.useState("Select a Category");
   const [primaryShopId, refetch2] = useprimaryShop();
@@ -354,161 +357,131 @@ const StorePage = () => {
             </div>
             <div className="publicProfile__infoContainer">
               <div className="sellerProfile__infoRow publicProfile__infoRow">
-                <Typography className="publicProfile__name" variant="h1">
-                  <span>All Stores</span>
-                  {<img src="/icons/tickIcon.png" />}
-                </Typography>
+                {sellers?.length > 0 ? (
+                  <Typography className="publicProfile__name" variant="h1">
+                    <span>All Stores</span>
+                    {<img src="/icons/tickIcon.png" />}
+                  </Typography>
+                ) : (
+                  <Skeleton width={210} />
+                )}
               </div>
             </div>
             <div className={classes.divForSearch}>
-              {/* <div className="">
-                <TextField
-                  type="text"
-                  size="small"
-                  variant="standard"
-                  placeholder="Search..."
-                  value={getSearch}
-                  onChange={(e) => setSearch(e.target.value)}
-                  InputProps={{
-                    disableUnderline: true,
-                    style: { margin: 0, padding: 1, background: "#F7F7F9",                    borderRadius: "8px",
-                  },
-                    startAdornment: (
-                      <InputAdornment position="start" style={{ marginLeft: 3 }}>
-                        <Search />
-                      </InputAdornment>
-                    ),
-                  }}
-                  className={classes.textFieldStyle}
-                />
-              </div> */}
               <div>
-                {/* <Select
-                  // defaultValue={selectedOption}
-                  placeholder="Sort by"
-                  components={{ DropdownIndicator }}
-                  styles={customStyles}
-                  options={categoryTags?.map((category) => (
-                    
-                      <Typography variant='body2' style={{ fontWeight: 500, fontSize: '17px' }}>
-                        {category.displayTitle}
-                      </Typography>
-                  ))}
-                  // onChange={handleChangeSortBy}
-                  // value={options.find((option) => option.value === sortBy)}
-                  className={classes.reactselect}
-                /> */}
                 <div className={classes.sortdiv}>
-                  
-                <IconButton>
-                    <Sort style={{ color: "black" , }} />
+                  <IconButton>
+                    <Sort style={{ color: "black" }} />
                   </IconButton>
-                <FormControl
-                  style={{
-                    width: "260px",
-                    borderRadius: "8px",
-                    backgroundColor: "#F7F7F9",
-                    marginTop: "5px",
-                    borderBottom: "none",
-                  }}
-                >
-                 
-                  <Select
-                    notched={false}
-                    className={classes.selectDropdown}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // onChange={(event) => handleChange(event, 'Category')}
-                    // error={!!categoryError}
-
-                    label="Sort By"
+                  <FormControl
+                    style={{
+                      width: "260px",
+                      borderRadius: "8px",
+                      backgroundColor: "#F7F7F9",
+                      marginTop: "5px",
+                      borderBottom: "none",
+                    }}
                   >
-                    {categoryTags?.slice(0, 6).map((category) => (
-                      <MenuItem
-                        key={category._id}
-                        value={category.displayTitle}
-                        onClick={() => {
-                          setcategoryID(category._id);
-                          console.log("key", category._id);
-                        }}
-                      >
-                        <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
-                          {category.displayTitle}
-                        </Typography>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                    <Select
+                      notched={false}
+                      className={classes.selectDropdown}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      // onChange={(event) => handleChange(event, 'Category')}
+                      // error={!!categoryError}
+
+                      label="Sort By"
+                    >
+                      {categoryTags?.slice(0, 6).map((category) => (
+                        <MenuItem
+                          key={category._id}
+                          value={category.displayTitle}
+                          onClick={() => {
+                            setcategoryID(category._id);
+                            console.log("key", category._id);
+                          }}
+                        >
+                          <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
+                            {category.displayTitle}
+                          </Typography>
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </div>
               </div>
             </div>
           </Grid>
         </Grid>
       </div>
+      {sellers?.length > 0 ? (
+        <div className={classes.gridroot}>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          >
+            <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+              {sellers?.map((item, key) => {
+                // console.log(optionTitle, "fil");
+                return (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div className={classes.boxcontairproduct}>
+                      {/* {console.log("Images", item?.node)} */}
+                      {item?.storeInfo?.image ? (
+                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
+                          <a target="_blank">
+                            <img
+                              src={item?.storeInfo?.image}
+                              className={classes.image}
+                              key={item?._id}
+                              alt={item?.storeInfo?.storeName}
+                            />{" "}
+                          </a>
+                        </Link>
+                      ) : (
+                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
+                          <a target="_blank">
+                            <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
+                              {item?.storeInfo?.storeName?.charAt(0).toUpperCase()}
+                            </Avatar>
+                          </a>
+                        </Link>
+                      )}
 
-      <div className={classes.gridroot}>
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-        >
-          <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-            {sellers?.map((item, key) => {
-              // console.log(optionTitle, "fil");
-              return (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div className={classes.boxcontairproduct}>
-                    {/* {console.log("Images", item?.node)} */}
-                    {item?.storeInfo?.image ? (
-                      <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
-                        <a target="_blank">
-                          <img
-                            src={item?.storeInfo?.image}
-                            className={classes.image}
-                            key={item?._id}
-                            alt={item?.storeInfo?.storeName}
-                          />{" "}
-                        </a>
-                      </Link>
-                    ) : (
-                      <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
-                        <a target="_blank">
-                          <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
-                            {item?.storeInfo?.storeName?.charAt(0).toUpperCase()}
-                          </Avatar>
-                        </a>
-                      </Link>
-                    )}
-
-                    <div className={classes.cartcontent}>
-                      <div className={classes.cartcontenttext}>
-                        <Typography
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "1rem",
-                            fontFamily: "lato",
-                            // marginTop: "10px",
-                            textTransform: "capitalize",
-                            marginLeft: "5px",
-                          }}
-                          variant="h4"
-                          component="h2"
-                          className={classes.carttitle}
-                        >
-                          {item?.storeInfo?.storeName ? item?.storeInfo?.storeName : "User Store"}
-                        </Typography>
-                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                          {" "}
-                          {item?.username ? item?.username : "User"}
-                        </Typography>
+                      <div className={classes.cartcontent}>
+                        <div className={classes.cartcontenttext}>
+                          <Typography
+                            style={{
+                              fontWeight: "600",
+                              fontSize: "1rem",
+                              fontFamily: "lato",
+                              // marginTop: "10px",
+                              textTransform: "capitalize",
+                              marginLeft: "5px",
+                            }}
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            {item?.storeInfo?.storeName ? item?.storeInfo?.storeName : "User Store"}
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                            {item?.username ? item?.username : "User"}
+                          </Typography>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </Masonry>
-        </ResponsiveMasonry>
-      </div>
+                );
+              })}
+            </Masonry>
+          </ResponsiveMasonry>
+        </div>
+      ) : (
+        <SkeletonLoader />
+      )}
+
       <div className={classes.loadmore}>
         {totalCount > itemsPerPage && (
           <Pagination

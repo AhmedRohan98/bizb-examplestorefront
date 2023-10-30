@@ -46,7 +46,7 @@ class FinalReviewCheckoutAction extends Component {
       /**
        * Discount amount associated with promo code
        */
-      displayDiscount: PropTypes.string,
+      displaydiscount: PropTypes.string,
       /**
        * Shipping cost
        */
@@ -138,7 +138,7 @@ class FinalReviewCheckoutAction extends Component {
   render() {
     const {
       checkoutSummary: {
-        displayDiscount,
+        displaydiscount,
         displayShipping,
         displaySubtotal,
         displaySurcharge,
@@ -171,7 +171,7 @@ class FinalReviewCheckoutAction extends Component {
           <CartSummaryWrapper>
             <CartSummary
               isDense
-              displayDiscount={displayDiscount}
+              displaydiscount={displaydiscount}
               displayShipping={displayShipping}
               displaySubtotal={displaySubtotal}
               displaySurcharge={displaySurcharge}

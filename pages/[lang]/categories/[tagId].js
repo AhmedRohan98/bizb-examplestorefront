@@ -148,16 +148,25 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
   },
   image: {
-    width: "calc(15rem - 0.5vw)",
-    maxHeight: "450px",
-    objectFit: "cover",
-    borderRadius: "10px",
-    cursor: "pointer",
-    marginTop: "25px",
-    [theme.breakpoints.down("sm")]: {
-      width: "150px", // Reduced by 1px to create space for the border
-      height: "200px",
-    },
+    width: "275px", // Reduced by 1px to create space for the border
+      maxHeight: "600px",
+      marginTop: "1px",
+      borderRadius: "10px",
+      marginRight: "2px",
+      marginLeft: "1px",
+      objectFit: "cover",
+      cursor: "pointer",
+      [theme.breakpoints.up("lg")]: {
+        width: "275px", // Reduced by 1px to create space for the border
+      },
+      [theme.breakpoints.down("lg")]: {
+        width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "100%", // Reduced by 1px to create space for the border
+        height: "200px",
+        marginTop:"10px"
+      },
   },
   typography: {
     background: "#333333",
@@ -1671,6 +1680,8 @@ function Categories(props) {
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
                       const firstThreeWords = words.slice(0, 3).join(" ");
+                       const storeNameShort =  item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15)
+
                       const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                         /[^0-9.]/g,
                         "",
@@ -1910,7 +1921,7 @@ function Categories(props) {
                                       >
                                         <a target="_blank">
                                           <span className={classes.storeNameStyle}>
-                                            {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                            {storeNameShort}
                                           </span>
                                         </a>
                                       </Link>
