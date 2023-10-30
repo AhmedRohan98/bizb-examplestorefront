@@ -56,7 +56,7 @@ export default class App extends NextApp {
     import('react-facebook-pixel')
       .then((x) => x.default)
       .then((ReactPixel) => {
-        ReactPixel.init('470474555213027')
+        ReactPixel.init('170363809485316')
         ReactPixel.pageView()
 
         this.props.router.events.on('routeChangeComplete', () => {
@@ -84,6 +84,8 @@ export default class App extends NextApp {
           <head>
 
           <meta name="facebook-domain-verification" content="9zhnwvopdk5dso364txrm34wpgpcw8" />
+
+          
 
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
 
