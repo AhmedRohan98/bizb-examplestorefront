@@ -178,7 +178,7 @@ function SellerRegistrationPage(props) {
                 <meta name="description" content={shop && shop.description} />
             </Helmet> */}
             <Grid container md={12} sm={12} >
-                <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+                <img src="/profile/seller.jpg" className={classes.profilebaner} />
 
                 <SellerRegistration />
             </Grid>

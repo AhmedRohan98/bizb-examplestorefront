@@ -170,6 +170,10 @@ fragment OrderCommon on Order {
   }
   status
   summary {
+     discountTotal{
+          amount
+          displayAmount
+        }
     fulfillmentTotal {
       amount
       displayAmount
