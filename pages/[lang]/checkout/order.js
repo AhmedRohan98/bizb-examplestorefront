@@ -155,6 +155,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CheckoutComplete(props) {
   const [reviews, setReviews] = useState([]);
+  
   //  async function getFacebookReviews() {
   //    const pageId = "219626352248309";
   //    const accessToken =
@@ -228,6 +229,7 @@ function CheckoutComplete(props) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={12}>
+            {/* <span>xyz</span> */}
             <OrderCard isExpanded={true} order={order} />
           </Grid>
         </Grid>

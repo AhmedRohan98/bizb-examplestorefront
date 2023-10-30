@@ -599,6 +599,8 @@ const Justin = (props) => {
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
+                const storeNameShort =  item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15)
+
                 const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                   /[^0-9.]/g,
                   "",
@@ -658,106 +660,7 @@ const Justin = (props) => {
                           </a>
                         </Link>
                       
-                      {/* <div className={classes.cartcontent}>
-                      <div className={classes.cartcontenttext} onCick={() => {
-                        trackProductView()
-                      }}>
-                        
-                        <Link
-                          href={item.node.product.slug && "en/product/[...slugOrId]"}
-                          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                        >
-                          <a target="_blank">
-                            <Typography
-                              style={{
-                                fontWeight: "600",
-                                fontSize: "1rem",
-                                fontFamily: "lato",
-                                // marginTop: "10px",
-                                textTransform: "capitalize",
-                                marginLeft: "0px",
-                              }}
-                              variant="h4"
-                              component="h2"
-                              className={classes.carttitle}
-                            >
-                              {firstThreeWords}
-                            </Typography>
-                          </a>
-                        </Link>
-                        <Typography
-                          className={classes.price}
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "1rem",
-                            fontFamily: "lato",
-                            color: "#FDC114",
-                            marginLeft: "0px",
-                          }}
-                        >
-                          {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                            ?.replace(/\.00$/, "")
-                            .replace(/\$/g, "Rs. ")}
-                        </Typography>
-                        <div className={classes.strikethroughoff}>
-                          <strike className={classes.strikethrough}>
-                            {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "Rs. ")}
-                          </strike>
-                          <Typography
-                            style={{
-                              fontWeight: "600",
-                              fontSize: "0.9rem",
-                              fontFamily: "lato",
-                              marginLeft: "0px",
-                            }}
-                            variant="h4"
-                            component="h2"
-                            className={classes.carttitle2}
-                          >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}</Typography>
-                        </div>
-                      </div>
-                      <div className={classes.cartbackground}>
-                        <Typography
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "0.8rem",
-                            fontFamily: "lato",
-                            left: "5px",
-                          }}
-                          variant="h4"
-                          component="h2"
-                          className={classes.cartsize}
-                        >
-                          Size{" "}
-                          <span className={classes.sizes}>
-                            {formatSize(size, true)}
-                          </span>
-                        </Typography>
-                        {isLoading[item?.node?.product?.productId] ? (
-                          <CircularProgress size="30px" className={classes.progressBar} />
-                        ) : (
-                          <Button
-                            className={classes.cart}
-                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                            disabled={isDisabled || item?.node?.product?.isSoldOut}
-                          >
-                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                            <Typography
-                              style={{
-                                fontFamily: "Ostrich Sans Black",
-                              }}
-                              variant="h5"
-                              component="h2"
-                              className={classes.cartText}
-                            >
-                              {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                            </Typography>
-                          </Button>
-                        )}
-                      </div>
-                    </div> */}
+                  
                       <div>
                         <div className={classes.cartButton}>
                           <Button
@@ -840,8 +743,7 @@ const Justin = (props) => {
                                 >
                                   <a target="_blank">
                                     <span className={classes.storeNameStyle}>
-                                      {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
-                                    </span>
+                                    {storeNameShort}                                    </span>
                                   </a>
                                 </Link>
                               </Typography>

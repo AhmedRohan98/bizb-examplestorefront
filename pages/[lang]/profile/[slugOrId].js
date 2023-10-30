@@ -692,6 +692,7 @@ function SellerPublicProfile(props) {
                 const str = item?.node?.product?.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
+
                 const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                   /[^0-9.]/g,
                   "",

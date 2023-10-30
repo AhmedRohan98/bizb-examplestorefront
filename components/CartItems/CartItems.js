@@ -14,6 +14,7 @@ import Paper from "@material-ui/core/Paper";
 import formatCurrency from "lib/utils/formatCurrency";
 import TagManager from 'react-gtm-module';
 import ReactGA from "react-ga4";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import { withComponents } from "@reactioncommerce/components-context";
 const styles = (theme) => ({
@@ -313,10 +314,15 @@ class CartItems extends Component {
                       {item?.metafields ? (
                         <img src={item?.metafields[0]?.value} alt={item.title} className={classes.cartimage} ></img>
                       ) : (
-                        ""
+                        <Skeleton variant="circular" width={40} height={40}/>
+                      
                       )}{" "}
                       <div className={classes.carttitle}>
+                        {item?.title?
                         <Typography variant="h4" style={{ textTransform: "capitalize", fontSize: "1rem" }}>{item.title.toString().toLowerCase()}</Typography>
+                        :
+                        <Skeleton  width={210}/>
+                      }
                         <br />
                         <img
                           style={{ cursor: "pointer", }}
@@ -330,18 +336,27 @@ class CartItems extends Component {
                   </TableCell>
                   <TableCell align="right">
                     {" "}
+                    {item?.price?.amount?
                     <Typography variant="h4" className={classes.cartprice}>
                       {formatCurrency(item?.price?.amount)}
-                    </Typography>
+                    </Typography>:
+                    <Skeleton  width={210}/>
+                  }
                   </TableCell>
                   <TableCell align="right">
                     {" "}
+                    {item?.quantity?
                     <Typography variant="h4" style={{ fontSize: "1rem", textAlign: "center" }}>{item.quantity}</Typography>
+                    :<Skeleton  width={210}/>
+                      }
                   </TableCell>
                   <TableCell align="right">
+                    {item?.price?.amount?
                     <Typography variant="h4" className={classes.cartprice}>
                       {formatCurrency(item?.price?.amount)}
                     </Typography>
+                    :<Skeleton  width={210}/>
+                  }
                   </TableCell>
                 </TableRow>
               ))}

@@ -89,10 +89,10 @@ const CartSummary = (props) => {
     className,
     displayDiscount,
     displayShipping,
+    displaydiscount,
     displaySubtotal,
     displaySurcharge,
     displayTax,
-    displaydiscount,
     displayTotal,
     isDense,
     isFreeShipping,
@@ -184,7 +184,6 @@ CartSummary.propTypes = {
   /**
    * Discount amount associated with promo code
    */
-  displayDiscount: PropTypes.string,
   /**
    * Shipping cost
    */
@@ -205,9 +204,9 @@ CartSummary.propTypes = {
    *  /**
    * Calculated discount amount
    */
-  displaydiscount: PropTypes.string,
+  displaydiscount: PropTypes.string.isRequired,
   /**
-   * Total amount
+   * Disxount amount
    */
   displayTotal: PropTypes.string.isRequired,
   /**

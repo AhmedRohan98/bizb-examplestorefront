@@ -25,7 +25,7 @@ import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 import ReactGA from "react-ga4";
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -276,7 +276,6 @@ const styles = (theme) => ({
     width: "391px",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
-
     },
     boxShadow: "3px 3px 12px  rgba(0, 0, 0, 0.05)",
     borderRadius: "18px",
@@ -306,14 +305,13 @@ const styles = (theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: theme.spacing(2),
-    fontSize: "1rem"
+    fontSize: "1rem",
   },
   subtotalamount: {
     fontWeight: 700,
 
     lineHeight: "34px",
-    fontSize: "1rem"
-
+    fontSize: "1rem",
   },
   orderbutn: {
     width: "100%",
@@ -484,7 +482,6 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
       marginLeft: theme.spacing(8),
-
     },
     display: "flex",
     alignItems: "center",
@@ -500,7 +497,6 @@ const styles = (theme) => ({
     width: "100%",
     height: "100%",
     [theme.breakpoints.down("sm")]: {
-
       // marginLeft: theme.spacing(4),
     },
 
@@ -579,7 +575,6 @@ const styles = (theme) => ({
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
-
   },
   register: {
     width: "261px",
@@ -596,6 +591,11 @@ const styles = (theme) => ({
       transition: "left 0.2s linear",
       background: "#FDC114",
     },
+  },
+  loader: {
+    display: "flex",
+    justifyContent: "center",
+    width:"100%"
   },
 });
 
@@ -631,6 +631,7 @@ class CartPage extends Component {
     super(props);
     this.state = {
       isLoading: {},
+      isLoading2: false
     };
   }
 
@@ -671,6 +672,10 @@ class CartPage extends Component {
   }
 
   handleClick = () => Router.push("/");
+
+  handleTagManager = () => {
+   
+  }
 
   // Your async logic here
 
@@ -735,9 +740,9 @@ class CartPage extends Component {
   };
   handleRemoveItem = async (itemId) => {
     ReactGA.send({
-      hitType: 'event',
-      eventCategory: 'Ecommerce',
-      eventAction: 'remove_from_cart',
+      hitType: "event",
+      eventCategory: "Ecommerce",
+      eventAction: "remove_from_cart",
       eventLabel: itemId,
     });
     const { onRemoveCartItems } = this.props;
@@ -746,6 +751,7 @@ class CartPage extends Component {
   };
   renderCartItems() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems, catalogItems } = this.props;
+    
 
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
@@ -765,18 +771,29 @@ class CartPage extends Component {
         </>
       );
     }
-
+    
+    if(cart ==="undefined"){
     return (
+
       <Grid item xs={12} className={classes.cartEmptyMessageContainer}>
         <Link href="/">
           <Button className={classes.register}>Continue Shopping </Button>
         </Link>
       </Grid>
     );
+    }
+    else{
+      return(
+        <div className={classes.loader}>
+        <PageLoading message="Loading ..."  />
+        </div>
+      )
+    }
   }
 
   renderCartSummary() {
     const { cart, classes, catalogItems } = this.props;
+    const {isLoading2} = this.state
 
     if (cart && cart.checkout && cart.checkout.summary && Array.isArray(cart.items) && cart.items.length) {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
@@ -826,41 +843,47 @@ class CartPage extends Component {
                 variant="h5"
                 role="button"
                 type="submit"
-                onClick={() => {
+                onClick={()=>{
+                  this.setState((prevState) => ({ isLoading2: !prevState.isLoading2 }));
+
                   const productIds = cart?.items?.map((item) => item._id);
                   ReactGA.send({
-                    category: 'Ecommerce',
-                    action: 'checkout_initiated',
-                    label: 'Checkout Initiated', // Optional event label
-                    nonInteraction: true,         // Optional: Set to true if this event is non-interactive
-                    value: 0,                     // Optional: Set a numeric value for the event
+                    category: "Ecommerce",
+                    action: "checkout_initiated",
+                    label: "Checkout Initiated", // Optional event label
+                    nonInteraction: true, // Optional: Set to true if this event is non-interactive
+                    value: 0, // Optional: Set a numeric value for the event
                     products: cart.items.map((item) => ({
                       id: item.productConfiguration.productId,
                       price: item.price.amount,
-                      quantity:item.quantity, // Adjust the quantity for each product as needed
-              
-                    }))  // Include the product details here as an array
+                      quantity: item.quantity, // Adjust the quantity for each product as needed
+                    })), // Include the product details here as an array
                   });
-
+              
                   const dataLayer = {
                     dataLayer: {
-                      event: 'checkout_initiated',
+                      event: "checkout_initiated",
                       ecommerce: {
-                        currencyCode: 'PK', // Replace with your currency code
+                        currencyCode: "PK", // Replace with your currency code
                         checkout: cart.items.map((item) => ({
                           id: item.productConfiguration.productId,
                           price: item.price.amount,
-                          quantity:item.quantity, // Adjust the quantity for each product as needed
-              
-                        }))
+                          quantity: item.quantity, // Adjust the quantity for each product as needed
+                        })),
                       },
                     },
                   };
-
+              
                   TagManager.dataLayer(dataLayer);
                 }}
               >
-                Proceed to checkout
+                {this.state.isLoading2 ? (
+                  <CircularProgress color={"black"} />
+                ) : (
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Proceed to checkout
+                  </Typography>
+                )}
               </Button>
             </a>
           </div>
@@ -893,6 +916,7 @@ class CartPage extends Component {
     // console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
     const { isLoading } = this.state;
+    
     return (
       <>
         <Layout shop={shop}>
@@ -943,10 +967,14 @@ class CartPage extends Component {
                       // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
-                      ? optionTitle?.replace(/['"\\]/g,"")
-                      .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","')
-                      : null;
-                                            const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+                        ? optionTitle
+                            ?.replace(/['"\\]/g, "")
+                            .replace("{", '{"')
+                            .replace(/:/g, '":"')
+                            .replace("}", '"}')
+                            .replace(",", '","')
+                        : null;
+                      const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item.node.product.title;
                       const words = str.match(/[a-zA-Z0-9]+/g);
                       const firstThreeWords = words.slice(0, 3).join(" ");
@@ -1017,12 +1045,12 @@ class CartPage extends Component {
                                   {size == 0
                                     ? "Extra Large"
                                     : "Small" || size == 1
-                                      ? "Large"
-                                      : "Small" || size == 2
-                                        ? "Medium"
-                                        : "Small" || size == 3
-                                          ? "Small"
-                                          : "Small"}
+                                    ? "Large"
+                                    : "Small" || size == 2
+                                    ? "Medium"
+                                    : "Small" || size == 3
+                                    ? "Small"
+                                    : "Small"}
                                 </Typography>
                               </div>
                               <div className={classes.pricing}>
@@ -1056,7 +1084,6 @@ class CartPage extends Component {
   }
 }
 
-
 /**
  *  Server props for the cart route
  *
@@ -1066,9 +1093,9 @@ class CartPage extends Component {
 export async function getServerSideProps({ params: { lang } }) {
   return {
     props: {
-      ...await fetchPrimaryShop(lang),
-      ...await fetchTranslations(lang, ["common"])
-    }
+      ...(await fetchPrimaryShop(lang)),
+      ...(await fetchTranslations(lang, ["common"])),
+    },
   };
 }
 

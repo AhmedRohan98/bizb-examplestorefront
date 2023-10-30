@@ -624,6 +624,8 @@ const CheckoutActions = (prop) => {
       });
       console.log("response", response);
       setSubTotal(response?.data?.applyDiscountCodeToCart?.cart?.checkout?.summary?.discountTotal?.amount);
+      setOrderDisable2(false);
+
     } catch (err) {
       console.log("response", err.message);
       setErrorPromo(err?.message);

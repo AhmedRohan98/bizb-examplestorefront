@@ -1420,6 +1420,8 @@ function Explore(props) {
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
+                const storeNameShort =  item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15)
+
                 const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                   /[^0-9.]/g,
                   "",
@@ -1523,9 +1525,10 @@ function Explore(props) {
                                 trackProductView();
                               }}
                             >
+                                
                               <Link
-                                href={item.node.product.slug && "en/product/[...slugOrId]"}
-                                as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                                href={item.node.product.slug && `product/${item.node.product.slug}`}
+                                as={item.node.product.slug && `product/${item.node.product.slug}`}
                               >
                                 <a target="_blank">
                                   <Typography
@@ -1553,7 +1556,7 @@ function Explore(props) {
                                 >
                                   <a target="_blank">
                                     <span className={classes.storeNameStyle}>
-                                      {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                      {storeNameShort}
                                     </span>
                                   </a>
                                 </Link>
