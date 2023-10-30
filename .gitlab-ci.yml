@@ -16,16 +16,30 @@ stages:
 
 
 
+# build_image_GKE:
+#   stage: build
+#   script:
+#     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#     - docker build --no-cache -t bizb-frontend-production-v0.1 .
+#     - docker tag bizb-frontend-production-v0.1 $DOCKER_USERNAME/bizb-gke:bizb-frontend-production-v0.1
+#     - docker push $DOCKER_USERNAME/bizb-gke:bizb-frontend-production-v0.1
+#   only:
+#     - master
+
+
 build_image_GKE:
   stage: build
   script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build --no-cache -t bizb-frontend-production-v0.1 .
-    - docker tag bizb-frontend-production-v0.1 $DOCKER_USERNAME/bizb-gke:bizb-frontend-production-v0.1
-    - docker push $DOCKER_USERNAME/bizb-gke:bizb-frontend-production-v0.1
+
+    # Calculate the version number based on the pipeline's unique ID (CI_PIPELINE_IID)
+    - export IMAGE_VERSION=0.$CI_PIPELINE_IID
+
+    - docker build --no-cache -t bizb-frontend-production:$IMAGE_VERSION .
+    - docker tag bizb-frontend-production:$IMAGE_VERSION $DOCKER_USERNAME/bizb-gke:bizb-frontend-production-$IMAGE_VERSION
+    - docker push $DOCKER_USERNAME/bizb-gke:bizb-frontend-production-$IMAGE_VERSION
   only:
     - master
-
 # build_docker_image:
 #   stage: build
 #   script:
