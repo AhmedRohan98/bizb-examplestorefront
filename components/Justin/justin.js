@@ -427,8 +427,8 @@ const Justin = (props) => {
     // If variant is not already in the cart, add the new item
     // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
     const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
-    try{
-      const additemtocart =  await addItemsToCart([
+    try {
+      const additemtocart = await addItemsToCart([
         {
           price: {
             amount: price,
@@ -448,10 +448,10 @@ const Justin = (props) => {
         },
       ]);
       // toast.success(" added to cart successfully!");
-  
-      console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id)
-  
-      if( additemtocart?.data?.addCartItems?.cart?._id){
+
+      console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
+
+      if (additemtocart?.data?.addCartItems?.cart?._id) {
         toast.success(" added to cart successfully!");
         // setIsLoading((prevState) => ({
         //   ...prevState,
@@ -461,32 +461,26 @@ const Justin = (props) => {
           ...prevState,
           [product.productId]: false,
         }));
-  
       }
-    
-    
+    } catch (error) {
+      console.log("carcart error for cart", error);
+      toast.error("Something went wrong, try again");
+      // setIsLoading((prevState) => ({
+      //   ...prevState,
+      //   [product.productId]: false,
+      // }));
+      setIsLoading((prevState) => ({
+        ...prevState,
+        [product.productId]: false,
+      }));
     }
-      catch(error){
-        console.log("carcart error for cart",error )
-        toast.error("Something went wrong, try again");
-        // setIsLoading((prevState) => ({
-        //   ...prevState,
-        //   [product.productId]: false,
-        // }));
-        setIsLoading((prevState) => ({
-          ...prevState,
-          [product.productId]: false,
-        }));
-  
-  
-      }
   };
 
   const handleOnClick = async (product, variant) => {
     const item = {
       product,
-      variant
-    }
+      variant,
+    };
     setIsLoading((prevState) => ({
       ...prevState,
       [item?.product.productId]: true,
@@ -518,27 +512,23 @@ const Justin = (props) => {
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
-   
+
     // Scroll to the top
   };
 
   const processQueue = async () => {
     if (queue.length > 0 && !processing) {
       setProcessing(true);
-     
+
       const item = queue[0];
-      console.log("itemitemitem",item)
+      console.log("itemitemitem", item);
 
       // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
-     
-  
-      await handleAddToCartClick(1, item?.product, item?.variant);
 
-       
+      await handleAddToCartClick(1, item?.product, item?.variant);
 
       setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
       setProcessing(false);
-      
     }
   };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -599,7 +589,7 @@ const Justin = (props) => {
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
-                const storeNameShort =  item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15)
+                const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15);
 
                 const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                   /[^0-9.]/g,
@@ -624,43 +614,36 @@ const Justin = (props) => {
                         trackProductView();
                       }}
                     >
-                        <Link
-                          href={item.node.product.slug && "en/product/[...slugOrId]"}
-                          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
-                        >
-                          <a target="_blank">
-                            {/* {console.log("Images", item?.node)} */}
+                      <Link
+                        href={item.node.product.slug && "en/product/[...slugOrId]"}
+                        as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                      >
+                        <a target="_blank">
+                          {/* {console.log("Images", item?.node)} */}
 
-                            <img
-                              src={
-                                item?.node?.product?.media[0]?.URLs?.thumbnail
-                                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                                  : item?.node?.product?.media[0]?.URLs?.medium
-                                  ? item?.node?.product?.media[0]?.URLs?.medium
-                                  : item?.node?.product?.media[0]?.URLs?.large?
-                                  item?.node?.product?.media[0]?.URLs?.large :
-                                  item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail?
-                                  item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail:
-                                  item?.node?.product?.variants[0].media[0]?.URLs?.medium?
-                                  item?.node?.product?.variants[0].media[0]?.URLs?.medium:
-                                  item?.node?.product?.variants[0].media[1]?.URLs?.large ?
-                                  item?.node?.product?.variants[0].media[1]?.URLs?.large :
-                                  item?.node?.product?.variants[0].media[1]?.URLs?.medium 
+                          <img
+                            src={
+                              item?.node?.product?.media[0]?.URLs?.medium
+                                ? item?.node?.product?.media[0]?.URLs?.medium
+                                : item?.node?.product?.media[0]?.URLs?.thumbnail
+                                ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                                : item?.node?.product?.media[0]?.URLs?.large
+                                ? item?.node?.product?.media[0]?.URLs?.large
+                                : item?.node?.product?.variants[0].media[0]?.URLs?.medium
+                                ? item?.node?.product?.variants[0].media[0]?.URLs?.medium
+                                : item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
+                                ? item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
+                                : item?.node?.product?.variants[0].media[1]?.URLs?.large
+                                ? item?.node?.product?.variants[0].media[1]?.URLs?.large
+                                : item?.node?.product?.variants[0].media[1]?.URLs?.medium
+                            }
+                            className={classes.image}
+                            key={item?.node?.product?.id}
+                            alt={item?.node?.product?.title}
+                          />
+                        </a>
+                      </Link>
 
-
-
-                                  
-
-                              }
-                              className={classes.image}
-                              key={item?.node?.product?.id}
-                              alt={item?.node?.product?.title}
-                            />
-                           
-                          </a>
-                        </Link>
-                      
-                  
                       <div>
                         <div className={classes.cartButton}>
                           <Button
@@ -742,8 +725,7 @@ const Justin = (props) => {
                                   as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
                                 >
                                   <a target="_blank">
-                                    <span className={classes.storeNameStyle}>
-                                    {storeNameShort}                                    </span>
+                                    <span className={classes.storeNameStyle}>{storeNameShort} </span>
                                   </a>
                                 </Link>
                               </Typography>
