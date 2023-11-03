@@ -595,7 +595,7 @@ const styles = (theme) => ({
   loader: {
     display: "flex",
     justifyContent: "center",
-    width:"100%"
+    width: "100%",
   },
 });
 
@@ -631,7 +631,7 @@ class CartPage extends Component {
     super(props);
     this.state = {
       isLoading: {},
-      isLoading2: false
+      isLoading2: false,
     };
   }
 
@@ -673,9 +673,7 @@ class CartPage extends Component {
 
   handleClick = () => Router.push("/");
 
-  handleTagManager = () => {
-   
-  }
+  handleTagManager = () => {};
 
   // Your async logic here
 
@@ -751,7 +749,6 @@ class CartPage extends Component {
   };
   renderCartItems() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems, catalogItems } = this.props;
-    
 
     if (cart && Array.isArray(cart.items) && cart.items.length) {
       return (
@@ -771,29 +768,27 @@ class CartPage extends Component {
         </>
       );
     }
-    
-    if(cart ==="undefined"){
-    return (
 
-      <Grid item xs={12} className={classes.cartEmptyMessageContainer}>
-        <Link href="/">
-          <Button className={classes.register}>Continue Shopping </Button>
-        </Link>
-      </Grid>
-    );
-    }
-    else{
-      return(
+    if (cart === "undefined") {
+      return (
+        <Grid item xs={12} className={classes.cartEmptyMessageContainer}>
+          <Link href="/">
+            <Button className={classes.register}>Continue Shopping </Button>
+          </Link>
+        </Grid>
+      );
+    } else {
+      return (
         <div className={classes.loader}>
-        <PageLoading message="Loading ..."  />
+          <PageLoading message="Loading ..." />
         </div>
-      )
+      );
     }
   }
 
   renderCartSummary() {
     const { cart, classes, catalogItems } = this.props;
-    const {isLoading2} = this.state
+    const { isLoading2 } = this.state;
 
     if (cart && cart.checkout && cart.checkout.summary && Array.isArray(cart.items) && cart.items.length) {
       const { fulfillmentTotal, itemTotal, surchargeTotal, taxTotal, total } = cart.checkout.summary;
@@ -843,7 +838,7 @@ class CartPage extends Component {
                 variant="h5"
                 role="button"
                 type="submit"
-                onClick={()=>{
+                onClick={() => {
                   this.setState((prevState) => ({ isLoading2: !prevState.isLoading2 }));
 
                   const productIds = cart?.items?.map((item) => item._id);
@@ -859,7 +854,7 @@ class CartPage extends Component {
                       quantity: item.quantity, // Adjust the quantity for each product as needed
                     })), // Include the product details here as an array
                   });
-              
+
                   const dataLayer = {
                     dataLayer: {
                       event: "checkout_initiated",
@@ -873,7 +868,7 @@ class CartPage extends Component {
                       },
                     },
                   };
-              
+
                   TagManager.dataLayer(dataLayer);
                 }}
               >
@@ -916,7 +911,7 @@ class CartPage extends Component {
     // console.log(filteredProducts, "cat");
     if (typeof cart === "undefined") return <PageLoading delay={0} />;
     const { isLoading } = this.state;
-    
+
     return (
       <>
         <Layout shop={shop}>

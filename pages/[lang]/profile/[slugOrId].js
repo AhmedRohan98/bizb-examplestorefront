@@ -36,7 +36,6 @@ function SellerPublicProfile(props) {
   const [queue, setQueue] = useState([]);
   const [processing, setProcessing] = useState(false);
 
-
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
@@ -44,7 +43,6 @@ function SellerPublicProfile(props) {
   useEffect(() => {
     processQueue();
   }, [queue, props?.cart?.items, props?.catalogItems]);
-
 
   const useStyles = makeStyles((theme) => ({
     main: {
@@ -351,8 +349,8 @@ function SellerPublicProfile(props) {
     // If variant is not already in the cart, add the new item
     // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
     const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
-    try{
-      const additemtocart =  await addItemsToCart([
+    try {
+      const additemtocart = await addItemsToCart([
         {
           price: {
             amount: price,
@@ -372,10 +370,10 @@ function SellerPublicProfile(props) {
         },
       ]);
       // toast.success(" added to cart successfully!");
-  
-      console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id)
-  
-      if( additemtocart?.data?.addCartItems?.cart?._id){
+
+      console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
+
+      if (additemtocart?.data?.addCartItems?.cart?._id) {
         toast.success(" added to cart successfully!");
         // setIsLoading((prevState) => ({
         //   ...prevState,
@@ -385,33 +383,26 @@ function SellerPublicProfile(props) {
           ...prevState,
           [product.productId]: false,
         }));
-  
       }
-    
-    
+    } catch (error) {
+      console.log("carcart error for cart", error);
+      toast.error("Something went wrong, try again");
+      // setIsLoading((prevState) => ({
+      //   ...prevState,
+      //   [product.productId]: false,
+      // }));
+      setIsLoading((prevState) => ({
+        ...prevState,
+        [product.productId]: false,
+      }));
     }
-      catch(error){
-        console.log("carcart error for cart",error )
-        toast.error("Something went wrong, try again");
-        // setIsLoading((prevState) => ({
-        //   ...prevState,
-        //   [product.productId]: false,
-        // }));
-        setIsLoading((prevState) => ({
-          ...prevState,
-          [product.productId]: false,
-        }));
-  
-  
-      }
   };
 
   const handleOnClick = async (product, variant) => {
-
     const item = {
       product,
-      variant
-    }
+      variant,
+    };
     setIsLoading((prevState) => ({
       ...prevState,
       [item?.product.productId]: true,
@@ -425,7 +416,7 @@ function SellerPublicProfile(props) {
       value: product?.variants[0]?.pricing[0]?.displayPrice,
     });
     const addToCartData = {
-      event: 'addToCart',
+      event: "addToCart",
       ecommerce: {
         add: {
           products: [
@@ -439,38 +430,34 @@ function SellerPublicProfile(props) {
         },
       },
     };
-    
+
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
-  
+
     // Scroll to the top
   };
 
-  
   const processQueue = async () => {
     if (queue.length > 0 && !processing) {
       setProcessing(true);
-     
-      const item = queue[0];
-      console.log("itemitemitem",item)
 
-      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)    
-  
-      await handleAddToCartClick(1, item?.product, item?.variant);      
+      const item = queue[0];
+      console.log("itemitemitem", item);
+
+      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
+
+      await handleAddToCartClick(1, item?.product, item?.variant);
 
       setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
       setProcessing(false);
-      
     }
   };
 
-
   const parseJSON = (jsonString) => {
-   
     try {
       let parsedData;
-  
+
       // Attempt to parse as JSON with double quotes
       try {
         parsedData = JSON.parse(jsonString);
@@ -484,7 +471,7 @@ function SellerPublicProfile(props) {
           return null;
         }
       }
-  
+
       return parsedData.size || null;
     } catch (error) {
       console.error("Error parsing JSON:", error);
@@ -550,18 +537,20 @@ function SellerPublicProfile(props) {
               </div>
               <div className="publicProfile__infoContainer">
                 <div className="sellerProfile__infoRow publicProfile__infoRow">
-                  {profile?<Typography className="publicProfile__name" variant="h1">
-                    <span>
-                      {profile && profile?.storeName
-                        ? profile?.storeName
-                        : profile?.name
-                        ? profile?.name
-                        : profile?.name}
-                    </span>
-                    {profile && profile && <img src="/icons/tickIcon.png" />}
-                  </Typography>:
-                  <Skeleton  width={210}/>
-                      }
+                  {profile ? (
+                    <Typography className="publicProfile__name" variant="h1">
+                      <span>
+                        {profile && profile?.storeName
+                          ? profile?.storeName
+                          : profile?.name
+                          ? profile?.name
+                          : profile?.name}
+                      </span>
+                      {profile && profile && <img src="/icons/tickIcon.png" />}
+                    </Typography>
+                  ) : (
+                    <Skeleton width={210} />
+                  )}
                 </div>
                 <Hidden xsDown>
                   <>
@@ -666,172 +655,179 @@ function SellerPublicProfile(props) {
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
         </div>
-        {props?.catalogItems?.length >0 ?
+        {props?.catalogItems?.length > 0 ? (
           <div className={classes.gridroot}>
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-          >
-            <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-              {props?.catalogItems?.map((item, key) => {
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            >
+              <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                {props?.catalogItems?.map((item, key) => {
+                  const cartitem = cart?.items;
+                  const isDisabled = cartitem?.some((data) => {
+                    return data?.productConfiguration?.productId === item?.node?.product?.productId;
+                  });
+                  let optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                  let validOptionTitle = optionTitle
+                    ? optionTitle
+                        ?.replace(/['"\\]/g, "")
+                        .replace("{", '{"')
+                        .replace(/:/g, '":"')
+                        .replace("}", '"}')
+                        .replace(",", '","')
+                    : null;
 
-                const cartitem = cart?.items;
-                const isDisabled = cartitem?.some((data) => {
-                  return data?.productConfiguration?.productId === item?.node?.product?.productId;
-                });
-                let optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-               let validOptionTitle = optionTitle? optionTitle?.replace(/['"\\]/g,"")
-                .replace("{",'{"').replace(/:/g,'":"').replace("}",'"}').replace(",",'","'):null;
-            
+                  // Access the "size" property
+                  const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+                  {
+                    console.log("validOptionTitle", validOptionTitle, "size", size);
+                  }
+                  const str = item?.node?.product?.title;
+                  const words = str.match(/[a-zA-Z0-9]+/g);
+                  const firstThreeWords = words.slice(0, 3).join(" ");
 
-                
+                  const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                    /[^0-9.]/g,
+                    "",
+                  );
 
-                // Access the "size" property
-                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-                {console.log("validOptionTitle", validOptionTitle, "size", size)}
-                const str = item?.node?.product?.title;
-                const words = str.match(/[a-zA-Z0-9]+/g);
-                const firstThreeWords = words.slice(0, 3).join(" ");
+                  const compareAtPrice =
+                    item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
+                      /[^0-9.]/g,
+                      "",
+                    );
 
-                const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                  /[^0-9.]/g,
-                  "",
-                );
+                  const parsedDisplayPrice = parseFloat(displayPrice);
+                  const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                const compareAtPrice =
-                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
+                  const percentage = Math.floor(
+                    ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                  );
 
-                const parsedDisplayPrice = parseFloat(displayPrice);
-                const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                  // console.log(optionTitle, "fil");
+                  return (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <div className={classes.boxcontairproduct}>
+                        {/* {console.log("Images", item?.node)} */}
+                        <Link
+                          href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                          as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                        >
+                          <a target="_blank">
+                            <img
+                              src={
+                                item?.node?.product?.media[0]?.URLs?.medium
+                                  ? item?.node?.product?.media[0]?.URLs?.medium
+                                  : item?.node?.product?.media[0]?.URLs?.thumbnail
+                                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                                  : item?.node?.product?.media[0]?.URLs?.large
+                              }
+                              className={classes.image}
+                              key={item?.node?.product?.id}
+                              // onClick={() => clickHandler(item.node.product.slug)}
+                              alt={item?.node?.product?.title}
+                            />
+                          </a>
+                        </Link>
 
-                const percentage = Math.floor(
-                  ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                );
-
-                // console.log(optionTitle, "fil");
-                return (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div className={classes.boxcontairproduct}>
-                      {/* {console.log("Images", item?.node)} */}
-                      <Link
-                        href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                      >
-                        <a target="_blank">
-                          <img
-                            src={
-                              item?.node?.product?.media[0]?.URLs?.thumbnail
-                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.media[0]?.URLs?.medium
-                              ? item?.node?.product?.media[0]?.URLs?.medium
-                              : item?.node?.product?.media[0]?.URLs?.large
-                            }
-                            className={classes.image}
-                            key={item?.node?.product?.id}
-                            // onClick={() => clickHandler(item.node.product.slug)}
-                            alt={item?.node?.product?.title}
-                          />
-                        </a>
-                      </Link>
-
-                      <div className={classes.cartcontent}>
-                        <div className={classes.cartcontenttext}>
-                          <Typography
-                            style={{
-                              fontWeight: "600",
-                              fontSize: "1rem",
-                              fontFamily: "lato",
-                              // marginTop: "10px",
-                              textTransform: "capitalize",
-                              marginLeft: "0px",
-                            }}
-                            variant="h4"
-                            component="h2"
-                            className={classes.carttitle}
-                          >
-                            {firstThreeWords}
-                          </Typography>
-                          <Typography
-                            className={classes.price}
-                            style={{
-                              fontWeight: "600",
-                              fontSize: "1rem",
-                              fontFamily: "lato",
-                              color: "#FDC114",
-                              marginLeft: "0px",
-                            }}
-                          >
-                            {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                              ?.replace(/\.00$/, "")
-                              .replace(/\$/g, "Rs. ")}
-                          </Typography>
-                          <div className={classes.strikethroughoff}>
-                            <strike className={classes.strikethrough}>
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                                ?.replace(/\.00$/, "")
-                                .replace(/\$/g, "Rs. ")}
-                            </strike>
+                        <div className={classes.cartcontent}>
+                          <div className={classes.cartcontenttext}>
                             <Typography
                               style={{
                                 fontWeight: "600",
-                                fontSize: "0.9rem",
+                                fontSize: "1rem",
                                 fontFamily: "lato",
+                                // marginTop: "10px",
+                                textTransform: "capitalize",
                                 marginLeft: "0px",
                               }}
                               variant="h4"
                               component="h2"
-                              className={classes.carttitle2}
+                              className={classes.carttitle}
                             >
-                              {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                                `-${Math.abs(percentage)}%`}
+                              {firstThreeWords}
                             </Typography>
-                          </div>
-                        </div>
-                        <div className={classes.cartbackground}>
-                          <Typography
-                            style={{
-                              fontWeight: "600",
-                              fontSize: "0.8rem",
-                              fontFamily: "lato",
-                              left: "5px",
-                            }}
-                            variant="h4"
-                            component="h2"
-                            className={classes.cartsize}
-                          >
-                            Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                          </Typography>
-                          {isLoading[item?.node?.product?.productId] ? (
-                            <CircularProgress className={classes.progressBar} />
-                          ) : (
-                            <Button
-                              className={classes.cart}
-                              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                              disabled={isDisabled || item?.node?.product?.isSoldOut}
+                            <Typography
+                              className={classes.price}
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "1rem",
+                                fontFamily: "lato",
+                                color: "#FDC114",
+                                marginLeft: "0px",
+                              }}
                             >
-                              <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                              {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                ?.replace(/\.00$/, "")
+                                .replace(/\$/g, "Rs. ")}
+                            </Typography>
+                            <div className={classes.strikethroughoff}>
+                              <strike className={classes.strikethrough}>
+                                {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                                  ?.replace(/\.00$/, "")
+                                  .replace(/\$/g, "Rs. ")}
+                              </strike>
                               <Typography
-                                style={{ fontFamily: "Ostrich Sans Black" }}
-                                variant="h5"
+                                style={{
+                                  fontWeight: "600",
+                                  fontSize: "0.9rem",
+                                  fontFamily: "lato",
+                                  marginLeft: "0px",
+                                }}
+                                variant="h4"
                                 component="h2"
-                                className={classes.cartText}
+                                className={classes.carttitle2}
                               >
-                                {isDisabled ? "Added" : item?.node?.product?.isSoldOut ? "Sold" : "+ Cart"}
+                                {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                                  `-${Math.abs(percentage)}%`}
                               </Typography>
-                            </Button>
-                          )}
+                            </div>
+                          </div>
+                          <div className={classes.cartbackground}>
+                            <Typography
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "0.8rem",
+                                fontFamily: "lato",
+                                left: "5px",
+                              }}
+                              variant="h4"
+                              component="h2"
+                              className={classes.cartsize}
+                            >
+                              Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                            </Typography>
+                            {isLoading[item?.node?.product?.productId] ? (
+                              <CircularProgress className={classes.progressBar} />
+                            ) : (
+                              <Button
+                                className={classes.cart}
+                                onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                                disabled={isDisabled || item?.node?.product?.isSoldOut}
+                              >
+                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                <Typography
+                                  style={{ fontFamily: "Ostrich Sans Black" }}
+                                  variant="h5"
+                                  component="h2"
+                                  className={classes.cartText}
+                                >
+                                  {isDisabled ? "Added" : item?.node?.product?.isSoldOut ? "Sold" : "+ Cart"}
+                                </Typography>
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </Masonry>
-          </ResponsiveMasonry>
-        </div>
-        : (
-        <SkeletonLoader/>
-      )}
+                  );
+                })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </div>
+        ) : (
+          <SkeletonLoader />
+        )}
 
         <div className={classes.loadmore}>
           {sellerCatalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={sellerCatalogItemsPageInfo}></PageStepper>}

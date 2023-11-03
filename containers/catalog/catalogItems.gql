@@ -79,6 +79,7 @@ query catalogItemsQuery(
                   small
                   large
                   medium
+                  thumbnail
                 }
               }
               _id
