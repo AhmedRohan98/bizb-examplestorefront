@@ -83,8 +83,9 @@ const styles = (theme) => ({
     borderBottom: "1px solid #E5E5E5",
   },
   cartitems: {
-    height: "60vh",
+    height: "70vh",
     overflowY: "auto",
+ 
   },
   paper2: {
     backgroundColor: theme.palette.background.paper,
@@ -172,6 +173,30 @@ const styles = (theme) => ({
       transform: "scale(1.08)",
       transition: "left 0.2s linear",
       background: theme.palette.reaction.black,
+    },
+  },
+  cart2: {
+    height: "38px",
+    width: "120px",
+    borderRadius: "40px",
+    background: "#333333",
+    display: "flex",
+    alignItems: "center",
+    marginTop: "10px",
+    marginRight: "45px",
+
+    "&:hover": {
+      transform: "scale(1.08)",
+      transition: "left 0.2s linear",
+      background: theme.palette.reaction.black,
+    },
+  },
+  cartDiv:{
+    display: "flex",
+    cursor: "pointer",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      width: "118%",
     },
   },
   cart: {
@@ -264,7 +289,7 @@ const MiniCart = ({ ...props }) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [isLoading2, setisLoading2] = useState(false);
-
+  const [isLoading3, setisLoading3] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -276,19 +301,18 @@ const MiniCart = ({ ...props }) => {
 
   const handleCheckoutButtonClick = () => {
     const productIds = cart?.items?.map((item) => item._id);
-    setisLoading2(true)
+    setisLoading2(true);
     ReactGA.send({
-      category: 'Ecommerce',
-      action: 'checkout_initiated',
-      label: 'Checkout Initiated', // Optional event label
-      nonInteraction: true,         // Optional: Set to true if this event is non-interactive
-      value: 0,                     // Optional: Set a numeric value for the event
+      category: "Ecommerce",
+      action: "checkout_initiated",
+      label: "Checkout Initiated", // Optional event label
+      nonInteraction: true, // Optional: Set to true if this event is non-interactive
+      value: 0, // Optional: Set a numeric value for the event
       products: cart.items.map((item) => ({
         id: item.productConfiguration.productId,
         price: item.price.amount,
-        quantity:item.quantity, // Adjust the quantity for each product as needed
-
-      }))  // Include the product details here as an array
+        quantity: item.quantity, // Adjust the quantity for each product as needed
+      })), // Include the product details here as an array
     });
 
     const dataLayer = {
@@ -298,11 +322,10 @@ const MiniCart = ({ ...props }) => {
           currencyCode: "PK", // Replace with your currency code
           checkout: {
             actionField: { step: 1 },
-            products:cart.items.map((item) => ({
+            products: cart.items.map((item) => ({
               id: item.productConfiguration.productId,
               price: item.price.amount,
-              quantity:item.quantity, // Adjust the quantity for each product as needed
-  
+              quantity: item.quantity, // Adjust the quantity for each product as needed
             })),
           },
         },
@@ -317,7 +340,7 @@ const MiniCart = ({ ...props }) => {
   const handleOnClick = () => {
     const { closeCart } = props.uiStore;
     const productIds = cart?.items.map((item) => item._id);
-    setisLoading(true)
+    setisLoading(true);
     const dataLayer = {
       dataLayer: {
         event: "cart_view",
@@ -333,6 +356,18 @@ const MiniCart = ({ ...props }) => {
     TagManager.dataLayer(dataLayer);
 
     Router.push("/cart");
+  };
+  const handleOnClick2 = async (cart) => {
+    setisLoading3(true);
+
+    const { onRemoveCartItems } = props;
+
+    const itemID = cart?.items?.map((item) => {
+      return item?._id;
+    });
+    console.log("newids", itemID);
+    await onRemoveCartItems(itemID);
+    setisLoading3(false)
   };
 
   const handleRemoveItem = async (itemID) => {
@@ -402,8 +437,10 @@ const MiniCart = ({ ...props }) => {
                                 </Typography>
                                 <Typography variant="h4" style={{ fontSize: "1rem" }}>
                                   Store:&nbsp;
-                                  <span className={classes.storeName}>{item?.productVendor?.slice(0, 10)}
-                                  {console.log("itemite",item)}</span>
+                                  <span className={classes.storeName}>
+                                    {item?.productVendor?.slice(0, 10)}
+                                    {console.log("itemite", item)}
+                                  </span>
                                 </Typography>{" "}
                                 <Typography variant="h4" className={classes.cartprice}>
                                   {formatCurrency(item?.price?.amount)}
@@ -420,6 +457,25 @@ const MiniCart = ({ ...props }) => {
                           );
                         })}
                       </div>
+                      <div
+                        className={classes.cartDiv}
+                      >
+                        <Button
+                          className={classes.cart2}
+                          onClick={() => {
+                            
+                            handleOnClick2(cart);
+                          }}
+                        >
+                          {isLoading3 ? (
+                            <CircularProgress size={20} />
+                          ) : (
+                            <Typography gutterBottom variant="h5" component="h2" className={classes.carttext}>
+                              Clear All
+                            </Typography>
+                          )}
+                        </Button>
+                      </div>
                       <div className={classes.total}>
                         <div className={classes.total1}>
                           <Typography variant="h4" style={{ fontSize: "1.2rem" }}>
@@ -431,32 +487,26 @@ const MiniCart = ({ ...props }) => {
                         </div>
                         <div className={classes.total1}>
                           <div style={{ cursor: "pointer" }}>
-                         
                             <Button className={classes.cart1} onClick={handleOnClick}>
-                            {isLoading ? (
-                          
-                          <CircularProgress />
-                      ) : (
-                              <Typography gutterBottom variant="h5" component="h2" className={classes.carttext}>
-                                VIEW CART{" "}
-                              </Typography>
-                               )}
+                              {isLoading ? (
+                                <CircularProgress />
+                              ) : (
+                                <Typography gutterBottom variant="h5" component="h2" className={classes.carttext}>
+                                  VIEW CART{" "}
+                                </Typography>
+                              )}
                             </Button>
-                       
                           </div>
                           <div style={{ cursor: "pointer" }}>
-                         
                             <Button onClick={handleCheckoutButtonClick} className={classes.cart}>
-                            {isLoading2 ? (
-                          
-                          <CircularProgress color={"black"}/>
-                      ) : (
-                              <Typography gutterBottom variant="h5" component="h2">
-                                CHECKOUT
-                              </Typography>
-                                )}
+                              {isLoading2 ? (
+                                <CircularProgress color={"black"} />
+                              ) : (
+                                <Typography gutterBottom variant="h5" component="h2">
+                                  CHECKOUT
+                                </Typography>
+                              )}
                             </Button>
-                    
                           </div>
                         </div>
                       </div>
@@ -570,6 +620,7 @@ MiniCart.propTypes = {
   loadMoreCartItems: PropTypes.func,
   onChangeCartItemsQuantity: PropTypes.func,
   onRemoveCartItems: PropTypes.func,
+  clearAuthenticatedUsersCart: PropTypes.func,
   uiStore: PropTypes.shape({
     isCartOpen: PropTypes.bool.isRequired,
     openCart: PropTypes.func.isRequired,

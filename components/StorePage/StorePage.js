@@ -368,47 +368,64 @@ const StorePage = () => {
               </div>
             </div>
             <div className={classes.divForSearch}>
-              <div>
-                <div className={classes.sortdiv}>
-                  <IconButton>
-                    <Sort style={{ color: "black" }} />
-                  </IconButton>
-                  <FormControl
-                    style={{
-                      width: "260px",
-                      borderRadius: "8px",
-                      backgroundColor: "#F7F7F9",
-                      marginTop: "5px",
-                      borderBottom: "none",
-                    }}
-                  >
-                    <Select
-                      notched={false}
-                      className={classes.selectDropdown}
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      // onChange={(event) => handleChange(event, 'Category')}
-                      // error={!!categoryError}
+              <div className={classes.sortdiv}>
+              <IconButton>
+              <Search style={{ color: "black" }}  />
+                </IconButton>
+                <TextField
+                  type="text"
+                  size="small"
+                  variant="standard"
+                  placeholder="Search..."
+                  value={getSearch}
+                  onChange={(e) => setSearch(e.target.value)}
+                  InputProps={{
+                    disableUnderline: true,
+                    style: { margin: 0, padding: 10, backgroundColor:"#f7f7f9", borderRadius:"8px", width:"260px", fontSize:"19px" },
+                    
+                  }}
+                  className={classes.textFieldStyle}
+                />
+              </div>
+              <div className={classes.sortdiv}>
+                <IconButton>
+                  <Sort style={{ color: "black" }} />
+                </IconButton>
+                <FormControl
+                  style={{
+                    width: "260px",
+                    borderRadius: "8px",
+                    backgroundColor: "#F7F7F9",
+                    marginTop: "5px",
+                    borderBottom: "none",
+                  }}
+                >
+                  <Select
+                    notched={false}
+                    className={classes.selectDropdown}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // onChange={(event) => handleChange(event, 'Category')}
+                    // error={!!categoryError}
 
-                      label="Sort By"
-                    >
-                      {categoryTags?.slice(0, 6).map((category) => (
-                        <MenuItem
-                          key={category._id}
-                          value={category.displayTitle}
-                          onClick={() => {
-                            setcategoryID(category._id);
-                            console.log("key", category._id);
-                          }}
-                        >
-                          <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
-                            {category.displayTitle}
-                          </Typography>
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
+                    label="Sort By"
+                  >
+                    {categoryTags?.slice(0, 6).map((category) => (
+                      <MenuItem
+                        key={category._id}
+                        value={category.displayTitle}
+                        onClick={() => {
+                          setcategoryID(category._id);
+                          console.log("key", category._id);
+                        }}
+                      >
+                        <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
+                          {category.displayTitle}
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             </div>
           </Grid>
