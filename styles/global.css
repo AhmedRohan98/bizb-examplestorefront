@@ -853,3 +853,23 @@ a:hover {
 .thumb-swiper-container .swiper-slide-thumb-active {
   opacity: 9 !important
 }
+
+/* Webkit (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 9px !important;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #b3b3b5 !important; /* Color of the thumb */
+  border-radius: 6px !important   /* Rounded corners of the thumb */
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1 !important  /* Color of the track */
+}
+
+/* Firefox */
+.cartitems {
+  scrollbar-width: thin !important   ;    /* Set the width of the scrollbar */
+  scrollbar-color: #888 #f1f1f1 !important  /* Thumb and track colors */
+}

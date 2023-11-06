@@ -5,7 +5,7 @@ query catalogItemsQuery(
   $last: ConnectionLimitInt
   $before: ConnectionCursor
   $after: ConnectionCursor
-  $offset:Int
+  $offset: Int
   $sortBy: CatalogItemSortByField
   $sortByPriceCurrencyCode: String
   $sortOrder: SortOrder
@@ -19,7 +19,7 @@ query catalogItemsQuery(
     first: $first
     last: $last
     before: $before
-    offset:$offset
+    offset: $offset
     after: $after
     sortBy: $sortBy
     sortByPriceCurrencyCode: $sortByPriceCurrencyCode
@@ -79,6 +79,7 @@ query catalogItemsQuery(
                   small
                   large
                   medium
+                  thumbnail
                 }
               }
               _id
@@ -114,6 +115,11 @@ query catalogItemsQuery(
             media {
               URLs {
                 large
+                thumbnail
+                small
+                medium
+                large
+                original
                 __typename
               }
               __typename
