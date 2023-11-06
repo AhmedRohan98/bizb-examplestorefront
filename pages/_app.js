@@ -109,16 +109,7 @@ export default class App extends NextApp {
               }}
             />
           </head>
-          <body>
-            <noscript>
-              <iframe
-                src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-                height="0"
-                width="0"
-                style="display:none;visibility:hidden"
-              ></iframe>
-            </noscript>
-          </body>
+          <body></body>
         </html>
 
         <ContextProviders pageProps={pageProps}>
