@@ -6,12 +6,10 @@ import { ContextProviders } from "context/ContextProviders";
 import { ComponentsProvider } from "@reactioncommerce/components-context";
 import components from "custom/componentsContext";
 import theme from "custom/reactionTheme";
-import TagManager from 'react-gtm-module';
-import { GTM_ID, pageview } from '../lib/utils/gtm'
+import TagManager from "react-gtm-module";
+import { GTM_ID, pageview } from "../lib/utils/gtm";
 import { useRouter } from "next/router";
 import ReactGA from "react-ga4";
-
-
 
 // import Script from 'next/script';
 
@@ -29,7 +27,7 @@ import "../assets/fonts/style.css";
 import "react-toastify/dist/ReactToastify.css";
 // import { StripeWrapper } from "components/StripeCard";
 
-// if (process.env.NODE_ENV === "production") 
+// if (process.env.NODE_ENV === "production")
 {
   // Override the console.log method to do nothing
   // console.log = function () { };
@@ -46,23 +44,23 @@ export default class App extends NextApp {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    console.log("kjgjhvhgc", process.env.NEXT_PUBLIC_GOOGLE_TAG)
+    console.log("kjgjhvhgc", process.env.NEXT_PUBLIC_GOOGLE_TAG);
     if (process.browser) {
       // TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG }); // Replace GTM-XXXXXX with your GTM container ID
     }
-    console.log("process.env.NEXT_PUBLIC_GOOGLE_TAG", process.env.NEXT_PUBLIC_GOOGLE_TAG)
+    console.log("process.env.NEXT_PUBLIC_GOOGLE_TAG", process.env.NEXT_PUBLIC_GOOGLE_TAG);
     // TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG });
 
-    import('react-facebook-pixel')
+    import("react-facebook-pixel")
       .then((x) => x.default)
       .then((ReactPixel) => {
-        ReactPixel.init('170363809485316')
-        ReactPixel.pageView()
+        ReactPixel.init("170363809485316");
+        ReactPixel.pageView();
 
-        this.props.router.events.on('routeChangeComplete', () => {
-          ReactPixel.pageView()
-        })
-      })
+        this.props.router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
+      });
   }
   // componentWillUnmount() {
   //   // Remove the event listener on unmount
@@ -82,12 +80,12 @@ export default class App extends NextApp {
       <>
         <html>
           <head>
+            <meta name="facebook-domain-verification" content="9zhnwvopdk5dso364txrm34wpgpcw8" />
 
-          <meta name="facebook-domain-verification" content="9zhnwvopdk5dso364txrm34wpgpcw8" />
-
-          
-
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+            />
 
             <script async>
               {`
@@ -112,10 +110,16 @@ export default class App extends NextApp {
             />
           </head>
           <body>
-
+            <noscript>
+              <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-W9FDSZ3B"
+                height="0"
+                width="0"
+                style="display:none;visibility:hidden"
+              ></iframe>
+            </noscript>
           </body>
         </html>
-
 
         <ContextProviders pageProps={pageProps}>
           <ComponentsProvider value={components}>
