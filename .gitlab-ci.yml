@@ -29,6 +29,9 @@ stages:
 
 build_image_GKE:
   stage: build
+  environment:
+   name: staging
+
   script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
