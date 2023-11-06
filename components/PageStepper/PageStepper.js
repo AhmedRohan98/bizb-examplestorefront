@@ -53,11 +53,7 @@ const PageStepper = ({  pageInfo, theme }) => {
     setLoading(true);
 
     // Simulate an asynchronous loading operation
-    setTimeout(() => {
-      if (pageInfo.hasNextPage === true) {
-        setLoading(false);
-      }
-    }, 5000);
+    
 
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       const windowHeight = window.innerHeight;
@@ -75,6 +71,11 @@ const PageStepper = ({  pageInfo, theme }) => {
     }
 
     pageInfo.loadNextPage();
+    setTimeout(() => {
+      if (pageInfo.hasNextPage === true) {
+        setLoading(false);
+      }
+    }, 7000);
   };
 
   const handlePreviousClick = () => {
@@ -97,6 +98,7 @@ const PageStepper = ({  pageInfo, theme }) => {
   };
 
   useEffect(() => {
+    console.log("buttonred",buttonRef, "loading state:",loading)
     
 
     const options = {
