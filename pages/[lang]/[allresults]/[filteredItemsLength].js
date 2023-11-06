@@ -439,7 +439,7 @@ function AllResults(props) {
                             src={
                               !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
                                 ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                                : item?.node?.product?.media[0]?.URLs?.large
+                                : item?.node?.product?.media[0]?.URLs?.medium
                             }
                             className={classes.image}
                             key={item?.node?.product?.id}
