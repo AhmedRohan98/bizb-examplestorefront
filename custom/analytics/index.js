@@ -4,6 +4,5 @@
  */
 
 import * as segment from "./segment";
-import * as provider from "./provider";
 
-export default [segment, provider];
+export default [segment];
