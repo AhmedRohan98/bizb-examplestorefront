@@ -47,6 +47,8 @@ deploy-prod:
 
 build_staging:
   stage: build
+  environment:
+    name: staging
   script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build --no-cache -t bizb-frontend-staging .
