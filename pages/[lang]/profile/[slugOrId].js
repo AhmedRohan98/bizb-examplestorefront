@@ -96,6 +96,27 @@ function SellerPublicProfile(props) {
         height: "200px",
       },
     },
+    image2: {
+      width: "475px", // Reduced by 1px to create space for the border
+      maxHeight: "600px",
+      height:"300px",
+      marginTop: "1px",
+      borderRadius: "10px",
+      marginRight: "2px",
+      marginLeft: "1px",
+      objectFit: "cover",
+      cursor: "pointer",
+      [theme.breakpoints.up("lg")]: {
+        width: "275px", // Reduced by 1px to create space for the border
+      },
+      [theme.breakpoints.down("lg")]: {
+        width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "150px", // Reduced by 1px to create space for the border
+        height: "200px",
+      },
+    },
     // image: {
     //   width: "275px", // Reduced by 1px to create space for the border
     //   maxHeight: "600px",
@@ -271,6 +292,15 @@ function SellerPublicProfile(props) {
         marginLeft: theme.spacing(3),
       },
     },
+    centerDiv:{
+      display:"flex",
+      justifyContent:"center"
+    },
+    notfoundtext: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
   }));
   // console.log(props.totalcount, "propertiese");
   const router = useRouter();
@@ -283,6 +313,8 @@ function SellerPublicProfile(props) {
     uiStore?.setsellerId(slugOrId);
   }, [slugOrId]);
   useEffect(() => {
+
+    console.log("total count", props)
     const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = props?.catalogItems.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
@@ -517,7 +549,7 @@ function SellerPublicProfile(props) {
             textTransform: "capitalize",
           }}
         />
-        <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+        <img src="/profile/profilebanner.webp" className={classes.profilebaner} alt="icon"/>
         <div className="sellerProfile">
           <Grid container className="publicProfile__profileInfoWrapper">
             <Grid xs={12} item className="publicProfile__profileInfoSection">
@@ -655,7 +687,8 @@ function SellerPublicProfile(props) {
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
         </div>
-        {props?.catalogItems?.length > 0 ? (
+        {
+        props?.catalogItems?.length > 0 ? (
           <div className={classes.gridroot}>
             <ResponsiveMasonry
               columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
@@ -805,7 +838,7 @@ function SellerPublicProfile(props) {
                                 onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                                 disabled={isDisabled || item?.node?.product?.isSoldOut}
                               >
-                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon" />
                                 <Typography
                                   style={{ fontFamily: "Ostrich Sans Black" }}
                                   variant="h5"
@@ -826,6 +859,7 @@ function SellerPublicProfile(props) {
             </ResponsiveMasonry>
           </div>
         ) : (
+          
           <SkeletonLoader />
         )}
 

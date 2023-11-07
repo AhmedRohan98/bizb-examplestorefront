@@ -403,6 +403,7 @@ const Story = (props) => {
               <img
                 src={!item?.picture || !item?.picture ? "/images/seller-placeholder.png" : item?.picture}
                 className={classes.image}
+                alt="icon"
               />
               <Typography
                 style={{

@@ -85,7 +85,7 @@ function Explore(props) {
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
-        <img src="/colors/vector.svg" />
+        <img src="/colors/vector.svg" alt="icon"/>
       </components.DropdownIndicator>
     );
   };
@@ -1280,7 +1280,7 @@ function Explore(props) {
           }}
         />
 
-        <img src="/profile/explore2.jpg" className={classes.profilebaner} />
+        <img src="/profile/explore2.jpg" className={classes.profilebaner} alt="icon" />
 
         <div className={classes.headermain}>
           {/* <button onClick={notify}>Notify!</button>
@@ -1484,7 +1484,7 @@ function Explore(props) {
                             ) : (
                               <>
                                 <div className={classes.cartButtonrowDiv}>
-                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
                                   <Typography
                                     style={{
                                       fontFamily: "Ostrich Sans Black",

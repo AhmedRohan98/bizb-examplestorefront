@@ -132,9 +132,9 @@ const AccountDropdown = ({ headerType }) => {
         >
           <span>
             {headerType ? (
-              <img src="/icons/user.png" className={classes.imgSize} />
+              <img src="/icons/user.png" className={classes.imgSize} alt="icons" />
             ) : (
-              <img src="/icons/user.png" className={classes.imgSize} />
+              <img src="/icons/user.png" className={classes.imgSize} alt="icons" />
             )}
           </span>
         </IconButton>

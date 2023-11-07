@@ -996,7 +996,7 @@ class CartPage extends Component {
                                 }
                                 disabled={isDisabled}
                               >
-                                <img component="img" src="/icons/cart.svg" className={classes.cartimage2} />
+                                <img component="img" src="/icons/cart.svg" className={classes.cartimage2} alt="icon"/>
                                 <Typography
                                   style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
                                   variant="h5"

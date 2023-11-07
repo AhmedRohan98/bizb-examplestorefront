@@ -54,7 +54,7 @@ function WelcomePage(props) {
                 <meta name="Welcome" content={shop && shop.description} />
             </Helmet>
             <div className={classes.profilebanerDiv}>
-                <img src="/favicons/Logo2.svg" className={classes.profilebaner} />
+                <img src="/favicons/Logo2.svg" className={classes.profilebaner} alt="icon" />
             </div>
 
             <Welcome />

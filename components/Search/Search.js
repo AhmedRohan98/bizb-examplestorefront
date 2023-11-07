@@ -313,6 +313,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                             src="/images/searchIconDark.svg"
                             className={classes.headerlogo}
                             onClick={() => setModalFlag(false)}
+                            alt="icon"
                           />
                         </IconButton>
                       </InputAdornment>

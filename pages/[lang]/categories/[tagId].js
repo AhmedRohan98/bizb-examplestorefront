@@ -1424,7 +1424,7 @@ function Categories(props) {
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
-        <img src="/colors/vector.svg" />
+        <img src="/colors/vector.svg" alt="icon"/>
       </components.DropdownIndicator>
     );
   };
@@ -1592,6 +1592,7 @@ function Categories(props) {
                       src="/categories/categoriestoggle.svg"
                       className={classes.categorytoggle}
                       onClick={handlePopOverClick}
+                      alt="icon"
                     />
                     {/* <img
                       src={firstarray.names0.image}
@@ -1604,6 +1605,7 @@ function Categories(props) {
                   style={{ borderRadius: "16px" }}
                   src={filteredProducts[0]?.heroMediaUrl}
                   className={classes.mainimageofcategory}
+                  alt="icon"
                 />
                 <Popover
                   anchorEl={anchorEl}
@@ -1623,7 +1625,7 @@ function Categories(props) {
                     <div className={classes.modalitems}>
                       <div className={classes.modalitemsimage}>
                         {ITEMScategory.map((item) => (
-                          <img src={item.image} className={classes.categoryavatar} />
+                          <img src={item.image} className={classes.categoryavatar} alt="icon" />
                         ))}
                       </div>
 
@@ -1850,7 +1852,7 @@ function Categories(props) {
                                   ) : (
                                     <>
                                       <div className={classes.cartButtonrowDiv}>
-                                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon" />
                                         <Typography
                                           style={{
                                             fontFamily: "Ostrich Sans Black",
@@ -2181,7 +2183,7 @@ function Categories(props) {
                                   ) : (
                                     <>
                                       <div className={classes.cartButtonrowDiv}>
-                                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                        <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
                                         <Typography
                                           style={{
                                             fontFamily: "Ostrich Sans Black",

@@ -1122,7 +1122,7 @@ const ProductDetail = ({ ...props }) => {
                             onClick={handleOnClickforsingle}
                             disabled={isDisabled || product?.isSoldOut}
                           >
-                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
                             <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
                               {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : " + Cart"}
                             </Typography>
@@ -1288,7 +1288,7 @@ const ProductDetail = ({ ...props }) => {
                                       }}
                                       disabled={isDisabled || item?.node?.product?.isSoldOut}
                                     >
-                                      <img component="img" src="/icons/cart.svg" className={classes.cartimageJustIn} />
+                                      <img component="img" src="/icons/cart.svg" className={classes.cartimageJustIn} alt="icon" />
                                       <Typography
                                         style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
                                         variant="h5"

@@ -174,7 +174,7 @@ function SellerTermsConditionPage(props) {
         <meta name="seller terms & condition" content={shop && shop.description} />
       </Helmet>
       <Grid container md={12}>
-        <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+        <img src="/profile/profilebanner.webp" className={classes.profilebaner} alt="icon"/>
 
         <SellerTermsCondition />
       </Grid>
