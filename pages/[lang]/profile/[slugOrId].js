@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../../components/Layout";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import {
+  Box,
+  Divider,
+  Typography,
+  Button,
+  Modal,
+  FormControl,
+  InputLabel,
+  TextField,
+  CircularProgress,
+  InputAdornment,
+  Avatar,
+  MenuItem,
+  Grid,
+  Hidden,
+  Select,
+} from "@material-ui/core";
 import PageLoading from "../../../components/PageLoading/PageLoading";
 import Link from "next/link";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import withCart from "containers/cart/withCart";
 import PageStepper from "../../../components/PageStepper/PageStepper";
 import { withApollo } from "lib/apollo/withApollo";
@@ -14,31 +27,45 @@ import SellersCatalogItems from "containers/catalog/withSellerCatalogItem";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import variantById from "../../../lib/utils/variantById";
-
+import useTagsQuery from "../../../hooks/categoryTags/getTags";
 import formatSize from "../../../lib/utils/formatSize";
 import { makeStyles } from "@material-ui/core/styles";
 import inject from "../../../hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
-import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
 import SkeletonLoader from "../../../components/Justin/skeletonLoader";
 import Skeleton from "@material-ui/lab/Skeleton";
+import useprimaryShop from "../../../hooks/primaryShop/useprimaryShop";
+import IconButton from "@material-ui/core/IconButton";
+import Sort from "@material-ui/icons/Sort";
 
 function SellerPublicProfile(props) {
   // console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
+  const [primaryShopId, refetch2] = useprimaryShop();
+
+  const [categoryTags] = useTagsQuery(primaryShopId, "category-");
+  const [categoryID, setcategoryID] = React.useState("");
 
   const [queue, setQueue] = useState([]);
   const [processing, setProcessing] = useState(false);
+  const [categoryProduct, setcategoryProduct] = React.useState("Select a Category");
 
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  React.useEffect(() => {
+    if (!categoryTags && !primaryShopId) {
+      refetch2();
+    }
+
+    console.log("categoryTags in component is", categoryTags);
+  }, [primaryShopId, categoryTags]);
 
   useEffect(() => {
     processQueue();
@@ -99,7 +126,7 @@ function SellerPublicProfile(props) {
     image2: {
       width: "475px", // Reduced by 1px to create space for the border
       maxHeight: "600px",
-      height:"300px",
+      height: "300px",
       marginTop: "1px",
       borderRadius: "10px",
       marginRight: "2px",
@@ -292,14 +319,45 @@ function SellerPublicProfile(props) {
         marginLeft: theme.spacing(3),
       },
     },
-    centerDiv:{
-      display:"flex",
-      justifyContent:"center"
+    centerDiv: {
+      display: "flex",
+      justifyContent: "center",
     },
     notfoundtext: {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+    },
+    divForSearch: {
+      flexDirection: "column",
+    },
+    sortdiv: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    selectDropdown: {
+      borderBottom: "none",
+
+      // boxShadow: "none",
+      // border:"none",
+      // backgroundColor:"none",
+      //  "& .MuiInputLabel-root": { display:"none"},
+      //   "& .MuiInput-notchedOutline": { border: 0 },
+      "&&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: 0,
+      },
+      "& .MuiSelect-select.MuiSelect-select": {
+        padding: "10px",
+      },
+      "&&.MuiInput-underline:before": {
+        borderBottom: "none",
+      },
+      "&&.MuiInput-underline:after": {
+        borderBottom: "none",
+      },
+      // "& .MuiInput-underline:after":{
+      //   borderBottom:"none"
+      // }
     },
   }));
   // console.log(props.totalcount, "propertiese");
@@ -313,8 +371,7 @@ function SellerPublicProfile(props) {
     uiStore?.setsellerId(slugOrId);
   }, [slugOrId]);
   useEffect(() => {
-
-    console.log("total count", props)
+    console.log("total count", props);
     const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = props?.catalogItems.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
@@ -549,7 +606,7 @@ function SellerPublicProfile(props) {
             textTransform: "capitalize",
           }}
         />
-        <img src="/profile/profilebanner.webp" className={classes.profilebaner} alt="icon"/>
+        <img src="/profile/profilebanner.webp" className={classes.profilebaner} alt="icon" />
         <div className="sellerProfile">
           <Grid container className="publicProfile__profileInfoWrapper">
             <Grid xs={12} item className="publicProfile__profileInfoSection">
@@ -629,6 +686,48 @@ function SellerPublicProfile(props) {
                   </Grid>
                 </Hidden>
               </div>
+              <div className={classes.divForSearch}>
+                <div className={classes.sortdiv}>
+                  <IconButton>
+                    <Sort style={{ color: "black" }} />
+                  </IconButton>
+                  <FormControl
+                    style={{
+                      width: "260px",
+                      borderRadius: "8px",
+                      backgroundColor: "#F7F7F9",
+                      marginTop: "5px",
+                      borderBottom: "none",
+                    }}
+                  >
+                    <Select
+                      notched={false}
+                      className={classes.selectDropdown}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      // onChange={(event) => handleChange(event, 'Category')}
+                      // error={!!categoryError}
+
+                      label="Sort By"
+                    >
+                      {categoryTags?.slice(0, 6).map((category) => (
+                        <MenuItem
+                          key={category._id}
+                          value={category.displayTitle}
+                          onClick={() => {
+                            setcategoryID(category._id);
+                            console.log("key", category._id);
+                          }}
+                        >
+                          <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
+                            {category.displayTitle}
+                          </Typography>
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
             </Grid>
             <Grid xs={12}>
               <Hidden smUp>
@@ -667,6 +766,7 @@ function SellerPublicProfile(props) {
                 </Grid>
               </Hidden>
             </Grid>
+           
           </Grid>
         </div>
 
@@ -687,8 +787,7 @@ function SellerPublicProfile(props) {
           toastStyle={{ backgroundColor: "#FDC114", color: "black", fontSize: "18px" }}
         /> */}
         </div>
-        {
-        props?.catalogItems?.length > 0 ? (
+        {props?.catalogItems?.length > 0 ? (
           <div className={classes.gridroot}>
             <ResponsiveMasonry
               columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
@@ -859,7 +958,6 @@ function SellerPublicProfile(props) {
             </ResponsiveMasonry>
           </div>
         ) : (
-          
           <SkeletonLoader />
         )}
 

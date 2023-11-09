@@ -85,7 +85,7 @@ class OrderCard extends Component {
           </div>
         </Grid>
       </Grid>
-    );
+    )
   }
 }
 

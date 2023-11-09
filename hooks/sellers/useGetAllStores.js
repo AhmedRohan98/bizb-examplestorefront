@@ -12,13 +12,14 @@ export default function useGetAllStores(first, offset, search) {
     variables: {
       first,
       offset,
-      search,
+      searchQuery: search,
     },
   });
   const sellers = data?.getAllStore?.nodes
   const totalCount = data?.getAllStore?.totalCount;
   useEffect(() => {
+    console.log("sss search" ,search)
     refetch();
-  }, [authToken]);
+  }, [authToken, search]);
   return [sellers, totalCount, loading, refetch];
 }

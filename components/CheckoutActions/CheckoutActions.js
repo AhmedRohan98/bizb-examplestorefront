@@ -426,7 +426,7 @@ const CheckoutActions = (prop) => {
       console.log("running this condition");
       setSubTotal(parseInt(cart?.checkout?.summary?.total?.amount));
     } else {
-      setSubTotal(parseInt(cart?.checkout?.summary?.discountTotal?.amount));
+      setSubTotal(parseInt(cart?.checkout?.summary?.total?.amount));
     }
   }, [cart, getValue?.phonenumber]);
 
@@ -1067,7 +1067,7 @@ const CheckoutActions = (prop) => {
                           -(Rs.{" "}
                           {cart?.checkout?.summary?.discountTotal?.amount == 0
                             ? 0
-                            : cart?.checkout?.summary?.itemTotal?.amount -
+                            :
                               cart?.checkout?.summary?.discountTotal?.amount}
                           ){/* {console.log("subtotal,", subtotal)} */}
                         </Typography>
@@ -1078,7 +1078,7 @@ const CheckoutActions = (prop) => {
                         </Typography>
                         <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
                           {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
-                          Rs. {subtotal}
+                          Rs. {cart?.checkout?.summary?.total?.amount}
                           {/* {console.log("subtotal,", subtotal)} */}
                         </Typography>
                       </div>
@@ -1107,7 +1107,7 @@ const CheckoutActions = (prop) => {
                       subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
                       formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
                     )} */}
-                    Rs. {shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
+                    Rs. {cart?.checkout?.summary?.total?.amount}
                   </Typography>
                 </div>
               </div>

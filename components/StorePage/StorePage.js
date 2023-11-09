@@ -324,7 +324,7 @@ const StorePage = () => {
       };
     },
   };
-  const [sellers, totalCount, loading, refetch] = useGetAllStores(itemsPerPage, page, getSearch);
+  const [sellers, totalCount, loading, refetch] = useGetAllStores(itemsPerPage, page, getSearch2);
 
   React.useEffect(() => {
     console.log("sellerssellers", totalCount);
@@ -338,7 +338,7 @@ const StorePage = () => {
     }, 900);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [getSearch]);
+  }, [getSearch, loading, sellers]);
 
   return (
     <div className={classes.main}>
@@ -384,9 +384,9 @@ const StorePage = () => {
                     style: {
                       margin: 0,
                       padding: 10,
+                      width:"260px",
                       backgroundColor: "#f7f7f9",
                       borderRadius: "8px",
-                      width: "260px",
                       fontSize: "19px",
                     },
                   }}
@@ -451,7 +451,7 @@ const StorePage = () => {
                     <div className={classes.boxcontairproduct}>
                       {/* {console.log("Images", item?.node)} */}
                       {item?.storeLogo ? (
-                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
+                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
                           <a target="_blank">
                             <img
                               src={item?.storeLogo}
@@ -465,7 +465,7 @@ const StorePage = () => {
                         <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
                           <a target="_blank">
                             <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
-                              {item?.storeName?.charAt(0).toUpperCase()}
+                              {item?.storeName? item?.storeName?.charAt(0).toUpperCase(): item?.name?.charAt(0).toUpperCase() }
                             </Avatar>
                           </a>
                         </Link>
