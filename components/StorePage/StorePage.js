@@ -18,7 +18,7 @@ import { withApollo } from "lib/apollo/withApollo";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Hidden } from "@material-ui/core";
-import useGetAllSeller from "../../hooks/sellers/useGetAllSeller";
+import useGetAllStores from "../../hooks/sellers/useGetAllStores";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Link from "next/link";
 import { Search } from "@material-ui/icons";
@@ -167,8 +167,8 @@ const StorePage = () => {
       },
     },
     loadmore: {
-      marginLeft: theme.spacing(5),
-      marginRight: theme.spacing(5),
+      display: "flex",
+      justifyContent: "center",
     },
     cartcontent: {
       display: "flex",
@@ -233,7 +233,7 @@ const StorePage = () => {
   const classes = useStyles();
   const [getSearch, setSearch] = React.useState("");
   const [getSearch2, setSearch2] = React.useState("");
-  const [itemsPerPage, setitemsPerPage] = React.useState(150);
+  const [itemsPerPage, setitemsPerPage] = React.useState(72);
   const [page, setPage] = React.useState(0);
   const [categoryProduct, setcategoryProduct] = React.useState("Select a Category");
   const [primaryShopId, refetch2] = useprimaryShop();
@@ -253,7 +253,7 @@ const StorePage = () => {
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
-        <img src="/colors/vector.svg" />
+        <img src="/colors/vector.svg" alt="icon" />
       </components.DropdownIndicator>
     );
   };
@@ -324,10 +324,10 @@ const StorePage = () => {
       };
     },
   };
-  const [sellers, totalCount, loading, refetch] = useGetAllSeller(itemsPerPage, page, categoryID);
+  const [sellers, totalCount, loading, refetch] = useGetAllStores(itemsPerPage, page, getSearch2);
 
   React.useEffect(() => {
-    console.log("sellerssellers", sellers);
+    console.log("sellerssellers", totalCount);
   }, [sellers, loading, refetch, itemsPerPage, page]);
 
   React.useEffect(() => {
@@ -338,11 +338,11 @@ const StorePage = () => {
     }, 900);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [getSearch]);
+  }, [getSearch, loading, sellers]);
 
   return (
     <div className={classes.main}>
-      <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+      <img src="/profile/profilebanner.webp" className={classes.profilebaner} alt="icon" />
 
       <div className="sellerProfile">
         <Grid container className="publicProfile__profileInfoWrapper">
@@ -353,14 +353,14 @@ const StorePage = () => {
                 backgroundImage: "/icons/tickIcon.png",
               }}
             >
-              <img src="/favicons/Logo2.svg" className={classes.profilebaner2} />
+              <img src="/favicons/Logo2.svg" className={classes.profilebaner2} alt="icon" />
             </div>
             <div className="publicProfile__infoContainer">
               <div className="sellerProfile__infoRow publicProfile__infoRow">
                 {sellers?.length > 0 ? (
                   <Typography className="publicProfile__name" variant="h1">
                     <span>All Stores</span>
-                    {<img src="/icons/tickIcon.png" />}
+                    {<img src="/icons/tickIcon.png" alt="icon" />}
                   </Typography>
                 ) : (
                   <Skeleton width={210} />
@@ -369,8 +369,8 @@ const StorePage = () => {
             </div>
             <div className={classes.divForSearch}>
               <div className={classes.sortdiv}>
-              <IconButton>
-              <Search style={{ color: "black" }}  />
+                <IconButton>
+                  <Search style={{ color: "black" }} />
                 </IconButton>
                 <TextField
                   type="text"
@@ -381,8 +381,14 @@ const StorePage = () => {
                   onChange={(e) => setSearch(e.target.value)}
                   InputProps={{
                     disableUnderline: true,
-                    style: { margin: 0, padding: 10, backgroundColor:"#f7f7f9", borderRadius:"8px", width:"260px", fontSize:"19px" },
-                    
+                    style: {
+                      margin: 0,
+                      padding: 10,
+                      width:"260px",
+                      backgroundColor: "#f7f7f9",
+                      borderRadius: "8px",
+                      fontSize: "19px",
+                    },
                   }}
                   className={classes.textFieldStyle}
                 />
@@ -431,7 +437,7 @@ const StorePage = () => {
           </Grid>
         </Grid>
       </div>
-      {sellers?.length > 0 ? (
+     {sellers?.length > 0 ? (
         <div className={classes.gridroot}>
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
@@ -444,22 +450,22 @@ const StorePage = () => {
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className={classes.boxcontairproduct}>
                       {/* {console.log("Images", item?.node)} */}
-                      {item?.storeInfo?.image ? (
-                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
+                      {item?.storeLogo ? (
+                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
                           <a target="_blank">
                             <img
-                              src={item?.storeInfo?.image}
+                              src={item?.storeLogo}
                               className={classes.image}
                               key={item?._id}
-                              alt={item?.storeInfo?.storeName}
+                              alt={item?.storeName}
                             />{" "}
                           </a>
                         </Link>
                       ) : (
-                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
+                        <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
                           <a target="_blank">
                             <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
-                              {item?.storeInfo?.storeName?.charAt(0).toUpperCase()}
+                              {item?.storeName? item?.storeName?.charAt(0).toUpperCase(): item?.name?.charAt(0).toUpperCase() }
                             </Avatar>
                           </a>
                         </Link>
@@ -480,11 +486,11 @@ const StorePage = () => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item?.storeInfo?.storeName ? item?.storeInfo?.storeName : "User Store"}
+                            {item?.storeName ? item?.storeName : "User Store"}
                           </Typography>
                           <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                             {" "}
-                            {item?.username ? item?.username : "User"}
+                            {item?.name ? item?.name : "User"}
                           </Typography>
                         </div>
                       </div>
@@ -500,17 +506,15 @@ const StorePage = () => {
       )}
 
       <div className={classes.loadmore}>
-        {totalCount > itemsPerPage && (
-          <Pagination
-            totalCount={totalCount}
-            /* @ts-ignore TODO: Refactor link to address type error */
-            changePage={handleChangePage}
-            currentPage={page}
-            itemsPerPage={itemsPerPage}
-            /* @ts-ignore TODO: Refactor link to address type error */
-            setItemsPerPage={setitemsPerPage}
-          />
-        )}
+        <Pagination
+          totalCount={totalCount}
+          /* @ts-ignore TODO: Refactor link to address type error */
+          changePage={handleChangePage}
+          currentPage={page}
+          itemsPerPage={itemsPerPage}
+          /* @ts-ignore TODO: Refactor link to address type error */
+          setItemsPerPage={setitemsPerPage}
+        />
       </div>
     </div>
   );

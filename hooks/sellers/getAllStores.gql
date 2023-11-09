@@ -1,0 +1,16 @@
+query getAllStore(
+  $first: ConnectionLimitInt
+  $offset: Int
+  $searchQuery: String
+) {
+  getAllStore(first: $first, offset: $offset, searchQuery: $searchQuery) {
+    totalCount
+    nodes {
+      _id
+      name
+      storeName
+      storeLogo
+      storeLogo
+    }
+  }
+}

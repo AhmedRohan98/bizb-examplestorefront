@@ -210,7 +210,7 @@ const Welcome = () => {
           href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1"
           target="_blank"
         >
-          <img src="/favicons/Group157.svg" className={classes.image} />
+          <img src="/favicons/Group157.svg" className={classes.image} alt="icon"/>
         </a>
         <a
           href="https://bizb.store/en?"
@@ -220,7 +220,7 @@ const Welcome = () => {
           }}
         >
           <div className={classes.socialmediadiv}>
-            <img src="/images/logoLight.svg" className={classes.image3} />
+            <img src="/images/logoLight.svg" className={classes.image3} alt="icon"/>
             <span className={classes.type}>Visit our website</span>
           </div>
         </a>
@@ -236,7 +236,7 @@ const Welcome = () => {
           href="https://apps.apple.com/pk/app/bizb/id1571110423"
           target="_blank"
         >
-          <img src="/favicons/Group159.svg" className={classes.image} />
+          <img src="/favicons/Group159.svg" className={classes.image} alt="icon"/>
         </a>
       </div>
       <div className={classes.socialmediafo}>

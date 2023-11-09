@@ -319,7 +319,7 @@ class CartItem extends Component {
       <a href={[productURLPath, productSlug].join("")}>
         <picture>
           {isMiniCart ? "" : <source srcSet={small} media="(min-width: 768px)" />}
-          <img src={thumbnail} alt="" style={{ display: "block" }} />
+          <img src={thumbnail} alt="cart" style={{ display: "block" }} />
         </picture>
       </a>
     );

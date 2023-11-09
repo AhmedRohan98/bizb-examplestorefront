@@ -580,9 +580,9 @@ const MiniCart = ({ ...props }) => {
               <Badge color="none" border="none" classes={{ badge: classes.badge }}>
                 <span>
                   {headerType ? (
-                    <img src="/icons/shop.png" className={classes.imgSize} />
+                    <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
                   ) : (
-                    <img src="/icons/shop.png" className={classes.imgSize} />
+                    <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
                   )}
                 </span>
               </Badge>
@@ -590,9 +590,9 @@ const MiniCart = ({ ...props }) => {
           ) : (
             <span>
               {headerType ? (
-                <img src="/icons/shop.png" className={classes.imgSize} />
+                <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
               ) : (
-                <img src="/icons/shop.png" className={classes.imgSize} />
+                <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
               )}
             </span>
           )}

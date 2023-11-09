@@ -160,7 +160,7 @@ const EntryModal = ({ onClose, resetToken }) => {
           <div className={classes.paper}>
             <Grid container xs={12}>
               <Grid item xs={6} className={classes.grid1}>
-                <img src="/authentication/signup2.svg" alt="Login-SignUP" className={classes.image3} />
+                <img src="/authentication/signup2.svg" alt="Login-SignUP" className={classes.image3}  />
                 <img src="/authentication/login-siginup.svg" alt="Login-SignUP" className={classes.image} />
               </Grid>
               <Grid item xs={6} className={classes.grid2}>

@@ -45,7 +45,6 @@ query catalogItemsQuery(
             _id
             title
             slug
-            description
             vendor
             tags {
               nodes {
@@ -67,10 +66,7 @@ query catalogItemsQuery(
                   __typename
                 }
 
-                currency {
-                  code
-                  __typename
-                }
+               
                 displayPrice
                 __typename
               }
@@ -91,26 +87,10 @@ query catalogItemsQuery(
               }
               __typename
             }
-            isLowQuantity
             isSoldOut
-            isBackorder
             tagIds
-            metafields {
-              description
-              key
-              namespace
-              scope
-              value
-              valueType
-              __typename
-            }
-            shop {
-              currency {
-                code
-                __typename
-              }
-              __typename
-            }
+           
+          
 
             media {
               URLs {
@@ -124,16 +104,7 @@ query catalogItemsQuery(
               }
               __typename
             }
-            primaryImage {
-              URLs {
-                thumbnail
-                small
-                medium
-                large
-                __typename
-              }
-              __typename
-            }
+           
             __typename
           }
           __typename
