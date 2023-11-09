@@ -32,7 +32,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
-// import { TagManager } from "react-gtm-module";
+import { TagManager } from "react-gtm-module";
 import SkeletonLoader from "../../components/Justin/skeletonLoader";
 // import { TagManager } from "react-gtm-module";
 
