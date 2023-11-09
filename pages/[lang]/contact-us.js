@@ -11,7 +11,6 @@ import { SendContactForm } from "../../hooks/sendForm/sendform";
 import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
 import CloseIcon from "@material-ui/icons/Close";
-import { dataLayer } from "react-gtm-module";
 
 const useStyles = makeStyles((theme) => ({
   orderThankYou: {
@@ -344,9 +343,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-dataLayer.push({
-  event: "pageview",
-});
 const CheckoutComplete = () => {
   const classes = useStyles();
   const [sendContactForm] = useMutation(SendContactForm);

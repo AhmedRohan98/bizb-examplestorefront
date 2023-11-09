@@ -82,19 +82,25 @@ export default class App extends NextApp {
           <head>
             <meta name="facebook-domain-verification" content="9zhnwvopdk5dso364txrm34wpgpcw8" />
 
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-            />
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZRWM07YWWB"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-60BJ8X8BEN"></script>
 
             <script async>
               {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                  
+                    gtag('config', 'G-ZRWM07YWWB'), {
                     page_path: window.location.pathname,
                     });
+                `}
+              {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                  
+                    gtag('config', 'G-60BJ8X8BEN');
                 `}
             </script>
             <script
@@ -104,7 +110,7 @@ export default class App extends NextApp {
                   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                  })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+                  })(window,document,'script','dataLayer','GTM-MWBXV4RS');
               `,
               }}
             />

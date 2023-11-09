@@ -168,11 +168,11 @@ const Preloved = (props) => {
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src={res?.page5.heroMediaUrl} className={classes.imagess} />
+          <img src={res?.page5?.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page5.displayTitle}
+              {res?.page5?.displayTitle}
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page5._id)}>
               {" "}
@@ -187,29 +187,27 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} md={5} sm={12} lg={5} className={classes.carts}>
-          <img src={res?.page6.heroMediaUrl} className={classes.imagess} />
+          <img src={res?.page6?.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page6.displayTitle}
+              {res?.page6?.displayTitle}
             </Typography>
-            <a href="/en/SellerRegistrationPage"
-              target="_blank">
+            <a href="/en/SellerRegistrationPage" target="_blank">
               <Button className={classes.buttonshop}>
-
                 <h4 className={classes.buttonshopt}>Sell Now</h4>
               </Button>
             </a>
           </div>
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>
-          <img src={res?.page2.heroMediaUrl} className={classes.imagess} />
+          <img src={res?.page2?.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page2.displayTitle}
+              {res?.page2?.displayTitle}
             </Typography>
-            <div className={classes.buttonshop} onClick={() => clickHandler(res?.page2._id)}>
+            <div className={classes.buttonshop} onClick={() => clickHandler(res?.page2?._id)}>
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </div>
           </div>
@@ -221,27 +219,26 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src={res?.page3.heroMediaUrl} className={classes.imagess} />
+          <img src={res?.page3?.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-
               {res?.page3.displayTitle}
             </Typography>
-            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page3._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page3?._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </Button>
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src={res?.page0.heroMediaUrl} className={classes.imagess} />
+          <img src={res?.page0?.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page0.displayTitle}
             </Typography>
-            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page0._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page0?._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </Button>
@@ -254,13 +251,13 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} container className={classes.carts}>
-          <img src={res?.page4.heroMediaUrl} className={classes.imagess} />
+          <img src={res?.page4?.heroMediaUrl} className={classes.imagess} />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page4.displayTitle}
+              {res?.page4?.displayTitle}
             </Typography>
-            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page4._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page4?._id)}>
               {" "}
               <Element name="target-element"></Element>
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
@@ -298,7 +295,6 @@ const Preloved = (props) => {
         </Box>
       </div>
 
-     
       <div>
         <Grid container>
           <Grid container item xs={12} md={12} sm={12} lg={12}>
