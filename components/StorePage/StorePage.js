@@ -495,11 +495,11 @@ const StorePage = ({...props}) => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item?.storeName && item?.storeName.trim() ? item?.storeName : "User Store"}
+                            {item?.storeName && item?.storeName.trim() ? item?.storeName.slice(0, 15) : "User Store"}
                           </Typography>
                           <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                             {" "}
-                            {item?.profile?.firstName && item?.profile?.firstName?.trim() ? item?.profile?.firstName : "User"}
+                            {item?.profile?.firstName && item?.profile?.firstName?.trim() ? item?.profile?.firstName.slice(0, 15) : "User"}
                           </Typography>
                         </div>
                       </div>
