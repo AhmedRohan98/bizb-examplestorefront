@@ -182,7 +182,7 @@ const styles = (theme) => ({
     background: "#333333",
     display: "flex",
     alignItems: "center",
-    marginTop: "10px",
+    marginTop: "5px",
     marginRight: "45px",
 
     "&:hover": {
@@ -194,6 +194,7 @@ const styles = (theme) => ({
   cartDiv:{
     display: "flex",
     cursor: "pointer",
+    height:"80px",
     justifyContent: "flex-end",
     [theme.breakpoints.down("sm")]: {
       width: "118%",
