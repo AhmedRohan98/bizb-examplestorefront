@@ -9,7 +9,9 @@ query getTags($shopId: ID!, $filter: String) {
       metafields {
         key
         value
+        __typename
       }
+      __typename
     }
   }
 }

@@ -7,5 +7,6 @@ query GetShippingByAddress($address: String!, $city: String!, $amount: Int!) {
     handling
     rate
     name
+    __typename
   }
 }
