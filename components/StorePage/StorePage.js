@@ -32,7 +32,7 @@ import Sort from "@material-ui/icons/Sort";
 import Skeleton from "@material-ui/lab/Skeleton";
 import SkeletonLoader from "../Justin/skeletonLoader";
 
-const StorePage = () => {
+const StorePage = ({...props}) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -240,13 +240,7 @@ const StorePage = () => {
   const [categoryTags] = useTagsQuery(primaryShopId, "category-");
   const [categoryID, setcategoryID] = React.useState("");
 
-  React.useEffect(() => {
-    if (!categoryTags && !primaryShopId) {
-      refetch2();
-    }
-
-    console.log("categoryTags in component is", categoryTags);
-  }, [primaryShopId, categoryTags]);
+ 
   const handleChangePage = (currentPage) => {
     setPage(currentPage);
   };
@@ -325,6 +319,21 @@ const StorePage = () => {
     },
   };
   const [sellers, totalCount, loading, refetch] = useGetAllStores(itemsPerPage, page, getSearch2);
+
+  React.useEffect(() => {
+    if (!categoryTags && !primaryShopId) {
+      refetch2();
+    }
+
+    console.log("categoryTags in component is", categoryTags);
+  }, [primaryShopId, categoryTags]);
+
+  React.useEffect(() => {
+    console.log("search2 2", props.search)
+    setSearch(props?.search?.trim())
+  
+
+  }, [props.search]);
 
   React.useEffect(() => {
     console.log("sellerssellers", totalCount);
@@ -465,7 +474,7 @@ const StorePage = () => {
                         <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
                           <a target="_blank">
                             <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
-                              {item?.storeName? item?.storeName?.charAt(0).toUpperCase(): item?.name?.charAt(0).toUpperCase() }
+                              {item?.storeName? item?.storeName?.charAt(0).toUpperCase(): item?.profile?.firstName?.charAt(0).toUpperCase() }
                             </Avatar>
                           </a>
                         </Link>
@@ -490,7 +499,7 @@ const StorePage = () => {
                           </Typography>
                           <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                             {" "}
-                            {item?.name ? item?.name : "User"}
+                            {item?.profile?.firstName ? item?.profile?.firstName : "User"}
                           </Typography>
                         </div>
                       </div>

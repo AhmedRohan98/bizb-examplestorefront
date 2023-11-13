@@ -523,7 +523,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                   {searchLocal === "" ? (
                     <></>
                   ) : (
-                    <Link href={`/en/stores/${searchLocal}`}>
+                    <Link href={{ pathname: '/en/stores', query: { search: JSON.stringify(searchLocal) } }} >
                       <a style={{ color: "#FDC114" }}> {`See all results (${sellers?.length})`}</a>
                     </Link>
                   )}

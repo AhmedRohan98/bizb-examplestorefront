@@ -15,16 +15,25 @@ import fetchTranslations from "staticUtils/translations/fetchTranslations";
 import SellerRegistration from "../../components/SellerRegistration/SellerRegistration";
 import SellerTermsCondition from "../../components/SellerRegistration/SellerTermsCondition";
 import StorePage from "../../components/StorePage/StorePage";
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Stores(props) {
+function Stores(props ) {
 
     const classes = useStyles();
 
     const { isLoadingOrder, order, shop } = props;
+    // const searchParams = useSearchParams()
+    const router = useRouter()
+    const search = router.query.search?.replace(/"/g, " ")
+    // const search = searchParams.get('search')
+
+    console.log("search22", search)
+
+
 
     if (isLoadingOrder) {
         return (
@@ -44,7 +53,7 @@ function Stores(props) {
             </Helmet> */}
             <Grid container md={12}>
 
-                <StorePage />
+                <StorePage search={search}/>
             </Grid>
 
         </Layout>

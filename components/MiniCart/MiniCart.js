@@ -423,6 +423,7 @@ const MiniCart = ({ ...props }) => {
                           return (
                             <div className={classes.cartitem}>
                               <div className={classes.cartitemimage}>
+                                {console.log("images here ",item)}
                                 <img
                                   src={item?.metafields[0]?.value}
                                   alt={item.title}
