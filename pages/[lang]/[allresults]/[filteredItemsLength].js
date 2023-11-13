@@ -437,7 +437,7 @@ function AllResults(props) {
                           {/* {console.log("Images", item?.node)} */}
                           <img
                             src={
-                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              item?.node?.product?.media[0]?.URLs?.thumbnail
                                 ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                 : item?.node?.product?.media[0]?.URLs?.medium
                             }

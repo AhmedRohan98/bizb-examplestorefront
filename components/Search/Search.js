@@ -244,8 +244,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   productTitle3: {
+    fontSize: "14px",
+    fontWeight: "300",
+
     [theme.breakpoints.down(600)]: {
-      fontSize: "13px",
+      fontSize: "12px",
       fontWeight: "300",
     },
   },
@@ -410,7 +413,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                             >
                               <a target="_blank">
                                 <img
-                                  src={product?.node?.product?.media[0]?.URLs?.large}
+                                  src={product?.node?.product?.media[0]?.URLs?.thumbnail}
                                   alt={product?.title}
                                   className={classes.image}
                                 />
@@ -432,9 +435,9 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                                   <Typography variant="h5" className={classes.cartpric}>
                                     Store:{" "}
                                     <span className={classes.storeName}>
-                                      {product?.node?.product?.vendor
-                                        ? product?.node?.product?.vendor
-                                        : product?.node?.product?.variants[0]?.uploadedBy?.storeName}
+                                      {product?.node?.product?.variants[0]?.uploadedBy
+                                        ? product?.node?.product?.variants[0]?.uploadedBy?.storeName
+                                      :  product?.node?.product?.vendor}
                                     </span>
                                   </Typography>
                                 </a>
@@ -520,8 +523,8 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                   {searchLocal === "" ? (
                     <></>
                   ) : (
-                    <Link href={`/en/search/${searchLocal}`}>
-                      <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
+                    <Link href={{ pathname: '/en/stores', query: { search: JSON.stringify(searchLocal) } }} >
+                      <a style={{ color: "#FDC114" }}> {`See all results (${sellers?.length})`}</a>
                     </Link>
                   )}
                 </Typography>

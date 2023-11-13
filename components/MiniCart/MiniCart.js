@@ -182,7 +182,7 @@ const styles = (theme) => ({
     background: "#333333",
     display: "flex",
     alignItems: "center",
-    marginTop: "10px",
+    marginTop: "5px",
     marginRight: "45px",
 
     "&:hover": {
@@ -194,6 +194,7 @@ const styles = (theme) => ({
   cartDiv:{
     display: "flex",
     cursor: "pointer",
+    height:"80px",
     justifyContent: "flex-end",
     [theme.breakpoints.down("sm")]: {
       width: "118%",
@@ -423,6 +424,7 @@ const MiniCart = ({ ...props }) => {
                           return (
                             <div className={classes.cartitem}>
                               <div className={classes.cartitemimage}>
+                                {console.log("images here ",item)}
                                 <img
                                   src={item?.metafields[0]?.value}
                                   alt={item.title}

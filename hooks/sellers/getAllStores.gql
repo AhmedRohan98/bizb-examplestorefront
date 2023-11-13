@@ -5,12 +5,22 @@ query getAllStore(
 ) {
   getAllStore(first: $first, offset: $offset, searchQuery: $searchQuery) {
     totalCount
-    nodes {
+    nodes{
       _id
       name
+      isSeller
+       roles
       storeName
+      phoneNumber
       storeLogo
-      storeLogo
+      profile{
+        picture
+        username
+        firstName
+        lastName
+        phone
+      }
+    
     }
   }
 }
