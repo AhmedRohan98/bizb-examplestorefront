@@ -422,16 +422,16 @@ const CheckoutActions = (prop) => {
   }, [cart]);
 
   useEffect(() => {
-    if (parseInt(cart?.checkout?.summary?.discountTotal?.amount) === 0) {
+    if ((cart?.checkout?.summary?.discountTotal?.amount) === 0) {
       console.log("running this condition");
-      setSubTotal(parseInt(cart?.checkout?.summary?.total?.amount));
+      setSubTotal((cart?.checkout?.summary?.total?.amount));
     } else {
-      setSubTotal(parseInt(cart?.checkout?.summary?.total?.amount));
+      setSubTotal((cart?.checkout?.summary?.total?.amount));
     }
   }, [cart, getValue?.phonenumber]);
 
-  const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.total?.amount));
-  console.log(subtotal);
+  const [subtotal, setSubTotal] = useState((cart?.checkout?.summary?.total?.amount));
+  console.log("subtotalsubtotal",subtotal);
   const [error, setError] = useState("");
 
   const items = cart.items.map((item) => ({
