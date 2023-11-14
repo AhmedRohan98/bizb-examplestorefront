@@ -19,8 +19,11 @@ query getAllStore(
         firstName
         lastName
         phone
+        __typename
       }
+      __typename
     
     }
+    __typename
   }
 }

@@ -13,7 +13,10 @@ query getAllBrands(
         description
         _id
         pageTitle
+        __typename
       }
+      __typename
     }
+    __typename
   }
 }
