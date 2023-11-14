@@ -1107,7 +1107,7 @@ const CheckoutActions = (prop) => {
                       subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
                       formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
                     )} */}
-                    Rs. {cart?.checkout?.summary?.total?.amount}
+                    Rs. {shippingData?.cost? cart?.checkout?.summary?.total?.amount +shippingData?.cost : cart?.checkout?.summary?.total?.amount}
                   </Typography>
                 </div>
               </div>
