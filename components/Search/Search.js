@@ -309,10 +309,8 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   React.useEffect(() => {
     console.log("workwork 2 on key up", result?.storeData);
 
-    if (filteredItems?.length > 0) {
-      setsearchText(false);
-    }
-  }, [filteredItems, result, loading2]);
+   
+  }, [ result, loading2]);
 
   const handleProductDetail = (productSlug) => {
     const url = `/en/product/${productSlug}`;
@@ -354,10 +352,10 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                   value={searchLocal}
                   className={classes.input}
                   onInput={handleSearchChange}
-                  onKeyUp={handleSearchSubmit}
-                  onBlur={() => {
-                    setsearchText(true);
-                  }}
+                  // onKeyUp={handleSearchSubmit}
+                  // onBlur={() => {
+                  //   setsearchText(true);
+                  // }}
                   placeholder="What are you looking for..." // add placeholder text
                   InputProps={{
                     classes: { input: classes.input2 },
