@@ -33,10 +33,7 @@ function Brands(props) {
 
     return (
         <Layout shop={shop}>
-            <Helmet>
-                <title>{shop && shop.name} | Brands</title>
-                <meta name="stores" content={shop && shop.description} />
-            </Helmet>
+         
             <Grid container md={12}>
                 <BrandPage />
             </Grid>
