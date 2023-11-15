@@ -21,7 +21,7 @@ build_image_GKE:
   script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build --no-cache -t bizb-frontend-production .
-    - docker tag bizb-frontend-production-v0.1 $DOCKER_USERNAME/bizb-gke:bizb-frontend-production
+    - docker tag bizb-frontend-production $DOCKER_USERNAME/bizb-gke:bizb-frontend-production
     - docker push $DOCKER_USERNAME/bizb-gke:bizb-frontend-production
   only:
     - master
