@@ -34,6 +34,7 @@ import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
 import SkeletonLoader from "../../components/Justin/skeletonLoader";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 function Explore(props) {
   console.log("props", props);
@@ -46,7 +47,7 @@ function Explore(props) {
   const [processing, setProcessing] = useState(false);
 
   const observer = useRef(null);
-  const [lodingforNextPage, setlodingforNextPage] = useState(false)
+  const [lodingforNextPage, setlodingforNextPage] = useState(false);
 
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
@@ -85,7 +86,7 @@ function Explore(props) {
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
-        <img src="/colors/vector.svg" alt="icon"/>
+        <img src="/colors/vector.svg" alt="icon" />
       </components.DropdownIndicator>
     );
   };
@@ -945,18 +946,16 @@ function Explore(props) {
   //     // const scrollToPosition = (documentHeight - windowHeight) / 2;
 
   //     // window.scrollTo({ bottom: scrollToPosition, behavior: "smooth" });
-    
 
   //   catalogItemsPageInfo?.loadNextPage();
   //   setTimeout(() => {
-  //     if (catalogItemsPageInfo?.hasNextPage === true) { 
+  //     if (catalogItemsPageInfo?.hasNextPage === true) {
   //       setlodingforNextPage(false)
   //     }
   //   }, 5000);
   //   }
- 
-  // };
 
+  // };
 
   // useEffect(() => {
   //   console.log("djaDBDBADBABD", observer)
@@ -979,8 +978,6 @@ function Explore(props) {
   //     }
   //   }
 
-
-
   //   return () => {
   //     // Clean up the observer when the component is unmounted
   //     if (observer.current) {
@@ -989,10 +986,7 @@ function Explore(props) {
   //   };
   // }, [catalogItemsPageInfo , lodingforNextPage, observer]);
 
- 
-
   useEffect(() => {
-
     const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = props?.catalogItems.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
@@ -1103,47 +1097,43 @@ function Explore(props) {
     //   ...prevState,
     //   [product.productId]: true,
     // }));
-    try{
-    const additemtocart =  await addItemsToCart([
-      {
-        price: {
-          amount: price,
-          currencyCode: "USD",
-        },
-        metafields: [
-          {
-            key: "media",
-            value: product.media[0]?.URLs?.large,
+    try {
+      const additemtocart = await addItemsToCart([
+        {
+          price: {
+            amount: price,
+            currencyCode: "USD",
           },
-        ],
-        productConfiguration: {
-          productId: product.productId,
-          productVariantId: selectedVariant.variantId,
+          metafields: [
+            {
+              key: "media",
+              value: product.media[0]?.URLs?.large,
+            },
+          ],
+          productConfiguration: {
+            productId: product.productId,
+            productVariantId: selectedVariant.variantId,
+          },
+          quantity,
         },
-        quantity,
-      },
-    ]);
-    // toast.success(" added to cart successfully!");
+      ]);
+      // toast.success(" added to cart successfully!");
 
-    console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id)
+      console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
-    if( additemtocart?.data?.addCartItems?.cart?._id){
-      toast.success(" added to cart successfully!");
-      // setIsLoading((prevState) => ({
-      //   ...prevState,
-      //   [product.productId]: false,
-      // }));
-      setIsLoading((prevState) => ({
-        ...prevState,
-        [product.productId]: false,
-      }));
-
-    }
-  
-  
-  }
-    catch(error){
-      console.log("carcart error for cart",error )
+      if (additemtocart?.data?.addCartItems?.cart?._id) {
+        toast.success(" added to cart successfully!");
+        // setIsLoading((prevState) => ({
+        //   ...prevState,
+        //   [product.productId]: false,
+        // }));
+        setIsLoading((prevState) => ({
+          ...prevState,
+          [product.productId]: false,
+        }));
+      }
+    } catch (error) {
+      console.log("carcart error for cart", error);
       toast.error("Something went wrong, try again");
       // setIsLoading((prevState) => ({
       //   ...prevState,
@@ -1153,17 +1143,14 @@ function Explore(props) {
         ...prevState,
         [product.productId]: false,
       }));
-
-
     }
   };
 
   const handleOnClick = async (product, variant) => {
-
     const item = {
       product,
-      variant
-    }
+      variant,
+    };
     setIsLoading((prevState) => ({
       ...prevState,
       [item?.product.productId]: true,
@@ -1211,27 +1198,21 @@ function Explore(props) {
     //   [product.productId]: false,
     // }));
     // Scroll to the top
-    
   };
-
 
   const processQueue = async () => {
     if (queue.length > 0 && !processing) {
       setProcessing(true);
-     
+
       const item = queue[0];
-      console.log("itemitemitem",item)
+      console.log("itemitemitem", item);
 
       // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
-     
-  
-      await handleAddToCartClick(1, item?.product, item?.variant);
 
-       
+      await handleAddToCartClick(1, item?.product, item?.variant);
 
       setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
       setProcessing(false);
-      
     }
   };
 
@@ -1246,9 +1227,9 @@ function Explore(props) {
     newWindow.opener.focus();
   };
   useEffect(() => {
-    console.log("catalogItemsPageInfocatalogItemsPageInfo")
+    console.log("catalogItemsPageInfocatalogItemsPageInfo");
 
-    console.log("catalogItemsPageInfocatalogItemsPageInfo",catalogItemsPageInfo)
+    console.log("catalogItemsPageInfocatalogItemsPageInfo", catalogItemsPageInfo);
 
     // Simulate an asynchronous data loading process
     setTimeout(() => {
@@ -1389,256 +1370,267 @@ function Explore(props) {
             />
           </div>
         </Box>
-        {props?.catalogItems?.length>0 ?
+        {props?.catalogItems?.length > 0 ? (
           <div className={classes.gridroot}>
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-          >
-            <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-              {props?.catalogItems?.map((item, key) => {
-                const cartitem = cart?.items;
-                const isDisabled = cartitem?.some((data) => {
-                  return data.productConfiguration.productId === item?.node?.product?.productId;
-                });
-                // console.log(cart?.items, "item");
-                // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-                const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-                const validOptionTitle = optionTitle
-                  ? optionTitle
-                      ?.replace(/['"\\]/g, "")
-                      .replace("{", '{"')
-                      .replace(/:/g, '":"')
-                      .replace("}", '"}')
-                      .replace(",", '","')
-                  : // ?.replace(`None`, `'none'`)
-                    // .replace("None", `none`)
-                    // .replace(/''/g, '"')
-                    // .replace(/'/g, '"')
-                    null;
-                const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-                const str = item.node.product.title;
-                const words = str.match(/[a-zA-Z0-9]+/g);
-                const firstThreeWords = words.slice(0, 3).join(" ");
-                const storeNameShort =  item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15)
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            >
+              <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                {props?.catalogItems?.map((item, key) => {
+                  const cartitem = cart?.items;
+                  const isDisabled = cartitem?.some((data) => {
+                    return data.productConfiguration.productId === item?.node?.product?.productId;
+                  });
+                  // console.log(cart?.items, "item");
+                  // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                  const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                  const validOptionTitle = optionTitle
+                    ? optionTitle
+                        ?.replace(/['"\\]/g, "")
+                        .replace("{", '{"')
+                        .replace(/:/g, '":"')
+                        .replace("}", '"}')
+                        .replace(",", '","')
+                    : // ?.replace(`None`, `'none'`)
+                      // .replace("None", `none`)
+                      // .replace(/''/g, '"')
+                      // .replace(/'/g, '"')
+                      null;
+                  const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+                  const str = item.node.product.title;
+                  const words = str.match(/[a-zA-Z0-9]+/g);
+                  const firstThreeWords = words.slice(0, 3).join(" ");
+                  const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15);
 
-                const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                  /[^0-9.]/g,
-                  "",
-                );
+                  const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                    /[^0-9.]/g,
+                    "",
+                  );
 
-                const compareAtPrice =
-                  item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(/[^0-9.]/g, "");
+                  const compareAtPrice =
+                    item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
+                      /[^0-9.]/g,
+                      "",
+                    );
 
-                const parsedDisplayPrice = parseFloat(displayPrice);
-                const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                  const parsedDisplayPrice = parseFloat(displayPrice);
+                  const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                const percentage = Math.floor(
-                  ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                );
+                  const percentage = Math.floor(
+                    ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                  );
 
-                // console.log(optionTitle, "fil");
-                return (
-                  <div style={{ display: "flex", justifyContent: "center" }} className="infinite-scroll-list-item">
-                    <div className={classes.boxcontairproduct}>
-                      {/* {console.log("Images", item?.node)} */}
-                      <Link
-                        href={item.node.product.slug && `product/${item.node.product.slug}`}
-                        as={item.node.product.slug && `product/${item.node.product.slug}`}
-                      >
-                        <a target="_blank">
-                          <img
-                            src={
-                              item?.node?.product?.media[0]?.URLs?.medium
-                              ? item?.node?.product?.media[0]?.URLs?.medium
-                              : item?.node?.product?.media[0]?.URLs?.thumbnail
-                              ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                              : item?.node?.product?.media[0]?.URLs?.large?
-                              item?.node?.product?.media[0]?.URLs?.large :
-                              item?.node?.product?.variants[0].media[0]?.URLs?.medium?
-                              item?.node?.product?.variants[0].media[0]?.URLs?.medium:
-                              item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail?
-                              item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail:
-                              item?.node?.product?.variants[0].media[1]?.URLs?.large ?
-                              item?.node?.product?.variants[0].media[1]?.URLs?.large :
-                              item?.node?.product?.variants[0].media[1]?.URLs?.medium 
-                                   
-                            }
-                            className={classes.image}
-                            key={item?.node?.product?.id}
-                            alt={item?.node?.product?.title}
-                          />
-                        </a>
-                      </Link>
+                  // console.log(optionTitle, "fil");
+                  return (
+                    <ProductCard
+                      item={item}
+                      isDisabled={isDisabled}
+                      isLoading={isLoading}
+                      percentage={percentage}
+                      firstThreeWords={firstThreeWords}
+                      storeNameShort={storeNameShort}
+                      size={size}
+                      handleOnClick={handleOnClick}
+                      trackProductView={trackProductView}
+                    />
+                    // <div style={{ display: "flex", justifyContent: "center" }} className="infinite-scroll-list-item">
+                    //   <div className={classes.boxcontairproduct}>
+                    //     {/* {console.log("Images", item?.node)} */}
+                    //     <Link
+                    //       href={item.node.product.slug && `product/${item.node.product.slug}`}
+                    //       as={item.node.product.slug && `product/${item.node.product.slug}`}
+                    //     >
+                    //       <a target="_blank">
+                    //         <img
+                    //           src={
+                    //             item?.node?.product?.media[0]?.URLs?.medium
+                    //             ? item?.node?.product?.media[0]?.URLs?.medium
+                    //             : item?.node?.product?.media[0]?.URLs?.thumbnail
+                    //             ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                    //             : item?.node?.product?.media[0]?.URLs?.large?
+                    //             item?.node?.product?.media[0]?.URLs?.large :
+                    //             item?.node?.product?.variants[0].media[0]?.URLs?.medium?
+                    //             item?.node?.product?.variants[0].media[0]?.URLs?.medium:
+                    //             item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail?
+                    //             item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail:
+                    //             item?.node?.product?.variants[0].media[1]?.URLs?.large ?
+                    //             item?.node?.product?.variants[0].media[1]?.URLs?.large :
+                    //             item?.node?.product?.variants[0].media[1]?.URLs?.medium
 
-        
-                      <div>
-                        <div className={classes.cartButton}>
-                          <Button
-                            className={classes.cart}
-                            onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                            disabled={isDisabled || item?.node?.product?.isSoldOut}
-                          >
-                            {isLoading[item?.node?.product?.productId] ? (
-                              <CircularProgress color="black" size="17px" className={classes.progressBar} />
-                            ) : (
-                              <>
-                                <div className={classes.cartButtonrowDiv}>
-                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
-                                  <Typography
-                                    style={{
-                                      fontFamily: "Ostrich Sans Black",
-                                    }}
-                                    variant="h5"
-                                    component="h2"
-                                    className={classes.cartText}
-                                  >
-                                    {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                                  </Typography>
-                                </div>
-                                <div>
-                                  <Typography
-                                    style={{
-                                      fontWeight: "600",
-                                      fontSize: "0.9rem",
-                                      fontFamily: "lato",
-                                      marginLeft: "0px",
-                                    }}
-                                    variant="h4"
-                                    component="h2"
-                                    className={classes.carttitle2}
-                                  >
-                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                                      `-${Math.abs(percentage)}%`}
-                                  </Typography>
-                                </div>
-                              </>
-                            )}
-                          </Button>
-                          {/* )} */}
-                        </div>
-                        <div>
-                          <div className={classes.cartcontent}>
-                            <div
-                              className={classes.cartcontenttext}
-                              onCick={() => {
-                                trackProductView();
-                              }}
-                            >
-                                
-                              <Link
-                                href={item.node.product.slug && `product/${item.node.product.slug}`}
-                                as={item.node.product.slug && `product/${item.node.product.slug}`}
-                              >
-                                <a target="_blank">
-                                  <Typography
-                                    style={{
-                                      fontWeight: "600",
-                                      fontSize: "1rem",
-                                      fontFamily: "lato",
-                                      // marginTop: "10px",
-                                      textTransform: "capitalize",
-                                      marginLeft: "0px",
-                                    }}
-                                    variant="h4"
-                                    component="h2"
-                                    className={classes.carttitle}
-                                  >
-                                    {firstThreeWords}
-                                  </Typography>
-                                </a>
-                              </Link>
-                              <Typography className={classes.storeName}>
-                                Store Name:{" "}
-                                <Link
-                                  href={"/en/profile/[slugOrId]"}
-                                  as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
-                                >
-                                  <a target="_blank">
-                                    <span className={classes.storeNameStyle}>
-                                      {storeNameShort}
-                                    </span>
-                                  </a>
-                                </Link>
-                              </Typography>
-                              <div className={classes.cartButtonrowDiv2}>
-                                <div>
-                                  <Typography
-                                    className={classes.price}
-                                    style={{
-                                      fontWeight: "600",
-                                      fontSize: "1rem",
-                                      fontFamily: "lato",
-                                      color: "#FDC114",
-                                      marginLeft: "0px",
-                                      textDecoration: "line-through",
-                                    }}
-                                  >
-                                    {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                                      ?.replace(/\.00$/, "")
-                                      .replace(/\$/g, "Rs. ")}
-                                  </Typography>
-                                  <div className={classes.strikethroughoff}>
-                                    {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                                      ?.replace(/\.00$/, "")
-                                      .replace(/\$/g, "Rs. ")}
-                                  </div>
-                                </div>
-                                <div className={classes.cartbackground}>
-                                  <Typography
-                                    style={{
-                                      fontWeight: "600",
-                                      fontSize: "0.8rem",
-                                      fontFamily: "lato",
-                                    }}
-                                    variant="h4"
-                                    component="h2"
-                                    className={classes.cartsize}
-                                  >
-                                    Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                                  </Typography>
-                                </div>
-                              </div>
-                            </div>
-                            {/* <div className={classes.cartbackground}>
-                            <Typography
-                              style={{
-                                fontWeight: "600",
-                                fontSize: "0.8rem",
-                                fontFamily: "lato",
-                                left: "5px",
-                              }}
-                              variant="h4"
-                              component="h2"
-                              className={classes.cartsize}
-                            >
-                              Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                            </Typography>
-                          
-                          </div> */}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </Masonry>
-          </ResponsiveMasonry>
-        </div>
-        
-        : (
-          <SkeletonLoader/>
-        )
-}
+                    //           }
+                    //           className={classes.image}
+                    //           key={item?.node?.product?.id}
+                    //           alt={item?.node?.product?.title}
+                    //         />
+                    //       </a>
+                    //     </Link>
+
+                    //     <div>
+                    //       <div className={classes.cartButton}>
+                    //         <Button
+                    //           className={classes.cart}
+                    //           onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                    //           disabled={isDisabled || item?.node?.product?.isSoldOut}
+                    //         >
+                    //           {isLoading[item?.node?.product?.productId] ? (
+                    //             <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                    //           ) : (
+                    //             <>
+                    //               <div className={classes.cartButtonrowDiv}>
+                    //                 <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
+                    //                 <Typography
+                    //                   style={{
+                    //                     fontFamily: "Ostrich Sans Black",
+                    //                   }}
+                    //                   variant="h5"
+                    //                   component="h2"
+                    //                   className={classes.cartText}
+                    //                 >
+                    //                   {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                    //                 </Typography>
+                    //               </div>
+                    //               <div>
+                    //                 <Typography
+                    //                   style={{
+                    //                     fontWeight: "600",
+                    //                     fontSize: "0.9rem",
+                    //                     fontFamily: "lato",
+                    //                     marginLeft: "0px",
+                    //                   }}
+                    //                   variant="h4"
+                    //                   component="h2"
+                    //                   className={classes.carttitle2}
+                    //                 >
+                    //                   {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                    //                     `-${Math.abs(percentage)}%`}
+                    //                 </Typography>
+                    //               </div>
+                    //             </>
+                    //           )}
+                    //         </Button>
+                    //         {/* )} */}
+                    //       </div>
+                    //       <div>
+                    //         <div className={classes.cartcontent}>
+                    //           <div
+                    //             className={classes.cartcontenttext}
+                    //             onCick={() => {
+                    //               trackProductView();
+                    //             }}
+                    //           >
+
+                    //             <Link
+                    //               href={item.node.product.slug && `product/${item.node.product.slug}`}
+                    //               as={item.node.product.slug && `product/${item.node.product.slug}`}
+                    //             >
+                    //               <a target="_blank">
+                    //                 <Typography
+                    //                   style={{
+                    //                     fontWeight: "600",
+                    //                     fontSize: "1rem",
+                    //                     fontFamily: "lato",
+                    //                     // marginTop: "10px",
+                    //                     textTransform: "capitalize",
+                    //                     marginLeft: "0px",
+                    //                   }}
+                    //                   variant="h4"
+                    //                   component="h2"
+                    //                   className={classes.carttitle}
+                    //                 >
+                    //                   {firstThreeWords}
+                    //                 </Typography>
+                    //               </a>
+                    //             </Link>
+                    //             <Typography className={classes.storeName}>
+                    //               Store Name:{" "}
+                    //               <Link
+                    //                 href={"/en/profile/[slugOrId]"}
+                    //                 as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
+                    //               >
+                    //                 <a target="_blank">
+                    //                   <span className={classes.storeNameStyle}>
+                    //                     {storeNameShort}
+                    //                   </span>
+                    //                 </a>
+                    //               </Link>
+                    //             </Typography>
+                    //             <div className={classes.cartButtonrowDiv2}>
+                    //               <div>
+                    //                 <Typography
+                    //                   className={classes.price}
+                    //                   style={{
+                    //                     fontWeight: "600",
+                    //                     fontSize: "1rem",
+                    //                     fontFamily: "lato",
+                    //                     color: "#FDC114",
+                    //                     marginLeft: "0px",
+                    //                     textDecoration: "line-through",
+                    //                   }}
+                    //                 >
+                    //                   {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                    //                     ?.replace(/\.00$/, "")
+                    //                     .replace(/\$/g, "Rs. ")}
+                    //                 </Typography>
+                    //                 <div className={classes.strikethroughoff}>
+                    //                   {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                    //                     ?.replace(/\.00$/, "")
+                    //                     .replace(/\$/g, "Rs. ")}
+                    //                 </div>
+                    //               </div>
+                    //               <div className={classes.cartbackground}>
+                    //                 <Typography
+                    //                   style={{
+                    //                     fontWeight: "600",
+                    //                     fontSize: "0.8rem",
+                    //                     fontFamily: "lato",
+                    //                   }}
+                    //                   variant="h4"
+                    //                   component="h2"
+                    //                   className={classes.cartsize}
+                    //                 >
+                    //                   Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                    //                 </Typography>
+                    //               </div>
+                    //             </div>
+                    //           </div>
+                    //           {/* <div className={classes.cartbackground}>
+                    //           <Typography
+                    //             style={{
+                    //               fontWeight: "600",
+                    //               fontSize: "0.8rem",
+                    //               fontFamily: "lato",
+                    //               left: "5px",
+                    //             }}
+                    //             variant="h4"
+                    //             component="h2"
+                    //             className={classes.cartsize}
+                    //           >
+                    //             Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                    //           </Typography>
+
+                    //         </div> */}
+                    //         </div>
+                    //       </div>
+                    //     </div>
+                    //   </div>
+                    // </div>
+                  );
+                })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </div>
+        ) : (
+          <SkeletonLoader />
+        )}
         <div className={classes.loadmore}>
-        {lodingforNextPage ? (
+          {lodingforNextPage ? (
             <CircularProgress /> // Show the circular progress bar when loading is true
           ) : (
             <></>
           )}
           {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
-        </div> 
+        </div>
       </div>
     </Layout>
   );
