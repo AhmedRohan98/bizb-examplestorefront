@@ -25,6 +25,7 @@ fragment OrderCommon on Order {
           phone
           postal
           region
+          __typename
         }
       }
     }
@@ -50,13 +51,16 @@ fragment OrderCommon on Order {
           massUnit
           weight
           width
+          __typename
         }
         price {
           amount
           currency {
             code
+            __typename
           }
           displayAmount
+          __typename
         }
         productConfiguration {
           productId
@@ -85,6 +89,7 @@ fragment OrderCommon on Order {
         title
         updatedAt
         variantTitle
+        __typename
       }
     }
     selectedFulfillmentOption {
@@ -95,6 +100,7 @@ fragment OrderCommon on Order {
         fulfillmentTypes
         group
         name
+        __typename
       }
       handlingPrice {
         amount

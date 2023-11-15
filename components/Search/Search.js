@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import ReactGA from "react-ga4";
 import { CircularProgress } from "@material-ui/core";
 import useGetAllStores from "../../hooks/sellers/useGetAllStores";
+import useGlobalSearch from "../../hooks/globalSearch/useglobalSearch";
 
 import withCatalogItems from "containers/catalog/withCatalogItems";
 const useStyles = makeStyles((theme) => ({
@@ -265,7 +266,8 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   const [searchLocal, setSearchLocal] = useState();
   const [searchText, setsearchText] = useState(false);
   const [getSearch2, setSearch2] = React.useState("");
-  const [sellers, totalCount, loading, refetch] = useGetAllStores(5, 0, getSearch2);
+  // const [sellers, totalCount, loading, refetch] = useGetAllStores(5, 0, getSearch2);
+  const [result, loading2, refetch2] = useGlobalSearch(null, getSearch2, 0, 9);
 
   React.useEffect(() => {
     console.log("sss", searchLocal);
@@ -305,12 +307,10 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
     });
   };
   React.useEffect(() => {
-    console.log("workwork 2 on key up", filteredItems?.length);
+    console.log("workwork 2 on key up", result?.storeData);
 
-    if (filteredItems?.length > 0) {
-      setsearchText(false);
-    }
-  }, [filteredItems]);
+   
+  }, [ result, loading2]);
 
   const handleProductDetail = (productSlug) => {
     const url = `/en/product/${productSlug}`;
@@ -352,10 +352,10 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                   value={searchLocal}
                   className={classes.input}
                   onInput={handleSearchChange}
-                  onKeyUp={handleSearchSubmit}
-                  onBlur={() => {
-                    setsearchText(true);
-                  }}
+                  // onKeyUp={handleSearchSubmit}
+                  // onBlur={() => {
+                  //   setsearchText(true);
+                  // }}
                   placeholder="What are you looking for..." // add placeholder text
                   InputProps={{
                     classes: { input: classes.input2 },
@@ -373,7 +373,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
-                        {searchText ? (
+                        {loading2 ? (
                           <IconButton>
                             <CircularProgress />
                           </IconButton>
@@ -390,7 +390,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
             </div>
           </form>
 
-          {filteredItems?.length > 0 ? (
+          {result ? (
             <div className={classes.filteritemsfromsearch}>
               <>
                 <div style={{ display: "flex" }}>
@@ -399,21 +399,21 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                       Products
                     </Typography>
                     <ul className={classes.searchdiv}>
-                      {filteredItems?.slice(0, 4)?.map((product) => {
+                      {result?.catalog?.slice(0, 4)?.map((product) => {
                         // console.log(filteredItems, "fil");
                         return (
                           <div
-                            key={product.node.product.id}
+                            key={product?._id}
                             className={classes.cartitem}
-                            onClick={() => handleProductDetail(product?.node?.product?.slug)}
+                            onClick={() => handleProductDetail(product?.slug)}
                           >
                             <Link
-                              href={product.node.product.slug && "en/product/[...slugOrId]"}
-                              as={product.node.product.slug && `en/product/${product.node.product.slug}`}
+                              href={product.slug && "en/product/[...slugOrId]"}
+                              as={product.slug && `en/product/${product.slug}`}
                             >
                               <a target="_blank">
                                 <img
-                                  src={product?.node?.product?.media[0]?.URLs?.thumbnail}
+                                  src={product?.variant[0]?.media[0]?.URLs?.thumbnail}
                                   alt={product?.title}
                                   className={classes.image}
                                 />
@@ -421,23 +421,23 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                             </Link>
                             <div className={classes.cartitemtext}>
                               <Link
-                                href={product.node.product.slug && "en/product/[...slugOrId]"}
-                                as={product.node.product.slug && `en/product/${product.node.product.slug}`}
+                                href={product.slug && "en/product/[...slugOrId]"}
+                                as={product.slug && `en/product/${product.slug}`}
                               >
                                 <a target="_blank">
                                   <Typography variant="h5" className={classes.productTitle}>
-                                    {product?.node?.product?.title}
+                                    {product?.title}
                                   </Typography>
                                 </a>
                               </Link>
-                              <Link href={`/en/profile/${product?.node?.product?.variants[0]?.uploadedBy?.userId}`}>
+                              <Link href={`/en/profile/${product?.variant[0]?.uploadedBy?.userId}`}>
                                 <a style={{ color: "#FDC114" }}>
                                   <Typography variant="h5" className={classes.cartpric}>
                                     Store:{" "}
                                     <span className={classes.storeName}>
-                                      {product?.node?.product?.variants[0]?.uploadedBy
-                                        ? product?.node?.product?.variants[0]?.uploadedBy?.storeName
-                                      :  product?.node?.product?.vendor}
+                                      {product?.variant[0]?.uploadedBy
+                                        ? product?.variant[0]?.uploadedBy?.storeName
+                                        : product?.variant[0]?.uploadedBy?.name}
                                     </span>
                                   </Typography>
                                 </a>
@@ -445,12 +445,12 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                               <div className={classes.pricing}>
                                 {" "}
                                 <strike className={classes.cartprice}>
-                                  {product?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                                  {product?.variant[0]?.pricing[0]?.compareAtPrice?.displayAmount
                                     ?.replace(/\.00$/, "")
                                     .replace(/\$/g, "Rs. ")}
                                 </strike>
                                 <Typography gutterBottom variant="h5" className={classes.price}>
-                                  {product?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                                  {product?.variant[0]?.pricing[0]?.displayPrice
                                     ?.replace(/\.00$/, "")
                                     .replace(/\$/g, "Rs. ")}
                                 </Typography>
@@ -462,15 +462,21 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     </ul>
                   </div>
                 </div>
-                <Typography variant="h5" className={classes.totatlproducts}>
-                  {searchLocal === "" ? (
-                    <></>
-                  ) : (
-                    <Link href={`/en/search/${searchLocal}`}>
-                      <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
-                    </Link>
-                  )}
-                </Typography>
+                {result?.catalog?.length > 0 ? (
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    {searchLocal === "" ? (
+                      <></>
+                    ) : (
+                      <Link href={`/en/search/${searchLocal}`}>
+                        <a style={{ color: "#FDC114" }}> {`See all results`}</a>
+                      </Link>
+                    )}
+                  </Typography>
+                ) : (
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    No result
+                  </Typography>
+                )}
               </>
               <>
                 <div style={{ display: "flex" }}>
@@ -479,15 +485,15 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                       Stores
                     </Typography>
                     <ul className={classes.searchdiv}>
-                      {sellers?.slice(0, 4)?.map((item) => {
+                      {result?.storeData?.slice(0, 4)?.map((item) => {
                         // console.log(filteredItems, "fil");
                         return (
                           <div key={item._id} className={classes.cartitem}>
-                            {item?.storeLogo ? (
+                            {item?.image ? (
                               <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
                                 <a target="_blank">
                                   <img
-                                    src={item?.storeLogo}
+                                    src={item?.image}
                                     className={classes.image2}
                                     key={item?._id}
                                     alt={item?.storeName}
@@ -519,33 +525,27 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     </ul>
                   </div>
                 </div>
-                <Typography variant="h5" className={classes.totatlproducts}>
-                  {searchLocal === "" ? (
-                    <></>
-                  ) : (
-                    <Link href={{ pathname: '/en/stores', query: { search: JSON.stringify(searchLocal) } }} >
-                      <a style={{ color: "#FDC114" }}> {`See all results (${sellers?.length})`}</a>
-                    </Link>
-                  )}
-                </Typography>
+                {result?.storeData?.length > 0 ? (
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    {searchLocal === "" ? (
+                      <></>
+                    ) : (
+                      <Link href={{ pathname: "/en/stores", query: { search: JSON.stringify(searchLocal) } }}>
+                        <a style={{ color: "#FDC114" }}> {`See all results `}</a>
+                      </Link>
+                    )}
+                  </Typography>
+                ) : (
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    No result
+                  </Typography>
+                )}
               </>
             </div>
           ) : (
             ""
           )}
-          {searchQuery?.length > 0 &&
-            filteredItems?.length ===
-              0(
-                <div className={classes.filteritemsfromsearch}>
-                  <div style={{ display: "flex" }}>
-                    <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
-                      <Typography variant="h5" className={classes.totatlproducts}>
-                        No Product Found
-                      </Typography>
-                    </div>
-                  </div>
-                </div>,
-              )}
+         
         </div>
       </Modal>
     </>

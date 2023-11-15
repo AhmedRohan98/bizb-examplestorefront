@@ -16,6 +16,7 @@ $tagsId: String
       lastName
       metafields {
         namespace
+        __typename
       }
       picture
       updatedAt
@@ -25,6 +26,7 @@ $tagsId: String
       storeInfo {
         storeName
         image
+        __typename
       }
       products {
         _id
@@ -40,8 +42,11 @@ $tagsId: String
         vendor
         originCountry
         tagIds
+        __typename
       }
+      __typename
     }
     totalPage
+    __typename
   }
 }
