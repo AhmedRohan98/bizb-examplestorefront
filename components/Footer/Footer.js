@@ -333,7 +333,7 @@ const Footer = () => {
                 </span>
                 <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}> hello@bizb.store </span>
               </a>
-              <a href="tel:+92 319 45330320" target="_blank">
+              <a href="tel:+92 319 4533032" target="_blank">
                 <span style={{ marginLeft: "20px" }}>
                   <img src="/images/phoneIcon.svg" alt="icons" />
                 </span>
