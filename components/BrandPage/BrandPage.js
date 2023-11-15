@@ -207,7 +207,7 @@ const BrandPage = () => {
         }, 900);
 
         return () => clearTimeout(delayDebounceFn);
-    }, [getSearch]);
+    }, [getSearch, brands, loading]);
 
     return (
         <div className={classes.main}>
@@ -268,10 +268,10 @@ const BrandPage = () => {
                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                     <div className={classes.boxcontairproduct}>
                                   
-                                            <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?.userId}`}>
+                                            <Link href={"/en/brand/[tagId]"} as={`/en/brand/${item?._id}`}>
                                                 <a target="_blank">
                                                     <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
-                                                        {item?.brandName?.charAt(0).toUpperCase()}
+                                                        {item?.displayTitle?.charAt(0).toUpperCase()}
                                                     </Avatar>
                                                 </a>
                                             </Link>
@@ -292,12 +292,12 @@ const BrandPage = () => {
                                                     component="h2"
                                                     className={classes.carttitle}
                                                 >
-                                                    {item?.brandName ? item?.brandName : "Brand"}
+                                                    {item?.displayTitle ? item?.displayTitle : "Brand"}
                                                 </Typography>
-                                                <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                                                {/* <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                                                     {" "}
                                                     {item?.brandCategory ? item?.brandCategory : "Category"}
-                                                </Typography>
+                                                </Typography> */}
                                             </div>
                                         </div>
                                     </div>

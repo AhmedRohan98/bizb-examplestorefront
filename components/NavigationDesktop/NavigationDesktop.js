@@ -143,8 +143,8 @@ class NavigationDesktop extends Component {
       categoryTagsInfo: null,
       selectedPage: null,
       currentLink: null,
-      originalData: ["Juniors", "Casuals", "Party Wear", "Shoes", "Accessories", "Western"],
-      customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes"],
+      originalData: ["Juniors", "Casuals", "Party Wear", "Shoes", "Live Session", "Accessories", "Western"],
+      customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes","Live Session",],
       mappedData: [],
     };
 
@@ -380,7 +380,7 @@ class NavigationDesktop extends Component {
                   <div className={classes.modalitems}>
                     <div className={classes.modalitemstitle}>
                       {console.log("tags", tagsData)}
-                      {mappedData?.slice(0, 6).map((itemtitle, i) => (
+                      {mappedData?.map((itemtitle, i) => (
                         <a
                           href={
                             itemtitle.displayTitle === "Become a Seller"
