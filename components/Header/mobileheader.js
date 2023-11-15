@@ -57,7 +57,7 @@ const Mobileheader = (props) => {
     <div className={classes.mobileview}>
       <a href="/">
         <div className={classes.mobileviewfixed}>
-          <img src="/app-section/home.svg" />
+          <img src="/app-section/home.svg" alt="icons"/>
           <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
             {" "}
             Home{" "}
@@ -68,7 +68,7 @@ const Mobileheader = (props) => {
       <a href="/en/SellerRegistrationPage">
         <div className={classes.mobileviewfixed}>
           {" "}
-          <img src="/app-section/sell-icn.svg" />
+          <img src="/app-section/sell-icn.svg" alt="icons" />
           <a target="_blank" href="/en/SellerRegistrationPage">
             <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
               {" "}
@@ -80,7 +80,7 @@ const Mobileheader = (props) => {
       <a href="/en/categories/cmVhY3Rpb24vdGFnOjdKWVRGeGlZNXlKQkNwNENj">
         <div className={classes.mobileviewfixed}>
           {" "}
-          <img src="/app-section/explore.svg" />
+          <img src="/app-section/explore.svg" alt="icons"/>
           <Typography style={{ marginLeft: "5px" }} variant="h5" className={classes.mobileviewfixedText}>
             {" "}
             Explore

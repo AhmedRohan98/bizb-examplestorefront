@@ -3,11 +3,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { InputAdornment, IconButton, TextField } from "@material-ui/core";
+import { InputAdornment, IconButton, TextField, Avatar } from "@material-ui/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ReactGA from "react-ga4";
 import { CircularProgress } from "@material-ui/core";
+import useGetAllStores from "../../hooks/sellers/useGetAllStores";
+import useGlobalSearch from "../../hooks/globalSearch/useglobalSearch";
 
 import withCatalogItems from "containers/catalog/withCatalogItems";
 const useStyles = makeStyles((theme) => ({
@@ -116,16 +118,15 @@ const useStyles = makeStyles((theme) => ({
   pricing: {
     display: "flex",
     flexDirection: "column",
-    marginTop: "6px",
-    marginBottom: theme.spacing(1),
+    marginTop: 0,
+    marginBottom: 0,
   },
   cartitem: {
-    padding: theme.spacing(1),
     display: "flex",
     // justifyContent: "space-between",
     alignItems: "flex-start",
     width: "100%",
-    borderBottom: "1px solid #e5e5e5 !important",
+    marginBottom: "10px",
   },
   // cartimage: {
   //   height: "188px",
@@ -137,22 +138,25 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     fontSize: "1.1rem",
     textTransform: "capitalize",
+    padding: 0,
+    marginTop: "4px",
   },
   cartprice: {
     color: theme.palette.secondary.selected,
-    fontSize: "1.1rem",
+    fontSize: "15px",
     [theme.breakpoints.down(600)]: {
-      fontSize: "13px",
+      fontSize: "10px",
     },
   },
   totatlproducts: {
     color: theme.palette.secondary.selected,
     fontSize: "1.1rem",
-    padding: theme.spacing(4),
+    marginLeft: "39px",
+    marginBottom: "16px",
   },
 
   storeName: {
-    paddingTop: "6px",
+    paddingTop: 0,
     fontSize: "12px",
     color: "#FDC114",
     [theme.breakpoints.down(600)]: {
@@ -166,13 +170,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cartpric: {
-    paddingTop: "5px",
+    paddingTop: 0,
     fontSize: "0.9rem",
   },
   price: {
-    fontSize: "1.1rem",
+    fontSize: "15px",
     [theme.breakpoints.down(600)]: {
-      fontSize: "11px",
+      fontSize: "10px",
     },
 
     // marginLeft: theme.spacing(2),
@@ -181,12 +185,24 @@ const useStyles = makeStyles((theme) => ({
     width: "120px",
     height: "100px",
     objectFit: "contain",
-    borderRadius: "18px",
+    borderRadius: "10px",
     cursor: "pointer",
-    marginRight: "20px",
+    marginRight: "10px",
     [theme.breakpoints.down(600)]: {
-      width: "70px",
-      height: "80px",
+      width: "90px",
+      height: "110px",
+    },
+  },
+  image2: {
+    width: "120px",
+    height: "100px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    cursor: "pointer",
+    marginRight: "10px",
+    [theme.breakpoints.down(600)]: {
+      width: "90px",
+      height: "110px",
     },
   },
   filteritemsfromsearch: {
@@ -195,10 +211,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "47px",
     borderRadius: "18px",
     overflowY: "auto",
-    [theme.breakpoints.down(1600)]: {
-      overflowY: "auto",
-      minHeight: "600px",
-      maxHeight: "600px",
+    [theme.breakpoints.down(600)]: {
+      overflow: "auto",
+      maxHeight: "490px",
+      marginRight: "7px",
+      marginLeft: "7px",
+      marginBottom: "10px",
+    },
+  },
+  searchdiv: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down(600)]: {
+      flexDirection: "column",
     },
   },
   search: {
@@ -215,7 +240,24 @@ const useStyles = makeStyles((theme) => ({
   },
   productTitle: {
     [theme.breakpoints.down(600)]: {
-      fontSize: "15px",
+      fontSize: "16px",
+      fontWeight: "600",
+    },
+  },
+  productTitle3: {
+    fontSize: "14px",
+    fontWeight: "300",
+
+    [theme.breakpoints.down(600)]: {
+      fontSize: "12px",
+      fontWeight: "300",
+    },
+  },
+  productTitle2: {
+    marginLeft: "39px",
+    marginTop: "10px",
+    [theme.breakpoints.down(600)]: {
+      fontSize: "16px",
       fontWeight: "600",
     },
   },
@@ -223,6 +265,19 @@ const useStyles = makeStyles((theme) => ({
 const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore }) => {
   const [searchLocal, setSearchLocal] = useState();
   const [searchText, setsearchText] = useState(false);
+  const [getSearch2, setSearch2] = React.useState("");
+  // const [sellers, totalCount, loading, refetch] = useGetAllStores(5, 0, getSearch2);
+  const [result, loading2, refetch2] = useGlobalSearch(null, getSearch2, 0, 9);
+
+  React.useEffect(() => {
+    console.log("sss", searchLocal);
+
+    const delayDebounceFn = setTimeout(() => {
+      setSearch2(searchLocal);
+    }, 900);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchLocal]);
 
   // fetch products and update catalogItems
   const router = useRouter();
@@ -252,12 +307,10 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
     });
   };
   React.useEffect(() => {
-    console.log("workwork 2 on key up", filteredItems?.length);
+    console.log("workwork 2 on key up", result?.storeData);
 
-    if (filteredItems?.length > 0) {
-      setsearchText(false);
-    }
-  }, [filteredItems]);
+   
+  }, [ result, loading2]);
 
   const handleProductDetail = (productSlug) => {
     const url = `/en/product/${productSlug}`;
@@ -299,10 +352,10 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                   value={searchLocal}
                   className={classes.input}
                   onInput={handleSearchChange}
-                  onKeyUp={handleSearchSubmit}
-                  onBlur={() => {
-                    setsearchText(true);
-                  }}
+                  // onKeyUp={handleSearchSubmit}
+                  // onBlur={() => {
+                  //   setsearchText(true);
+                  // }}
                   placeholder="What are you looking for..." // add placeholder text
                   InputProps={{
                     classes: { input: classes.input2 },
@@ -313,13 +366,14 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                             src="/images/searchIconDark.svg"
                             className={classes.headerlogo}
                             onClick={() => setModalFlag(false)}
+                            alt="icon"
                           />
                         </IconButton>
                       </InputAdornment>
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
-                        {searchText ? (
+                        {loading2 ? (
                           <IconButton>
                             <CircularProgress />
                           </IconButton>
@@ -336,102 +390,162 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
             </div>
           </form>
 
-          {filteredItems?.length > 0 ? (
+          {result ? (
             <div className={classes.filteritemsfromsearch}>
-              <div style={{ display: "flex" }}>
-                <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
-                  <ul>
-                    {filteredItems?.slice(0, 3)?.map((product) => {
-                      // console.log(filteredItems, "fil");
-                      return (
-                        <div
-                          key={product.node.product.id}
-                          className={classes.cartitem}
-                          onClick={() => handleProductDetail(product?.node?.product?.slug)}
-                        >
-                          <Link
-                            href={product.node.product.slug && "en/product/[...slugOrId]"}
-                            as={product.node.product.slug && `en/product/${product.node.product.slug}`}
+              <>
+                <div style={{ display: "flex" }}>
+                  <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
+                    <Typography variant="h4" className={classes.productTitle2}>
+                      Products
+                    </Typography>
+                    <ul className={classes.searchdiv}>
+                      {result?.catalog?.slice(0, 4)?.map((product) => {
+                        // console.log(filteredItems, "fil");
+                        return (
+                          <div
+                            key={product?._id}
+                            className={classes.cartitem}
+                            onClick={() => handleProductDetail(product?.slug)}
                           >
-                            <a target="_blank">
-                              <img
-                                src={product?.node?.product?.media[0]?.URLs?.large}
-                                alt={product?.title}
-                                className={classes.image}
-                              />
-                            </a>
-                          </Link>
-                          <div className={classes.cartitemtext}>
                             <Link
-                              href={product.node.product.slug && "en/product/[...slugOrId]"}
-                              as={product.node.product.slug && `en/product/${product.node.product.slug}`}
+                              href={product.slug && "en/product/[...slugOrId]"}
+                              as={product.slug && `en/product/${product.slug}`}
                             >
                               <a target="_blank">
-                                <Typography variant="h4" className={classes.productTitle}>
-                                  {product?.node?.product?.title}
-                                </Typography>
+                                <img
+                                  src={product?.variant[0]?.media[0]?.URLs?.thumbnail}
+                                  alt={product?.title}
+                                  className={classes.image}
+                                />
                               </a>
                             </Link>
-                            <Link href={`/en/profile/${product?.node?.product?.variants[0]?.uploadedBy?.userId}`}>
-                              <a style={{ color: "#FDC114" }}>
-                                <Typography variant="h4" className={classes.cartpric}>
-                                  Store:{" "}
-                                  <span className={classes.storeName}>
-                                    {product?.node?.product?.vendor
-                                      ? product?.node?.product?.vendor
-                                      : product?.node?.product?.variants[0]?.uploadedBy?.storeName}
-                                  </span>
+                            <div className={classes.cartitemtext}>
+                              <Link
+                                href={product.slug && "en/product/[...slugOrId]"}
+                                as={product.slug && `en/product/${product.slug}`}
+                              >
+                                <a target="_blank">
+                                  <Typography variant="h5" className={classes.productTitle}>
+                                    {product?.title}
+                                  </Typography>
+                                </a>
+                              </Link>
+                              <Link href={`/en/profile/${product?.variant[0]?.uploadedBy?.userId}`}>
+                                <a style={{ color: "#FDC114" }}>
+                                  <Typography variant="h5" className={classes.cartpric}>
+                                    Store:{" "}
+                                    <span className={classes.storeName}>
+                                      {product?.variant[0]?.uploadedBy
+                                        ? product?.variant[0]?.uploadedBy?.storeName
+                                        : product?.variant[0]?.uploadedBy?.name}
+                                    </span>
+                                  </Typography>
+                                </a>
+                              </Link>
+                              <div className={classes.pricing}>
+                                {" "}
+                                <strike className={classes.cartprice}>
+                                  {product?.variant[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                                    ?.replace(/\.00$/, "")
+                                    .replace(/\$/g, "Rs. ")}
+                                </strike>
+                                <Typography gutterBottom variant="h5" className={classes.price}>
+                                  {product?.variant[0]?.pricing[0]?.displayPrice
+                                    ?.replace(/\.00$/, "")
+                                    .replace(/\$/g, "Rs. ")}
                                 </Typography>
-                              </a>
-                            </Link>
-                            <div className={classes.pricing}>
-                              {" "}
-                              <strike className={classes.cartprice}>
-                                {product?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                                  ?.replace(/\.00$/, "")
-                                  .replace(/\$/g, "Rs. ")}
-                              </strike>
-                              <Typography gutterBottom variant="h4" className={classes.price}>
-                                {product?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                                  ?.replace(/\.00$/, "")
-                                  .replace(/\$/g, "Rs. ")}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+                {result?.catalog?.length > 0 ? (
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    {searchLocal === "" ? (
+                      <></>
+                    ) : (
+                      <Link href={`/en/search/${searchLocal}`}>
+                        <a style={{ color: "#FDC114" }}> {`See all results`}</a>
+                      </Link>
+                    )}
+                  </Typography>
+                ) : (
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    No result
+                  </Typography>
+                )}
+              </>
+              <>
+                <div style={{ display: "flex" }}>
+                  <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
+                    <Typography variant="h4" className={classes.productTitle2}>
+                      Stores
+                    </Typography>
+                    <ul className={classes.searchdiv}>
+                      {result?.storeData?.slice(0, 4)?.map((item) => {
+                        // console.log(filteredItems, "fil");
+                        return (
+                          <div key={item._id} className={classes.cartitem}>
+                            {item?.image ? (
+                              <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
+                                <a target="_blank">
+                                  <img
+                                    src={item?.image}
+                                    className={classes.image2}
+                                    key={item?._id}
+                                    alt={item?.storeName}
+                                  />{" "}
+                                </a>
+                              </Link>
+                            ) : (
+                              <Link href={"/en/profile/[slugOrId]"} as={`/en/profile/${item?._id}`}>
+                                <a target="_blank">
+                                  <Avatar variant="square" className={classes.image}>
+                                    {item?.storeName
+                                      ? item?.storeName?.charAt(0).toUpperCase()
+                                      : item?.name?.charAt(0).toUpperCase()}
+                                  </Avatar>
+                                </a>
+                              </Link>
+                            )}
+                            <div className={classes.cartitemtext}>
+                              <Typography variant="h5" className={classes.productTitle}>
+                                {item?.storeName ? item?.storeName : "User Store"}
+                              </Typography>
+                              <Typography variant="h5" className={classes.productTitle3}>
+                                {item?.name ? item?.name : "User"}
                               </Typography>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </ul>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-
-              <h1></h1>
-              <Typography variant="h4" className={classes.totatlproducts}>
-                {searchLocal === "" ? (
-                  <></>
+                {result?.storeData?.length > 0 ? (
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    {searchLocal === "" ? (
+                      <></>
+                    ) : (
+                      <Link href={{ pathname: "/en/stores", query: { search: JSON.stringify(searchLocal) } }}>
+                        <a style={{ color: "#FDC114" }}> {`See all results `}</a>
+                      </Link>
+                    )}
+                  </Typography>
                 ) : (
-                  <Link href={`/en/search/${searchLocal}`}>
-                    <a style={{ color: "#FDC114" }}> {`See all results (${filteredItems?.length})`}</a>
-                  </Link>
+                  <Typography variant="h5" className={classes.totatlproducts}>
+                    No result
+                  </Typography>
                 )}
-              </Typography>
+              </>
             </div>
           ) : (
             ""
           )}
-          {searchQuery?.length > 0 &&
-            filteredItems?.length ===
-              0(
-                <div className={classes.filteritemsfromsearch}>
-                  <div style={{ display: "flex" }}>
-                    <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
-                      <Typography variant="h4" className={classes.totatlproducts}>
-                        No Product Found
-                      </Typography>
-                    </div>
-                  </div>
-                </div>,
-              )}
+         
         </div>
       </Modal>
     </>

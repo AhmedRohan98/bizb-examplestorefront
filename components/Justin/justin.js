@@ -656,7 +656,12 @@ const Justin = (props) => {
                             ) : (
                               <>
                                 <div className={classes.cartButtonrowDiv}>
-                                  <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                  <img
+                                    component="img"
+                                    src="/icons/cart.svg"
+                                    className={classes.cartimage}
+                                    alt="icons"
+                                  />
                                   <Typography
                                     style={{
                                       fontFamily: "Ostrich Sans Black",

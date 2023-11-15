@@ -134,6 +134,10 @@ const Appsec = () => {
       color: "grey",
       letterSpacing: "2px",
       textAlign: "start",
+      [theme.breakpoints.down(700)]: {
+        textAlign:"center",
+
+      },
 
       
     },
@@ -142,6 +146,8 @@ const Appsec = () => {
       justifyContent:"start",
       [theme.breakpoints.down(700)]: {
         display: "none",
+        justifyContent:"center",
+
       },
     }
   }));
@@ -172,7 +178,7 @@ const Appsec = () => {
               budget!
             </Typography>
           </div>
-          <img src="/app-section/Line-1.webp" className={classes.imagetext} />
+          <img src="/app-section/Line-1.webp" className={classes.imagetext} alt="icons" />
           <div>
             <Typography   variant="h2" className={classes.mobiletitle}>Download Our App</Typography>
             <div className={classes.maindivqrcodeappsex}>
@@ -181,10 +187,10 @@ const Appsec = () => {
                   href="https://play.google.com/store/apps/details?id=com.bizb_store&hl=en&gl=US&pli=1"
                   target="_blank"
                 >
-                  <img src="/app-section/appstore2.svg" className={classes.image} />
+                  <img src="/app-section/appstore2.svg" className={classes.image} alt="icons"/>
                 </a>
                 <a href="https://apps.apple.com/pk/app/bizb/id1571110423" target="_blank">
-                  <img src="/app-section/appstore1.svg" className={classes.image} />
+                  <img src="/app-section/appstore1.svg" className={classes.image} alt="icons" />
                 </a>
               </div>
               <div className={classes.maindivqrcode}></div>
@@ -193,7 +199,7 @@ const Appsec = () => {
         </Grid>
         <Hidden smDown>
           <Grid item lg={6} sm={6} md={12} xs={12} className={classes.grid1}>
-            <img src="/app-section/appsec.webp" className={classes.imae} />
+            <img src="/app-section/appsec.webp" className={classes.imae} alt="icons" />
           </Grid>
         </Hidden>
       </Grid>

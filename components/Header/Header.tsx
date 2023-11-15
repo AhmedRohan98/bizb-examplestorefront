@@ -164,6 +164,7 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
                   }}
                   src="/images/logolight.webp"
                   className="headerlogo"
+                  alt="icons"
                 />
               </Link>
             ) : (
@@ -178,6 +179,7 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
                     }}
                     src="/images/logoDark.svg"
                     className="headerlogo"
+                    alt="icons"
                   />
                 </Hidden>
                 <Hidden mdUp>
@@ -189,6 +191,7 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
                     }}
                     src="/images/logo-mobile.svg"
                     className="headerlogo"
+                    alt="icons"
                   />
                 </Hidden>
               </Link>
@@ -208,9 +211,9 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
           >
             {/* @ts-ignore TODO: Refactor link to address type error */}
             {headerType ? (
-              <img src="/icons/search.png" className={classes.imgSize} />
+              <img src="/icons/search.png" className={classes.imgSize} alt="icons" />
             ) : (
-              <img src="/icons/search.png" className={classes.imgSize} />
+              <img src="/icons/search.png" className={classes.imgSize} alt="icons" />
             )}
           </span>
           {/* </Hidden> */}

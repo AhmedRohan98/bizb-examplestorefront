@@ -216,7 +216,7 @@ const TopSelling = () => {
         <div className={classes.rootimg}>
           <img component="img" alt="loading" src={item.image} className={classes.image} />
           <div className={classes.cart}>
-            <img component="img" src="/icons/cart.svg" />
+            <img component="img" src="/icons/cart.svg" alt="icon"/>
             <Typography gutterBottom variant="h5" component="h2">
               + Cart{" "}
             </Typography>

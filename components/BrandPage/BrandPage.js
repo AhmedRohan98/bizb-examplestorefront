@@ -211,7 +211,7 @@ const BrandPage = () => {
 
     return (
         <div className={classes.main}>
-            <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+            <img src="/profile/profilebanner.webp" className={classes.profilebaner} alt="icons" />
 
             <div className="sellerProfile">
                 <Grid container className="publicProfile__profileInfoWrapper">
@@ -222,13 +222,13 @@ const BrandPage = () => {
                                 backgroundImage: "/icons/tickIcon.png",
                             }}
                         >
-                            <img src="/favicons/Logo2.svg" className={classes.profilebaner2} />
+                            <img src="/favicons/Logo2.svg" className={classes.profilebaner2} alt="icons" />
                         </div>
                         <div className="publicProfile__infoContainer">
                             <div className="sellerProfile__infoRow publicProfile__infoRow">
                                 <Typography className="publicProfile__name" variant="h1">
                                     <span>All Brands</span>
-                                    {<img src="/icons/tickIcon.png" />}
+                                    {<img src="/icons/tickIcon.png" alt="icons" />}
                                 </Typography>
                             </div>
                         </div>

@@ -437,7 +437,7 @@ function AllResults(props) {
                           {/* {console.log("Images", item?.node)} */}
                           <img
                             src={
-                              !item?.node?.product?.media || !item?.node?.product?.media[0]?.URLs
+                              item?.node?.product?.media[0]?.URLs?.thumbnail
                                 ? item?.node?.product?.media[0]?.URLs?.thumbnail
                                 : item?.node?.product?.media[0]?.URLs?.medium
                             }
@@ -523,7 +523,7 @@ function AllResults(props) {
                                 onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
                                 disabled={isDisabled || item?.node?.product?.isSoldOut}
                               >
-                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
+                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
                                 <Typography
                                   style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
                                   variant="h5"

@@ -12,6 +12,7 @@ fragment CartCommon on Cart {
     _id
     currency {
       code
+      __typename
     }
   }
   email
@@ -35,17 +36,20 @@ fragment CartCommon on Cart {
           phone
           postal
           region
+          __typename
         }
       }
       availableFulfillmentOptions {
         price {
           amount
           displayAmount
+          __typename
         }
         fulfillmentMethod {
           _id
           name
           displayName
+          __typename
         }
       }
       selectedFulfillmentOption {
@@ -53,18 +57,23 @@ fragment CartCommon on Cart {
           _id
           name
           displayName
+          __typename
         }
         price {
           amount
           displayAmount
+          __typename
         }
         handlingPrice {
           amount
           displayAmount
+          __typename
         }
+        __typename
       }
       shop {
         _id
+        __typename
       }
       shippingAddress {
         address1
@@ -79,6 +88,7 @@ fragment CartCommon on Cart {
         phone
         postal
         region
+        __typename
       }
     }
     summary {
@@ -108,6 +118,7 @@ fragment CartCommon on Cart {
         }
         displayAmount
       }
+      __typename
     }
   }
   totalItemQuantity

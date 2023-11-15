@@ -142,6 +142,7 @@ const Caloborators = () => {
             <img
               src={!item?.picture || !item?.picture ? "/images/seller-placeholder.png" : item?.picture}
               className={classes.image}
+              alt="icons"
             />
             <Typography style={{ textAlign: "center", marginBottom: "20px", marginTop: "10px" }} variant="h5">
               {item.storeName}

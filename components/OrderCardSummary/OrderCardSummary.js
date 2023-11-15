@@ -37,7 +37,7 @@ class OrderCardSummary extends Component {
         <>
         <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
         <span>Discount: </span>
-        <span>{discountTotal && discountTotal.amount ? itemTotal.amount-discountTotal.amount: 0 }</span>
+        <span>{discountTotal && discountTotal.amount ?discountTotal.amount: 0 }</span>
         </div>
         <CartSummary
           isDense
@@ -52,7 +52,7 @@ class OrderCardSummary extends Component {
 
           />
           </>
-      );
+      )
     }
 
     return null;

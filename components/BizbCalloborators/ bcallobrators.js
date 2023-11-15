@@ -99,7 +99,7 @@ const BizbCalloborators = () => {
       bottom: "8%",
       fontFamily: "Ostrich Sans Black",
       [theme.breakpoints.down(600)]: {
-        left: "33%",
+        left: "25%",
       },
       
     },
@@ -113,7 +113,7 @@ const BizbCalloborators = () => {
       bottom: "8%",
       fontFamily: "Ostrich Sans Black",
       [theme.breakpoints.down(600)]: {
-        marginRight: "60px",
+        marginRight: "65px",
       },
       marginRight: "100px",
      
@@ -128,7 +128,7 @@ const BizbCalloborators = () => {
       bottom: "8%",
       fontFamily: "Ostrich Sans Black",
       [theme.breakpoints.down(600)]: {
-        right: "58%",
+        right: "64%",
       },
       
       // marginLeft:"160px",
@@ -191,7 +191,7 @@ const BizbCalloborators = () => {
       letterSpacing: "1px",
       padding: "1px",
       [theme.breakpoints.down("sm")]: {
-        fontSize: "13px",
+        fontSize: "11px",
         letterSpacing: "0",
         padding: 0,
       },
@@ -231,7 +231,7 @@ const BizbCalloborators = () => {
       [theme.breakpoints.down(600)]: {
         height: "17px",
       width: "17px",
-      marginRight:"2px",
+      marginRight:"7px",
       marginTop:"0px",
 
       },
@@ -248,7 +248,7 @@ const BizbCalloborators = () => {
       >
         <Grid item xs={4} style={{}}>
           <div className={classes.collobarotors}>
-            <img src="/BizbCollaborator/11.jpg" className={classes.image} />
+            <img src="/BizbCollaborator/11.jpg" className={classes.image} alt="influencers" />
             <div className={classes.textclass}>
               <div className={classes.textbg}>
                 <Typography gutterBottom className={classes.text}>
@@ -265,7 +265,7 @@ const BizbCalloborators = () => {
               <div className={classes.cart1}>
                 <a href="https://instagram.com/amalusman?igshid=MzRlODBiNWFlZA==" target="_blank">
                 <div className={classes.buttonIcon}>
-                  <img src="/icons/instalogo.png" className={classes.imagesicons} />
+                  <img src="/icons/instalogo.png" className={classes.imagesicons} alt="influencers" />
                   </div>
                 </a>
                 <a href="https://bizb.store/en/profile/20380b75a098499d">
@@ -278,7 +278,7 @@ const BizbCalloborators = () => {
         </Grid>
         <Grid item xs={4} style={{}}>
           <div className={classes.collobarotors}>
-            <img src="/BizbCollaborator/222.jpg" className={classes.image} />
+            <img src="/BizbCollaborator/222.jpg" className={classes.image} alt="influencers" />
             <div className={classes.textclass}>
               <div className={classes.textbg}>
                 <Typography gutterBottom className={classes.text}>
@@ -295,7 +295,7 @@ const BizbCalloborators = () => {
               <div className={classes.cart2}>
               <a href="https://instagram.com/fartashia.asim?igshid=MzRlODBiNWFlZA==" target="_blank">
               <div className={classes.buttonIcon}>
-                  <img src="/icons/instalogo.png" className={classes.imagesicons} />
+                  <img src="/icons/instalogo.png" className={classes.imagesicons} alt="icons" />
                   </div>                </a>
                 <a href="https://bizb.store/en/profile/b3504c10c5984d0d" >
 
@@ -311,7 +311,7 @@ const BizbCalloborators = () => {
         </Grid>
         <Grid item xs={4} style={{}}>
           <div className={classes.collobarotors}>
-            <img src="/BizbCollaborator/3.jpg" className={classes.image} />
+            <img src="/BizbCollaborator/3.jpg" className={classes.image} alt="influencers" />
             <div className={classes.textclass}>
               <div className={classes.textbg}>
                 <Typography gutterBottom className={classes.text}>
@@ -328,7 +328,7 @@ const BizbCalloborators = () => {
               <div className={classes.cart}>
               <a href="https://instagram.com/hajra_sheikhh?igshid=MzRlODBiNWFlZA==" target="_blank">
               <div className={classes.buttonIcon}>
-                  <img src="/icons/instalogo.png" className={classes.imagesicons} />
+                  <img src="/icons/instalogo.png" className={classes.imagesicons} alt="icons" />
                   </div>                </a>
                 <a href="https://bizb.store/en/profile/4980780100674604" >
                 <div className={classes.buttonshop}>
