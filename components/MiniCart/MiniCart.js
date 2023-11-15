@@ -83,7 +83,7 @@ const styles = (theme) => ({
     borderBottom: "1px solid #E5E5E5",
   },
   cartitems: {
-    height: "70vh",
+    height: "66vh",
     overflowY: "auto",
  
   },
@@ -176,14 +176,17 @@ const styles = (theme) => ({
     },
   },
   cart2: {
+    position: "fixed",
+    padding: "10px 0px",
+    bottom: "149px",
     height: "38px",
     width: "120px",
     borderRadius: "40px",
     background: "#333333",
     display: "flex",
     alignItems: "center",
-    marginTop: "5px",
     marginRight: "45px",
+
 
     "&:hover": {
       transform: "scale(1.08)",
@@ -195,7 +198,8 @@ const styles = (theme) => ({
     display: "flex",
     cursor: "pointer",
     height:"80px",
-    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    justifyContent:"flex-end",
     [theme.breakpoints.down("sm")]: {
       width: "118%",
     },
