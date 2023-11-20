@@ -268,7 +268,7 @@ const BrandPage = () => {
                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                     <div className={classes.boxcontairproduct}>
                                   
-                                            <Link href={"/en/brand/[tagId]"} as={`/en/brand/${item?._id}`}>
+                                            <Link href={"/en/brand/[slug]/[tagId]"} as={`/en/brand/${item?.slug}/${item?._id}`}>
                                                 <a target="_blank">
                                                     <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
                                                         {item?.displayTitle?.charAt(0).toUpperCase()}

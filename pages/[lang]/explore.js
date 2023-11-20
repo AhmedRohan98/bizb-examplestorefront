@@ -1012,7 +1012,6 @@ function Explore(props) {
       const { pdpSelectedVariantId, pdpSelectedOptionId } = props.uiStore;
       const selectedVariant = variantById(product.variants, pdpSelectedVariantId);
       let productPrice = {};
-
       if (pdpSelectedOptionId && selectedVariant) {
         const selectedOption = variantById(selectedVariant.options, pdpSelectedOptionId);
         productPrice = priceByCurrencyCode(currencyCode, selectedOption.pricing);
@@ -1089,6 +1088,7 @@ function Explore(props) {
 
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
+    console.log("selectedVariant",selectedVariant)
 
     // If variant is not already in the cart, add the new item
     // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
@@ -1401,7 +1401,7 @@ function Explore(props) {
                   const str = item.node.product.title;
                   const words = str.match(/[a-zA-Z0-9]+/g);
                   const firstThreeWords = words.slice(0, 3).join(" ");
-                  const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15);
+                  const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
 
                   const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                     /[^0-9.]/g,

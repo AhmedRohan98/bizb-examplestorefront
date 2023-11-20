@@ -23,6 +23,7 @@ import formatSize from "../../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
 import ProductCard from "../../../components/ProductCard/ProductCard";
+import PageStepper from "components/PageStepper/PageStepper";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -52,6 +53,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "60px",
     height: "50px",
     position: "relative",
+  },
+  loadmore: {
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   image: {
     width: "275px", // Reduced by 1px to create space for the border
@@ -217,12 +225,14 @@ const useStyles = makeStyles((theme) => ({
 
 function AllResults(props) {
   // console.log(props.cart, "new");
-  const { allItems, totalLength, uiStore, catalogItems, cart } = props;
+  const { allItems, totalLength, uiStore, catalogItems, cart, catalogItemsPageInfo } = props;
   const { items } = cart ? cart : {};
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
   const { setPageSize, setSearchItems } = uiStore;
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  const [lodingforNextPage, setlodingforNextPage] = useState(false);
+
   // useEffect(() => {
 
   //   uiStore?.setPageSize(500);
@@ -413,7 +423,7 @@ function AllResults(props) {
                   const str = item.node.product.title;
                   const words = str.match(/[a-zA-Z0-9]+/g);
                   const firstThreeWords = words.slice(0, 3).join(" ");
-                  const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15);
+                  const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
                   const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                     /[^0-9.]/g,
                     "",
@@ -445,117 +455,20 @@ function AllResults(props) {
                       handleOnClick={handleOnClick}
                       // trackProductView={trackProductView}
                     />
-                    // <div style={{ display: "flex", justifyContent: "center" }}>
-                    //   <div className={classes.boxcontairproduct}>
-                    //     <a target="_blank">
-                    //       {/* {console.log("Images", item?.node)} */}
-                    //       <img
-                    //         src={
-                    //           item?.node?.product?.media[0]?.URLs?.thumbnail
-                    //             ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                    //             : item?.node?.product?.media[0]?.URLs?.medium
-                    //         }
-                    //         className={classes.image}
-                    //         key={item?.node?.product?.id}
-                    //         alt={"hhhh"}
-                    //         onClick={() => clickHandler(item.node.product.slug)}
-                    //       />
-                    //     </a>
-
-                    //     <div className={classes.cartcontent}>
-                    //       <div className={classes.cartcontenttext}>
-                    //         <Typography
-                    //           style={{
-                    //             fontWeight: "600",
-                    //             fontSize: "1rem",
-                    //             fontFamily: "lato",
-                    //             // marginTop: "10px",
-                    //             textTransform: "capitalize",
-                    //             marginLeft: "0px",
-                    //           }}
-                    //           variant="h4"
-                    //           component="h2"
-                    //           className={classes.carttitle}
-                    //         >
-                    //           {firstThreeWords}
-                    //         </Typography>
-                    //         <Typography
-                    //           className={classes.price}
-                    //           style={{
-                    //             fontWeight: "600",
-                    //             fontSize: "1rem",
-                    //             fontFamily: "lato",
-                    //             color: "#FDC114",
-                    //             marginLeft: "0px",
-                    //           }}
-                    //         >
-                    //           {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                    //             ?.replace(/\.00$/, "")
-                    //             .replace(/\$/g, "Rs. ")}
-                    //         </Typography>
-                    //         <div className={classes.strikethroughoff}>
-                    //           <strike className={classes.strikethrough}>
-                    //             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                    //               ?.replace(/\.00$/, "")
-                    //               .replace(/\$/g, "Rs. ")}
-                    //           </strike>
-                    //           <Typography
-                    //             style={{
-                    //               fontWeight: "600",
-                    //               fontSize: "0.9rem",
-                    //               fontFamily: "lato",
-                    //               marginLeft: "0px",
-                    //             }}
-                    //             variant="h4"
-                    //             component="h2"
-                    //             className={classes.carttitle2}
-                    //           >{item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}</Typography>
-                    //         </div>
-                    //       </div>
-                    //       <div className={classes.cartbackground}>
-                    //         <Typography
-                    //           style={{
-                    //             fontWeight: "600",
-                    //             fontSize: "0.8rem",
-                    //             fontFamily: "lato",
-                    //             left: "5px",
-                    //           }}
-                    //           variant="h4"
-                    //           component="h2"
-                    //           className={classes.cartsize}
-                    //         >
-                    //           Size:{" "}
-                    //           <span className={classes.sizes}>
-                    //             {formatSize(size, true)}
-                    //           </span>
-                    //         </Typography>
-                    //         {isLoading[item?.node?.product?.productId] ? (
-                    //           <CircularProgress />
-                    //         ) : (
-                    //           <Button
-                    //             className={classes.cart}
-                    //             onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                    //             disabled={isDisabled || item?.node?.product?.isSoldOut}
-                    //           >
-                    //             <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
-                    //             <Typography
-                    //               style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }}
-                    //               variant="h5"
-                    //               component="h2"
-                    //             >
-                    //               {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                    //             </Typography>
-                    //           </Button>
-                    //         )}
-                    //       </div>
-                    //     </div>
-                    //   </div>
-                    // </div>
+               
                   );
                 })}
               </Masonry>
             </ResponsiveMasonry>
           </div>
+          <div className={classes.loadmore}>
+          {lodingforNextPage ? (
+            <CircularProgress /> // Show the circular progress bar when loading is true
+          ) : (
+            <></>
+          )}
+          {catalogItemsPageInfo?.hasNextPage && <PageStepper pageInfo={catalogItemsPageInfo}></PageStepper>}
+        </div>
         </div>
       )}
     </Layout>
