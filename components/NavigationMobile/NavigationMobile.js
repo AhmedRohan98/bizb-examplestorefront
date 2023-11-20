@@ -17,6 +17,8 @@ import NavigationSubMenuMobile from "./NavigationSubMenuMobile";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+import Checkroom from '@material-ui/icons/LocalOffer';
+import Store from '@material-ui/icons/Store';
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 import SupervisedUserCircleOutlinedIcon from '@material-ui/icons/SupervisedUserCircleOutlined';
 import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
@@ -169,6 +171,24 @@ class NavigationMobile extends Component {
                 <ExploreOutlinedIcon style={{color:"black"}} />
               </IconButton>
                 Explore
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a href="/en/brands" className={{ "&:hover": { backgroundColor: "red" } }}>
+              <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <Checkroom style={{color:"black"}} />
+              </IconButton>
+                Brands
+                {/* @ts-ignore TODO: Refactor link to address type error */}
+              </MenuList>
+            </a>
+            <a href="/en/stores" className={{ "&:hover": { backgroundColor: "red" } }}>
+              <MenuList className={classes.navButtonActive}>
+              <IconButton  >
+                <Store style={{color:"black"}} />
+              </IconButton>
+                Stores
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
