@@ -267,7 +267,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
   const [searchText, setsearchText] = useState(false);
   const [getSearch2, setSearch2] = React.useState("");
   // const [sellers, totalCount, loading, refetch] = useGetAllStores(5, 0, getSearch2);
-  const [result, loading2, refetch2] = useGlobalSearch(null, getSearch2, 0, 9);
+  const [result, loading2, refetch2] = useGlobalSearch(null, getSearch2, 0, );
 
   React.useEffect(() => {
     console.log("sss", searchLocal);
@@ -414,7 +414,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                               <a target="_blank">
                                 <img
                                   src={product?.variant[0]?.media[0]?.URLs?.thumbnail}
-                                  alt={product?.title}
+                                  alt={product?.title?.slice(0, 5)}
                                   className={classes.image}
                                 />
                               </a>
@@ -426,7 +426,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                               >
                                 <a target="_blank">
                                   <Typography variant="h5" className={classes.productTitle}>
-                                    {product?.title}
+                                    {product?.title?.slice(0, 15)}
                                   </Typography>
                                 </a>
                               </Link>
@@ -467,7 +467,8 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     {searchLocal === "" ? (
                       <></>
                     ) : (
-                      <Link href={`/en/search/${searchLocal}`}>
+                      <Link href={{ pathname: "/en/SearchResult", query: { search: JSON.stringify(searchLocal) } }}>
+                      {/* // <Link href={`/en/search/${searchLocal}`}> */}
                         <a style={{ color: "#FDC114" }}> {`See all results`}</a>
                       </Link>
                     )}
@@ -496,7 +497,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                                     src={item?.image}
                                     className={classes.image2}
                                     key={item?._id}
-                                    alt={item?.storeName}
+                                    alt={item?.storeName?.charAt(0).toUpperCase()}
                                   />{" "}
                                 </a>
                               </Link>

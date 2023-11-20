@@ -31,6 +31,9 @@ query globalSearch(
         }
       }
       variant {
+        _id
+        variantId
+        optionTitle
           uploadedBy{
           userId
           storeName

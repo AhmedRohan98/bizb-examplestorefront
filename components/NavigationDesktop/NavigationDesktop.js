@@ -82,7 +82,12 @@ const styles = (theme) => ({
   paper: {
     padding: theme.spacing(0),
   },
-  headerHeadings:{
+  paper2: {
+    padding: 0,
+    top:"20px",
+
+  },
+  headerHeadings: {
     marginRight: "40px",
     padding: "9px 11px",
     marginLeft: "30px",
@@ -92,15 +97,13 @@ const styles = (theme) => ({
     "&:hover": {
       color: "white",
       boxShadow: "inset 150px 0 0 0 #FDC114",
-      borderRadius:"18px"
+      borderRadius: "18px",
     },
-    [theme.breakpoints.down(1300)]: {
+    [theme.breakpoints.down(1700)]: {
       fontSize: "13px",
       marginLeft: "2px",
-
-
     },
-  }
+  },
 });
 
 const tagsCategory = () => (
@@ -140,12 +143,17 @@ class NavigationDesktop extends Component {
     super(props);
     this.state = {
       anchorEl: null,
+      anchorEl2: null,
       categoryTagsInfo: null,
       selectedPage: null,
       currentLink: null,
       originalData: ["Juniors", "Casuals", "Party Wear", "Shoes", "Live Session", "Accessories", "Western"],
-      customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes","Live Session",],
+      customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Live Session"],
       mappedData: [],
+      mappedData2: [
+        { name: "Brands", url: "/en/brands" },
+        { name: "Stores", url: "/en/stores" },
+      ],
     };
 
     // Bind the class methods in the constructor
@@ -181,6 +189,9 @@ class NavigationDesktop extends Component {
   setAnchorEl = (value) => {
     this.setState({ anchorEl: value });
   };
+  setAnchorEl2 = (value) => {
+    this.setState({ anchorEl2: value });
+  };
 
   handlePopOverClose = () => {
     // console.log("hover");
@@ -194,6 +205,21 @@ class NavigationDesktop extends Component {
     console.log("hover open");
     this.setState({
       anchorEl: event.currentTarget,
+    });
+    // console.log("after hover open");
+  };
+  handlePopOverClose2 = () => {
+    // console.log("hover");
+    this.setState({
+      anchorEl2: null,
+    });
+    console.log("after hover");
+  };
+
+  handlePopOverOpen2 = (event) => {
+    console.log("hover open");
+    this.setState({
+      anchorEl2: event.currentTarget,
     });
     // console.log("after hover open");
   };
@@ -237,6 +263,7 @@ class NavigationDesktop extends Component {
       headerType,
     } = this.props;
     const { mappedData } = this.state;
+    const { mappedData2 } = this.state;
 
     const style = {
       borderRadius: "8px",
@@ -257,7 +284,10 @@ class NavigationDesktop extends Component {
       padding: "10px 0px",
       boxShadow: 24,
     };
+    
     const { anchorEl } = this.state;
+    const { anchorEl2 } = this.state;
+
     console.log(tags?.nodes);
     console.log(this.state.categoryTagsInfo);
     const tagsData = tags?.nodes ? tags?.nodes : this.state.categoryTagsInfo;
@@ -312,10 +342,8 @@ class NavigationDesktop extends Component {
               }
             >
               <span
-                  className={classes.headerHeadings}
-                  style={{
-                 
-
+                className={classes.headerHeadings}
+                style={{
                   marginBottom: "-4px",
 
                   textDecorationColor: Router.pathname === "/[lang]" ? "#FDC114" : null,
@@ -337,8 +365,6 @@ class NavigationDesktop extends Component {
                 // onMouseLeave={this.handlePopOverClose}
                 className={classes.headerHeadings}
                 style={{
-                 
-
                   textDecorationColor:
                     Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
                       ? "#FDC114"
@@ -412,6 +438,54 @@ class NavigationDesktop extends Component {
             >
               Byol
             </span> */}
+
+            <a href="/en/explore">
+              <span
+                onMouseEnter={this.handlePopOverOpen2}
+                // onMouseLeave={this.handlePopOverClose}
+                className={classes.headerHeadings}
+                
+                
+              >
+                Collections
+              </span>
+              <Popover
+                className={classes.popover}
+                classes={{
+                  paper: classes.paper2,
+                }}
+                anchorEl={anchorEl2}
+                transformOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                }}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                  marginTop: "20px",
+                }}
+                open={Boolean(anchorEl2)}
+                onClose={this.handlePopOverClose2}
+                style={{ marginTop: "80px" }}
+                // onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Box sx={style}>
+                  <div className={classes.modalitems}>
+                    <div className={classes.modalitemstitle}>
+                      {console.log("tags", tagsData)}
+                      {mappedData2?.map((itemtitle, i) => (
+                        <a href={itemtitle.url} target="_blank">
+                          <Typography variant="h6" className={classes.catgorytitle}>
+                            {itemtitle.name}
+                          </Typography>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </Box>
+              </Popover>
+            </a>
             <a
               style={{
                 color: "inherit",
@@ -419,12 +493,7 @@ class NavigationDesktop extends Component {
               target="_blank"
               href="https://bizb.store/dashboard/uploadproductdetail"
             >
-              <span
-                                 className={classes.headerHeadings}
-
-              >
-                Upload Product
-              </span>
+              <span className={classes.headerHeadings}>Upload Product</span>
             </a>
             {this.props.viewer?.isSeller === true ? (
               <a
@@ -434,11 +503,7 @@ class NavigationDesktop extends Component {
                 target="_blank"
                 href="https://bizb.store/dashboard"
               >
-                <span
-                  className={classes.headerHeadings}
-                >
-                  Dashboard
-                </span>
+                <span className={classes.headerHeadings}>Dashboard</span>
               </a>
             ) : (
               <a
@@ -448,12 +513,7 @@ class NavigationDesktop extends Component {
                 target="_blank"
                 href="/en/SellerRegistrationPage"
               >
-                <span
-                                  className={classes.headerHeadings}
-
-                >
-                  Become a Seller
-                </span>
+                <span className={classes.headerHeadings}>Become a Seller</span>
               </a>
             )}
           </div>

@@ -1,4 +1,4 @@
-import { fetchAllCategories, fetchTags } from "../../../staticUtils/tags/fetchAllTags";
+import { fetchAllCategories, fetchTags } from "../../../../staticUtils/tags/fetchAllTags";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -29,9 +29,9 @@ import withCatalogItems from "containers/catalog/withCatalogItems";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Select, { components } from "react-select";
 import CloseIcon from "@material-ui/icons/Close";
-import PageStepper from "../../../components/PageStepper/PageStepper";
+import PageStepper from "../../../../components/PageStepper/PageStepper";
 import { useRouter } from "next/router";
-import SortBySelector from "../../../components/SortBySelector/SortBySelector";
+import SortBySelector from "../../../../components/SortBySelector/SortBySelector";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -55,15 +55,15 @@ import { useState } from "react";
 import Popover from "@material-ui/core/Popover";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
-import variantById from "../../../lib/utils/variantById";
-import formatSize from "../../../lib/utils/formatSize";
+import variantById from "../../../../lib/utils/variantById";
+import formatSize from "../../../../lib/utils/formatSize";
 
-import inject from "../../../hocs/inject";
-import Layout from "../../../components/Layout";
+import inject from "../../../../hocs/inject";
+import Layout from "../../../../components/Layout";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
-import SkeletonLoader from "../../../components/Justin/skeletonLoader";
-import ProductCard from "../../../components/ProductCard/ProductCard";
+import SkeletonLoader from "../../../../components/Justin/skeletonLoader";
+import ProductCard from "../../../../components/ProductCard/ProductCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -1572,16 +1572,7 @@ function Categories(props) {
               />
             </div>
           </Box>
-          <Grid
-            container
-            lg={12}
-            sm={12}
-            md={12}
-            // align="center"
-            // justify="center"
-            // alignItems="center"
-            className={classes.grid1}
-          >
+         
             <Grid
               item
               lg={12}
@@ -1661,7 +1652,7 @@ function Categories(props) {
                 </div>
             
             </Grid>
-          </Grid>
+          
           {/* Products Below Image   */}
 
           <div className={classes.loadmore}>
@@ -1699,8 +1690,10 @@ export async function getStaticPaths() {
 
   if (tags && tags.tags && tags.tags.nodes) {
     paths = tags?.tags?.nodes?.map((tag) => ({
+      
       params: {
         lang: "en",
+        slug: "-",
         tagId: tag._id,
       },
     }));
@@ -1713,9 +1706,11 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params: { lang, tagId }, ...context }) {
+export async function getStaticProps({ params: { lang, tagId, slug }, ...context }) {
   const primaryShop = await fetchPrimaryShop(lang);
   const categories = await fetchAllCategories([process.env.SHOP_ID], [tagId]);
+
+  console.log("slugslug", slug)
 
   return {
     props: {
