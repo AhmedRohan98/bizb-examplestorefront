@@ -590,7 +590,7 @@ const Justin = (props) => {
                 const str = item.node.product.title;
                 const words = str.match(/[a-zA-Z0-9]+/g);
                 const firstThreeWords = words.slice(0, 3).join(" ");
-                const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName.slice(0, 15);
+                const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
 
                 const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                   /[^0-9.]/g,
