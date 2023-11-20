@@ -322,6 +322,13 @@ const useStyles = makeStyles((theme) => ({
       padding: "4px",
     },
   },
+  textsearch:{
+    [theme.breakpoints.down("sm")]: {
+        fontSize: "29px",
+        margin:"15px"
+      },
+  }
+  
 }));
 
 const SearchProduct = (props) => {
@@ -544,7 +551,7 @@ const SearchProduct = (props) => {
   return (
     <div className={classes.main}>
       <div className={classes.headermSain}>
-        <Typography variant="h3">
+        <Typography variant="h3" className={classes.textsearch}>
           Search <span className={classes.spanofnextword}>Results</span> for
           <span className={classes.spanofnextword}> {props?.search}</span>
         </Typography>
