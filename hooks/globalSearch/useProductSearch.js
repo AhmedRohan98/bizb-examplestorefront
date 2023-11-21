@@ -6,7 +6,7 @@ import globalSearch from "./globalSearch.gql";
  *
  * @returns {Array} the viewer's data
  */
-export default function useGlobalSearch(searchType, searchQuery, skip, limit) {
+export default function useProductSearch(searchType, searchQuery, skip, limit) {
   const authToken = typeof window !== "undefined" ? window.localStorage.getItem("accounts:accessToken") : undefined;
   const { loading, data, refetch, fetchMore } = useQuery(globalSearch, {
     variables: {
@@ -18,9 +18,8 @@ export default function useGlobalSearch(searchType, searchQuery, skip, limit) {
   });
   const search = data?.globalSearch;
   useEffect(() => {
-    console.log("search2 2 global", data)
-
     refetch();
-  }, [authToken]);
+    console.log("search2 2 product", data)
+  }, []);
   return [search, loading, refetch];
 }

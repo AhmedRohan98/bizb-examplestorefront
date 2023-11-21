@@ -14,14 +14,28 @@ import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 import SellerRegistration from "../../components/SellerRegistration/SellerRegistration";
 import SellerTermsCondition from "../../components/SellerRegistration/SellerTermsCondition";
-import BrandPage from "../../components/BrandPage";
+import StorePage from "../../components/StorePage/StorePage";
+import SearchProduct from "../../components/SearchProduct/SearchProduct";
+import { useRouter } from 'next/router'
+import useProductSearch from "../../hooks/globalSearch/useProductSearch";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
 
-function Brands(props) {
+}));
+
+function SeacrhResult(props ) {
+
     const classes = useStyles();
 
     const { isLoadingOrder, order, shop } = props;
+    // const searchParams = useSearchParams()
+    const router = useRouter()
+    const search = router.query.search?.replace(/"/g, " ")
+    // const search = searchParams.get('search')
+
+    console.log("search22", search)
+
+
 
     if (isLoadingOrder) {
         return (
@@ -31,15 +45,24 @@ function Brands(props) {
         );
     }
 
+
+
     return (
         <Layout shop={shop}>
-         
-            <Grid container md={12}>
-                <BrandPage />
+            {/* <Helmet>
+                <title>{shop && shop.name} | Stores</title>
+                <meta name="stores" content={shop && shop.description} />
+            </Helmet> */}
+            
+            <Grid container md={12} lg={12}>
+                
+                <SearchProduct search={search}/>
             </Grid>
+
         </Layout>
     );
 }
+
 
 export async function getStaticProps({ params: { lang } }) {
     return {
@@ -62,4 +85,4 @@ export async function getStaticPaths() {
     };
 }
 
-export default withApollo()(Brands);
+export default withApollo()(SeacrhResult);
