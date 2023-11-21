@@ -65,7 +65,7 @@ function SellerPublicProfile(props) {
       refetch2();
     }
 
-    console.log("categoryTags in component is", categoryTags);
+    console.log("categoryTags in component is", props);
   }, [primaryShopId, categoryTags]);
 
   useEffect(() => {
@@ -812,7 +812,7 @@ function SellerPublicProfile(props) {
                   // Access the "size" property
                   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                   {
-                    console.log("validOptionTitle", validOptionTitle, "size", size);
+                    console.log("validOptionTitle", item);
                   }
                   const str = item?.node?.product?.title;
                   const words = str.match(/[a-zA-Z0-9]+/g);

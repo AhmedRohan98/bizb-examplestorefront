@@ -71,6 +71,7 @@ const PageStepper = ({  pageInfo, theme }) => {
     }
 
     pageInfo.loadNextPage();
+    console.log("categoryTags in component is 22", pageInfo)
     setTimeout(() => {
       if (pageInfo.hasNextPage === true) {
         setLoading(false);
