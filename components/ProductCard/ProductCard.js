@@ -288,8 +288,8 @@ const ProductCard = ({
         }}
       >
         <Link
-          href={item.node.product.slug && "en/product/[...slugOrId]"}
-          as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+          href={item.node.product.slug && "/en/product/[...slugOrId]"}
+          as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
         >
           <a target="_blank">
             {/* {console.log("Images", item?.node)} */}
@@ -369,8 +369,8 @@ const ProductCard = ({
                 }}
               >
                 <Link
-                  href={item.node.product.slug && "en/product/[...slugOrId]"}
-                  as={item.node.product.slug && `en/product/${item.node.product.slug}`}
+                  href={item.node.product.slug && "/en/product/[...slugOrId]"}
+                  as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
                 >
                   <a target="_blank">
                     <Typography

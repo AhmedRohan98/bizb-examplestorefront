@@ -197,7 +197,7 @@ const Preloved = (props) => {
               target="_blank">
               <Button className={classes.buttonshop}>
 
-                <h4 className={classes.buttonshopt}>Sell Now</h4>
+                <h4 className={classes.buttonshopt}>SHOP Now</h4>
               </Button>
             </a>
           </div>
