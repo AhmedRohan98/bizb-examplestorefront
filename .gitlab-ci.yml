@@ -1,30 +1,71 @@
 #**** Master ****#
 
-image: docker:19.03.13
+# image: docker:19.03.13
+
+# services:
+#   - docker:19.03.13-dind
+
+# before_script:
+#   - rm -rf .cache
+#   - rm -rf node_modules
+
+# stages:
+ 
+#   - build
+#   - deploy
+
+
+
+# build_image_GKE:
+#   stage: build
+#   script:
+#     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#     - docker build --no-cache -t bizb-frontend-production .
+#     - docker tag bizb-frontend-production $DOCKER_USERNAME/bizb-gke:bizb-frontend-production
+#     - docker push $DOCKER_USERNAME/bizb-gke:bizb-frontend-production
+#   only:
+#     - master
+
+
+#####gitlab registry####
+
+image: docker:19.03.13-git
 
 services:
   - docker:19.03.13-dind
 
+stages:
+  - build
+  - deploy
+  #- cleanup
+
 before_script:
   - rm -rf .cache
   - rm -rf node_modules
+  #- apk add --no-cache git curl jq # Ensure Git, curl, and jq are installed
+  - git config --global user.email "ci-runner@example.com"
+  - git config --global user.name "CI Runner"
 
-stages:
- 
-  - build
-  - deploy
-
-
-
-build_image_GKE:
+build_docker_image:
   stage: build
   script:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build --no-cache -t bizb-frontend-production .
-    - docker tag bizb-frontend-production $DOCKER_USERNAME/bizb-gke:bizb-frontend-production
-    - docker push $DOCKER_USERNAME/bizb-gke:bizb-frontend-production
-  only:
-    - master
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - CURRENT_VERSION=$(cat VERSION)
+    - NEXT_VERSION=$(($CURRENT_VERSION + 1))
+    - echo $NEXT_VERSION > VERSION
+    - git add VERSION
+    - git commit -m "Update version to $NEXT_VERSION"
+    - git remote set-url origin https://oauth2:$PERSONAL_ACCESS_TOKEN@gitlab.com/Codistan/bizb/example-storefront.git
+    - git push origin HEAD:master
+    - docker build --no-cache -t $CI_REGISTRY_IMAGE/bizb-gke:bizb-frontend-$NEXT_VERSION .
+    - docker push $CI_REGISTRY_IMAGE/bizb-gke:bizb-frontend-$NEXT_VERSION
+  rules:
+    - changes:
+        - VERSION
+      when: never
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+
 
 
 # build_image_GKE:
