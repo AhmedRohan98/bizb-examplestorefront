@@ -193,7 +193,7 @@ const useStyles = makeStyles((theme) => ({
 
   main: {
     width: "100%",
-    padding: "25px",
+    padding: "75px",
     [theme.breakpoints.down("xs")]: {
       padding: "0",
     },
@@ -463,7 +463,7 @@ const useStyles = makeStyles((theme) => ({
   topheader: {
     display: "flex",
     justifyContent: "flex-end",
-
+marginBottom:"20px",
     [theme.breakpoints.down(700)]: {
       display: "none",
     },
@@ -498,9 +498,6 @@ const useStyles = makeStyles((theme) => ({
   },
   gridroot: {
     width: "100%",
-    display: "flex",
-    alignItems: "baseline",
-    position: "relative",
     justifyContent: "space-between",
   },
   grid1: {
@@ -1481,8 +1478,7 @@ function Categories(props) {
               textTransform: "capitalize",
             }}
           />
-
-          <Box className={classes.topheader}>
+       <Box className={classes.topheader}>
             {["left"].map((anchor) => (
               <React.Fragment key={anchor}>
                 <img
@@ -1572,24 +1568,15 @@ function Categories(props) {
               />
             </div>
           </Box>
+          
          
-            <Grid
-              item
-              lg={12}
-              xs={12}
-              sm={6}
-              md={12}
-              // align="center"
-              // justify="center"
-              // alignItems="center"
-            >
                 <div className={classes.gridroot}>
                   <ResponsiveMasonry
-                    columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-                    style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+              columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
                   >
                     <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                      {firstfour?.map((item, key) => {
+                      {catalogItems?.map((item, key) => {
                         const cartitem = cart?.items;
                         const isDisabled = cartitem?.some((data) => {
                           return data.productConfiguration.productId === item?.node?.product?.productId;
@@ -1651,7 +1638,6 @@ function Categories(props) {
                   </ResponsiveMasonry>
                 </div>
             
-            </Grid>
           
           {/* Products Below Image   */}
 

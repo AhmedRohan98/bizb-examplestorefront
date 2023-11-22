@@ -166,6 +166,9 @@ const StorePage = ({...props}) => {
         height: "200px",
       },
     },
+    vector: {
+      marginTop: theme.spacing(2),
+    },
     loadmore: {
       display: "flex",
       justifyContent: "center",
@@ -212,7 +215,7 @@ const StorePage = ({...props}) => {
         border: 0,
       },
       "& .MuiSelect-select.MuiSelect-select": {
-        padding: "10px",
+        margin: "10px",
       },
       "&&.MuiInput-underline:before": {
         borderBottom: "none",
@@ -404,7 +407,11 @@ const StorePage = ({...props}) => {
               </div>
               <div className={classes.sortdiv}>
                 <IconButton>
-                  <Sort style={{ color: "black" }} />
+                <img
+                src="/categoriestypes/Vector.svg"
+                alt="vector"
+                className={classes.vector}
+              />
                 </IconButton>
                 <FormControl
                   style={{
@@ -434,7 +441,7 @@ const StorePage = ({...props}) => {
                           console.log("key", category._id);
                         }}
                       >
-                        <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
+                        <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px", marginTop:"5px" }}>
                           {category.displayTitle}
                         </Typography>
                       </MenuItem>

@@ -63,6 +63,8 @@ import Layout from "../../../components/Layout";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
 import SkeletonLoader from "../../../components/Justin/skeletonLoader";
+import SkeletonLoader2 from "../../../components/Justin/skeletonLoader2";
+
 import ProductCard from "../../../components/ProductCard/ProductCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -1644,6 +1646,7 @@ function Categories(props) {
                 </Popover>
               </div>
             </Grid>
+
             <Grid
               item
               lg={6}
@@ -1654,357 +1657,78 @@ function Categories(props) {
               // justify="center"
               // alignItems="center"
             >
-              <div className={classes.gridroot}>
-                <ResponsiveMasonry
-                  columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
-                  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                >
-                  <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                    {firstfour?.map((item, key) => {
-                      const cartitem = cart?.items;
-                      const isDisabled = cartitem?.some((data) => {
-                        return data.productConfiguration.productId === item?.node?.product?.productId;
-                      });
-                      // console.log(cart?.items, "item");
-                      // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-                      const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+              {allproducts?.length > 0 ? (
+                <div className={classes.gridroot}>
+                  <ResponsiveMasonry
+                    columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
+                    style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                  >
+                    <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                      {firstfour?.map((item, key) => {
+                        const cartitem = cart?.items;
+                        const isDisabled = cartitem?.some((data) => {
+                          return data.productConfiguration.productId === item?.node?.product?.productId;
+                        });
+                        // console.log(cart?.items, "item");
+                        // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                        const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
 
-                      const validOptionTitle = optionTitle
-                        ? optionTitle
-                            ?.replace(/['"\\]/g, "")
-                            .replace("{", '{"')
-                            .replace(/:/g, '":"')
-                            .replace("}", '"}')
-                            .replace(",", '","')
-                        : null;
-                      const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+                        const validOptionTitle = optionTitle
+                          ? optionTitle
+                              ?.replace(/['"\\]/g, "")
+                              .replace("{", '{"')
+                              .replace(/:/g, '":"')
+                              .replace("}", '"}')
+                              .replace(",", '","')
+                          : null;
+                        const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
 
-                      // Access the "size" property
-                      const str = item.node.product.title;
-                      const words = str.match(/[a-zA-Z0-9]+/g);
-                      const firstThreeWords = words.slice(0, 3).join(" ");
-                      const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
+                        // Access the "size" property
+                        const str = item.node.product.title;
+                        const words = str.match(/[a-zA-Z0-9]+/g);
+                        const firstThreeWords = words.slice(0, 3).join(" ");
+                        const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
 
-                      const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                        /[^0-9.]/g,
-                        "",
-                      );
-
-                      const compareAtPrice =
-                        item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
+                        const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                           /[^0-9.]/g,
                           "",
                         );
 
-                      const parsedDisplayPrice = parseFloat(displayPrice);
-                      const parsedCompareAtPrice = parseFloat(compareAtPrice);
+                        const compareAtPrice =
+                          item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
+                            /[^0-9.]/g,
+                            "",
+                          );
 
-                      const percentage = Math.floor(
-                        ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                      );
+                        const parsedDisplayPrice = parseFloat(displayPrice);
+                        const parsedCompareAtPrice = parseFloat(compareAtPrice);
 
-                      // console.log(optionTitle, "fil");
-                      return (
-                        <ProductCard
-                          item={item}
-                          isDisabled={isDisabled}
-                          isLoading={isLoading}
-                          percentage={percentage}
-                          firstThreeWords={firstThreeWords}
-                          storeNameShort={storeNameShort}
-                          size={size}
-                          handleOnClick={handleOnClick}
-                          trackProductView={trackProductView}
-                        />
-                        // <div style={{ display: "flex", justifyContent: "center" }}>
-                        //   <div className={classes.boxcontairproduct}>
-                        //     {/* {console.log("Images", item?.node)} */}
-                        //     <Link
-                        //       href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //       as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //     >
-                        //       <a target="_blank">
-                        //         <img
-                        //           // onClick={() => clickHandler(item.node.product.slug)}
-                        //           src={
-                        //             item?.node?.product?.media[0]?.URLs?.medium
-                        //               ? item?.node?.product?.media[0]?.URLs?.medium
-                        //               : item?.node?.product?.media[0]?.URLs?.thumbnail
-                        //               ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                        //               : item?.node?.product?.media[0]?.URLs?.large
-                        //               ? item?.node?.product?.media[0]?.URLs?.large
-                        //               : item?.node?.product?.variants[0].media[0]?.URLs?.medium
-                        //               ? item?.node?.product?.variants[0].media[0]?.URLs?.medium
-                        //               : item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
-                        //               ? item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
-                        //               : item?.node?.product?.variants[0].media[1]?.URLs?.large
-                        //               ? item?.node?.product?.variants[0].media[1]?.URLs?.large
-                        //               : item?.node?.product?.variants[0].media[1]?.URLs?.medium
-                        //           }
-                        //           className={classes.image}
-                        //           key={item?.node?.product?.id}
-                        //           alt={item?.node?.product?.title}
-                        //         />
-                        //       </a>
-                        //     </Link>
+                        const percentage = Math.floor(
+                          ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                        );
 
-                        //     {/* <div className={classes.cartcontent}>
-                        //       <div
-                        //         className={classes.cartcontenttext}
-                        //         onCick={() => {
-                        //           trackProductView();
-                        //         }}
-                        //       >
-                        //         <Typography
-                        //           style={{
-                        //             fontWeight: "600",
-                        //             fontSize: "1rem",
-                        //             fontFamily: "lato",
-                        //             // marginTop: "10px",
-                        //             textTransform: "capitalize",
-                        //             marginLeft: "0px",
-                        //           }}
-                        //           variant="h4"
-                        //           component="h2"
-                        //           className={classes.carttitle}
-                        //         >
-                        //           {firstThreeWords}
-                        //         </Typography>
-                        //         <Typography
-                        //           className={classes.price}
-                        //           style={{
-                        //             fontWeight: "600",
-                        //             fontSize: "1rem",
-                        //             fontFamily: "lato",
-                        //             color: "#FDC114",
-                        //             marginLeft: "0px",
-                        //           }}
-                        //         >
-                        //           {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                        //             ?.replace(/\.00$/, "")
-                        //             .replace(/\$/g, "Rs. ")}
-                        //         </Typography>
-                        //         <div className={classes.strikethroughoff}>
-                        //           <strike className={classes.strikethrough}>
-                        //             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                        //               ?.replace(/\.00$/, "")
-                        //               .replace(/\$/g, "Rs. ")}
-                        //           </strike>
-                        //           <Typography
-                        //             style={{
-                        //               fontWeight: "600",
-                        //               fontSize: "0.9rem",
-                        //               fontFamily: "lato",
-                        //               marginLeft: "0px",
-                        //             }}
-                        //             variant="h4"
-                        //             component="h2"
-                        //             className={classes.carttitle2}
-                        //           >
-                        //             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                        //               `-${Math.abs(percentage)}%`}
-                        //           </Typography>
-                        //         </div>
-                        //       </div>
-                        //       <div className={classes.cartbackground}>
-                        //         <Typography
-                        //           style={{
-                        //             fontWeight: "600",
-                        //             fontSize: "0.8rem",
-                        //             fontFamily: "lato",
-                        //             left: "5px",
-                        //           }}
-                        //           variant="h4"
-                        //           component="h2"
-                        //           className={classes.cartsize}
-                        //         >
-                        //           Size{" "}
-                        //           <span className={classes.sizes}>
-                        //             {size == 0
-                        //               ? "XL"
-                        //               : "S" || size == 1
-                        //               ? "L"
-                        //               : "S" || size == 2
-                        //               ? "M"
-                        //               : "S" || size == 3
-                        //               ? "S"
-                        //               : "S"}
-                        //           </span>
-                        //         </Typography>
-                        //         {isLoading[item?.node?.product?.productId] ? (
-                        //           <CircularProgress className={classes.progressBar} />
-                        //         ) : (
-                        //           <Button
-                        //             className={classes.cart}
-                        //             onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        //             disabled={isDisabled || item?.node?.product?.isSoldOut}
-                        //           >
-                        //             <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        //             <Typography
-                        //               style={{ fontFamily: "Ostrich Sans Black" }}
-                        //               variant="h5"
-                        //               component="h2"
-                        //               className={classes.cartText}
-                        //             >
-                        //               {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        //             </Typography>
-                        //           </Button>
-                        //         )}
-                        //       </div>
-                        //     </div> */}
-                        //     <div>
-                        //       <div className={classes.cartButton}>
-                        //         <Button
-                        //           className={classes.cart}
-                        //           onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        //           disabled={isDisabled || item?.node?.product?.isSoldOut}
-                        //         >
-                        //           {isLoading[item?.node?.product?.productId] ? (
-                        //             <CircularProgress color="black" size="17px" className={classes.progressBar} />
-                        //           ) : (
-                        //             <>
-                        //               <div className={classes.cartButtonrowDiv}>
-                        //                 <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon" />
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontFamily: "Ostrich Sans Black",
-                        //                   }}
-                        //                   variant="h5"
-                        //                   component="h2"
-                        //                   className={classes.cartText}
-                        //                 >
-                        //                   {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        //                 </Typography>
-                        //               </div>
-                        //               <div>
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "0.9rem",
-                        //                     fontFamily: "lato",
-                        //                     marginLeft: "0px",
-                        //                   }}
-                        //                   variant="h4"
-                        //                   component="h2"
-                        //                   className={classes.carttitle2}
-                        //                 >
-                        //                   {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                        //                     `-${Math.abs(percentage)}%`}
-                        //                 </Typography>
-                        //               </div>
-                        //             </>
-                        //           )}
-                        //         </Button>
-                        //         {/* )} */}
-                        //       </div>
-                        //       <div>
-                        //         <div className={classes.cartcontent}>
-                        //           <div
-                        //             className={classes.cartcontenttext}
-                        //             onCick={() => {
-                        //               trackProductView();
-                        //             }}
-                        //           >
-                        //             <Link
-                        //               href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //               as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //             >
-                        //               <a target="_blank">
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "1rem",
-                        //                     fontFamily: "lato",
-                        //                     // marginTop: "10px",
-                        //                     textTransform: "capitalize",
-                        //                     marginLeft: "0px",
-                        //                   }}
-                        //                   variant="h4"
-                        //                   component="h2"
-                        //                   className={classes.carttitle}
-                        //                 >
-                        //                   {firstThreeWords}
-                        //                 </Typography>
-                        //               </a>
-                        //             </Link>
-                        //             <Typography className={classes.storeName}>
-                        //               Store Name:{" "}
-                        //               <Link
-                        //                 href={"/en/profile/[slugOrId]"}
-                        //                 as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
-                        //               >
-                        //                 <a target="_blank">
-                        //                   <span className={classes.storeNameStyle}>
-                        //                     {storeNameShort}
-                        //                   </span>
-                        //                 </a>
-                        //               </Link>
-                        //             </Typography>
-                        //             <div className={classes.cartButtonrowDiv2}>
-                        //               <div>
-                        //                 <Typography
-                        //                   className={classes.price}
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "1rem",
-                        //                     fontFamily: "lato",
-                        //                     color: "#FDC114",
-                        //                     marginLeft: "0px",
-                        //                     textDecoration: "line-through",
-                        //                   }}
-                        //                 >
-                        //                   {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                        //                     ?.replace(/\.00$/, "")
-                        //                     .replace(/\$/g, "Rs. ")}
-                        //                 </Typography>
-                        //                 <div className={classes.strikethroughoff}>
-                        //                   {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                        //                     ?.replace(/\.00$/, "")
-                        //                     .replace(/\$/g, "Rs. ")}
-                        //                 </div>
-                        //               </div>
-                        //               <div className={classes.cartbackground}>
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "0.8rem",
-                        //                     fontFamily: "lato",
-                        //                   }}
-                        //                   variant="h4"
-                        //                   component="h2"
-                        //                   className={classes.cartsize}
-                        //                 >
-                        //                   Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                        //                 </Typography>
-                        //               </div>
-                        //             </div>
-                        //           </div>
-                        //           {/* <div className={classes.cartbackground}>
-                        //     <Typography
-                        //       style={{
-                        //         fontWeight: "600",
-                        //         fontSize: "0.8rem",
-                        //         fontFamily: "lato",
-                        //         left: "5px",
-                        //       }}
-                        //       variant="h4"
-                        //       component="h2"
-                        //       className={classes.cartsize}
-                        //     >
-                        //       Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                        //     </Typography>
-
-                        //   </div> */}
-                        //         </div>
-                        //       </div>
-                        //     </div>
-                        //   </div>
-                        // </div>
-                      );
-                    })}
-                  </Masonry>
-                </ResponsiveMasonry>
-              </div>
+                        return (
+                          <ProductCard
+                            item={item}
+                            isDisabled={isDisabled}
+                            isLoading={isLoading}
+                            percentage={percentage}
+                            firstThreeWords={firstThreeWords}
+                            storeNameShort={storeNameShort}
+                            size={size}
+                            handleOnClick={handleOnClick}
+                            trackProductView={trackProductView}
+                          />
+                        );
+                      })}
+                    </Masonry>
+                  </ResponsiveMasonry>
+                </div>
+              ) : (
+                <div className={classes.skeletonClass}>
+                  <SkeletonLoader2 />
+                </div>
+              )}
             </Grid>
           </Grid>
           {/* Products Below Image   */}
@@ -2046,7 +1770,6 @@ function Categories(props) {
                       );
                       const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
 
-
                       const compareAtPrice =
                         item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
                           /[^0-9.]/g,
@@ -2073,282 +1796,6 @@ function Categories(props) {
                           handleOnClick={handleOnClick}
                           trackProductView={trackProductView}
                         />
-                        // <div style={{ display: "flex", justifyContent: "center" }}>
-                        //   <div className={classes.boxcontairproduct}>
-                        //     <Link
-                        //       href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //       as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //     >
-                        //       <a target="_blank">
-                        //         {/* {console.log("Images", item?.node)} */}
-                        //         <img
-                        //           src={
-                        //             item?.node?.product?.media[0]?.URLs?.thumbnail
-                        //               ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                        //               : item?.node?.product?.media[0]?.URLs?.medium
-                        //               ? item?.node?.product?.media[0]?.URLs?.medium
-                        //               : item?.node?.product?.media[0]?.URLs?.large
-                        //               ? item?.node?.product?.media[0]?.URLs?.large
-                        //               : item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
-                        //               ? item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
-                        //               : item?.node?.product?.variants[0].media[0]?.URLs?.medium
-                        //               ? item?.node?.product?.variants[0].media[0]?.URLs?.medium
-                        //               : item?.node?.product?.variants[0].media[1]?.URLs?.large
-                        //               ? item?.node?.product?.variants[0].media[1]?.URLs?.large
-                        //               : item?.node?.product?.variants[0].media[1]?.URLs?.medium
-                        //           }
-                        //           className={classes.image}
-                        //           key={item?.node?.product?.id}
-                        //           alt={"hhhh"}
-                        //           // onClick={() => clickHandler(item.node.product.slug)}
-                        //         />
-                        //       </a>
-                        //     </Link>
-
-                        //     {/* <div className={classes.cartcontent}>
-                        //     <div
-                        //       className={classes.cartcontenttext}
-                        //       onCick={() => {
-                        //         trackProductView();
-                        //       }}
-                        //     >
-                        //       <Typography
-                        //         style={{
-                        //           fontWeight: "600",
-                        //           fontSize: "1rem",
-                        //           fontFamily: "lato",
-                        //           // marginTop: "10px",
-                        //           textTransform: "capitalize",
-                        //           marginLeft: "0px",
-                        //         }}
-                        //         variant="h4"
-                        //         component="h2"
-                        //         className={classes.carttitle}
-                        //       >
-                        //         {firstThreeWords}
-                        //       </Typography>
-                        //       <Typography
-                        //         className={classes.price}
-                        //         style={{
-                        //           fontWeight: "600",
-                        //           fontSize: "1rem",
-                        //           fontFamily: "lato",
-                        //           color: "#FDC114",
-                        //           marginLeft: "0px",
-                        //         }}
-                        //       >
-                        //         {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                        //           ?.replace(/\.00$/, "")
-                        //           .replace(/\$/g, "Rs. ")}
-                        //       </Typography>
-                        //       <div className={classes.strikethroughoff}>
-                        //         <strike className={classes.strikethrough}>
-                        //           {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                        //             ?.replace(/\.00$/, "")
-                        //             .replace(/\$/g, "Rs. ")}
-                        //         </strike>
-                        //         <Typography
-                        //           style={{
-                        //             fontWeight: "600",
-                        //             fontSize: "0.9rem",
-                        //             fontFamily: "lato",
-                        //             marginLeft: "0px",
-                        //           }}
-                        //           variant="h4"
-                        //           component="h2"
-                        //           className={classes.carttitle2}
-                        //         >{`-${percentage}%`}</Typography>
-                        //       </div>
-                        //     </div>
-                        //     <div className={classes.cartbackground}>
-                        //       <Typography
-                        //         style={{
-                        //           fontWeight: "600",
-                        //           fontSize: "0.8rem",
-                        //           fontFamily: "lato",
-                        //           left: "5px",
-                        //         }}
-                        //         variant="h4"
-                        //         component="h2"
-                        //         className={classes.cartsize}
-                        //       >
-                        //         Size
-                        //         <span className={classes.sizes}>{formatSize(size, true)}</span>
-                        //       </Typography>
-                        //       {isLoading[item?.node?.product?.productId] ? (
-                        //         <CircularProgress size="30px" className={classes.progressBar} />
-                        //       ) : (
-                        //         <Button
-                        //           className={classes.cart}
-                        //           onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        //           disabled={isDisabled || item?.node?.product?.isSoldOut}
-                        //         >
-                        //           <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                        //           <Typography
-                        //             style={{ fontFamily: "Ostrich Sans Black" }}
-                        //             variant="h5"
-                        //             component="h2"
-                        //             className={classes.cartText}
-                        //           >
-                        //             {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        //           </Typography>
-                        //         </Button>
-                        //       )}
-                        //     </div>
-                        //   </div> */}
-                        //     <div>
-                        //       <div className={classes.cartButton}>
-                        //         <Button
-                        //           className={classes.cart}
-                        //           onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                        //           disabled={isDisabled || item?.node?.product?.isSoldOut}
-                        //         >
-                        //           {isLoading[item?.node?.product?.productId] ? (
-                        //             <CircularProgress color="black" size="17px" className={classes.progressBar} />
-                        //           ) : (
-                        //             <>
-                        //               <div className={classes.cartButtonrowDiv}>
-                        //                 <img
-                        //                   component="img"
-                        //                   src="/icons/cart.svg"
-                        //                   className={classes.cartimage}
-                        //                   alt="icon"
-                        //                 />
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontFamily: "Ostrich Sans Black",
-                        //                   }}
-                        //                   variant="h5"
-                        //                   component="h2"
-                        //                   className={classes.cartText}
-                        //                 >
-                        //                   {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                        //                 </Typography>
-                        //               </div>
-                        //               <div>
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "0.9rem",
-                        //                     fontFamily: "lato",
-                        //                     marginLeft: "0px",
-                        //                   }}
-                        //                   variant="h4"
-                        //                   component="h2"
-                        //                   className={classes.carttitle2}
-                        //                 >
-                        //                   {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                        //                     `-${Math.abs(percentage)}%`}
-                        //                 </Typography>
-                        //               </div>
-                        //             </>
-                        //           )}
-                        //         </Button>
-                        //         {/* )} */}
-                        //       </div>
-                        //       <div>
-                        //         <div className={classes.cartcontent}>
-                        //           <div
-                        //             className={classes.cartcontenttext}
-                        //             onCick={() => {
-                        //               trackProductView();
-                        //             }}
-                        //           >
-                        //             <Link
-                        //               href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //               as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        //             >
-                        //               <a target="_blank">
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "1rem",
-                        //                     fontFamily: "lato",
-                        //                     // marginTop: "10px",
-                        //                     textTransform: "capitalize",
-                        //                     marginLeft: "0px",
-                        //                   }}
-                        //                   variant="h4"
-                        //                   component="h2"
-                        //                   className={classes.carttitle}
-                        //                 >
-                        //                   {firstThreeWords}
-                        //                 </Typography>
-                        //               </a>
-                        //             </Link>
-                        //             <Typography className={classes.storeName}>
-                        //               Store Name:{" "}
-                        //               <Link
-                        //                 href={"/en/profile/[slugOrId]"}
-                        //                 as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
-                        //               >
-                        //                 <a target="_blank">
-                        //                   <span className={classes.storeNameStyle}>
-                        //                     {item?.node?.product?.variants[0]?.uploadedBy?.storeName}
-                        //                   </span>
-                        //                 </a>
-                        //               </Link>
-                        //             </Typography>
-                        //             <div className={classes.cartButtonrowDiv2}>
-                        //               <div>
-                        //                 <Typography
-                        //                   className={classes.price}
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "1rem",
-                        //                     fontFamily: "lato",
-                        //                     color: "#FDC114",
-                        //                     marginLeft: "0px",
-                        //                     textDecoration: "line-through",
-                        //                   }}
-                        //                 >
-                        //                   {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                        //                     ?.replace(/\.00$/, "")
-                        //                     .replace(/\$/g, "Rs. ")}
-                        //                 </Typography>
-                        //                 <div className={classes.strikethroughoff}>
-                        //                   {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                        //                     ?.replace(/\.00$/, "")
-                        //                     .replace(/\$/g, "Rs. ")}
-                        //                 </div>
-                        //               </div>
-                        //               <div className={classes.cartbackground}>
-                        //                 <Typography
-                        //                   style={{
-                        //                     fontWeight: "600",
-                        //                     fontSize: "0.8rem",
-                        //                     fontFamily: "lato",
-                        //                   }}
-                        //                   variant="h4"
-                        //                   component="h2"
-                        //                   className={classes.cartsize}
-                        //                 >
-                        //                   Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                        //                 </Typography>
-                        //               </div>
-                        //             </div>
-                        //           </div>
-                        //           {/* <div className={classes.cartbackground}>
-                        //     <Typography
-                        //       style={{
-                        //         fontWeight: "600",
-                        //         fontSize: "0.8rem",
-                        //         fontFamily: "lato",
-                        //         left: "5px",
-                        //       }}
-                        //       variant="h4"
-                        //       component="h2"
-                        //       className={classes.cartsize}
-                        //     >
-                        //       Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                        //     </Typography>
-
-                        //   </div> */}
-                        //         </div>
-                        //       </div>
-                        //     </div>
-                        //   </div>
-                        // </div>
                       );
                     })}
                   </Masonry>
