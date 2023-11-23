@@ -441,7 +441,7 @@ const NavigationDesktop = (props) => {
                         // onClose={handlePopoverClose}
                         disableRestoreFocus
                       >
-                        <Box sx={style}>
+                        <Box sx={style2}>
                           <div className={classes.modalitems}>
                             <div className={classes.modalitemstitle}>
                               {sellers?.map((item, i) => (
@@ -501,7 +501,7 @@ const NavigationDesktop = (props) => {
                         // onClose={handlePopoverClose}
                         disableRestoreFocus
                       >
-                        <Box sx={style}>
+                        <Box sx={style2}>
                           <div className={classes.modalitems}>
                             <div className={classes.modalitemstitle}>
                               {brands?.map((item, i) => (

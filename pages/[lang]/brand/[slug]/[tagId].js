@@ -1569,7 +1569,8 @@ function Categories(props) {
             </div>
           </Box>
           
-         
+          {catalogItems?.length > 0 ? (
+
                 <div className={classes.gridroot}>
                   <ResponsiveMasonry
               columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
@@ -1637,7 +1638,11 @@ function Categories(props) {
                     </Masonry>
                   </ResponsiveMasonry>
                 </div>
-            
+              ) : (
+                <div className={classes.skeletonClass}>
+                  <SkeletonLoader />
+                </div>
+              )}
           
           {/* Products Below Image   */}
 
