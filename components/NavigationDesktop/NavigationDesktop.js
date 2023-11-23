@@ -17,6 +17,7 @@ import useTagsQuery from "../../hooks/categoryTags/getTags";
 import useprimaryShop from "../../hooks/primaryShop/useprimaryShop";
 import useGetAllBrands from "../../hooks/brands/useGetAllBrands";
 import useGetAllStores from "../../hooks/sellers/useGetAllStores";
+import useViewer from "hooks/viewer/useViewer";
 
 const styles = (theme) => ({
   light: {
@@ -68,11 +69,7 @@ const styles = (theme) => ({
       color: "white",
       boxShadow: "inset 150px 0 0 0 #FDC114",
     },
-    // "&:active": {
-    //   textDecorationColor: "#FDC114",
-    //   textDecorationThickness: "3px", // Adjust the underline thickness
-    //   textDecorationLine: "underline", // Add an underline style for compatibility
-    // },
+   
   },
   currentCategory: {
     textDecorationColor: "#FDC114",
@@ -128,6 +125,7 @@ const tagsCategory = () => {
 const NavigationDesktop = (props) => {
   const [selectedPage, setselectedPage] = useState("");
   const [primaryShopId, refetch2] = useprimaryShop();
+  const [viewer, loading4, refetch4] = useViewer();
 
   const [categoryTags] = useTagsQuery(primaryShopId, "category-");
   const [brands, totalCount, loading, refetch] = useGetAllBrands(3, 0);
@@ -559,6 +557,8 @@ const NavigationDesktop = (props) => {
           >
             <span className={classes.headerHeadings}>Upload Product</span>
           </a>
+          {loading4 ? 
+          <></> :<>
           {props.viewer?.isSeller === true ? (
             <a
               style={{
@@ -580,6 +580,7 @@ const NavigationDesktop = (props) => {
               <span className={classes.headerHeadings}>Become a Seller</span>
             </a>
           )}
+          </> }
         </div>
       </nav>
     </>
