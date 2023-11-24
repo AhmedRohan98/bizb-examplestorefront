@@ -78,11 +78,12 @@ const AccountDropdown = ({ headerType }) => {
   const resetToken = router?.query?.resetToken;
   const classes = useStyles();
   const [anchorElement, setAnchorElement] = useState(null);
-  const [viewer, , refetch] = useViewer();
+  const [viewer, loading, refetch] = useViewer();
   const { accountsClient } = getAccountsHandler();
   const isAuthenticated = viewer && viewer._id;
 
   useEffect(() => {
+    console.log("viewer loading state", loading)
     // Open the modal in case of reset-password link
     if (!resetToken) {
       return;
@@ -118,6 +119,9 @@ const AccountDropdown = ({ headerType }) => {
   return (
     <Fragment headerType>
       <EntryModal onClose={onClose} resetToken={resetToken} />
+      {loading?
+      <></>:
+      <>
       {isAuthenticated ? (
         <ButtonBase onClick={toggleOpen} className={classes.dropdownButton}>
           <ViewerInfo viewer={viewer} headerType={headerType} />
@@ -132,13 +136,15 @@ const AccountDropdown = ({ headerType }) => {
         >
           <span>
             {headerType ? (
-              <img src="/icons/user.png" className={classes.imgSize} />
+              <img src="/icons/user.png" className={classes.imgSize} alt="icons" />
             ) : (
-              <img src="/icons/user.png" className={classes.imgSize} />
+              <img src="/icons/user.png" className={classes.imgSize} alt="icons" />
             )}
           </span>
         </IconButton>
       )}
+      </>
+      }
 
       <Popover
         className={classes.popover}

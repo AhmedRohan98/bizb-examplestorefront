@@ -5,15 +5,13 @@ query getAllBrands(
 ) {
   getAllBrands(first: $first, offset: $offset, searchQuery: $searchQuery) {
     totalCount
-    nodes {
+       nodes{
       _id
-      brandName
-      brandCategory
-      brandProduct {
-        description
-        _id
-        pageTitle
-      }
+      slug
+      heroMediaUrl
+      displayTitle
+      name
     }
   }
+
 }

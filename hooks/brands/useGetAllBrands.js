@@ -6,13 +6,13 @@ import getAllBrands from "./getAllBrands.gql";
  *
  * @returns {Array} the viewer's data
  */
-export default function useGetAllBrands(first, offset, query) {
+export default function useGetAllBrands(first, offset,searchQuery) {
     const authToken = typeof window !== "undefined" ? window.localStorage.getItem("accounts:accessToken") : undefined;
     const { loading, data, refetch, fetchMore } = useQuery(getAllBrands, {
         variables: {
             first,
             offset,
-            query,
+            searchQuery
         },
     });
     const brands = data?.getAllBrands?.nodes;

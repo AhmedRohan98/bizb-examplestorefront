@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../../components/Layout";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import {
+  Box,
+  Divider,
+  Typography,
+  Button,
+  Modal,
+  FormControl,
+  InputLabel,
+  TextField,
+  CircularProgress,
+  InputAdornment,
+  Avatar,
+  MenuItem,
+  Grid,
+  Hidden,
+  Select,
+} from "@material-ui/core";
 import PageLoading from "../../../components/PageLoading/PageLoading";
 import Link from "next/link";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import withCart from "containers/cart/withCart";
 import PageStepper from "../../../components/PageStepper/PageStepper";
 import { withApollo } from "lib/apollo/withApollo";
@@ -14,31 +27,46 @@ import SellersCatalogItems from "containers/catalog/withSellerCatalogItem";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import variantById from "../../../lib/utils/variantById";
-
+import useTagsQuery from "../../../hooks/categoryTags/getTags";
 import formatSize from "../../../lib/utils/formatSize";
 import { makeStyles } from "@material-ui/core/styles";
 import inject from "../../../hocs/inject";
 import CloseIcon from "@material-ui/icons/Close";
-import { CircularProgress, Hidden } from "@material-ui/core";
 import fetchPrimaryShop from "../../../staticUtils/shop/fetchPrimaryShop";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
 import SkeletonLoader from "../../../components/Justin/skeletonLoader";
 import Skeleton from "@material-ui/lab/Skeleton";
+import useprimaryShop from "../../../hooks/primaryShop/useprimaryShop";
+import IconButton from "@material-ui/core/IconButton";
+import Sort from "@material-ui/icons/Sort";
+import ProductCard from "../../../components/ProductCard/ProductCard";
 
 function SellerPublicProfile(props) {
   // console.log("props", props);
   const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
+  const [primaryShopId, refetch2] = useprimaryShop();
+
+  const [categoryTags] = useTagsQuery(primaryShopId, "category-");
+  const [categoryID, setcategoryID] = React.useState("");
 
   const [queue, setQueue] = useState([]);
   const [processing, setProcessing] = useState(false);
+  const [categoryProduct, setcategoryProduct] = React.useState("Select a Category");
 
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
+  React.useEffect(() => {
+    if (!categoryTags && !primaryShopId) {
+      refetch2();
+    }
+
+    console.log("categoryTags in component is", props);
+  }, [primaryShopId, categoryTags]);
 
   useEffect(() => {
     processQueue();
@@ -79,6 +107,27 @@ function SellerPublicProfile(props) {
     image: {
       width: "275px", // Reduced by 1px to create space for the border
       maxHeight: "600px",
+      marginTop: "1px",
+      borderRadius: "10px",
+      marginRight: "2px",
+      marginLeft: "1px",
+      objectFit: "cover",
+      cursor: "pointer",
+      [theme.breakpoints.up("lg")]: {
+        width: "275px", // Reduced by 1px to create space for the border
+      },
+      [theme.breakpoints.down("lg")]: {
+        width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "150px", // Reduced by 1px to create space for the border
+        height: "200px",
+      },
+    },
+    image2: {
+      width: "475px", // Reduced by 1px to create space for the border
+      maxHeight: "600px",
+      height: "300px",
       marginTop: "1px",
       borderRadius: "10px",
       marginRight: "2px",
@@ -271,6 +320,70 @@ function SellerPublicProfile(props) {
         marginLeft: theme.spacing(3),
       },
     },
+    centerDiv: {
+      display: "flex",
+      justifyContent: "center",
+    },
+    notfoundtext: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    divForSearch: {
+      flexDirection: "column",
+    },
+    sortdiv: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    selectDropdown: {
+      borderBottom: "none",
+
+      // boxShadow: "none",
+      // border:"none",
+      // backgroundColor:"none",
+      //  "& .MuiInputLabel-root": { display:"none"},
+      //   "& .MuiInput-notchedOutline": { border: 0 },
+      "&&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: 0,
+      },
+      "& .MuiSelect-select.MuiSelect-select": {
+        padding: "10px",
+      },
+      "&&.MuiInput-underline:before": {
+        borderBottom: "none",
+      },
+      "&&.MuiInput-underline:after": {
+        borderBottom: "none",
+      },
+      // "& .MuiInput-underline:after":{
+      //   borderBottom:"none"
+      // }
+    },
+    imgdiv:{
+      display:"flex",
+      alignItems:"center",
+      flexDirection:"column"
+      
+    },
+    imgSize: {
+      width: "41%",
+      height: "18%",
+      marginTop: "3px",
+    },
+    textstyle: {
+      fontFamily: "Ostrich Sans Black",
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      color: "black",
+     
+    },
+    countdiv:{
+      [theme.breakpoints.down(600)]: {
+
+      display:"flex",
+      justifyContent:"center"}
+    }
   }));
   // console.log(props.totalcount, "propertiese");
   const router = useRouter();
@@ -281,8 +394,11 @@ function SellerPublicProfile(props) {
     uiStore?.setPageSize(15);
 
     uiStore?.setsellerId(slugOrId);
-  }, [slugOrId]);
+  }, [slugOrId, props]);
   useEffect(() => {
+    console.log("props?.catalogItems?", props?.catalogItems?.totalCount);
+
+    console.log("total count", props);
     const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = props?.catalogItems.some((product) => {
         return item?.productConfiguration?.productId === product?.node.product?.productId;
@@ -517,7 +633,7 @@ function SellerPublicProfile(props) {
             textTransform: "capitalize",
           }}
         />
-        <img src="/profile/profilebanner.webp" className={classes.profilebaner} />
+        <img src="/profile/profilebanner.webp" className={classes.profilebaner} alt="icon" />
         <div className="sellerProfile">
           <Grid container className="publicProfile__profileInfoWrapper">
             <Grid xs={12} item className="publicProfile__profileInfoSection">
@@ -597,12 +713,54 @@ function SellerPublicProfile(props) {
                   </Grid>
                 </Hidden>
               </div>
+              <div className={classes.divForSearch}>
+                <div className={classes.sortdiv}>
+                  <IconButton>
+                    <Sort style={{ color: "black" }} />
+                  </IconButton>
+                  <FormControl
+                    style={{
+                      width: "260px",
+                      borderRadius: "8px",
+                      backgroundColor: "#F7F7F9",
+                      marginTop: "5px",
+                      borderBottom: "none",
+                    }}
+                  >
+                    <Select
+                      notched={false}
+                      className={classes.selectDropdown}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      // onChange={(event) => handleChange(event, 'Category')}
+                      // error={!!categoryError}
+
+                      label="Sort By"
+                    >
+                      {categoryTags?.slice(0, 6).map((category) => (
+                        <MenuItem
+                          key={category._id}
+                          value={category.displayTitle}
+                          onClick={() => {
+                            setcategoryID(category._id);
+                            console.log("key", category._id);
+                          }}
+                        >
+                          <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
+                            {category.displayTitle}
+                          </Typography>
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
             </Grid>
             <Grid xs={12}>
               <Hidden smUp>
                 <Grid container>
                   <Grid item xs={12} md={8} lg={6} xl={4}>
-                    <div className="publicProfile__infoMeta">
+                    <div className={classes.countdiv}>
                       <div className="sellerProfile__infoMetaRow">
                         <Typography className="sellerProfile__infoMetaContent" variant="h5">
                           {props?.totalcount}
@@ -680,7 +838,7 @@ function SellerPublicProfile(props) {
                   // Access the "size" property
                   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                   {
-                    console.log("validOptionTitle", validOptionTitle, "size", size);
+                    console.log("validOptionTitle", item);
                   }
                   const str = item?.node?.product?.title;
                   const words = str.match(/[a-zA-Z0-9]+/g);
@@ -706,127 +864,147 @@ function SellerPublicProfile(props) {
 
                   // console.log(optionTitle, "fil");
                   return (
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <div className={classes.boxcontairproduct}>
-                        {/* {console.log("Images", item?.node)} */}
-                        <Link
-                          href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                          as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                        >
-                          <a target="_blank">
-                            <img
-                              src={
-                                item?.node?.product?.media[0]?.URLs?.medium
-                                  ? item?.node?.product?.media[0]?.URLs?.medium
-                                  : item?.node?.product?.media[0]?.URLs?.thumbnail
-                                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                                  : item?.node?.product?.media[0]?.URLs?.large
-                              }
-                              className={classes.image}
-                              key={item?.node?.product?.id}
-                              // onClick={() => clickHandler(item.node.product.slug)}
-                              alt={item?.node?.product?.title}
-                            />
-                          </a>
-                        </Link>
+                    <ProductCard
+                      item={item}
+                      isDisabled={isDisabled}
+                      isLoading={isLoading}
+                      percentage={percentage}
+                      firstThreeWords={firstThreeWords}
+                      // storeNameShort={storeNameShort}
+                      size={size}
+                      handleOnClick={handleOnClick}
+                      // trackProductView={trackProductView}
+                    />
+                    // <div style={{ display: "flex", justifyContent: "center" }}>
+                    //   <div className={classes.boxcontairproduct}>
+                    //     {/* {console.log("Images", item?.node)} */}
+                    //     <Link
+                    //       href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                    //       as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                    //     >
+                    //       <a target="_blank">
+                    //         <img
+                    //           src={
+                    //             item?.node?.product?.media[0]?.URLs?.medium
+                    //               ? item?.node?.product?.media[0]?.URLs?.medium
+                    //               : item?.node?.product?.media[0]?.URLs?.thumbnail
+                    //               ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                    //               : item?.node?.product?.media[0]?.URLs?.large
+                    //           }
+                    //           className={classes.image}
+                    //           key={item?.node?.product?.id}
+                    //           // onClick={() => clickHandler(item.node.product.slug)}
+                    //           alt={item?.node?.product?.title}
+                    //         />
+                    //       </a>
+                    //     </Link>
 
-                        <div className={classes.cartcontent}>
-                          <div className={classes.cartcontenttext}>
-                            <Typography
-                              style={{
-                                fontWeight: "600",
-                                fontSize: "1rem",
-                                fontFamily: "lato",
-                                // marginTop: "10px",
-                                textTransform: "capitalize",
-                                marginLeft: "0px",
-                              }}
-                              variant="h4"
-                              component="h2"
-                              className={classes.carttitle}
-                            >
-                              {firstThreeWords}
-                            </Typography>
-                            <Typography
-                              className={classes.price}
-                              style={{
-                                fontWeight: "600",
-                                fontSize: "1rem",
-                                fontFamily: "lato",
-                                color: "#FDC114",
-                                marginLeft: "0px",
-                              }}
-                            >
-                              {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                                ?.replace(/\.00$/, "")
-                                .replace(/\$/g, "Rs. ")}
-                            </Typography>
-                            <div className={classes.strikethroughoff}>
-                              <strike className={classes.strikethrough}>
-                                {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                                  ?.replace(/\.00$/, "")
-                                  .replace(/\$/g, "Rs. ")}
-                              </strike>
-                              <Typography
-                                style={{
-                                  fontWeight: "600",
-                                  fontSize: "0.9rem",
-                                  fontFamily: "lato",
-                                  marginLeft: "0px",
-                                }}
-                                variant="h4"
-                                component="h2"
-                                className={classes.carttitle2}
-                              >
-                                {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                                  `-${Math.abs(percentage)}%`}
-                              </Typography>
-                            </div>
-                          </div>
-                          <div className={classes.cartbackground}>
-                            <Typography
-                              style={{
-                                fontWeight: "600",
-                                fontSize: "0.8rem",
-                                fontFamily: "lato",
-                                left: "5px",
-                              }}
-                              variant="h4"
-                              component="h2"
-                              className={classes.cartsize}
-                            >
-                              Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                            </Typography>
-                            {isLoading[item?.node?.product?.productId] ? (
-                              <CircularProgress className={classes.progressBar} />
-                            ) : (
-                              <Button
-                                className={classes.cart}
-                                onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                                disabled={isDisabled || item?.node?.product?.isSoldOut}
-                              >
-                                <img component="img" src="/icons/cart.svg" className={classes.cartimage} />
-                                <Typography
-                                  style={{ fontFamily: "Ostrich Sans Black" }}
-                                  variant="h5"
-                                  component="h2"
-                                  className={classes.cartText}
-                                >
-                                  {isDisabled ? "Added" : item?.node?.product?.isSoldOut ? "Sold" : "+ Cart"}
-                                </Typography>
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    //     <div className={classes.cartcontent}>
+                    //       <div className={classes.cartcontenttext}>
+                    //         <Typography
+                    //           style={{
+                    //             fontWeight: "600",
+                    //             fontSize: "1rem",
+                    //             fontFamily: "lato",
+                    //             // marginTop: "10px",
+                    //             textTransform: "capitalize",
+                    //             marginLeft: "0px",
+                    //           }}
+                    //           variant="h4"
+                    //           component="h2"
+                    //           className={classes.carttitle}
+                    //         >
+                    //           {firstThreeWords}
+                    //         </Typography>
+                    //         <Typography
+                    //           className={classes.price}
+                    //           style={{
+                    //             fontWeight: "600",
+                    //             fontSize: "1rem",
+                    //             fontFamily: "lato",
+                    //             color: "#FDC114",
+                    //             marginLeft: "0px",
+                    //           }}
+                    //         >
+                    //           {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                    //             ?.replace(/\.00$/, "")
+                    //             .replace(/\$/g, "Rs. ")}
+                    //         </Typography>
+                    //         <div className={classes.strikethroughoff}>
+                    //           <strike className={classes.strikethrough}>
+                    //             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                    //               ?.replace(/\.00$/, "")
+                    //               .replace(/\$/g, "Rs. ")}
+                    //           </strike>
+                    //           <Typography
+                    //             style={{
+                    //               fontWeight: "600",
+                    //               fontSize: "0.9rem",
+                    //               fontFamily: "lato",
+                    //               marginLeft: "0px",
+                    //             }}
+                    //             variant="h4"
+                    //             component="h2"
+                    //             className={classes.carttitle2}
+                    //           >
+                    //             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
+                    //               `-${Math.abs(percentage)}%`}
+                    //           </Typography>
+                    //         </div>
+                    //       </div>
+                    //       <div className={classes.cartbackground}>
+                    //         <Typography
+                    //           style={{
+                    //             fontWeight: "600",
+                    //             fontSize: "0.8rem",
+                    //             fontFamily: "lato",
+                    //             left: "5px",
+                    //           }}
+                    //           variant="h4"
+                    //           component="h2"
+                    //           className={classes.cartsize}
+                    //         >
+                    //           Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                    //         </Typography>
+                    //         {isLoading[item?.node?.product?.productId] ? (
+                    //           <CircularProgress className={classes.progressBar} />
+                    //         ) : (
+                    //           <Button
+                    //             className={classes.cart}
+                    //             onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                    //             disabled={isDisabled || item?.node?.product?.isSoldOut}
+                    //           >
+                    //             <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon" />
+                    //             <Typography
+                    //               style={{ fontFamily: "Ostrich Sans Black" }}
+                    //               variant="h5"
+                    //               component="h2"
+                    //               className={classes.cartText}
+                    //             >
+                    //               {isDisabled ? "Added" : item?.node?.product?.isSoldOut ? "Sold" : "+ Cart"}
+                    //             </Typography>
+                    //           </Button>
+                    //         )}
+                    //       </div>
+                    //     </div>
+                    //   </div>
+                    // </div>
                   );
                 })}
               </Masonry>
             </ResponsiveMasonry>
           </div>
-        ) : (
+        ) : props?.loading ? (
           <SkeletonLoader />
+        ) : (
+          props?.totalcount === 0 && (
+            <div className={classes.imgdiv}>
+              <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
+              <Typography variant="h6" className={classes.textstyle}>
+                No Products Found
+              </Typography>
+            </div>
+          )
         )}
 
         <div className={classes.loadmore}>

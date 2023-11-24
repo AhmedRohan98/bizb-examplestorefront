@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import inject from "hocs/inject";
 import classNames from "classnames";
@@ -9,10 +9,17 @@ import { NavigationItemDesktop } from "components/NavigationDesktop";
 import Link from "components/Link/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/react-hooks";
 import categoryTags from "../../hooks/categoryTags/getTags.gql";
 import { sendGraphQLQuery } from "./graphqlUtils";
 import Router from "next/router";
+import useTagsQuery from "../../hooks/categoryTags/getTags";
+import useprimaryShop from "../../hooks/primaryShop/useprimaryShop";
+import useGetAllBrands from "../../hooks/brands/useGetAllBrands";
+import useGetAllStores from "../../hooks/sellers/useGetAllStores";
+import useViewer from "hooks/viewer/useViewer";
+import { PlayArrow } from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
 
 const styles = (theme) => ({
   light: {
@@ -59,16 +66,12 @@ const styles = (theme) => ({
     // margin: "0 -.25rem",
     // padding: "0 .25rem",
     transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
-
+    
     "&:hover": {
       color: "white",
       boxShadow: "inset 150px 0 0 0 #FDC114",
     },
-    // "&:active": {
-    //   textDecorationColor: "#FDC114",
-    //   textDecorationThickness: "3px", // Adjust the underline thickness
-    //   textDecorationLine: "underline", // Add an underline style for compatibility
-    // },
+
   },
   currentCategory: {
     textDecorationColor: "#FDC114",
@@ -82,7 +85,11 @@ const styles = (theme) => ({
   paper: {
     padding: theme.spacing(0),
   },
-  headerHeadings:{
+  paper2: {
+    padding: 0,
+    top: "20px",
+  },
+  headerHeadings: {
     marginRight: "40px",
     padding: "9px 11px",
     marginLeft: "30px",
@@ -92,375 +99,515 @@ const styles = (theme) => ({
     "&:hover": {
       color: "white",
       boxShadow: "inset 150px 0 0 0 #FDC114",
-      borderRadius:"18px"
+      borderRadius: "18px",
     },
-    [theme.breakpoints.down(1300)]: {
+    [theme.breakpoints.down(1700)]: {
       fontSize: "13px",
       marginLeft: "2px",
-
-
     },
-  }
+  },
 });
 
-const tagsCategory = () => (
-  <Query
-    errorPolicy="all"
-    query={categoryTags}
-    variables={{
+const tagsCategory = () => {
+  const { loading, error, data } = useQuery(categoryTags, {
+    errorPolicy: "all",
+    variables: {
       shopId: process.env.SHOP_ID,
       filter: "category-",
-    }}
-  >
-    {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error</p>;
-      const { viewer } = data;
-      return <NavigationDesktop data={data} />;
-    }}
-  </Query>
-);
+    },
+  });
 
-class NavigationDesktop extends Component {
-  static propTypes = {
-    classes: PropTypes.object,
-    navItems: PropTypes.object,
-    tags: PropTypes.arrayOf(),
-    viewer: PropTypes.object,
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error</p>;
+
+  const { viewer } = data;
+  return <NavigationDesktop data={data} />;
+};
+
+const NavigationDesktop = (props) => {
+  const [selectedPage, setselectedPage] = useState("");
+  const [primaryShopId, refetch2] = useprimaryShop();
+  const [viewer, loading4, refetch4] = useViewer();
+
+  const [categoryTags] = useTagsQuery(primaryShopId, "category-");
+  const [brands, totalCount, loading, refetch] = useGetAllBrands(3, 0);
+  const [sellers, totalCount2, loading2, refetch3] = useGetAllStores(3, 0);
+
+  const [state, setState] = useState({
+    anchorEl: null,
+    anchorEl2: null,
+    anchorEl3: null,
+    anchorEl4: null,
+    anchorEl5: null,
+    categoryTagsInfo: null,
+    selectedPage: null,
+    currentLink: null,
+    originalData: ["Juniors", "Casuals", "Party Wear", "Live Sessions", "Shoes", "Accessories", "Western"],
+    customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Live Sessions"],
+    mappedData: [],
+    mappedData2: [
+      { name: "Brands", url: "/en/brands" },
+      { name: "Stores", url: "/en/stores" },
+    ],
+    // Other state variables...
+  });
+
+  const style = {
+    borderRadius: "8px",
+    "&::before": {
+      backgroundColor: "#fdc114",
+      content: '""',
+      display: "block",
+      position: "absolute",
+      width: 12,
+      height: 12,
+      top: -6,
+      transform: "rotate(45deg)",
+      left: "calc(50% - 6px)",
+    },
+    left: "15%",
+    bgcolor: "#ffffff",
+    outline: "none",
+    padding: "10px 0px",
+    boxShadow: 24,
+  };
+  const style2 = {
+    borderRadius: "8px",
+    "&::before": {
+      backgroundColor: "#fdc114",
+      content: '""',
+      width: 12,
+      height: 12,
+      top: 21,
+     
+      left: "-6px",
+    },
+    left: "15%",
+    bgcolor: "#ffffff",
+    outline: "none",
+    padding: "10px 0px",
+    boxShadow: 24,
   };
 
-  static defaultProps = {
-    classes: {},
-    navItems: {},
-    headerType: false,
-    viewer: {},
+  useEffect(() => {
+    mapData();
+    console.log("categoryTagscategoryTags", categoryTags, primaryShopId);
+    // Additional useEffect logic...
+  }, [categoryTags, primaryShopId]);
+
+  const setAnchorEl = (value) => {
+    setState((prevState) => ({ ...prevState, anchorEl: value }));
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      anchorEl: null,
-      categoryTagsInfo: null,
-      selectedPage: null,
-      currentLink: null,
-      originalData: ["Juniors", "Casuals", "Party Wear", "Shoes", "Accessories", "Western"],
-      customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes"],
-      mappedData: [],
-    };
+  // Other setAnchorEl functions...
 
-    // Bind the class methods in the constructor
-    this.handlePopOverOpen = this.handlePopOverOpen.bind(this);
-    this.handlePopOverClose = this.handlePopOverClose.bind(this);
-  }
-  mapData() {
-    const { originalData, customOrder, categoryTagsInfo } = this.state;
+  const handlePopOverClose = () => {
+    setState((prevState) => ({ ...prevState, anchorEl: null }));
+  };
 
-    const mappedData = customOrder
+  // Other handlePopOverClose functions...
+
+  const handlePopOverOpen = (event) => {
+    setState((prevState) => ({ ...prevState, anchorEl: event.currentTarget }));
+  };
+  const handlePopOverClose2 = () => {
+    setState((prevState) => ({ ...prevState, anchorEl2: null }));
+  };
+
+  // Other handlePopOverClose functions...
+
+  const handlePopOverOpen2 = (event) => {
+    setState((prevState) => ({ ...prevState, anchorEl2: event.currentTarget }));
+  };
+  const handlePopOverClose3 = () => {
+    setState((prevState) => ({ ...prevState, anchorEl3: null }));
+  };
+
+  // Other handlePopOverClose functions...
+
+  const handlePopOverOpen3 = (event) => {
+    setState((prevState) => ({ ...prevState, anchorEl3: event.currentTarget }));
+  };
+  const handlePopOverClose4 = () => {
+    setState((prevState) => ({ ...prevState, anchorEl4: null }));
+  };
+
+  // Other handlePopOverClose functions...
+
+  const handlePopOverOpen4 = (event) => {
+    setState((prevState) => ({ ...prevState, anchorEl4: event.currentTarget }));
+  };
+  const handlePopOverClose5 = () => {
+    setState((prevState) => ({ ...prevState, anchorEl5: null }));
+  };
+
+  // Other handlePopOverClose functions...
+
+  const handlePopOverOpen5 = (event) => {
+    setState((prevState) => ({ ...prevState, anchorEl5: event.currentTarget }));
+  };
+
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await sendGraphQLQuery();
+  //     console.log("user 1", response);
+  //     setState((prevState) => ({
+  //       ...prevState,
+  //       categoryTagsInfo: response.data.tags.nodes,
+  //     }));
+  //     mapData();
+  //   } catch (error) {
+  //     console.error("user", error);
+  //   }
+  // };
+
+  // Other handlePopOverOpen functions...
+  const mapData = () => {
+    const { originalData, customOrder } = state;
+    console.log("user 1 data tem", categoryTags);
+
+    const maData = customOrder
       .map((item) => {
-        const dataItem = categoryTagsInfo.find((originalItem) => originalItem.displayTitle === item);
+        console.log("user 1 data tem", categoryTags);
+        const dataItem = categoryTags?.find((originalItem) => originalItem.displayTitle === item);
+        console.log("user 1 category tem dataItem", dataItem);
+
         return dataItem ? { ...dataItem } : null;
       })
       .filter(Boolean);
 
-    this.setState({ mappedData });
-    // console.log("this.mapData();", categoryTagsInfo)
-    console.log("this.mapData();", this.state.mappedData);
-  }
-  componentDidMount() {
-    this.fetchData();
-
-    const currentLink = Router.pathname;
-    // this.mapData();
-
-    // console.log("withRouter", this.state.selectedPage, "jkj", Router.pathname);
-    // console.log("viewerviewer", this.props.viewer)
-    // console.log("this.mapData();", this.mapData())
-  }
-
-  // function that updates the anchorEl state
-  setAnchorEl = (value) => {
-    this.setState({ anchorEl: value });
+    setState((prevState) => ({ ...prevState, mappedData: maData }));
   };
 
-  handlePopOverClose = () => {
-    // console.log("hover");
-    this.setState({
-      anchorEl: null,
-    });
-    console.log("after hover");
-  };
+  // Other functions...
 
-  handlePopOverOpen = (event) => {
-    console.log("hover open");
-    this.setState({
-      anchorEl: event.currentTarget,
-    });
-    // console.log("after hover open");
-  };
+  const { classes, navItems, tags, headerType } = props;
+  const { mappedData, mappedData2, anchorEl, anchorEl2, anchorEl3, anchorEl4, anchorEl5, categoryTagsInfo } = state;
+  console.log("user 1 categoryTagsInfo", categoryTagsInfo);
 
-  renderNavItem(navItem, index) {
-    return <NavigationItemDesktop key={index} navItem={navItem} />;
-  }
+  // Other component logic...
+  const tagsData = categoryTags;
 
-  fetchData = async () => {
-    // console.log("NavigationDesktop222", this.props.data)
+  return (
+    <>
+      <nav>
+        <div className={headerType ? classNames(classes.light) : classNames(classes.dark)}>
+          <Link
+            href="/"
+            onClick={() => {
+              setselectedPage("/[lang]");
+            }}
+          >
+            <span
+              className={classes.headerHeadings}
+              style={{
+                marginBottom: "-4px",
 
-    console.log("user");
-    try {
-      console.log("user try");
-      const response = await sendGraphQLQuery();
-
-      // Handle the response data
-      console.log("user 1");
-
-      console.log("NavigationDesktop222", response);
-      this.setState({
-        categoryTagsInfo: response.data.tags.nodes,
-      });
-      this.mapData();
-
-      // this.state.categoryTagsInfo(response.data.tags.nodes)
-      console.log("NavigationDesktop222", this.state.categoryTagsInfo);
-    } catch (error) {
-      console.log("called catch");
-      // Handle any errors
-      console.error("user", error);
-    }
-  };
-
-  render() {
-    const {
-      classes,
-      navItems,
-      tags,
-
-      headerType,
-    } = this.props;
-    const { mappedData } = this.state;
-
-    const style = {
-      borderRadius: "8px",
-      "&::before": {
-        backgroundColor: "#fdc114",
-        content: '""',
-        display: "block",
-        position: "absolute",
-        width: 12,
-        height: 12,
-        top: -6,
-        transform: "rotate(45deg)",
-        left: "calc(50% - 6px)",
-      },
-      left: "15%",
-      bgcolor: "#ffffff",
-      outline: "none",
-      padding: "10px 0px",
-      boxShadow: 24,
-    };
-    const { anchorEl } = this.state;
-    console.log(tags?.nodes);
-    console.log(this.state.categoryTagsInfo);
-    const tagsData = tags?.nodes ? tags?.nodes : this.state.categoryTagsInfo;
-
-    const ITEMScategory = [
-      {
-        image: "/categoriestypes/junior.svg",
-        id: 1,
-        title: "Casual",
-      },
-      {
-        image: "/categoriestypes/causal.svg",
-        id: 2,
-        title: "Western",
-      },
-      {
-        image: "/categoriestypes/party.svg",
-        id: 3,
-        title: "Shoes",
-      },
-      {
-        image: "/categoriestypes/shoes.svg",
-        id: 4,
-        title: "Bridal",
-      },
-      {
-        image: "/categoriestypes/asseso.svg",
-        id: 5,
-        title: "Party Wear",
-      },
-      {
-        image: "/categoriestypes/westrn.svg",
-        id: 6,
-        title: "Accessories",
-      },
-      {
-        image: "/categoriestypes/seller.png",
-        id: 7,
-        title: "Accessories",
-      },
-    ];
-    return (
-      <>
-        <nav>
-          <div className={headerType ? classNames(classes.light) : classNames(classes.dark)}>
-            <Link
-              href="/"
-              onClick={() =>
-                this.setState({
-                  selectedPage: "/[lang]",
-                })
-              }
+                textDecorationColor: Router.pathname === "/[lang]" ? "#FDC114" : null,
+                textDecorationThickness: Router.pathname === "/[lang]" ? "3px" : null, // Adjust the underline thickness
+                textDecorationLine: Router.pathname === "/[lang]" ? "underline" : null, // Add an underline style for compatibility
+              }}
             >
-              <span
-                  className={classes.headerHeadings}
-                  style={{
-                 
+              Home
+            </span>
+          </Link>
+          <a href="/en/explore">
+            <span
+              onMouseEnter={handlePopOverOpen}
+              onClick={() => {
+                setselectedPage("/[lang]/categories/[tagId]");
+              }}
+              // onMouseLeave={this.handlePopOverClose}
+              className={classes.headerHeadings}
+              style={{
+                textDecorationColor:
+                  Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                    ? "#FDC114"
+                    : null,
+                textDecorationThickness:
+                  Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                    ? "3px"
+                    : null, // Adjust the underline thickness
+                textDecorationLine:
+                  Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                    ? "underline"
+                    : null, // Add an underline style for compatibility
+              }}
+            >
+              Explore
+            </span>
+            <Popover
+              className={classes.popover}
+              classes={{
+                paper: classes.paper,
+              }}
+              anchorEl={anchorEl}
+              transformOrigin={{
+                vertical: "center",
+                horizontal: "center",
+              }}
+              anchorOrigin={{
+                vertical: "center",
+                horizontal: "center",
+                marginTop: "50px",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handlePopOverClose}
+              style={{ marginTop: "100px" }}
+              // onClose={handlePopoverClose}
+              disableRestoreFocus
+            >
+              <Box sx={style}>
+                <div className={classes.modalitems}>
+                  <div className={classes.modalitemstitle}>
+                    <a className={classes.categoryTagsLink}>
+                      <span onClick={handlePopOverOpen3}>
+                        <Typography variant="h6" className={classes.catgorytitle}>
+                          Shop By Category
+                          <IconButton style={{ padding:"0px"}}>
+                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                          </IconButton>
+                        </Typography>
+                      </span>
 
-                  marginBottom: "-4px",
+                      <Popover
+                        className={classes.popover}
+                        classes={{
+                          paper: classes.paper,
+                        }}
+                        anchorEl={anchorEl3}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                          marginTop: "0px",
+                        }}
+                        open={Boolean(anchorEl3)}
+                        onClose={handlePopOverClose3}
+                        style={{ marginTop: "0" }}
+                        // onClose={handlePopoverClose}
+                        disableRestoreFocus
+                      >
+                        <Box sx={style2}>
+                          <div className={classes.modalitems}>
+                            <div className={classes.modalitemstitle}>
+                              {console.log("user 1", mappedData)}
+                              {mappedData?.map((itemtitle, i) => (
+                                <a
+                                  href={
+                                    itemtitle.displayTitle === "Become a Seller"
+                                      ? "/en/SellerRegistrationPage"
+                                      : `/en/categories/${itemtitle._id}`
+                                  }
+                                  className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}
+                                >
+                                  <Typography variant="h6" className={classes.catgorytitle}>
+                                    {itemtitle.displayTitle}
+                                  </Typography>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        </Box>
+                      </Popover>
+                    </a>
+                    <a className={classes.categoryTagsLink}>
+                      <span onClick={handlePopOverOpen4}>
+                        <Typography variant="h6" className={classes.catgorytitle}>
+                          Shop By Store
+                          <IconButton style={{ padding:"0px", marginLeft:"30px"}}>
+                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                          </IconButton>
+                        </Typography>
+                      </span>
 
-                  textDecorationColor: Router.pathname === "/[lang]" ? "#FDC114" : null,
-                  textDecorationThickness: Router.pathname === "/[lang]" ? "3px" : null, // Adjust the underline thickness
-                  textDecorationLine: Router.pathname === "/[lang]" ? "underline" : null, // Add an underline style for compatibility
-                }}
-              >
-                Home
-              </span>
-            </Link>
-            <a href="/en/explore">
-              <span
-                onMouseEnter={this.handlePopOverOpen}
-                onClick={() =>
-                  this.setState({
-                    selectedPage: "/[lang]/categories/[tagId]",
-                  })
-                }
-                // onMouseLeave={this.handlePopOverClose}
-                className={classes.headerHeadings}
-                style={{
-                 
+                      <Popover
+                        className={classes.popover}
+                        classes={{
+                          paper: classes.paper,
+                        }}
+                        anchorEl={anchorEl4}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                          marginTop: "0px",
+                        }}
+                        open={Boolean(anchorEl4)}
+                        onClose={handlePopOverClose4}
+                        style={{ marginTop: "0" }}
+                        // onClose={handlePopoverClose}
+                        disableRestoreFocus
+                      >
+                        <Box sx={style2}>
+                          <div className={classes.modalitems}>
+                            <div className={classes.modalitemstitle}>
+                              {sellers?.map((item, i) => (
+                                <a target="_blank" href={`/en/profile/${item?._id}`}>
+                                  <Typography
+                                    variant="h6"
+                                    className={classes.catgorytitle}
+                                    style={{ borderBottom: "1px solid #59595940" }}
+                                  >
+                                    {item?.storeName && item?.storeName.trim()
+                                      ? item?.storeName.slice(0, 15)
+                                      : "User Store"}
+                                  </Typography>
+                                </a>
+                              ))}
+                              <a target="_blank" href="/en/stores">
+                                <Typography
+                                  variant="h6"
+                                  className={classes.catgorytitle}
+                                  style={{ borderBottom: "1px solid #59595940" }}
+                                >
+                                  See More
+                                </Typography>
+                              </a>
+                            </div>
+                          </div>
+                        </Box>
+                      </Popover>
+                    </a>
 
-                  textDecorationColor:
-                    Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
-                      ? "#FDC114"
-                      : null,
-                  textDecorationThickness:
-                    Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
-                      ? "3px"
-                      : null, // Adjust the underline thickness
-                  textDecorationLine:
-                    Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
-                      ? "underline"
-                      : null, // Add an underline style for compatibility
-                }}
-              >
-                Explore
-              </span>
-              <Popover
-                className={classes.popover}
-                classes={{
-                  paper: classes.paper,
-                }}
-                anchorEl={anchorEl}
-                transformOrigin={{
-                  vertical: "center",
-                  horizontal: "center",
-                }}
-                anchorOrigin={{
-                  vertical: "center",
-                  horizontal: "center",
-                  marginTop: "100px",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={this.handlePopOverClose}
-                style={{ marginTop: "135px" }}
-                // onClose={handlePopoverClose}
-                disableRestoreFocus
-              >
-                <Box sx={style}>
-                  <div className={classes.modalitems}>
-                    <div className={classes.modalitemstitle}>
-                      {console.log("tags", tagsData)}
-                      {mappedData?.slice(0, 6).map((itemtitle, i) => (
-                        <a
-                          href={
-                            itemtitle.displayTitle === "Become a Seller"
-                              ? "/en/SellerRegistrationPage"
-                              : `/en/categories/${itemtitle._id}`
-                          }
-                          className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}
-                        >
-                          <Typography variant="h6" className={classes.catgorytitle}>
-                            {itemtitle.displayTitle}
-                          </Typography>
-                        </a>
-                      ))}
-                    </div>
+                    <a className={classes.categoryTagsLink}>
+                      <span onClick={handlePopOverOpen5}>
+                        <Typography variant="h6" className={classes.catgorytitle}>
+                          Shop By Brand
+                          <IconButton style={{ padding:"0px", marginLeft:"30px"}}>
+                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                          </IconButton>
+                        </Typography>
+                      </span>
+
+                      <Popover
+                        className={classes.popover}
+                        classes={{
+                          paper: classes.paper,
+                        }}
+                        anchorEl={anchorEl5}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                          marginTop: "0px",
+                        }}
+                        open={Boolean(anchorEl5)}
+                        onClose={handlePopOverClose5}
+                        style={{ marginTop: "0" }}
+                        // onClose={handlePopoverClose}
+                        disableRestoreFocus
+                      >
+                        <Box sx={style2}>
+                          <div className={classes.modalitems}>
+                            <div className={classes.modalitemstitle}>
+                              {brands?.map((item, i) => (
+                                <a target="_blank" href={`/en/brand/${item?.slug}/${item?._id}`}>
+                                  <Typography
+                                    variant="h6"
+                                    className={classes.catgorytitle}
+                                    style={{ borderBottom: "1px solid #59595940" }}
+                                  >
+                                    {item?.displayTitle ? item?.displayTitle : "Brand"}
+                                  </Typography>
+                                </a>
+                              ))}
+                              <a target="_blank" href="/en/brands">
+                                <Typography
+                                  variant="h6"
+                                  className={classes.catgorytitle}
+                                  style={{ borderBottom: "1px solid #59595940" }}
+                                >
+                                  See More
+                                </Typography>
+                              </a>
+                            </div>
+                          </div>
+                        </Box>
+                      </Popover>
+                    </a>
                   </div>
-                </Box>
-              </Popover>
-            </a>
-            {/* <span
-              className="hoverable"
-              style={{
-                marginRight: "40px",
-                padding: "9px 11px",
-                marginLeft: "30px",
-                fontSize: "18px",
-                fontFamily: '"Ostrich Sans Black"',
-                fontWeight: 900,
-              }}
-            >
-              Byol
-            </span> */}
-            <a
-              style={{
-                color: "inherit",
-              }}
-              target="_blank"
-              href="https://bizb.store/dashboard/uploadproductdetail"
-            >
-              <span
-                                 className={classes.headerHeadings}
+                </div>
+              </Box>
+            </Popover>
+          </a>
+          {/* <span
+            className="hoverable"
+            style={{
+              marginRight: "40px",
+              padding: "9px 11px",
+              marginLeft: "30px",
+              fontSize: "18px",
+              fontFamily: '"Ostrich Sans Black"',
+              fontWeight: 900,
+            }}
+          >
+            Byol
+          </span> */}
 
-              >
-                Upload Product
-              </span>
-            </a>
-            {this.props.viewer?.isSeller === true ? (
-              <a
-                style={{
-                  color: "inherit",
-                }}
-                target="_blank"
-                href="https://bizb.store/dashboard"
-              >
-                <span
-                  className={classes.headerHeadings}
+          <a
+            style={{
+              color: "inherit",
+            }}
+            target="_blank"
+            href="https://bizb.store/dashboard/uploadproductdetail"
+          >
+            <span className={classes.headerHeadings}>Upload Product</span>
+          </a>
+          {loading4 ? (
+            <></>
+          ) : (
+            <>
+              {props.viewer?.isSeller === true ? (
+                <a
+                  style={{
+                    color: "inherit",
+                  }}
+                  target="_blank"
+                  href="https://bizb.store/dashboard"
                 >
-                  Dashboard
-                </span>
-              </a>
-            ) : (
-              <a
-                style={{
-                  color: "inherit",
-                }}
-                target="_blank"
-                href="/en/SellerRegistrationPage"
-              >
-                <span
-                                  className={classes.headerHeadings}
+                  <span className={classes.headerHeadings}>Dashboard</span>
+                </a>
+              ) : (
+                <a
+                  style={{
+                    color: "inherit",
+                  }}
+                  target="_blank"
+                  href="/en/SellerRegistrationPage"
+                >
+                  <span className={classes.headerHeadings}>Become a Seller</span>
+                </a>
+              )}
+            </>
+          )}
+        </div>
+      </nav>
+    </>
+  );
+};
 
-                >
-                  Become a Seller
-                </span>
-              </a>
-            )}
-          </div>
-        </nav>
-      </>
-    );
-  }
-}
+NavigationDesktop.propTypes = {
+  classes: PropTypes.object,
+  navItems: PropTypes.object,
+  tags: PropTypes.arrayOf(),
+  viewer: PropTypes.object,
+};
+
+NavigationDesktop.defaultProps = {
+  classes: {},
+  navItems: {},
+  headerType: false,
+  viewer: {},
+};
 
 export default withStyles(styles)(inject("navItems", "uiStore")(NavigationDesktop));

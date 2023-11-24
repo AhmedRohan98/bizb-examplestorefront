@@ -8,6 +8,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import useGetAllSellers from "../../hooks/sellerByID/useGetAllproductsbySeller";
 import Storyslider from "./storiesslide";
 import Tooltip from "@material-ui/core/Tooltip";
+import { DoubleArrow } from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
+import Hidden from "@material-ui/core/Hidden";
+
 const Story = (props) => {
   const { addItemsToCart } = props;
   // console.log("all props....", props);
@@ -155,7 +159,39 @@ const Story = (props) => {
       marginTop: "40px",
       justifyContent: "center",
       position: "relative",
+      marginLeft:"25%",
+      [theme.breakpoints.down(600)]: {
+        marginLeft:"0px",
+      },
       width: "100%",
+      marginBottom:"15px"
+    },
+    mainheading2: {
+      display: "flex",
+      marginTop: "40px",
+      justifyContent: "center",
+      position: "relative",
+      marginBottom:"15px",
+      width: "37%",
+      [theme.breakpoints.down(600)]: {
+        width: "100%",
+
+      },
+      fontSize:"22px"
+    },
+     linkstyle: {  
+      width:"50%",
+      display:"flex",
+      justifyContent:"end",
+      [theme.breakpoints.down(600)]: {
+        justifyContent:"center",
+      width:"100%",
+
+
+      },
+      margin: "0",
+      padding:"0",
+      cursor:"pointer"
     },
     spanline: {
       marginTop: "20px",
@@ -168,7 +204,7 @@ const Story = (props) => {
     },
     mainheadings: {
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "row",
       position: "relative",
       allignItems: "center",
       justifyContent: "center",
@@ -403,6 +439,7 @@ const Story = (props) => {
               <img
                 src={!item?.picture || !item?.picture ? "/images/seller-placeholder.png" : item?.picture}
                 className={classes.image}
+                alt="icon"
               />
               <Typography
                 style={{
@@ -451,6 +488,16 @@ const Story = (props) => {
         <Typography variant="h3" className={classes.mainheading}>
           STORES <span className={classes.spanline}></span>
         </Typography>
+        
+        <Hidden smDown>
+          <a target="_blank" href="/en/stores" className={classes.linkstyle}>
+        <Typography variant="h3" className={classes.mainheading2}>
+          VIEW ALL    
+                <DoubleArrow style={{ marginTop:"5px",color: "#FDC114" }} />
+              
+        </Typography>
+        </a>
+        </Hidden>
         {/* <div className={classes.catgorytag}>
           {catagories?.slice(0, 6)?.map((filterName) => (
             <Filter
@@ -522,6 +569,16 @@ const Story = (props) => {
         cart={props?.cart}
         addItemsToCart={addItemsToCart}
       />
+      <Hidden smUp>
+      <a target="_blank" href="/en/stores" className={classes.linkstyle}>
+
+      <Typography variant="h3" className={classes.mainheading2}>
+          VIEW ALL    
+        <DoubleArrow style={{ marginTop:"5px",color: "#FDC114" }} />
+              
+        </Typography>
+        </a>
+        </Hidden>
     </div>
   );
 };

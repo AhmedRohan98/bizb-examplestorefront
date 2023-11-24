@@ -83,7 +83,7 @@ const styles = (theme) => ({
     borderBottom: "1px solid #E5E5E5",
   },
   cartitems: {
-    height: "70vh",
+    height: "66vh",
     overflowY: "auto",
  
   },
@@ -176,14 +176,17 @@ const styles = (theme) => ({
     },
   },
   cart2: {
+    position: "fixed",
+    padding: "10px 0px",
+    bottom: "149px",
     height: "38px",
     width: "120px",
     borderRadius: "40px",
     background: "#333333",
     display: "flex",
     alignItems: "center",
-    marginTop: "10px",
     marginRight: "45px",
+
 
     "&:hover": {
       transform: "scale(1.08)",
@@ -194,7 +197,9 @@ const styles = (theme) => ({
   cartDiv:{
     display: "flex",
     cursor: "pointer",
-    justifyContent: "flex-end",
+    height:"80px",
+    alignItems: "flex-end",
+    justifyContent:"flex-end",
     [theme.breakpoints.down("sm")]: {
       width: "118%",
     },
@@ -423,6 +428,7 @@ const MiniCart = ({ ...props }) => {
                           return (
                             <div className={classes.cartitem}>
                               <div className={classes.cartitemimage}>
+                                {console.log("images here ",item)}
                                 <img
                                   src={item?.metafields[0]?.value}
                                   alt={item.title}
@@ -580,9 +586,9 @@ const MiniCart = ({ ...props }) => {
               <Badge color="none" border="none" classes={{ badge: classes.badge }}>
                 <span>
                   {headerType ? (
-                    <img src="/icons/shop.png" className={classes.imgSize} />
+                    <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
                   ) : (
-                    <img src="/icons/shop.png" className={classes.imgSize} />
+                    <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
                   )}
                 </span>
               </Badge>
@@ -590,9 +596,9 @@ const MiniCart = ({ ...props }) => {
           ) : (
             <span>
               {headerType ? (
-                <img src="/icons/shop.png" className={classes.imgSize} />
+                <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
               ) : (
-                <img src="/icons/shop.png" className={classes.imgSize} />
+                <img src="/icons/shop.png" className={classes.imgSize} alt="icons" />
               )}
             </span>
           )}

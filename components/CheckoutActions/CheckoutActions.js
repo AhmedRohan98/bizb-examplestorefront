@@ -422,16 +422,16 @@ const CheckoutActions = (prop) => {
   }, [cart]);
 
   useEffect(() => {
-    if (parseInt(cart?.checkout?.summary?.discountTotal?.amount) === 0) {
+    if ((cart?.checkout?.summary?.discountTotal?.amount) === 0) {
       console.log("running this condition");
-      setSubTotal(parseInt(cart?.checkout?.summary?.total?.amount));
+      setSubTotal((cart?.checkout?.summary?.total?.amount));
     } else {
-      setSubTotal(parseInt(cart?.checkout?.summary?.discountTotal?.amount));
+      setSubTotal((cart?.checkout?.summary?.total?.amount));
     }
   }, [cart, getValue?.phonenumber]);
 
-  const [subtotal, setSubTotal] = useState(parseInt(cart?.checkout?.summary?.total?.amount));
-  console.log(subtotal);
+  const [subtotal, setSubTotal] = useState((cart?.checkout?.summary?.total?.amount));
+  console.log("subtotalsubtotal",subtotal);
   const [error, setError] = useState("");
 
   const items = cart.items.map((item) => ({
@@ -741,7 +741,7 @@ const CheckoutActions = (prop) => {
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
-        <img src="/colors/vector.svg" />
+        <img src="/colors/vector.svg" alt="icons" />
       </components.DropdownIndicator>
     );
   };
@@ -793,7 +793,7 @@ const CheckoutActions = (prop) => {
         {prop?.cart.items?.map((prod) => (
           <div className={classes.cartcard3}>
             <div className={classes.displayCart} key={prod.id}>
-              <img src={prod.metafields[0].value} style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} />
+              <img src={prod.metafields[0].value} style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} alt="icons"/>
               <div className={classes.displayCartGrid}>
                 <Typography gutterBottom variant="h4" className={classes.cartname}>
                   <span onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>
@@ -986,7 +986,7 @@ const CheckoutActions = (prop) => {
 
               <div className={classes.cartpayment}>
                 <div style={{ display: "flex" }}>
-                  <img src="/cart/ellipse.svg" />
+                  <img src="/cart/ellipse.svg" alt="icons"/>
                   <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
                     Cash On Delivery
                   </Typography>
@@ -1069,7 +1069,7 @@ const CheckoutActions = (prop) => {
                           -(Rs.{" "}
                           {cart?.checkout?.summary?.discountTotal?.amount == 0
                             ? 0
-                            : cart?.checkout?.summary?.itemTotal?.amount -
+                            :
                               cart?.checkout?.summary?.discountTotal?.amount}
                           ){/* {console.log("subtotal,", subtotal)} */}
                         </Typography>
@@ -1080,7 +1080,7 @@ const CheckoutActions = (prop) => {
                         </Typography>
                         <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
                           {/* {formatCurrency(cart.checkout.summary.itemTotal.amount)} */}
-                          Rs. {subtotal}
+                          Rs. {cart?.checkout?.summary?.total?.amount}
                           {/* {console.log("subtotal,", subtotal)} */}
                         </Typography>
                       </div>
@@ -1109,7 +1109,7 @@ const CheckoutActions = (prop) => {
                       subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
                       formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
                     )} */}
-                    Rs. {shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
+                    Rs. {shippingData?.cost? cart?.checkout?.summary?.total?.amount +shippingData?.cost : cart?.checkout?.summary?.total?.amount}
                   </Typography>
                   {/* <GTMCheckout price={shippingData?.cost ? shippingData?.cost + subtotal : subtotal} /> */}
                 </div>

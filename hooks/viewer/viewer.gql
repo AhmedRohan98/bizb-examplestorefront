@@ -4,6 +4,7 @@ query viewer {
     isSeller
     storeInfo {
       storeName
+      __typename
     }
     addressBook {
       edges {
@@ -21,17 +22,22 @@ query viewer {
           phone
           postal
           region
+          __typename
         }
+        __typename
       }
     }
     adminUIShops {
       _id
       name
+      __typename
     }
     emailRecords {
       address
+      
     }
     name
     primaryEmailAddress
+    __typename
   }
 }

@@ -114,9 +114,9 @@ const Instagram = (props) => {
               {images?.map((item, i) => (
                 <Grid item className={classes.gridroot} xs={4}>
                   <a target="_blank" href={item.permalink}>
-                    <img src={item.media_url} className={classes.image} />
+                    <img src={item.media_url} className={classes.image} alt="icons" />
                     {i === lastImageIndex ? (
-                      <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>
+                      <img className={classes.text} src="/Instagram/instagramSeeMore.svg" alt="icons"></img>
                     ) : null}
                   </a>
                 </Grid>
@@ -129,9 +129,9 @@ const Instagram = (props) => {
             {images?.map((item, i) => (
               <Grid item className={classes.gridroot}>
                 <a target="_blank" href={item.permalink}>
-                  <img src={item.media_url} className={classes.image} />
+                  <img src={item.media_url} className={classes.image} alt="icons" />
                   {i === lastImageIndex ? (
-                    <img className={classes.text} src="/Instagram/instagramSeeMore.svg"></img>
+                    <img className={classes.text} src="/Instagram/instagramSeeMore.svg" alt="icons"></img>
                   ) : null}
                 </a>
               </Grid>

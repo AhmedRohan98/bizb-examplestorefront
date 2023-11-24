@@ -108,7 +108,7 @@ const Footer = () => {
           >
             <span>
               <a href="/">
-                <img src="/images/logoLight.svg" height="65px" />
+                <img src="/images/logoLight.svg" height="65px" alt="icons" />
               </a>
             </span>
           </div>
@@ -125,7 +125,7 @@ const Footer = () => {
               target="_blank"
               href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
-              <img src="/icons/instagram.svg" className={classes.imagesicons} />
+              <img src="/icons/instagram.svg" className={classes.imagesicons} alt="icons" />
             </a>
             <a
               onClick={() => {
@@ -139,7 +139,7 @@ const Footer = () => {
               target="_blank"
               href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
-              <img src="/icons/facebook.svg" className={classes.imagesicons} />
+              <img src="/icons/facebook.svg" className={classes.imagesicons} alt="icons"/>
             </a>
             <a
               onClick={() => {
@@ -153,7 +153,7 @@ const Footer = () => {
               target="_blank"
               href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
-              <img src="/icons/linkedin2.svg" className={classes.imagesicons} />
+              <img src="/icons/linkedin2.svg" className={classes.imagesicons} alt="icons"/>
             </a>
           </div>
         </Grid>
@@ -329,13 +329,13 @@ const Footer = () => {
             <div style={{ marginTop: "20px" }}>
               <a href="mailto:Hello@bizb.store" target="_blank">
                 <span>
-                  <img src="/images/emailIcon.svg" />
+                  <img src="/images/emailIcon.svg" alt="icons"/>
                 </span>
                 <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}> hello@bizb.store </span>
               </a>
-              <a href="tel:+92 319 45330320" target="_blank">
+              <a href="tel:+92 319 4533032" target="_blank">
                 <span style={{ marginLeft: "20px" }}>
-                  <img src="/images/phoneIcon.svg" />
+                  <img src="/images/phoneIcon.svg" alt="icons" />
                 </span>
                 <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}>+92 319 4533032</span>
               </a>
@@ -352,7 +352,7 @@ const Footer = () => {
               <div style={{ marginTop: "25px" }}>
                 <a target="_blank" href="https://apps.apple.com/pk/app/bizb/id1571110423">
                   <span>
-                    <img src="/images/appStoreIcon.svg" />
+                    <img src="/images/appStoreIcon.svg" alt="icons"/>
                   </span>
                 </a>
                 <span style={{ marginLeft: "55px" }}>
@@ -360,7 +360,7 @@ const Footer = () => {
                     target="_blank"
                     href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.74994514.1337725914.1682938429-218131156.1681233136&_gac=1.86957418.1682759140.Cj0KCQjwgLOiBhC7ARIsAIeetVDrNuIWkimFzY2OMGgR1kIA3Jtu4RDwNAlEFpyiranTB0hEjTuqcZQaAjrAEALw_wcB"
                   >
-                    <img src="/images/googlePlayIcon.svg" />
+                    <img src="/images/googlePlayIcon.svg" alt="icons"/>
                   </a>
                 </span>
               </div>
