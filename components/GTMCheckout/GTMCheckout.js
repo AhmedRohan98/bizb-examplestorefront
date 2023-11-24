@@ -1,15 +1,12 @@
 import { useEffect } from "react";
-// import { gtag } from "google-analytics-tag-manager";
 
-const CheckoutButton = ({ price }) => {
+const CheckoutButton = ({ order }) => {
   useEffect(() => {
-    window.dataLayer?.push("event", "CheckoutPrice", {
-      price,
-      // productId,
-      // productName,
+    window.dataLayer?.push("event", "Successful Checkout", {
+      order,
     });
-    console.log("data is sent");
-  }, [price]);
+    console.log("Successful Checkout");
+  }, [order]);
 
   return <span style={{ display: "none" }}>Checkout</span>;
 };

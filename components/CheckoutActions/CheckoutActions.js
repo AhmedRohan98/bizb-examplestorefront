@@ -548,6 +548,10 @@ const CheckoutActions = (prop) => {
         placeOrder: { orders, token },
       } = data;
       toast.success("Order placed successfully!");
+      window.dataLayer?.push("event", "Order placed", {
+        price: subtotal + shippingData?.cost,
+      });
+      console.log("Order placed successfully");
       // ReactGA.send({
       //   hitType: "event",
       //   eventCategory: "Ecommerce",
@@ -1107,7 +1111,7 @@ const CheckoutActions = (prop) => {
                     )} */}
                     Rs. {shippingData?.cost ? shippingData?.cost + subtotal : subtotal}
                   </Typography>
-                  <GTMCheckout price={shippingData?.cost ? shippingData?.cost + subtotal : subtotal} />
+                  {/* <GTMCheckout price={shippingData?.cost ? shippingData?.cost + subtotal : subtotal} /> */}
                 </div>
               </div>
               <div className={classes.orderbutn}>
