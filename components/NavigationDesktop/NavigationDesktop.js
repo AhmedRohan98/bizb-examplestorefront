@@ -176,12 +176,10 @@ const NavigationDesktop = (props) => {
     "&::before": {
       backgroundColor: "#fdc114",
       content: '""',
-      display: "block",
-      position: "absolute",
       width: 12,
       height: 12,
       top: 21,
-      transform: "rotate(45deg)",
+     
       left: "-6px",
     },
     left: "15%",
