@@ -1123,6 +1123,7 @@ function Explore(props) {
 
       if (additemtocart?.data?.addCartItems?.cart?._id) {
         toast.success(" added to cart successfully!");
+        
         // setIsLoading((prevState) => ({
         //   ...prevState,
         //   [product.productId]: false,
