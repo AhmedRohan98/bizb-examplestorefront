@@ -53,7 +53,8 @@ export default function SellersCatalogItems(Component) {
                   limit: uiStore?.pageSize,
                 })}
                 catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
-                totalcount={(sellerCatalogItems && sellerCatalogItems.totalCount) || []}
+                totalcount={(sellerCatalogItems && sellerCatalogItems.totalCount)}
+                loading={loading}
               />
             );
           }}
