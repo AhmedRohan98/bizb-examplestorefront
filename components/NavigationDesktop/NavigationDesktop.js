@@ -18,6 +18,8 @@ import useprimaryShop from "../../hooks/primaryShop/useprimaryShop";
 import useGetAllBrands from "../../hooks/brands/useGetAllBrands";
 import useGetAllStores from "../../hooks/sellers/useGetAllStores";
 import useViewer from "hooks/viewer/useViewer";
+import { PlayArrow } from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
 
 const styles = (theme) => ({
   light: {
@@ -64,12 +66,12 @@ const styles = (theme) => ({
     // margin: "0 -.25rem",
     // padding: "0 .25rem",
     transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
-
+    
     "&:hover": {
       color: "white",
       boxShadow: "inset 150px 0 0 0 #FDC114",
     },
-   
+
   },
   currentCategory: {
     textDecorationColor: "#FDC114",
@@ -174,12 +176,10 @@ const NavigationDesktop = (props) => {
     "&::before": {
       backgroundColor: "#fdc114",
       content: '""',
-      display: "block",
-      position: "absolute",
       width: 12,
       height: 12,
       top: 21,
-      transform: "rotate(45deg)",
+     
       left: "-6px",
     },
     left: "15%",
@@ -364,6 +364,9 @@ const NavigationDesktop = (props) => {
                       <span onClick={handlePopOverOpen3}>
                         <Typography variant="h6" className={classes.catgorytitle}>
                           Shop By Category
+                          <IconButton style={{ padding:"0px"}}>
+                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                          </IconButton>
                         </Typography>
                       </span>
 
@@ -415,6 +418,9 @@ const NavigationDesktop = (props) => {
                       <span onClick={handlePopOverOpen4}>
                         <Typography variant="h6" className={classes.catgorytitle}>
                           Shop By Store
+                          <IconButton style={{ padding:"0px", marginLeft:"30px"}}>
+                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                          </IconButton>
                         </Typography>
                       </span>
 
@@ -443,19 +449,19 @@ const NavigationDesktop = (props) => {
                           <div className={classes.modalitems}>
                             <div className={classes.modalitemstitle}>
                               {sellers?.map((item, i) => (
-                                  <a target="_blank" href={`en/profile/${item?._id}`}>
-                                    <Typography
-                                      variant="h6"
-                                      className={classes.catgorytitle}
-                                      style={{ borderBottom: "1px solid #59595940" }}
-                                    >
-                                      {item?.storeName && item?.storeName.trim()
-                                        ? item?.storeName.slice(0, 15)
-                                        : "User Store"}
-                                    </Typography>
-                                  </a>
+                                <a target="_blank" href={`/en/profile/${item?._id}`}>
+                                  <Typography
+                                    variant="h6"
+                                    className={classes.catgorytitle}
+                                    style={{ borderBottom: "1px solid #59595940" }}
+                                  >
+                                    {item?.storeName && item?.storeName.trim()
+                                      ? item?.storeName.slice(0, 15)
+                                      : "User Store"}
+                                  </Typography>
+                                </a>
                               ))}
-                              <a target= "_blank" href="/en/stores">
+                              <a target="_blank" href="/en/stores">
                                 <Typography
                                   variant="h6"
                                   className={classes.catgorytitle}
@@ -470,14 +476,16 @@ const NavigationDesktop = (props) => {
                       </Popover>
                     </a>
 
-
                     <a className={classes.categoryTagsLink}>
-                    <span onClick={handlePopOverOpen5}>
-                      <Typography variant="h6" className={classes.catgorytitle}>
-                        Shop By Brand
-                      </Typography>
+                      <span onClick={handlePopOverOpen5}>
+                        <Typography variant="h6" className={classes.catgorytitle}>
+                          Shop By Brand
+                          <IconButton style={{ padding:"0px", marginLeft:"30px"}}>
+                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                          </IconButton>
+                        </Typography>
                       </span>
-                      
+
                       <Popover
                         className={classes.popover}
                         classes={{
@@ -503,18 +511,17 @@ const NavigationDesktop = (props) => {
                           <div className={classes.modalitems}>
                             <div className={classes.modalitemstitle}>
                               {brands?.map((item, i) => (
-                                  <a target="_blank" href={`/en/brand/${item?.slug}/${item?._id}`}>
-                                    <Typography
-                                      variant="h6"
-                                      className={classes.catgorytitle}
-                                      style={{ borderBottom: "1px solid #59595940" }}
-                                    >
-                                                                {item?.displayTitle ? item?.displayTitle : "Brand"}
-
-                                    </Typography>
-                                  </a>
+                                <a target="_blank" href={`/en/brand/${item?.slug}/${item?._id}`}>
+                                  <Typography
+                                    variant="h6"
+                                    className={classes.catgorytitle}
+                                    style={{ borderBottom: "1px solid #59595940" }}
+                                  >
+                                    {item?.displayTitle ? item?.displayTitle : "Brand"}
+                                  </Typography>
+                                </a>
                               ))}
-                              <a target= "_blank" href="/en/brands">
+                              <a target="_blank" href="/en/brands">
                                 <Typography
                                   variant="h6"
                                   className={classes.catgorytitle}
@@ -547,7 +554,6 @@ const NavigationDesktop = (props) => {
             Byol
           </span> */}
 
-        
           <a
             style={{
               color: "inherit",
@@ -557,30 +563,33 @@ const NavigationDesktop = (props) => {
           >
             <span className={classes.headerHeadings}>Upload Product</span>
           </a>
-          {loading4 ? 
-          <></> :<>
-          {props.viewer?.isSeller === true ? (
-            <a
-              style={{
-                color: "inherit",
-              }}
-              target="_blank"
-              href="https://bizb.store/dashboard"
-            >
-              <span className={classes.headerHeadings}>Dashboard</span>
-            </a>
+          {loading4 ? (
+            <></>
           ) : (
-            <a
-              style={{
-                color: "inherit",
-              }}
-              target="_blank"
-              href="/en/SellerRegistrationPage"
-            >
-              <span className={classes.headerHeadings}>Become a Seller</span>
-            </a>
+            <>
+              {props.viewer?.isSeller === true ? (
+                <a
+                  style={{
+                    color: "inherit",
+                  }}
+                  target="_blank"
+                  href="https://bizb.store/dashboard"
+                >
+                  <span className={classes.headerHeadings}>Dashboard</span>
+                </a>
+              ) : (
+                <a
+                  style={{
+                    color: "inherit",
+                  }}
+                  target="_blank"
+                  href="/en/SellerRegistrationPage"
+                >
+                  <span className={classes.headerHeadings}>Become a Seller</span>
+                </a>
+              )}
+            </>
           )}
-          </> }
         </div>
       </nav>
     </>

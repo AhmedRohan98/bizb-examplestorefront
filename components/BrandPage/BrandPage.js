@@ -141,25 +141,26 @@ const BrandPage = () => {
       },
     },
     image: {
-      width: "275px", // Reduced by 1px to create space for the border
-      maxHeight: "600px",
-      marginTop: "1px",
-      borderRadius: "10px",
-      marginRight: "2px",
-      marginLeft: "1px",
-      objectFit: "cover",
-      cursor: "pointer",
-      [theme.breakpoints.up("lg")]: {
         width: "275px", // Reduced by 1px to create space for the border
-      },
-      [theme.breakpoints.down("lg")]: {
-        width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
-      },
-      [theme.breakpoints.down("sm")]: {
-        width: "150px", // Reduced by 1px to create space for the border
+        maxHeight: "600px",
         height: "200px",
+        marginTop: "1px",
+        borderRadius: "10px",
+        marginRight: "2px",
+        marginLeft: "1px",
+        objectFit: "contain",
+        cursor: "pointer",
+        [theme.breakpoints.up("lg")]: {
+          width: "275px", // Reduced by 1px to create space for the border
+        },
+        [theme.breakpoints.down("lg")]: {
+          width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
+        },
+        [theme.breakpoints.down("sm")]: {
+          width: "150px", // Reduced by 1px to create space for the border
+          height: "200px",
+        },
       },
-    },
     loadmore: {
       marginLeft: theme.spacing(5),
       marginRight: theme.spacing(5),
@@ -281,13 +282,27 @@ const BrandPage = () => {
               return (
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <div className={classes.boxcontairproduct}>
+                  {item?.heroMediaUrl ? (
                     <Link href={"/en/brand/[slug]/[tagId]"} as={`/en/brand/${item?.slug}/${item?._id}`}>
-                      <a target="_blank">
-                        <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
-                          {item?.displayTitle?.charAt(0).toUpperCase()}
-                        </Avatar>
-                      </a>
-                    </Link>
+                    <a target="_blank">
+                            <img
+                              src={item?.heroMediaUrl}
+                              className={classes.image}
+                              key={item?._id}
+                              alt={item?.displayTitle}
+                            />{" "}
+                          </a>
+                        </Link>
+                      ) : (
+                        <Link href={"/en/brand/[slug]/[tagId]"} as={`/en/brand/${item?.slug}/${item?._id}`}>
+                        <a target="_blank">
+                          <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
+                            {item?.displayTitle?.charAt(0).toUpperCase()}
+                          </Avatar>
+                        </a>
+                      </Link>
+                      )}
+                  
 
                     <div className={classes.cartcontent}>
                       <div className={classes.cartcontenttext}>

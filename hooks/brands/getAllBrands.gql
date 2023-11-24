@@ -8,6 +8,7 @@ query getAllBrands(
        nodes{
       _id
       slug
+      heroMediaUrl
       displayTitle
       name
     }
