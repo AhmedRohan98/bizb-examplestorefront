@@ -142,8 +142,8 @@ const NavigationDesktop = (props) => {
     categoryTagsInfo: null,
     selectedPage: null,
     currentLink: null,
-    originalData: ["Juniors", "Casuals", "Party Wear", "Live Sessions", "Shoes", "Accessories", "Western"],
-    customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Live Sessions"],
+    originalData: ["Juniors", "Casuals", "Party Wear", "TMUC","Shoes", "Live Session",  "Accessories", "Western"],
+    customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Live Session", "TMUC"],
     mappedData: [],
     mappedData2: [
       { name: "Brands", url: "/en/brands" },
@@ -398,8 +398,8 @@ const NavigationDesktop = (props) => {
                               {mappedData?.map((itemtitle, i) => (
                                 <a
                                   href={
-                                    itemtitle.displayTitle === "Become a Seller"
-                                      ? "/en/SellerRegistrationPage"
+                                    itemtitle.displayTitle === "TMUC"
+                                      ? `/en/tmucpage/${itemtitle._id}`
                                       : `/en/categories/${itemtitle._id}`
                                   }
                                   className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}
