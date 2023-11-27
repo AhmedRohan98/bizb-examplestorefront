@@ -314,7 +314,6 @@ const Preloved = (props) => {
         </Box>
       </div>
 
-     
       <div>
         <Grid container>
           <Grid container item xs={12} md={12} sm={12} lg={12}>

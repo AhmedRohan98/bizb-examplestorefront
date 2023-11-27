@@ -11,13 +11,13 @@ import { SendContactForm } from "../../hooks/sendForm/sendform";
 import { useMutation } from "@apollo/client";
 import { ToastContainer, toast } from "react-toastify";
 import CloseIcon from "@material-ui/icons/Close";
+
 const useStyles = makeStyles((theme) => ({
   orderThankYou: {
     display: "flex",
     [theme.breakpoints.down("sm")]: {
       display: "inherit",
       paddingLeft: theme.spacing(5),
-
     },
     marginTop: theme.spacing(5),
     justifyContent: "center",
@@ -29,10 +29,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
 
     [theme.breakpoints.down("sm")]: {
-      display: "block"
+      display: "block",
       // display: "inherit",
       // paddingLeft: theme.spacing(5),
-
     },
   },
   img: {
@@ -113,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
       background: "#FDC114",
     },
   },
-  divStyle: { display: "flex", justifyContent: "center", alignItems: "center", },
+  divStyle: { display: "flex", justifyContent: "center", alignItems: "center" },
   reviews: {
     display: "flex",
     marginTop: theme.spacing(),
@@ -190,8 +189,6 @@ const useStyles = makeStyles((theme) => ({
     width: "331px",
     [theme.breakpoints.down("sm")]: {
       width: "280px",
-
-
     },
     borderRadius: "6px",
     color: "red",
@@ -241,7 +238,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: theme.spacing(5),
 
-
     background: theme.palette.secondary.selected,
     "&:hover": {
       transform: "scale(1.08)",
@@ -286,7 +282,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(5),
-
     },
     display: "flex",
     justifyContent: "flex-start",
@@ -411,7 +406,7 @@ const CheckoutComplete = () => {
           />{" "}
           <div className={classes.orderThankYou}>
             <div className={classes.divStyle}>
-              <Grid container xs={12} className={classes.gridStyle} >
+              <Grid container xs={12} className={classes.gridStyle}>
                 <Grid item xs={12} md={6} lg={6} className={classes.contactus}>
                   <Typography variant="h3">Let’s Talk</Typography>
                   <div className={classes.mainheading}>
@@ -437,17 +432,20 @@ const CheckoutComplete = () => {
                       target="_blank"
                       href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
                     >
-                      <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img></a>
+                      <img src="/cart/facebook.svg" className={classes.imges} alt="thanyou"></img>
+                    </a>
                     <a
                       target="_blank"
                       href="https://www.instagram.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
                     >
-                      <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img></a>
+                      <img src="/cart/insta.svg" className={classes.imges} alt="thanyou"></img>
+                    </a>
                     <a
                       target="_blank"
                       href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
                     >
-                      <img src="/cart/linkd.png" className={classes.imges} alt="thanyou"></img></a>
+                      <img src="/cart/linkd.png" className={classes.imges} alt="thanyou"></img>
+                    </a>
                   </div>
                 </Grid>
                 <Grid item xs={6} className={classes.contactus}>
@@ -539,11 +537,10 @@ const CheckoutComplete = () => {
               </Grid>
             </div>
           </div>
-        </Layout >
+        </Layout>
       )}
     </>
   );
 };
-
 
 export default withApollo()(withCart(CheckoutComplete));
