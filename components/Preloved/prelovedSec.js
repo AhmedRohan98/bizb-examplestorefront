@@ -142,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
 const Preloved = (props) => {
   const classes = useStyles();
   const router = useRouter();
-
+  console.log("tags here new", props?.nodes)
   var res = props?.nodes?.reduce((acc, item, index) => {
     acc[`page${index}`] = item;
     return acc;
@@ -150,6 +150,9 @@ const Preloved = (props) => {
 
   const clickHandler = (id) => {
     router.push("/en/categories/" + id);
+  };
+  const clickHandler2 = (id) => {
+    router.push("/en/tmucpage/" + id);
   };
 
   function FormRow1() {
@@ -180,6 +183,7 @@ const Preloved = (props) => {
             </Button>
           </div>
         </Grid>
+      
       </React.Fragment>
     );
   }
@@ -193,13 +197,11 @@ const Preloved = (props) => {
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page2?.displayTitle}
             </Typography>
-            <a href="/en/SellerRegistrationPage"
-              target="_blank">
-              <Button className={classes.buttonshop}>
+           
+              <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page2?._id)}>
 
                 <h4 className={classes.buttonshopt}>SHOP Now</h4>
               </Button>
-            </a>
           </div>
         </Grid>
         <Grid item xs={12} md={7} sm={12} lg={7} className={classes.carts}>
@@ -235,13 +237,13 @@ const Preloved = (props) => {
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src={res?.page3?.heroMediaUrl} className={classes.imagess} alt="category" />
+          <img src={res?.page7?.heroMediaUrl} className={classes.imagess} alt="category" />
 
           <div className={classes.cart}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page3?.displayTitle}
+              {res?.page7?.displayTitle}
             </Typography>
-            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page3?._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page7?._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </Button>
@@ -261,6 +263,20 @@ const Preloved = (props) => {
               {res?.page4?.displayTitle}
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page4?._id)}>
+              {" "}
+              <Element name="target-element"></Element>
+              <h4 className={classes.buttonshopt}>SHOP NOW</h4>
+            </Button>
+          </div>
+        </Grid>
+        <Grid item xs={12} container className={classes.carts}>
+          <img src={res?.page3?.heroMediaUrl} className={classes.imagess} alt="category"/>
+
+          <div className={classes.cart}>
+            <Typography gutterBottom variant="h3" className={classes.text}>
+              {res?.page3?.displayTitle}
+            </Typography>
+            <Button className={classes.buttonshop} onClick={() => clickHandler2(res?.page3?._id)}>
               {" "}
               <Element name="target-element"></Element>
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
