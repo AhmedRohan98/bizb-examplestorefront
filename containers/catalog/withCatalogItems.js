@@ -118,6 +118,8 @@ export default function withCatalogItems(Component) {
                   })}
                   catalogItems={(catalogItems && catalogItems.edges) || []}
                   isLoadingCatalogItems={loading}
+                  totalcount={(catalogItems && catalogItems.totalCount)}
+
                 />
               );
             }}
@@ -153,6 +155,8 @@ export default function withCatalogItems(Component) {
                   })}
                   catalogItems={(catalogItems && catalogItems.edges) || []}
                   isLoadingCatalogItems={loading}
+                  totalcount={(catalogItems && catalogItems.totalCount)}
+
                 />
               );
             }}
