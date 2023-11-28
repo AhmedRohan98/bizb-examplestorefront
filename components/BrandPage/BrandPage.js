@@ -23,6 +23,7 @@ import { Search } from "@material-ui/icons";
 import Pagination from "../Pagination/Pagination";
 import useGetAllBrands from "../../hooks/brands/useGetAllBrands";
 import IconButton from "@material-ui/core/IconButton";
+import SkeletonLoader from "../Justin/skeletonLoader";
 
 const BrandPage = () => {
   const useStyles = makeStyles((theme) => ({
@@ -270,7 +271,7 @@ const BrandPage = () => {
           </Grid>
         </Grid>
       </div>
-
+      {brands?.length > 0 ? (
       <div className={classes.gridroot}>
         <ResponsiveMasonry
           columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
@@ -334,6 +335,9 @@ const BrandPage = () => {
           </Masonry>
         </ResponsiveMasonry>
       </div>
+     ) : (
+        <SkeletonLoader />
+      )}
       <div className={classes.loadmore}>
         {totalCount > itemsPerPage && (
           <Pagination

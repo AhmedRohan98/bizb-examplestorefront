@@ -924,10 +924,6 @@ function Categories(props) {
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
-  useEffect(() => {
-    console.log("props new 2", props)
-    uiStore?.setPageSize(20);
-  }, []);
 
   const options = [
     { value: "updatedAt-desc", label: "New Arrivals" },
@@ -1093,6 +1089,13 @@ function Categories(props) {
   const firstfour = catalogItems?.slice(0, spliceBy);
 
   const allproducts = catalogItems?.slice(spliceBy, catalogItems.length);
+
+  
+  useEffect(() => {
+    console.log("props new 2", props, "allproducts?.length", allproducts?.length, firstfour?.length)
+    uiStore?.setPageSize(20);
+  }, [props, allproducts, firstfour]);
+
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
@@ -1658,7 +1661,7 @@ function Categories(props) {
               // justify="center"
               // alignItems="center"
             >
-              {allproducts?.length > 0 ? (
+              {firstfour?.length > 0 ? (
                 <div className={classes.gridroot}>
                   <ResponsiveMasonry
                     columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
@@ -1803,10 +1806,12 @@ function Categories(props) {
                 </ResponsiveMasonry>
               </div>
             </div>
+          ) : props?.isLoadingCatalogItems ? (
+            <SkeletonLoader />
           ) : (
-            <div className={classes.skeletonClass}>
-              <SkeletonLoader />
-            </div>
+            props?.totalcount === 0 && (
+              <></>
+            )
           )}
 
           <div className={classes.loadmore}>
