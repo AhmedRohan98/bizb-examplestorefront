@@ -208,6 +208,7 @@ const NavigationDesktop = (props) => {
   // Other handlePopOverClose functions...
 
   const handlePopOverOpen = (event) => {
+    console.log("hello here in this")
     setState((prevState) => ({ ...prevState, anchorEl: event.currentTarget }));
   };
   const handlePopOverClose2 = () => {
@@ -311,12 +312,9 @@ const NavigationDesktop = (props) => {
               Home
             </span>
           </Link>
-          <a href="/en/explore">
             <span
               onMouseEnter={handlePopOverOpen}
-              onClick={() => {
-                setselectedPage("/[lang]/categories/[tagId]");
-              }}
+              onClick={handlePopOverOpen}
               // onMouseLeave={this.handlePopOverClose}
               className={classes.headerHeadings}
               style={{
@@ -539,7 +537,6 @@ const NavigationDesktop = (props) => {
                 </div>
               </Box>
             </Popover>
-          </a>
           {/* <span
             className="hoverable"
             style={{
