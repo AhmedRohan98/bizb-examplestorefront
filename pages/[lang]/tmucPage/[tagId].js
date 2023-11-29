@@ -781,6 +781,8 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    border: "none",
+    outline:"none"
   },
 }));
 const ITEMScategory = [
@@ -1445,7 +1447,7 @@ function Categories(props) {
           <div className={classes.fullscreencover}>
             <img
               ref={imageRef}
-              src="/BizbCollaborator/sheefa.webp"
+              src="/categories/tmuc.jpg"
               className={classes.coverimage}
               alt="Cover"
               tabIndex={0}
