@@ -775,6 +775,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100vh",
     overflow: "hidden",
+    [theme.breakpoints.down("sm")]: {
+      height: "100%",
+    },
   },
 
   coverimage: {
@@ -782,7 +785,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     objectFit: "cover",
     border: "none",
-    outline:"none"
+    outline:"none",
+   
   },
 }));
 const ITEMScategory = [
