@@ -164,7 +164,7 @@ const Preloved = (props) => {
         ...prevState,
         [id]: false,
       }));
-    }, 11000);
+    }, 4000);
     
   };
   const clickHandler2 = (id) => {
@@ -179,7 +179,7 @@ const Preloved = (props) => {
         ...prevState,
         [id]: false,
       }));
-    }, 11000);
+    }, 4000);
   };
 
   function FormRow1() {
