@@ -389,10 +389,18 @@ export default function SignUp(props) {
           <FormControlLabel
             control={<Checkbox checked={checkedEmail} onChange={handleChangeEmail} className={classes.checkbox} />}
           />
+            <a
+                  style={{
+                    color: "inherit",
+                  }}
+                  target="_blank"
+                  href="/en/SellerTermsConditionPage"
+                >
           <Typography variant="body2" className={classes.terms}>
             {" "}
-            I understand and agree to Terms & Conditions.
+            I understand and agree to <span style={{ color: "#FDC114" }}> Terms & Conditions.</span>
           </Typography>
+          </a>
         </div>
         {getCheckedEmailError ? <p className={classes.formerror}>You must accept the terms and conditions</p> : null}
 

@@ -179,7 +179,7 @@ const Preloved = (props) => {
         ...prevState,
         [id]: false,
       }));
-    }, 11000);
+    }, 7000);
   };
 
   function FormRow1() {

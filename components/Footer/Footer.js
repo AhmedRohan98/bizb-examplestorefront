@@ -355,7 +355,7 @@ const Footer = () => {
                     <img src="/images/appStoreIcon.svg" alt="icons"/>
                   </span>
                 </a>
-                <span style={{ marginLeft: "55px" }}>
+                <span style={{ marginLeft: "18px" }}>
                   <a
                     target="_blank"
                     href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.74994514.1337725914.1682938429-218131156.1681233136&_gac=1.86957418.1682759140.Cj0KCQjwgLOiBhC7ARIsAIeetVDrNuIWkimFzY2OMGgR1kIA3Jtu4RDwNAlEFpyiranTB0hEjTuqcZQaAjrAEALw_wcB"
