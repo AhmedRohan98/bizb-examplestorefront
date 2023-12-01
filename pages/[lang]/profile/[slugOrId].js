@@ -360,6 +360,30 @@ function SellerPublicProfile(props) {
       //   borderBottom:"none"
       // }
     },
+    imgdiv:{
+      display:"flex",
+      alignItems:"center",
+      flexDirection:"column"
+      
+    },
+    imgSize: {
+      width: "41%",
+      height: "18%",
+      marginTop: "3px",
+    },
+    textstyle: {
+      fontFamily: "Ostrich Sans Black",
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      color: "black",
+     
+    },
+    countdiv:{
+      [theme.breakpoints.down(600)]: {
+
+      display:"flex",
+      justifyContent:"center"}
+    }
   }));
   // console.log(props.totalcount, "propertiese");
   const router = useRouter();
@@ -370,8 +394,10 @@ function SellerPublicProfile(props) {
     uiStore?.setPageSize(15);
 
     uiStore?.setsellerId(slugOrId);
-  }, [slugOrId]);
+  }, [slugOrId, props]);
   useEffect(() => {
+    console.log("props?.catalogItems?", props?.catalogItems?.totalCount);
+
     console.log("total count", props);
     const updatedItems = props?.cart?.items?.map((item) => {
       const isItemInCart = props?.catalogItems.some((product) => {
@@ -734,7 +760,7 @@ function SellerPublicProfile(props) {
               <Hidden smUp>
                 <Grid container>
                   <Grid item xs={12} md={8} lg={6} xl={4}>
-                    <div className="publicProfile__infoMeta">
+                    <div className={classes.countdiv}>
                       <div className="sellerProfile__infoMetaRow">
                         <Typography className="sellerProfile__infoMetaContent" variant="h5">
                           {props?.totalcount}
@@ -968,8 +994,17 @@ function SellerPublicProfile(props) {
               </Masonry>
             </ResponsiveMasonry>
           </div>
-        ) : (
+        ) : props?.loading ? (
           <SkeletonLoader />
+        ) : (
+          props?.totalcount === 0 && (
+            <div className={classes.imgdiv}>
+              <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
+              <Typography variant="h6" className={classes.textstyle}>
+                No Products Found
+              </Typography>
+            </div>
+          )
         )}
 
         <div className={classes.loadmore}>

@@ -631,30 +631,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(3),
     },
   },
-  // sizes: {
-  //   height: "30px",
-  //   width: "30px",
-  //   marginLeft: "12px",
-  //   fontFamily: "lato",
-  //   fontStyle: "semibold",
-  //   fontSize: "12px",
-  //   display: "flex",
-  //   color: "#FDC114",
-  //   justifyContent: "center",
-  //   border: "1px solid #000000",
-  // },
-  // cartimage: {
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "flex-start",
-  // },
 
-  // cartsize: {
-  //   display: "flex",
-  //   marginLeft: theme.spacing(0.5),
-  //   justifyContent: "end",
-  //   alignItems: "center",
-  // },
   skeletonClass: {
     marginLeft: "30px",
     marginTop: "40px",
@@ -793,6 +770,24 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     border: "1px solid #000000",
   },
+  fullscreencover: {
+    position: "relative",
+    width: "100%",
+    height: "100vh",
+    overflow: "hidden",
+    [theme.breakpoints.down("sm")]: {
+      height: "100%",
+    },
+  },
+
+  coverimage: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    border: "none",
+    outline:"none",
+   
+  },
 }));
 const ITEMScategory = [
   {
@@ -842,8 +837,24 @@ function Categories(props) {
   } = props;
   const [isLoading, setIsLoading] = useState({});
   const [soldOutProducts, setSoldOutProducts] = useState([]);
+  const imageRef = useRef(null);
 
   const buttonRef = useRef(null);
+  useEffect(() => {
+    const focusImage = () => {
+      if (imageRef.current) {
+        imageRef.current.focus();
+      }
+    };
+
+    // Listen for the 'load' event to make sure the image is fully loaded
+    imageRef.current?.addEventListener('load', focusImage);
+
+    // Clean up the event listener
+    return () => {
+      imageRef.current?.removeEventListener('load', focusImage);
+    };
+  }, []);
 
   const handleFocus = () => {
     // Check if the button reference exists and trigger the click event
@@ -924,6 +935,9 @@ function Categories(props) {
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
+  useEffect(() => {
+    uiStore?.setPageSize(20);
+  }, []);
 
   const options = [
     { value: "updatedAt-desc", label: "New Arrivals" },
@@ -1090,13 +1104,6 @@ function Categories(props) {
 
   const allproducts = catalogItems?.slice(spliceBy, catalogItems.length);
 
-  
-  useEffect(() => {
-    console.log("props new 2", props, "allproducts?.length", allproducts?.length, firstfour?.length)
-    uiStore?.setPageSize(20);
-  }, [props, allproducts, firstfour]);
-
-
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
   const [value, setValue] = React.useState([]);
@@ -1108,35 +1115,11 @@ function Categories(props) {
     uiStore.setEndCursor(tagId);
   }, []);
 
-  //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
-  //     acc[`products${index}`] = item;
-  //     return acc;
-  //   }, {});
-
-  //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
-  //     acc[`products${index}`] = item;
-  //     return acc;
-  //   }, {});
-
   const classes = useStyles();
   if (router.isFallback) {
     return <PageLoading />;
   }
 
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
   const parseJSON = (jsonString) => {
     try {
       let parsedData;
@@ -1464,217 +1447,157 @@ function Categories(props) {
   return (
     <Layout shop={shop} tagId={tagId}>
       {typeof window !== "undefined" && (
-        <div className={classes.main}>
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeButton={
-              <CustomCloseButton style={{ display: "flex", justifyContent: "center", alignItems: "center" }} />
-            }
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-            background="green"
-            toastStyle={{
-              backgroundColor: "#FDC114",
-              color: "black",
-              fontSize: "16px",
-              fontFamily: "Lato",
-              textTransform: "capitalize",
-            }}
-          />
+        <>
+          <div className={classes.fullscreencover}>
+            <img
+              ref={imageRef}
+              src="/categories/tmuc.jpg"
+              className={classes.coverimage}
+              alt="Cover"
+              tabIndex={0}
+            />
+          </div>
 
-          <Box className={classes.topheader}>
-            {["left"].map((anchor) => (
-              <React.Fragment key={anchor}>
-                <img
-                  src="/categoriestypes/Vector.svg"
-                  alt="vector"
-                  className={classes.vector}
-                  onClick={toggleDrawer(anchor, true)}
-                />
-                <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
-                  <div className={classes.filters}>
-                    {" "}
-                    <Typography variant="h3" className={classes.filtersTitle}>
-                      FILTER
-                    </Typography>
-                    <CloseIcon
-                      onClick={() => {
-                        setState(!state);
-                      }}
-                      className={classes.close}
-                    />
-                  </div>
-                  <div className={clsx(classes.list)} role="presentation">
-                    <List>
-                      <Typography variant="h4" className={classes.filternames}>
-                        SIZE
+          <div className={classes.main}>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeButton={
+                <CustomCloseButton style={{ display: "flex", justifyContent: "center", alignItems: "center" }} />
+              }
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+              background="green"
+              toastStyle={{
+                backgroundColor: "#FDC114",
+                color: "black",
+                fontSize: "16px",
+                fontFamily: "Lato",
+                textTransform: "capitalize",
+              }}
+            />
+
+            <Box className={classes.topheader}>
+              {["left"].map((anchor) => (
+                <React.Fragment key={anchor}>
+                  <img
+                    src="/categoriestypes/Vector.svg"
+                    alt="vector"
+                    className={classes.vector}
+                    onClick={toggleDrawer(anchor, true)}
+                  />
+                  <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
+                    <div className={classes.filters}>
+                      {" "}
+                      <Typography variant="h3" className={classes.filtersTitle}>
+                        FILTER
                       </Typography>
-                      {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
-                        <ListItem button key={text}>
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                onChange={handleChangeChecksize}
-                                name={text}
-                                variant="h6"
-                                className="size-checkbox"
-                              />
-                            }
-                            label={text}
-                            className={classes.checkbox}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                    <Divider />
-
-                    <Divider />
-                    <List>
-                      <Typography variant="h4" className={classes.filternames2}>
-                        PRICE
-                      </Typography>
-                      <div className={classes.slidervaluesmain}>
-                        <div className={classes.slidervalues}>
-                          <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 500
-                          </Typography>
-                          <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 100,000
-                          </Typography>
-                        </div>
-                      </div>
-                      <div className={classes.slidervalue}>
-                        <Slider
-                          value={price}
-                          aria-labelledby="range-slider"
-                          min={500}
-                          max={10000}
-                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
-                          className={classes.slider}
-                          valueLabelDisplay="auto"
-                        />
-                      </div>
-                    </List>
-                  </div>
-                </Drawer>
-              </React.Fragment>
-            ))}
-            <div className={classes.selectDesktop}>
-              <Select
-                defaultValue={selectedOption}
-                placeholder="Sort by"
-                components={{ DropdownIndicator }}
-                styles={customStyles}
-                options={options}
-                onChange={handleChangeSortBy}
-                value={options.find((option) => option.value === sortBy)}
-                className={classes.reactselect}
-              />
-            </div>
-          </Box>
-          <Grid
-            container
-            lg={12}
-            sm={12}
-            md={12}
-            // align="center"
-            // justify="center"
-            // alignItems="center"
-            className={classes.grid1}
-          >
-            <Grid style={{ display: "flex", justifyContent: "start" }} item lg={6} xs={12} sm={6} md={6}>
-              <div className={classes.mainimage}>
-                <div className={classes.categoriestext}>
-                  <div className={classes.categoriestexts}>
-                    <Typography variant="h1" className={classes.categoriesname}>
-                      {filteredProducts[0]?.displayTitle}
-                    </Typography>
-                    <img
-                      src="/categories/categoriestoggle.svg"
-                      className={classes.categorytoggle}
-                      onClick={handlePopOverClick}
-                      alt="icon"
-                    />
-                    {/* <img
-                      src={firstarray.names0.image}
-                      className={classes.categorytoggle}
-                      onClick={handlePopOverClick}
-                    /> */}
-                  </div>
-                </div>
-                <img
-                  style={{ borderRadius: "16px" }}
-                  src={filteredProducts[0]?.heroMediaUrl}
-                  className={classes.mainimageofcategory}
-                  alt="icon"
-                />
-                <Popover
-                  anchorEl={anchorEl}
-                  transformOrigin={{
-                    vertical: "center",
-                    horizontal: "center",
-                  }}
-                  anchorOrigin={{
-                    vertical: "center",
-                    horizontal: "center",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handlePopOverClose}
-                  style={{ marginTop: "210px" }}
-                >
-                  <Box sx={style}>
-                    <div className={classes.modalitems}>
-                      <div className={classes.modalitemsimage}>
-                        {ITEMScategory.map((item) => (
-                          <img src={item.image} className={classes.categoryavatar} alt="icon" />
-                        ))}
-                      </div>
-
-                      <div className={classes.modalitemstitle}>
-                        {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
-                          <a href={itemtitle._id}>
-                            <Typography variant="h4" className={classes.catgorytitle}>
-                              {itemtitle.displayTitle}
-                            </Typography>
-                          </a>
-                        ))}
-                      </div>
+                      <CloseIcon
+                        onClick={() => {
+                          setState(!state);
+                        }}
+                        className={classes.close}
+                      />
                     </div>
-                  </Box>
-                </Popover>
-              </div>
-            </Grid>
+                    <div className={clsx(classes.list)} role="presentation">
+                      <List>
+                        <Typography variant="h4" className={classes.filternames}>
+                          SIZE
+                        </Typography>
+                        {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
+                          <ListItem button key={text}>
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  onChange={handleChangeChecksize}
+                                  name={text}
+                                  variant="h6"
+                                  className="size-checkbox"
+                                />
+                              }
+                              label={text}
+                              className={classes.checkbox}
+                            />
+                          </ListItem>
+                        ))}
+                      </List>
+                      <Divider />
 
+                      <Divider />
+                      <List>
+                        <Typography variant="h4" className={classes.filternames2}>
+                          PRICE
+                        </Typography>
+                        <div className={classes.slidervaluesmain}>
+                          <div className={classes.slidervalues}>
+                            <Typography variant="h5" className={classes.filternameprice}>
+                              RS. 500
+                            </Typography>
+                            <Typography variant="h5" className={classes.filternameprice}>
+                              RS. 100,000
+                            </Typography>
+                          </div>
+                        </div>
+                        <div className={classes.slidervalue}>
+                          <Slider
+                            value={price}
+                            aria-labelledby="range-slider"
+                            min={500}
+                            max={10000}
+                            onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
+                            className={classes.slider}
+                            valueLabelDisplay="auto"
+                          />
+                        </div>
+                      </List>
+                    </div>
+                  </Drawer>
+                </React.Fragment>
+              ))}
+              <div className={classes.selectDesktop}>
+                <Select
+                  defaultValue={selectedOption}
+                  placeholder="Sort by"
+                  components={{ DropdownIndicator }}
+                  styles={customStyles}
+                  options={options}
+                  onChange={handleChangeSortBy}
+                  value={options.find((option) => option.value === sortBy)}
+                  className={classes.reactselect}
+                />
+              </div>
+            </Box>
             <Grid
-              item
-              lg={6}
-              xs={12}
-              sm={6}
+              container
+              lg={12}
+              sm={12}
               md={12}
               // align="center"
               // justify="center"
               // alignItems="center"
-            >
-              {firstfour?.length > 0 ? (
+              className={classes.grid1}
+            ></Grid>
+            {/* Products Below Image   */}
+            {catalogItems?.length > 0 ? (
+              <div className={classes.main}>
                 <div className={classes.gridroot}>
                   <ResponsiveMasonry
-                    columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
+                    columnsCountBreakPoints={{ 350: 2, 700: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
                     style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
                   >
                     <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                      {firstfour?.map((item, key) => {
-                        const cartitem = cart?.items;
+                      {catalogItems?.map((item, index) => {
+                        // console.log(index, "nodde");
+                        const cartitem = props?.cart?.items;
                         const isDisabled = cartitem?.some((data) => {
                           return data.productConfiguration.productId === item?.node?.product?.productId;
                         });
-                        // console.log(cart?.items, "item");
-                        // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+
                         const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
 
                         const validOptionTitle = optionTitle
@@ -1688,15 +1611,15 @@ function Categories(props) {
                         const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
 
                         // Access the "size" property
+                        // const size =validOptionTitle? validOptionTitle: null;
                         const str = item.node.product.title;
                         const words = str.match(/[a-zA-Z0-9]+/g);
                         const firstThreeWords = words.slice(0, 3).join(" ");
-                        const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
-
                         const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                           /[^0-9.]/g,
                           "",
                         );
+                        const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
 
                         const compareAtPrice =
                           item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
@@ -1711,6 +1634,7 @@ function Categories(props) {
                           ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
                         );
 
+                        // console.log(optionTitle, "fil");
                         return (
                           <ProductCard
                             item={item}
@@ -1728,98 +1652,20 @@ function Categories(props) {
                     </Masonry>
                   </ResponsiveMasonry>
                 </div>
-              ) : (
-                <div className={classes.skeletonClass}>
-                  <SkeletonLoader2 />
-                </div>
-              )}
-            </Grid>
-          </Grid>
-          {/* Products Below Image   */}
-          {allproducts?.length > 0 ? (
-            <div className={classes.main}>
-              <div className={classes.gridroot}>
-                <ResponsiveMasonry
-                  columnsCountBreakPoints={{ 350: 2, 700: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-                  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                >
-                  <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                    {allproducts?.map((item, index) => {
-                      // console.log(index, "nodde");
-                      const cartitem = props?.cart?.items;
-                      const isDisabled = cartitem?.some((data) => {
-                        return data.productConfiguration.productId === item?.node?.product?.productId;
-                      });
-
-                      const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-
-                      const validOptionTitle = optionTitle
-                        ? optionTitle
-                            ?.replace(/['"\\]/g, "")
-                            .replace("{", '{"')
-                            .replace(/:/g, '":"')
-                            .replace("}", '"}')
-                            .replace(",", '","')
-                        : null;
-                      const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-
-                      // Access the "size" property
-                      // const size =validOptionTitle? validOptionTitle: null;
-                      const str = item.node.product.title;
-                      const words = str.match(/[a-zA-Z0-9]+/g);
-                      const firstThreeWords = words.slice(0, 3).join(" ");
-                      const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                        /[^0-9.]/g,
-                        "",
-                      );
-                      const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
-
-                      const compareAtPrice =
-                        item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
-                          /[^0-9.]/g,
-                          "",
-                        );
-
-                      const parsedDisplayPrice = parseFloat(displayPrice);
-                      const parsedCompareAtPrice = parseFloat(compareAtPrice);
-
-                      const percentage = Math.floor(
-                        ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                      );
-
-                      // console.log(optionTitle, "fil");
-                      return (
-                        <ProductCard
-                          item={item}
-                          isDisabled={isDisabled}
-                          isLoading={isLoading}
-                          percentage={percentage}
-                          firstThreeWords={firstThreeWords}
-                          storeNameShort={storeNameShort}
-                          size={size}
-                          handleOnClick={handleOnClick}
-                          trackProductView={trackProductView}
-                        />
-                      );
-                    })}
-                  </Masonry>
-                </ResponsiveMasonry>
               </div>
-            </div>
-          ) : props?.isLoadingCatalogItems ? (
-            <SkeletonLoader />
-          ) : (
-            props?.totalcount === 0 && (
-              <></>
-            )
-          )}
-
-          <div className={classes.loadmore}>
-            {catalogItemsPageInfo?.hasNextPage && (
-              <PageStepper pageInfo={catalogItemsPageInfo} loading={isLoadingCatalogItems}></PageStepper>
+            ) : (
+              <div className={classes.skeletonClass}>
+                <SkeletonLoader />
+              </div>
             )}
+
+            <div className={classes.loadmore}>
+              {catalogItemsPageInfo?.hasNextPage && (
+                <PageStepper pageInfo={catalogItemsPageInfo} loading={isLoadingCatalogItems}></PageStepper>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </Layout>
   );

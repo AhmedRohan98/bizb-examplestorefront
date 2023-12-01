@@ -10,6 +10,7 @@ import OrderCard from "components/OrderCard";
 import { withApollo } from "lib/apollo/withApollo";
 import React, { Component, Fragment, useEffect, useState } from "react";
 import { locales } from "translations/config";
+import GTMCheckout from "components/GTMCheckout";
 import fetchPrimaryShop from "staticUtils/shop/fetchPrimaryShop";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 
@@ -155,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CheckoutComplete(props) {
   const [reviews, setReviews] = useState([]);
-  
+
   //  async function getFacebookReviews() {
   //    const pageId = "219626352248309";
   //    const accessToken =
@@ -231,6 +232,8 @@ function CheckoutComplete(props) {
           <Grid item xs={12} md={12}>
             {/* <span>xyz</span> */}
             <OrderCard isExpanded={true} order={order} />
+            {console.log("order", order)}
+            <GTMCheckout order={order} />
           </Grid>
         </Grid>
         <Grid item xs={false} md={3} /> {/* MUI grid doesn't have an offset. Use blank grid item instead. */}

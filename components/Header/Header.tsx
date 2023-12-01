@@ -96,7 +96,7 @@ interface HeaderProps extends WithStyles<typeof styles> {
   /* @ts-ignore TODO: Refactor link to address type error */
 }
 const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
-  const [viewer, , refetch] = useViewer();
+  const [viewer, loading, refetch] = useViewer();
 
   const [modalFlag, setModalFlag] = useState(false);
   const handleOpenModal = () => {

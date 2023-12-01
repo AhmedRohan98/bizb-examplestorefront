@@ -20,7 +20,7 @@ import Select, { components } from "react-select";
 import formatCurrency from "lib/utils/formatCurrency";
 import { placeOrderQuery } from "../../hooks/orders/query";
 import TagManager from "react-gtm-module";
-
+import GTMCheckout from "components/GTMCheckout";
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
 import ReactGA from "react-ga4";
 
@@ -444,7 +444,6 @@ const CheckoutActions = (prop) => {
   useEffect(() => {
     console.log("itemitems", items);
     // Track "Checkout Initiated" event with Google Analytics 4
-   
   }, []);
   // console.log(cart);
   const handlepay = async (values, action) => {
@@ -475,7 +474,7 @@ const CheckoutActions = (prop) => {
           },
         },
       };
-  
+
       TagManager.dataLayer({
         dataLayer: initiatedCheckoutData,
       });
@@ -549,6 +548,10 @@ const CheckoutActions = (prop) => {
         placeOrder: { orders, token },
       } = data;
       toast.success("Order placed successfully!");
+      window.dataLayer?.push("event", "Order placed", {
+        price: subtotal + shippingData?.cost,
+      });
+      console.log("Order placed successfully");
       // ReactGA.send({
       //   hitType: "event",
       //   eventCategory: "Ecommerce",
@@ -625,7 +628,6 @@ const CheckoutActions = (prop) => {
       console.log("response", response);
       setSubTotal(response?.data?.applyDiscountCodeToCart?.cart?.checkout?.summary?.discountTotal?.amount);
       setOrderDisable2(false);
-
     } catch (err) {
       console.log("response", err.message);
       setErrorPromo(err?.message);
@@ -1109,6 +1111,7 @@ const CheckoutActions = (prop) => {
                     )} */}
                     Rs. {shippingData?.cost? cart?.checkout?.summary?.total?.amount +shippingData?.cost : cart?.checkout?.summary?.total?.amount}
                   </Typography>
+                  {/* <GTMCheckout price={shippingData?.cost ? shippingData?.cost + subtotal : subtotal} /> */}
                 </div>
               </div>
               <div className={classes.orderbutn}>

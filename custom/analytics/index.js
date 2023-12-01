@@ -5,6 +5,4 @@
 
 import * as segment from "./segment";
 
-export default [
-  segment
-];
+export default [segment];
