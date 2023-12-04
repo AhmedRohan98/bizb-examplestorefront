@@ -39,16 +39,15 @@ stages:
   - deploy
   #- cleanup
 
-before_script:
-  - rm -rf .cache
-  - rm -rf node_modules
-  #- apk add --no-cache git curl jq # Ensure Git, curl, and jq are installed
-  - git config --global user.email "ci-runner@example.com"
-  - git config --global user.name "CI Runner"
+
 
 build_docker_image:
   stage: build
   script:
+    - rm -rf .cache
+    - rm -rf node_modules
+    - git config --global user.email "ci-runner@example.com"
+    - git config --global user.name "CI Runner"
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - CURRENT_VERSION=$(cat VERSION)
     - NEXT_VERSION=$(($CURRENT_VERSION + 1))
@@ -59,12 +58,38 @@ build_docker_image:
     - git push origin HEAD:master
     - docker build --no-cache -t $CI_REGISTRY_IMAGE/bizb-gke:bizb-frontend-$NEXT_VERSION .
     - docker push $CI_REGISTRY_IMAGE/bizb-gke:bizb-frontend-$NEXT_VERSION
+  artifacts:
+    paths:
+      - VERSION
+
   rules:
     - changes:
         - VERSION
       when: never
     - if: '$CI_COMMIT_BRANCH == "master"'
 
+deploy_to_gke:
+  stage: deploy
+  image: google/cloud-sdk:latest
+  script:
+    - echo "$GKE_SA_KEY" > gke_sa.json
+    - gcloud auth activate-service-account --key-file gke_sa.json
+    - gcloud config set project ultimate-balm-377006
+    - gcloud container clusters get-credentials bizb-cluster --zone asia-southeast1-a --project ultimate-balm-377006
+    - VERSION_NUMBER=$(cat VERSION)
+    - echo $VERSION_NUMBER
+    - NEW_IMAGE="registry.gitlab.com/codistan/bizb/example-storefront/bizb-gke:bizb-frontend-$VERSION_NUMBER"  # Use the newly calculated version
+    - kubectl set image deployment/bizb-frontend-deployment bizb-frontend=$NEW_IMAGE
+    - kubectl rollout status deployment/bizb-frontend-deployment
+    - kubectl rollout restart deployment/bizb-frontend-deployment
+  # only:
+  #   - master
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" && $CI_COMMIT_MESSAGE !~ /Update version to/'
+      when: always
+    - when: never
+  dependencies:
+    - build_docker_image
 
 
 
