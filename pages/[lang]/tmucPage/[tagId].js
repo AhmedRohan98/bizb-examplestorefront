@@ -788,6 +788,25 @@ const useStyles = makeStyles((theme) => ({
     outline:"none",
    
   },
+
+  imgdiv:{
+    display:"flex",
+    alignItems:"center",
+    flexDirection:"column"
+    
+  },
+  imgSize: {
+    width: "41%",
+    height: "18%",
+    marginTop: "3px",
+  },
+  textstyle: {
+    fontFamily: "Ostrich Sans Black",
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    color: "black",
+   
+  },
 }));
 const ITEMScategory = [
   {
@@ -1004,7 +1023,7 @@ function Categories(props) {
 
         console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
-        if (additemtocart?.data?.addCartItems?.cart?._id) {
+        // if (additemtocart?.data?.addCartItems?.cart?._id) {
           toast.success(" added to cart successfully!");
           // setIsLoading((prevState) => ({
           //   ...prevState,
@@ -1014,7 +1033,7 @@ function Categories(props) {
             ...prevState,
             [product.productId]: false,
           }));
-        }
+        // }
       } catch (error) {
         console.log("carcart error for cart", error);
         toast.error("Something went wrong, try again");
@@ -1653,11 +1672,23 @@ function Categories(props) {
                   </ResponsiveMasonry>
                 </div>
               </div>
+            ) :  props?.isLoadingCatalogItems ? (
+              <SkeletonLoader />
             ) : (
+              props?.totalcount === 0 && (
+                <div className={classes.imgdiv}>
+                <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
+                <Typography variant="h6" className={classes.textstyle}>
+                  No Products Found
+                </Typography>
+              </div>
+              )
+            )}
+             {/* (
               <div className={classes.skeletonClass}>
                 <SkeletonLoader />
               </div>
-            )}
+            )} */}
 
             <div className={classes.loadmore}>
               {catalogItemsPageInfo?.hasNextPage && (

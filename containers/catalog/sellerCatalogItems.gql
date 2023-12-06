@@ -39,6 +39,16 @@ query sellercatalogItemsQuery(
             productId
 
             variants {
+                 media {
+              URLs {
+                large
+                medium
+                thumbnail
+                small
+                __typename
+              }
+              __typename
+            }
               uploadedBy {
                 userId
                 name
@@ -89,6 +99,9 @@ query sellercatalogItemsQuery(
             media {
               URLs {
                 large
+                medium
+                thumbnail
+                small
                 __typename
               }
               __typename

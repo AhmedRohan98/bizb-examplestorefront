@@ -302,13 +302,16 @@ const ProductCard = ({
                   ? item?.node?.product?.media[0]?.URLs?.thumbnail
                   : item?.node?.product?.media[0]?.URLs?.large
                   ? item?.node?.product?.media[0]?.URLs?.large
-                  : item?.node?.product?.variants[0].media[0]?.URLs?.medium
-                  ? item?.node?.product?.variants[0].media[0]?.URLs?.medium
-                  : item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
-                  ? item?.node?.product?.variants[0].media[0]?.URLs?.thumbnail
-                  : item?.node?.product?.variants[0].media[1]?.URLs?.large
-                  ? item?.node?.product?.variants[0].media[1]?.URLs?.large
-                  : item?.node?.product?.variants[0].media[1]?.URLs?.medium
+                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.URLs?.medium
+                  ? item?.node?.product?.variants[0]?.media[0]?.URLs?.medium
+                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                  ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                  ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.media[1]?.URLs?.small?
+                  item?.node?.product?.variants[0]?.media[1]?.URLs?.small:
+                  ""
+
               }
               className={classes.image}
               key={item?.node?.product?.id}

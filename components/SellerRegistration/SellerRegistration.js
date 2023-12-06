@@ -323,31 +323,6 @@ const SellerRegistration = () => {
     seterror("");
     setuserError("");
 
-    console.log(
-      "ddt",
-      userName.value !== "" &&
-        reg.test(useremail.value) === true &&
-        phoneNumreg.test(contactnumber.value) === true &&
-        contactnumber.value !== "" &&
-        (isAuth || (!isAuth && password.value.length >= 8 && password.value === password2.value)) &&
-        storeName.value !== "" &&
-        address1.value !== "" &&
-        country.value !== "" &&
-        zipcode.value !== "",
-    );
-    console.log("ddt", {
-      email: useremail.value,
-      storeName: storeName.value,
-      address1: address1.value,
-      address2: address2.value,
-      state: state.value,
-      city: city.value,
-      country: country.value,
-      postalcode: zipcode.value,
-      phone: contactnumber.value,
-      fullName: userName.value,
-      password: hashPassword(password.value),
-    });
     if (
       userName.value.trim() !== "" &&
       reg.test(useremail.value) === true &&
@@ -357,9 +332,26 @@ const SellerRegistration = () => {
       storeName.value.trim() !== "" &&
       address1.value.trim() !== "" &&
       country.value.trim() !== "" &&
-      zipcode.value.trim() !== "" &&
-      checkTerms === true
+      zipcode.value.trim() !== "" 
     ) {
+      setcheckTermsError(false);
+
+      handleSubmit2();
+      seterros({ ...errors, value: "Done", valid: false });
+    } else {
+      setLoginDisable(false);
+      setcheckTermsError(true);
+
+      console.log("errors", errors);
+      seterros({ ...errors, value: "Complete all required fields", valid: true });
+    }
+  };
+  const handleSubmit2 = () => {
+    seterros({ value: "", valid: false });
+    seterror("");
+    setuserError("");
+
+    if (checkTerms === true) {
       setcheckTermsError(false);
 
       handlePublish();
@@ -368,7 +360,7 @@ const SellerRegistration = () => {
       setLoginDisable(false);
       setcheckTermsError(true);
       console.log("errors", errors);
-      seterros({ ...errors, value: "Complete all required fields", valid: true });
+      seterros({ ...errors, value: "", valid: false });
     }
   };
 
@@ -395,8 +387,8 @@ const SellerRegistration = () => {
       });
       console.log("sellerRegistration:", sellerRegistration);
       const sellerInfo = {
-        name: useremail.value,     // Seller Name
-        category: 'Seller Category', // Seller Category
+        name: useremail.value, // Seller Name
+        category: "Seller Category", // Seller Category
       };
       ReactGA.event({
         category: "Seller",
@@ -404,20 +396,19 @@ const SellerRegistration = () => {
         label: JSON.stringify(sellerInfo),
       });
       const sellerRegistrationData = {
-        event: 'newSellerRegistration', // Define a custom event name
+        event: "newSellerRegistration", // Define a custom event name
         ecommerce: {
           seller: {
-          
             email: useremail.value, // Replace with the seller's email
             // Add any other relevant seller information
           },
         },
       };
-      
+
       TagManager.dataLayer({
         dataLayer: sellerRegistrationData,
       });
-      
+
       ReactGA.event({
         category: "Referral",
         action: "Code Used",
@@ -433,9 +424,9 @@ const SellerRegistration = () => {
         // Include any custom data related to the event
         // custom_data: { key: value },
       };
-    
+
       // Send the event data to Facebook CAPI using the Facebook Pixel
-      fbq('track', "470474555213027", eventObject);
+      fbq("track", "470474555213027", eventObject);
       setLoginDisable(false);
       clearForm();
       toast.success("You're successfully registered as a Seller!");
