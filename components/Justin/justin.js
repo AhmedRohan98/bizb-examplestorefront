@@ -452,7 +452,7 @@ const Justin = (props) => {
 
       console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
-      if (additemtocart?.data?.addCartItems?.cart?._id) {
+      // if (additemtocart?.data?.addCartItems?.cart?._id) {
         toast.success(" added to cart successfully!");
         // setIsLoading((prevState) => ({
         //   ...prevState,
@@ -462,7 +462,7 @@ const Justin = (props) => {
           ...prevState,
           [product.productId]: false,
         }));
-      }
+      // }
     } catch (error) {
       console.log("carcart error for cart", error);
       toast.error("Something went wrong, try again");
@@ -509,6 +509,7 @@ const Justin = (props) => {
         },
       },
     };
+
 
     TagManager.dataLayer({
       dataLayer: addToCartData,

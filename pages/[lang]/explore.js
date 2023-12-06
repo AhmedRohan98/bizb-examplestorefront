@@ -1121,7 +1121,7 @@ function Explore(props) {
 
       console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
-      if (additemtocart?.data?.addCartItems?.cart?._id) {
+      // if (additemtocart?.data?.addCartItems?.cart?._id) {
         toast.success(" added to cart successfully!");
         
         // setIsLoading((prevState) => ({
@@ -1132,7 +1132,7 @@ function Explore(props) {
           ...prevState,
           [product.productId]: false,
         }));
-      }
+      // }
     } catch (error) {
       console.log("carcart error for cart", error);
       toast.error("Something went wrong, try again");
@@ -1183,22 +1183,9 @@ function Explore(props) {
       },
     };
 
-    TagManager.dataLayer({
-      dataLayer: addToCartData,
-    });
-
-    // setIsLoading((prevState) => ({
-    //   ...prevState,
-    //   [product.productId]: true,
-    // }));
-
-    // await handleAddToCartClick(addToCartQuantity, product, variant);
-    // toast.success(" added to cart successfully!");
-    // setIsLoading((prevState) => ({
-    //   ...prevState,
-    //   [product.productId]: false,
-    // }));
-    // Scroll to the top
+    // TagManager.dataLayer({
+    //   dataLayer: addToCartData,
+    // });
   };
 
   const processQueue = async () => {

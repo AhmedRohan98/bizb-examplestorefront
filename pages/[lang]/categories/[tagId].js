@@ -961,9 +961,11 @@ function Categories(props) {
 
   // console.log("end", uiStore?.endCursor);
   const handleAddToCartClick = async (quantity, product, variant) => {
-    // console.log(pdpSelectedVariantId, "star");
+    console.log("itemitemitem 2", isLoading);
 
     const selectedVariant = variantById(product.variants, variant._id);
+    console.log("itemitemitem 2 h", selectedVariant);
+
     if (selectedVariant) {
       const price = parseFloat(product.variants[0]?.pricing[0]?.displayPrice?.replace(/[^0-9.-]+/g, ""), 10);
       try {
@@ -988,10 +990,14 @@ function Categories(props) {
         ]);
         // toast.success(" added to cart successfully!");
 
-        console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
+        // console.log("itemitemitem cart", additemtocart?.data?.addCartItems?.cart?._id);
+        // console.log("itemitemitem cart", additemtocart);
 
-        if (additemtocart?.data?.addCartItems?.cart?._id) {
+
+        // if (additemtocart?.data?.addCartItems?.cart?._id) {
           toast.success(" added to cart successfully!");
+          console.log("itemitemitem 3", isLoading);
+
           // setIsLoading((prevState) => ({
           //   ...prevState,
           //   [product.productId]: false,
@@ -1000,7 +1006,10 @@ function Categories(props) {
             ...prevState,
             [product.productId]: false,
           }));
-        }
+          console.log("itemitemitem 4", isLoading);
+
+        // }
+
       } catch (error) {
         console.log("carcart error for cart", error);
         toast.error("Something went wrong, try again");
@@ -1637,7 +1646,7 @@ function Categories(props) {
                       </div>
 
                       <div className={classes.modalitemstitle}>
-                        {tags?.nodes?.slice(0, 6)?.map((itemtitle) => (
+                        {tags?.nodes?.slice(0, 9)?.map((itemtitle) => (
                           <a href={itemtitle._id}>
                             <Typography variant="h4" className={classes.catgorytitle}>
                               {itemtitle.displayTitle}

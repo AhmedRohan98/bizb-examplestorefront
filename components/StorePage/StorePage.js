@@ -432,7 +432,7 @@ const StorePage = ({...props}) => {
 
                     label="Sort By"
                   >
-                    {categoryTags?.slice(0, 6).map((category) => (
+                    {categoryTags?.slice(0, 9).map((category) => (
                       <MenuItem
                         key={category._id}
                         value={category.displayTitle}

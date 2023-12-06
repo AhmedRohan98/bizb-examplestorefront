@@ -13,23 +13,22 @@ import sellercatalogItemsQuery from "./sellerCatalogItems.gql";
  * @returns {React.Component} - component decorated with primaryShopId and catalog as props
  */
 export default function SellersCatalogItems(Component) {
- 
   class SellersCatalogItems extends React.Component {
     static propTypes = {
       sellerIds: PropTypes.array,
       uiStore: PropTypes.object.isRequired,
     };
 
-
     render() {
-      const { primaryShopId, routingStore, uiStore, tag } = this.props;
+      const { primaryShopId, routingStore, uiStore, tag, tagId } = this.props;
       const sellerIds = uiStore?.sellerId;
-// console.log("page",uiStore.pageSize);
+      console.log("pagetagid", uiStore.filters);
       const variables = {
         sellerIds: sellerIds,
-        ...paginationVariablesFromUrlParams( { defaultPageLimit: uiStore?.pageSize }),
+        tagIds: uiStore?.filters,
+
+        ...paginationVariablesFromUrlParams({ defaultPageLimit: uiStore?.pageSize }),
         //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
-        //   tagIds: tagId,
         //   sortBy,
         //   sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
         //   sortOrder,
@@ -53,7 +52,7 @@ export default function SellersCatalogItems(Component) {
                   limit: uiStore?.pageSize,
                 })}
                 catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
-                totalcount={(sellerCatalogItems && sellerCatalogItems.totalCount)}
+                totalcount={sellerCatalogItems && sellerCatalogItems.totalCount}
                 loading={loading}
               />
             );
@@ -62,7 +61,6 @@ export default function SellersCatalogItems(Component) {
       );
     }
   }
-  
 
   hoistNonReactStatic(SellersCatalogItems, Component);
   return inject("primaryShopId", "routingStore", "uiStore")(SellersCatalogItems);
