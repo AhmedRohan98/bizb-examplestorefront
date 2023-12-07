@@ -21,6 +21,8 @@ export const UIProvider = ({ children }) => {
   const [sortByCurrencyCode, setSortByCurrencyCode] = useState("USD"); // eslint-disable-line no-unused-vars
   const [openCartTimeout, setOpenCartTimeout] = useState();
   const [filters, setFilters] = useState([]);
+  const [tagIdfiltersSeller,settagIdfiltersSeller] = useState();
+
 const [filterPrice, setFilterPrice] = useState([
   { name: "minPrice", value: 0},
   { name: "maxPrice", value: 100000 },
@@ -88,7 +90,7 @@ const [filterPrice, setFilterPrice] = useState([
 
   useEffect(() => {
     // console.log("updating end cursor...", endCursor);
-  }, [endCursor]);
+  }, [endCursor, tagIdfiltersSeller]);
   return (
     <UIContext.Provider
       value={{
@@ -114,6 +116,8 @@ const [filterPrice, setFilterPrice] = useState([
         entryModal,
         setLocales,
         endCursor,
+        tagIdfiltersSeller,
+        settagIdfiltersSeller,
         setEndCursor,
         setPDPSelectedVariantId,
         setLanguage,

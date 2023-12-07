@@ -314,12 +314,14 @@ const NavigationDesktop = (props) => {
               Home
             </span>
           </Link>
-            <span
+            <Button
               onMouseEnter={handlePopOverOpen}
               onClick={handlePopOverOpen}
+              aria-haspopup="true"
               // onMouseLeave={this.handlePopOverClose}
               className={classes.headerHeadings}
               style={{
+                borderRadius:"18px",
                 textDecorationColor:
                   Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
                     ? "#FDC114"
@@ -335,7 +337,7 @@ const NavigationDesktop = (props) => {
               }}
             >
               Explore
-            </span>
+            </Button>
             <Popover
               className={classes.popover}
               classes={{
