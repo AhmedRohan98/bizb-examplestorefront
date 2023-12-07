@@ -283,7 +283,7 @@ const BrandPage = () => {
               return (
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <div className={classes.boxcontairproduct}>
-                  {item?.heroMediaUrl ? (
+                  {item?.heroMediaUrl  && item?.heroMediaUrl!==null ? (
                     <Link href={"/en/brand/[slug]/[tagId]"} as={`/en/brand/${item?.slug}/${item?._id}`}>
                     <a target="_blank">
                             <img
