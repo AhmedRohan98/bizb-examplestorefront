@@ -23,7 +23,7 @@ import withCart from "containers/cart/withCart";
 import PageStepper from "../../../components/PageStepper/PageStepper";
 import { withApollo } from "lib/apollo/withApollo";
 import useShop from "hooks/shop/useShop";
-import SellersCatalogItems from "containers/catalog/withSellerCatalogItem";
+import SellersCatalogItems from "../../../containers/catalog/withSellerCatalogItem";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import variantById from "../../../lib/utils/variantById";
@@ -45,7 +45,7 @@ import ProductCard from "../../../components/ProductCard/ProductCard";
 
 function SellerPublicProfile(props) {
   // console.log("props", props);
-  const { uiStore, routingStore, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
+  const { uiStore, routingStore, filters, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
   const [primaryShopId, refetch2] = useprimaryShop();
@@ -489,7 +489,7 @@ function SellerPublicProfile(props) {
 
       console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
-      if (additemtocart?.data?.addCartItems?.cart?._id) {
+      // if (additemtocart?.data?.addCartItems?.cart?._id) {
         toast.success(" added to cart successfully!");
         // setIsLoading((prevState) => ({
         //   ...prevState,
@@ -499,7 +499,7 @@ function SellerPublicProfile(props) {
           ...prevState,
           [product.productId]: false,
         }));
-      }
+      // }
     } catch (error) {
       console.log("carcart error for cart", error);
       toast.error("Something went wrong, try again");
@@ -714,46 +714,51 @@ function SellerPublicProfile(props) {
                 </Hidden>
               </div>
               <div className={classes.divForSearch}>
-                <div className={classes.sortdiv}>
-                  <IconButton>
-                    <Sort style={{ color: "black" }} />
-                  </IconButton>
-                  <FormControl
-                    style={{
-                      width: "260px",
-                      borderRadius: "8px",
-                      backgroundColor: "#F7F7F9",
-                      marginTop: "5px",
-                      borderBottom: "none",
-                    }}
-                  >
-                    <Select
-                      notched={false}
-                      className={classes.selectDropdown}
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      // onChange={(event) => handleChange(event, 'Category')}
-                      // error={!!categoryError}
+              <div className={classes.sortdiv}>
+                <IconButton>
+                <img
+                src="/categoriestypes/Vector.svg"
+                alt="vector"
+                className={classes.vector}
+              />
+                </IconButton>
+                <FormControl
+                  style={{
+                    width: "260px",
+                    borderRadius: "8px",
+                    backgroundColor: "#F7F7F9",
+                    marginTop: "5px",
+                    borderBottom: "none",
+                  }}
+                >
+                  <Select
+                    notched={false}
+                    className={classes.selectDropdown}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // onChange={(event) => handleChange(event, 'Category')}
+                    // error={!!categoryError}
 
-                      label="Sort By"
-                    >
-                      {categoryTags?.slice(0, 6).map((category) => (
-                        <MenuItem
-                          key={category._id}
-                          value={category.displayTitle}
-                          onClick={() => {
-                            setcategoryID(category._id);
-                            console.log("key", category._id);
-                          }}
-                        >
-                          <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px" }}>
-                            {category.displayTitle}
-                          </Typography>
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
+                    label="Sort By"
+                  >
+                    {categoryTags?.slice(0, 9).map((category) => (
+                      <MenuItem
+                        key={category._id}
+                        value={category.displayTitle}
+                        onClick={() => {
+                          setcategoryID(category._id);
+                          uiStore.settagIdfiltersSeller(category._id)
+                          console.log("key", category._id);
+                        }}
+                      >
+                        <Typography variant="body2" style={{ fontWeight: 500, fontSize: "17px", marginTop:"5px" }}>
+                          {category.displayTitle}
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
               </div>
             </Grid>
             <Grid xs={12}>
@@ -875,120 +880,7 @@ function SellerPublicProfile(props) {
                       handleOnClick={handleOnClick}
                       // trackProductView={trackProductView}
                     />
-                    // <div style={{ display: "flex", justifyContent: "center" }}>
-                    //   <div className={classes.boxcontairproduct}>
-                    //     {/* {console.log("Images", item?.node)} */}
-                    //     <Link
-                    //       href={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                    //       as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                    //     >
-                    //       <a target="_blank">
-                    //         <img
-                    //           src={
-                    //             item?.node?.product?.media[0]?.URLs?.medium
-                    //               ? item?.node?.product?.media[0]?.URLs?.medium
-                    //               : item?.node?.product?.media[0]?.URLs?.thumbnail
-                    //               ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                    //               : item?.node?.product?.media[0]?.URLs?.large
-                    //           }
-                    //           className={classes.image}
-                    //           key={item?.node?.product?.id}
-                    //           // onClick={() => clickHandler(item.node.product.slug)}
-                    //           alt={item?.node?.product?.title}
-                    //         />
-                    //       </a>
-                    //     </Link>
-
-                    //     <div className={classes.cartcontent}>
-                    //       <div className={classes.cartcontenttext}>
-                    //         <Typography
-                    //           style={{
-                    //             fontWeight: "600",
-                    //             fontSize: "1rem",
-                    //             fontFamily: "lato",
-                    //             // marginTop: "10px",
-                    //             textTransform: "capitalize",
-                    //             marginLeft: "0px",
-                    //           }}
-                    //           variant="h4"
-                    //           component="h2"
-                    //           className={classes.carttitle}
-                    //         >
-                    //           {firstThreeWords}
-                    //         </Typography>
-                    //         <Typography
-                    //           className={classes.price}
-                    //           style={{
-                    //             fontWeight: "600",
-                    //             fontSize: "1rem",
-                    //             fontFamily: "lato",
-                    //             color: "#FDC114",
-                    //             marginLeft: "0px",
-                    //           }}
-                    //         >
-                    //           {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                    //             ?.replace(/\.00$/, "")
-                    //             .replace(/\$/g, "Rs. ")}
-                    //         </Typography>
-                    //         <div className={classes.strikethroughoff}>
-                    //           <strike className={classes.strikethrough}>
-                    //             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                    //               ?.replace(/\.00$/, "")
-                    //               .replace(/\$/g, "Rs. ")}
-                    //           </strike>
-                    //           <Typography
-                    //             style={{
-                    //               fontWeight: "600",
-                    //               fontSize: "0.9rem",
-                    //               fontFamily: "lato",
-                    //               marginLeft: "0px",
-                    //             }}
-                    //             variant="h4"
-                    //             component="h2"
-                    //             className={classes.carttitle2}
-                    //           >
-                    //             {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice &&
-                    //               `-${Math.abs(percentage)}%`}
-                    //           </Typography>
-                    //         </div>
-                    //       </div>
-                    //       <div className={classes.cartbackground}>
-                    //         <Typography
-                    //           style={{
-                    //             fontWeight: "600",
-                    //             fontSize: "0.8rem",
-                    //             fontFamily: "lato",
-                    //             left: "5px",
-                    //           }}
-                    //           variant="h4"
-                    //           component="h2"
-                    //           className={classes.cartsize}
-                    //         >
-                    //           Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                    //         </Typography>
-                    //         {isLoading[item?.node?.product?.productId] ? (
-                    //           <CircularProgress className={classes.progressBar} />
-                    //         ) : (
-                    //           <Button
-                    //             className={classes.cart}
-                    //             onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-                    //             disabled={isDisabled || item?.node?.product?.isSoldOut}
-                    //           >
-                    //             <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon" />
-                    //             <Typography
-                    //               style={{ fontFamily: "Ostrich Sans Black" }}
-                    //               variant="h5"
-                    //               component="h2"
-                    //               className={classes.cartText}
-                    //             >
-                    //               {isDisabled ? "Added" : item?.node?.product?.isSoldOut ? "Sold" : "+ Cart"}
-                    //             </Typography>
-                    //           </Button>
-                    //         )}
-                    //       </div>
-                    //     </div>
-                    //   </div>
-                    // </div>
+          
                   );
                 })}
               </Masonry>

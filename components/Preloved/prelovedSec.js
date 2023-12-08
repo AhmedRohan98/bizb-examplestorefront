@@ -267,7 +267,7 @@ const Preloved = (props) => {
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
           <img src={res?.page5?.heroMediaUrl} className={classes.imagess} alt="category" />
 
-          <div className={classes.cart}>
+          <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page5?.displayTitle}
             </Typography>
@@ -284,7 +284,7 @@ const Preloved = (props) => {
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
           <img src={res?.page7?.heroMediaUrl} className={classes.imagess} alt="category" />
 
-          <div className={classes.cart}>
+          <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page7?.displayTitle}
             </Typography>
@@ -325,8 +325,8 @@ const Preloved = (props) => {
         <Grid item xs={12} container className={classes.carts}>
           <img src={res?.page3?.heroMediaUrl} className={classes.imagess} alt="category" />
 
-          <div className={classes.cart}>
-            <Typography gutterBottom variant="h3" className={classes.text}>
+          <div className={classes.cart2}>
+            <Typography gutterBottom variant="h3" className={classes.text} >
               {res?.page3?.displayTitle}
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler2(res?.page3?._id)}>

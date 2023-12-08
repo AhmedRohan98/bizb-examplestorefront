@@ -13,23 +13,24 @@ import sellercatalogItemsQuery from "./sellerCatalogItems.gql";
  * @returns {React.Component} - component decorated with primaryShopId and catalog as props
  */
 export default function SellersCatalogItems(Component) {
- 
   class SellersCatalogItems extends React.Component {
     static propTypes = {
       sellerIds: PropTypes.array,
       uiStore: PropTypes.object.isRequired,
     };
 
-
     render() {
-      const { primaryShopId, routingStore, uiStore, tag } = this.props;
+      const { primaryShopId, routingStore, uiStore, tag, tagId } = this.props;
       const sellerIds = uiStore?.sellerId;
-// console.log("page",uiStore.pageSize);
+      const { tagIdfiltersSeller } = uiStore;
+
+      console.log("pagetagid", tagIdfiltersSeller);
       const variables = {
         sellerIds: sellerIds,
-        ...paginationVariablesFromUrlParams( { defaultPageLimit: uiStore?.pageSize }),
+        tagIds: tagIdfiltersSeller,
+
+        ...paginationVariablesFromUrlParams({ defaultPageLimit: uiStore?.pageSize }),
         //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
-        //   tagIds: tagId,
         //   sortBy,
         //   sortByPriceCurrencyCode: uiStore.sortByCurrencyCode,
         //   sortOrder,
@@ -39,30 +40,32 @@ export default function SellersCatalogItems(Component) {
       };
 
       return (
-        <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
-          {({ data, fetchMore, loading }) => {
-            const { sellerCatalogItems } = data || {};
-            return (
-              <Component
-                {...this.props}
-                sellerCatalogItemsPageInfo={pagination({
-                  fetchMore,
-                  routingStore,
-                  data,
-                  queryName: "sellerCatalogItems",
-                  limit: uiStore?.pageSize,
-                })}
-                catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
-                totalcount={(sellerCatalogItems && sellerCatalogItems.totalCount)}
-                loading={loading}
-              />
-            );
-          }}
-        </Query>
+        <>
+        {console.log("pagetagid 2")}
+          <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
+            {({ data, fetchMore, loading }) => {
+              const { sellerCatalogItems } = data || {};
+              return (
+                <Component
+                  {...this.props}
+                  sellerCatalogItemsPageInfo={pagination({
+                    fetchMore,
+                    routingStore,
+                    data,
+                    queryName: "sellerCatalogItems",
+                    limit: uiStore?.pageSize,
+                  })}
+                  catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
+                  totalcount={sellerCatalogItems && sellerCatalogItems.totalCount}
+                  loading={loading}
+                />
+              );
+            }}
+          </Query>
+        </>
       );
     }
   }
-  
 
   hoistNonReactStatic(SellersCatalogItems, Component);
   return inject("primaryShopId", "routingStore", "uiStore")(SellersCatalogItems);

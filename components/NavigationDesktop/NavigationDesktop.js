@@ -142,8 +142,7 @@ const NavigationDesktop = (props) => {
     categoryTagsInfo: null,
     selectedPage: null,
     currentLink: null,
-    originalData: ["Juniors", "Casuals", "Party Wear", "Upcycled","Shoes", "Live Session",  "Accessories", "Western"],
-    customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Live Session", "Upcycled"],
+    customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Live Session", "Live Sessions", "Upcycled", "EXPRESS DELIVERY",  ],
     mappedData: [],
     mappedData2: [
       { name: "Brands", url: "/en/brands" },
@@ -208,7 +207,7 @@ const NavigationDesktop = (props) => {
   // Other handlePopOverClose functions...
 
   const handlePopOverOpen = (event) => {
-    console.log("hello here in this")
+    console.log("hello here in this popover")
     setState((prevState) => ({ ...prevState, anchorEl: event.currentTarget }));
   };
   const handlePopOverClose2 = () => {
@@ -276,9 +275,12 @@ const NavigationDesktop = (props) => {
         return dataItem ? { ...dataItem } : null;
       })
       .filter(Boolean);
+      console.log("user 1vvbm", maData, categoryTags);
 
     setState((prevState) => ({ ...prevState, mappedData: maData }));
   };
+
+  
 
   // Other functions...
 
@@ -312,12 +314,14 @@ const NavigationDesktop = (props) => {
               Home
             </span>
           </Link>
-            <span
+            <Button
               onMouseEnter={handlePopOverOpen}
               onClick={handlePopOverOpen}
+              aria-haspopup="true"
               // onMouseLeave={this.handlePopOverClose}
               className={classes.headerHeadings}
               style={{
+                borderRadius:"18px",
                 textDecorationColor:
                   Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
                     ? "#FDC114"
@@ -333,7 +337,7 @@ const NavigationDesktop = (props) => {
               }}
             >
               Explore
-            </span>
+            </Button>
             <Popover
               className={classes.popover}
               classes={{
