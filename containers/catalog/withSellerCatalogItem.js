@@ -22,10 +22,12 @@ export default function SellersCatalogItems(Component) {
     render() {
       const { primaryShopId, routingStore, uiStore, tag, tagId } = this.props;
       const sellerIds = uiStore?.sellerId;
-      console.log("pagetagid", uiStore.filters);
+      const { tagIdfiltersSeller } = uiStore;
+
+      console.log("pagetagid", tagIdfiltersSeller);
       const variables = {
         sellerIds: sellerIds,
-        tagIds: uiStore?.filters,
+        tagIds: tagIdfiltersSeller,
 
         ...paginationVariablesFromUrlParams({ defaultPageLimit: uiStore?.pageSize }),
         //   ...paginationVariablesFromUrlParams(routingStore.query, { defaultPageLimit: uiStore.pageSize }),
@@ -38,26 +40,29 @@ export default function SellersCatalogItems(Component) {
       };
 
       return (
-        <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
-          {({ data, fetchMore, loading }) => {
-            const { sellerCatalogItems } = data || {};
-            return (
-              <Component
-                {...this.props}
-                sellerCatalogItemsPageInfo={pagination({
-                  fetchMore,
-                  routingStore,
-                  data,
-                  queryName: "sellerCatalogItems",
-                  limit: uiStore?.pageSize,
-                })}
-                catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
-                totalcount={sellerCatalogItems && sellerCatalogItems.totalCount}
-                loading={loading}
-              />
-            );
-          }}
-        </Query>
+        <>
+        {console.log("pagetagid 2")}
+          <Query errorPolicy="all" query={sellercatalogItemsQuery} variables={variables}>
+            {({ data, fetchMore, loading }) => {
+              const { sellerCatalogItems } = data || {};
+              return (
+                <Component
+                  {...this.props}
+                  sellerCatalogItemsPageInfo={pagination({
+                    fetchMore,
+                    routingStore,
+                    data,
+                    queryName: "sellerCatalogItems",
+                    limit: uiStore?.pageSize,
+                  })}
+                  catalogItems={(sellerCatalogItems && sellerCatalogItems.edges) || []}
+                  totalcount={sellerCatalogItems && sellerCatalogItems.totalCount}
+                  loading={loading}
+                />
+              );
+            }}
+          </Query>
+        </>
       );
     }
   }

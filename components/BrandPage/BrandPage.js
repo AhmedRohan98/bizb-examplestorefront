@@ -84,8 +84,7 @@ const BrandPage = () => {
       backgroundColor: "#EEEDED",
       borderRadius: "8px",
       [theme.breakpoints.up(600)]: {
-        marginTop:"32px"
-
+        marginTop: "32px",
       },
     },
 
@@ -142,29 +141,29 @@ const BrandPage = () => {
       },
     },
     image: {
+      width: "275px", // Reduced by 1px to create space for the border
+      maxHeight: "600px",
+      height: "200px",
+      marginTop: "1px",
+      borderRadius: "10px",
+      marginRight: "2px",
+      marginLeft: "1px",
+      objectFit: "contain",
+      cursor: "pointer",
+      [theme.breakpoints.up("lg")]: {
         width: "275px", // Reduced by 1px to create space for the border
-        maxHeight: "600px",
-        height: "200px",
-        marginTop: "1px",
-        borderRadius: "10px",
-        marginRight: "2px",
-        marginLeft: "1px",
-        objectFit: "contain",
-        cursor: "pointer",
-        [theme.breakpoints.up("lg")]: {
-          width: "275px", // Reduced by 1px to create space for the border
-        },
-        [theme.breakpoints.down("lg")]: {
-          width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
-        },
-        [theme.breakpoints.down("sm")]: {
-          width: "150px", // Reduced by 1px to create space for the border
-          height: "200px",
-        },
       },
+      [theme.breakpoints.down("lg")]: {
+        width: "calc(15rem - 0.5vw)", // Reduced by 1px to create space for the border
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "150px", // Reduced by 1px to create space for the border
+        height: "200px",
+      },
+    },
     loadmore: {
-      marginLeft: theme.spacing(5),
-      marginRight: theme.spacing(5),
+      display: "flex",
+      justifyContent: "center",
     },
     cartcontent: {
       display: "flex",
@@ -242,7 +241,7 @@ const BrandPage = () => {
                 </Typography>
               </div>
             </div>
-            
+
             <div className={classes.sortdiv}>
               <IconButton>
                 <Search style={{ color: "black" }} />
@@ -272,20 +271,20 @@ const BrandPage = () => {
         </Grid>
       </div>
       {brands?.length > 0 ? (
-      <div className={classes.gridroot}>
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-        >
-          <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-            {brands?.map((item, key) => {
-              // console.log(optionTitle, "fil");
-              return (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div className={classes.boxcontairproduct}>
-                  {item?.heroMediaUrl ? (
-                    <Link href={"/en/brand/[slug]/[tagId]"} as={`/en/brand/${item?.slug}/${item?._id}`}>
-                    <a target="_blank">
+        <div className={classes.gridroot}>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          >
+            <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+              {brands?.map((item, key) => {
+                // console.log(optionTitle, "fil");
+                return (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div className={classes.boxcontairproduct}>
+                      {item?.heroMediaUrl && item?.heroMediaUrl !== null ? (
+                        <Link href={"/en/brand/[slug]/[tagId]"} as={`/en/brand/${item?.slug}/${item?._id}`}>
+                          <a target="_blank">
                             <img
                               src={item?.heroMediaUrl}
                               className={classes.image}
@@ -296,50 +295,49 @@ const BrandPage = () => {
                         </Link>
                       ) : (
                         <Link href={"/en/brand/[slug]/[tagId]"} as={`/en/brand/${item?.slug}/${item?._id}`}>
-                        <a target="_blank">
-                          <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
-                            {item?.displayTitle?.charAt(0).toUpperCase()}
-                          </Avatar>
-                        </a>
-                      </Link>
+                          <a target="_blank">
+                            <Avatar variant="square" className={key % 2 ? classes.square : classes.square2}>
+                              {item?.displayTitle?.charAt(0).toUpperCase()}
+                            </Avatar>
+                          </a>
+                        </Link>
                       )}
-                  
 
-                    <div className={classes.cartcontent}>
-                      <div className={classes.cartcontenttext}>
-                        <Typography
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "1rem",
-                            fontFamily: "lato",
-                            // marginTop: "10px",
-                            textTransform: "capitalize",
-                            marginLeft: "5px",
-                          }}
-                          variant="h4"
-                          component="h2"
-                          className={classes.carttitle}
-                        >
-                          {item?.displayTitle ? item?.displayTitle : "Brand"}
-                        </Typography>
-                        {/* <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                      <div className={classes.cartcontent}>
+                        <div className={classes.cartcontenttext}>
+                          <Typography
+                            style={{
+                              fontWeight: "600",
+                              fontSize: "1rem",
+                              fontFamily: "lato",
+                              // marginTop: "10px",
+                              textTransform: "capitalize",
+                              marginLeft: "5px",
+                            }}
+                            variant="h4"
+                            component="h2"
+                            className={classes.carttitle}
+                          >
+                            {item?.displayTitle ? item?.displayTitle : "Brand"}
+                          </Typography>
+                          {/* <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                                                     {" "}
                                                     {item?.brandCategory ? item?.brandCategory : "Category"}
                                                 </Typography> */}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </Masonry>
-        </ResponsiveMasonry>
-      </div>
-     ) : (
+                );
+              })}
+            </Masonry>
+          </ResponsiveMasonry>
+        </div>
+      ) : (
         <SkeletonLoader />
       )}
-      <div className={classes.loadmore}>
-        {totalCount > itemsPerPage && (
+      {totalCount > itemsPerPage && (
+        <div className={classes.loadmore}>
           <Pagination
             totalCount={totalCount}
             /* @ts-ignore TODO: Refactor link to address type error */
@@ -349,8 +347,8 @@ const BrandPage = () => {
             /* @ts-ignore TODO: Refactor link to address type error */
             setItemsPerPage={setitemsPerPage}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

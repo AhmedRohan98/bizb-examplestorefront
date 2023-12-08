@@ -747,7 +747,7 @@ function SellerPublicProfile(props) {
                         value={category.displayTitle}
                         onClick={() => {
                           setcategoryID(category._id);
-                          uiStore.setFilters(category._id)
+                          uiStore.settagIdfiltersSeller(category._id)
                           console.log("key", category._id);
                         }}
                       >
