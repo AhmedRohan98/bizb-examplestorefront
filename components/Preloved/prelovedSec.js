@@ -152,34 +152,10 @@ const Preloved = (props) => {
   }, {});
 
   const clickHandler = (id) => {
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [id]: true,
-    }));
-
     router.push("/en/categories/" + id);
-
-    setTimeout(() => {
-      setIsLoading((prevState) => ({
-        ...prevState,
-        [id]: false,
-      }));
-    }, 4000);
-    
   };
   const clickHandler2 = (id) => {
-    setIsLoading((prevState) => ({
-      ...prevState,
-      [id]: true,
-    }));
     router.push("/en/tmucpage/" + id);
-
-    setTimeout(() => {
-      setIsLoading((prevState) => ({
-        ...prevState,
-        [id]: false,
-      }));
-    }, 4000);
   };
 
   function FormRow1() {
@@ -193,11 +169,7 @@ const Preloved = (props) => {
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page1?._id)}>
               {" "}
-              {isLoading[res?.page1?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-              )}
             </Button>
           </div>
         </Grid>
@@ -210,11 +182,7 @@ const Preloved = (props) => {
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page6?._id)}>
               {" "}
-              {isLoading[res?.page6?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-              )}
             </Button>
           </div>
         </Grid>
@@ -233,11 +201,7 @@ const Preloved = (props) => {
             </Typography>
 
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page2?._id)}>
-            {isLoading[res?.page2?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
               <h4 className={classes.buttonshopt}>SHOP Now</h4>
-              )}
             </Button>
           </div>
         </Grid>
@@ -249,12 +213,7 @@ const Preloved = (props) => {
               {res?.page0?.displayTitle}
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page0?._id)}>
-
-            {isLoading[res?.page0?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-              )}
             </Button>
           </div>
         </Grid>
@@ -273,11 +232,7 @@ const Preloved = (props) => {
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page5?._id)}>
               {" "}
-              {isLoading[res?.page5?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-              )}
             </Button>
           </div>
         </Grid>
@@ -290,11 +245,7 @@ const Preloved = (props) => {
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page7?._id)}>
               {" "}
-              {isLoading[res?.page7?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
-                <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-              )}
+              <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </Button>
           </div>
         </Grid>
@@ -304,6 +255,19 @@ const Preloved = (props) => {
   function FormRow2() {
     return (
       <React.Fragment>
+        <Grid item xs={12} className={classes.carts}>
+          <img src={res?.page8?.heroMediaUrl} className={classes.imagess} alt="category" />
+
+          <div className={classes.cart2}>
+            <Typography gutterBottom variant="h3" className={classes.text}>
+              {res?.page8?.displayTitle}
+            </Typography>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page8?._id)}>
+              {" "}
+              <h4 className={classes.buttonshopt}>SHOP NOW</h4>
+            </Button>
+          </div>
+        </Grid>
         <Grid item xs={12} container className={classes.carts}>
           <img src={res?.page4?.heroMediaUrl} className={classes.imagess} alt="category" />
 
@@ -314,29 +278,22 @@ const Preloved = (props) => {
             <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page4?._id)}>
               {" "}
               <Element name="target-element"></Element>
-              {isLoading[res?.page4?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-              )}
             </Button>
           </div>
         </Grid>
+
         <Grid item xs={12} container className={classes.carts}>
           <img src={res?.page3?.heroMediaUrl} className={classes.imagess} alt="category" />
 
           <div className={classes.cart2}>
-            <Typography gutterBottom variant="h3" className={classes.text} >
+            <Typography gutterBottom variant="h3" className={classes.text}>
               {res?.page3?.displayTitle}
             </Typography>
             <Button className={classes.buttonshop} onClick={() => clickHandler2(res?.page3?._id)}>
               {" "}
               <Element name="target-element"></Element>
-              {isLoading[res?.page3?._id] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
-              )}
             </Button>
           </div>
         </Grid>

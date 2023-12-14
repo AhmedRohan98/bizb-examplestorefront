@@ -1,20 +1,24 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Story from "../Stories/story";
-import Justin from "../Justin/justin";
 import Typography from "@material-ui/core/Typography";
-import Preloved from "../Preloved/prelovedSec";
-import Appsec from "../Appsection/appsec";
-import Instagram from "../Instagram/instagram";
 import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
-import OurBlogs from "../Ourblogs/ourblog";
 import ScrollingMessage from "../ScrollingMessage/ScrollingMessage";
-
 import Caloborators from "../Calloborators/calloborators";
-import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
+import dynamic from 'next/dynamic'
+
+const Preloved = dynamic(() => import("../Preloved/prelovedSec"))
+const Appsec = dynamic(()=> import("../Appsection/appsec"))
+const Story = dynamic(()=> import("../Stories/story"))
+const Justin = dynamic(()=> import("../Justin/justin"))
+const Instagram = dynamic(()=> import("../Instagram/instagram"))
+const BizbCalloborators = dynamic(()=> import("../BizbCalloborators/ bcallobrators"))
+const OurBlogs = dynamic(()=> import("../Ourblogs/ourblog"))
+
+
+// import('../components/A'))
 
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
