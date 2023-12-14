@@ -1,20 +1,24 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRef, useCallback, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Story from "../Stories/story";
-import Justin from "../Justin/justin";
 import Typography from "@material-ui/core/Typography";
-import Preloved from "../Preloved/prelovedSec";
-import Appsec from "../Appsection/appsec";
-import Instagram from "../Instagram/instagram";
 import SwiperCore, { Pagination, Autoplay, Navigation } from "swiper";
-import OurBlogs from "../Ourblogs/ourblog";
 import ScrollingMessage from "../ScrollingMessage/ScrollingMessage";
-
 import Caloborators from "../Calloborators/calloborators";
-import BizbCalloborators from "../BizbCalloborators/ bcallobrators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
+import dynamic from 'next/dynamic'
+
+const Preloved = dynamic(() => import("../Preloved/prelovedSec"))
+const Appsec = dynamic(()=> import("../Appsection/appsec"))
+const Story = dynamic(()=> import("../Stories/story"))
+const Justin = dynamic(()=> import("../Justin/justin"))
+const Instagram = dynamic(()=> import("../Instagram/instagram"))
+const BizbCalloborators = dynamic(()=> import("../BizbCalloborators/ bcallobrators"))
+const OurBlogs = dynamic(()=> import("../Ourblogs/ourblog"))
+
+
+// import('../components/A'))
 
 const MainSlider = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -55,7 +59,7 @@ const MainSlider = (props) => {
       bottom: "40px",
       [theme.breakpoints.down(900)]: {
         top: "84%",
-        left:"30%"
+        left: "30%",
       },
     },
     text: {
@@ -63,7 +67,7 @@ const MainSlider = (props) => {
       color: "white",
       [theme.breakpoints.down(900)]: {
         fontSize: "12px",
-        alignSelf:"center"
+        alignSelf: "center",
       },
     },
     sliderr: {
@@ -133,10 +137,10 @@ const MainSlider = (props) => {
       id: 2,
     },
     {
-      image: "/Desktop-images/desktop2.png",
+      image: "/Desktop-images/desktop2.webp",
       id: 3,
     },
-   
+
     {
       image: "/Desktop-images/desktop4.jpg",
       id: 4,
@@ -147,7 +151,7 @@ const MainSlider = (props) => {
     return (
       <>
         <SwiperSlide>
-          <img src={item.image} className={classes.image} alt="image"/>
+          <img src={item.image} className={classes.image} alt="image" />
         </SwiperSlide>
       </>
     );
@@ -172,7 +176,7 @@ const MainSlider = (props) => {
                 <Link to="target-element" smooth={true} duration={2000}>
                   {" "}
                   <div style={{ display: "flex", cursor: "pointer" }}>
-                    <img style={{ marginRight: "12px" }} src="/icons/scrolltodiscovermore.webp"  alt="icons"/>
+                    <img style={{ marginRight: "12px" }} src="/icons/scrolltodiscovermore.webp" alt="icons" />
                     <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
                       Scroll to discover more
                     </Typography>
