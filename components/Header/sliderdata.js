@@ -55,7 +55,7 @@ const MainSlider = (props) => {
       bottom: "40px",
       [theme.breakpoints.down(900)]: {
         top: "84%",
-        left:"30%"
+        left: "30%",
       },
     },
     text: {
@@ -63,7 +63,7 @@ const MainSlider = (props) => {
       color: "white",
       [theme.breakpoints.down(900)]: {
         fontSize: "12px",
-        alignSelf:"center"
+        alignSelf: "center",
       },
     },
     sliderr: {
@@ -133,10 +133,10 @@ const MainSlider = (props) => {
       id: 2,
     },
     {
-      image: "/Desktop-images/desktop2.png",
+      image: "/Desktop-images/desktop2.webp",
       id: 3,
     },
-   
+
     {
       image: "/Desktop-images/desktop4.jpg",
       id: 4,
@@ -147,7 +147,7 @@ const MainSlider = (props) => {
     return (
       <>
         <SwiperSlide>
-          <img src={item.image} className={classes.image} alt="image"/>
+          <img src={item.image} className={classes.image} alt="image" />
         </SwiperSlide>
       </>
     );
@@ -172,7 +172,7 @@ const MainSlider = (props) => {
                 <Link to="target-element" smooth={true} duration={2000}>
                   {" "}
                   <div style={{ display: "flex", cursor: "pointer" }}>
-                    <img style={{ marginRight: "12px" }} src="/icons/scrolltodiscovermore.webp"  alt="icons"/>
+                    <img style={{ marginRight: "12px" }} src="/icons/scrolltodiscovermore.webp" alt="icons" />
                     <Typography style={{ fontFamily: "Circular Std" }} className={classes.text}>
                       Scroll to discover more
                     </Typography>
