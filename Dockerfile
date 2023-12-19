@@ -13,9 +13,9 @@ WORKDIR /usr/local/src/app
 ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
 # env variables
 ENV CANONICAL_URL https://bizb.store
-ENV BUILD_GRAPHQL_URL https://api.bizb.store/graphql
-ENV EXTERNAL_GRAPHQL_URL https://api.bizb.store/graphql
-ENV INTERNAL_GRAPHQL_URL https://api.bizb.store/graphql
+ENV BUILD_GRAPHQL_URL https://apitest.bizb.store/graphql
+ENV EXTERNAL_GRAPHQL_URL https://apitest.bizb.store/graphql
+ENV INTERNAL_GRAPHQL_URL https://apitest.bizb.store/graphql
 ENV PORT 4000
 ENV NODE_ENV development
 ENV SEGMENT_ANALYTICS_SKIP_MINIMIZE true
