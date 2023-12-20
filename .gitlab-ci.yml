@@ -43,6 +43,9 @@ stages:
 
 build_docker_image:
   stage: build
+  environment:
+    name: master
+
   script:
     - echo "CANONICAL_URL=$CANONICAL_URL_production" >> .env
     - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL_production" >> .env
@@ -89,6 +92,9 @@ build_docker_image:
 deploy_to_gke:
   stage: deploy
   image: google/cloud-sdk:latest
+  environment:
+    name: master
+
   script:
     - echo "$GKE_SA_KEY" > gke_sa.json
     - gcloud auth activate-service-account --key-file gke_sa.json
