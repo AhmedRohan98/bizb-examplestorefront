@@ -44,6 +44,24 @@ stages:
 build_docker_image:
   stage: build
   script:
+    - echo "CANONICAL_URL=$CANONICAL_URL_production" >> .env
+    - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL_production" >> .env
+    - echo "EXTERNAL_GRAPHQL_URL=$EXTERNAL_GRAPHQL_URL_production" >> .env
+    - echo "INTERNAL_GRAPHQL_URL=$INTERNAL_GRAPHQL_URL_production" >> .env
+    - echo "PORT=$PORT" >> .env
+    - echo "NODE_ENV=$NODE_ENV_production" >> .env
+    - echo "SEGMENT_ANALYTICS_SKIP_MINIMIZE=$SEGMENT_ANALYTICS_SKIP_MINIMIZE" >> .env
+    - echo "SEGMENT_ANALYTICS_WRITE_KEY=$SEGMENT_ANALYTICS_WRITE_KEY" >> .env
+    - echo "SESSION_MAX_AGE_MS=$SESSION_MAX_AGE_MS" >> .env
+    - echo "SESSION_SECRET=$SESSION_SECRET" >> .env
+    - echo "STRIPE_PUBLIC_API_KEY=$STRIPE_PUBLIC_API_KEY" >> .env
+    - echo "INSTAGRAM_KEY=$INSTAGRAM_KEY" >> .env
+    - echo "SHOP_ID=$SHOP_ID" >> .env
+    - echo "REACT_APP_SHOPID=$REACT_APP_SHOPID" >> .env
+    - echo "NEXT_PUBLIC_GOOGLE_ANALYTICS=$NEXT_PUBLIC_GOOGLE_ANALYTICS" >> .env
+    - echo "NEXT_PUBLIC_GOOGLE_TAG=$NEXT_PUBLIC_GOOGLE_TAG" >> .env
+    - cat .env
+    
     - rm -rf .cache
     - rm -rf node_modules
     - git config --global user.email "ci-runner@example.com"
