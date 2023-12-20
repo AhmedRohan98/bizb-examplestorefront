@@ -143,12 +143,12 @@ build_staging:
   environment:
     name: staging
   script:
-    - echo "CANONICAL_URL=$CANONICAL_URL" >> .env
-    - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL" >> .env
-    - echo "EXTERNAL_GRAPHQL_URL=$EXTERNAL_GRAPHQL_URL" >> .env
-    - echo "INTERNAL_GRAPHQL_URL=$INTERNAL_GRAPHQL_URL" >> .env
+    - echo "CANONICAL_URL=$CANONICAL_URL_staging" >> .env
+    - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL_staging" >> .env
+    - echo "EXTERNAL_GRAPHQL_URL=$EXTERNAL_GRAPHQL_URL_staging" >> .env
+    - echo "INTERNAL_GRAPHQL_URL=$INTERNAL_GRAPHQL_URL_staging" >> .env
     - echo "PORT=$PORT" >> .env
-    - echo "NODE_ENV=$NODE_ENV" >> .env
+    - echo "NODE_ENV=$NODE_ENV_staging" >> .env
     - echo "SEGMENT_ANALYTICS_SKIP_MINIMIZE=$SEGMENT_ANALYTICS_SKIP_MINIMIZE" >> .env
     - echo "SEGMENT_ANALYTICS_WRITE_KEY=$SEGMENT_ANALYTICS_WRITE_KEY" >> .env
     - echo "SESSION_MAX_AGE_MS=$SESSION_MAX_AGE_MS" >> .env
