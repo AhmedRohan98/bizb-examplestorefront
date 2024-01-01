@@ -486,7 +486,7 @@ const Story = (props) => {
     <div className={classes.main}>
       <div className={classes.mainheadings}>
         <Typography variant="h3" className={classes.mainheading}>
-          STORES <span className={classes.spanline}></span>
+          WARDROBES <span className={classes.spanline}></span>
         </Typography>
         
         <Hidden smDown>
