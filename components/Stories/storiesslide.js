@@ -690,7 +690,7 @@ const Storyslider = (props) => {
       {show && (
         <div className={classes.header}>
           <h2 className={classes.typography}></h2>
-          <a target="_blank" href="/en/stores">
+          <a target="_blank" href="/en/wardrobe">
             <Typography gutterBottom variant="body1" className={classes.explore}>
               Explore More
             </Typography>

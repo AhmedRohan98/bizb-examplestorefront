@@ -469,10 +469,10 @@ const SellerRegistration = () => {
     return <p className={classes.style9}>Name Field is required</p>;
   };
   const StoreErrorMessage = () => {
-    return <p className={classes.style9}>Store Name Field is required</p>;
+    return <p className={classes.style9}>Wardrobe Name Field is required</p>;
   };
   const StoreLengthErrorMessage = () => {
-    return <p className={classes.style9}>Store Name should be less than 15 characters</p>;
+    return <p className={classes.style9}>Wardrobe Name should be less than 15 characters</p>;
   };
   const AddressErrorMessage = () => {
     return <p className={classes.style9}>Address Field is required</p>;
@@ -621,7 +621,7 @@ const SellerRegistration = () => {
             <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
-                  Store Name
+                Wardrobe Name
                 </Typography>
                 <p id="nameError" className={classes.style10}>
                   *
@@ -632,7 +632,7 @@ const SellerRegistration = () => {
                 type="text"
                 size="small"
                 variant="standard"
-                placeholder="Enter your Store name"
+                placeholder="Give your Wardrobe a name"
                 value={storeName.value}
                 onChange={(e) => setstoreName({ ...storeName, value: e.target.value })}
                 onFocus={() => setstoreName({ ...storeName, isTouched: true })}

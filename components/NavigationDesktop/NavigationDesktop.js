@@ -146,7 +146,7 @@ const NavigationDesktop = (props) => {
     mappedData: [],
     mappedData2: [
       { name: "Brands", url: "/en/brands" },
-      { name: "Stores", url: "/en/stores" },
+      { name: "Wardrobes", url: "/en/wardrobe" },
     ],
     // Other state variables...
   });
@@ -419,8 +419,8 @@ const NavigationDesktop = (props) => {
                     <a className={classes.categoryTagsLink}>
                       <span onClick={handlePopOverOpen4}>
                         <Typography variant="h6" className={classes.catgorytitle}>
-                          Shop By Store
-                          <IconButton style={{ padding:"0px", marginLeft:"30px"}}>
+                          Shop By Wardrobe
+                          <IconButton style={{ padding:"0px"}}>
                             <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
                           </IconButton>
                         </Typography>
@@ -459,11 +459,11 @@ const NavigationDesktop = (props) => {
                                   >
                                     {item?.storeName && item?.storeName.trim()
                                       ? item?.storeName.slice(0, 15)
-                                      : "User Store"}
+                                      : "User Wardrobe"}
                                   </Typography>
                                 </a>
                               ))}
-                              <a target="_blank" href="/en/stores">
+                              <a target="_blank" href="/en/wardrobe">
                                 <Typography
                                   variant="h6"
                                   className={classes.catgorytitle}

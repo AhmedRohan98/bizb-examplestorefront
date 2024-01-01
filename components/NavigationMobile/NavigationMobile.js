@@ -183,12 +183,12 @@ class NavigationMobile extends Component {
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <a href="/en/stores" className={{ "&:hover": { backgroundColor: "red" } }}>
+            <a href="/en/wardrobe" className={{ "&:hover": { backgroundColor: "red" } }}>
               <MenuList className={classes.navButtonActive}>
               <IconButton  >
                 <Store style={{color:"black"}} />
               </IconButton>
-                Stores
+              Wardrobes
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>

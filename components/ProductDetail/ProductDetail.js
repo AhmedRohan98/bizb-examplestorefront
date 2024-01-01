@@ -1096,7 +1096,7 @@ const ProductDetail = ({ ...props }) => {
                           variant="h4"
                           className={classes.storeText}
                         >
-                          Store Name
+                          Wardrobe Name
                         </Typography>
                         <Link
                           href={"/en/profile/[slugOrId]"}

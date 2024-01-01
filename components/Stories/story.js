@@ -490,7 +490,7 @@ const Story = (props) => {
         </Typography>
         
         <Hidden smDown>
-          <a target="_blank" href="/en/stores" className={classes.linkstyle}>
+          <a target="_blank" href="/en/wardrobe" className={classes.linkstyle}>
         <Typography variant="h3" className={classes.mainheading2}>
           VIEW ALL    
                 <DoubleArrow style={{ marginTop:"5px",color: "#FDC114" }} />
@@ -570,7 +570,7 @@ const Story = (props) => {
         addItemsToCart={addItemsToCart}
       />
       <Hidden smUp>
-      <a target="_blank" href="/en/stores" className={classes.linkstyle}>
+      <a target="_blank" href="/en/wardrobe" className={classes.linkstyle}>
 
       <Typography variant="h3" className={classes.mainheading2}>
           VIEW ALL    
