@@ -395,7 +395,7 @@ const ProductCard = ({
                 </Link>
                 {storeNameShort && (
                   <Typography className={classes.storeName}>
-                    Store Name:{" "}
+                    Wardrobe Name:{" "}
                     <Link
                       href={"/en/profile/[slugOrId]"}
                       as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}

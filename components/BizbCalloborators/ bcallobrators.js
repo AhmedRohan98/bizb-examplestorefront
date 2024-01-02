@@ -288,7 +288,7 @@ const BizbCalloborators = () => {
             </div>
             <div className={classes.textclass2}>
               <Typography gutterBottom className={classes.text2} style={{ width: "80%" }}>
-                Buy From Influencer Stores
+                Buy From Influencer Wardrobes
               </Typography>
             </div>
             <div className={classes.textclass3}></div>

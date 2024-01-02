@@ -371,7 +371,7 @@ const StorePage = ({...props}) => {
               <div className="sellerProfile__infoRow publicProfile__infoRow">
                 {sellers?.length > 0 ? (
                   <Typography className="publicProfile__name" variant="h1">
-                    <span>All Stores</span>
+                    <span>All Wardrobes</span>
                     {<img src="/icons/tickIcon.png" alt="icon" />}
                   </Typography>
                 ) : (
@@ -502,7 +502,7 @@ const StorePage = ({...props}) => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item?.storeName && item?.storeName.trim() ? item?.storeName.slice(0, 15) : "User Store"}
+                            {item?.storeName && item?.storeName.trim() ? item?.storeName.slice(0, 15) : "User Wardrobe"}
                           </Typography>
                           <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                             {" "}
