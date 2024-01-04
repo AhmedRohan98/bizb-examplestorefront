@@ -333,14 +333,22 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   catgorytitle: {
-    marginTop: theme.spacing(2),
+    letterSpacing: "0.85px",
+    fontFamily: "Ostrich Sans Black",
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    marginLeft: theme.spacing(3),
-    width: "80%",
-    borderBottom: "0.5px dotted #0101013b",
+    padding: "0px 15px",
+    boxShadow: " inset 0 0 0 0 #FDC114",
+    color: "black",
+    // margin: "0 -.25rem",
+    // padding: "0 .25rem",
+    transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
+    
     "&:hover": {
-      color: theme.palette.secondary.selected,
+      color: "white",
+      boxShadow: "inset 160px 0 0 0 #FDC114",
     },
+
   },
   selectDesktop: {
     marginRight: theme.spacing(3),
@@ -630,6 +638,10 @@ const useStyles = makeStyles((theme) => ({
       height: "20px",
       marginLeft: theme.spacing(3),
     },
+    
+  },
+  categoryTagsLink: {
+    borderBottom: "1px solid #59595940",
   },
   // sizes: {
   //   height: "30px",
@@ -793,6 +805,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     border: "1px solid #000000",
   },
+  divRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+    alignSelf: "center",
+    height: "100%",
+    alignItems: "end",
+    marginBottom: "18px",
+  },
+  textstyle: {
+    fontSize: "14px",
+    cursor: "pointer",
+  },
 }));
 const ITEMScategory = [
   {
@@ -843,6 +869,42 @@ function Categories(props) {
   const [isLoading, setIsLoading] = useState({});
   const [soldOutProducts, setSoldOutProducts] = useState([]);
 
+  const [customOrder, setcustomOrder] = useState([
+    "Casuals",
+    "Western",
+    "Party Wear",
+    "Juniors",
+    "Accessories",
+    "Shoes",
+    "Live Session",
+    "Live Sessions",
+    "Upcycled",
+    "EXPRESS DELIVERY",
+  ]);
+  const [mappedData, setmappedData] = useState([]);
+
+  useEffect(() => {
+    mapData();
+    console.log("categoryTagscategoryTags", tags?.nodes);
+    // Additional useEffect logic...
+  }, [tags?.nodes]);
+
+  const mapData = () => {
+    console.log("user 1 data tem", tags?.nodes);
+
+    const maData = customOrder
+      .map((item) => {
+        console.log("user 1 data tem", tags?.nodes);
+        const dataItem = tags?.nodes?.find((originalItem) => originalItem.displayTitle === item);
+        console.log("user 1 category tem dataItem", dataItem);
+
+        return dataItem ? { ...dataItem } : null;
+      })
+      .filter(Boolean);
+    console.log("user 1vvbm", maData);
+    setmappedData(maData);
+  };
+
   const buttonRef = useRef(null);
 
   const handleFocus = () => {
@@ -884,6 +946,13 @@ function Categories(props) {
       .concat({ name: maxFilterName, value: newValue[1] });
     uiStore.setFilterPrice(updatedFilters);
   };
+
+  const handleChangeChecksize2 = () => {
+    uiStore.setFilters(null);
+  };
+  const handleFilterChange2 = () => {
+    uiStore.setFilterPrice(null);
+  };
   const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
   const trackProductView = () => {
@@ -923,7 +992,6 @@ function Categories(props) {
   const [selectedOptionMobSize, setSelectedOptionMobSize] = useState(null);
   const [selectedOptionMobColor, setSelectedOptionMobColor] = useState(null);
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
-
 
   const options = [
     { value: "updatedAt-desc", label: "New Arrivals" },
@@ -993,23 +1061,21 @@ function Categories(props) {
         // console.log("itemitemitem cart", additemtocart?.data?.addCartItems?.cart?._id);
         // console.log("itemitemitem cart", additemtocart);
 
-
         // if (additemtocart?.data?.addCartItems?.cart?._id) {
-          toast.success(" added to cart successfully!");
-          console.log("itemitemitem 3", isLoading);
+        toast.success(" added to cart successfully!");
+        console.log("itemitemitem 3", isLoading);
 
-          // setIsLoading((prevState) => ({
-          //   ...prevState,
-          //   [product.productId]: false,
-          // }));
-          setIsLoading((prevState) => ({
-            ...prevState,
-            [product.productId]: false,
-          }));
-          console.log("itemitemitem 4", isLoading);
+        // setIsLoading((prevState) => ({
+        //   ...prevState,
+        //   [product.productId]: false,
+        // }));
+        setIsLoading((prevState) => ({
+          ...prevState,
+          [product.productId]: false,
+        }));
+        console.log("itemitemitem 4", isLoading);
 
         // }
-
       } catch (error) {
         console.log("carcart error for cart", error);
         toast.error("Something went wrong, try again");
@@ -1099,12 +1165,10 @@ function Categories(props) {
 
   const allproducts = catalogItems?.slice(spliceBy, catalogItems.length);
 
-  
   useEffect(() => {
-    console.log("props new 2", props, "allproducts?.length", allproducts?.length, firstfour?.length)
+    console.log("props new 2", props, "allproducts?.length", allproducts?.length, firstfour?.length);
     uiStore?.setPageSize(20);
   }, [props, allproducts, firstfour]);
-
 
   const [products, setProducts] = React.useState([]);
   const [displayedProducts, setDisplayedProducts] = React.useState([]);
@@ -1180,14 +1244,22 @@ function Categories(props) {
   };
   const style = {
     borderRadius: "8px",
-    marginTop: "12px",
+    "&::before": {
+      backgroundColor: "#fdc114",
+      content: '""',
+      display: "block",
+      position: "absolute",
+      width: 12,
+      height: 12,
+      top: -6,
+      transform: "rotate(45deg)",
+      left: "calc(50% - 6px)",
+    },
     left: "15%",
-    width: 330,
     bgcolor: "#ffffff",
     outline: "none",
+    padding: "10px 0px",
     boxShadow: 24,
-    p: 2,
-    minHeight: "0",
   };
 
   const customStylesMobSize = {
@@ -1551,10 +1623,10 @@ function Categories(props) {
                       <div className={classes.slidervaluesmain}>
                         <div className={classes.slidervalues}>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 500
+                            {price ? `RS. ${price[0]}` : "RS. 500"}
                           </Typography>
                           <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 100,000
+                            {price ? `RS. ${price[1]}` : "RS. 10,000"}
                           </Typography>
                         </div>
                       </div>
@@ -1570,6 +1642,28 @@ function Categories(props) {
                         />
                       </div>
                     </List>
+                  </div>
+                  <div className={classes.divRow}>
+                    <Typography
+                      variant="h6"
+                      className={classes.textstyle}
+                      onClick={() => {
+                        setState(!state);
+                      }}
+                    >
+                      VIEW RESULTS
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      className={classes.textstyle}
+                      onClick={() => {
+                        handleChangeChecksize2();
+                        handleFilterChange2();
+                        setState(!state);
+                      }}
+                    >
+                      CLEAR ALL
+                    </Typography>
                   </div>
                 </Drawer>
               </React.Fragment>
@@ -1639,16 +1733,12 @@ function Categories(props) {
                 >
                   <Box sx={style}>
                     <div className={classes.modalitems}>
-                      <div className={classes.modalitemsimage}>
-                        {ITEMScategory.map((item) => (
-                          <img src={item.image} className={classes.categoryavatar} alt="icon" />
-                        ))}
-                      </div>
-
                       <div className={classes.modalitemstitle}>
-                        {tags?.nodes?.slice(0, 9)?.map((itemtitle) => (
-                          <a href={itemtitle._id}>
-                            <Typography variant="h4" className={classes.catgorytitle}>
+                        {mappedData?.map((itemtitle) => (
+                          <a href={itemtitle._id}
+                          className={classes.categoryTagsLink}
+                          >
+                            <Typography variant="h6" className={classes.catgorytitle}>
                               {itemtitle.displayTitle}
                             </Typography>
                           </a>
@@ -1818,9 +1908,7 @@ function Categories(props) {
           ) : props?.isLoadingCatalogItems ? (
             <SkeletonLoader />
           ) : (
-            props?.totalcount === 0 && (
-              <></>
-            )
+            props?.totalcount === 0 && <></>
           )}
 
           <div className={classes.loadmore}>

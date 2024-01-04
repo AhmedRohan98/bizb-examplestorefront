@@ -785,15 +785,13 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     objectFit: "cover",
     border: "none",
-    outline:"none",
-   
+    outline: "none",
   },
 
-  imgdiv:{
-    display:"flex",
-    alignItems:"center",
-    flexDirection:"column"
-    
+  imgdiv: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
   },
   imgSize: {
     width: "41%",
@@ -805,7 +803,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     color: "black",
-   
+  },
+  divRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+    alignSelf: "center",
+    height: "100%",
+    alignItems: "end",
+    marginBottom: "18px",
+  },
+  textstyle2: {
+    fontSize: "14px",
+    cursor: "pointer",
   },
 }));
 const ITEMScategory = [
@@ -867,11 +878,11 @@ function Categories(props) {
     };
 
     // Listen for the 'load' event to make sure the image is fully loaded
-    imageRef.current?.addEventListener('load', focusImage);
+    imageRef.current?.addEventListener("load", focusImage);
 
     // Clean up the event listener
     return () => {
-      imageRef.current?.removeEventListener('load', focusImage);
+      imageRef.current?.removeEventListener("load", focusImage);
     };
   }, []);
 
@@ -913,6 +924,13 @@ function Categories(props) {
       .concat({ name: minFilterName, value: newValue[0] })
       .concat({ name: maxFilterName, value: newValue[1] });
     uiStore.setFilterPrice(updatedFilters);
+  };
+
+  const handleChangeChecksize2 = () => {
+    uiStore.setFilters(null);
+  };
+  const handleFilterChange2 = () => {
+    uiStore.setFilterPrice(null);
   };
   const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
@@ -1024,15 +1042,15 @@ function Categories(props) {
         console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
         // if (additemtocart?.data?.addCartItems?.cart?._id) {
-          toast.success(" added to cart successfully!");
-          // setIsLoading((prevState) => ({
-          //   ...prevState,
-          //   [product.productId]: false,
-          // }));
-          setIsLoading((prevState) => ({
-            ...prevState,
-            [product.productId]: false,
-          }));
+        toast.success(" added to cart successfully!");
+        // setIsLoading((prevState) => ({
+        //   ...prevState,
+        //   [product.productId]: false,
+        // }));
+        setIsLoading((prevState) => ({
+          ...prevState,
+          [product.productId]: false,
+        }));
         // }
       } catch (error) {
         console.log("carcart error for cart", error);
@@ -1468,13 +1486,7 @@ function Categories(props) {
       {typeof window !== "undefined" && (
         <>
           <div className={classes.fullscreencover}>
-            <img
-              ref={imageRef}
-              src="/categories/tmuc.jpg"
-              className={classes.coverimage}
-              alt="Cover"
-              tabIndex={0}
-            />
+            <img ref={imageRef} src="/categories/tmuc.jpg" className={classes.coverimage} alt="Cover" tabIndex={0} />
           </div>
 
           <div className={classes.main}>
@@ -1553,13 +1565,13 @@ function Categories(props) {
                           PRICE
                         </Typography>
                         <div className={classes.slidervaluesmain}>
-                          <div className={classes.slidervalues}>
-                            <Typography variant="h5" className={classes.filternameprice}>
-                              RS. 500
-                            </Typography>
-                            <Typography variant="h5" className={classes.filternameprice}>
-                              RS. 100,000
-                            </Typography>
+                        <div className={classes.slidervalues}>
+                          <Typography variant="h5" className={classes.filternameprice}>
+                            {price ? `RS. ${price[0]}` : "RS. 500"}
+                          </Typography>
+                          <Typography variant="h5" className={classes.filternameprice}>
+                            {price ? `RS. ${price[1]}` : "RS. 10,000"}
+                          </Typography>
                           </div>
                         </div>
                         <div className={classes.slidervalue}>
@@ -1574,6 +1586,28 @@ function Categories(props) {
                           />
                         </div>
                       </List>
+                    </div>
+                    <div className={classes.divRow}>
+                      <Typography
+                        variant="h6"
+                        className={classes.textstyle2}
+                        onClick={() => {
+                          setState(!state);
+                        }}
+                      >
+                        VIEW RESULTS
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        className={classes.textstyle2}
+                        onClick={() => {
+                          handleChangeChecksize2();
+                          handleFilterChange2();
+                          setState(!state);
+                        }}
+                      >
+                        CLEAR ALL
+                      </Typography>
                     </div>
                   </Drawer>
                 </React.Fragment>
@@ -1672,19 +1706,19 @@ function Categories(props) {
                   </ResponsiveMasonry>
                 </div>
               </div>
-            ) :  props?.isLoadingCatalogItems ? (
+            ) : props?.isLoadingCatalogItems ? (
               <SkeletonLoader />
             ) : (
               props?.totalcount === 0 && (
                 <div className={classes.imgdiv}>
-                <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
-                <Typography variant="h6" className={classes.textstyle}>
-                  No Products Found
-                </Typography>
-              </div>
+                  <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
+                  <Typography variant="h6" className={classes.textstyle}>
+                    No Products Found
+                  </Typography>
+                </div>
               )
             )}
-             {/* (
+            {/* (
               <div className={classes.skeletonClass}>
                 <SkeletonLoader />
               </div>

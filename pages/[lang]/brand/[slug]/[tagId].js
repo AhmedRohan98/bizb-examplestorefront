@@ -788,6 +788,20 @@ marginBottom:"20px",
     justifyContent: "center",
     border: "1px solid #000000",
   },
+  divRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+    alignSelf: "center",
+    height: "100%",
+    alignItems: "end",
+    marginBottom: "18px",
+  },
+  textstyle: {
+    fontSize: "14px",
+    cursor: "pointer",
+  },
 }));
 const ITEMScategory = [
   {
@@ -878,6 +892,12 @@ function Categories(props) {
       .concat({ name: minFilterName, value: newValue[0] })
       .concat({ name: maxFilterName, value: newValue[1] });
     uiStore.setFilterPrice(updatedFilters);
+  };
+  const handleChangeChecksize2 = () => {
+    uiStore.setFilters(null);
+  };
+  const handleFilterChange2 = () => {
+    uiStore.setFilterPrice(null);
   };
   const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
@@ -1531,12 +1551,12 @@ function Categories(props) {
                       </Typography>
                       <div className={classes.slidervaluesmain}>
                         <div className={classes.slidervalues}>
-                          <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 500
-                          </Typography>
-                          <Typography variant="h5" className={classes.filternameprice}>
-                            RS. 100,000
-                          </Typography>
+                        <Typography variant="h5" className={classes.filternameprice}>
+                         {price? `RS. ${price[0]}`: "RS. 500"}
+                        </Typography>
+                        <Typography variant="h5" className={classes.filternameprice}>
+                        {price? `RS. ${price[1]}`: "RS. 10,000"}
+                        </Typography>
                         </div>
                       </div>
                       <div className={classes.slidervalue}>
@@ -1552,6 +1572,29 @@ function Categories(props) {
                       </div>
                     </List>
                   </div>
+                  <div className={classes.divRow}>
+                  <Typography
+                    variant="h6"
+                    className={classes.textstyle}
+                    onClick={() => {
+                      setState(!state);
+                    }}
+                  >
+                    VIEW RESULTS
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    className={classes.textstyle}
+                    onClick={() => {
+                      handleChangeChecksize2();
+                      handleFilterChange2();
+                      setState(!state);
+
+                    }}
+                  >
+                    CLEAR ALL
+                  </Typography>
+                </div>
                 </Drawer>
               </React.Fragment>
             ))}
