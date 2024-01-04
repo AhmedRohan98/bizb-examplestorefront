@@ -14,7 +14,7 @@ const Appsec = dynamic(()=> import("../Appsection/appsec"))
 const Story = dynamic(()=> import("../Stories/story"))
 const Justin = dynamic(()=> import("../Justin/justin"))
 const Instagram = dynamic(()=> import("../Instagram/instagram"))
-const BizbCalloborators = dynamic(()=> import("../BizbCalloborators/ bcallobrators"))
+const BizbCalloborators = dynamic(()=> import("../BizbCalloborators/bcallobrators"))
 const OurBlogs = dynamic(()=> import("../Ourblogs/ourblog"))
 
 
