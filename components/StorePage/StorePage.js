@@ -231,6 +231,24 @@ const StorePage = ({...props}) => {
       display: "flex",
       flexDirection: "row",
     },
+    imgdiv:{
+      display:"flex",
+      alignItems:"center",
+      flexDirection:"column"
+      
+    },
+    imgSize: {
+      width: "41%",
+      height: "18%",
+      marginTop: "3px",
+    },
+    textstyle: {
+      fontFamily: "Ostrich Sans Black",
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      color: "black",
+     
+    },
   }));
 
   const classes = useStyles();
@@ -517,21 +535,32 @@ const StorePage = ({...props}) => {
             </Masonry>
           </ResponsiveMasonry>
         </div>
-      ) : (
-        <SkeletonLoader />
-      )}
+     ) : loading? (
+      <SkeletonLoader />
+    ) : (
+      totalCount === 0 && (
+        <div className={classes.imgdiv}>
+          <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
+          <Typography variant="h6" className={classes.textstyle}>
+            No Results Found
+          </Typography>
+        </div>
+      )
+    )}
 
-      <div className={classes.loadmore}>
-        <Pagination
-          totalCount={totalCount}
-          /* @ts-ignore TODO: Refactor link to address type error */
-          changePage={handleChangePage}
-          currentPage={page}
-          itemsPerPage={itemsPerPage}
-          /* @ts-ignore TODO: Refactor link to address type error */
-          setItemsPerPage={setitemsPerPage}
-        />
-      </div>
+{totalCount > itemsPerPage && (
+        <div className={classes.loadmore}>
+          <Pagination
+            totalCount={totalCount}
+            /* @ts-ignore TODO: Refactor link to address type error */
+            changePage={handleChangePage}
+            currentPage={page}
+            itemsPerPage={itemsPerPage}
+            /* @ts-ignore TODO: Refactor link to address type error */
+            setItemsPerPage={setitemsPerPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

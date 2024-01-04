@@ -192,6 +192,24 @@ const BrandPage = () => {
       display: "flex",
       flexDirection: "row",
     },
+    imgdiv:{
+      display:"flex",
+      alignItems:"center",
+      flexDirection:"column"
+      
+    },
+    imgSize: {
+      width: "41%",
+      height: "18%",
+      marginTop: "3px",
+    },
+    textstyle: {
+      fontFamily: "Ostrich Sans Black",
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      color: "black",
+     
+    },
   }));
 
   const classes = useStyles();
@@ -333,8 +351,17 @@ const BrandPage = () => {
             </Masonry>
           </ResponsiveMasonry>
         </div>
-      ) : (
+      ) : loading? (
         <SkeletonLoader />
+      ) : (
+        totalCount === 0 && (
+          <div className={classes.imgdiv}>
+            <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
+            <Typography variant="h6" className={classes.textstyle}>
+              No Results Found
+            </Typography>
+          </div>
+        )
       )}
       {totalCount > itemsPerPage && (
         <div className={classes.loadmore}>

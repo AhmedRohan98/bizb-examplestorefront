@@ -49,7 +49,6 @@ const styles = (theme) => ({
   },
   modalitemstitle: {
     display: "flex",
-
     flexDirection: "column",
   },
   categoryTagsLink: {
@@ -69,7 +68,7 @@ const styles = (theme) => ({
     
     "&:hover": {
       color: "white",
-      boxShadow: "inset 150px 0 0 0 #FDC114",
+      boxShadow: "inset 160px 0 0 0 #FDC114",
     },
 
   },
@@ -418,7 +417,7 @@ const NavigationDesktop = (props) => {
                     </a>
                     <a className={classes.categoryTagsLink}>
                       <span onClick={handlePopOverOpen4}>
-                        <Typography variant="h6" className={classes.catgorytitle}>
+                        <Typography variant="h6" className={classes.catgorytitle} >
                           Shop By Wardrobe
                           <IconButton style={{ padding:"0px"}}>
                             <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
