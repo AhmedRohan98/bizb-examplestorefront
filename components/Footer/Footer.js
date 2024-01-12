@@ -301,7 +301,7 @@ const Footer = () => {
               </div>
             </a>
             <a target="_blank" href="/en/SellerTermsConditionPage">
-              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+              <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
                 <span
                   style={{
@@ -314,6 +314,23 @@ const Footer = () => {
                   }}
                 >
                   Terms & Condition
+                </span>
+              </div>
+            </a>
+            <a target="_blank" href="https://g.co/kgs/eHpiuSF">
+              <div style={{ marginBottom: "41px", cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
+                {" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    textDecorationColor: "rgba(255, 255, 255, 0.15)",
+                    mixBlendMode: "pass-through",
+                    textDecorationThickness: "8px",
+                    width: "100%",
+                    display: "inline-block",
+                  }}
+                >
+                  Find Us
                 </span>
               </div>
             </a>
