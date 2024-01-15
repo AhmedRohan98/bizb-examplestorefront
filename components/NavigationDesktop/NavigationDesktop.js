@@ -141,7 +141,7 @@ const NavigationDesktop = (props) => {
     categoryTagsInfo: null,
     selectedPage: null,
     currentLink: null,
-    customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Live Session", "Live Sessions", "Upcycled", "EXPRESS DELIVERY",  ],
+    customOrder: ["Casuals", "Western", "Party Wear", "Juniors", "Accessories", "Shoes", "Deals", "Deal", "Upcycled", "EXPRESS DELIVERY",  ],
     mappedData: [],
     mappedData2: [
       { name: "Brands", url: "/en/brands" },

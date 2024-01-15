@@ -876,8 +876,8 @@ function Categories(props) {
     "Juniors",
     "Accessories",
     "Shoes",
-    "Live Session",
-    "Live Sessions",
+    "Deal",
+    "Deals",
     "Upcycled",
     "EXPRESS DELIVERY",
   ]);
