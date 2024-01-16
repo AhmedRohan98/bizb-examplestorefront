@@ -47,12 +47,12 @@ build_docker_image:
     name: master
 
   script:
-    - echo "CANONICAL_URL=$CANONICAL_URL_production" >> .env
-    - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL_production" >> .env
-    - echo "EXTERNAL_GRAPHQL_URL=$EXTERNAL_GRAPHQL_URL_production" >> .env
-    - echo "INTERNAL_GRAPHQL_URL=$INTERNAL_GRAPHQL_URL_production" >> .env
+    - echo "CANONICAL_URL=$CANONICAL_URL" >> .env
+    - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL" >> .env
+    - echo "EXTERNAL_GRAPHQL_URL=$EXTERNAL_GRAPHQL" >> .env
+    - echo "INTERNAL_GRAPHQL_URL=$INTERNAL_GRAPHQL_URL" >> .env
     - echo "PORT=$PORT" >> .env
-    - echo "NODE_ENV=$NODE_ENV_production" >> .env
+    - echo "NODE_ENV=$NODE_ENV" >> .env
     - echo "SEGMENT_ANALYTICS_SKIP_MINIMIZE=$SEGMENT_ANALYTICS_SKIP_MINIMIZE" >> .env
     - echo "SEGMENT_ANALYTICS_WRITE_KEY=$SEGMENT_ANALYTICS_WRITE_KEY" >> .env
     - echo "SESSION_MAX_AGE_MS=$SESSION_MAX_AGE_MS" >> .env
