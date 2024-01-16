@@ -911,6 +911,7 @@ const ProductDetail = ({ ...props }) => {
   const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
   return (
     <>
+    
       {typeof window !== "undefined" && (
         <div>
           <ToastContainer
