@@ -174,13 +174,13 @@ const Preloved = (props) => {
           </div>
         </Grid>
         <Grid item xs={12} md={6} sm={12} lg={6} className={classes.carts}>
-          <img src={res?.page6?.heroMediaUrl} className={classes.imagess} alt="category" />
+          <img src={res?.page8?.heroMediaUrl} className={classes.imagess} alt="category" />
 
-          <div className={classes.cart}>
+          <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page6?.displayTitle}
+              {res?.page8?.displayTitle}
             </Typography>
-            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page6?._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page8?._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </Button>
@@ -256,13 +256,13 @@ const Preloved = (props) => {
     return (
       <React.Fragment>
         <Grid item xs={12} className={classes.carts}>
-          <img src={res?.page8?.heroMediaUrl} className={classes.imagess} alt="category" />
+          <img src={res?.page6?.heroMediaUrl} className={classes.imagess} alt="category" />
 
           <div className={classes.cart2}>
             <Typography gutterBottom variant="h3" className={classes.text}>
-              {res?.page8?.displayTitle}
+              {res?.page6?.displayTitle}
             </Typography>
-            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page8?._id)}>
+            <Button className={classes.buttonshop} onClick={() => clickHandler(res?.page6?._id)}>
               {" "}
               <h4 className={classes.buttonshopt}>SHOP NOW</h4>
             </Button>
