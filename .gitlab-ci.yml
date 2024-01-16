@@ -49,7 +49,7 @@ build_docker_image:
   script:
     - echo "CANONICAL_URL=$CANONICAL_URL" >> .env
     - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL" >> .env
-    - echo "EXTERNAL_GRAPHQL_URL=$EXTERNAL_GRAPHQL" >> .env
+    - echo "EXTERNAL_GRAPHQL_URL=$EXTERNAL_GRAPHQL_URL" >> .env
     - echo "INTERNAL_GRAPHQL_URL=$INTERNAL_GRAPHQL_URL" >> .env
     - echo "PORT=$PORT" >> .env
     - echo "NODE_ENV=$NODE_ENV" >> .env
