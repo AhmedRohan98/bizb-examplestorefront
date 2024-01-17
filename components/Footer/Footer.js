@@ -76,8 +76,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.1rem",
     textAlign: "center",
     display: "block",
-    marginBottom:"30px",
-    marginLeft:"40px",
+    marginBottom: "30px",
+    marginLeft: "40px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -87,8 +87,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.1rem",
     textAlign: "center",
     display: "block",
-    marginTop:"75px",
-    marginLeft:"40px",
+    marginTop: "75px",
+    marginLeft: "40px",
 
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -139,7 +139,7 @@ const Footer = () => {
               target="_blank"
               href="https://www.facebook.com/bizb.store/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
-              <img src="/icons/facebook.svg" className={classes.imagesicons} alt="icons"/>
+              <img src="/icons/facebook.svg" className={classes.imagesicons} alt="icons" />
             </a>
             <a
               onClick={() => {
@@ -153,11 +153,11 @@ const Footer = () => {
               target="_blank"
               href="https://www.linkedin.com/company/bizbstore/?_ga=2.46482023.1960989760.1689242030-358638331.1683619134"
             >
-              <img src="/icons/linkedin2.svg" className={classes.imagesicons} alt="icons"/>
+              <img src="/icons/linkedin2.svg" className={classes.imagesicons} alt="icons" />
             </a>
           </div>
         </Grid>
-        <Grid item xs={12} md={1} >
+        <Grid item xs={12} md={1}>
           <div className={classes.divOfFooter}>
             <a href="/en">
               <div style={{ color: "#FDC114", cursor: "pointer" }} className={classes.footerStyle2}>
@@ -243,12 +243,10 @@ const Footer = () => {
                 </span>
               </div>
             </a>
-            </div>
-            </Grid>
-            <Grid item xs={12} md={1} lg={2}  >
-
-            <div className={classes.divOfFooter2}>
-
+          </div>
+        </Grid>
+        <Grid item xs={12} md={1} lg={2}>
+          <div className={classes.divOfFooter2}>
             <a target="_blank" href="https://blog.bizb.store/about-us/">
               <div style={{ cursor: "pointer", color: "white" }} className={classes.footerStyle3}>
                 {" "}
@@ -329,7 +327,7 @@ const Footer = () => {
             <div style={{ marginTop: "20px" }}>
               <a href="mailto:Hello@bizb.store" target="_blank">
                 <span>
-                  <img src="/images/emailIcon.svg" alt="icons"/>
+                  <img src="/images/emailIcon.svg" alt="icons" />
                 </span>
                 <span style={{ marginLeft: "10px", color: "white", fontSize: "1rem" }}> hello@bizb.store </span>
               </a>
@@ -352,7 +350,7 @@ const Footer = () => {
               <div style={{ marginTop: "25px" }}>
                 <a target="_blank" href="https://apps.apple.com/pk/app/bizb/id1571110423">
                   <span>
-                    <img src="/images/appStoreIcon.svg" alt="icons"/>
+                    <img src="/images/appStoreIcon.svg" alt="icons" />
                   </span>
                 </a>
                 <span style={{ marginLeft: "18px" }}>
@@ -360,7 +358,7 @@ const Footer = () => {
                     target="_blank"
                     href="https://play.google.com/store/apps/details?id=com.bizb_store&_ga=2.74994514.1337725914.1682938429-218131156.1681233136&_gac=1.86957418.1682759140.Cj0KCQjwgLOiBhC7ARIsAIeetVDrNuIWkimFzY2OMGgR1kIA3Jtu4RDwNAlEFpyiranTB0hEjTuqcZQaAjrAEALw_wcB"
                   >
-                    <img src="/images/googlePlayIcon.svg" alt="icons"/>
+                    <img src="/images/googlePlayIcon.svg" alt="icons" />
                   </a>
                 </span>
               </div>
@@ -378,7 +376,7 @@ const Footer = () => {
         }}
       >
         <span style={{ fontWeight: "500", fontSize: "0.8rem", marginLeft: "91px" }}>
-          Copyright {date.getFullYear()}. All Rights Reserved.
+          Copyright&copy; {date.getFullYear()}. All Rights Reserved .
         </span>
         <a href="https://www.codistan.org/" target="_blank">
           <span
