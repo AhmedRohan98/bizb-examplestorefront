@@ -126,7 +126,7 @@ const MainSlider = (props) => {
       marginTop: theme.spacing(6),
       width: "100%",
     },
-  }));
+  })); 
   const ITEMS = [
     {
       image: "/profile/newbanner.jpg",
