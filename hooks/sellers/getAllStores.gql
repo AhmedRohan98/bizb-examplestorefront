@@ -13,6 +13,9 @@ query getAllStore(
       storeName
       phoneNumber
       storeLogo
+      noOfProduct{
+        count
+      }
       profile{
         picture
         username

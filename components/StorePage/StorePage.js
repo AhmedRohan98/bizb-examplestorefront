@@ -526,6 +526,10 @@ const StorePage = ({...props}) => {
                             {" "}
                             {item?.profile?.firstName && item?.profile?.firstName?.trim() ? item?.profile?.firstName.slice(0, 15) : "User"}
                           </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                            Products: {item?.noOfProduct?.count}
+                          </Typography>
                         </div>
                       </div>
                     </div>
