@@ -8,14 +8,15 @@ import Caloborators from "../Calloborators/calloborators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
 import dynamic from 'next/dynamic'
+import Button from "@material-ui/core/Button";
 
 const Preloved = dynamic(() => import("../Preloved/prelovedSec"))
-const Appsec = dynamic(()=> import("../Appsection/appsec"))
-const Story = dynamic(()=> import("../Stories/story"))
-const Justin = dynamic(()=> import("../Justin/justin"))
-const Instagram = dynamic(()=> import("../Instagram/instagram"))
-const BizbCalloborators = dynamic(()=> import("../BizbCalloborators/bcallobrators"))
-const OurBlogs = dynamic(()=> import("../Ourblogs/ourblog"))
+const Appsec = dynamic(() => import("../Appsection/appsec"))
+const Story = dynamic(() => import("../Stories/story"))
+const Justin = dynamic(() => import("../Justin/justin"))
+const Instagram = dynamic(() => import("../Instagram/instagram"))
+const BizbCalloborators = dynamic(() => import("../BizbCalloborators/bcallobrators"))
+const OurBlogs = dynamic(() => import("../Ourblogs/ourblog"))
 
 
 // import('../components/A'))
@@ -38,6 +39,7 @@ const MainSlider = (props) => {
       objectPosition: "top",
       objectFit: "cover",
     },
+
     controller: {
       position: "absolute",
       display: "flex",
@@ -48,7 +50,13 @@ const MainSlider = (props) => {
       opacity: 1,
       width: "100%",
       bottom: "5px",
-      height: "170px",
+      height: "60px",
+      [theme.breakpoints.down(900)]: {
+        height: "20px",
+        bottom: "20px",
+        display:"none"
+
+      },
     },
     controllert: {
       position: "absolute",
@@ -126,7 +134,49 @@ const MainSlider = (props) => {
       marginTop: theme.spacing(6),
       width: "100%",
     },
-  })); 
+    promoBtn: {
+      position: "absolute",
+      display: "flex",
+      zIndex: 9998,
+      left: "72%",
+      bottom: "88px",
+      width: "13%",
+      height: "48px",
+      borderRadius: "8px",
+      border: "none",
+      textTransform: "uppercase",
+      cursor: "pointer",
+      // marginLeft: "10px",
+      background: "white",
+      "&:hover": {
+        transform: "scale(1.08)",
+        transition: "left 0.2s linear",
+        background: "white",
+      }
+      , [theme.breakpoints.up(900)]: {
+       bottom:"50px"
+      },
+      [theme.breakpoints.down(600)]: {
+        bottom:"14px",
+        left:"63%",
+        width: "95px",
+        height: "20px",
+       }
+
+    },
+    text2: {
+      color: "#a12e63",
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "20px",
+
+      },
+      [theme.breakpoints.down(600)]: {
+        fontSize: "10px",
+      }
+
+    }
+
+  }));
   const ITEMS = [
     {
       image: "/profile/newbanner.jpg",
@@ -150,6 +200,34 @@ const MainSlider = (props) => {
       id: 5,
     },
   ];
+
+  const [swiper, setSwiper] = useState(null);
+
+  const handleBooking = () => {
+    console.log("here 2765")
+    window.open('https://forms.gle/v2ZGPiPfxUd6xC2L8', '_blank');
+
+  }
+
+  const handleSwiper = (swiper) => {
+    // Store the Swiper instance to access its methods
+    setSwiper(swiper);
+  };
+
+  const renderButton = () => {
+    // Check if the current slide index is 0 (first slide)
+    if (swiper && swiper.activeIndex === 0) {
+      return <Button
+        className={classes.promoBtn}
+        onClick={handleBooking}
+      >
+        <Typography className={classes.text2} >
+          Book your slot now
+        </Typography>
+      </Button>;
+    }
+    return null;
+  };
   function Item({ item }) {
     const classes = useStyles();
     return (
@@ -189,6 +267,7 @@ const MainSlider = (props) => {
               </div>
             </div>
             <Swiper
+              onSwiper={handleSwiper}
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               autoplay={{
                 delay: 2000,
@@ -199,8 +278,10 @@ const MainSlider = (props) => {
               pagination={{ clickable: true }}
               className={classes.swiperPagination}
             >
-              {ITEMS.map((item) => (
-                <SwiperSlide>
+              {ITEMS.map((item, index) => (
+
+                <SwiperSlide key={index}>
+                  {renderButton()}
                   <Item item={item} />
                 </SwiperSlide>
               ))}
