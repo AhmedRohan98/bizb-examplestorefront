@@ -453,15 +453,15 @@ const Justin = (props) => {
       console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
       // if (additemtocart?.data?.addCartItems?.cart?._id) {
-        toast.success(" added to cart successfully!");
-        // setIsLoading((prevState) => ({
-        //   ...prevState,
-        //   [product.productId]: false,
-        // }));
-        setIsLoading((prevState) => ({
-          ...prevState,
-          [product.productId]: false,
-        }));
+      toast.success(" added to cart successfully!");
+      // setIsLoading((prevState) => ({
+      //   ...prevState,
+      //   [product.productId]: false,
+      // }));
+      setIsLoading((prevState) => ({
+        ...prevState,
+        [product.productId]: false,
+      }));
       // }
     } catch (error) {
       console.log("carcart error for cart", error);
@@ -487,6 +487,10 @@ const Justin = (props) => {
       [item?.product.productId]: true,
     }));
 
+    await handleAddToCartClick(1, item?.product, item?.variant);
+
+    return;
+
     setQueue((prevQueue) => [...prevQueue, item]);
     ReactGA.event({
       category: "Ecommerce",
@@ -509,7 +513,6 @@ const Justin = (props) => {
         },
       },
     };
-
 
     TagManager.dataLayer({
       dataLayer: addToCartData,

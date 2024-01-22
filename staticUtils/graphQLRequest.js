@@ -9,18 +9,20 @@ import appConfig from "../config";
  * @returns {Object} data - the resulting query data
  */
 export default async function graphQLRequest(query, variables) {
-  const endpoint = appConfig.IS_BUILDING_NEXTJS === true ? appConfig.BUILD_GRAPHQL_URL : appConfig.INTERNAL_GRAPHQL_URL;
+  // const endpoint = appConfig.IS_BUILDING_NEXTJS === true ? appConfig.BUILD_GRAPHQL_URL : appConfig.INTERNAL_GRAPHQL_URL;
 
+  const endpoint = "http://172.19.91.128:3000/graphql";
+  console.log("endpoint is ", endpoint);
   try {
     const graphQLClient = new GraphQLClient(endpoint, {
-      timeout: 20000
+      timeout: 100000,
     });
 
     const data = await graphQLClient.request(query, variables);
     return data;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error("error-fetching-graphql", error);
+    console.error("error-fetching-graphql 123", error);
     return null;
   }
 }

@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import formatSize from "../../lib/utils/formatSize";
 import { CircularProgress } from "@material-ui/core";
-import Head from 'next/head';
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -282,7 +282,7 @@ const ProductCard = ({
 
   return (
     <>
-     <Head>
+      <Head>
         <meta name="description" content="Product" />
 
         {/* Add JSON-LD script for Product schema */}
@@ -293,7 +293,11 @@ const ProductCard = ({
               "@type": "Product",
               "name": ${firstThreeWords},
               "url": "bizb.store/en/product/${item.node.product.slug},
-              "image": ${item?.node?.product?.media[0]?.URLs?.thumbnail? item?.node?.product?.media[0]?.URLs?.thumbnail: item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail},
+              "image": ${
+                item?.node?.product?.media[0]?.URLs?.thumbnail
+                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                  : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+              },
               "offers": {
                 "@type": "Offer",
                 "priceCurrency": "PKR",
@@ -305,173 +309,172 @@ const ProductCard = ({
           `}
         </script>
       </Head>
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      
-      <div
-        className={classes.boxcontairproduct}
-        onCick={() => {
-          trackProductView ? trackProductView() : null;
-        }}
-      >
-        <Link
-          href={item.node.product.slug && "/en/product/[...slugOrId]"}
-          as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          className={classes.boxcontairproduct}
+          onCick={() => {
+            trackProductView ? trackProductView() : null;
+          }}
         >
-          <a target="_blank">
-            {/* {console.log("Images", item?.node)} */}
+          <Link
+            href={item.node.product.slug && "/en/product/[...slugOrId]"}
+            as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+          >
+            <a target="_blank">
+              {/* {console.log("Images", item?.node)} */}
 
-            <img
-              src={
-                item?.node?.product?.media[0]?.URLs?.medium
-                  ? item?.node?.product?.media[0]?.URLs?.medium
-                  : item?.node?.product?.media[0]?.URLs?.thumbnail
-                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                  : item?.node?.product?.media[0]?.URLs?.large
-                  ? item?.node?.product?.media[0]?.URLs?.large
-                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.URLs?.medium
-                  ? item?.node?.product?.variants[0]?.media[0]?.URLs?.medium
-                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                  ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.media[1]?.URLs?.large
-                  ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
-                  : item?.node?.product?.variants[0]?.media &&  item?.node?.product?.variants[0]?.media[1]?.URLs?.small?
-                  item?.node?.product?.variants[0]?.media[1]?.URLs?.small:
-                  ""
+              <img
+                src={
+                  item?.node?.product?.media[0]?.URLs?.medium
+                    ? item?.node?.product?.media[0]?.URLs?.medium
+                    : item?.node?.product?.media[0]?.URLs?.thumbnail
+                    ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                    : item?.node?.product?.media[0]?.URLs?.large
+                    ? item?.node?.product?.media[0]?.URLs?.large
+                    : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.URLs?.medium
+                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.medium
+                    : item?.node?.product?.variants[0]?.media &&
+                      item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                    : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                    : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.media[1]?.URLs?.small
+                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.small
+                    : ""
+                }
+                className={classes.image}
+                key={item?.node?.product?.id}
+                alt={item?.node?.product?.title}
+              />
+            </a>
+          </Link>
 
-              }
-              className={classes.image}
-              key={item?.node?.product?.id}
-              alt={item?.node?.product?.title}
-            />
-          </a>
-        </Link>
-
-        <div>
-          <div className={classes.cartButton}>
-            <Button
-              className={classes.cart}
-              onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
-              disabled={isDisabled || item?.node?.product?.isSoldOut}
-            >
-              {isLoading[item?.node?.product?.productId] ? (
-                <CircularProgress color="black" size="17px" className={classes.progressBar} />
-              ) : (
-                <>
-                  <div className={classes.cartButtonrowDiv}>
-                    <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icons" />
-                    <Typography
-                      style={{
-                        fontFamily: "Ostrich Sans Black",
-                      }}
-                      variant="h5"
-                      component="h2"
-                      className={classes.cartText}
-                    >
-                      {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
-                    </Typography>
-                  </div>
-                  <div>
-                    <Typography
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "0.9rem",
-                        fontFamily: "lato",
-                        marginLeft: "0px",
-                      }}
-                      variant="h4"
-                      component="h2"
-                      className={classes.carttitle2}
-                    >
-                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}
-                    </Typography>
-                  </div>
-                </>
-              )}
-            </Button>
-          </div>
           <div>
-            <div className={classes.cartcontent}>
-              <div
-                className={classes.cartcontenttext}
-                onCick={() => {
-                  trackProductView();
-                }}
+            <div className={classes.cartButton}>
+              <Button
+                className={classes.cart}
+                onClick={() => handleOnClick(item?.node?.product, item?.node?.product?.variants[0])}
+                disabled={isDisabled || item?.node?.product?.isSoldOut}
               >
-                <Link
-                  href={item.node.product.slug && "/en/product/[...slugOrId]"}
-                  as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
-                >
-                  <a target="_blank">
-                    <Typography
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "1rem",
-                        fontFamily: "lato",
-                        // marginTop: "10px",
-                        textTransform: "capitalize",
-                        marginLeft: "0px",
-                      }}
-                      variant="h4"
-                      component="h2"
-                      className={classes.carttitle}
-                    >
-                      {firstThreeWords}
-                    </Typography>
-                  </a>
-                </Link>
-                {storeNameShort && (
-                  <Typography className={classes.storeName}>
-                    Wardrobe Name:{" "}
-                    <Link
-                      href={"/en/profile/[slugOrId]"}
-                      as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
-                    >
-                      <a target="_blank">
-                        <span className={classes.storeNameStyle}>{storeNameShort} </span>
-                      </a>
-                    </Link>
-                  </Typography>
+                {isLoading[item?.node?.product?.productId] ? (
+                  <CircularProgress color="black" size="17px" className={classes.progressBar} />
+                ) : (
+                  <>
+                    <div className={classes.cartButtonrowDiv}>
+                      <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icons" />
+                      <Typography
+                        style={{
+                          fontFamily: "Ostrich Sans Black",
+                        }}
+                        variant="h5"
+                        component="h2"
+                        className={classes.cartText}
+                      >
+                        {isDisabled ? "Added" : item.node.product.isSoldOut ? "Sold" : "+ Cart"}
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "0.9rem",
+                          fontFamily: "lato",
+                          marginLeft: "0px",
+                        }}
+                        variant="h4"
+                        component="h2"
+                        className={classes.carttitle2}
+                      >
+                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice && `-${Math.abs(percentage)}%`}
+                      </Typography>
+                    </div>
+                  </>
                 )}
-                <div className={classes.cartButtonrowDiv2}>
-                  <div>
-                    <Typography
-                      className={classes.price}
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "1rem",
-                        fontFamily: "lato",
-                        color: "#FDC114",
-                        marginLeft: "0px",
-                        textDecoration: "line-through",
-                      }}
-                    >
-                      {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
-                        ?.replace(/\.00$/, "")
-                        .replace(/\$/g, "Rs. ")}
+              </Button>
+            </div>
+            <div>
+              <div className={classes.cartcontent}>
+                <div
+                  className={classes.cartcontenttext}
+                  onCick={() => {
+                    trackProductView();
+                  }}
+                >
+                  <Link
+                    href={item.node.product.slug && "/en/product/[...slugOrId]"}
+                    as={item.node.product.slug && `/en/product/${item.node.product.slug}`}
+                  >
+                    <a target="_blank">
+                      <Typography
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "1rem",
+                          fontFamily: "lato",
+                          // marginTop: "10px",
+                          textTransform: "capitalize",
+                          marginLeft: "0px",
+                        }}
+                        variant="h4"
+                        component="h2"
+                        className={classes.carttitle}
+                      >
+                        {firstThreeWords}
+                      </Typography>
+                    </a>
+                  </Link>
+                  {storeNameShort && (
+                    <Typography className={classes.storeName}>
+                      Wardrobe Name:{" "}
+                      <Link
+                        href={"/en/profile/[slugOrId]"}
+                        as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
+                      >
+                        <a target="_blank">
+                          <span className={classes.storeNameStyle}>{storeNameShort} </span>
+                        </a>
+                      </Link>
                     </Typography>
-                    <div className={classes.strikethroughoff}>
-                      {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
-                        ?.replace(/\.00$/, "")
-                        .replace(/\$/g, "Rs. ")}
+                  )}
+                  <div className={classes.cartButtonrowDiv2}>
+                    <div>
+                      <Typography
+                        className={classes.price}
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "1rem",
+                          fontFamily: "lato",
+                          color: "#FDC114",
+                          marginLeft: "0px",
+                          textDecoration: "line-through",
+                        }}
+                      >
+                        {item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "Rs. ")}
+                      </Typography>
+                      <div className={classes.strikethroughoff}>
+                        {item?.node?.product?.variants[0]?.pricing[0]?.displayPrice
+                          ?.replace(/\.00$/, "")
+                          .replace(/\$/g, "Rs. ")}
+                      </div>
+                    </div>
+                    <div className={classes.cartbackground}>
+                      <Typography
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "0.8rem",
+                          fontFamily: "lato",
+                        }}
+                        variant="h4"
+                        component="h2"
+                        className={classes.cartsize}
+                      >
+                        Size <span className={classes.sizes}>{formatSize(size, true)}</span>
+                      </Typography>
                     </div>
                   </div>
-                  <div className={classes.cartbackground}>
-                    <Typography
-                      style={{
-                        fontWeight: "600",
-                        fontSize: "0.8rem",
-                        fontFamily: "lato",
-                      }}
-                      variant="h4"
-                      component="h2"
-                      className={classes.cartsize}
-                    >
-                      Size <span className={classes.sizes}>{formatSize(size, true)}</span>
-                    </Typography>
-                  </div>
                 </div>
-              </div>
-              {/* <div className={classes.cartbackground}>
+                {/* <div className={classes.cartbackground}>
                             <Typography
                               style={{
                                 fontWeight: "600",
@@ -487,11 +490,11 @@ const ProductCard = ({
                             </Typography>
 
                           </div> */}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
