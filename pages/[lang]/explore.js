@@ -80,8 +80,15 @@ function Explore(props) {
       .filter((filter) => filter.name !== minFilterName && filter.name !== maxFilterName)
       .concat({ name: minFilterName, value: newValue[0] })
       .concat({ name: maxFilterName, value: newValue[1] });
-
+      console.log("heyhkjwqbd", price)
     uiStore.setFilterPrice(updatedFilters);
+  };
+
+  const handleChangeChecksize2 = () => {
+    uiStore.setFilters(null);
+  };
+  const handleFilterChange2 = () => {
+    uiStore.setFilterPrice(null);
   };
   const DropdownIndicator = (props) => {
     return (
@@ -925,6 +932,20 @@ function Explore(props) {
       justifyContent: "center",
       border: "1px solid #000000",
     },
+    divRow: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "90%",
+      alignSelf: "center",
+      height: "100%",
+      alignItems: "end",
+      marginBottom: "18px",
+    },
+    textstyle: {
+      fontSize: "14px",
+      cursor: "pointer",
+    },
   }));
   console.log(props.totalcount, "propertiese");
 
@@ -1088,7 +1109,7 @@ function Explore(props) {
 
     // Get selected variant or variant optiono
     const selectedVariant = variantById(product.variants, variant._id);
-    console.log("selectedVariant",selectedVariant)
+    console.log("selectedVariant", selectedVariant);
 
     // If variant is not already in the cart, add the new item
     // parseFloat(price.replace(/[^0-9.-]+/g, "")).toFixed(2);
@@ -1122,16 +1143,16 @@ function Explore(props) {
       console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
       // if (additemtocart?.data?.addCartItems?.cart?._id) {
-        toast.success(" added to cart successfully!");
-        
-        // setIsLoading((prevState) => ({
-        //   ...prevState,
-        //   [product.productId]: false,
-        // }));
-        setIsLoading((prevState) => ({
-          ...prevState,
-          [product.productId]: false,
-        }));
+      toast.success(" added to cart successfully!");
+
+      // setIsLoading((prevState) => ({
+      //   ...prevState,
+      //   [product.productId]: false,
+      // }));
+      setIsLoading((prevState) => ({
+        ...prevState,
+        [product.productId]: false,
+      }));
       // }
     } catch (error) {
       console.log("carcart error for cart", error);
@@ -1322,10 +1343,10 @@ function Explore(props) {
                     <div className={classes.slidervaluesmain}>
                       <div className={classes.slidervalues}>
                         <Typography variant="h5" className={classes.filternameprice}>
-                          RS. 500
+                         {price? `RS. ${price[0]}`: "RS. 500"}
                         </Typography>
                         <Typography variant="h5" className={classes.filternameprice}>
-                          RS. 10,000
+                        {price? `RS. ${price[1]}`: "RS. 10,000"}
                         </Typography>
                       </div>
                     </div>
@@ -1341,6 +1362,29 @@ function Explore(props) {
                       />
                     </div>
                   </List>
+                </div>
+                <div className={classes.divRow}>
+                  <Typography
+                    variant="h6"
+                    className={classes.textstyle}
+                    onClick={() => {
+                      setState(!state);
+                    }}
+                  >
+                    VIEW RESULTS
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    className={classes.textstyle}
+                    onClick={() => {
+                      handleChangeChecksize2();
+                      handleFilterChange2();
+                      setState(!state);
+
+                    }}
+                  >
+                    CLEAR ALL
+                  </Typography>
                 </div>
               </Drawer>
             </React.Fragment>

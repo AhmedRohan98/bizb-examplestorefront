@@ -433,7 +433,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                               <Link href={`/en/profile/${product?.variant[0]?.uploadedBy?.userId}`}>
                                 <a style={{ color: "#FDC114" }}>
                                   <Typography variant="h5" className={classes.cartpric}>
-                                    Store:{" "}
+                                  Wardrobe:{" "}
                                     <span className={classes.storeName}>
                                       {product?.variant[0]?.uploadedBy
                                         ? product?.variant[0]?.uploadedBy?.storeName
@@ -483,7 +483,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                 <div style={{ display: "flex" }}>
                   <div style={{ marginTop: "20px", width: "100%", marginRight: "25px" }}>
                     <Typography variant="h4" className={classes.productTitle2}>
-                      Stores
+                    Wardrobes
                     </Typography>
                     <ul className={classes.searchdiv}>
                       {result?.storeData?.slice(0, 4)?.map((item) => {
@@ -514,7 +514,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                             )}
                             <div className={classes.cartitemtext}>
                               <Typography variant="h5" className={classes.productTitle}>
-                                {item?.storeName ? item?.storeName : "User Store"}
+                                {item?.storeName ? item?.storeName : "User Wardrobe"}
                               </Typography>
                               <Typography variant="h5" className={classes.productTitle3}>
                                 {item?.name ? item?.name : "User"}
@@ -531,7 +531,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     {searchLocal === "" ? (
                       <></>
                     ) : (
-                      <Link href={{ pathname: "/en/stores", query: { search: JSON.stringify(searchLocal) } }}>
+                      <Link href={{ pathname: "/en/wardrobe", query: { search: JSON.stringify(searchLocal) } }}>
                         <a style={{ color: "#FDC114" }}> {`See all results `}</a>
                       </Link>
                     )}

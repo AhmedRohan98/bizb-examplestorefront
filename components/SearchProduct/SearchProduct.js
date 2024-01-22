@@ -726,7 +726,7 @@ const SearchProduct = (props) => {
                                 </Link>
                                 {storeNameShort && (
                                   <Typography className={classes.storeName}>
-                                    Store Name:{" "}
+                                    Wardrobe Name:{" "}
                                     <Link
                                       href={"/en/profile/[slugOrId]"}
                                       as={`/en/profile/${item?.variant[0]?.uploadedBy?.userId}`}

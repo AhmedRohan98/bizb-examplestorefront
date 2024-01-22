@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import formatSize from "../../lib/utils/formatSize";
 import { CircularProgress } from "@material-ui/core";
+import Head from 'next/head';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -280,7 +281,32 @@ const ProductCard = ({
   const classes = useStyles();
 
   return (
+    <>
+     <Head>
+        <meta name="description" content="Product" />
+
+        {/* Add JSON-LD script for Product schema */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "http://schema.org",
+              "@type": "Product",
+              "name": ${firstThreeWords},
+              "url": "bizb.store/en/product/${item.node.product.slug},
+              "image": ${item?.node?.product?.media[0]?.URLs?.thumbnail? item?.node?.product?.media[0]?.URLs?.thumbnail: item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail},
+              "offers": {
+                "@type": "Offer",
+                "priceCurrency": "PKR",
+                "price": ${item?.node?.product?.variants[0]?.pricing[0]?.displayPrice},
+                "priceValidUntil": "",
+                "availability": "InStock"
+              }
+            }
+          `}
+        </script>
+      </Head>
     <div style={{ display: "flex", justifyContent: "center" }}>
+      
       <div
         className={classes.boxcontairproduct}
         onCick={() => {
@@ -395,7 +421,7 @@ const ProductCard = ({
                 </Link>
                 {storeNameShort && (
                   <Typography className={classes.storeName}>
-                    Store Name:{" "}
+                    Wardrobe Name:{" "}
                     <Link
                       href={"/en/profile/[slugOrId]"}
                       as={`/en/profile/${item?.node?.product?.variants[0]?.uploadedBy?.userId}`}
@@ -466,6 +492,7 @@ const ProductCard = ({
         </div>
       </div>
     </div>
+    </>
   );
 };
 

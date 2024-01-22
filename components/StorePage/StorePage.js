@@ -231,6 +231,24 @@ const StorePage = ({...props}) => {
       display: "flex",
       flexDirection: "row",
     },
+    imgdiv:{
+      display:"flex",
+      alignItems:"center",
+      flexDirection:"column"
+      
+    },
+    imgSize: {
+      width: "41%",
+      height: "18%",
+      marginTop: "3px",
+    },
+    textstyle: {
+      fontFamily: "Ostrich Sans Black",
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      color: "black",
+     
+    },
   }));
 
   const classes = useStyles();
@@ -371,7 +389,7 @@ const StorePage = ({...props}) => {
               <div className="sellerProfile__infoRow publicProfile__infoRow">
                 {sellers?.length > 0 ? (
                   <Typography className="publicProfile__name" variant="h1">
-                    <span>All Stores</span>
+                    <span>All Wardrobes</span>
                     {<img src="/icons/tickIcon.png" alt="icon" />}
                   </Typography>
                 ) : (
@@ -502,7 +520,7 @@ const StorePage = ({...props}) => {
                             component="h2"
                             className={classes.carttitle}
                           >
-                            {item?.storeName && item?.storeName.trim() ? item?.storeName.slice(0, 15) : "User Store"}
+                            {item?.storeName && item?.storeName.trim() ? item?.storeName.slice(0, 15) : "User Wardrobe"}
                           </Typography>
                           <Typography className="sellerProfile__infoMetaTitle" variant="h5">
                             {" "}
@@ -517,21 +535,32 @@ const StorePage = ({...props}) => {
             </Masonry>
           </ResponsiveMasonry>
         </div>
-      ) : (
-        <SkeletonLoader />
-      )}
+     ) : loading? (
+      <SkeletonLoader />
+    ) : (
+      totalCount === 0 && (
+        <div className={classes.imgdiv}>
+          <img src="/images/noimage.jpg" className={classes.imgSize} alt="icons" />
+          <Typography variant="h6" className={classes.textstyle}>
+            No Results Found
+          </Typography>
+        </div>
+      )
+    )}
 
-      <div className={classes.loadmore}>
-        <Pagination
-          totalCount={totalCount}
-          /* @ts-ignore TODO: Refactor link to address type error */
-          changePage={handleChangePage}
-          currentPage={page}
-          itemsPerPage={itemsPerPage}
-          /* @ts-ignore TODO: Refactor link to address type error */
-          setItemsPerPage={setitemsPerPage}
-        />
-      </div>
+{totalCount > itemsPerPage && (
+        <div className={classes.loadmore}>
+          <Pagination
+            totalCount={totalCount}
+            /* @ts-ignore TODO: Refactor link to address type error */
+            changePage={handleChangePage}
+            currentPage={page}
+            itemsPerPage={itemsPerPage}
+            /* @ts-ignore TODO: Refactor link to address type error */
+            setItemsPerPage={setitemsPerPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

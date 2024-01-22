@@ -442,7 +442,7 @@ const MiniCart = ({ ...props }) => {
                                   {item.title.toString().toLowerCase()}
                                 </Typography>
                                 <Typography variant="h4" style={{ fontSize: "1rem" }}>
-                                  Store:&nbsp;
+                                Wardrobe:&nbsp;
                                   <span className={classes.storeName}>
                                     {item?.productVendor?.slice(0, 10)}
                                     {console.log("itemite", item)}

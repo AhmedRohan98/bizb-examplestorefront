@@ -911,6 +911,7 @@ const ProductDetail = ({ ...props }) => {
   const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
   return (
     <>
+    
       {typeof window !== "undefined" && (
         <div>
           <ToastContainer
@@ -1096,7 +1097,7 @@ const ProductDetail = ({ ...props }) => {
                           variant="h4"
                           className={classes.storeText}
                         >
-                          Store Name
+                          Wardrobe Name
                         </Typography>
                         <Link
                           href={"/en/profile/[slugOrId]"}
