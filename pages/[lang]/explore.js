@@ -62,9 +62,9 @@ function Explore(props) {
     setState(!state);
   };
 
-  useEffect(() => {
-    processQueue();
-  }, [queue, props?.cart?.items, props?.catalogItems]);
+  // useEffect(() => {
+  //   processQueue();
+  // }, [queue, props?.cart?.items, props?.catalogItems]);
 
   const handleChangeChecksize = (event) => {
     const selectedSize = event.target.name;
@@ -1178,7 +1178,8 @@ function Explore(props) {
       [item?.product.productId]: true,
     }));
 
-    setQueue((prevQueue) => [...prevQueue, item]);
+    // setQueue((prevQueue) => [...prevQueue, item]);
+    await handleAddToCartClick(1, item?.product, item?.variant);
 
     ReactGA.event({
       category: "Ecommerce",
@@ -1209,21 +1210,21 @@ function Explore(props) {
     // });
   };
 
-  const processQueue = async () => {
-    if (queue.length > 0 && !processing) {
-      setProcessing(true);
+  // const processQueue = async () => {
+  //   if (queue.length > 0 && !processing) {
+  //     setProcessing(true);
 
-      const item = queue[0];
-      console.log("itemitemitem", item);
+  //     const item = queue[0];
+  //     console.log("itemitemitem", item);
 
-      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
+  //     // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
 
-      await handleAddToCartClick(1, item?.product, item?.variant);
+  //     await handleAddToCartClick(1, item?.product, item?.variant);
 
-      setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
-      setProcessing(false);
-    }
-  };
+  //     setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
+  //     setProcessing(false);
+  //   }
+  // };
 
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
   const classes = useStyles();
