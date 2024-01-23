@@ -794,25 +794,23 @@ function SellerPublicProfile(props) {
                           Products
                         </Typography>
                       </div>
-                      {/* <div className="sellerProfile__infoMetaRow">
-                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                          0
-                        </Typography>
-                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                          {" "}
-                          Followers
-                        </Typography>
-                      </div>
-                      <div className="sellerProfile__infoMetaRow">
-                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                          0
-                        </Typography>
-                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                          {" "}
-                          Following
-                        </Typography>
-                      </div> */}
+                   
                     </div>
+                    <div className={classes.countdiv}>
+                    <div className="publicProfile__infoMeta">
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            {soldProducts}
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                           Sold Products
+                          </Typography>
+                        </div>
+                      
+                      </div>
+                    </div>
+                    
                   </Grid>
                 </Grid>
               </Hidden>
