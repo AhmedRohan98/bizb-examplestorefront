@@ -919,9 +919,9 @@ function Categories(props) {
   const [queue, setQueue] = useState([]);
   const [processing, setProcessing] = useState(false);
 
-  useEffect(() => {
-    processQueue();
-  }, [queue, cart?.items]);
+  // useEffect(() => {
+  //   processQueue();
+  // }, [queue, cart?.items]);
 
   const router = useRouter();
   const { tagId } = router.query;
@@ -1102,7 +1102,9 @@ function Categories(props) {
       [item?.product.productId]: true,
     }));
 
-    setQueue((prevQueue) => [...prevQueue, item]);
+    await handleAddToCartClick(1, item?.product, item?.variant);
+
+    // setQueue((prevQueue) => [...prevQueue, item]);
 
     ReactGA.event({
       category: "Ecommerce",
@@ -1130,21 +1132,21 @@ function Categories(props) {
       dataLayer: addToCartData,
     });
   };
-  const processQueue = async () => {
-    if (queue.length > 0 && !processing) {
-      setProcessing(true);
+  // const processQueue = async () => {
+  //   if (queue.length > 0 && !processing) {
+  //     setProcessing(true);
 
-      const item = queue[0];
-      console.log("itemitemitem", item);
+  //     const item = queue[0];
+  //     console.log("itemitemitem", item);
 
-      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
+  //     // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
 
-      await handleAddToCartClick(1, item?.product, item?.variant);
+  //     await handleAddToCartClick(1, item?.product, item?.variant);
 
-      setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
-      setProcessing(false);
-    }
-  };
+  //     setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
+  //     setProcessing(false);
+  //   }
+  // };
 
   useEffect(() => {
     console.log("catalog items in tag", catalogItems);
