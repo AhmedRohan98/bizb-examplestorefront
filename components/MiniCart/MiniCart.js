@@ -120,7 +120,7 @@ const styles = (theme) => ({
     width: "100%",
     height: "100%",
     borderRadius: "10px",
-    objectFit: "fill",
+    objectFit: "cover",
   },
   cartitemtext: {
     display: "flex",
@@ -289,12 +289,14 @@ const styles = (theme) => ({
   },
 });
 
-const MiniCart = ({ ...props }) => {
+const MiniCart = React.memo(({ ...props }) => {
   const [anchorElement, setAnchorElement] = useState(null);
   const [open, setOpen] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [isLoading2, setisLoading2] = useState(false);
   const [isLoading3, setisLoading3] = useState(false);
+  const [isLoading4, setisLoading4] = useState({});
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -376,16 +378,37 @@ const MiniCart = ({ ...props }) => {
   };
 
   const handleRemoveItem = async (itemID) => {
+   
+
     ReactGA.send({
       hitType: "event",
       eventCategory: "Ecommerce",
       eventAction: "remove_from_cart",
       eventLabel: itemID,
     });
+  
     const { onRemoveCartItems } = props;
+  
     console.log(itemID, "me");
-    onRemoveCartItems(itemID);
+  
+    // Assuming onRemoveCartItems returns a Promise after removing the item
+    try {
+      await onRemoveCartItems(itemID);
+      setisLoading4((prevState) => ({
+        ...prevState,
+        [itemID]: false,
+      }))
+      // Additional logic after successful removal if needed
+    } catch (error) {
+      // Handle error, if any
+      console.error("Error removing item:", error);
+      setisLoading4((prevState) => ({
+        ...prevState,
+        [itemID]: false,
+      }))
+    }
   };
+  
 
   function renderMiniCart() {
     const { cart, classes, hasMoreCartItems, loadMoreCartItems } = props;
@@ -452,13 +475,22 @@ const MiniCart = ({ ...props }) => {
                                   {formatCurrency(item?.price?.amount)}
                                 </Typography>
                               </div>
-
+                              {isLoading4[item._id]? (
+                            <CircularProgress size={20} />
+                          ) : (
                               <img
                                 style={{ cursor: "pointer" }}
                                 src={`/cart/icon.svg`}
                                 alt={"Delete"}
-                                onClick={() => handleRemoveItem(item._id)}
+                                onClick={() =>{
+                                  setisLoading4((prevState) => ({
+                                    ...prevState,
+                                    [item._id]: true,
+                                  }))
+                                 handleRemoveItem(item._id)}
+                                }
                               />
+                          )}
                             </div>
                           );
                         })}
@@ -607,7 +639,7 @@ const MiniCart = ({ ...props }) => {
       {renderMiniCart()}
     </Fragment>
   );
-};
+})
 
 MiniCart.propTypes = {
   cart: PropTypes.shape({

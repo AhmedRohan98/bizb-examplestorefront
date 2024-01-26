@@ -2,12 +2,41 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Hidden from "@material-ui/core/Hidden";
-
+import { withApollo } from "lib/apollo/withApollo";
 import Typography from "@material-ui/core/Typography";
+import useInstagramKey from "../../hooks/instagramKey/instagramKey";
+
 const Instagram = (props) => {
   // console.log("instagram props", props.feed);
-  const data = props?.feed?.data;
-  const images = data?.filter((media) => media.media_type === "IMAGE").slice(0, 6);
+
+  const [instagramKey, loading, refetch] = useInstagramKey();
+  const [images, setImages] = React.useState([]);
+
+  React.useEffect(() => {
+    console.log("instagram keye here in ", instagramKey);
+  }, [instagramKey, loading, refetch]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${instagramKey}`;
+        const response = await fetch(url);
+        const instaData = await response.json();
+        const data = instaData?.data;
+        const filteredImages = data?.filter((media) => media.media_type === "IMAGE" || media.media_type === "CAROUSEL_ALBUM").slice(0, 6);
+        setImages(filteredImages);
+        console.log("instagram keye here in ", response, instaData, data);
+
+      } catch (error) {
+        console.error('Error fetching Instagram data:', error);
+      }
+    };
+
+    fetchData();
+  }, [instagramKey, refetch]);
+
+
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -143,4 +172,4 @@ const Instagram = (props) => {
   );
 };
 
-export default Instagram;
+export default withApollo()(Instagram);
