@@ -2,8 +2,14 @@ query viewer {
   viewer {
     _id
     isSeller
+    phoneNumber
+    username
     storeInfo {
       storeName
+      image
+      contactNumber
+      city
+      pickUpAddress
       __typename
     }
     addressBook {
