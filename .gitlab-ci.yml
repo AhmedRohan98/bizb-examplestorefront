@@ -89,31 +89,31 @@ build_docker_image:
       when: never
     - if: '$CI_COMMIT_BRANCH == "master"'
 
-deploy_to_gke:
-  stage: deploy
-  image: google/cloud-sdk:latest
-  environment:
-    name: master
+# deploy_to_gke:
+#   stage: deploy
+#   image: google/cloud-sdk:latest
+#   environment:
+#     name: master
 
-  script:
-    - echo "$GKE_SA_KEY" > gke_sa.json
-    - gcloud auth activate-service-account --key-file gke_sa.json
-    - gcloud config set project ultimate-balm-377006
-    - gcloud container clusters get-credentials bizb-cluster --zone asia-southeast1-a --project ultimate-balm-377006
-    - VERSION_NUMBER=$(cat VERSION)
-    - echo $VERSION_NUMBER
-    - NEW_IMAGE="registry.gitlab.com/codistan/bizb/example-storefront/bizb-gke:bizb-frontend-$VERSION_NUMBER"  # Use the newly calculated version
-    - kubectl set image deployment/bizb-frontend-deployment bizb-frontend=$NEW_IMAGE
-    - kubectl rollout status deployment/bizb-frontend-deployment
-    - kubectl rollout restart deployment/bizb-frontend-deployment
-  # only:
-  #   - master
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master" && $CI_COMMIT_MESSAGE !~ /Update version to/'
-      when: always
-    - when: never
-  dependencies:
-    - build_docker_image
+#   script:
+#     - echo "$GKE_SA_KEY" > gke_sa.json
+#     - gcloud auth activate-service-account --key-file gke_sa.json
+#     - gcloud config set project ultimate-balm-377006
+#     - gcloud container clusters get-credentials bizb-cluster --zone asia-southeast1-a --project ultimate-balm-377006
+#     - VERSION_NUMBER=$(cat VERSION)
+#     - echo $VERSION_NUMBER
+#     - NEW_IMAGE="registry.gitlab.com/codistan/bizb/example-storefront/bizb-gke:bizb-frontend-$VERSION_NUMBER"  # Use the newly calculated version
+#     - kubectl set image deployment/bizb-frontend-deployment bizb-frontend=$NEW_IMAGE
+#     - kubectl rollout status deployment/bizb-frontend-deployment
+#     - kubectl rollout restart deployment/bizb-frontend-deployment
+#   # only:
+#   #   - master
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "master" && $CI_COMMIT_MESSAGE !~ /Update version to/'
+#       when: always
+#     - when: never
+#   dependencies:
+#     - build_docker_image
 
 
 
