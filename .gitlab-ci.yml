@@ -40,7 +40,6 @@ stages:
   #- cleanup
 
 
-
 build_docker_image:
   stage: build
   environment:
