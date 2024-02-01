@@ -573,7 +573,7 @@ const NavigationDesktop = (props) => {
                     color: "inherit",
                   }}
                   target="_blank"
-                  href="https://bizb.store/dashboard"
+                  href="https://bizb.store/dashboard/home"
                 >
                   <span className={classes.headerHeadings}>Dashboard</span>
                 </a>

@@ -204,7 +204,7 @@ class NavigationMobile extends Component {
               </MenuList>
             </a>
             {this.props.viewer?.isSeller === true ?
-              <a href="https://bizb.store/dashboard">
+              <a href="https://bizb.store/dashboard/home">
                 <MenuList className={classes.navButtonActive}>
                   <IconButton  >
                     <SupervisedUserCircleOutlinedIcon style={{ color: "black" }} />
