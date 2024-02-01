@@ -42,9 +42,13 @@ import useprimaryShop from "../../../hooks/primaryShop/useprimaryShop";
 import IconButton from "@material-ui/core/IconButton";
 import Sort from "@material-ui/icons/Sort";
 import ProductCard from "../../../components/ProductCard/ProductCard";
+import useSoldProductsSeller from "../../../hooks/soldProductsSeller/useSoldProductsSeller"
 
 function SellerPublicProfile(props) {
-  // console.log("props", props);
+  console.log("props", props?.router?.query?.slugOrId);
+
+  const [soldProducts, loading, refetch] = useSoldProductsSeller(props?.router?.query?.slugOrId);
+
   const { uiStore, routingStore, filters, cart, addItemsToCart, sellerCatalogItemsPageInfo } = props;
   const [soldOutProducts, setSoldOutProducts] = useState([]);
   const [isLoading, setIsLoading] = useState({});
@@ -68,9 +72,9 @@ function SellerPublicProfile(props) {
     console.log("categoryTags in component is", props);
   }, [primaryShopId, categoryTags]);
 
-  useEffect(() => {
-    processQueue();
-  }, [queue, props?.cart?.items, props?.catalogItems]);
+  // useEffect(() => {
+  //   processQueue();
+  // }, [queue, props?.cart?.items, props?.catalogItems]);
 
   const useStyles = makeStyles((theme) => ({
     main: {
@@ -524,7 +528,10 @@ function SellerPublicProfile(props) {
       [item?.product.productId]: true,
     }));
 
-    setQueue((prevQueue) => [...prevQueue, item]);
+    await handleAddToCartClick(1, item?.product, item?.variant);
+
+
+    // setQueue((prevQueue) => [...prevQueue, item]);
     ReactGA.event({
       category: "Ecommerce",
       action: "add_to_cart",
@@ -554,21 +561,21 @@ function SellerPublicProfile(props) {
     // Scroll to the top
   };
 
-  const processQueue = async () => {
-    if (queue.length > 0 && !processing) {
-      setProcessing(true);
+  // const processQueue = async () => {
+  //   if (queue.length > 0 && !processing) {
+  //     setProcessing(true);
 
-      const item = queue[0];
-      console.log("itemitemitem", item);
+  //     const item = queue[0];
+  //     console.log("itemitemitem", item);
 
-      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
+  //     // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
 
-      await handleAddToCartClick(1, item?.product, item?.variant);
+  //     await handleAddToCartClick(1, item?.product, item?.variant);
 
-      setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
-      setProcessing(false);
-    }
-  };
+  //     setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
+  //     setProcessing(false);
+  //   }
+  // };
 
   const parseJSON = (jsonString) => {
     try {
@@ -709,6 +716,18 @@ function SellerPublicProfile(props) {
                           </Typography>
                         </div> */}
                       </div>
+                      <div className="publicProfile__infoMeta">
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            {soldProducts}
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                           Sold Products
+                          </Typography>
+                        </div>
+                      
+                      </div>
                     </Grid>
                   </Grid>
                 </Hidden>
@@ -775,25 +794,23 @@ function SellerPublicProfile(props) {
                           Products
                         </Typography>
                       </div>
-                      {/* <div className="sellerProfile__infoMetaRow">
-                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                          0
-                        </Typography>
-                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                          {" "}
-                          Followers
-                        </Typography>
-                      </div>
-                      <div className="sellerProfile__infoMetaRow">
-                        <Typography className="sellerProfile__infoMetaContent" variant="h5">
-                          0
-                        </Typography>
-                        <Typography className="sellerProfile__infoMetaTitle" variant="h5">
-                          {" "}
-                          Following
-                        </Typography>
-                      </div> */}
+                   
                     </div>
+                    <div className={classes.countdiv}>
+                    <div className="publicProfile__infoMeta">
+                        <div className="sellerProfile__infoMetaRow">
+                          <Typography className="sellerProfile__infoMetaContent" variant="h5">
+                            {soldProducts}
+                          </Typography>
+                          <Typography className="sellerProfile__infoMetaTitle" variant="h5">
+                            {" "}
+                           Sold Products
+                          </Typography>
+                        </div>
+                      
+                      </div>
+                    </div>
+                    
                   </Grid>
                 </Grid>
               </Hidden>

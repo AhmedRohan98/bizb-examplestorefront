@@ -297,9 +297,9 @@ const Justin = (props) => {
   const [isLoading, setIsLoading] = useState({});
   const [getLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    processQueue();
-  }, [queue, props?.cart?.items, catalogdata]);
+  // useEffect(() => {
+  //   processQueue();
+  // }, [queue, props?.cart?.items, catalogdata]);
 
   const trackProductView = () => {
     const dataLayer = {
@@ -453,15 +453,15 @@ const Justin = (props) => {
       console.log("carcart", additemtocart?.data?.addCartItems?.cart?._id);
 
       // if (additemtocart?.data?.addCartItems?.cart?._id) {
-        toast.success(" added to cart successfully!");
-        // setIsLoading((prevState) => ({
-        //   ...prevState,
-        //   [product.productId]: false,
-        // }));
-        setIsLoading((prevState) => ({
-          ...prevState,
-          [product.productId]: false,
-        }));
+      toast.success(" added to cart successfully!");
+      // setIsLoading((prevState) => ({
+      //   ...prevState,
+      //   [product.productId]: false,
+      // }));
+      setIsLoading((prevState) => ({
+        ...prevState,
+        [product.productId]: false,
+      }));
       // }
     } catch (error) {
       console.log("carcart error for cart", error);
@@ -487,7 +487,8 @@ const Justin = (props) => {
       [item?.product.productId]: true,
     }));
 
-    setQueue((prevQueue) => [...prevQueue, item]);
+    await handleAddToCartClick(1, item?.product, item?.variant);
+
     ReactGA.event({
       category: "Ecommerce",
       action: "add_to_cart",
@@ -510,29 +511,32 @@ const Justin = (props) => {
       },
     };
 
-
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
+    return;
+
+    // setQueue((prevQueue) => [...prevQueue, item]);
+   
 
     // Scroll to the top
   };
 
-  const processQueue = async () => {
-    if (queue.length > 0 && !processing) {
-      setProcessing(true);
+  // const processQueue = async () => {
+  //   if (queue.length > 0 && !processing) {
+  //     setProcessing(true);
 
-      const item = queue[0];
-      console.log("itemitemitem", item);
+  //     const item = queue[0];
+  //     console.log("itemitemitem", item);
 
-      // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
+  //     // Simulate an asynchronous process (e.g., making an API request to add the item to the cart)
 
-      await handleAddToCartClick(1, item?.product, item?.variant);
+  //     await handleAddToCartClick(1, item?.product, item?.variant);
 
-      setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
-      setProcessing(false);
-    }
-  };
+  //     setQueue((prevQueue) => prevQueue.slice(1)); // Remove the processed item from the queue
+  //     setProcessing(false);
+  //   }
+  // };
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
 
   const classes = useStyles();

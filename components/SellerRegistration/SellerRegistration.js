@@ -594,6 +594,31 @@ const SellerRegistration = () => {
         </div>
         <div className={classes.style6}>
           <FormControl>
+          <div className={classes.style7}>
+              <div className={classes.style11}>
+                <Typography variant="body2" className={classes.style3} textAlign="left">
+                  Full Name
+                </Typography>
+                <p id="nameError" className={classes.style10}>
+                  *
+                </p>
+              </div>
+
+              <TextField
+                type="text"
+                size="small"
+                variant="standard"
+                placeholder="Enter your Full Name"
+                value={userName.value}
+                onChange={(e) => setuserName({ ...userName, value: e.target.value })}
+                onFocus={() => setuserName({ ...userName, isTouched: true })}
+                InputProps={style2}
+                className={classes.style}
+              />
+            </div>
+
+            {userName.isTouched && userName.value.trim() === "" ? <UserErrorMessage /> : null}
+            {userError ? <p className={classes.style9}>{userError}</p> : null}
             <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
@@ -646,7 +671,7 @@ const SellerRegistration = () => {
             <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
-                  Address 1
+                  Address 
                 </Typography>
                 <p id="nameError" className={classes.style10}>
                   *
@@ -667,7 +692,7 @@ const SellerRegistration = () => {
             </div>
             {address1.isTouched && address1.value.trim() === "" ? <AddressErrorMessage /> : null}
 
-            <div className={classes.style7}>
+            {/* <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
                   Address 2
@@ -685,7 +710,7 @@ const SellerRegistration = () => {
                 InputProps={style2}
                 className={classes.style}
               />
-            </div>
+            </div> */}
 
             <div className={classes.style7}>
               <div className={classes.style11}>
@@ -732,7 +757,7 @@ const SellerRegistration = () => {
               />
             </div>
 
-            <div className={classes.style7}>
+            {/* <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
                   State/County
@@ -751,8 +776,8 @@ const SellerRegistration = () => {
                 InputProps={style2}
                 className={classes.style}
               />
-            </div>
-
+            </div> */}
+{/* 
             <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
@@ -776,7 +801,7 @@ const SellerRegistration = () => {
                 className={classes.style}
               />
             </div>
-            {zipcode.isTouched && zipcode.value.trim() === "" ? <PostalErrorMessage /> : null}
+            {zipcode.isTouched && zipcode.value.trim() === "" ? <PostalErrorMessage /> : null} */}
 
             <div className={classes.style7}>
               <div className={classes.style11}>
@@ -803,31 +828,7 @@ const SellerRegistration = () => {
             <span className={classes.span}>eg. 03xx xxxxxxx</span>
             {contactnumber.isTouched && phoneNumreg.test(contactnumber.value) !== true ? <PhoneErrorMessage /> : null}
 
-            <div className={classes.style7}>
-              <div className={classes.style11}>
-                <Typography variant="body2" className={classes.style3} textAlign="left">
-                  Full Name
-                </Typography>
-                <p id="nameError" className={classes.style10}>
-                  *
-                </p>
-              </div>
-
-              <TextField
-                type="text"
-                size="small"
-                variant="standard"
-                placeholder="Enter your Full Name"
-                value={userName.value}
-                onChange={(e) => setuserName({ ...userName, value: e.target.value })}
-                onFocus={() => setuserName({ ...userName, isTouched: true })}
-                InputProps={style2}
-                className={classes.style}
-              />
-            </div>
-
-            {userName.isTouched && userName.value.trim() === "" ? <UserErrorMessage /> : null}
-            {userError ? <p className={classes.style9}>{userError}</p> : null}
+          
 
             <div className={classes.style7}>
               <div className={classes.style11}>
@@ -840,7 +841,7 @@ const SellerRegistration = () => {
                 type="text"
                 size="small"
                 variant="standard"
-                placeholder="Enter Referral Code"
+                placeholder="Enter Promo Code"
                 value={refferalcode.value}
                 onChange={(e) => setrefferalcode({ ...refferalcode, value: e.target.value })}
                 onFocus={() => setrefferalcode({ ...refferalcode, isTouched: true })}

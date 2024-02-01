@@ -23,6 +23,7 @@ import TagManager from "react-gtm-module";
 import GTMCheckout from "components/GTMCheckout";
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
 import ReactGA from "react-ga4";
+import useViewer from "../../hooks/viewer/useViewer";
 
 const useStyles = makeStyles((theme) => ({
   formerror: {
@@ -386,6 +387,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CheckoutActions = (prop) => {
+  const [viewer, , refetch2] = useViewer();
+
   console.log("props", prop);
   const { cart, apolloClient, cartStore } = prop;
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -407,6 +410,12 @@ const CheckoutActions = (prop) => {
   const [isDisabledPromo, setIsDisabledPromo] = useState(false);
 
   console.log("checkout actions page");
+
+  React.useEffect(() => {
+    if (viewer?._id) {
+      console.log("isAuth here in cart", viewer);
+    }
+  }, [viewer]);
 
   useEffect(() => {
     setIsDisabledPromo(!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount !== 0);
@@ -602,12 +611,12 @@ const CheckoutActions = (prop) => {
     }
   };
   const [initialValues, setInitialValues] = useState({
-    email: "",
-    FullName: "",
-    phonenumber: "",
-    CompleteAddress: "",
+    email: viewer && viewer?.primaryEmailAddress ? viewer.primaryEmailAddress : "",
+    FullName: viewer && viewer?.name ? viewer.name : "",
+    phonenumber: viewer && viewer?.phoneNumber ? viewer.phoneNumber : "",
+    CompleteAddress: viewer && viewer?.storeInfo?.pickUpAddress ? viewer.storeInfo?.pickUpAddress : "",
     orderNotes: "",
-    city: "",
+    city: viewer && viewer?.storeInfo?.city ? viewer.storeInfo?.city : "",
   });
   // setSubTotal(formatCurrency(cart?.checkout?.summary?.itemTotal?.amount));
   const handleApplyPromo = async () => {
@@ -642,7 +651,7 @@ const CheckoutActions = (prop) => {
       .matches(/^[0-9]{10}$/, "Please Enter 10 digits phone Number")
       .required("Phone number is required"),
 
-    city: Yup.string().min(5).required("Please Enter Your City"),
+    city: Yup.string().trim().min(5).required("Please Enter Your City"),
     CompleteAddress: Yup.string().min(5).required("Please enter your address"),
     orderNotes: Yup.string(),
   });
@@ -1093,7 +1102,7 @@ const CheckoutActions = (prop) => {
                       Shipping Cost
                     </Typography>
                     <Typography gutterBottom variant="h4" className={classes.subtotalamount}>
-                      {formatCurrency(shippingData ? shippingData?.cost : "0")}
+                      {formatCurrency(shippingData ? shippingData?.cost.toFixed(2) : "0")}
                     </Typography>
                   </div>
                 </div>
