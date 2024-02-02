@@ -44,6 +44,7 @@ build_docker_image:
   environment:
     name: master
 
+    
   script:
     - echo "CANONICAL_URL=$CANONICAL_URL" >> .env
     - echo "BUILD_GRAPHQL_URL=$BUILD_GRAPHQL_URL" >> .env
