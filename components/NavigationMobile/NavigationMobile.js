@@ -14,19 +14,19 @@ import CloseIcon from "mdi-material-ui/Close";
 import Link from "components/Link";
 import NavigationItemMobile from "./NavigationItemMobile";
 import NavigationSubMenuMobile from "./NavigationSubMenuMobile";
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import HomeIcon from '@material-ui/icons/HomeOutlined';
-import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
-import Checkroom from '@material-ui/icons/LocalOffer';
-import Store from '@material-ui/icons/Store';
-import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
-import SupervisedUserCircleOutlinedIcon from '@material-ui/icons/SupervisedUserCircleOutlined';
-import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
-import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
-import PhoneOutlinedIcon from '@material-ui/icons/PhoneOutlined';
-import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
-import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined';
-import LocationOn from '@material-ui/icons/LocationOn';
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import HomeIcon from "@material-ui/icons/HomeOutlined";
+import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
+import Checkroom from "@material-ui/icons/LocalOffer";
+import Store from "@material-ui/icons/Store";
+import PublishOutlinedIcon from "@material-ui/icons/PublishOutlined";
+import SupervisedUserCircleOutlinedIcon from "@material-ui/icons/SupervisedUserCircleOutlined";
+import ContactSupportOutlinedIcon from "@material-ui/icons/ContactSupportOutlined";
+import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
+import PhoneOutlinedIcon from "@material-ui/icons/PhoneOutlined";
+import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
+import BallotOutlinedIcon from "@material-ui/icons/BallotOutlined";
+import LocationOn from "@material-ui/icons/LocationOn";
 
 const styles = (theme) => ({
   root: {
@@ -74,7 +74,7 @@ const styles = (theme) => ({
     transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
     fontSize: "18px",
     background: "none",
-    '&:hover': { backgroundColor: '#FDC114' },
+    "&:hover": { backgroundColor: "#FDC114" },
     border: "none",
     fontWeight: 500,
     padding: 0,
@@ -85,9 +85,8 @@ const styles = (theme) => ({
   },
 
   input: {
-    justifyContent: "end"
-
-  }
+    justifyContent: "end",
+  },
 });
 
 class NavigationMobile extends Component {
@@ -100,16 +99,13 @@ class NavigationMobile extends Component {
     uiStore: PropTypes.shape({
       closeMenuDrawer: PropTypes.func,
     }).isRequired,
-    viewer: PropTypes.object
-
-
+    viewer: PropTypes.object,
   };
 
   static defaultProps = {
     classes: {},
     navItems: {},
-    viewer: {}
-
+    viewer: {},
   };
 
   state = {
@@ -145,12 +141,9 @@ class NavigationMobile extends Component {
         <Drawer open={uiStore.isMenuDrawerOpen} onClose={this.handleClose}>
           <div className={classes.header}>
             <Toolbar disableGutters className={classes.input}>
-
-              <IconButton onClick={this.handleClose} >
+              <IconButton onClick={this.handleClose}>
                 <ChevronLeftIcon style={{ color: "black" }} />
               </IconButton>
-
-
             </Toolbar>
 
             <Divider />
@@ -160,7 +153,7 @@ class NavigationMobile extends Component {
               {/* <MenuList disablePadding>{navItems.items.map(this.renderNavItem)}</MenuList> */}
 
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <HomeIcon style={{ color: "black" }} />
                 </IconButton>
                 Home
@@ -169,7 +162,7 @@ class NavigationMobile extends Component {
             </Link>
             <a href="/en/explore" className={{ "&:hover": { backgroundColor: "red" } }}>
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <ExploreOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 Explore
@@ -178,7 +171,7 @@ class NavigationMobile extends Component {
             </a>
             <a href="/en/brands" className={{ "&:hover": { backgroundColor: "red" } }}>
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <Checkroom style={{ color: "black" }} />
                 </IconButton>
                 Brands
@@ -187,45 +180,46 @@ class NavigationMobile extends Component {
             </a>
             <a href="/en/wardrobe" className={{ "&:hover": { backgroundColor: "red" } }}>
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <Store style={{ color: "black" }} />
                 </IconButton>
                 Wardrobes
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            <a href="https://bizb.store/dashboard/uploadproductdetail">
+            <a href={`${process.env.CANONICAL_URL}/dashboard/uploadproductdetail`}>
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <PublishOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 Upload Product
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
-            {this.props.viewer?.isSeller === true ?
-              <a href="https://bizb.store/dashboard/home">
+            {this.props.viewer?.isSeller === true ? (
+              <a href={`${process.env.CANONICAL_URL}/dashboard/home`}>
                 <MenuList className={classes.navButtonActive}>
-                  <IconButton  >
+                  <IconButton>
                     <SupervisedUserCircleOutlinedIcon style={{ color: "black" }} />
                   </IconButton>
                   Dashboard
                   {/* @ts-ignore TODO: Refactor link to address type error */}
                 </MenuList>
               </a>
-              :
+            ) : (
               <a href="/en/SellerRegistrationPage">
                 <MenuList className={classes.navButtonActive}>
-                  <IconButton  >
+                  <IconButton>
                     <SupervisedUserCircleOutlinedIcon style={{ color: "black" }} />
                   </IconButton>
                   Become a Seller
                   {/* @ts-ignore TODO: Refactor link to address type error */}
                 </MenuList>
-              </a>}
+              </a>
+            )}
             <a target="_blank" href="https://old.bizb.store/how-to-sell/">
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <ContactSupportOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 How to Sell
@@ -234,7 +228,7 @@ class NavigationMobile extends Component {
             </a>
             <a target="_blank" href="https://old.bizb.store/blog/">
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <LibraryBooksOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 Our Blogs
@@ -244,7 +238,7 @@ class NavigationMobile extends Component {
 
             <a target="_blank" href="https://blog.bizb.store/contact-us-2/">
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <PhoneOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 Contact Us
@@ -253,7 +247,7 @@ class NavigationMobile extends Component {
             </a>
             <a target="_blank" href="https://blog.bizb.store/privacy-policy-2/">
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <AssignmentOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 Privacy Policy
@@ -262,7 +256,7 @@ class NavigationMobile extends Component {
             </a>
             <a target="_blank" href="https://blog.bizb.store/return-policy/">
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <AssignmentOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 Return Policy
@@ -271,7 +265,7 @@ class NavigationMobile extends Component {
             </a>
             <a target="_blank" href="https://blog.bizb.store/return-policy/">
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <BallotOutlinedIcon style={{ color: "black" }} />
                 </IconButton>
                 Terms & Condition
@@ -280,10 +274,10 @@ class NavigationMobile extends Component {
             </a>
             <a target="_blank" href="https://g.co/kgs/eHpiuSF">
               <MenuList className={classes.navButtonActive}>
-                <IconButton  >
+                <IconButton>
                   <LocationOn style={{ color: "black" }} />
                 </IconButton>
-                Find Us                
+                Find Us
                 {/* @ts-ignore TODO: Refactor link to address type error */}
               </MenuList>
             </a>
