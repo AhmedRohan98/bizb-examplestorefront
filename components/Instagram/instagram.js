@@ -31,8 +31,10 @@ const Instagram = (props) => {
         console.error('Error fetching Instagram data:', error);
       }
     };
+if(instagramKey!=undefined){
+  fetchData();
 
-    fetchData();
+}
   }, [instagramKey, refetch]);
 
 
