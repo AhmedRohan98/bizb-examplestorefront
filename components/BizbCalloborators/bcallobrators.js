@@ -85,6 +85,7 @@ const BizbCalloborators = () => {
     },
     collobarotors: {
       width: "100%",
+      // height:"200px",
       position: "relative",
       marginBottom: "40px",
     },
@@ -248,7 +249,7 @@ const BizbCalloborators = () => {
       >
         <Grid item xs={4} style={{}}>
           <div className={classes.collobarotors}>
-            <img src="/BizbCollaborator/11.jpg" className={classes.image} alt="influencers" />
+            <img src="/BizbCollaborator/Sumona .jpg" className={classes.image} alt="influencers" />
             <div className={classes.textclass}>
               <div className={classes.textbg}>
                 <Typography gutterBottom className={classes.text}>
@@ -263,12 +264,12 @@ const BizbCalloborators = () => {
             </div>
             <div className={classes.textclass3}></div>
               <div className={classes.cart1}>
-                <a href="https://instagram.com/amalusman?igshid=MzRlODBiNWFlZA==" target="_blank">
+                <a href="https://www.instagram.com/sumonazhd/" target="_blank">
                 <div className={classes.buttonIcon}>
                   <img src="/icons/instalogo.png" className={classes.imagesicons} alt="influencers" />
                   </div>
                 </a>
-                <a href="https://bizb.store/en/profile/20380b75a098499d">
+                <a href="https://bizb.store/en/profile/802e349eb3bd4c49">
                   <div className={classes.buttonshop}>
                     <button className={classes.buttonshopt}>SHOP NOW</button>
                   </div>
@@ -278,7 +279,7 @@ const BizbCalloborators = () => {
         </Grid>
         <Grid item xs={4} style={{}}>
           <div className={classes.collobarotors}>
-            <img src="/BizbCollaborator/222.jpg" className={classes.image} alt="influencers" />
+            <img src="/BizbCollaborator/Maria.jpg" className={classes.image} alt="influencers" />
             <div className={classes.textclass}>
               <div className={classes.textbg}>
                 <Typography gutterBottom className={classes.text}>
@@ -293,11 +294,11 @@ const BizbCalloborators = () => {
             </div>
             <div className={classes.textclass3}></div>
               <div className={classes.cart2}>
-              <a href="https://instagram.com/fartashia.asim?igshid=MzRlODBiNWFlZA==" target="_blank">
+              <a href="https://www.instagram.com/mariaammarandson/" target="_blank">
               <div className={classes.buttonIcon}>
                   <img src="/icons/instalogo.png" className={classes.imagesicons} alt="icons" />
                   </div>                </a>
-                <a href="https://bizb.store/en/profile/b3504c10c5984d0d" >
+                <a href="https://bizb.store/en/profile/260bf9d48d9347e9" >
 
                 <div className={classes.buttonshop}>
                   <button className={classes.buttonshopt} variant="h4">
@@ -311,7 +312,7 @@ const BizbCalloborators = () => {
         </Grid>
         <Grid item xs={4} style={{}}>
           <div className={classes.collobarotors}>
-            <img src="/BizbCollaborator/3.jpg" className={classes.image} alt="influencers" />
+            <img src="/BizbCollaborator/Roha.jpg" className={classes.image} alt="influencers" />
             <div className={classes.textclass}>
               <div className={classes.textbg}>
                 <Typography gutterBottom className={classes.text}>
@@ -326,11 +327,11 @@ const BizbCalloborators = () => {
             </div>
             <div className={classes.textclass3}></div>
               <div className={classes.cart}>
-              <a href="https://instagram.com/hajra_sheikhh?igshid=MzRlODBiNWFlZA==" target="_blank">
+              <a href="https://www.instagram.com/teatimewithroha/" target="_blank">
               <div className={classes.buttonIcon}>
                   <img src="/icons/instalogo.png" className={classes.imagesicons} alt="icons" />
                   </div>                </a>
-                <a href="https://bizb.store/en/profile/4980780100674604" >
+                <a href="https://bizb.store/en/profile/65bc957f17dac5e257937a4c" >
                 <div className={classes.buttonshop}>
                   <button className={classes.buttonshopt} variant="h4">
                     SHOP NOW
