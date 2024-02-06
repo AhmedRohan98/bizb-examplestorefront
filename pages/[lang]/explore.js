@@ -1692,7 +1692,7 @@ export async function getStaticProps({ params: { lang } }) {
     props: {
       ...primaryShop,
 
-      feed,
+      // feed,
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes
