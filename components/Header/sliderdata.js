@@ -178,10 +178,10 @@ const MainSlider = (props) => {
 
   }));
   const ITEMS = [
-    {
-      image: "/profile/newbanner.jpg",
-      id: 1,
-    },
+    // {
+    //   image: "/profile/newbanner.jpg",
+    //   id: 1,
+    // },
     {
       image: "/profile/seller2.jpg",
       id: 2,
@@ -201,33 +201,33 @@ const MainSlider = (props) => {
     },
   ];
 
-  const [swiper, setSwiper] = useState(null);
+  // const [swiper, setSwiper] = useState(null);
 
-  const handleBooking = () => {
-    console.log("here 2765")
-    window.open('https://forms.gle/v2ZGPiPfxUd6xC2L8', '_blank');
+  // const handleBooking = () => {
+  //   console.log("here 2765")
+  //   window.open('https://forms.gle/v2ZGPiPfxUd6xC2L8', '_blank');
 
-  }
+  // }
 
-  const handleSwiper = (swiper) => {
-    // Store the Swiper instance to access its methods
-    setSwiper(swiper);
-  };
+  // const handleSwiper = (swiper) => {
+  //   // Store the Swiper instance to access its methods
+  //   setSwiper(swiper);
+  // };
 
-  const renderButton = () => {
-    // Check if the current slide index is 0 (first slide)
-    if (swiper && swiper.activeIndex === 0) {
-      return <Button
-        className={classes.promoBtn}
-        onClick={handleBooking}
-      >
-        <Typography className={classes.text2} >
-          Book your slot now
-        </Typography>
-      </Button>;
-    }
-    return null;
-  };
+  // const renderButton = () => {
+  //   // Check if the current slide index is 0 (first slide)
+  //   if (swiper && swiper.activeIndex === 0) {
+  //     return <Button
+  //       className={classes.promoBtn}
+  //       onClick={handleBooking}
+  //     >
+  //       <Typography className={classes.text2} >
+  //         Book your slot now
+  //       </Typography>
+  //     </Button>;
+  //   }
+  //   return null;
+  // };
   function Item({ item }) {
     const classes = useStyles();
     return (
@@ -267,7 +267,7 @@ const MainSlider = (props) => {
               </div>
             </div>
             <Swiper
-              onSwiper={handleSwiper}
+              // onSwiper={handleSwiper}
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               autoplay={{
                 delay: 2000,
@@ -281,7 +281,7 @@ const MainSlider = (props) => {
               {ITEMS.map((item, index) => (
 
                 <SwiperSlide key={index}>
-                  {renderButton()}
+                  {/* {renderButton()} */}
                   <Item item={item} />
                 </SwiperSlide>
               ))}
