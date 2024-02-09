@@ -331,8 +331,7 @@ const SellerRegistration = () => {
       (isAuth || (!isAuth && password.value.length >= 8 && password.value === password2.value)) &&
       storeName.value.trim() !== "" &&
       address1.value.trim() !== "" &&
-      country.value.trim() !== "" &&
-      zipcode.value.trim() !== "" 
+      country.value.trim() !== "" 
     ) {
       setcheckTermsError(false);
 
@@ -833,7 +832,7 @@ const SellerRegistration = () => {
             <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
-                  Promo Code
+                Referral Code
                 </Typography>
               </div>
 
@@ -841,7 +840,7 @@ const SellerRegistration = () => {
                 type="text"
                 size="small"
                 variant="standard"
-                placeholder="Enter Promo Code"
+                placeholder="Enter Referral Code"
                 value={refferalcode.value}
                 onChange={(e) => setrefferalcode({ ...refferalcode, value: e.target.value })}
                 onFocus={() => setrefferalcode({ ...refferalcode, isTouched: true })}
