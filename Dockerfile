@@ -14,6 +14,7 @@ ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
 
 COPY .env .
 
+
 # env variables
 #ENV CANONICAL_URL https://bizb.store
 #ENV BUILD_GRAPHQL_URL https://apitest.bizb.store/graphql
