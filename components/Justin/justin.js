@@ -285,17 +285,23 @@ const Justin = (props) => {
   // const UIContextJustInPage = useContext(UIContext);
 
   const catalogdata = props?.catalogItems;
+
+  console.log("props in justin category here", props?.catalogItems)
   const [soldOutProducts, setSoldOutProducts] = useState([]);
 
   const [queue, setQueue] = useState([]);
   const [processing, setProcessing] = useState(false);
 
-  const { uiStore } = props;
+  const { uiStore,routingStore } = props;
   const [found, setFound] = useState(false);
   const [disabledButtons, setDisabledButtons] = useState({});
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState({});
   const [getLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    routingStore.setTagId("");
+  }, []);
 
   // useEffect(() => {
   //   processQueue();

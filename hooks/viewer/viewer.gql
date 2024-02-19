@@ -4,6 +4,7 @@ query viewer {
     isSeller
     phoneNumber
     username
+    userId
     storeInfo {
       storeName
       image
