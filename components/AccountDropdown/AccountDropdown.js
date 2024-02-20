@@ -16,6 +16,8 @@ import getAccountsHandler from "../../lib/accountsServer.js";
 import TagManager from "react-gtm-module";
 import ReactGA from "react-ga4";
 import useCreateWallet from "../../hooks/wallet/createWallet.js";
+import useGetUserWallet from "../../hooks/wallet/getWalletsByUserId.js";
+
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
@@ -83,6 +85,8 @@ const AccountDropdown = ({ headerType }) => {
   const { accountsClient } = getAccountsHandler();
   const isAuthenticated = viewer && viewer._id;
   const [createWallet, loading2] = useCreateWallet();
+  const [getUserWallet, loading3, refecth] = useGetUserWallet(viewer?.userId);
+
 
 
   useEffect(() => {
@@ -94,6 +98,13 @@ const AccountDropdown = ({ headerType }) => {
     }
     setEntryModal("reset-password");
   }, [resetToken]);
+
+  useEffect(() => {
+    console.log("getUserWalletgetUserWallet", getUserWallet)
+    // Open the modal in case of reset-password link
+      }, [viewer]);
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
