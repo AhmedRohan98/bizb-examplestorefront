@@ -31,8 +31,8 @@ const FeaturedIn = (props) => {
       position: "relative",
     },
     image: {
-      maxWidth: "440px",
-      maxHeight: "640px",
+      maxWidth: "300px",
+      maxHeight: "440px",
 
       [theme.breakpoints.down(600)]: {
         width: "32vw",
@@ -45,7 +45,7 @@ const FeaturedIn = (props) => {
     mainheading: {
       display: "flex",
       marginTop: "30px",
-      marginBottom: "60px",
+      marginBottom: "10px",
       justifyContent: "center",
       textTransform: "uppercase",
       position: "relative",
@@ -107,7 +107,7 @@ const FeaturedIn = (props) => {
       id: 1,
     },
     {
-      image: "/featuredInLogos/thenews-(PNG).png",
+      image: "/featuredInLogos/thenews-international.webp",
       id: 2,
     }, 
     {
@@ -146,7 +146,7 @@ const FeaturedIn = (props) => {
       <div className={classes.root}>
         <Hidden smDown>
           <div className={classes.instagramdiv}>
-            <Grid container xs={12} spacing={2} alignItems="center" justify="center" maxWidth={1260}>
+            <Grid container xs={12} spacing={1} alignItems="center" justify="center" maxWidth={1260}>
               {images?.map((item, i) => (
                 <Grid item className={classes.gridroot} xs={3}>
                     <img src={item.image} className={classes.image} alt="icons" />
