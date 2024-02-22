@@ -315,7 +315,7 @@ export default function SignUp(props) {
                 Phone Number <span style={{ color: "#FD1010" }}>*</span>
               </span>
               <TextField
-                placeholder="Enter your name"
+                placeholder="Enter your Phone Number"
                 type="tel"
                 InputProps={{
                   style: { color: "black" },
