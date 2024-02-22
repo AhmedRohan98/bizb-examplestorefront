@@ -24,6 +24,7 @@ import GTMCheckout from "components/GTMCheckout";
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
 import ReactGA from "react-ga4";
 import useViewer from "../../hooks/viewer/useViewer";
+import useMakeTransaction from "../../hooks/wallet/makeTransaction.js";
 
 const useStyles = makeStyles((theme) => ({
   formerror: {
@@ -389,6 +390,9 @@ const useStyles = makeStyles((theme) => ({
 const CheckoutActions = (prop) => {
   const [viewer, , refetch2] = useViewer();
 
+  const [makeTransaction, loading2] = useMakeTransaction();
+
+
   console.log("props", prop);
   const { cart, apolloClient, cartStore } = prop;
   const CustomCloseButton = () => <CloseIcon Style={{ backgroundColor: "#FDC114", color: "black", height: "15px" }} />;
@@ -440,7 +444,7 @@ const CheckoutActions = (prop) => {
   }, [cart, getValue?.phonenumber]);
 
   const [subtotal, setSubTotal] = useState((cart?.checkout?.summary?.total?.amount));
-  console.log("subtotalsubtotal",subtotal);
+  console.log("subtotalsubtotal", subtotal);
   const [error, setError] = useState("");
 
   const items = cart.items.map((item) => ({
@@ -620,6 +624,8 @@ const CheckoutActions = (prop) => {
   });
   // setSubTotal(formatCurrency(cart?.checkout?.summary?.itemTotal?.amount));
   const handleApplyPromo = async () => {
+    makeYourTransaction()
+
     setOrderDisable2(true);
     try {
       setErrorPromo("");
@@ -780,6 +786,25 @@ const CheckoutActions = (prop) => {
     // console.log("shippingData _id", shippingData?._id);
   }, [values.city, shippingData]);
 
+  const makeYourTransaction = async () => {
+    if (viewer?._id) {
+      try {
+        const maketransaction = await makeTransaction({
+          variables: {
+            userId: viewer?.userId,
+            amount: 1000,
+            transactions: outBound
+          },
+        });
+
+        console.log("maketransaction", maketransaction);
+      } catch (error) {
+        console.error("Error making transaction:", error);
+      }
+    }
+  };
+
+
   const clickHandler = (item) => {
     const productSlug = item;
 
@@ -802,7 +827,7 @@ const CheckoutActions = (prop) => {
         {prop?.cart.items?.map((prod) => (
           <div className={classes.cartcard3}>
             <div className={classes.displayCart} key={prod.id}>
-              <img src={prod.metafields[0].value} style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} alt="icons"/>
+              <img src={prod.metafields[0].value} style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} alt="icons" />
               <div className={classes.displayCartGrid}>
                 <Typography gutterBottom variant="h4" className={classes.cartname}>
                   <span onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>
@@ -995,7 +1020,7 @@ const CheckoutActions = (prop) => {
 
               <div className={classes.cartpayment}>
                 <div style={{ display: "flex" }}>
-                  <img src="/cart/ellipse.svg" alt="icons"/>
+                  <img src="/cart/ellipse.svg" alt="icons" />
                   <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
                     Cash On Delivery
                   </Typography>
@@ -1079,7 +1104,7 @@ const CheckoutActions = (prop) => {
                           {cart?.checkout?.summary?.discountTotal?.amount == 0
                             ? 0
                             :
-                              cart?.checkout?.summary?.discountTotal?.amount}
+                            cart?.checkout?.summary?.discountTotal?.amount}
                           ){/* {console.log("subtotal,", subtotal)} */}
                         </Typography>
                       </div>
@@ -1118,7 +1143,7 @@ const CheckoutActions = (prop) => {
                       subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
                       formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
                     )} */}
-                    Rs. {shippingData?.cost? cart?.checkout?.summary?.total?.amount +shippingData?.cost : cart?.checkout?.summary?.total?.amount}
+                    Rs. {shippingData?.cost ? cart?.checkout?.summary?.total?.amount + shippingData?.cost : cart?.checkout?.summary?.total?.amount}
                   </Typography>
                   {/* <GTMCheckout price={shippingData?.cost ? shippingData?.cost + subtotal : subtotal} /> */}
                 </div>

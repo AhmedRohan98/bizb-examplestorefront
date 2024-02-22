@@ -15,6 +15,9 @@ import EntryModal from "../Entry/EntryModal";
 import getAccountsHandler from "../../lib/accountsServer.js";
 import TagManager from "react-gtm-module";
 import ReactGA from "react-ga4";
+import useCreateWallet from "../../hooks/wallet/createWallet.js";
+import useGetUserWallet from "../../hooks/wallet/getWalletsByUserId.js";
+
 
 const useStyles = makeStyles((theme) => ({
   accountDropdown: {
@@ -81,15 +84,50 @@ const AccountDropdown = ({ headerType }) => {
   const [viewer, loading, refetch] = useViewer();
   const { accountsClient } = getAccountsHandler();
   const isAuthenticated = viewer && viewer._id;
+  const [createWallet, loading2] = useCreateWallet();
+  const [getUserWallet, loading3, refecth] = useGetUserWallet(viewer?.userId);
+
+
 
   useEffect(() => {
     console.log("viewer loading state", loading)
     // Open the modal in case of reset-password link
+    
     if (!resetToken) {
       return;
     }
     setEntryModal("reset-password");
   }, [resetToken]);
+
+  useEffect(() => {
+    console.log("getUserWalletgetUserWallet", getUserWallet)
+    // Open the modal in case of reset-password link
+      }, [viewer]);
+
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (viewer?._id) {
+        try {
+          const createWalletOfUser = await createWallet({
+            variables: {
+              userId: viewer?.userId,
+              amount: 0,
+              paymentProcessor: "easyapisa"
+            },
+          });
+  
+          console.log("createWalletOfUsercreateWalletOfUser", createWalletOfUser);
+        } catch (error) {
+          console.error("Error creating wallet:", error);
+        }
+      }
+    };
+  
+    fetchData();
+  }, [viewer]);
+  
 
   const onClose = () => {
     setAnchorElement(null);

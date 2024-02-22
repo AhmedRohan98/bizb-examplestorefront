@@ -873,7 +873,7 @@ function Categories(props) {
     "Casuals",
     "Western",
     "Party Wear",
-    "Juniors",
+    "BizB Kids",
     "Accessories",
     "Shoes",
     "Deal",
@@ -1179,9 +1179,9 @@ function Categories(props) {
     setValue(e.target.value);
   };
 
-  useEffect(() => {
-    uiStore.setEndCursor(tagId);
-  }, []);
+  // useEffect(() => {
+  //   uiStore.setEndCursor(tagId);
+  // }, []);
 
   //  const fourproduc=fourprouduts.reduce((acc, item, index) => {
   //     acc[`products${index}`] = item;
