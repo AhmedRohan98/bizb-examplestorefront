@@ -213,7 +213,9 @@ fragment CartItemConnectionFragment on CartItemConnection {
           _id
         }
       }
-      
+      storeNameValue{
+        storeName
+      }
       productVendor
       variantTitle
       optionTitle
