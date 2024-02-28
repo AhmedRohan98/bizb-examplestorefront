@@ -331,8 +331,7 @@ const SellerRegistration = () => {
       (isAuth || (!isAuth && password.value.length >= 8 && password.value === password2.value)) &&
       storeName.value.trim() !== "" &&
       address1.value.trim() !== "" &&
-      country.value.trim() !== "" &&
-      zipcode.value.trim() !== "" 
+      country.value.trim() !== "" 
     ) {
       setcheckTermsError(false);
 
@@ -668,29 +667,7 @@ const SellerRegistration = () => {
             {storeName.isTouched && storeName.value.trim() === "" ? <StoreErrorMessage /> : null}
             {storeName.value.length > 15 ? <StoreLengthErrorMessage /> : null}
 
-            <div className={classes.style7}>
-              <div className={classes.style11}>
-                <Typography variant="body2" className={classes.style3} textAlign="left">
-                  Address 
-                </Typography>
-                <p id="nameError" className={classes.style10}>
-                  *
-                </p>
-              </div>
-
-              <TextField
-                type="text"
-                size="small"
-                variant="standard"
-                placeholder="Enter your Address"
-                value={address1.value}
-                onChange={(e) => setaddress1({ ...address1, value: e.target.value })}
-                onFocus={() => setaddress1({ ...address1, isTouched: true })}
-                InputProps={style2}
-                className={classes.style}
-              />
-            </div>
-            {address1.isTouched && address1.value.trim() === "" ? <AddressErrorMessage /> : null}
+        
 
             {/* <div className={classes.style7}>
               <div className={classes.style11}>
@@ -756,6 +733,30 @@ const SellerRegistration = () => {
                 className={classes.style}
               />
             </div>
+
+            <div className={classes.style7}>
+              <div className={classes.style11}>
+                <Typography variant="body2" className={classes.style3} textAlign="left">
+                  Full Address 
+                </Typography>
+                <p id="nameError" className={classes.style10}>
+                  *
+                </p>
+              </div>
+
+              <TextField
+                type="text"
+                size="small"
+                variant="standard"
+                placeholder="Enter your Full Address"
+                value={address1.value}
+                onChange={(e) => setaddress1({ ...address1, value: e.target.value })}
+                onFocus={() => setaddress1({ ...address1, isTouched: true })}
+                InputProps={style2}
+                className={classes.style}
+              />
+            </div>
+            {address1.isTouched && address1.value.trim() === "" ? <AddressErrorMessage /> : null}
 
             {/* <div className={classes.style7}>
               <div className={classes.style11}>
@@ -833,7 +834,7 @@ const SellerRegistration = () => {
             <div className={classes.style7}>
               <div className={classes.style11}>
                 <Typography variant="body2" className={classes.style3} textAlign="left">
-                  Promo Code
+                Referral Code
                 </Typography>
               </div>
 
@@ -841,7 +842,7 @@ const SellerRegistration = () => {
                 type="text"
                 size="small"
                 variant="standard"
-                placeholder="Enter Promo Code"
+                placeholder="Enter Referral Code"
                 value={refferalcode.value}
                 onChange={(e) => setrefferalcode({ ...refferalcode, value: e.target.value })}
                 onFocus={() => setrefferalcode({ ...refferalcode, isTouched: true })}
