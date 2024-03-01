@@ -467,7 +467,7 @@ const MiniCart = React.memo(({ ...props }) => {
                                 <Typography variant="h4" style={{ fontSize: "1rem" }}>
                                 Wardrobe:&nbsp;
                                   <span className={classes.storeName}>
-                                    {item?.storeNameValue?.storeName.slice(0, 10)}
+                                    {item?.storeNameValue?.storeName.slice(0, 15)}
                                     {console.log("itemite", item)}
                                   </span>
                                 </Typography>{" "}
