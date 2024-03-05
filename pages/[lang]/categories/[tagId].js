@@ -66,6 +66,7 @@ import SkeletonLoader from "../../../components/Justin/skeletonLoader";
 import SkeletonLoader2 from "../../../components/Justin/skeletonLoader2";
 
 import ProductCard from "../../../components/ProductCard/ProductCard";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -1545,6 +1546,27 @@ function Categories(props) {
 
   // console.log(category, "dis");
   return (
+    <>
+     <Head>
+        <meta name="description" content="Product" />
+
+        {/* Add JSON-LD script for Product schema */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org/",
+              "@type": "CategoryCodeSet",
+              "@id": "${tagId}",
+              "name": "${filteredProducts[0]?.displayTitle}",
+              "hasCategoryCode": {
+                     "@type": "CategoryCode",
+                     "name": "${filteredProducts[0]?.displayTitle}",
+                     "inCodeSet": "${tagId}"
+                     }
+             }
+          `}
+        </script>
+      </Head>
     <Layout shop={shop} tagId={tagId}>
       {typeof window !== "undefined" && (
         <div className={classes.main}>
@@ -1921,6 +1943,7 @@ function Categories(props) {
         </div>
       )}
     </Layout>
+    </>
   );
 }
 

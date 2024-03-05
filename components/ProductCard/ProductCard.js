@@ -291,19 +291,18 @@ const ProductCard = ({
             {
               "@context": "http://schema.org",
               "@type": "Product",
-              "name": ${firstThreeWords},
+              "name": "${firstThreeWords}",
               "url": "bizb.store/en/product/${item.node.product.slug},
-              "image": ${
+              "image": "${
                 item?.node?.product?.media[0]?.URLs?.thumbnail
                   ? item?.node?.product?.media[0]?.URLs?.thumbnail
                   : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-              },
+              }",
               "offers": {
-                "@type": "Offer",
+                "@type": "AggregateOffer",
                 "priceCurrency": "PKR",
-                "price": ${item?.node?.product?.variants[0]?.pricing[0]?.displayPrice},
-                "priceValidUntil": "",
-                "availability": "InStock"
+                "lowPrice": "${item?.node?.product?.variants[0]?.pricing[0]?.displayPrice}",
+                "highPrice": "${item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount}",
               }
             }
           `}
