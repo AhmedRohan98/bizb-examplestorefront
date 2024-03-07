@@ -253,7 +253,7 @@ const MainSlider = (props) => {
   return (
     <>
      <Head>
-        <meta name="description" content="Product" />
+        <meta name="description" content="Website" />
 
         {/* Add JSON-LD script for Product schema */}
         <script type="application/ld+json">
@@ -262,7 +262,7 @@ const MainSlider = (props) => {
               "@context": "https://schema.org/",
               "@type": "WebSite",
               "name": "Bizb",
-              "url": "https://bizb.store/en?",
+              "url": "https://bizb.store/en?"
             }
           `}
         </script>

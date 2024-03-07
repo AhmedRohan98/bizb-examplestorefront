@@ -1548,7 +1548,7 @@ function Categories(props) {
   return (
     <>
      <Head>
-        <meta name="description" content="Product" />
+        <meta name="description" content="Category" />
 
         {/* Add JSON-LD script for Product schema */}
         <script type="application/ld+json">
