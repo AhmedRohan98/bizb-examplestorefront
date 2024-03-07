@@ -4,6 +4,8 @@ import Hidden from "@material-ui/core/Hidden";
 import { withStyles } from "@material-ui/core/styles";
 import Header from "components/Header";
 import Footer from "components/Footer";
+import Head from "next/head";
+import { withRouter } from 'next/router'; // Import withRouter
 
 const styles = (theme) => ({
   root: {
@@ -40,10 +42,44 @@ class Layout extends Component {
     classes: {},
   };
 
+  componentDidMount() {
+    this.checkQueryParams();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.router.asPath !== prevProps.router.asPath) {
+      this.checkQueryParams();
+    }
+  }
+
+  checkQueryParams() {
+    const { search } = window.location;
+    const hasQueryParams = search !== '' && search !== undefined;
+    if (hasQueryParams) {
+      const metaTag = document.createElement('meta');
+      metaTag.name = 'robots';
+      metaTag.content = 'noindex';
+      document.head.appendChild(metaTag);
+      this.cleanupMetaTag = () => {
+        document.head.removeChild(metaTag);
+      };
+    }
+  }
+  
+
+  componentWillUnmount() {
+    if (this.cleanupMetaTag) {
+      this.cleanupMetaTag();
+    }
+  }
+
   render() {
     const { classes, children, shop, viewer, headerType, tags } = this.props;
+
     return (
       <React.Fragment>
+        <Head/>
+      
         <div className={classes.root}>
           <Hidden mdUp>
             <div className={classes.padding}>
@@ -60,9 +96,10 @@ class Layout extends Component {
           </main>
           <Footer />
         </div>
+        
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(Layout);
+export default withStyles(styles)(withRouter(Layout)); // Wrap Layout with withRouter HOC

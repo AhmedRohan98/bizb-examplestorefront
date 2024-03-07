@@ -292,7 +292,7 @@ const ProductCard = ({
               "@context": "http://schema.org",
               "@type": "Product",
               "name": "${firstThreeWords}",
-              "url": "bizb.store/en/product/${item.node.product.slug},
+              "url": "bizb.store/en/product/${item.node.product.slug}",
               "image": "${
                 item?.node?.product?.media[0]?.URLs?.thumbnail
                   ? item?.node?.product?.media[0]?.URLs?.thumbnail
@@ -302,7 +302,7 @@ const ProductCard = ({
                 "@type": "AggregateOffer",
                 "priceCurrency": "PKR",
                 "lowPrice": "${item?.node?.product?.variants[0]?.pricing[0]?.displayPrice}",
-                "highPrice": "${item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount}",
+                "highPrice": "${item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount}"
               }
             }
           `}
