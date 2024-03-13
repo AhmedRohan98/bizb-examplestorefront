@@ -25,6 +25,7 @@ import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
 import ReactGA from "react-ga4";
 import useViewer from "../../hooks/viewer/useViewer";
 import useMakeTransaction from "../../hooks/wallet/makeTransaction.js";
+import { RadioGroup, Radio, FormControl, FormLabel } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   formerror: {
@@ -412,6 +413,12 @@ const CheckoutActions = (prop) => {
   const [errorPromo, setErrorPromo] = useState("");
   const [applyPromo, data, loadingAfterPromo] = useApplyPromoCode();
   const [isDisabledPromo, setIsDisabledPromo] = useState(false);
+  const [paymentMethod, setpaymentMethod] = useState("")
+
+  const handleOptionChange = (event) => {
+    setpaymentMethod(event.target.value);
+
+  };
 
   console.log("checkout actions page");
 
@@ -420,6 +427,11 @@ const CheckoutActions = (prop) => {
       console.log("isAuth here in cart", viewer);
     }
   }, [viewer]);
+
+  React.useEffect(() => {
+    console.log("paymentMethod677676", paymentMethod);
+
+  }, [paymentMethod]);
 
   useEffect(() => {
     setIsDisabledPromo(!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount !== 0);
@@ -545,7 +557,7 @@ const CheckoutActions = (prop) => {
             {
               amount: subtotal + shippingData?.cost,
 
-              method: "iou_example",
+              method: paymentMethod,
             },
           ],
 
@@ -1019,12 +1031,28 @@ const CheckoutActions = (prop) => {
               </div>
 
               <div className={classes.cartpayment}>
-                <div style={{ display: "flex" }}>
-                  <img src="/cart/ellipse.svg" alt="icons" />
-                  <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
-                    Cash On Delivery
+                <FormControl>
+                  <Typography variant="h3" className={classes.mainheadingp}>
+                    Payment Method
                   </Typography>
-                </div>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={paymentMethod}
+                    onChange={handleOptionChange}
+                  >
+                    <FormControlLabel
+                      value="iou_example"
+                      control={<Radio color="primary" />} // Setting color to primary, which is #FDC114 by default
+                      label={<Typography variant="h4" className={classes.cartdelivery}>Cash On Delivery</Typography>}
+                    />
+                    <FormControlLabel
+                      value="wallet"
+                      control={<Radio color="primary" />} // Setting color to primary
+                      label={<Typography variant="h4" className={classes.cartdelivery}>Wallet</Typography>}
+                    />
+                  </RadioGroup>
+                </FormControl>
                 {!prop?.cartStore?.anonymousCartToken ? (
                   <>
                     <Grid item xs={12} className={classes.inputitem}>
