@@ -8,6 +8,7 @@ import Caloborators from "../Calloborators/calloborators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
 import dynamic from 'next/dynamic'
+import FeaturedIn from "../FeaturedSection/featuredIn";
 import Button from "@material-ui/core/Button";
 
 const Preloved = dynamic(() => import("../Preloved/prelovedSec"))
@@ -321,7 +322,8 @@ const MainSlider = (props) => {
       <Appsec />
       {/* <Caloborators /> */}
       <OurBlogs />
-      <Instagram {...props} />
+      {/* <Instagram {...props} /> */}
+      <FeaturedIn/>
     </>
   );
 };
