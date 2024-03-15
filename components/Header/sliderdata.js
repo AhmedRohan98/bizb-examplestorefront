@@ -259,10 +259,10 @@ const MainSlider = (props) => {
         <script type="application/ld+json">
           {`
             {
-              "@context": "https://schema.org/",
-              "@type": "WebSite",
-              "name": "Bizb",
-              "url": "https://bizb.store/en?"
+              &quot;@context&quot;: &quot;https://schema.org/&quot;,
+              &quot;@type&quot;: &quot;WebSite&quot;,
+              &quot;name&quot;: &quot;Bizb&quot;,
+              &quot;url&quot;: &quot;https://bizb.store/en?&quot;
             }
           `}
         </script>
