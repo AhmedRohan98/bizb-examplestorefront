@@ -1554,16 +1554,16 @@ function Categories(props) {
         <script type="application/ld+json">
           {`
             {
-              "@context": "https://schema.org/",
-              "@type": "CategoryCodeSet",
-              "@id": "${tagId}",
-              "name": "${filteredProducts[0]?.displayTitle}",
-              "hasCategoryCode": {
-                     "@type": "CategoryCode",
-                     "name": "${filteredProducts[0]?.displayTitle}",
-                     "inCodeSet": "${tagId}"
-                     }
-             }
+              &quot;@context&quot;: &quot;https://schema.org/&quot;,
+              &quot;@type&quot;: &quot;CategoryCodeSet&quot;,
+              &quot;@id&quot;: &quot;${tagId}&quot;,
+              &quot;name&quot;: &quot;${filteredProducts[0]?.displayTitle}&quot;,
+              &quot;hasCategoryCode&quot;: {
+                &quot;@type&quot;: &quot;CategoryCode&quot;,
+                &quot;name&quot;: &quot;${filteredProducts[0]?.displayTitle}&quot;,
+                &quot;inCodeSet&quot;: &quot;${tagId}&quot;
+              }
+            }
           `}
         </script>
       </Head>
