@@ -289,20 +289,20 @@ const ProductCard = ({
         <script type="application/ld+json">
           {`
             {
-              &quot;@context&quot;: &quot;http://schema.org&quot;,
-              &quot;@type&quot;: &quot;Product&quot;,
-              &quot;name&quot;: &quot;${firstThreeWords}&quot;,
-              &quot;url&quot;: &quot;bizb.store/en/product/${item.node.product.slug}&quot;,
-              &quot;image&quot;: &quot;${
+              "@context": "http://schema.org",
+              "@type": "Product",
+              "name": "${firstThreeWords}",
+              "url": "bizb.store/en/product/${item.node.product.slug}",
+              "image": "${
                 item?.node?.product?.media[0]?.URLs?.thumbnail
                   ? item?.node?.product?.media[0]?.URLs?.thumbnail
                   : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-              }&quot;,
-              &quot;offers&quot;: {
-                &quot;@type&quot;: &quot;AggregateOffer&quot;,
-                &quot;priceCurrency&quot;: &quot;PKR&quot;,
-                &quot;lowPrice&quot;: &quot;${item?.node?.product?.variants[0]?.pricing[0]?.displayPrice}&quot;,
-                &quot;highPrice&quot;: &quot;${item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount}&quot;
+              }",
+              "offers": {
+                "@type": "AggregateOffer",
+                "priceCurrency": "PKR",
+                "lowPrice": "${item?.node?.product?.variants[0]?.pricing[0]?.displayPrice}",
+                "highPrice": "${item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount}"
               }
             }
           `}
