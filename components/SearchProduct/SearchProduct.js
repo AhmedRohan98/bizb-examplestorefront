@@ -348,6 +348,8 @@ const SearchProduct = (props) => {
   const isRefInFocus = useState(false);
   const isComponentMounted = useRef(false);
 
+  const router = useRouter();
+
   const [allData, setAllData] = useState([]);
 
   const [result, loading2, refetch2] = useProductSearch(null, getSearch, offset * itemsperpage, itemsperpage);
@@ -425,7 +427,7 @@ const SearchProduct = (props) => {
     ReactGA.event({
       category: "Ecommerce",
       action: "add_to_cart",
-      label: product?.productId,
+      label: product?._id,
       value: product?.variant[0]?.pricing[0]?.displayPrice,
     });
     const addToCartData = {
@@ -434,7 +436,7 @@ const SearchProduct = (props) => {
         add: {
           products: [
             {
-              id: product.productId,
+              id: product._id,
               name: product.title,
               price: product?.variant[0]?.pricing[0]?.displayPrice,
               quantity: 1, // You can adjust this based on your needs
@@ -447,6 +449,28 @@ const SearchProduct = (props) => {
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
+
+    import("react-facebook-pixel")
+    .then((x) => x.default)
+    .then((ReactPixel) => {
+      // Track the "Add to Cart" event with product information
+      ReactPixel.track('AddToCart', {
+        content_ids: [product._id],  
+        content_name: product.title, 
+        content_type: 'product',      
+        value: product?.variant[0]?.pricing[0]?.displayPrice,         
+        currency: 'PKR',        
+      });
+
+      // Track page view
+      ReactPixel.pageView();
+
+      // Listen to route change to track page view
+      router.events.on("routeChangeComplete", () => {
+        ReactPixel.pageView();
+      });
+    });
+
     setIsLoading((prevState) => ({
       ...prevState,
       [product._id]: true,

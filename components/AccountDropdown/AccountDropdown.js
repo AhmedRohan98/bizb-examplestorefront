@@ -106,27 +106,27 @@ const AccountDropdown = ({ headerType }) => {
 
   
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (viewer?._id) {
-        try {
-          const createWalletOfUser = await createWallet({
-            variables: {
-              userId: viewer?.userId,
-              amount: 0,
-              paymentProcessor: "easyapisa"
-            },
-          });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (viewer?._id) {
+  //       try {
+  //         const createWalletOfUser = await createWallet({
+  //           variables: {
+  //             userId: viewer?.userId,
+  //             amount: 0,
+  //             paymentProcessor: "easyapisa"
+  //           },
+  //         });
   
-          console.log("createWalletOfUsercreateWalletOfUser", createWalletOfUser);
-        } catch (error) {
-          console.error("Error creating wallet:", error);
-        }
-      }
-    };
+  //         console.log("createWalletOfUsercreateWalletOfUser", createWalletOfUser);
+  //       } catch (error) {
+  //         console.error("Error creating wallet:", error);
+  //       }
+  //     }
+  //   };
   
-    fetchData();
-  }, [viewer]);
+  //   fetchData();
+  // }, [viewer]);
   
 
   const onClose = () => {
