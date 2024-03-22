@@ -10,6 +10,7 @@ import TagManager from "react-gtm-module";
 import { GTM_ID, pageview } from "../lib/utils/gtm";
 import { useRouter } from "next/router";
 import ReactGA from "react-ga4";
+import * as Sentry from '@sentry/browser';
 
 // import Script from 'next/script';
 
@@ -30,9 +31,15 @@ import "react-toastify/dist/ReactToastify.css";
 // if (process.env.NODE_ENV === "production")
 {
   // Override the console.log method to do nothing
-  // console.log = function () { };
+  console.log = function (e) { 
+    Sentry.captureMessage(e)
+  };
+  console.error = function (error) { 
+    Sentry.captureException(error);
+  };
   // console.error = function () { };
   // console.warn = function () { };
+  
 }
 
 export default class App extends NextApp {
@@ -62,6 +69,11 @@ export default class App extends NextApp {
         });
       });
   }
+
+  Sentry.init({
+    dsn: process.env.NEXT_SENTRY_KEY, // Replace with your actual Sentry DSN
+    // Add additional configuration as needed
+  })
   // componentWillUnmount() {
   //   // Remove the event listener on unmount
   //   if (GTM_ID) {
