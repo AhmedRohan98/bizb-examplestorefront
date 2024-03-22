@@ -68,12 +68,14 @@ export default class App extends NextApp {
           ReactPixel.pageView();
         });
       });
+
+      Sentry.init({
+        dsn: process.env.NEXT_SENTRY_KEY, // Replace with your actual Sentry DSN
+        // Add additional configuration as needed
+      })
   }
 
-  Sentry.init({
-    dsn: process.env.NEXT_SENTRY_KEY, // Replace with your actual Sentry DSN
-    // Add additional configuration as needed
-  })
+  
   // componentWillUnmount() {
   //   // Remove the event listener on unmount
   //   if (GTM_ID) {
