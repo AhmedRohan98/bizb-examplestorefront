@@ -1053,7 +1053,7 @@ const CheckoutActions = (prop) => {
                     />
                   </RadioGroup>
                 </FormControl>
-                {!prop?.cartStore?.anonymousCartToken ? (
+                {/* {!prop?.cartStore?.anonymousCartToken ? ( */}
                   <>
                     <Grid item xs={12} className={classes.inputitem}>
                       <label className={classes.label} variant="h6" htmlFor="PromoCode">
@@ -1099,9 +1099,9 @@ const CheckoutActions = (prop) => {
                       {/* {console.log("error", errorPromo)} */}
                     </Grid>
                   </>
-                ) : (
+                {/* ) : (
                   <></>
-                )}
+                )} */}
               </div>
 
               <div className={classes.cartcard}>
@@ -1120,7 +1120,7 @@ const CheckoutActions = (prop) => {
                       {/* {console.log("subtotal,", subtotal)} */}
                     </Typography>
                   </div>
-                  {!prop?.cartStore?.anonymousCartToken ? (
+                  {/* {!prop?.cartStore?.anonymousCartToken ? ( */}
                     <>
                       <div className={classes.subtotal}>
                         <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
@@ -1147,9 +1147,9 @@ const CheckoutActions = (prop) => {
                         </Typography>
                       </div>
                     </>
-                  ) : (
+                  {/* ) : (
                     <></>
-                  )}
+                  )} */}
                   <div className={classes.subtotal}>
                     <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                       Shipping Cost
