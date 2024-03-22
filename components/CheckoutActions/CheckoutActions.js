@@ -26,6 +26,7 @@ import ReactGA from "react-ga4";
 import useViewer from "../../hooks/viewer/useViewer";
 import useMakeTransaction from "../../hooks/wallet/makeTransaction.js";
 import { RadioGroup, Radio, FormControl, FormLabel } from '@material-ui/core';
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   formerror: {
@@ -390,6 +391,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutActions = (prop) => {
   const [viewer, , refetch2] = useViewer();
+  const router = useRouter();
 
   const [makeTransaction, loading2] = useMakeTransaction();
 
@@ -504,6 +506,34 @@ const CheckoutActions = (prop) => {
         dataLayer: initiatedCheckoutData,
       });
 
+      import("react-facebook-pixel")
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Track the "initiateCheckout" event with product ID and price parameters
+
+        const products = cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity: item.quantity,
+        }));
+
+        ReactPixel.track('InitiateCheckout', {
+          content_ids: products.map((product) => product.id),   // Array of product IDs
+          content_type: 'product',                              // Content type
+          value: products.reduce((total, product) => total + (product.price * product.quantity), 0),  // Total order value
+          currency: 'PKR',                                     // Currency
+          contents: products,
+        });
+
+        // Track page view
+        ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
+      });
+
       const { data } = await placeOrder({
         variables: {
           order: {
@@ -595,6 +625,33 @@ const CheckoutActions = (prop) => {
         })), // Include the product details here as an array
       });
 
+      import("react-facebook-pixel")
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Extracting product details from cart items
+        const products = cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity: item.quantity,
+        }));
+
+        // Track the "Purchase" or "CompleteOrder" event with product details
+        ReactPixel.track('Purchase', {
+          content_ids: products.map((product) => product.id),   // Array of product IDs
+          content_type: 'product',                              // Content type
+          value: products.reduce((total, product) => total + (product.price * product.quantity), 0),  // Total order value
+          currency: 'PKR',                                     // Currency
+          contents: products,                                   // Array of product details
+        });
+
+        // Track page view
+        ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
+      });
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
 

@@ -957,6 +957,9 @@ function Categories(props) {
   const filteredProducts = tags?.nodes.filter((product) => product?._id === tagId);
 
   const trackProductView = () => {
+
+    console.log("herekhshddhjfhdjfhdhf", product)
+
     const dataLayer = {
       dataLayer: {
         event: "product_view",
@@ -974,6 +977,25 @@ function Categories(props) {
     };
 
     TagManager.dataLayer(dataLayer);
+
+    import("react-facebook-pixel")
+    .then((x) => x.default)
+    .then((ReactPixel) => {
+      // Track the "product_view" event with product ID and name parameters
+      ReactPixel.track('ViewContent', {
+        content_ids: [productId],  
+        content_name: productName, 
+        content_type: 'product',      
+      });
+
+      // Track page view
+      ReactPixel.pageView();
+
+      // Listen to route change to track page view
+      router.events.on("routeChangeComplete", () => {
+        ReactPixel.pageView();
+      });
+    });
   };
 
   // console.log(filteredProducts, "catalogItems3");
@@ -1131,6 +1153,27 @@ function Categories(props) {
 
     TagManager.dataLayer({
       dataLayer: addToCartData,
+    });
+
+    import("react-facebook-pixel")
+    .then((x) => x.default)
+    .then((ReactPixel) => {
+      // Track the "Add to Cart" event with product information
+      ReactPixel.track('AddToCart', {
+        content_ids: [product.productId],  
+        content_name: product.title, 
+        content_type: 'product',      
+        value: product?.variants[0]?.pricing[0]?.displayPrice,         
+        currency: 'PKR',        
+      });
+
+      // Track page view
+      ReactPixel.pageView();
+
+      // Listen to route change to track page view
+      router.events.on("routeChangeComplete", () => {
+        ReactPixel.pageView();
+      });
     });
   };
   // const processQueue = async () => {

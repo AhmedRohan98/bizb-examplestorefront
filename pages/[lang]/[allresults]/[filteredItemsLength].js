@@ -233,6 +233,9 @@ function AllResults(props) {
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const [lodingforNextPage, setlodingforNextPage] = useState(false);
 
+  const router = useRouter();
+
+
   // useEffect(() => {
 
   //   uiStore?.setPageSize(500);
@@ -344,6 +347,28 @@ function AllResults(props) {
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
+
+    import("react-facebook-pixel")
+    .then((x) => x.default)
+    .then((ReactPixel) => {
+      // Track the "Add to Cart" event with product information
+      ReactPixel.track('AddToCart', {
+        content_ids: [product.productId],  
+        content_name: product.title, 
+        content_type: 'product',      
+        value: product?.variants[0]?.pricing[0]?.displayPrice,         
+        currency: 'PKR',        
+      });
+
+      // Track page view
+      ReactPixel.pageView();
+
+      // Listen to route change to track page view
+      router.events.on("routeChangeComplete", () => {
+        ReactPixel.pageView();
+      });
+    });
+
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,
@@ -357,7 +382,6 @@ function AllResults(props) {
     }));
     // Scroll to the top
   };
-  const router = useRouter();
   const clickHandler = (item) => {
     const productSlug = item;
 
