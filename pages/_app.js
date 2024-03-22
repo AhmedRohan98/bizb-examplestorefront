@@ -82,6 +82,24 @@ export default class App extends NextApp {
   //     this.props.router.events.off('routeChangeComplete', pageview);
   //   }
   // }
+
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    // Check if the response is a 404 error
+    if (ctx.res && ctx.res.statusCode === 404) {
+      // Redirect to the main home page
+      ctx.res.writeHead(302, { Location: '/' });
+      ctx.res.end();
+    }
+
+    return { pageProps };
+  }
+  
   render() {
     const { Component, pageProps, ...rest } = this.props;
 
