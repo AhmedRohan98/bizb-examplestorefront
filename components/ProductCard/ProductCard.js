@@ -282,22 +282,18 @@ const ProductCard = ({
 
   return (
     <>
-      <Head>
-        <meta name="description" content="Product" />
-
-        {/* Add JSON-LD script for Product schema */}
-        <script type="application/ld+json">
-          {`
+      <meta name="description" content="Product" />
+      <script type="application/ld+json">
+        {`
             {
               "@context": "http://schema.org",
               "@type": "Product",
               "name": "${firstThreeWords}",
               "url": "bizb.store/en/product/${item.node.product.slug}",
-              "image": "${
-                item?.node?.product?.media[0]?.URLs?.thumbnail
-                  ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                  : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-              }",
+              "image": "${item?.node?.product?.media[0]?.URLs?.thumbnail
+            ? item?.node?.product?.media[0]?.URLs?.thumbnail
+            : item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+          }",
               "offers": {
                 "@type": "AggregateOffer",
                 "priceCurrency": "PKR",
@@ -306,7 +302,11 @@ const ProductCard = ({
               }
             }
           `}
-        </script>
+      </script>
+      <Head>
+
+        {/* Add JSON-LD script for Product schema */}
+
       </Head>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div
@@ -327,19 +327,19 @@ const ProductCard = ({
                   item?.node?.product?.media[0]?.URLs?.medium
                     ? item?.node?.product?.media[0]?.URLs?.medium
                     : item?.node?.product?.media[0]?.URLs?.thumbnail
-                    ? item?.node?.product?.media[0]?.URLs?.thumbnail
-                    : item?.node?.product?.media[0]?.URLs?.large
-                    ? item?.node?.product?.media[0]?.URLs?.large
-                    : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.URLs?.medium
-                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.medium
-                    : item?.node?.product?.variants[0]?.media &&
-                      item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                    ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
-                    : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.media[1]?.URLs?.large
-                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
-                    : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.media[1]?.URLs?.small
-                    ? item?.node?.product?.variants[0]?.media[1]?.URLs?.small
-                    : ""
+                      ? item?.node?.product?.media[0]?.URLs?.thumbnail
+                      : item?.node?.product?.media[0]?.URLs?.large
+                        ? item?.node?.product?.media[0]?.URLs?.large
+                        : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.URLs?.medium
+                          ? item?.node?.product?.variants[0]?.media[0]?.URLs?.medium
+                          : item?.node?.product?.variants[0]?.media &&
+                            item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                            ? item?.node?.product?.variants[0]?.media[0]?.URLs?.thumbnail
+                            : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                              ? item?.node?.product?.variants[0]?.media[1]?.URLs?.large
+                              : item?.node?.product?.variants[0]?.media && item?.node?.product?.variants[0]?.media[1]?.URLs?.small
+                                ? item?.node?.product?.variants[0]?.media[1]?.URLs?.small
+                                : ""
                 }
                 className={classes.image}
                 key={item?.node?.product?.id}
