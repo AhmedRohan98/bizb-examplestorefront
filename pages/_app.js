@@ -10,6 +10,7 @@ import TagManager from "react-gtm-module";
 import { GTM_ID, pageview } from "../lib/utils/gtm";
 import { useRouter } from "next/router";
 import ReactGA from "react-ga4";
+import * as Sentry from '@sentry/browser';
 
 // import Script from 'next/script';
 
@@ -30,9 +31,15 @@ import "react-toastify/dist/ReactToastify.css";
 // if (process.env.NODE_ENV === "production")
 {
   // Override the console.log method to do nothing
-  // console.log = function () { };
+  console.log = function (e) { 
+    Sentry.captureMessage(e)
+  };
+  console.error = function (error) { 
+    Sentry.captureException(error);
+  };
   // console.error = function () { };
   // console.warn = function () { };
+  
 }
 
 export default class App extends NextApp {
@@ -61,13 +68,38 @@ export default class App extends NextApp {
           ReactPixel.pageView();
         });
       });
+
+      Sentry.init({
+        dsn: process.env.NEXT_SENTRY_KEY, // Replace with your actual Sentry DSN
+        // Add additional configuration as needed
+      })
   }
+
+  
   // componentWillUnmount() {
   //   // Remove the event listener on unmount
   //   if (GTM_ID) {
   //     this.props.router.events.off('routeChangeComplete', pageview);
   //   }
   // }
+
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    // Check if the response is a 404 error
+    if (ctx.res && ctx.res.statusCode === 404) {
+      // Redirect to the main home page
+      ctx.res.writeHead(302, { Location: '/' });
+      ctx.res.end();
+    }
+
+    return { pageProps };
+  }
+  
   render() {
     const { Component, pageProps, ...rest } = this.props;
 

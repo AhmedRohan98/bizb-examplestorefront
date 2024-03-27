@@ -110,6 +110,7 @@
     "@reactioncommerce/components": "~0.67.2",
     "@reactioncommerce/components-context": "1.2.0",
     "@segment/snippet": "~4.4.0",
+    "@sentry/browser": "7.88.0",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.8",
     "apollo-link-context": "^1.0.20",
