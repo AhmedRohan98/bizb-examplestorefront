@@ -56,7 +56,7 @@ const MainSlider = (props) => {
       [theme.breakpoints.down(900)]: {
         height: "20px",
         bottom: "20px",
-        display:"none"
+        display: "none"
 
       },
     },
@@ -156,14 +156,14 @@ const MainSlider = (props) => {
         background: "white",
       }
       , [theme.breakpoints.up(900)]: {
-       bottom:"50px"
+        bottom: "50px"
       },
       [theme.breakpoints.down(600)]: {
-        bottom:"14px",
-        left:"63%",
+        bottom: "14px",
+        left: "63%",
         width: "95px",
         height: "20px",
-       }
+      }
 
     },
     text2: {
@@ -252,12 +252,9 @@ const MainSlider = (props) => {
   const classes = useStyles();
   return (
     <>
-     <Head>
-        <meta name="description" content="Website" />
-
-        {/* Add JSON-LD script for Product schema */}
-        <script type="application/ld+json">
-          {`
+      <meta name="description" content="Website" />
+      <script type="application/ld+json">
+        {`
             {
               "@context": "https://schema.org/",
               "@type": "WebSite",
@@ -265,7 +262,11 @@ const MainSlider = (props) => {
               "url": "https://bizb.store/en?"
             }
           `}
-        </script>
+      </script>
+      <Head>
+
+        {/* Add JSON-LD script for Product schema */}
+
       </Head>
       <div className={classes.main}>
         <div className={classes.root}>
@@ -317,7 +318,7 @@ const MainSlider = (props) => {
       {/* <Caloborators /> */}
       <OurBlogs />
       {/* <Instagram {...props} /> */}
-      <FeaturedIn/>
+      <FeaturedIn />
     </>
   );
 };

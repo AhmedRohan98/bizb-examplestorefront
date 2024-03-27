@@ -344,7 +344,7 @@ const useStyles = makeStyles((theme) => ({
     // margin: "0 -.25rem",
     // padding: "0 .25rem",
     transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
-    
+
     "&:hover": {
       color: "white",
       boxShadow: "inset 160px 0 0 0 #FDC114",
@@ -639,7 +639,7 @@ const useStyles = makeStyles((theme) => ({
       height: "20px",
       marginLeft: theme.spacing(3),
     },
-    
+
   },
   categoryTagsLink: {
     borderBottom: "1px solid #59595940",
@@ -979,23 +979,23 @@ function Categories(props) {
     TagManager.dataLayer(dataLayer);
 
     import("react-facebook-pixel")
-    .then((x) => x.default)
-    .then((ReactPixel) => {
-      // Track the "product_view" event with product ID and name parameters
-      ReactPixel.track('ViewContent', {
-        content_ids: [productId],  
-        content_name: productName, 
-        content_type: 'product',      
-      });
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Track the "product_view" event with product ID and name parameters
+        ReactPixel.track('ViewContent', {
+          content_ids: [productId],
+          content_name: productName,
+          content_type: 'product',
+        });
 
-      // Track page view
-      ReactPixel.pageView();
-
-      // Listen to route change to track page view
-      router.events.on("routeChangeComplete", () => {
+        // Track page view
         ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
       });
-    });
   };
 
   // console.log(filteredProducts, "catalogItems3");
@@ -1156,25 +1156,25 @@ function Categories(props) {
     });
 
     import("react-facebook-pixel")
-    .then((x) => x.default)
-    .then((ReactPixel) => {
-      // Track the "Add to Cart" event with product information
-      ReactPixel.track('AddToCart', {
-        content_ids: [product.productId],  
-        content_name: product.title, 
-        content_type: 'product',      
-        value: product?.variants[0]?.pricing[0]?.displayPrice,         
-        currency: 'PKR',        
-      });
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Track the "Add to Cart" event with product information
+        ReactPixel.track('AddToCart', {
+          content_ids: [product.productId],
+          content_name: product.title,
+          content_type: 'product',
+          value: product?.variants[0]?.pricing[0]?.displayPrice,
+          currency: 'PKR',
+        });
 
-      // Track page view
-      ReactPixel.pageView();
-
-      // Listen to route change to track page view
-      router.events.on("routeChangeComplete", () => {
+        // Track page view
         ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
       });
-    });
   };
   // const processQueue = async () => {
   //   if (queue.length > 0 && !processing) {
@@ -1590,279 +1590,356 @@ function Categories(props) {
   // console.log(category, "dis");
   return (
     <>
-     <Head>
-        <meta name="description" content="Category" />
+      <meta name="description" content="Category" />
 
-        {/* Add JSON-LD script for Product schema */}
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org/",
-              "@type": "CategoryCodeSet",
-              "@id": "${tagId}",
-              "name": "${filteredProducts[0]?.displayTitle}",
-              "hasCategoryCode": {
-                     "@type": "CategoryCode",
-                     "name": "${filteredProducts[0]?.displayTitle}",
-                     "inCodeSet": "${tagId}"
-                     }
+      {/* Add JSON-LD script for Product schema */}
+      <script type="application/ld+json">
+        {`
+    {
+      "@context": "https://schema.org/",
+      "@type": "CategoryCodeSet",
+      "@id": "${tagId}",
+      "name": "${filteredProducts[0]?.displayTitle}",
+      "hasCategoryCode": {
+             "@type": "CategoryCode",
+             "name": "${filteredProducts[0]?.displayTitle}",
+             "inCodeSet": "${tagId}"
              }
-          `}
-        </script>
+     }
+  `}
+      </script>
+      <Head>
+
       </Head>
-    <Layout shop={shop} tagId={tagId}>
-      {typeof window !== "undefined" && (
-        <div className={classes.main}>
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeButton={
-              <CustomCloseButton style={{ display: "flex", justifyContent: "center", alignItems: "center" }} />
-            }
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-            background="green"
-            toastStyle={{
-              backgroundColor: "#FDC114",
-              color: "black",
-              fontSize: "16px",
-              fontFamily: "Lato",
-              textTransform: "capitalize",
-            }}
-          />
+      <Layout shop={shop} tagId={tagId}>
+        {typeof window !== "undefined" && (
+          <div className={classes.main}>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeButton={
+                <CustomCloseButton style={{ display: "flex", justifyContent: "center", alignItems: "center" }} />
+              }
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+              background="green"
+              toastStyle={{
+                backgroundColor: "#FDC114",
+                color: "black",
+                fontSize: "16px",
+                fontFamily: "Lato",
+                textTransform: "capitalize",
+              }}
+            />
 
-          <Box className={classes.topheader}>
-            {["left"].map((anchor) => (
-              <React.Fragment key={anchor}>
-                <img
-                  src="/categoriestypes/Vector.svg"
-                  alt="vector"
-                  className={classes.vector}
-                  onClick={toggleDrawer(anchor, true)}
-                />
-                <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
-                  <div className={classes.filters}>
-                    {" "}
-                    <Typography variant="h3" className={classes.filtersTitle}>
-                      FILTER
-                    </Typography>
-                    <CloseIcon
-                      onClick={() => {
-                        setState(!state);
-                      }}
-                      className={classes.close}
-                    />
-                  </div>
-                  <div className={clsx(classes.list)} role="presentation">
-                    <List>
-                      <Typography variant="h4" className={classes.filternames}>
-                        SIZE
+            <Box className={classes.topheader}>
+              {["left"].map((anchor) => (
+                <React.Fragment key={anchor}>
+                  <img
+                    src="/categoriestypes/Vector.svg"
+                    alt="vector"
+                    className={classes.vector}
+                    onClick={toggleDrawer(anchor, true)}
+                  />
+                  <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
+                    <div className={classes.filters}>
+                      {" "}
+                      <Typography variant="h3" className={classes.filtersTitle}>
+                        FILTER
                       </Typography>
-                      {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
-                        <ListItem button key={text}>
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                onChange={handleChangeChecksize}
-                                name={text}
-                                variant="h6"
-                                className="size-checkbox"
-                              />
-                            }
-                            label={text}
-                            className={classes.checkbox}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                    <Divider />
-
-                    <Divider />
-                    <List>
-                      <Typography variant="h4" className={classes.filternames2}>
-                        PRICE
-                      </Typography>
-                      <div className={classes.slidervaluesmain}>
-                        <div className={classes.slidervalues}>
-                          <Typography variant="h5" className={classes.filternameprice}>
-                            {price ? `RS. ${price[0]}` : "RS. 500"}
-                          </Typography>
-                          <Typography variant="h5" className={classes.filternameprice}>
-                            {price ? `RS. ${price[1]}` : "RS. 10,000"}
-                          </Typography>
-                        </div>
-                      </div>
-                      <div className={classes.slidervalue}>
-                        <Slider
-                          value={price}
-                          aria-labelledby="range-slider"
-                          min={500}
-                          max={10000}
-                          onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
-                          className={classes.slider}
-                          valueLabelDisplay="auto"
-                        />
-                      </div>
-                    </List>
-                  </div>
-                  <div className={classes.divRow}>
-                    <Typography
-                      variant="h6"
-                      className={classes.textstyle}
-                      onClick={() => {
-                        setState(!state);
-                      }}
-                    >
-                      VIEW RESULTS
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      className={classes.textstyle}
-                      onClick={() => {
-                        handleChangeChecksize2();
-                        handleFilterChange2();
-                        setState(!state);
-                      }}
-                    >
-                      CLEAR ALL
-                    </Typography>
-                  </div>
-                </Drawer>
-              </React.Fragment>
-            ))}
-            <div className={classes.selectDesktop}>
-              <Select
-                defaultValue={selectedOption}
-                placeholder="Sort by"
-                components={{ DropdownIndicator }}
-                styles={customStyles}
-                options={options}
-                onChange={handleChangeSortBy}
-                value={options.find((option) => option.value === sortBy)}
-                className={classes.reactselect}
-              />
-            </div>
-          </Box>
-          <Grid
-            container
-            lg={12}
-            sm={12}
-            md={12}
-            // align="center"
-            // justify="center"
-            // alignItems="center"
-            className={classes.grid1}
-          >
-            <Grid style={{ display: "flex", justifyContent: "start" }} item lg={6} xs={12} sm={6} md={6}>
-              <div className={classes.mainimage}>
-                <div className={classes.categoriestext}>
-                  <div className={classes.categoriestexts}>
-                    <Typography variant="h1" className={classes.categoriesname}>
-                      {filteredProducts[0]?.displayTitle}
-                    </Typography>
-                    <img
-                      src="/categories/categoriestoggle.svg"
-                      className={classes.categorytoggle}
-                      onClick={handlePopOverClick}
-                      alt="icon"
-                    />
-                    {/* <img
-                      src={firstarray.names0.image}
-                      className={classes.categorytoggle}
-                      onClick={handlePopOverClick}
-                    /> */}
-                  </div>
-                </div>
-                <img
-                  style={{ borderRadius: "16px" }}
-                  src={filteredProducts[0]?.heroMediaUrl}
-                  className={classes.mainimageofcategory}
-                  alt="icon"
-                />
-                <Popover
-                  anchorEl={anchorEl}
-                  transformOrigin={{
-                    vertical: "center",
-                    horizontal: "center",
-                  }}
-                  anchorOrigin={{
-                    vertical: "center",
-                    horizontal: "center",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handlePopOverClose}
-                  style={{ marginTop: "210px" }}
-                >
-                  <Box sx={style}>
-                    <div className={classes.modalitems}>
-                      <div className={classes.modalitemstitle}>
-                        {mappedData?.map((itemtitle) => (
-                          <a href={itemtitle._id}
-                          className={classes.categoryTagsLink}
-                          >
-                            <Typography variant="h6" className={classes.catgorytitle}>
-                              {itemtitle.displayTitle}
-                            </Typography>
-                          </a>
-                        ))}
-                      </div>
+                      <CloseIcon
+                        onClick={() => {
+                          setState(!state);
+                        }}
+                        className={classes.close}
+                      />
                     </div>
-                  </Box>
-                </Popover>
-              </div>
-            </Grid>
+                    <div className={clsx(classes.list)} role="presentation">
+                      <List>
+                        <Typography variant="h4" className={classes.filternames}>
+                          SIZE
+                        </Typography>
+                        {["Small", "Medium", "Large", "Extra-Large"].map((text, index) => (
+                          <ListItem button key={text}>
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  onChange={handleChangeChecksize}
+                                  name={text}
+                                  variant="h6"
+                                  className="size-checkbox"
+                                />
+                              }
+                              label={text}
+                              className={classes.checkbox}
+                            />
+                          </ListItem>
+                        ))}
+                      </List>
+                      <Divider />
 
+                      <Divider />
+                      <List>
+                        <Typography variant="h4" className={classes.filternames2}>
+                          PRICE
+                        </Typography>
+                        <div className={classes.slidervaluesmain}>
+                          <div className={classes.slidervalues}>
+                            <Typography variant="h5" className={classes.filternameprice}>
+                              {price ? `RS. ${price[0]}` : "RS. 500"}
+                            </Typography>
+                            <Typography variant="h5" className={classes.filternameprice}>
+                              {price ? `RS. ${price[1]}` : "RS. 10,000"}
+                            </Typography>
+                          </div>
+                        </div>
+                        <div className={classes.slidervalue}>
+                          <Slider
+                            value={price}
+                            aria-labelledby="range-slider"
+                            min={500}
+                            max={10000}
+                            onChange={(event, newValue) => handleFilterChange(event, newValue, "minPrice", "maxPrice")}
+                            className={classes.slider}
+                            valueLabelDisplay="auto"
+                          />
+                        </div>
+                      </List>
+                    </div>
+                    <div className={classes.divRow}>
+                      <Typography
+                        variant="h6"
+                        className={classes.textstyle}
+                        onClick={() => {
+                          setState(!state);
+                        }}
+                      >
+                        VIEW RESULTS
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        className={classes.textstyle}
+                        onClick={() => {
+                          handleChangeChecksize2();
+                          handleFilterChange2();
+                          setState(!state);
+                        }}
+                      >
+                        CLEAR ALL
+                      </Typography>
+                    </div>
+                  </Drawer>
+                </React.Fragment>
+              ))}
+              <div className={classes.selectDesktop}>
+                <Select
+                  defaultValue={selectedOption}
+                  placeholder="Sort by"
+                  components={{ DropdownIndicator }}
+                  styles={customStyles}
+                  options={options}
+                  onChange={handleChangeSortBy}
+                  value={options.find((option) => option.value === sortBy)}
+                  className={classes.reactselect}
+                />
+              </div>
+            </Box>
             <Grid
-              item
-              lg={6}
-              xs={12}
-              sm={6}
+              container
+              lg={12}
+              sm={12}
               md={12}
               // align="center"
               // justify="center"
               // alignItems="center"
+              className={classes.grid1}
             >
-              {firstfour?.length > 0 ? (
-                <div className={classes.gridroot}>
-                  <ResponsiveMasonry
-                    columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
-                    style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+              <Grid style={{ display: "flex", justifyContent: "start" }} item lg={6} xs={12} sm={6} md={6}>
+                <div className={classes.mainimage}>
+                  <div className={classes.categoriestext}>
+                    <div className={classes.categoriestexts}>
+                      <Typography variant="h1" className={classes.categoriesname}>
+                        {filteredProducts[0]?.displayTitle}
+                      </Typography>
+                      <img
+                        src="/categories/categoriestoggle.svg"
+                        className={classes.categorytoggle}
+                        onClick={handlePopOverClick}
+                        alt="icon"
+                      />
+                      {/* <img
+                      src={firstarray.names0.image}
+                      className={classes.categorytoggle}
+                      onClick={handlePopOverClick}
+                    /> */}
+                    </div>
+                  </div>
+                  <img
+                    style={{ borderRadius: "16px" }}
+                    src={filteredProducts[0]?.heroMediaUrl}
+                    className={classes.mainimageofcategory}
+                    alt="icon"
+                  />
+                  <Popover
+                    anchorEl={anchorEl}
+                    transformOrigin={{
+                      vertical: "center",
+                      horizontal: "center",
+                    }}
+                    anchorOrigin={{
+                      vertical: "center",
+                      horizontal: "center",
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handlePopOverClose}
+                    style={{ marginTop: "210px" }}
                   >
-                    <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                      {firstfour?.map((item, key) => {
-                        const cartitem = cart?.items;
-                        const isDisabled = cartitem?.some((data) => {
-                          return data.productConfiguration.productId === item?.node?.product?.productId;
-                        });
-                        // console.log(cart?.items, "item");
-                        // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
-                        const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+                    <Box sx={style}>
+                      <div className={classes.modalitems}>
+                        <div className={classes.modalitemstitle}>
+                          {mappedData?.map((itemtitle) => (
+                            <a href={itemtitle._id}
+                              className={classes.categoryTagsLink}
+                            >
+                              <Typography variant="h6" className={classes.catgorytitle}>
+                                {itemtitle.displayTitle}
+                              </Typography>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </Box>
+                  </Popover>
+                </div>
+              </Grid>
 
-                        const validOptionTitle = optionTitle
-                          ? optionTitle
+              <Grid
+                item
+                lg={6}
+                xs={12}
+                sm={6}
+                md={12}
+              // align="center"
+              // justify="center"
+              // alignItems="center"
+              >
+                {firstfour?.length > 0 ? (
+                  <div className={classes.gridroot}>
+                    <ResponsiveMasonry
+                      columnsCountBreakPoints={{ 350: 2, 900: 2, 1050: 2, 120: 2, 1750: 3, 1920: 3 }}
+                      style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                    >
+                      <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                        {firstfour?.map((item, key) => {
+                          const cartitem = cart?.items;
+                          const isDisabled = cartitem?.some((data) => {
+                            return data.productConfiguration.productId === item?.node?.product?.productId;
+                          });
+                          // console.log(cart?.items, "item");
+                          // console.log(item?.node?.product?.productId, "ssss", props.cart.items[0]?.productConfiguration?.productId);
+                          const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+
+                          const validOptionTitle = optionTitle
+                            ? optionTitle
                               ?.replace(/['"\\]/g, "")
                               .replace("{", '{"')
                               .replace(/:/g, '":"')
                               .replace("}", '"}')
                               .replace(",", '","')
+                            : null;
+                          const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
+
+                          // Access the "size" property
+                          const str = item.node.product.title;
+                          const words = str.match(/[a-zA-Z0-9]+/g);
+                          const firstThreeWords = words.slice(0, 3).join(" ");
+                          const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
+
+                          const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
+                            /[^0-9.]/g,
+                            "",
+                          );
+
+                          const compareAtPrice =
+                            item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
+                              /[^0-9.]/g,
+                              "",
+                            );
+
+                          const parsedDisplayPrice = parseFloat(displayPrice);
+                          const parsedCompareAtPrice = parseFloat(compareAtPrice);
+
+                          const percentage = Math.floor(
+                            ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
+                          );
+
+                          return (
+                            <ProductCard
+                              item={item}
+                              isDisabled={isDisabled}
+                              isLoading={isLoading}
+                              percentage={percentage}
+                              firstThreeWords={firstThreeWords}
+                              storeNameShort={storeNameShort}
+                              size={size}
+                              handleOnClick={handleOnClick}
+                              trackProductView={trackProductView}
+                            />
+                          );
+                        })}
+                      </Masonry>
+                    </ResponsiveMasonry>
+                  </div>
+                ) : (
+                  <div className={classes.skeletonClass}>
+                    <SkeletonLoader2 />
+                  </div>
+                )}
+              </Grid>
+            </Grid>
+            {/* Products Below Image   */}
+            {allproducts?.length > 0 ? (
+              <div className={classes.main}>
+                <div className={classes.gridroot}>
+                  <ResponsiveMasonry
+                    columnsCountBreakPoints={{ 350: 2, 700: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
+                    style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                  >
+                    <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                      {allproducts?.map((item, index) => {
+                        // console.log(index, "nodde");
+                        const cartitem = props?.cart?.items;
+                        const isDisabled = cartitem?.some((data) => {
+                          return data.productConfiguration.productId === item?.node?.product?.productId;
+                        });
+
+                        const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
+
+                        const validOptionTitle = optionTitle
+                          ? optionTitle
+                            ?.replace(/['"\\]/g, "")
+                            .replace("{", '{"')
+                            .replace(/:/g, '":"')
+                            .replace("}", '"}')
+                            .replace(",", '","')
                           : null;
                         const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
 
                         // Access the "size" property
+                        // const size =validOptionTitle? validOptionTitle: null;
                         const str = item.node.product.title;
                         const words = str.match(/[a-zA-Z0-9]+/g);
                         const firstThreeWords = words.slice(0, 3).join(" ");
-                        const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
-
                         const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
                           /[^0-9.]/g,
                           "",
                         );
+                        const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
 
                         const compareAtPrice =
                           item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
@@ -1877,6 +1954,7 @@ function Categories(props) {
                           ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
                         );
 
+                        // console.log(optionTitle, "fil");
                         return (
                           <ProductCard
                             item={item}
@@ -1894,98 +1972,21 @@ function Categories(props) {
                     </Masonry>
                   </ResponsiveMasonry>
                 </div>
-              ) : (
-                <div className={classes.skeletonClass}>
-                  <SkeletonLoader2 />
-                </div>
-              )}
-            </Grid>
-          </Grid>
-          {/* Products Below Image   */}
-          {allproducts?.length > 0 ? (
-            <div className={classes.main}>
-              <div className={classes.gridroot}>
-                <ResponsiveMasonry
-                  columnsCountBreakPoints={{ 350: 2, 700: 2, 900: 2, 1050: 3, 1280: 4, 1400: 5, 1750: 6, 1920: 6 }}
-                  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                >
-                  <Masonry columnsCount={4} style={{ display: "flex", justifyContent: "flex-start" }}>
-                    {allproducts?.map((item, index) => {
-                      // console.log(index, "nodde");
-                      const cartitem = props?.cart?.items;
-                      const isDisabled = cartitem?.some((data) => {
-                        return data.productConfiguration.productId === item?.node?.product?.productId;
-                      });
-
-                      const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
-
-                      const validOptionTitle = optionTitle
-                        ? optionTitle
-                            ?.replace(/['"\\]/g, "")
-                            .replace("{", '{"')
-                            .replace(/:/g, '":"')
-                            .replace("}", '"}')
-                            .replace(",", '","')
-                        : null;
-                      const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
-
-                      // Access the "size" property
-                      // const size =validOptionTitle? validOptionTitle: null;
-                      const str = item.node.product.title;
-                      const words = str.match(/[a-zA-Z0-9]+/g);
-                      const firstThreeWords = words.slice(0, 3).join(" ");
-                      const displayPrice = item?.node?.product?.variants[0]?.pricing[0]?.displayPrice?.replace(
-                        /[^0-9.]/g,
-                        "",
-                      );
-                      const storeNameShort = item?.node?.product?.variants[0]?.uploadedBy?.storeName?.slice(0, 15);
-
-                      const compareAtPrice =
-                        item?.node?.product?.variants[0]?.pricing[0]?.compareAtPrice?.displayAmount?.replace(
-                          /[^0-9.]/g,
-                          "",
-                        );
-
-                      const parsedDisplayPrice = parseFloat(displayPrice);
-                      const parsedCompareAtPrice = parseFloat(compareAtPrice);
-
-                      const percentage = Math.floor(
-                        ((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100,
-                      );
-
-                      // console.log(optionTitle, "fil");
-                      return (
-                        <ProductCard
-                          item={item}
-                          isDisabled={isDisabled}
-                          isLoading={isLoading}
-                          percentage={percentage}
-                          firstThreeWords={firstThreeWords}
-                          storeNameShort={storeNameShort}
-                          size={size}
-                          handleOnClick={handleOnClick}
-                          trackProductView={trackProductView}
-                        />
-                      );
-                    })}
-                  </Masonry>
-                </ResponsiveMasonry>
               </div>
-            </div>
-          ) : props?.isLoadingCatalogItems ? (
-            <SkeletonLoader />
-          ) : (
-            props?.totalcount === 0 && <></>
-          )}
-
-          <div className={classes.loadmore}>
-            {catalogItemsPageInfo?.hasNextPage && (
-              <PageStepper pageInfo={catalogItemsPageInfo} loading={isLoadingCatalogItems}></PageStepper>
+            ) : props?.isLoadingCatalogItems ? (
+              <SkeletonLoader />
+            ) : (
+              props?.totalcount === 0 && <></>
             )}
+
+            <div className={classes.loadmore}>
+              {catalogItemsPageInfo?.hasNextPage && (
+                <PageStepper pageInfo={catalogItemsPageInfo} loading={isLoadingCatalogItems}></PageStepper>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </Layout>
+        )}
+      </Layout>
     </>
   );
 }
