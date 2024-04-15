@@ -108,8 +108,7 @@ const Header: any = ({ classes, shop, uiStore, headerType, tags }) => {
   React.useEffect(() => {}, [viewer]);
   return (
     <>
-      {/* <ScrollingMessage message="Enjoy free delivery on orders above Rs. 3000" /> */}
-      <ScrollingMessage message="Attention Buyers and Sellers: Please note orders placed to sellers from outside Islamabad/Rawalpindi will be processed after Eid. Orders placed after April 5th will be delivered post-Eid. In-house inventory orders will be delivered by Friday, 5th April. -- Thank you for your support, Happy Shopping" />
+      <ScrollingMessage message="Enjoy free delivery on orders above Rs. 3000" />
 
       <AppBar position="static" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
