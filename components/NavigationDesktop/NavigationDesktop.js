@@ -65,12 +65,11 @@ const styles = (theme) => ({
     // margin: "0 -.25rem",
     // padding: "0 .25rem",
     transition: "color .3s ease-in-out, box-shadow .3s ease-in-out",
-    
+
     "&:hover": {
       color: "white",
       boxShadow: "inset 160px 0 0 0 #FDC114",
     },
-
   },
   currentCategory: {
     textDecorationColor: "#FDC114",
@@ -177,7 +176,7 @@ const NavigationDesktop = (props) => {
       width: 12,
       height: 12,
       top: 21,
-     
+
       left: "-6px",
     },
     left: "15%",
@@ -206,7 +205,7 @@ const NavigationDesktop = (props) => {
   // Other handlePopOverClose functions...
 
   const handlePopOverOpen = (event) => {
-    console.log("hello here in this popover")
+    console.log("hello here in this popover");
     setState((prevState) => ({ ...prevState, anchorEl: event.currentTarget }));
   };
   const handlePopOverClose2 = () => {
@@ -274,12 +273,10 @@ const NavigationDesktop = (props) => {
         return dataItem ? { ...dataItem } : null;
       })
       .filter(Boolean);
-      console.log("user 1vvbm", maData, categoryTags);
+    console.log("user 1vvbm", maData, categoryTags);
 
     setState((prevState) => ({ ...prevState, mappedData: maData }));
   };
-
-  
 
   // Other functions...
 
@@ -313,233 +310,233 @@ const NavigationDesktop = (props) => {
               Home
             </span>
           </Link>
-            <Button
-              onMouseEnter={handlePopOverOpen}
-              onClick={handlePopOverOpen}
-              aria-haspopup="true"
-              // onMouseLeave={this.handlePopOverClose}
-              className={classes.headerHeadings}
-              style={{
-                borderRadius:"18px",
-                textDecorationColor:
-                  Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
-                    ? "#FDC114"
-                    : null,
-                textDecorationThickness:
-                  Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
-                    ? "3px"
-                    : null, // Adjust the underline thickness
-                textDecorationLine:
-                  Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
-                    ? "underline"
-                    : null, // Add an underline style for compatibility
-              }}
-            >
-              Explore
-            </Button>
-            <Popover
-              className={classes.popover}
-              classes={{
-                paper: classes.paper,
-              }}
-              anchorEl={anchorEl}
-              transformOrigin={{
-                vertical: "center",
-                horizontal: "center",
-              }}
-              anchorOrigin={{
-                vertical: "center",
-                horizontal: "center",
-                marginTop: "50px",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handlePopOverClose}
-              style={{ marginTop: "100px" }}
-              // onClose={handlePopoverClose}
-              disableRestoreFocus
-            >
-              <Box sx={style}>
-                <div className={classes.modalitems}>
-                  <div className={classes.modalitemstitle}>
-                    <a className={classes.categoryTagsLink}>
-                      <span onClick={handlePopOverOpen3}>
-                        <Typography variant="h6" className={classes.catgorytitle}>
-                          Shop By Category
-                          <IconButton style={{ padding:"0px"}}>
-                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
-                          </IconButton>
-                        </Typography>
-                      </span>
+          <Button
+            onMouseEnter={handlePopOverOpen}
+            onClick={handlePopOverOpen}
+            aria-haspopup="true"
+            // onMouseLeave={this.handlePopOverClose}
+            className={classes.headerHeadings}
+            style={{
+              borderRadius: "18px",
+              textDecorationColor:
+                Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                  ? "#FDC114"
+                  : null,
+              textDecorationThickness:
+                Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                  ? "3px"
+                  : null, // Adjust the underline thickness
+              textDecorationLine:
+                Router.pathname === "/[lang]/categories/[tagId]" || Router.pathname === "/[lang]/explore"
+                  ? "underline"
+                  : null, // Add an underline style for compatibility
+            }}
+          >
+            Explore
+          </Button>
+          <Popover
+            className={classes.popover}
+            classes={{
+              paper: classes.paper,
+            }}
+            anchorEl={anchorEl}
+            transformOrigin={{
+              vertical: "center",
+              horizontal: "center",
+            }}
+            anchorOrigin={{
+              vertical: "center",
+              horizontal: "center",
+              marginTop: "50px",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handlePopOverClose}
+            style={{ marginTop: "100px" }}
+            // onClose={handlePopoverClose}
+            disableRestoreFocus
+          >
+            <Box sx={style}>
+              <div className={classes.modalitems}>
+                <div className={classes.modalitemstitle}>
+                  <a className={classes.categoryTagsLink}>
+                    <span onClick={handlePopOverOpen3}>
+                      <Typography variant="h6" className={classes.catgorytitle}>
+                        Shop By Category
+                        <IconButton style={{ padding: "0px" }}>
+                          <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                        </IconButton>
+                      </Typography>
+                    </span>
 
-                      <Popover
-                        className={classes.popover}
-                        classes={{
-                          paper: classes.paper,
-                        }}
-                        anchorEl={anchorEl3}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        anchorOrigin={{
-                          vertical: "top",
-                          horizontal: "right",
-                          marginTop: "0px",
-                        }}
-                        open={Boolean(anchorEl3)}
-                        onClose={handlePopOverClose3}
-                        style={{ marginTop: "0" }}
-                        // onClose={handlePopoverClose}
-                        disableRestoreFocus
-                      >
-                        <Box sx={style2}>
-                          <div className={classes.modalitems}>
-                            <div className={classes.modalitemstitle}>
-                              {console.log("user 1", mappedData)}
-                              {mappedData?.map((itemtitle, i) => (
-                                <a
-                                  href={
-                                    itemtitle.displayTitle === "Upcycled"
-                                      ? `/en/tmucpage/${itemtitle._id}`
-                                      : `/en/categories/${itemtitle._id}`
-                                  }
-                                  className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}
-                                >
-                                  <Typography variant="h6" className={classes.catgorytitle}>
-                                    {itemtitle.displayTitle}
-                                  </Typography>
-                                </a>
-                              ))}
-                            </div>
+                    <Popover
+                      className={classes.popover}
+                      classes={{
+                        paper: classes.paper,
+                      }}
+                      anchorEl={anchorEl3}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                        marginTop: "0px",
+                      }}
+                      open={Boolean(anchorEl3)}
+                      onClose={handlePopOverClose3}
+                      style={{ marginTop: "0" }}
+                      // onClose={handlePopoverClose}
+                      disableRestoreFocus
+                    >
+                      <Box sx={style2}>
+                        <div className={classes.modalitems}>
+                          <div className={classes.modalitemstitle}>
+                            {console.log("user 1", mappedData)}
+                            {mappedData?.map((itemtitle, i) => (
+                              <a
+                                href={
+                                  itemtitle.displayTitle === "Upcycled"
+                                    ? `/en/tmucpage/${itemtitle._id}`
+                                    : `/en/categories/${itemtitle._id}`
+                                }
+                                className={tagsData.length !== i + 1 ? classes.categoryTagsLink : ""}
+                              >
+                                <Typography variant="h6" className={classes.catgorytitle}>
+                                  {itemtitle.displayTitle}
+                                </Typography>
+                              </a>
+                            ))}
                           </div>
-                        </Box>
-                      </Popover>
-                    </a>
-                    <a className={classes.categoryTagsLink}>
-                      <span onClick={handlePopOverOpen4}>
-                        <Typography variant="h6" className={classes.catgorytitle} >
-                          Shop By Wardrobe
-                          <IconButton style={{ padding:"0px"}}>
-                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
-                          </IconButton>
-                        </Typography>
-                      </span>
+                        </div>
+                      </Box>
+                    </Popover>
+                  </a>
+                  <a className={classes.categoryTagsLink}>
+                    <span onClick={handlePopOverOpen4}>
+                      <Typography variant="h6" className={classes.catgorytitle}>
+                        Shop By Wardrobe
+                        <IconButton style={{ padding: "0px" }}>
+                          <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                        </IconButton>
+                      </Typography>
+                    </span>
 
-                      <Popover
-                        className={classes.popover}
-                        classes={{
-                          paper: classes.paper,
-                        }}
-                        anchorEl={anchorEl4}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        anchorOrigin={{
-                          vertical: "top",
-                          horizontal: "right",
-                          marginTop: "0px",
-                        }}
-                        open={Boolean(anchorEl4)}
-                        onClose={handlePopOverClose4}
-                        style={{ marginTop: "0" }}
-                        // onClose={handlePopoverClose}
-                        disableRestoreFocus
-                      >
-                        <Box sx={style2}>
-                          <div className={classes.modalitems}>
-                            <div className={classes.modalitemstitle}>
-                              {sellers?.map((item, i) => (
-                                <a target="_blank" href={`/en/profile/${item?._id}`}>
-                                  <Typography
-                                    variant="h6"
-                                    className={classes.catgorytitle}
-                                    style={{ borderBottom: "1px solid #59595940" }}
-                                  >
-                                    {item?.storeName && item?.storeName.trim()
-                                      ? item?.storeName.slice(0, 15)
-                                      : "User Wardrobe"}
-                                  </Typography>
-                                </a>
-                              ))}
-                              <a target="_blank" href="/en/wardrobe">
+                    <Popover
+                      className={classes.popover}
+                      classes={{
+                        paper: classes.paper,
+                      }}
+                      anchorEl={anchorEl4}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                        marginTop: "0px",
+                      }}
+                      open={Boolean(anchorEl4)}
+                      onClose={handlePopOverClose4}
+                      style={{ marginTop: "0" }}
+                      // onClose={handlePopoverClose}
+                      disableRestoreFocus
+                    >
+                      <Box sx={style2}>
+                        <div className={classes.modalitems}>
+                          <div className={classes.modalitemstitle}>
+                            {sellers?.map((item, i) => (
+                              <a target="_blank" href={`/en/profile/${item?._id}`}>
                                 <Typography
                                   variant="h6"
                                   className={classes.catgorytitle}
                                   style={{ borderBottom: "1px solid #59595940" }}
                                 >
-                                  See More
+                                  {item?.storeName && item?.storeName.trim()
+                                    ? item?.storeName.slice(0, 15)
+                                    : "User Wardrobe"}
                                 </Typography>
                               </a>
-                            </div>
+                            ))}
+                            <a target="_blank" href="/en/wardrobe">
+                              <Typography
+                                variant="h6"
+                                className={classes.catgorytitle}
+                                style={{ borderBottom: "1px solid #59595940" }}
+                              >
+                                See More
+                              </Typography>
+                            </a>
                           </div>
-                        </Box>
-                      </Popover>
-                    </a>
+                        </div>
+                      </Box>
+                    </Popover>
+                  </a>
 
-                    <a className={classes.categoryTagsLink}>
-                      <span onClick={handlePopOverOpen5}>
-                        <Typography variant="h6" className={classes.catgorytitle}>
-                          Shop By Brand
-                          <IconButton style={{ padding:"0px", marginLeft:"30px"}}>
-                            <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
-                          </IconButton>
-                        </Typography>
-                      </span>
+                  <a className={classes.categoryTagsLink}>
+                    <span onClick={handlePopOverOpen5}>
+                      <Typography variant="h6" className={classes.catgorytitle}>
+                        Shop By Brand
+                        <IconButton style={{ padding: "0px", marginLeft: "30px" }}>
+                          <PlayArrow style={{ color: "#FDC114", fontSize: "20px" }} />
+                        </IconButton>
+                      </Typography>
+                    </span>
 
-                      <Popover
-                        className={classes.popover}
-                        classes={{
-                          paper: classes.paper,
-                        }}
-                        anchorEl={anchorEl5}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        anchorOrigin={{
-                          vertical: "top",
-                          horizontal: "right",
-                          marginTop: "0px",
-                        }}
-                        open={Boolean(anchorEl5)}
-                        onClose={handlePopOverClose5}
-                        style={{ marginTop: "0" }}
-                        // onClose={handlePopoverClose}
-                        disableRestoreFocus
-                      >
-                        <Box sx={style2}>
-                          <div className={classes.modalitems}>
-                            <div className={classes.modalitemstitle}>
-                              {brands?.map((item, i) => (
-                                <a target="_blank" href={`/en/brand/${item?.slug}/${item?._id}`}>
-                                  <Typography
-                                    variant="h6"
-                                    className={classes.catgorytitle}
-                                    style={{ borderBottom: "1px solid #59595940" }}
-                                  >
-                                    {item?.displayTitle ? item?.displayTitle : "Brand"}
-                                  </Typography>
-                                </a>
-                              ))}
-                              <a target="_blank" href="/en/brands">
+                    <Popover
+                      className={classes.popover}
+                      classes={{
+                        paper: classes.paper,
+                      }}
+                      anchorEl={anchorEl5}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                        marginTop: "0px",
+                      }}
+                      open={Boolean(anchorEl5)}
+                      onClose={handlePopOverClose5}
+                      style={{ marginTop: "0" }}
+                      // onClose={handlePopoverClose}
+                      disableRestoreFocus
+                    >
+                      <Box sx={style2}>
+                        <div className={classes.modalitems}>
+                          <div className={classes.modalitemstitle}>
+                            {brands?.map((item, i) => (
+                              <a target="_blank" href={`/en/brand/${item?.slug}/${item?._id}`}>
                                 <Typography
                                   variant="h6"
                                   className={classes.catgorytitle}
                                   style={{ borderBottom: "1px solid #59595940" }}
                                 >
-                                  See More
+                                  {item?.displayTitle ? item?.displayTitle : "Brand"}
                                 </Typography>
                               </a>
-                            </div>
+                            ))}
+                            <a target="_blank" href="/en/brands">
+                              <Typography
+                                variant="h6"
+                                className={classes.catgorytitle}
+                                style={{ borderBottom: "1px solid #59595940" }}
+                              >
+                                See More
+                              </Typography>
+                            </a>
                           </div>
-                        </Box>
-                      </Popover>
-                    </a>
-                  </div>
+                        </div>
+                      </Box>
+                    </Popover>
+                  </a>
                 </div>
-              </Box>
-            </Popover>
+              </div>
+            </Box>
+          </Popover>
           {/* <span
             className="hoverable"
             style={{
@@ -559,7 +556,7 @@ const NavigationDesktop = (props) => {
               color: "inherit",
             }}
             target="_blank"
-            href="https://bizb.store/dashboard/uploadproductdetail"
+            href={`${process.env.CANONICAL_URL}/dashboard/uploadproductdetail`}
           >
             <span className={classes.headerHeadings}>Upload Product</span>
           </a>
@@ -573,7 +570,7 @@ const NavigationDesktop = (props) => {
                     color: "inherit",
                   }}
                   target="_blank"
-                  href="https://bizb.store/dashboard/home"
+                  href={`${process.env.CANONICAL_URL}/dashboard/home`}
                 >
                   <span className={classes.headerHeadings}>Dashboard</span>
                 </a>

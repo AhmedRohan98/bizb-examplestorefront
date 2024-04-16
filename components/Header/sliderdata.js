@@ -8,8 +8,9 @@ import Caloborators from "../Calloborators/calloborators";
 import TopSelling from "../TopSelling/topselling";
 import { Link } from "react-scroll";
 import dynamic from 'next/dynamic'
-import Button from "@material-ui/core/Button";
 import FeaturedIn from "../FeaturedSection/featuredIn";
+import Button from "@material-ui/core/Button";
+// import FeaturedIn from "../FeaturedSection/featuredIn";
 import Head from "next/head";
 
 const Preloved = dynamic(() => import("../Preloved/prelovedSec"))
@@ -186,50 +187,72 @@ const MainSlider = (props) => {
     // },
     {
       image: "/profile/seller2.jpg",
+      id: 1,
+    },
+    {
+      image: "/Desktop-images/BizB-SellerWebBanner.jpg",
       id: 2,
     },
     {
-      image: "/Desktop-images/desktop11.png",
+      image: "/Desktop-images/BizB-WebbanerKids.jpg",
       id: 3,
+    }, {
+      image: "/Desktop-images/desktop11.png",
+      id: 4,
     },
     {
       image: "/Desktop-images/desktop2.webp",
-      id: 4,
+      id: 5,
     },
-
     {
       image: "/Desktop-images/desktop4.jpg",
-      id: 5,
+      id: 6,
     },
   ];
 
-  // const [swiper, setSwiper] = useState(null);
+  const [swiper, setSwiper] = useState(null);
 
-  // const handleBooking = () => {
-  //   console.log("here 2765")
-  //   window.open('https://forms.gle/v2ZGPiPfxUd6xC2L8', '_blank');
+  const handleBooking = () => {
+    console.log("here 2765")
+    window.open('/en/SellerRegistrationPage', '_blank');
 
-  // }
+  }
+  const handleBooking2 = () => {
+    console.log("here 2765")
+    window.open('/en/categories/cmVhY3Rpb24vdGFnOjZtcFg2b1N5RG90blJqaEZo', '_blank');
 
-  // const handleSwiper = (swiper) => {
-  //   // Store the Swiper instance to access its methods
-  //   setSwiper(swiper);
-  // };
+  }
 
-  // const renderButton = () => {
-  //   // Check if the current slide index is 0 (first slide)
-  //   if (swiper && swiper.activeIndex === 0) {
-  //     return <Button
-  //       className={classes.promoBtn}
-  //       onClick={handleBooking}
-  //     >
-  //       <Typography className={classes.text2} >
-  //         Book your slot now
-  //       </Typography>
-  //     </Button>;
-  //   }
-  //   return null;
-  // };
+
+  const handleSwiper = (swiper) => {
+    // Store the Swiper instance to access its methods
+    setSwiper(swiper);
+  };
+
+  const renderButton = () => {
+    // Check if the current slide index is 0 (first slide)
+    if (swiper && swiper.activeIndex === 1) {
+      return <Button
+        className={classes.promoBtn}
+        onClick={handleBooking}
+      >
+        <Typography className={classes.text2} >
+          Register Here        
+        </Typography>
+      </Button>;
+    }
+    if (swiper && swiper.activeIndex === 2) {
+      return <Button
+        className={classes.promoBtn}
+        onClick={handleBooking2}
+      >
+        <Typography className={classes.text2} >
+        Shop Now       
+        </Typography>
+      </Button>;
+    }
+    return null;
+  };
   function Item({ item }) {
     const classes = useStyles();
     return (
@@ -299,7 +322,7 @@ const MainSlider = (props) => {
               {ITEMS.map((item, index) => (
 
                 <SwiperSlide key={index}>
-                  {/* {renderButton()} */}
+                  {renderButton()}
                   <Item item={item} />
                 </SwiperSlide>
               ))}
@@ -318,7 +341,7 @@ const MainSlider = (props) => {
       {/* <Caloborators /> */}
       <OurBlogs />
       {/* <Instagram {...props} /> */}
-      <FeaturedIn />
+      <FeaturedIn/>
     </>
   );
 };

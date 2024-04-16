@@ -20,7 +20,6 @@ import Link from "components/Link";
 import MiniCart from "components/MiniCart";
 import Search from "components/Search";
 import ScrollingMessage from "../ScrollingMessage/ScrollingMessage";
-import type { FC } from "react";
 import type { WithStyles, Theme } from "@material-ui/core";
 import useViewer from "hooks/viewer/useViewer";
 const styles = (theme: Theme) =>

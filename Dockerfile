@@ -14,11 +14,12 @@ ENV PATH=$PATH:/usr/local/src/app/node_modules/.bin
 
 COPY .env .
 
+
 # env variables
-#ENV CANONICAL_URL https://staging.bizb.store
-#ENV BUILD_GRAPHQL_URL https://staging.bizb.store/graphql
-#ENV EXTERNAL_GRAPHQL_URL https://staging.bizb.store/graphql
-#ENV INTERNAL_GRAPHQL_URL https://staging.bizb.store/graphql
+#ENV CANONICAL_URL https://bizb.store
+#ENV BUILD_GRAPHQL_URL https://apitest.bizb.store/graphql
+#ENV EXTERNAL_GRAPHQL_URL https://apitest.bizb.store/graphql
+#ENV INTERNAL_GRAPHQL_URL https://apitest.bizb.store/graphql
 #ENV PORT 4000
 #ENV NODE_ENV development
 #ENV SEGMENT_ANALYTICS_SKIP_MINIMIZE true
@@ -28,7 +29,7 @@ COPY .env .
 #ENV STRIPE_PUBLIC_API_KEY ENTER_STRIPE_PUBLIC_KEY_HERE
 #ENV INSTAGRAM_KEY #IGQWRQR3RSZAWhqVW9oVFZA6OEFiOXhELUZARMVpRcUE1b2tVc2gwX1NUSWhsN3lNdG5vbGNVQUZAXd05CTlJEN1M5eHFRR0JpbC16Q3M2ZAThFYUdVR0VjYmd0eHdnbDFrakJ0WkdCNGZAhVlRKQU5zbVZASa#zZAjbnNEb1kZD
 #ENV SHOP_ID cmVhY3Rpb24vc2hvcDpyaWFhR0xlMlJqYW5UQlF6dw==
-#NV REACT_APP_SHOPID cmVhY3Rpb24vc2hvcDpyaWFhR0xlMlJqYW5UQlF6dw==
+#ENV REACT_APP_SHOPID cmVhY3Rpb24vc2hvcDpyaWFhR0xlMlJqYW5UQlF6dw==
 #ENV NEXT_PUBLIC_GOOGLE_ANALYTICS G-60BJ8X8BEN
 #ENV NEXT_PUBLIC_GOOGLE_TAG G-60BJ8X8BEN
 #ENV NODE_ENV production

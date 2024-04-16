@@ -1715,11 +1715,11 @@ function Explore(props) {
 export async function getStaticProps({ params: { lang } }) {
   const primaryShop = await fetchPrimaryShop(lang);
   // console.log(primaryShop,"prim")
-  const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
-  const data = await fetch(url);
-  console.log("data is ", data);
+  // const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
+  // const data = await fetch(url);
+  // console.log("data is ", data);
 
-  const feed = await data.json();
+  // const feed = await data.json();
   // console.log("new feed", feed);
 
   if (!primaryShop?.shop) {
@@ -1736,7 +1736,7 @@ export async function getStaticProps({ params: { lang } }) {
     props: {
       ...primaryShop,
 
-      feed,
+      // feed,
     },
     // eslint-disable-next-line camelcase
     unstable_revalidate: 120, // Revalidate each two minutes

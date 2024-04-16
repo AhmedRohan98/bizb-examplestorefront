@@ -886,7 +886,7 @@ function Categories(props) {
 
   useEffect(() => {
     mapData();
-    console.log("categoryTagscategoryTags", tags?.nodes);
+    console.log("categoryTagscategoryTags3y123 here", tags?.nodes);
     // Additional useEffect logic...
   }, [tags?.nodes]);
 
