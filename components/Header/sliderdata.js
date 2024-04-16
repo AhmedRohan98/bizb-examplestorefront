@@ -308,7 +308,7 @@ const MainSlider = (props) => {
               </div>
             </div>
             <Swiper
-              // onSwiper={handleSwiper}
+              onSwiper={handleSwiper}
               onRealIndexChange={(element) => setActiveIndex(element.activeIndex)}
               autoplay={{
                 delay: 2000,
