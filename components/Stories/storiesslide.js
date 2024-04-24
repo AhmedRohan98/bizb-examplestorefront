@@ -14,6 +14,7 @@ import variantById from "lib/utils/variantById";
 import { ToastContainer, toast } from "react-toastify";
 import formatSize from "../../lib/utils/formatSize";
 import ReactGA from "react-ga4";
+import { useRouter } from "next/router";
 
 const topSellers = [
   { _id: "65045ad301e948ee5fa2bbf6", name: "ZainuKiDukaan", logo: "/images/seller-placeholder.png" },
@@ -369,6 +370,8 @@ const Storyslider = (props) => {
   }));
 
   const sliderRef = useRef(null);
+  const router = useRouter();
+
   const [addToCartQuantity, setAddToCartQuantity] = useState(1);
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
@@ -444,6 +447,28 @@ const Storyslider = (props) => {
     TagManager.dataLayer({
       dataLayer: addToCartData,
     });
+
+    import("react-facebook-pixel")
+    .then((x) => x.default)
+    .then((ReactPixel) => {
+      // Track the "Add to Cart" event with product information
+      ReactPixel.track('AddToCart', {
+        content_ids: [product.productId],  
+        content_name: product.title, 
+        content_type: 'product',      
+        value: product?.variants[0]?.pricing[0]?.displayPrice,         
+        currency: 'PKR',        
+      });
+
+      // Track page view
+      ReactPixel.pageView();
+
+      // Listen to route change to track page view
+      router.events.on("routeChangeComplete", () => {
+        ReactPixel.pageView();
+      });
+    });
+
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

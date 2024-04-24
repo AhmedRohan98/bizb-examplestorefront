@@ -10,6 +10,8 @@ import { Link } from "react-scroll";
 import dynamic from 'next/dynamic'
 import FeaturedIn from "../FeaturedSection/featuredIn";
 import Button from "@material-ui/core/Button";
+// import FeaturedIn from "../FeaturedSection/featuredIn";
+import Head from "next/head";
 
 const Preloved = dynamic(() => import("../Preloved/prelovedSec"))
 const Appsec = dynamic(() => import("../Appsection/appsec"))
@@ -273,6 +275,22 @@ const MainSlider = (props) => {
   const classes = useStyles();
   return (
     <>
+      <meta name="description" content="Website" />
+      <script type="application/ld+json">
+        {`
+            {
+              "@context": "https://schema.org/",
+              "@type": "WebSite",
+              "name": "Bizb",
+              "url": "https://bizb.store/en?"
+            }
+          `}
+      </script>
+      <Head>
+
+        {/* Add JSON-LD script for Product schema */}
+
+      </Head>
       <div className={classes.main}>
         <div className={classes.root}>
           <div className={classes.sliderr}>

@@ -806,6 +806,28 @@ const ProductDetail = ({ ...props }) => {
     };
 
     TagManager.dataLayer(dataLayer);
+
+    import("react-facebook-pixel")
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Track the "Add to Cart" event with product information
+        ReactPixel.track('AddToCart', {
+          content_ids: [product.productId],  
+          content_name: product.title, 
+          content_type: 'product',      
+          value: product?.variants[0]?.pricing[0]?.displayPrice,         
+          currency: 'PKR',        
+        });
+
+        // Track page view
+        ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
+      });
+
     setIsLoading((prevState) => ({
       ...prevState,
       [product.productId]: true,

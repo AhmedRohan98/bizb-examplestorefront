@@ -20,6 +20,7 @@ import Link from "components/Link";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
 import { CircularProgress, Hidden } from "@material-ui/core";
+import { useRouter } from "next/router";
 
 const styles = (theme) => ({
   popper: {
@@ -296,6 +297,7 @@ const MiniCart = React.memo(({ ...props }) => {
   const [isLoading2, setisLoading2] = useState(false);
   const [isLoading3, setisLoading3] = useState(false);
   const [isLoading4, setisLoading4] = useState({});
+  const router = useRouter();
 
 
   const handleOpen = () => {
@@ -340,6 +342,35 @@ const MiniCart = React.memo(({ ...props }) => {
     };
 
     TagManager.dataLayer(dataLayer);
+
+    import("react-facebook-pixel")
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Track the "initiateCheckout" event with product ID and price parameters
+
+        const products = cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity: item.quantity,
+        }));
+
+        ReactPixel.track('InitiateCheckout', {
+          content_ids: products.map((product) => product.id),   // Array of product IDs
+          content_type: 'product',                              // Content type
+          value: products.reduce((total, product) => total + (product.price * product.quantity), 0),  // Total order value
+          currency: 'PKR',                                     // Currency
+          contents: products,
+        });
+
+        // Track page view
+        ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
+      });
+
     Router.push("/cart/checkout");
     // console.log("button clicked");
   };
@@ -467,7 +498,7 @@ const MiniCart = React.memo(({ ...props }) => {
                                 <Typography variant="h4" style={{ fontSize: "1rem" }}>
                                 Wardrobe:&nbsp;
                                   <span className={classes.storeName}>
-                                    {item?.productVendor?.slice(0, 10)}
+                                    {item?.storeNameValue?.storeName.slice(0, 15)}
                                     {console.log("itemite", item)}
                                   </span>
                                 </Typography>{" "}

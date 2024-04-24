@@ -13,6 +13,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Tooltip from "@material-ui/core/Tooltip";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
+import { useRouter } from 'next/router';
 
 const SellerRegistration = () => {
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -20,6 +21,7 @@ const SellerRegistration = () => {
   let phoneNumreg = /^(?:\+92\d{10}|03\d{9})$/;
   const [sellerRegistrationFunction, loding] = useSellerRegistration();
   const [viewer, , refetch] = useViewer();
+  const router = useRouter();
 
   const [loginDisable, setLoginDisable] = React.useState(false);
 
@@ -404,8 +406,26 @@ const SellerRegistration = () => {
         },
       };
 
+      
       TagManager.dataLayer({
         dataLayer: sellerRegistrationData,
+      });
+
+      import("react-facebook-pixel")
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Track the "newSellerRegistration" event with name and email parameters
+        ReactPixel.trackCustom('newSellerRegistration', {
+          email: useremail.value, 
+        });
+
+        // Track page view
+        ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
       });
 
       ReactGA.event({

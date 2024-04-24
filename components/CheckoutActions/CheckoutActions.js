@@ -24,6 +24,9 @@ import GTMCheckout from "components/GTMCheckout";
 import useApplyPromoCode from "../../hooks/promoCode/useApplyPromoCode";
 import ReactGA from "react-ga4";
 import useViewer from "../../hooks/viewer/useViewer";
+import useMakeTransaction from "../../hooks/wallet/makeTransaction.js";
+import { RadioGroup, Radio, FormControl, FormLabel } from '@material-ui/core';
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   formerror: {
@@ -388,6 +391,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutActions = (prop) => {
   const [viewer, , refetch2] = useViewer();
+  const router = useRouter();
+
+  const [makeTransaction, loading2] = useMakeTransaction();
+
 
   console.log("props", prop);
   const { cart, apolloClient, cartStore } = prop;
@@ -408,6 +415,12 @@ const CheckoutActions = (prop) => {
   const [errorPromo, setErrorPromo] = useState("");
   const [applyPromo, data, loadingAfterPromo] = useApplyPromoCode();
   const [isDisabledPromo, setIsDisabledPromo] = useState(false);
+  const [paymentMethod, setpaymentMethod] = useState("")
+
+  const handleOptionChange = (event) => {
+    setpaymentMethod(event.target.value);
+
+  };
 
   console.log("checkout actions page");
 
@@ -416,6 +429,11 @@ const CheckoutActions = (prop) => {
       console.log("isAuth here in cart", viewer);
     }
   }, [viewer]);
+
+  React.useEffect(() => {
+    console.log("paymentMethod677676", paymentMethod);
+
+  }, [paymentMethod]);
 
   useEffect(() => {
     setIsDisabledPromo(!promoCode || isDisabled || cart?.checkout?.summary?.discountTotal?.amount !== 0);
@@ -440,7 +458,7 @@ const CheckoutActions = (prop) => {
   }, [cart, getValue?.phonenumber]);
 
   const [subtotal, setSubTotal] = useState((cart?.checkout?.summary?.total?.amount));
-  console.log("subtotalsubtotal",subtotal);
+  console.log("subtotalsubtotal", subtotal);
   const [error, setError] = useState("");
 
   const items = cart.items.map((item) => ({
@@ -486,6 +504,34 @@ const CheckoutActions = (prop) => {
 
       TagManager.dataLayer({
         dataLayer: initiatedCheckoutData,
+      });
+
+      import("react-facebook-pixel")
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Track the "initiateCheckout" event with product ID and price parameters
+
+        const products = cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity: item.quantity,
+        }));
+
+        ReactPixel.track('InitiateCheckout', {
+          content_ids: products.map((product) => product.id),   // Array of product IDs
+          content_type: 'product',                              // Content type
+          value: products.reduce((total, product) => total + (product.price * product.quantity), 0),  // Total order value
+          currency: 'PKR',                                     // Currency
+          contents: products,
+        });
+
+        // Track page view
+        ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
       });
 
       const { data } = await placeOrder({
@@ -541,7 +587,7 @@ const CheckoutActions = (prop) => {
             {
               amount: subtotal + shippingData?.cost,
 
-              method: "iou_example",
+              method: paymentMethod,
             },
           ],
 
@@ -579,6 +625,33 @@ const CheckoutActions = (prop) => {
         })), // Include the product details here as an array
       });
 
+      import("react-facebook-pixel")
+      .then((x) => x.default)
+      .then((ReactPixel) => {
+        // Extracting product details from cart items
+        const products = cart.items.map((item) => ({
+          id: item.productConfiguration.productId,
+          price: item.price.amount,
+          quantity: item.quantity,
+        }));
+
+        // Track the "Purchase" or "CompleteOrder" event with product details
+        ReactPixel.track('Purchase', {
+          content_ids: products.map((product) => product.id),   // Array of product IDs
+          content_type: 'product',                              // Content type
+          value: products.reduce((total, product) => total + (product.price * product.quantity), 0),  // Total order value
+          currency: 'PKR',                                     // Currency
+          contents: products,                                   // Array of product details
+        });
+
+        // Track page view
+        ReactPixel.pageView();
+
+        // Listen to route change to track page view
+        router.events.on("routeChangeComplete", () => {
+          ReactPixel.pageView();
+        });
+      });
       // Send user to order confirmation page
       Router.push(`/checkout/order?orderId=${orders[0].referenceId}${token ? `&token=${token}` : ""}`);
 
@@ -620,6 +693,8 @@ const CheckoutActions = (prop) => {
   });
   // setSubTotal(formatCurrency(cart?.checkout?.summary?.itemTotal?.amount));
   const handleApplyPromo = async () => {
+    makeYourTransaction()
+
     setOrderDisable2(true);
     try {
       setErrorPromo("");
@@ -780,6 +855,25 @@ const CheckoutActions = (prop) => {
     // console.log("shippingData _id", shippingData?._id);
   }, [values.city, shippingData]);
 
+  const makeYourTransaction = async () => {
+    if (viewer?._id) {
+      try {
+        const maketransaction = await makeTransaction({
+          variables: {
+            userId: viewer?.userId,
+            amount: 1000,
+            transactions: outBound
+          },
+        });
+
+        console.log("maketransaction", maketransaction);
+      } catch (error) {
+        console.error("Error making transaction:", error);
+      }
+    }
+  };
+
+
   const clickHandler = (item) => {
     const productSlug = item;
 
@@ -802,7 +896,7 @@ const CheckoutActions = (prop) => {
         {prop?.cart.items?.map((prod) => (
           <div className={classes.cartcard3}>
             <div className={classes.displayCart} key={prod.id}>
-              <img src={prod.metafields[0].value} style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} alt="icons"/>
+              <img src={prod.metafields[0].value} style={{ borderRadius: "5px", width: "75px", ojectFit: "contain" }} alt="icons" />
               <div className={classes.displayCartGrid}>
                 <Typography gutterBottom variant="h4" className={classes.cartname}>
                   <span onClick={() => clickHandler(prod.productSlug)} className={classes.storeName}>
@@ -994,13 +1088,29 @@ const CheckoutActions = (prop) => {
               </div>
 
               <div className={classes.cartpayment}>
-                <div style={{ display: "flex" }}>
-                  <img src="/cart/ellipse.svg" alt="icons"/>
-                  <Typography gutterBottom variant="h4" className={classes.cartdelivery}>
-                    Cash On Delivery
+                <FormControl>
+                  <Typography variant="h3" className={classes.mainheadingp}>
+                    Payment Method
                   </Typography>
-                </div>
-                {!prop?.cartStore?.anonymousCartToken ? (
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={paymentMethod}
+                    onChange={handleOptionChange}
+                  >
+                    <FormControlLabel
+                      value="iou_example"
+                      control={<Radio color="primary" />} // Setting color to primary, which is #FDC114 by default
+                      label={<Typography variant="h4" className={classes.cartdelivery}>Cash On Delivery</Typography>}
+                    />
+                    <FormControlLabel
+                      value="wallet"
+                      control={<Radio color="primary" />} // Setting color to primary
+                      label={<Typography variant="h4" className={classes.cartdelivery}>Wallet</Typography>}
+                    />
+                  </RadioGroup>
+                </FormControl>
+                {/* {!prop?.cartStore?.anonymousCartToken ? ( */}
                   <>
                     <Grid item xs={12} className={classes.inputitem}>
                       <label className={classes.label} variant="h6" htmlFor="PromoCode">
@@ -1046,9 +1156,9 @@ const CheckoutActions = (prop) => {
                       {/* {console.log("error", errorPromo)} */}
                     </Grid>
                   </>
-                ) : (
+                {/* ) : (
                   <></>
-                )}
+                )} */}
               </div>
 
               <div className={classes.cartcard}>
@@ -1067,7 +1177,7 @@ const CheckoutActions = (prop) => {
                       {/* {console.log("subtotal,", subtotal)} */}
                     </Typography>
                   </div>
-                  {!prop?.cartStore?.anonymousCartToken ? (
+                  {/* {!prop?.cartStore?.anonymousCartToken ? ( */}
                     <>
                       <div className={classes.subtotal}>
                         <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
@@ -1079,7 +1189,7 @@ const CheckoutActions = (prop) => {
                           {cart?.checkout?.summary?.discountTotal?.amount == 0
                             ? 0
                             :
-                              cart?.checkout?.summary?.discountTotal?.amount}
+                            cart?.checkout?.summary?.discountTotal?.amount}
                           ){/* {console.log("subtotal,", subtotal)} */}
                         </Typography>
                       </div>
@@ -1094,9 +1204,9 @@ const CheckoutActions = (prop) => {
                         </Typography>
                       </div>
                     </>
-                  ) : (
+                  {/* ) : (
                     <></>
-                  )}
+                  )} */}
                   <div className={classes.subtotal}>
                     <Typography gutterBottom variant="h4" style={{ fontSize: "1.1rem" }}>
                       Shipping Cost
@@ -1118,7 +1228,7 @@ const CheckoutActions = (prop) => {
                       subtotal?.replace(/\.00$/, "").replace(/[^0-9]/g, ""),
                       formatCurrency(parseInt(shippingData?.cost) + parseInt(subtotal)),
                     )} */}
-                    Rs. {shippingData?.cost? cart?.checkout?.summary?.total?.amount +shippingData?.cost : cart?.checkout?.summary?.total?.amount}
+                    Rs. {shippingData?.cost ? cart?.checkout?.summary?.total?.amount + shippingData?.cost : cart?.checkout?.summary?.total?.amount}
                   </Typography>
                   {/* <GTMCheckout price={shippingData?.cost ? shippingData?.cost + subtotal : subtotal} /> */}
                 </div>

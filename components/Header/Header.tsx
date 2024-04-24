@@ -22,7 +22,6 @@ import Search from "components/Search";
 import ScrollingMessage from "../ScrollingMessage/ScrollingMessage";
 import type { WithStyles, Theme } from "@material-ui/core";
 import useViewer from "hooks/viewer/useViewer";
-
 const styles = (theme: Theme) =>
   createStyles({
     appBar: {

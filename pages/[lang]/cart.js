@@ -15,7 +15,6 @@ import withCatalogItems from "../../containers/catalog/withCatalogItems";
 import Link from "next/link";
 import Layout from "components/Layout";
 import Router from "translations/i18nRouter";
-import { withRouter } from "next/router";
 import PageLoading from "components/PageLoading";
 import { withApollo } from "lib/apollo/withApollo";
 import { ToastContainer, toast } from "react-toastify";
@@ -26,6 +25,7 @@ import formatCurrency from "lib/utils/formatCurrency";
 import fetchTranslations from "staticUtils/translations/fetchTranslations";
 import ReactGA from "react-ga4";
 import TagManager from "react-gtm-module";
+import { withRouter } from "next/router";
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -788,6 +788,7 @@ class CartPage extends Component {
 
   renderCartSummary() {
     const { cart, classes, catalogItems } = this.props;
+    const { router } = this.props;
     const { isLoading2 } = this.state;
 
     if (cart && cart.checkout && cart.checkout.summary && Array.isArray(cart.items) && cart.items.length) {
@@ -870,6 +871,29 @@ class CartPage extends Component {
                   };
 
                   TagManager.dataLayer(dataLayer);
+
+                  import("react-facebook-pixel")
+                  .then((x) => x.default)
+                  .then((ReactPixel) => {
+                    // Track the "initiateCheckout" event with product ID and price parameters
+                    ReactPixel.track('InitiateCheckout', {
+                      products: cart.items.map((item) => ({
+                      content_ids: [item.productConfiguration.productId],   
+                      content_name: item.title,  
+                      value: item.price.amount,          
+                      currency: 'PKR',               // Adjust currency if needed
+                      })),
+                    });
+              
+                    // Track page view
+                    ReactPixel.pageView();
+              
+                    // Listen to route change to track page view
+                    router.events.on("routeChangeComplete", () => {
+                      ReactPixel.pageView();
+                    });
+                  });
+              
                 }}
               >
                 {this.state.isLoading2 ? (
@@ -1094,4 +1118,4 @@ export async function getServerSideProps({ params: { lang } }) {
   };
 }
 
-export default withApollo()(withStyles(styles)(withCart(inject("uiStore")(CartPage))));
+export default withRouter(withApollo()(withStyles(styles)(withCart(inject("uiStore")(CartPage)))));
