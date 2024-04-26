@@ -1103,11 +1103,11 @@ const CheckoutActions = (prop) => {
                       control={<Radio color="primary" />} // Setting color to primary, which is #FDC114 by default
                       label={<Typography variant="h4" className={classes.cartdelivery}>Cash On Delivery</Typography>}
                     />
-                    <FormControlLabel
+                    {/*<FormControlLabel
                       value="wallet"
                       control={<Radio color="primary" />} // Setting color to primary
                       label={<Typography variant="h4" className={classes.cartdelivery}>Wallet</Typography>}
-                    />
+                    />*/}
                   </RadioGroup>
                 </FormControl>
                 {/* {!prop?.cartStore?.anonymousCartToken ? ( */}
