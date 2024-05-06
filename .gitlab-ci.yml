@@ -87,12 +87,12 @@ deploy_to_ecs:
         - aws configure set region $AWS_DEFAULT_REGION
 
     variables:
-        AWS_DEFAULT_REGION: ap-southeast-1
+        AWS_DEFAULT_REGION: ap-south-1
         AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY
         AWS_SECRET_ACCESS_KEY: $AWS_SECRET_KEY
-        TASK_DEFINITION_NAME: Bizb_frontend_TD_Production
+        TASK_DEFINITION_NAME: Bizb_Frontend_TD_Production
         CLUSTER_NAME: Bizb_ECSCluster_Production
-        SERVICE_NAME: Bizb_frontend_Service_Production
+        SERVICE_NAME: Bizb_frontend_service_test_Production
 
     script:
         - current_task_definition=$(aws ecs describe-services --cluster $CLUSTER_NAME --services $SERVICE_NAME | jq -r '.services[0].taskDefinition')
