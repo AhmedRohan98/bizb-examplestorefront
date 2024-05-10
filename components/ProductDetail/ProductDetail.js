@@ -649,7 +649,7 @@ const ProductDetail = ({ ...props }) => {
     selectVariant(product?.variants[0]);
     uiStore.setEndCursor(tagIds);
   }, []);
-  useEffect(() => {}, [uiStore]);
+  useEffect(() => { }, [uiStore]);
 
   function selectVariant(variant, optionId) {
     const { uiStore } = props;
@@ -812,11 +812,11 @@ const ProductDetail = ({ ...props }) => {
       .then((ReactPixel) => {
         // Track the "Add to Cart" event with product information
         ReactPixel.track('AddToCart', {
-          content_ids: [product.productId],  
-          content_name: product.title, 
-          content_type: 'product',      
-          value: product?.variants[0]?.pricing[0]?.displayPrice,         
-          currency: 'PKR',        
+          content_ids: [product.productId],
+          content_name: product.title,
+          content_type: 'product',
+          value: product?.variants[0]?.pricing[0]?.displayPrice,
+          currency: 'PKR',
         });
 
         // Track page view
@@ -907,11 +907,11 @@ const ProductDetail = ({ ...props }) => {
 
   const validOptionTitle = optionTitle
     ? optionTitle
-        ?.replace(/['"\\]/g, "")
-        .replace("{", '{"')
-        .replace(/:/g, '":"')
-        .replace("}", '"}')
-        .replace(",", '","')
+      ?.replace(/['"\\]/g, "")
+      .replace("{", '{"')
+      .replace(/:/g, '":"')
+      .replace("}", '"}')
+      .replace(",", '","')
     : null;
   const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
   const isDisabled = cart?.items?.some((data) => {
@@ -933,7 +933,7 @@ const ProductDetail = ({ ...props }) => {
   const percentage = Math.floor(((parsedCompareAtPrice - parsedDisplayPrice) / parsedCompareAtPrice) * 100);
   return (
     <>
-    
+
       {typeof window !== "undefined" && (
         <div>
           <ToastContainer
@@ -1125,13 +1125,15 @@ const ProductDetail = ({ ...props }) => {
                           href={"/en/profile/[slugOrId]"}
                           as={`/en/profile/${product?.variants[0]?.uploadedBy?.userId}`}
                         >
-                          <Typography
-                            style={{ fontWeight: "700", cursor: "pointer", paddingRight: "10px", color: "#FDC114" }}
-                            variant="h4"
-                            className={classes.storeName}
-                          >
-                            {product?.variants[0]?.uploadedBy?.storeName}
-                          </Typography>
+                          <a target="_blank">
+                            <Typography
+                              style={{ fontWeight: "700", cursor: "pointer", paddingRight: "10px", color: "#FDC114" }}
+                              variant="h4"
+                              className={classes.storeName}
+                            >
+                              {product?.variants[0]?.uploadedBy?.storeName}
+                            </Typography>
+                          </a>
                         </Link>
                       </div>
                       <div>
@@ -1145,7 +1147,7 @@ const ProductDetail = ({ ...props }) => {
                             onClick={handleOnClickforsingle}
                             disabled={isDisabled || product?.isSoldOut}
                           >
-                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon"/>
+                            <img component="img" src="/icons/cart.svg" className={classes.cartimage} alt="icon" />
                             <Typography style={{ fontFamily: "Ostrich Sans Black", fontSize: "18px" }} variant="h4">
                               {isDisabled ? "Added" : product?.isSoldOut ? "Sold" : " + Cart"}
                             </Typography>
@@ -1189,11 +1191,11 @@ const ProductDetail = ({ ...props }) => {
                       const optionTitle = item?.node?.product?.variants[0]?.optionTitle;
                       const validOptionTitle = optionTitle
                         ? optionTitle
-                            ?.replace(/['"\\]/g, "")
-                            .replace("{", '{"')
-                            .replace(/:/g, '":"')
-                            .replace("}", '"}')
-                            .replace(",", '","')
+                          ?.replace(/['"\\]/g, "")
+                          .replace("{", '{"')
+                          .replace(/:/g, '":"')
+                          .replace("}", '"}')
+                          .replace(",", '","')
                         : null;
                       const size = validOptionTitle ? JSON.parse(validOptionTitle)?.size : null;
                       const str = item?.node?.product?.title;
