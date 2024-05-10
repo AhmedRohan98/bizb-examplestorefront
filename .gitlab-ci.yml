@@ -28,10 +28,10 @@
 
 ########################################  gitlab regitry ###############################################################
 
-image: docker:19.03.13-git
+image: docker:24.0.2-git
 
 services:
-  - docker:19.03.13-dind
+  - docker:24.0.2-dind
 
 stages:
   - build
