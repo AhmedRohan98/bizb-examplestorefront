@@ -469,7 +469,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                     ) : (
                       <Link href={{ pathname: "/en/SearchResult", query: { search: JSON.stringify(searchLocal) } }}>
                       {/* // <Link href={`/en/search/${searchLocal}`}> */}
-                        <a style={{ color: "#FDC114" }}> {`See all results`}</a>
+                        <a style={{ color: "#FDC114" }} target="_blank"> {`See all results`}</a>
                       </Link>
                     )}
                   </Typography>
@@ -532,7 +532,7 @@ const Search = ({ modalFlag, setModalFlag, catalogItems, searchQuery, uiStore })
                       <></>
                     ) : (
                       <Link href={{ pathname: "/en/wardrobe", query: { search: JSON.stringify(searchLocal) } }}>
-                        <a style={{ color: "#FDC114" }}> {`See all results `}</a>
+                        <a style={{ color: "#FDC114" }} target="_blank"> {`See all results `}</a>
                       </Link>
                     )}
                   </Typography>
