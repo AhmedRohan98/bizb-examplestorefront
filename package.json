@@ -3,6 +3,7 @@
   "version": "5.1.1",
   "description": "The Example Storefront serves as a reference for implementing a web based storefront using the Reaction Commerce GraphQL API.",
   "keywords": [],
+  "homepage": "vercel.bizb.store/en?",
   "author": {
     "name": "Reaction Commerce",
     "email": "engineering@reactioncommerce.com",
